@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 2 — ทฤษฎีพฤติกรรมผู้บริโภค</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+      --font-serif:'Noto Serif Thai',serif;
+      --color-background-primary:#ffffff;
+      --color-background-secondary:#f7f5ff;
+      --color-border-secondary:#d8d2ef;
+      --color-border-tertiary:#ece7f7;
+      --color-text-primary:#1d1633;
+      --color-text-secondary:#6b6480;
+      --color-text-tertiary:#9a94ad;
+      --border-radius-md:12px;
+      --border-radius-lg:18px;
+      --shadow:0 10px 30px rgba(61,47,158,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
+    .page{max-width:920px;margin:0 auto;padding:24px 18px 56px}
+    .hero{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
+    .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
+    .hero h1{font-family:var(--font-serif);font-size:30px;line-height:1.25;margin:0 0 8px}
+    .hero p{font-size:14px;line-height:1.7;margin:0;opacity:.92;max-width:720px}
+    .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:14px;font-weight:600;margin:0 0 14px}
+    .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .coming{display:inline-block;background:#fff7ed;color:#c2410c;border:1px solid #fdba74;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+    .available{display:inline-block;background:#ecfdf5;color:#047857;border:1px solid #86efac;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+  </style>
+
+</head>
+<body><div class="page"><a class="backlink" href="index.html">← กลับแผนการเรียนรู้</a><div class="panel">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0}
+.hub{max-width:660px;margin:0 auto;padding:1rem 0;font-family:var(--font-sans)}
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;background:var(--color-background-secondary);color:var(--color-text-secondary);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6rem}
+.title{font-size:22px;font-weight:600;color:var(--color-text-primary);margin:0 0 .5rem;line-height:1.3}
+.subtitle{font-size:14px;color:var(--color-text-secondary);margin:0 0 1.5rem;line-height:1.6}
+
+/* Hook question card */
+.hook{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.1rem 1.3rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.hook::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#378ADD,#1D9E75)}
+.hook-q{font-size:15px;font-weight:500;color:var(--color-text-primary);margin:0 0 .6rem;line-height:1.5}
+.hook-hint{font-size:12px;color:var(--color-text-secondary);margin:0 0 .75rem;font-style:italic}
+.hook-reveal{display:none;background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:.75rem 1rem;border:0.5px solid var(--color-border-tertiary)}
+.hook-reveal.on{display:block}
+.hook-reveal p{font-size:13px;color:var(--color-text-primary);margin:0 0 4px;line-height:1.6}
+.hook-reveal p:last-child{margin:0}
+.hook-btn{font-size:12px;padding:5px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);cursor:pointer;margin-top:.5rem}
+.hook-btn:hover{background:var(--color-background-primary)}
+
+/* Section divider */
+.divider{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.divider::after{content:'';flex:1;height:0.5px;background:var(--color-border-secondary)}
+
+/* Theory cards */
+.theory-grid{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem}
+.theory-card{display:flex;gap:1rem;align-items:flex-start;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;cursor:pointer;text-align:left;transition:all .15s;width:100%}
+.theory-card:hover{border-color:#378ADD;background:var(--color-background-secondary);transform:translateX(2px)}
+.theory-num{width:36px;height:36px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;margin-top:1px}
+.num-1{background:#E6F1FB;color:#185FA5}
+.num-2{background:#E1F5EE;color:#0F6E56}
+.num-3{background:#F0EEFF;color:#3D2F9E}
+.theory-body{flex:1}
+.theory-name{font-size:14px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px}
+.theory-sub{font-size:12px;color:var(--color-text-secondary);margin:0 0 .4rem}
+.theory-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.4rem}
+.tag{font-size:10px;padding:2px 7px;border-radius:999px;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.theory-desc{font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.5}
+.theory-arrow{color:var(--color-text-tertiary);font-size:16px;align-self:center;flex-shrink:0}
+
+/* Compare table */
+.cmp{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:1.5rem}
+.cmp th{font-weight:500;font-size:10px;color:var(--color-text-secondary);text-align:left;padding:6px 10px;border-bottom:0.5px solid var(--color-border-secondary);text-transform:uppercase;letter-spacing:.04em}
+.cmp td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:top}
+.cmp tr:hover td{background:var(--color-background-secondary)}
+.cmp td:first-child{font-weight:500;color:var(--color-text-secondary);white-space:nowrap}
+
+/* Progress hint */
+.progress-hint{display:flex;gap:.5rem;align-items:center;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.6rem .9rem;font-size:12px;color:var(--color-text-secondary)}
+.dot-row{display:flex;gap:4px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--color-border-secondary)}
+.dot.todo{background:#378ADD}
+</style>
+
+<div class="hub">
+
+  <div class="badge">\u0e1a\u0e17\u0e17\u0e35\u0e48 2</div>
+  <h1 class="title">\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e1e\u0e24\u0e15\u0e34\u0e01\u0e23\u0e23\u0e21\u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04</h1>
+  <p class="subtitle">Theory of Consumer Behavior \u2014 \u0e17\u0e33\u0e44\u0e21\u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04\u0e16\u0e36\u0e07\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e0b\u0e37\u0e49\u0e2d\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32\u0e41\u0e1a\u0e1a\u0e17\u0e35\u0e48\u0e40\u0e25\u0e37\u0e2d\u0e01? \u0e41\u0e25\u0e30\u0e08\u0e30\u0e2b\u0e32\u0e08\u0e38\u0e14\u0e17\u0e35\u0e48\u0e44\u0e14\u0e49\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14\u0e08\u0e32\u0e01\u0e07\u0e1a\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13\u0e08\u0e33\u0e01\u0e31\u0e14\u0e44\u0e14\u0e49\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23?</p>
+
+  <!-- Hook -->
+  <div class="hook">
+    <p class="hook-q">\ud83e\udd14 \u0e25\u0e2d\u0e07\u0e04\u0e34\u0e14\u0e01\u0e48\u0e2d\u0e19\u0e40\u0e23\u0e35\u0e22\u0e19: \u0e04\u0e38\u0e13\u0e0a\u0e2d\u0e1a\u0e02\u0e49\u0e32\u0e27\u0e01\u0e31\u0e1a\u0e41\u0e01\u0e07\u0e01\u0e30\u0e2b\u0e23\u0e35\u0e48\u0e41\u0e04\u0e48\u0e44\u0e2b\u0e19? \u0e16\u0e49\u0e32\u0e43\u0e2b\u0e49\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e41\u0e01\u0e07\u0e01\u0e30\u0e2b\u0e23\u0e35\u0e48 5 \u0e16\u0e49\u0e27\u0e22 \u0e01\u0e31\u0e1a \u0e41\u0e01\u0e07\u0e01\u0e30\u0e2b\u0e23\u0e35\u0e48 3 \u0e16\u0e49\u0e27\u0e22 + \u0e44\u0e01\u0e48\u0e17\u0e2d\u0e14 2 \u0e0a\u0e34\u0e49\u0e19 \u2014 \u0e41\u0e1a\u0e1a\u0e44\u0e2b\u0e19\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e1e\u0e2d\u0e43\u0e08\u0e01\u0e27\u0e48\u0e32?</p>
+    <p class="hook-hint">\u0e25\u0e2d\u0e07\u0e19\u0e36\u0e01\u0e04\u0e33\u0e15\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19 \u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e23\u0e39\u0e49\u0e27\u0e48\u0e32\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e43\u0e14\u0e43\u0e19\u0e1a\u0e17\u0e19\u0e35\u0e49\u0e15\u0e2d\u0e1a\u0e04\u0e33\u0e16\u0e32\u0e21\u0e19\u0e35\u0e49\u0e44\u0e14\u0e49</p>
+    <button class="hook-btn" id="hbtn" onclick="toggleHook()">\u0e40\u0e1c\u0e22\u0e04\u0e33\u0e15\u0e2d\u0e1a + \u0e42\u0e22\u0e07\u0e01\u0e31\u0e1a\u0e17\u0e24\u0e29\u0e0e\u0e35</button>
+    <div class="hook-reveal" id="hreveal">
+      <p><strong>Cardinal Utility</strong> \u0e08\u0e30\u0e16\u0e32\u0e21\u0e27\u0e48\u0e32: MU \u0e02\u0e2d\u0e07\u0e41\u0e01\u0e07\u0e01\u0e30\u0e2b\u0e23\u0e35\u0e48\u0e16\u0e49\u0e27\u0e22\u0e17\u0e35\u0e48 4 \u0e41\u0e25\u0e30 5 \u0e22\u0e31\u0e07\u0e21\u0e32\u0e01\u0e01\u0e27\u0e48\u0e32 MU \u0e02\u0e2d\u0e07\u0e44\u0e01\u0e48\u0e17\u0e2d\u0e14\u0e44\u0e2b\u0e21? \u0e16\u0e49\u0e32\u0e19\u0e49\u0e2d\u0e22\u0e01\u0e27\u0e48\u0e32 \u2192 \u0e04\u0e27\u0e23\u0e41\u0e25\u0e01</p>
+      <p><strong>Ordinal Utility</strong> \u0e08\u0e30\u0e16\u0e32\u0e21\u0e27\u0e48\u0e32: \u0e0a\u0e38\u0e14\u0e44\u0e2b\u0e19\u0e2d\u0e22\u0e39\u0e48\u0e1a\u0e19 Indifference Curve \u0e17\u0e35\u0e48\u0e2a\u0e39\u0e07\u0e01\u0e27\u0e48\u0e32? \u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e27\u0e31\u0e14\u0e40\u0e1b\u0e47\u0e19\u0e15\u0e31\u0e27\u0e40\u0e25\u0e02</p>
+      <p>\u0e17\u0e31\u0e49\u0e07\u0e2a\u0e2d\u0e07\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e15\u0e2d\u0e1a\u0e04\u0e33\u0e16\u0e32\u0e21\u0e40\u0e14\u0e34\u0e21 \u2014 \u0e41\u0e15\u0e48\u0e43\u0e0a\u0e49\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e21\u0e37\u0e2d\u0e15\u0e48\u0e32\u0e07\u0e01\u0e31\u0e19 \u0e41\u0e25\u0e30\u0e44\u0e14\u0e49 <strong>\u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02\u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e\u0e40\u0e14\u0e35\u0e22\u0e27\u0e01\u0e31\u0e19</strong>!</p>
+    </div>
+  </div>
+
+  <!-- 3 Theories -->
+  <div class="divider">3 \u0e17\u0e24\u0e29\u0e0e\u0e35\u0e43\u0e19\u0e1a\u0e17\u0e19\u0e35\u0e49</div>
+  <div class="theory-grid">
+
+    <button class="theory-card" onclick="location.href='chapter2_cardinal.html'">
+      <div class="theory-num num-1">1</div>
+      <div class="theory-body">
+        <p class="theory-name">Cardinal Utility Approach</p>
+        <p class="theory-sub">\u0e01\u0e32\u0e23\u0e27\u0e34\u0e40\u0e04\u0e23\u0e32\u0e30\u0e2b\u0e4c\u0e42\u0e14\u0e22\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e2b\u0e19\u0e48\u0e27\u0e22\u0e02\u0e2d\u0e07\u0e2d\u0e23\u0e23\u0e16\u0e1b\u0e23\u0e30\u0e42\u0e22\u0e0a\u0e19\u0e4c</p>
+        <div class="theory-tags">
+          <span class="tag">TU / MU</span>
+          <span class="tag">\u0e01\u0e0e Diminishing MU</span>
+          <span class="tag">MU = P</span>
+          <span class="tag">Consumer Surplus</span>
+          <span class="tag">MU/P = \u03bb</span>
+        </div>
+        <p class="theory-desc">\u0e27\u0e31\u0e14\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e2d\u0e2d\u0e01\u0e21\u0e32\u0e40\u0e1b\u0e47\u0e19\u0e15\u0e31\u0e27\u0e40\u0e25\u0e02 "Utils" \u0e44\u0e14\u0e49\u0e42\u0e14\u0e22\u0e15\u0e23\u0e07 \u0e40\u0e2b\u0e21\u0e32\u0e30\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e40\u0e02\u0e49\u0e32\u0e43\u0e08\u0e41\u0e19\u0e27\u0e04\u0e34\u0e14\u0e1e\u0e37\u0e49\u0e19\u0e10\u0e32\u0e19\u0e41\u0e25\u0e30\u0e01\u0e32\u0e23\u0e04\u0e33\u0e19\u0e27\u0e13</p>
+      </div>
+      <span class="theory-arrow">\u203a</span>
+    </button>
+
+    <button class="theory-card" onclick="location.href='chapter2_ordinal.html'">
+      <div class="theory-num num-2">2</div>
+      <div class="theory-body">
+        <p class="theory-name">Ordinal Utility Approach</p>
+        <p class="theory-sub">\u0e01\u0e32\u0e23\u0e27\u0e34\u0e40\u0e04\u0e23\u0e32\u0e30\u0e2b\u0e4c\u0e42\u0e14\u0e22\u0e40\u0e23\u0e35\u0e22\u0e07\u0e25\u0e33\u0e14\u0e31\u0e1a\u0e2d\u0e23\u0e23\u0e16\u0e1b\u0e23\u0e30\u0e42\u0e22\u0e0a\u0e19\u0e4c</p>
+        <div class="theory-tags">
+          <span class="tag">Indifference Curve</span>
+          <span class="tag">Budget Line</span>
+          <span class="tag">MRS = Px/Py</span>
+          <span class="tag">ICC / Engel Curve</span>
+          <span class="tag">PCC / \u0e2d\u0e38\u0e1b\u0e2a\u0e07\u0e04\u0e4c</span>
+        </div>
+        <p class="theory-desc">\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e27\u0e31\u0e14\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e40\u0e1b\u0e47\u0e19\u0e15\u0e31\u0e27\u0e40\u0e25\u0e02 \u2014 \u0e41\u0e04\u0e48\u0e1a\u0e2d\u0e01\u0e27\u0e48\u0e32 "\u0e0a\u0e38\u0e14\u0e44\u0e2b\u0e19\u0e14\u0e35\u0e01\u0e27\u0e48\u0e32" \u0e01\u0e47\u0e1e\u0e2d \u0e04\u0e23\u0e2d\u0e1a\u0e04\u0e25\u0e38\u0e21\u0e01\u0e32\u0e23\u0e27\u0e34\u0e40\u0e04\u0e23\u0e32\u0e30\u0e2b\u0e4c\u0e1c\u0e25\u0e02\u0e2d\u0e07\u0e23\u0e32\u0e22\u0e44\u0e14\u0e49\u0e41\u0e25\u0e30\u0e23\u0e32\u0e04\u0e32</p>
+      </div>
+      <span class="theory-arrow">\u203a</span>
+    </button>
+
+    <button class="theory-card" onclick="location.href='chapter2_revealed.html'">
+      <div class="theory-num num-3">3</div>
+      <div class="theory-body">
+        <p class="theory-name">Revealed Preference Theory</p>
+        <p class="theory-sub">\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e17\u0e35\u0e48\u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08</p>
+        <div class="theory-tags">
+          <span class="tag">Weak Axiom</span>
+          <span class="tag">Strong Axiom</span>
+          <span class="tag">\u0e1e\u0e24\u0e15\u0e34\u0e01\u0e23\u0e23\u0e21\u0e08\u0e23\u0e34\u0e07</span>
+        </div>
+        <p class="theory-desc">\u0e44\u0e21\u0e48\u0e16\u0e32\u0e21\u0e27\u0e48\u0e32 "\u0e0a\u0e2d\u0e1a\u0e2d\u0e30\u0e44\u0e23" \u2014 \u0e41\u0e15\u0e48\u0e14\u0e39\u0e08\u0e32\u0e01\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e0b\u0e37\u0e49\u0e2d\u0e08\u0e23\u0e34\u0e07 \u0e16\u0e49\u0e32\u0e40\u0e25\u0e37\u0e2d\u0e01 A \u0e41\u0e17\u0e19 B \u0e41\u0e2a\u0e14\u0e07\u0e27\u0e48\u0e32 A \u0e43\u0e2b\u0e49\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e21\u0e32\u0e01\u0e01\u0e27\u0e48\u0e32</p>
+      </div>
+      <span class="theory-arrow">\u203a</span>
+    </button>
+
+  </div>
+
+  <!-- Compare table -->
+  <div class="divider">\u0e40\u0e1b\u0e23\u0e35\u0e22\u0e1a\u0e40\u0e17\u0e35\u0e22\u0e1a 3 \u0e17\u0e24\u0e29\u0e0e\u0e35</div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th>\u0e14\u0e49\u0e32\u0e19</th>
+        <th style="color:#185FA5">\u2460 Cardinal</th>
+        <th style="color:#0F6E56">\u2461 Ordinal</th>
+        <th style="color:#3D2F9E">\u2462 Revealed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>\u0e2a\u0e21\u0e21\u0e15\u0e34\u0e10\u0e32\u0e19</td>
+        <td>\u0e27\u0e31\u0e14 MU \u0e40\u0e1b\u0e47\u0e19 Utils \u0e44\u0e14\u0e49</td>
+        <td>\u0e40\u0e23\u0e35\u0e22\u0e07\u0e25\u0e33\u0e14\u0e31\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e44\u0e14\u0e49</td>
+        <td>\u0e1e\u0e24\u0e15\u0e34\u0e01\u0e23\u0e23\u0e21\u0e08\u0e23\u0e34\u0e07\u0e2a\u0e30\u0e17\u0e49\u0e2d\u0e19\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08</td>
+      </tr>
+      <tr>
+        <td>\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e21\u0e37\u0e2d</td>
+        <td>TU, MU, \u0e01\u0e23\u0e32\u0e1f MU</td>
+        <td>Indifference Curve</td>
+        <td>Choice behavior</td>
+      </tr>
+      <tr>
+        <td>\u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02\u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e</td>
+        <td>MU/P = \u03bb \u0e17\u0e38\u0e01\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32</td>
+        <td>MRS = Px/Py</td>
+        <td>\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02\u0e1e\u0e34\u0e40\u0e28\u0e29</td>
+      </tr>
+      <tr>
+        <td>\u0e02\u0e49\u0e2d\u0e14\u0e35</td>
+        <td>\u0e40\u0e02\u0e49\u0e32\u0e43\u0e08\u0e07\u0e48\u0e32\u0e22 \u0e04\u0e33\u0e19\u0e27\u0e13\u0e15\u0e23\u0e07</td>
+        <td>\u0e2a\u0e21\u0e08\u0e23\u0e34\u0e07\u0e01\u0e27\u0e48\u0e32 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e27\u0e31\u0e14</td>
+        <td>\u0e2d\u0e34\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e08\u0e23\u0e34\u0e07 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e2a\u0e21\u0e21\u0e15\u0e34</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Progress hint -->
+  <div class="progress-hint">
+    <div class="dot-row">
+      <div class="dot todo"></div>
+      <div class="dot todo"></div>
+      <div class="dot todo"></div>
+    </div>
+    <span>\u0e04\u0e25\u0e34\u0e01\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e23\u0e34\u0e48\u0e21\u0e40\u0e23\u0e35\u0e22\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22 \u2014 \u0e41\u0e15\u0e48\u0e25\u0e30\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e21\u0e35\u0e01\u0e23\u0e32\u0e1f interactive \u0e41\u0e25\u0e30\u0e41\u0e1a\u0e1a\u0e1d\u0e36\u0e01\u0e2b\u0e31\u0e14</span>
+  </div>
+
+</div>
+
+<script>
+function toggleHook(){
+  const r=document.getElementById('hreveal');
+  const b=document.getElementById('hbtn');
+  const on=r.classList.toggle('on');
+  b.textContent=on?'\u0e0b\u0e48\u0e2d\u0e19':'\u0e40\u0e1c\u0e22\u0e04\u0e33\u0e15\u0e2d\u0e1a + \u0e42\u0e22\u0e07\u0e01\u0e31\u0e1a\u0e17\u0e24\u0e29\u0e0e\u0e35';
+}
+</script>
+
+</div></div></body>
+</html>
