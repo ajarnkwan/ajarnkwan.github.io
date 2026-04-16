@@ -36,6 +36,9 @@ window._adminProfile = null;
 window._lastMemberDoc = null;
 window._hasMoreMembers = false;
 window._loadedMembers = 0;
+window._currentUser = null;
+window._currentMemberData = null;
+window._previewMode = null;
 
 function thaiMemberPrefix(now = new Date()) {
   const yy = (now.getFullYear() + 543).toString().slice(-2);
@@ -81,11 +84,29 @@ function escapeHtml(value) {
   }[ch]));
 }
 
-function formatJoinedAt(value) {
-  if (!value) return '-';
-  if (typeof value === 'string') return value.slice(0, 10);
-  if (value?.toDate) return value.toDate().toISOString().slice(0, 10);
-  return '-';
+function toDateObject(value) {
+  if (!value) return null;
+  if (typeof value === 'string') {
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+  if (value?.toDate) return value.toDate();
+  return null;
+}
+
+function formatJoinedAt(value, includeTime = false) {
+  const d = toDateObject(value);
+  if (!d) return '-';
+
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const yyyy = d.getFullYear() + 543;
+  const hh = String(d.getHours()).padStart(2, '0');
+  const min = String(d.getMinutes()).padStart(2, '0');
+
+  return includeTime
+    ? `${dd}/${mm}/${yyyy} ${hh}:${min}`
+    : `${dd}/${mm}/${yyyy}`;
 }
 
 function validateProfileInput(raw) {
@@ -142,7 +163,7 @@ function renderMemberRow(m, index) {
       <td>${escapeHtml(m.education || '-')}</td>
       <td>${escapeHtml(m.occupation || '-')}</td>
       <td>${escapeHtml(interestsText || '-')}</td>
-      <td>${escapeHtml(formatJoinedAt(m.joinedAt))}</td>
+      <td>${escapeHtml(formatJoinedAt(m.joinedAt, true))}</td>
     </tr>
   `;
 }
@@ -157,6 +178,9 @@ onAuthStateChanged(auth, async (user) => {
       ]);
 
       window._adminProfile = adminProfile;
+      window._currentUser = user;
+      window._currentMemberData = memberDoc.exists() ? memberDoc.data() : null;
+      window._previewMode = null;
 
       if (adminProfile) {
         showAdmin(user, adminProfile);
@@ -167,6 +191,9 @@ onAuthStateChanged(auth, async (user) => {
       }
     } else {
       window._adminProfile = null;
+      window._currentUser = null;
+      window._currentMemberData = null;
+      window._previewMode = null;
       showLogin();
     }
   } catch (e) {
@@ -293,6 +320,12 @@ window.toggleInt = (btn, isOther) => {
 
 window.submitReg = async (user) => {
   const btn = document.getElementById('rbtn-3');
+
+  if (window._previewMode === 'register') {
+    window.backToAdmin();
+    return;
+  }
+
   btn.textContent = 'กำลังบันทึก...';
   btn.disabled = true;
 
@@ -319,6 +352,7 @@ window.submitReg = async (user) => {
 
     const existingMember = await getDoc(doc(db, MEMBERS_COLLECTION, user.uid));
     if (existingMember.exists()) {
+      window._currentMemberData = existingMember.data();
       showHub(user, existingMember.data());
       return;
     }
@@ -341,6 +375,7 @@ window.submitReg = async (user) => {
     };
 
     await setDoc(doc(db, MEMBERS_COLLECTION, user.uid), data);
+    window._currentMemberData = data;
 
     const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
     if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
@@ -446,9 +481,60 @@ function showView(id) {
 function showLogin() {
   showView('view-login');
   window._adminProfile = null;
+  window._previewMode = null;
 }
 
-function showRegister(user) {
+function setPreviewBanner(target, message = '', backLabel = '← กลับหน้า Admin') {
+  const wrap = document.getElementById(`${target}-preview-banner`);
+  if (!wrap) return;
+  const msg = wrap.querySelector('.preview-banner-text');
+  const btn = wrap.querySelector('.preview-banner-btn');
+  if (message) {
+    wrap.style.display = 'flex';
+    if (msg) msg.textContent = message;
+    if (btn) btn.textContent = backLabel;
+  } else {
+    wrap.style.display = 'none';
+    if (msg) msg.textContent = '';
+  }
+}
+
+function buildPreviewMemberData(user) {
+  const emailName = String(user?.email || 'admin').split('@')[0];
+  const fallbackName = normalizeText(user?.displayName || emailName || 'Admin Preview', 40);
+  return {
+    name: fallbackName,
+    memberNum: 'PREVIEW',
+    photoURL: user?.photoURL || '',
+  };
+}
+
+window.backToAdmin = () => {
+  if (window._currentUser && window._adminProfile) {
+    window._previewMode = null;
+    showAdmin(window._currentUser, window._adminProfile);
+  }
+};
+
+window.previewMemberHub = () => {
+  if (!window._currentUser || !window._adminProfile) return;
+  window._previewMode = 'hub';
+  const data = window._currentMemberData || buildPreviewMemberData(window._currentUser);
+  const message = window._currentMemberData
+    ? 'โหมดพรีวิวสำหรับผู้ดูแล: กำลังดูหน้า Member Hub ด้วยข้อมูลสมาชิกของบัญชีนี้'
+    : 'โหมดพรีวิวสำหรับผู้ดูแล: กำลังดูหน้าฝั่งสมาชิกด้วยข้อมูลตัวอย่าง ยังไม่มีการแก้ไขข้อมูลจริง';
+  showHub(window._currentUser, data, { previewMessage: message });
+};
+
+window.previewRegisterFlow = () => {
+  if (!window._currentUser || !window._adminProfile) return;
+  window._previewMode = 'register';
+  showRegister(window._currentUser, {
+    previewMessage: 'โหมดพรีวิวสำหรับผู้ดูแล: เดินดู flow สมัครสมาชิกได้ แต่จะไม่บันทึกข้อมูลจริง',
+  });
+};
+
+function showRegister(user, options = {}) {
   showView('view-register');
   resetRegistrationForm();
   window._regUser = user;
@@ -461,24 +547,45 @@ function showRegister(user) {
     if (s) { s.classList.remove('active'); if(i===0) s.classList.add('active'); }
   }
   document.getElementById('rprog').textContent = 'ขั้นที่ 1 / 4';
+  setPreviewBanner('register', options.previewMessage || '');
+  const finalBtn = document.getElementById('rbtn-3');
+  if (window._previewMode === 'register') {
+    finalBtn.textContent = 'จบการพรีวิวและกลับหน้า Admin';
+  } else {
+    finalBtn.textContent = 'เข้าร่วมได้เลยค่ะ 🎉';
+  }
 }
 
-function showHub(user, data) {
+function showHub(user, data, options = {}) {
   showView('view-hub');
   const first = (data.name||'คุณผู้เรียน').split(' ')[0];
   document.getElementById('hub-greeting').textContent = 'สวัสดีค่ะ, '+first+'!';
   document.getElementById('hub-member-name').textContent = data.name||'';
   document.getElementById('hub-member-num').textContent  = 'สมาชิกหมายเลข: '+(data.memberNum||'—');
   const av = document.getElementById('hub-avatar');
-  if (av && data.photoURL) { av.src = data.photoURL; av.style.display='block'; }
+  if (av) {
+    if (data.photoURL) {
+      av.src = data.photoURL;
+      av.style.display='block';
+    } else {
+      av.removeAttribute('src');
+      av.style.display='none';
+    }
+  }
+  setPreviewBanner('hub', options.previewMessage || '');
 }
 
 function showAdmin(user, adminProfile) {
   showView('view-admin');
+  window._previewMode = null;
   window._adminProfile = adminProfile || {};
   document.getElementById('admin-email').textContent = user.email;
   document.getElementById('admin-status').textContent = 'กำลังโหลดข้อมูล...';
   document.getElementById('admin-load-more').style.display = 'none';
+  const previewHubBtn = document.getElementById('admin-preview-hub-btn');
+  const previewRegisterBtn = document.getElementById('admin-preview-register-btn');
+  if (previewHubBtn) previewHubBtn.style.display = 'inline-flex';
+  if (previewRegisterBtn) previewRegisterBtn.style.display = 'inline-flex';
   window.loadMembers(true);
 }
 
@@ -589,6 +696,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .prog-txt{text-align:center;font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.08em;margin-bottom:1.5rem}
 .reg-email-note{text-align:center;font-size:.78rem;color:var(--muted);margin-bottom:1.25rem}
 .reg-email-note strong{color:var(--lav)}
+.preview-banner{display:none;align-items:center;justify-content:space-between;gap:.75rem;padding:.75rem .95rem;border-radius:.9rem;border:1px solid var(--lav-border);background:var(--lav-soft);color:var(--lav);margin-bottom:1rem;flex-wrap:wrap}
+.preview-banner-text{font-size:.82rem;line-height:1.5;flex:1;min-width:220px}
+.preview-banner-btn{border:none;background:white;color:var(--lav);border:1px solid var(--lav-border);border-radius:999px;padding:.45rem .8rem;font-size:.78rem;font-family:'Noto Sans Thai',sans-serif;font-weight:600;cursor:pointer}
+.preview-banner-btn:hover{background:#fff;box-shadow:0 2px 10px rgba(124,58,237,.12)}
 
 .step-panel{display:none;padding:0 2rem 2rem}
 .step-panel.active{display:block;animation:sIn .28s ease}
@@ -677,9 +788,12 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .admin-sub{font-size:.82rem;color:rgba(255,255,255,.65)}
 .admin-body{padding:1.5rem 2rem 2rem;overflow-x:auto}
 .admin-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.admin-actions{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 .admin-count-badge{background:var(--lav-soft);color:var(--lav);border:1px solid var(--lav-border);border-radius:999px;padding:.25rem .85rem;font-size:.82rem;font-weight:600}
 .btn-refresh{background:var(--lav);color:white;border:none;border-radius:.5rem;padding:.45rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Noto Sans Thai',sans-serif}
 .btn-refresh:hover{background:var(--lav-mid)}
+.btn-admin-alt{background:white;color:var(--lav);border:1px solid var(--lav-border);border-radius:.5rem;padding:.45rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Noto Sans Thai',sans-serif}
+.btn-admin-alt:hover{background:var(--lav-soft)}
 .admin-meta{font-size:.78rem;color:var(--muted);margin:-.25rem 0 1rem}
 .btn-secondary{display:none;align-items:center;justify-content:center;background:white;color:var(--lav);border:1px solid var(--lav-border);border-radius:.5rem;padding:.45rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Noto Sans Thai',sans-serif;margin-top:1rem}
 .btn-secondary:hover{background:var(--lav-soft)}
@@ -761,6 +875,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     </div>
     <div class="prog-txt" id="rprog">ขั้นที่ 1 / 4</div>
     <div class="reg-email-note">เข้าสู่ระบบในฐานะ: <strong id="reg-email-display"></strong></div>
+    <div class="preview-banner" id="register-preview-banner">
+      <div class="preview-banner-text"></div>
+      <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
+    </div>
   </div>
 
   <!-- Step 1 -->
@@ -857,6 +975,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   </div>
 
   <div class="hub-body">
+    <div class="preview-banner" id="hub-preview-banner">
+      <div class="preview-banner-text"></div>
+      <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
+    </div>
     <div class="hub-sec">Learn</div>
     <a href="https://ajarnkwan.github.io/econ-math-readiness/" class="hub-link featured" target="_blank">
       <div class="hl-icon" style="background:#ede9fe;border:1.5px solid #c4b5fd">📐</div>
@@ -901,15 +1023,19 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   <div class="admin-body">
     <div class="admin-bar">
       <div>สมาชิกทั้งหมด: <span class="admin-count-badge" id="admin-count">กำลังโหลด...</span></div>
-      <button class="btn-refresh" onclick="loadMembers(true)">🔄 Refresh</button>
-      <button class="logout-btn" onclick="doLogout()" style="margin-left:auto">ออกจากระบบ</button>
+      <div class="admin-actions">
+        <button class="btn-admin-alt" id="admin-preview-hub-btn" onclick="previewMemberHub()">👀 ดูหน้า Member Hub</button>
+        <button class="btn-admin-alt" id="admin-preview-register-btn" onclick="previewRegisterFlow()">🧭 ดู flow สมัครสมาชิก</button>
+        <button class="btn-refresh" onclick="loadMembers(true)">🔄 Refresh</button>
+        <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
+      </div>
     </div>
     <div class="err-msg" id="admin-err" style="margin-bottom:1rem"></div>
     <div class="admin-meta" id="admin-status">กำลังโหลดข้อมูล...</div>
     <table class="members-table">
       <thead>
         <tr>
-          <th>#</th><th>หมายเลขสมาชิก</th><th>ชื่อ</th><th>การศึกษา</th><th>อาชีพ</th><th>ความสนใจ</th><th>วันที่สมัคร</th>
+          <th>#</th><th>หมายเลขสมาชิก</th><th>ชื่อ</th><th>การศึกษา</th><th>อาชีพ</th><th>ความสนใจ</th><th>วัน-เวลาสมัคร</th>
         </tr>
       </thead>
       <tbody id="admin-tbody">
