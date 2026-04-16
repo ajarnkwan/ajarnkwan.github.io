@@ -10,7 +10,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit, startAfter, runTransaction, getCountFromServer } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAaETnNaEuZjc6qZxQCSajFs5eXDHIsnbg",
@@ -27,33 +27,152 @@ const auth  = getAuth(app);
 const db    = getFirestore(app);
 const gProvider = new GoogleAuthProvider();
 
-// ── Admin email (เปลี่ยนเป็น email ของอาจารย์) ──
-const ADMIN_EMAIL = 'ajarn.kwan@hotmail.com';
+const MEMBERS_COLLECTION = 'members';
+const ADMINS_COLLECTION = 'admins';
+const COUNTERS_COLLECTION = 'system_counters';
+const MEMBERS_PAGE_SIZE = 50;
 
-// ── Generate member number ──
-async function genMemberNum() {
-  const now = new Date();
+window._adminProfile = null;
+window._lastMemberDoc = null;
+window._hasMoreMembers = false;
+window._loadedMembers = 0;
+
+function thaiMemberPrefix(now = new Date()) {
   const yy = (now.getFullYear() + 543).toString().slice(-2);
   const mm = (now.getMonth() + 1).toString().padStart(2, '0');
-  const prefix = yy + mm;
-  const snap = await getDocs(collection(db, 'members'));
-  const count = snap.docs.filter(d => (d.data().memberNum || '').startsWith(prefix)).length;
-  return prefix + (count + 1).toString().padStart(3, '0');
+  return yy + mm;
+}
+
+async function allocateMemberNum() {
+  const prefix = thaiMemberPrefix();
+  const counterRef = doc(db, COUNTERS_COLLECTION, `member_${prefix}`);
+
+  return runTransaction(db, async (transaction) => {
+    const counterSnap = await transaction.get(counterRef);
+    const lastSeq = counterSnap.exists() ? Number(counterSnap.data().lastSeq || 0) : 0;
+    const nextSeq = lastSeq + 1;
+
+    transaction.set(counterRef, {
+      prefix,
+      lastSeq: nextSeq,
+      updatedAt: new Date().toISOString(),
+    }, { merge: true });
+
+    return prefix + String(nextSeq).padStart(3, '0');
+  });
+}
+
+async function getAdminProfile(uid) {
+  const adminSnap = await getDoc(doc(db, ADMINS_COLLECTION, uid));
+  return adminSnap.exists() ? adminSnap.data() : null;
+}
+
+function normalizeText(value, maxLen = 120) {
+  return String(value || '').replace(/\s+/g, ' ').trim().slice(0, maxLen);
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (ch) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[ch]));
+}
+
+function formatJoinedAt(value) {
+  if (!value) return '-';
+  if (typeof value === 'string') return value.slice(0, 10);
+  if (value?.toDate) return value.toDate().toISOString().slice(0, 10);
+  return '-';
+}
+
+function validateProfileInput(raw) {
+  const clean = {
+    name: normalizeText(raw.name, 40),
+    education: normalizeText(raw.education, 60),
+    occupationChoice: normalizeText(raw.occupationChoice, 60),
+    occupationOther: normalizeText(raw.occupationOther, 80),
+    interestOther: normalizeText(raw.interestOther, 120),
+    interests: Array.isArray(raw.interests)
+      ? [...new Set(raw.interests.map(v => normalizeText(v, 80)).filter(Boolean))]
+      : [],
+  };
+
+  if (!clean.name) return { ok: false, message: 'กรุณากรอกชื่อที่อยากให้เรียกค่ะ' };
+  if (!clean.education) return { ok: false, message: 'กรุณาเลือกระดับการศึกษาค่ะ' };
+  if (!clean.occupationChoice) return { ok: false, message: 'กรุณาเลือกอาชีพค่ะ' };
+  if (clean.occupationChoice === 'อื่นๆ' && !clean.occupationOther) {
+    return { ok: false, message: 'กรุณาระบุอาชีพเพิ่มเติมค่ะ' };
+  }
+  if (!clean.interests.length && !clean.interestOther) {
+    return { ok: false, message: 'กรุณาเลือกความสนใจอย่างน้อย 1 ข้อค่ะ' };
+  }
+
+  const occupation = clean.occupationChoice === 'อื่นๆ'
+    ? `อื่นๆ: ${clean.occupationOther}`
+    : clean.occupationChoice;
+
+  const interests = clean.interestOther
+    ? [...clean.interests, `อื่นๆ: ${clean.interestOther}`]
+    : clean.interests;
+
+  return {
+    ok: true,
+    data: {
+      name: clean.name,
+      education: clean.education,
+      occupation,
+      interests,
+    }
+  };
+}
+
+function renderMemberRow(m, index) {
+  const interestsText = Array.isArray(m.interests)
+    ? m.interests.join(', ')
+    : String(m.interests || m.interestsText || '');
+
+  return `
+    <tr>
+      <td>${index}</td>
+      <td>${escapeHtml(m.memberNum || '-')}</td>
+      <td>${escapeHtml(m.name || '-')}</td>
+      <td>${escapeHtml(m.education || '-')}</td>
+      <td>${escapeHtml(m.occupation || '-')}</td>
+      <td>${escapeHtml(interestsText || '-')}</td>
+      <td>${escapeHtml(formatJoinedAt(m.joinedAt))}</td>
+    </tr>
+  `;
 }
 
 // ── Auth state listener ──
 onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const memberDoc = await getDoc(doc(db, 'members', user.uid));
-    if (user.email === ADMIN_EMAIL) {
-      showAdmin(user);
-    } else if (memberDoc.exists()) {
-      showHub(user, memberDoc.data());
+  try {
+    if (user) {
+      const [memberDoc, adminProfile] = await Promise.all([
+        getDoc(doc(db, MEMBERS_COLLECTION, user.uid)),
+        getAdminProfile(user.uid),
+      ]);
+
+      window._adminProfile = adminProfile;
+
+      if (adminProfile) {
+        showAdmin(user, adminProfile);
+      } else if (memberDoc.exists()) {
+        showHub(user, memberDoc.data());
+      } else {
+        showRegister(user);
+      }
     } else {
-      showRegister(user);
+      window._adminProfile = null;
+      showLogin();
     }
-  } else {
+  } catch (e) {
+    console.error(e);
     showLogin();
+    showError('login-err', 'เกิดปัญหาในการตรวจสอบสิทธิ์ค่ะ กรุณาลองใหม่อีกครั้ง');
   }
 });
 
@@ -102,6 +221,33 @@ window.signupEmail = async () => {
 let curStep = 0;
 const regAns = { name:'', edu:'', occ:'', occOther:'', interests:[], intOther:'' };
 
+function resetRegistrationForm() {
+  regAns.name = '';
+  regAns.edu = '';
+  regAns.occ = '';
+  regAns.occOther = '';
+  regAns.interests = [];
+  regAns.intOther = '';
+
+  const nameInput = document.getElementById('reg-name');
+  const occOther = document.getElementById('occ-other');
+  const intOther = document.getElementById('int-other');
+  if (nameInput) nameInput.value = '';
+  if (occOther) occOther.value = '';
+  if (intOther) intOther.value = '';
+
+  document.querySelectorAll('#edu-list .choice-btn, #occ-list .choice-btn, #int-list .multi-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('occ-other-wrap')?.classList.remove('show');
+  document.getElementById('int-other-wrap')?.classList.remove('show');
+  document.getElementById('rbtn-0').disabled = true;
+  document.getElementById('rbtn-1').disabled = true;
+  document.getElementById('rbtn-2').disabled = true;
+  document.getElementById('rbtn-3').disabled = false;
+  document.getElementById('rbtn-3').textContent = 'เข้าร่วมได้เลยค่ะ 🎉';
+  const err = document.getElementById('reg-err');
+  if (err) err.style.display = 'none';
+}
+
 window.goStep = (n) => {
   if (n > curStep) {
     if (curStep===0 && !regAns.name) return;
@@ -147,41 +293,78 @@ window.toggleInt = (btn, isOther) => {
 
 window.submitReg = async (user) => {
   const btn = document.getElementById('rbtn-3');
-  btn.textContent = 'กำลังบันทึก...'; btn.disabled = true;
+  btn.textContent = 'กำลังบันทึก...';
+  btn.disabled = true;
 
-  regAns.occOther = document.getElementById('occ-other').value.trim();
-  regAns.intOther = document.getElementById('int-other').value.trim();
-  regAns.interests = [...document.querySelectorAll('#int-list .multi-btn.selected')]
-    .map(b=>b.textContent.trim()).filter(t=>!t.includes('อื่น'));
-  if (regAns.intOther) regAns.interests.push('อื่นๆ: '+regAns.intOther);
+  try {
+    const selectedInterests = [...document.querySelectorAll('#int-list .multi-btn.selected')]
+      .map(b => b.textContent.trim())
+      .filter(t => !t.includes('อื่น'));
 
-  const occFull = regAns.occ==='อื่นๆ' && regAns.occOther ? 'อื่นๆ: '+regAns.occOther : regAns.occ;
-  const memberNum = await genMemberNum();
+    const validation = validateProfileInput({
+      name: document.getElementById('reg-name').value,
+      education: regAns.edu,
+      occupationChoice: regAns.occ,
+      occupationOther: document.getElementById('occ-other').value,
+      interestOther: document.getElementById('int-other').value,
+      interests: selectedInterests,
+    });
 
-  const data = {
-    uid: user.uid,
-    email: user.email,
-    name: regAns.name,
-    education: regAns.edu,
-    occupation: occFull,
-    interests: regAns.interests.join(', '),
-    memberNum,
-    joinedAt: new Date().toISOString(),
-    photoURL: user.photoURL || '',
-  };
+    if (!validation.ok) {
+      showError('reg-err', validation.message);
+      btn.textContent = 'เข้าร่วมได้เลยค่ะ 🎉';
+      btn.disabled = false;
+      return;
+    }
 
-  await setDoc(doc(db, 'members', user.uid), data);
+    const existingMember = await getDoc(doc(db, MEMBERS_COLLECTION, user.uid));
+    if (existingMember.exists()) {
+      showHub(user, existingMember.data());
+      return;
+    }
 
-  // Also send to Google Sheets
-  const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
-  if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
-    try {
-      const p = new URLSearchParams({ name:data.name, education:data.education, occupation:data.occupation, interests:data.interests, memberNum });
-      await fetch(SCRIPT_URL+'?'+p.toString());
-    } catch(e) {}
+    const memberNum = await allocateMemberNum();
+    const nowIso = new Date().toISOString();
+    const data = {
+      uid: user.uid,
+      email: user.email || '',
+      name: validation.data.name,
+      education: validation.data.education,
+      occupation: validation.data.occupation,
+      interests: validation.data.interests,
+      interestsText: validation.data.interests.join(', '),
+      memberNum,
+      joinedAt: nowIso,
+      updatedAt: nowIso,
+      profileComplete: true,
+      photoURL: user.photoURL || '',
+    };
+
+    await setDoc(doc(db, MEMBERS_COLLECTION, user.uid), data);
+
+    const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+    if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+      try {
+        const p = new URLSearchParams({
+          name: data.name,
+          education: data.education,
+          occupation: data.occupation,
+          interests: data.interestsText,
+          memberNum,
+        });
+        await fetch(SCRIPT_URL + '?' + p.toString());
+      } catch(e) {
+        console.warn('Google Sheets sync failed', e);
+      }
+    }
+
+    showHub(user, data);
+  } catch (e) {
+    console.error(e);
+    showError('reg-err', 'บันทึกข้อมูลไม่สำเร็จค่ะ กรุณาลองใหม่อีกครั้ง');
+    btn.textContent = 'เข้าร่วมได้เลยค่ะ 🎉';
+    btn.disabled = false;
   }
-
-  showHub(user, data);
 };
 
 // ── LOGOUT ──
@@ -191,22 +374,65 @@ window.doLogout = async () => {
 };
 
 // ── ADMIN: load members ──
-window.loadMembers = async () => {
-  const snap = await getDocs(query(collection(db, 'members'), orderBy('joinedAt','desc')));
-  const members = snap.docs.map(d => d.data());
+window.loadMembers = async (reset = true) => {
   const tbody = document.getElementById('admin-tbody');
-  tbody.innerHTML = members.map((m,i) => `
-    <tr>
-      <td>${i+1}</td>
-      <td>${m.memberNum||'-'}</td>
-      <td>${m.name||'-'}</td>
-      <td>${m.education||'-'}</td>
-      <td>${m.occupation||'-'}</td>
-      <td>${m.interests||'-'}</td>
-      <td>${m.joinedAt ? m.joinedAt.slice(0,10) : '-'}</td>
-    </tr>
-  `).join('');
-  document.getElementById('admin-count').textContent = members.length + ' คน';
+  const loadMoreBtn = document.getElementById('admin-load-more');
+  const statusEl = document.getElementById('admin-status');
+
+  if (!window._adminProfile) {
+    showError('admin-err', 'บัญชีนี้ยังไม่มีสิทธิ์ admin ค่ะ');
+    return;
+  }
+
+  try {
+    if (reset) {
+      window._lastMemberDoc = null;
+      window._loadedMembers = 0;
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>';
+      loadMoreBtn.style.display = 'none';
+    }
+
+    const membersRef = collection(db, MEMBERS_COLLECTION);
+    let membersQuery = query(membersRef, orderBy('joinedAt', 'desc'), limit(MEMBERS_PAGE_SIZE));
+    if (!reset && window._lastMemberDoc) {
+      membersQuery = query(membersRef, orderBy('joinedAt', 'desc'), startAfter(window._lastMemberDoc), limit(MEMBERS_PAGE_SIZE));
+    }
+
+    const tasks = [getDocs(membersQuery)];
+    if (reset) tasks.push(getCountFromServer(membersRef));
+
+    const [snap, countSnap] = await Promise.all(tasks);
+    const members = snap.docs.map(d => d.data());
+
+    if (reset && countSnap) {
+      document.getElementById('admin-count').textContent = `${countSnap.data().count} คน`;
+      tbody.innerHTML = '';
+    }
+
+    if (members.length === 0 && reset) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">ยังไม่มีสมาชิกค่ะ</td></tr>';
+      statusEl.textContent = 'แสดง 0 รายการ';
+      loadMoreBtn.style.display = 'none';
+      return;
+    }
+
+    const startIndex = window._loadedMembers + 1;
+    const rows = members.map((m, i) => renderMemberRow(m, startIndex + i)).join('');
+    tbody.innerHTML = reset ? rows : tbody.innerHTML + rows;
+
+    window._loadedMembers += members.length;
+    window._lastMemberDoc = snap.docs[snap.docs.length - 1] || null;
+    window._hasMoreMembers = members.length === MEMBERS_PAGE_SIZE;
+    statusEl.textContent = `แสดงแล้ว ${window._loadedMembers} รายการล่าสุด`;
+    loadMoreBtn.style.display = window._hasMoreMembers ? 'inline-flex' : 'none';
+  } catch (e) {
+    console.error(e);
+    showError('admin-err', 'โหลดข้อมูลสมาชิกไม่สำเร็จค่ะ');
+  }
+};
+
+window.loadMoreMembers = async () => {
+  await window.loadMembers(false);
 };
 
 // ── VIEW HELPERS ──
@@ -217,10 +443,14 @@ function showView(id) {
   });
 }
 
-function showLogin() { showView('view-login'); }
+function showLogin() {
+  showView('view-login');
+  window._adminProfile = null;
+}
 
 function showRegister(user) {
   showView('view-register');
+  resetRegistrationForm();
   window._regUser = user;
   document.getElementById('reg-email-display').textContent = user.email;
   curStep = 0;
@@ -243,10 +473,13 @@ function showHub(user, data) {
   if (av && data.photoURL) { av.src = data.photoURL; av.style.display='block'; }
 }
 
-function showAdmin(user) {
+function showAdmin(user, adminProfile) {
   showView('view-admin');
+  window._adminProfile = adminProfile || {};
   document.getElementById('admin-email').textContent = user.email;
-  window.loadMembers();
+  document.getElementById('admin-status').textContent = 'กำลังโหลดข้อมูล...';
+  document.getElementById('admin-load-more').style.display = 'none';
+  window.loadMembers(true);
 }
 
 function setLoading(section, on) {
@@ -264,7 +497,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const ni = document.getElementById('reg-name');
   if (ni) {
     ni.addEventListener('input', function() {
-      regAns.name = this.value.trim();
+      regAns.name = normalizeText(this.value, 40);
+      this.value = regAns.name;
       document.getElementById('rbtn-0').disabled = !regAns.name;
     });
     ni.addEventListener('keydown', function(e) { if(e.key==='Enter'&&regAns.name) window.goStep(1); });
@@ -446,6 +680,9 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .admin-count-badge{background:var(--lav-soft);color:var(--lav);border:1px solid var(--lav-border);border-radius:999px;padding:.25rem .85rem;font-size:.82rem;font-weight:600}
 .btn-refresh{background:var(--lav);color:white;border:none;border-radius:.5rem;padding:.45rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Noto Sans Thai',sans-serif}
 .btn-refresh:hover{background:var(--lav-mid)}
+.admin-meta{font-size:.78rem;color:var(--muted);margin:-.25rem 0 1rem}
+.btn-secondary{display:none;align-items:center;justify-content:center;background:white;color:var(--lav);border:1px solid var(--lav-border);border-radius:.5rem;padding:.45rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Noto Sans Thai',sans-serif;margin-top:1rem}
+.btn-secondary:hover{background:var(--lav-soft)}
 .members-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:600px}
 .members-table th{background:#1e1b4b;color:white;padding:.6rem .75rem;text-align:left;font-weight:600;white-space:nowrap}
 .members-table td{padding:.55rem .75rem;border-bottom:1px solid var(--border);color:var(--mid);vertical-align:top}
@@ -598,6 +835,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
         <input class="other-in" type="text" id="int-other" placeholder="บอกได้เลยนะคะ..." maxlength="120">
       </div>
     </div>
+    <div class="err-msg" id="reg-err"></div>
     <button class="next-btn" id="rbtn-3" onclick="submitReg(window._regUser)">เข้าร่วมได้เลยค่ะ 🎉</button>
     <button class="back-btn" onclick="goStep(2)">← กลับ</button>
   </div>
@@ -663,9 +901,11 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   <div class="admin-body">
     <div class="admin-bar">
       <div>สมาชิกทั้งหมด: <span class="admin-count-badge" id="admin-count">กำลังโหลด...</span></div>
-      <button class="btn-refresh" onclick="loadMembers()">🔄 Refresh</button>
+      <button class="btn-refresh" onclick="loadMembers(true)">🔄 Refresh</button>
       <button class="logout-btn" onclick="doLogout()" style="margin-left:auto">ออกจากระบบ</button>
     </div>
+    <div class="err-msg" id="admin-err" style="margin-bottom:1rem"></div>
+    <div class="admin-meta" id="admin-status">กำลังโหลดข้อมูล...</div>
     <table class="members-table">
       <thead>
         <tr>
@@ -676,6 +916,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
         <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>
       </tbody>
     </table>
+    <button class="btn-secondary" id="admin-load-more" onclick="loadMoreMembers()">โหลดเพิ่ม</button>
   </div>
 </div>
 
