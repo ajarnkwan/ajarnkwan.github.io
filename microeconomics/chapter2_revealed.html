@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Revealed Preference Theory</title>
+<title>บทที่ 2 — ทฤษฎีพฤติกรรมผู้บริโภค</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -34,683 +34,196 @@
     .available{display:inline-block;background:#ecfdf5;color:#047857;border:1px solid #86efac;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
   </style>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
-@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
-.app{max-width:760px;margin:0 auto}
-.topnav{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#ede9ff;color:#3d2f9e}
-@media(prefers-color-scheme:dark){.badge{background:#2d2060;color:#b8adff}}
-.pg{display:flex;gap:3px;margin-bottom:18px}
-.pd{flex:1;height:5px;border-radius:3px;background:#eee}
-@media(prefers-color-scheme:dark){.pd{background:#333}}
-.pd.dn{background:#534ab7}.pd.ac{background:#8b5cf6}
-.sl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
-.bq{font-size:17px;font-weight:700;line-height:1.5;margin-bottom:14px}
-.sb{background:#f5f5f5;border-radius:12px;padding:14px 18px;margin-bottom:12px;border-left:4px solid #534ab7}
-@media(prefers-color-scheme:dark){.sb{background:#1e1a30}}
-.sb p{font-size:14px;line-height:1.8;margin-bottom:6px}.sb p:last-child{margin:0}
-.hl{background:#ede9ff;border-radius:4px;padding:2px 6px;color:#3d2f9e;font-weight:700}
-@media(prefers-color-scheme:dark){.hl{background:#2d2060;color:#b8adff}}
-/* canvas: CSS size via JS, actual buffer via DPR */
-canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;border:1px solid #ddd}
-@media(prefers-color-scheme:dark){canvas{border-color:#333}}
-.fb{font-size:13.5px;padding:10px 16px;border-radius:10px;margin:8px 0;display:none;line-height:1.6}
-.fb.on{display:block}
-.fb.ok{background:#e1f5ee;color:#0f6e56;border:1px solid #1d9e75}
-@media(prefers-color-scheme:dark){.fb.ok{background:#0d3d28;color:#5fe4a8;border-color:#1d9e75}}
-.fb.no{background:#fcebeb;color:#a32d2d;border:1px solid #e24b4a}
-@media(prefers-color-scheme:dark){.fb.no{background:#3d1010;color:#ff9999;border-color:#e24b4a}}
-.fb.info{background:#ede9ff;color:#3d2f9e;border:1px solid #8b5cf6}
-@media(prefers-color-scheme:dark){.fb.info{background:#1e1840;color:#b8adff;border-color:#534ab7}}
-.fb.warn{background:#fff3cd;color:#856404;border:1px solid #ffc107}
-@media(prefers-color-scheme:dark){.fb.warn{background:#2d2000;color:#ffd04a;border-color:#ffc107}}
-.nav{display:flex;gap:8px;margin-top:18px}
-.nb{flex:1;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14px;cursor:pointer;color:inherit}
-@media(prefers-color-scheme:dark){.nb{border-color:#444}}
-.nb:hover{background:#f5f5f5}
-@media(prefers-color-scheme:dark){.nb:hover{background:#242424}}
-.nb.pr{background:#534ab7;border-color:#534ab7;color:#fff;font-weight:600}
-.nb.pr:hover{background:#3d2f9e}
-.qopt{display:block;width:100%;text-align:left;padding:10px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14px;cursor:pointer;margin-bottom:8px;color:inherit}
-@media(prefers-color-scheme:dark){.qopt{border-color:#444}}
-.qopt:hover:not(:disabled){background:#f5f5f5}
-@media(prefers-color-scheme:dark){.qopt:hover:not(:disabled){background:#2a2a2a}}
-.qopt.ok{background:#e1f5ee;border-color:#1d9e75;color:#0f6e56}
-.qopt.no{background:#fcebeb;border-color:#e24b4a;color:#a32d2d}
-.sc{width:80px;height:80px;border-radius:50%;border:3px solid #534ab7;display:flex;align-items:center;justify-content:center;margin:14px auto;font-size:24px;font-weight:700;color:#3d2f9e}
-.trow{display:flex;gap:8px;margin-bottom:14px}
-.tgb{flex:1;padding:10px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;color:#666;text-align:center}
-@media(prefers-color-scheme:dark){.tgb{border-color:#444;color:#aaa}}
-.note{font-size:12.5px;color:#666;background:#f5f5f5;border-radius:8px;padding:8px 12px;margin-bottom:10px;line-height:1.6}
-@media(prefers-color-scheme:dark){.note{color:#aaa;background:#222}}
-.rvb{width:100%;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14px;cursor:pointer;margin-bottom:10px;text-align:left;color:inherit}
-@media(prefers-color-scheme:dark){.rvb{border-color:#444}}
-.rvb:hover{background:#f5f5f5}
-@media(prefers-color-scheme:dark){.rvb:hover{background:#242424}}
-.rvbox{background:#fff;border:1px solid #ddd;border-radius:12px;padding:14px 18px;margin-bottom:12px;display:none}
-@media(prefers-color-scheme:dark){.rvbox{background:#1a1a1a;border-color:#333}}
-.rvbox.on{display:block}
-.rvbox h3{font-size:10px;font-weight:700;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
-.rvbox p{font-size:14px;line-height:1.7;margin-bottom:5px}
-.compare{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
-.cc{background:#f5f5f5;border-radius:10px;padding:12px;font-size:13px;line-height:1.6}
-@media(prefers-color-scheme:dark){.cc{background:#222}}
-.cc strong{display:block;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
-.cc.hi{border:2px solid #534ab7}
-.section{display:none}.section.active{display:block}
-</style>
 </head>
-<body><div class="page"><a class="backlink" href="chapter2.html">← กลับบทที่ 2</a><div class="panel">
-<div class="app">
-<div class="topnav">
-  <span class="badge">ทฤษฎีที่ 3</span>
-  <span style="font-size:15px;font-weight:700">Revealed Preference Theory</span>
-</div>
-<div class="pg" id="pg"></div>
+<body><div class="page"><a class="backlink" href="index.html">← กลับแผนการเรียนรู้</a><div class="panel">
 
-<div class="section active" id="s0">
-  <div class="sl">เริ่มจากเรื่องเล่า</div>
-  <p class="bq">ไม่ต้องถามว่าชอบอะไร — ดูว่าซื้ออะไรก็รู้</p>
-  <div class="sb">
-    <p>🍎 แอปเปิ้ล 10฿/ผล &nbsp;|&nbsp; 🍌 กล้วย 10฿/ผล &nbsp;|&nbsp; มีเงิน <strong>50 บาท</strong></p>
-    <p>นายอาทิตย์เลือกซื้อ: <span class="hl">แอปเปิ้ล 2 ผล + กล้วย 3 ผล = 50฿พอดี</span></p>
-    <p>ทั้งที่ <strong>กล้วย 5 ผล</strong> (= 50฿) ก็ซื้อได้ด้วย — แต่เขาไม่เลือก</p>
-  </div>
-  <button class="rvb" id="rb0" onclick="tog('r0','rb0','เผยคำตอบ')">❓ เราสรุปอะไรได้?</button>
-  <div class="rvbox" id="r0">
-    <h3>แค่สังเกตก็รู้ความชอบได้!</h3>
-    <p>เลือก (แอป2+กล้วย3) ทั้งที่ (กล้วย5) ก็ซื้อได้ → <strong>(แอป2+กล้วย3) ≻ (กล้วย5)</strong></p>
-    <p>นี่คือ <strong>"Revealed Preference"</strong> — ความชอบถูก <em>เปิดเผย</em> ผ่านการกระทำ</p>
-    <p>ไม่ต้องรู้ utility | ไม่ต้องรู้ IC | <strong>ดูว่าซื้ออะไรก็รู้แล้ว</strong></p>
-  </div>
-  <p style="font-size:14px;font-weight:700;margin:.7rem 0 .4rem">เปรียบกับ 2 ทฤษฎีก่อน:</p>
-  <div class="compare">
-    <div class="cc"><strong>Cardinal (ที่1)</strong>ต้องวัด MU เป็นตัวเลข<br><em style="color:#888">ยากในทางปฏิบัติ</em></div>
-    <div class="cc"><strong>Ordinal (ที่2)</strong>ต้องบอก A>B, A=B<br><em style="color:#888">ยังต้องสมมติ IC</em></div>
-    <div class="cc hi"><strong>Revealed (ที่3)</strong>ดูพฤติกรรมจริง<br><em style="color:#534ab7">ทดสอบจากข้อมูลได้!</em></div>
-  </div>
-  <div class="nav"><button class="nb pr" onclick="go(1)">เริ่มเรียน →</button></div>
-</div>
+<style>
+*{box-sizing:border-box}
+body{margin:0}
+.hub{max-width:660px;margin:0 auto;padding:1rem 0;font-family:var(--font-sans)}
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;background:var(--color-background-secondary);color:var(--color-text-secondary);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6rem}
+.title{font-size:22px;font-weight:600;color:var(--color-text-primary);margin:0 0 .5rem;line-height:1.3}
+.subtitle{font-size:14px;color:var(--color-text-secondary);margin:0 0 1.5rem;line-height:1.6}
 
-<div class="section" id="s1">
-  <div class="sl">แนวคิดหลัก — คลิก canvas เพื่อสำรวจ</div>
-  <p class="bq">เลือก A = เปิดเผยว่า A ≻ ทุกจุดที่ซื้อได้</p>
-  <div style="background:#f5f5f5;border-radius:10px;padding:10px 16px;margin-bottom:10px;font-size:14px;text-align:center;line-height:1.8">
-    <strong>A = (แอป 2, กล้วย 3)</strong> ถูกเลือก &nbsp;|&nbsp; เส้นงบ: <strong>X + Y = 5</strong><br>
-    <span style="font-size:12.5px;color:#888">👆 คลิกจุดใดก็ได้บน canvas เพื่อดูว่าเราสรุปอะไรได้</span>
-  </div>
-  <canvas id="c1"></canvas>
-  <div class="fb on info" id="c1fb">👆 คลิกจุดใดก็ได้</div>
-  <div class="note">💡 <strong>กฎ:</strong> P ซื้อได้แต่ไม่เลือก → A ≻ P &nbsp;|&nbsp; P มีทุกอย่างมากกว่า A → P ≻ A &nbsp;|&nbsp; P อยู่นอกงบ → ยังสรุปไม่ได้</div>
-  <div class="nav"><button class="nb" onclick="go(0)">←</button><button class="nb pr" onclick="go(2)">WARP →</button></div>
-</div>
+/* Hook question card */
+.hook{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.1rem 1.3rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.hook::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#378ADD,#1D9E75)}
+.hook-q{font-size:15px;font-weight:500;color:var(--color-text-primary);margin:0 0 .6rem;line-height:1.5}
+.hook-hint{font-size:12px;color:var(--color-text-secondary);margin:0 0 .75rem;font-style:italic}
+.hook-reveal{display:none;background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:.75rem 1rem;border:0.5px solid var(--color-border-tertiary)}
+.hook-reveal.on{display:block}
+.hook-reveal p{font-size:13px;color:var(--color-text-primary);margin:0 0 4px;line-height:1.6}
+.hook-reveal p:last-child{margin:0}
+.hook-btn{font-size:12px;padding:5px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);cursor:pointer;margin-top:.5rem}
+.hook-btn:hover{background:var(--color-background-primary)}
 
-<div class="section" id="s2">
-  <div class="sl">WARP — ห้ามย้อนคำ</div>
-  <p class="bq">ถ้าเคย "เปิดเผย" ว่า A ดีกว่า B — ห้ามบอกว่า B ดีกว่า A ในภายหลัง</p>
-  <div class="sb">
-    <p><strong>สัปดาห์ 1:</strong> A=(2,3) ถูกเลือก, B=(4,1) ซื้อได้ → <span class="hl">A ≻ B</span></p>
-    <p><strong>สัปดาห์ 2:</strong> ราคาเปลี่ยน เลือก B คราวนี้</p>
-    <p>❓ WARP โอเคไหม? ขึ้นอยู่กับ <strong>A ยังซื้อได้อยู่หรือเปล่า!</strong></p>
-  </div>
-  <div class="trow">
-    <button class="tgb" id="wok" onclick="showW('ok')">✓ ไม่ขัดแย้ง — A ซื้อไม่ได้แล้ว</button>
-    <button class="tgb" id="wno" onclick="showW('no')">✗ ขัดแย้ง! — A ยังซื้อได้</button>
-  </div>
-  <canvas id="c2"></canvas>
-  <div class="fb on info" id="c2fb">เลือกกรณีด้านบน</div>
-  <div class="nav"><button class="nb" onclick="go(1)">←</button><button class="nb pr" onclick="go(3)">SARP →</button></div>
-</div>
+/* Section divider */
+.divider{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.divider::after{content:'';flex:1;height:0.5px;background:var(--color-border-secondary)}
 
-<div class="section" id="s3">
-  <div class="sl">SARP — ห้ามวนลูป (Transitivity)</div>
-  <p class="bq">A≻B และ B≻C → ต้องได้ A≻C ด้วย</p>
-  <div class="sb">
-    <p><strong>สังเกต 1 (BL₁: X+Y=8):</strong> A=(4,4) เลือก, B=(2,6) ซื้อได้ → <span class="hl">A ≻ B</span></p>
-    <p><strong>สังเกต 2 (BL₂: 2X+Y=10):</strong> B=(2,6) เลือก, C=(1,3) ซื้อได้ → <span class="hl">B ≻ C</span></p>
-    <p><strong>SARP:</strong> <span class="hl">A ≻ C</span> — แม้ไม่เคยเห็น A แทน C โดยตรง</p>
-  </div>
-  <canvas id="c3"></canvas>
-  <div class="fb on info" id="c3fb">A≻B, B≻C → A≻C (Transitivity) | ถ้าในอนาคตเลือก C เมื่อ A ซื้อได้ = SARP ละเมิด!</div>
-  <div class="nav"><button class="nb" onclick="go(2)">←</button><button class="nb pr" onclick="go(4)">สร้าง IC →</button></div>
-</div>
+/* Theory cards */
+.theory-grid{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem}
+.theory-card{display:flex;gap:1rem;align-items:flex-start;background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;cursor:pointer;text-align:left;transition:all .15s;width:100%}
+.theory-card:hover{border-color:#378ADD;background:var(--color-background-secondary);transform:translateX(2px)}
+.theory-num{width:36px;height:36px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;margin-top:1px}
+.num-1{background:#E6F1FB;color:#185FA5}
+.num-2{background:#E1F5EE;color:#0F6E56}
+.num-3{background:#F0EEFF;color:#3D2F9E}
+.theory-body{flex:1}
+.theory-name{font-size:14px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px}
+.theory-sub{font-size:12px;color:var(--color-text-secondary);margin:0 0 .4rem}
+.theory-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.4rem}
+.tag{font-size:10px;padding:2px 7px;border-radius:999px;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.theory-desc{font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.5}
+.theory-arrow{color:var(--color-text-tertiary);font-size:16px;align-self:center;flex-shrink:0}
 
-<div class="section" id="s4">
-  <div class="sl">สร้าง Indifference Curve จาก Revealed Preference</div>
-  <p class="bq">ยิ่งสังเกตมาก → บีบ IC ให้แม่นขึ้นเรื่อยๆ</p>
-  <div class="sb">
-    <p>🟢 <strong>Preferred Region:</strong> มีทุกอย่างมากกว่า A → ดีกว่า A แน่ๆ</p>
-    <p>🔴 <strong>Non-preferred Region:</strong> A ถูกเลือกเมื่อซื้อได้ → แย่กว่า A</p>
-    <p>🟣 <strong>IC ต้องอยู่ระหว่างสองเขต</strong> — BL หลายเส้นผ่าน A บีบให้แคบลง</p>
-  </div>
-  <canvas id="c4"></canvas>
-  <div class="note">📌 3 BLs ผ่านจุด A (slope ต่างกัน) บีบพื้นที่ IC ระหว่าง Preferred และ Non-preferred</div>
-  <button class="rvb" id="rb4" onclick="tog('r4','rb4','สรุปเปรียบ 3 ทฤษฎี')">สรุปเปรียบ 3 ทฤษฎี</button>
-  <div class="rvbox" id="r4">
-    <h3>สรุป 3 ทฤษฎี</h3>
-    <p>① <strong>Cardinal:</strong> ต้องรู้ MU เป็นตัวเลข → ยากในทางปฏิบัติ</p>
-    <p>② <strong>Ordinal:</strong> ต้องรู้ IC ก่อน → ยังต้องสมมติ</p>
-    <p>③ <strong>Revealed:</strong> ดูแค่ว่าซื้ออะไร + ราคา → <strong>ทดสอบจากข้อมูลจริงได้เลย</strong></p>
-    <p>ทั้ง 3 ได้เงื่อนไขดุลยภาพเดิม: <strong>MU_X/P_X = MU_Y/P_Y</strong></p>
-  </div>
-  <div class="nav"><button class="nb" onclick="go(3)">←</button><button class="nb pr" onclick="go(5)">แบบฝึกหัด →</button></div>
-</div>
+/* Compare table */
+.cmp{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:1.5rem}
+.cmp th{font-weight:500;font-size:10px;color:var(--color-text-secondary);text-align:left;padding:6px 10px;border-bottom:0.5px solid var(--color-border-secondary);text-transform:uppercase;letter-spacing:.04em}
+.cmp td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);vertical-align:top}
+.cmp tr:hover td{background:var(--color-background-secondary)}
+.cmp td:first-child{font-weight:500;color:var(--color-text-secondary);white-space:nowrap}
 
-<div class="section" id="s5">
-  <div class="sl">แบบฝึกหัด</div>
-  <p class="bq">ทดสอบ 5 ข้อ</p>
-  <div id="qz"></div>
-  <div class="nav" id="qnav" style="display:none">
-    <button class="nb" onclick="rst()">ทำใหม่</button>
-    <button class="nb pr" onclick="go(0)">กลับต้น</button>
+/* Progress hint */
+.progress-hint{display:flex;gap:.5rem;align-items:center;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.6rem .9rem;font-size:12px;color:var(--color-text-secondary)}
+.dot-row{display:flex;gap:4px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--color-border-secondary)}
+.dot.todo{background:#378ADD}
+</style>
+
+<div class="hub">
+
+  <div class="badge">บทที่ 2</div>
+  <h1 class="title">ทฤษฎีพฤติกรรมผู้บริโภค</h1>
+  <p class="subtitle">Theory of Consumer Behavior — ทำไมผู้บริโภคถึงเลือกซื้อสินค้าแบบที่เลือก? และจะหาจุดที่ได้ความพอใจสูงสุดจากงบประมาณจำกัดได้อย่างไร?</p>
+
+  <!-- Hook -->
+  <div class="hook">
+    <p class="hook-q">🤔 ลองคิดก่อนเรียน: คุณชอบข้าวกับแกงกะหรี่แค่ไหน? ถ้าให้เลือกระหว่างแกงกะหรี่ 5 ถ้วย กับ แกงกะหรี่ 3 ถ้วย + ไก่ทอด 2 ชิ้น — แบบไหนทำให้พอใจกว่า?</p>
+    <p class="hook-hint">ลองนึกคำตอบก่อน แล้วจะรู้ว่าทฤษฎีใดในบทนี้ตอบคำถามนี้ได้</p>
+    <button class="hook-btn" id="hbtn" onclick="toggleHook()">เผยคำตอบ + โยงกับทฤษฎี</button>
+    <div class="hook-reveal" id="hreveal">
+      <p><strong>Cardinal Utility</strong> จะชวนคิดว่า ถ้าเพิ่มแกงกะหรี่อีก 1 ถ้วย ความพอใจที่เพิ่มขึ้นยังมากพอเมื่อเทียบกับไก่ทอดหรือไม่ ถ้า MU ของแกงกะหรี่ลดลงมากแล้ว การเลือกไก่ทอดอาจคุ้มใจกว่า</p>
+      <p><strong>Ordinal Utility</strong> จะดูว่า ระหว่าง 2 ชุดนี้ ชุดไหนอยู่บนเส้นความพอใจที่สูงกว่า โดยไม่ต้องวัดเป็นตัวเลข แต่ใช้การจัดอันดับความชอบร่วมกับข้อจำกัดด้านงบประมาณ</p>
+      <p><strong>Revealed Preference Theory</strong> จะมองจากการเลือกจริงของผู้บริโภค ถ้าในสถานการณ์เดียวกันคุณเลือกชุด 3 ถ้วย + ไก่ทอด 2 ชิ้น ทั้งที่ซื้ออีกชุดได้เหมือนกัน การตัดสินใจนั้นกำลังเปิดเผยว่าคุณพอใจชุดนี้มากกว่า</p>
+      <p>ทั้ง 3 ทฤษฎีตอบคำถามเดียวกันว่า ผู้บริโภคเลือกอย่างไร เพียงแต่ใช้เครื่องมือและมุมมองต่างกัน</p>
+    </div>
   </div>
+
+  <!-- 3 Theories -->
+  <div class="divider">3 ทฤษฎีในบทนี้</div>
+  <div class="theory-grid">
+
+    <button class="theory-card" onclick="location.href='chapter2_cardinal.html'">
+      <div class="theory-num num-1">1</div>
+      <div class="theory-body">
+        <p class="theory-name">Cardinal Utility Approach</p>
+        <p class="theory-sub">การวิเคราะห์โดยกำหนดหน่วยของอรรถประโยชน์</p>
+        <div class="theory-tags">
+          <span class="tag">TU / MU</span>
+          <span class="tag">กฎ Diminishing MU</span>
+          <span class="tag">MU = P</span>
+          <span class="tag">Consumer Surplus</span>
+          <span class="tag">MU/P = λ</span>
+        </div>
+        <p class="theory-desc">วัดความพอใจออกมาเป็นตัวเลข "Utils" ได้โดยตรง เหมาะสำหรับเข้าใจแนวคิดพื้นฐานและการคำนวณ</p>
+      </div>
+      <span class="theory-arrow">›</span>
+    </button>
+
+    <button class="theory-card" onclick="location.href='chapter2_ordinal.html'">
+      <div class="theory-num num-2">2</div>
+      <div class="theory-body">
+        <p class="theory-name">Ordinal Utility Approach</p>
+        <p class="theory-sub">การวิเคราะห์โดยเรียงลำดับอรรถประโยชน์</p>
+        <div class="theory-tags">
+          <span class="tag">Indifference Curve</span>
+          <span class="tag">Budget Line</span>
+          <span class="tag">MRS = Px/Py</span>
+          <span class="tag">ICC / Engel Curve</span>
+          <span class="tag">PCC / อุปสงค์</span>
+        </div>
+        <p class="theory-desc">ไม่ต้องวัดความพอใจเป็นตัวเลข — แค่บอกว่า "ชุดไหนดีกว่า" ก็พอ ครอบคลุมการวิเคราะห์ผลของรายได้และราคา</p>
+      </div>
+      <span class="theory-arrow">›</span>
+    </button>
+
+    <button class="theory-card" onclick="location.href='chapter2_revealed.html'">
+      <div class="theory-num num-3">3</div>
+      <div class="theory-body">
+        <p class="theory-name">Revealed Preference Theory</p>
+        <p class="theory-sub">ทฤษฎีที่ผู้บริโภคเปิดเผยความพอใจ</p>
+        <div class="theory-tags">
+          <span class="tag">Weak Axiom</span>
+          <span class="tag">Strong Axiom</span>
+          <span class="tag">พฤติกรรมจริง</span>
+        </div>
+        <p class="theory-desc">ไม่ถามว่า "ชอบอะไร" — แต่ดูจากสิ่งที่เลือกซื้อจริง ถ้าเลือก A แทน B แสดงว่า A ให้ความพอใจมากกว่า</p>
+      </div>
+      <span class="theory-arrow">›</span>
+    </button>
+
+  </div>
+
+  <!-- Compare table -->
+  <div class="divider">เปรียบเทียบ 3 ทฤษฎี</div>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th>ด้าน</th>
+        <th style="color:#185FA5">① Cardinal</th>
+        <th style="color:#0F6E56">② Ordinal</th>
+        <th style="color:#3D2F9E">③ Revealed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>สมมติฐาน</td>
+        <td>วัด MU เป็น Utils ได้</td>
+        <td>เรียงลำดับความพอใจได้</td>
+        <td>พฤติกรรมจริงสะท้อนความพอใจ</td>
+      </tr>
+      <tr>
+        <td>เครื่องมือ</td>
+        <td>TU, MU, กราฟ MU</td>
+        <td>Indifference Curve</td>
+        <td>Choice behavior</td>
+      </tr>
+      <tr>
+        <td>เงื่อนไขดุลยภาพ</td>
+        <td>MU/P = λ ทุกสินค้า</td>
+        <td>MRS = Px/Py</td>
+        <td>ไม่ต้องการเงื่อนไขพิเศษ</td>
+      </tr>
+      <tr>
+        <td>ข้อดี</td>
+        <td>เข้าใจง่าย คำนวณตรง</td>
+        <td>สมจริงกว่า ไม่ต้องวัด</td>
+        <td>อิงข้อมูลจริง ไม่ต้องสมมติ</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Progress hint -->
+  <div class="progress-hint">
+    <div class="dot-row">
+      <div class="dot todo"></div>
+      <div class="dot todo"></div>
+      <div class="dot todo"></div>
+    </div>
+    <span>คลิกทฤษฎีด้านบนเพื่อเริ่มเรียนได้เลย — แต่ละทฤษฎีมีกราฟ interactive และแบบฝึกหัด</span>
+  </div>
+
 </div>
 
 <script>
-/* ═══════════════════════════════════
-   SETUP & UTILS
-═══════════════════════════════════ */
-const NSEC=6;let cur=0,qA=0,qS=0,wm='';
-const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
-const TC=()=>DK()?'#d4d4d4':'#1a1a1a';
-const GC=()=>DK()?'rgba(255,255,255,.1)':'rgba(0,0,0,.08)';
-const AC=()=>DK()?'rgba(255,255,255,.25)':'rgba(0,0,0,.18)';
-
-function tog(b,t,d){const el=document.getElementById(b),bt=document.getElementById(t);const on=el.classList.toggle('on');bt.textContent=on?'ซ่อน':(d||'เผย');}
-function bpg(){const p=document.getElementById('pg');p.innerHTML='';for(let i=0;i<NSEC;i++){const d=document.createElement('div');d.className='pd';d.id='pd'+i;p.appendChild(d);}}
-function upg(n){for(let i=0;i<NSEC;i++)document.getElementById('pd'+i).className='pd'+(i<n?' dn':i===n?' ac':'');}
-
-function go(n){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById('s'+n).classList.add('active');
-  cur=n;upg(n);
-  setTimeout(()=>{
-    if(n===1)initS1();
-    else if(n===2)showW('ok');
-    else if(n===3)drawS3();
-    else if(n===4)drawS4();
-    else if(n===5)buildQuiz();
-  },20);
-  window.scrollTo(0,0);
+function toggleHook(){
+  const r=document.getElementById('hreveal');
+  const b=document.getElementById('hbtn');
+  const on=r.classList.toggle('on');
+  b.textContent=on?'ซ่อน':'เผยคำตอบ + โยงกับทฤษฎี';
 }
-
-/* ═══════════════════════════════════
-   HiDPI CANVAS SETUP
-   key fix: buffer = CSS size × DPR
-   ctx.scale(dpr,dpr) so all coords are in CSS pixels
-═══════════════════════════════════ */
-function setupCanvas(id, cssW, cssH){
-  const cv=document.getElementById(id);
-  const dpr=window.devicePixelRatio||1;
-  cv.width=Math.round(cssW*dpr);
-  cv.height=Math.round(cssH*dpr);
-  cv.style.width=cssW+'px';
-  cv.style.height=cssH+'px';
-  const ctx=cv.getContext('2d');
-  ctx.scale(dpr,dpr);
-  // Store CSS size for click handler conversion
-  cv._cssW=cssW; cv._cssH=cssH; cv._dpr=dpr;
-  return ctx;
-}
-
-/* Coordinate system: data → CSS pixels */
-function makeCoords(cssW, cssH, ml, mb, mt, mr, xMax, yMax){
-  const pw=cssW-ml-mr, ph=cssH-mt-mb;
-  return {
-    cssW,cssH,pw,ph,ml,mt,mr,mb,xMax,yMax,
-    x: v => ml + (v/xMax)*pw,
-    y: v => mt + ph - (v/yMax)*ph,
-    toDataX: px => (px-ml)/pw*xMax,
-    toDataY: py => (mt+ph-py)/ph*yMax,
-  };
-}
-
-/* Drawing primitives — all in CSS pixels */
-function drawAxes(ctx,c,xl,yl){
-  ctx.strokeStyle=AC();ctx.lineWidth=1.5;
-  ctx.beginPath();
-  ctx.moveTo(c.ml,c.mt); ctx.lineTo(c.ml,c.mt+c.ph); ctx.lineTo(c.ml+c.pw,c.mt+c.ph);
-  ctx.stroke();
-  ctx.fillStyle=TC();ctx.font='14px sans-serif';ctx.textAlign='center';
-  ctx.fillText(xl, c.ml+c.pw/2, c.mt+c.ph+36);
-  ctx.save();ctx.translate(15,c.mt+c.ph/2);ctx.rotate(-Math.PI/2);
-  ctx.fillText(yl,0,0);ctx.restore();
-}
-function drawGrid(ctx,c,xs,ys){
-  ctx.font='12px sans-serif';
-  xs.forEach(v=>{
-    ctx.strokeStyle=GC();ctx.lineWidth=.5;
-    ctx.beginPath();ctx.moveTo(c.x(v),c.mt);ctx.lineTo(c.x(v),c.mt+c.ph);ctx.stroke();
-    ctx.fillStyle=TC();ctx.textAlign='center';
-    ctx.fillText(v, c.x(v), c.mt+c.ph+18);
-  });
-  ys.forEach(v=>{
-    ctx.strokeStyle=GC();ctx.lineWidth=.5;
-    ctx.beginPath();ctx.moveTo(c.ml,c.y(v));ctx.lineTo(c.ml+c.pw,c.y(v));ctx.stroke();
-    ctx.fillStyle=TC();ctx.textAlign='right';
-    ctx.fillText(v, c.ml-7, c.y(v)+5);
-  });
-}
-function drawLine(ctx,x1,y1,x2,y2,col,lw,dash){
-  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.setLineDash(dash||[]);
-  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
-  ctx.setLineDash([]);
-}
-/* Draw a dot — crisp, no bleed */
-function drawDot(ctx,px,py,col,r,label,side,fs){
-  fs=fs||13;
-  ctx.fillStyle=col;
-  ctx.beginPath();ctx.arc(px,py,r,0,2*Math.PI);ctx.fill();
-  ctx.strokeStyle=DK()?'#000':'#fff';ctx.lineWidth=2.5;
-  ctx.beginPath();ctx.arc(px,py,r,0,2*Math.PI);ctx.stroke();
-  if(label){
-    ctx.fillStyle=col;ctx.font=`bold ${fs}px sans-serif`;
-    const off=r+7;
-    if(side==='r'){ctx.textAlign='left';ctx.fillText(label,px+off,py-off+4);}
-    else if(side==='l'){ctx.textAlign='right';ctx.fillText(label,px-off,py-off+4);}
-    else{ctx.textAlign='center';ctx.fillText(label,px,py-off-2);}
-  }
-}
-function drawArrow(ctx,x1,y1,x2,y2,col,lw){
-  drawLine(ctx,x1,y1,x2,y2,col,lw);
-  const dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy),u=12;
-  if(len<1)return;
-  const ux=dx/len,uy=dy/len;
-  ctx.fillStyle=col;
-  ctx.beginPath();
-  ctx.moveTo(x2,y2);
-  ctx.lineTo(x2-ux*u-uy*u*.5,y2-uy*u+ux*u*.5);
-  ctx.lineTo(x2-ux*u+uy*u*.5,y2-uy*u-ux*u*.5);
-  ctx.closePath();ctx.fill();
-}
-function txt(ctx,text,x,y,col,fs,align,bold){
-  ctx.fillStyle=col;
-  ctx.font=(bold?'bold ':'')+fs+'px sans-serif';
-  ctx.textAlign=align||'left';
-  ctx.fillText(text,x,y);
-}
-
-/* ═══════════════════════════════════
-   S1 — INTERACTIVE BUDGET LINE
-   Budget: X+Y=5, A=(2,3) chosen
-   Verified: all example pts on BL ✓
-═══════════════════════════════════ */
-let S1C=null;
-const AX=2,AY=3;
-
-function initS1(){
-  const CSS_W=Math.min(680,window.innerWidth-32);
-  const CSS_H=Math.round(CSS_W*0.68);
-  const ctx=setupCanvas('c1',CSS_W,CSS_H);
-  S1C=makeCoords(CSS_W,CSS_H,60,50,30,20,7,7);
-  renderS1(ctx,null,null);
-
-  const cv=document.getElementById('c1');
-  cv.onclick=e=>{
-    const r=cv.getBoundingClientRect();
-    // Convert from screen px → CSS px → data
-    const cssx=(e.clientX-r.left)*cv._cssW/r.width;
-    const cssy=(e.clientY-r.top)*cv._cssH/r.height;
-    const dx=S1C.toDataX(cssx), dy=S1C.toDataY(cssy);
-    if(dx<0||dx>S1C.xMax||dy<0||dy>S1C.yMax)return;
-    const xs=Math.round(dx*10)/10, ys=Math.round(dy*10)/10;
-    const ctx2=cv.getContext('2d');
-    ctx2.save();
-    const dpr=cv._dpr||1;
-    ctx2.setTransform(dpr,0,0,dpr,0,0); // reset to scaled
-    renderS1(ctx2,xs,ys);
-    ctx2.restore();
-  };
-}
-
-function renderS1(ctx,clickX,clickY){
-  const c=S1C; if(!c)return;
-  ctx.clearRect(0,0,c.cssW,c.cssH);
-
-  // Preferred region (upper-right of A)
-  ctx.fillStyle=DK()?'rgba(29,158,117,.15)':'rgba(29,158,117,.11)';
-  ctx.fillRect(c.x(AX),c.mt, c.pw-(c.x(AX)-c.ml), c.y(AY)-c.mt);
-
-  // Non-preferred region (inside budget line: triangle)
-  ctx.fillStyle=DK()?'rgba(220,80,80,.12)':'rgba(220,80,80,.08)';
-  ctx.beginPath();
-  ctx.moveTo(c.x(0),c.y(5));ctx.lineTo(c.x(5),c.y(0));
-  ctx.lineTo(c.ml,c.mt+c.ph);ctx.closePath();ctx.fill();
-
-  drawAxes(ctx,c,'แอปเปิ้ล (X)','กล้วย (Y)');
-  drawGrid(ctx,c,[1,2,3,4,5,6],[1,2,3,4,5,6]);
-
-  // Budget line X+Y=5 — solid, thick
-  drawLine(ctx,c.x(0),c.y(5),c.x(5),c.y(0),'#534ab7',3);
-  txt(ctx,'เส้นงบ: X+Y=5',c.x(3.3),c.y(1.9),'#3d2f9e',13,'left',true);
-
-  // Region labels
-  txt(ctx,'Preferred Region',c.x(AX+.2),c.y(AY+1.3),'#0f6e56',13,'left',true);
-  txt(ctx,'(P ≻ A)',c.x(AX+.2),c.y(AY+.6),'#0f6e56',12,'left');
-  txt(ctx,'Non-preferred Region',c.x(4.6),c.y(.5),'#a32d2d',13,'right',true);
-  txt(ctx,'(A ≻ P)',c.x(4.6),c.y(.5)+17,'#a32d2d',12,'right');
-
-  // Example points on BL — verified: X+Y=5 for each
-  const exPts=[[0,5,'B=(0,5)','r'],[3,2,'C=(3,2)','r'],[5,0,'D=(5,0)','l']];
-  exPts.forEach(([x,y,lb,si])=>{
-    // verify
-    if(x+y!==5)console.warn(`Point (${x},${y}) not on BL!`);
-    drawLine(ctx,c.x(AX),c.y(AY),c.x(x),c.y(y),'#534ab799',1.2,[4,3]);
-    drawDot(ctx,c.x(x),c.y(y),'#534ab7',8,lb,si,12);
-    // A≻ label at midpoint
-    const mx=(AX+x)/2, my=(AY+y)/2;
-    txt(ctx,'A≻',c.x(mx)-3,c.y(my)-5,'#534ab7',11,'center');
-  });
-
-  // Point A — largest, most prominent
-  drawDot(ctx,c.x(AX),c.y(AY),'#e24b4a',13,'A=(2,3) ← เลือก','r',14);
-
-  // Instruction
-  txt(ctx,'👆 คลิกจุดใดก็ได้',c.ml+c.pw/2,c.mt+20,'#534ab7',13,'center',true);
-
-  // Clicked point
-  if(clickX!==null){
-    const inBL=(clickX+clickY)<=5.05;
-    const dom=clickX>=AX&&clickY>=AY&&!(clickX===AX&&clickY===AY);
-    let col;
-    if(clickX===AX&&clickY===AY)col='#e24b4a';
-    else if(dom)col='#1d9e75';
-    else if(inBL)col='#e24b4a';
-    else col='#d85a30';
-
-    drawDot(ctx,c.x(clickX),c.y(clickY),col,11,`(${clickX},${clickY})`,'r',13);
-    if(inBL&&!dom&&!(clickX===AX&&clickY===AY)){
-      drawLine(ctx,c.x(AX),c.y(AY),c.x(clickX),c.y(clickY),col+'99',1.5,[4,3]);
-    }
-    // Update feedback
-    let msg,cls;
-    if(clickX===AX&&clickY===AY){msg='📍 นั่นคือจุด A เอง!';cls='info';}
-    else if(dom){msg=`✅ (${clickX},${clickY}) ≻ A — มีแอปเปิ้ล ${clickX}≥2 AND กล้วย ${clickY}≥3 ทั้งคู่ → ดีกว่า A แน่ๆ`;cls='ok';}
-    else if(inBL){msg=`❌ A ≻ (${clickX},${clickY}) — จุดนี้ซื้อได้ด้วย 50฿ (${clickX}+${clickY}=${clickX+clickY}≤5) แต่นายอาทิตย์ไม่เลือก`;cls='no';}
-    else{msg=`❓ (${clickX},${clickY}) ซื้อไม่ได้ (${clickX}+${clickY}=${clickX+clickY}>5) → ยังสรุปตรงๆ ไม่ได้`;cls='warn';}
-    const fb=document.getElementById('c1fb');fb.textContent=msg;fb.className='fb on '+cls;
-  }
-}
-
-/* ═══════════════════════════════════
-   S2 — WARP
-   BL1: X+Y=5, A=(2,3)✓ B=(4,1)✓
-   OK:  BL2: X+Y=4, B2=(3,1)✓, A outside(5>4)✓
-   Viol: BL2: X+Y=6, B2=(4,2)✓, A inside(5≤6)✓
-═══════════════════════════════════ */
-function showW(m){
-  wm=m;
-  const wo=document.getElementById('wok'),wn=document.getElementById('wno');
-  const base='flex:1;padding:10px 14px;border-radius:10px;font-size:13.5px;cursor:pointer;text-align:center;border:2px solid ';
-  wo.style.cssText=base+(m==='ok'?`#1d9e75;color:#0f6e56;background:${DK()?'#0d3d28':'#e1f5ee'}`:
-    `#ddd;color:#666;background:transparent`);
-  wn.style.cssText=base+(m==='no'?`#e24b4a;color:#a32d2d;background:${DK()?'#3d1010':'#fcebeb'}`:
-    `#ddd;color:#666;background:transparent`);
-
-  const CSS_W=Math.min(680,window.innerWidth-32);
-  const CSS_H=Math.round(CSS_W*0.55);
-  const ctx=setupCanvas('c2',CSS_W,CSS_H);
-  ctx.clearRect(0,0,CSS_W,CSS_H);
-
-  const half=Math.round(CSS_W/2)-6;
-  const ml=52,mb=42,mt=36,mr=10;
-  const xMax=7,yMax=7;
-  const ph=CSS_H-mt-mb;
-
-  function mk(offsetX){
-    const pw=half-ml-mr;
-    return{
-      x:v=>offsetX+ml+(v/xMax)*pw,
-      y:v=>mt+ph-(v/yMax)*ph,
-      cx:offsetX+ml+pw/2,
-    };
-  }
-  const L=mk(0), R=mk(half+12);
-
-  function panel(M,title,titleCol){
-    ctx.strokeStyle=AC();ctx.lineWidth=1.5;
-    ctx.beginPath();
-    ctx.moveTo(M.x(0),M.y(0)+ph); // left bottom
-    ctx.lineTo(M.x(0),M.y(0)); // left top  -- wait, axes
-    // draw axis
-    ctx.moveTo(M.x(0),mt);ctx.lineTo(M.x(0),mt+ph);ctx.lineTo(M.x(xMax*.86),mt+ph);
-    ctx.stroke();
-    txt(ctx,'X',M.cx,mt+ph+28,TC(),13,'center');
-    txt(ctx,'Y',M.x(0)-30,mt+ph/2,TC(),13,'center');
-    for(let v=1;v<=6;v++){
-      ctx.strokeStyle=GC();ctx.lineWidth=.5;
-      ctx.beginPath();ctx.moveTo(M.x(v),mt);ctx.lineTo(M.x(v),mt+ph);ctx.stroke();
-      ctx.beginPath();ctx.moveTo(M.x(0),M.y(v));ctx.lineTo(M.x(xMax*.86),M.y(v));ctx.stroke();
-      ctx.fillStyle=TC();ctx.font='11px sans-serif';
-      ctx.textAlign='center';ctx.fillText(v,M.x(v),mt+ph+16);
-      ctx.textAlign='right';ctx.fillText(v,M.x(0)-6,M.y(v)+4);
-    }
-    txt(ctx,title,M.cx,mt-14,titleCol,13,'center',true);
-  }
-
-  panel(L,'สัปดาห์ 1',TC());
-  panel(R,m==='ok'?'สัปดาห์ 2  ✓  ไม่ขัดแย้ง':'สัปดาห์ 2  ✗  WARP ละเมิด!',m==='ok'?'#0f6e56':'#a32d2d');
-
-  // LEFT: BL1 X+Y=5, A=(2,3), B=(4,1)
-  drawLine(ctx,L.x(0),L.y(5),L.x(5),L.y(0),'#534ab7',3);
-  txt(ctx,'BL₁: X+Y=5',L.x(2.6),L.y(1.6),'#3d2f9e',12,'left',true);
-  // A≻B connecting dash
-  drawLine(ctx,L.x(2),L.y(3),L.x(4),L.y(1),'#534ab755',1.5,[4,3]);
-  txt(ctx,'A≻B',L.x(3.1),L.y(2.1),'#534ab7',12,'center',true);
-  drawDot(ctx,L.x(4),L.y(1),'#534ab7',9,'B=(4,1)','r',12);
-  drawDot(ctx,L.x(2),L.y(3),'#e24b4a',11,'A=(2,3)✓','r',13);
-
-  // RIGHT: depends on mode
-  if(m==='ok'){
-    // BL2: X+Y=4 → (0,4)→(4,0)
-    // B2=(3,1): 3+1=4 ✓ on BL2
-    // A=(2,3): 2+3=5 > 4 → outside ✓
-    drawLine(ctx,R.x(0),R.y(4),R.x(4),R.y(0),'#d85a30',3,[8,5]);
-    txt(ctx,'BL₂: X+Y=4',R.x(1.5),R.y(2.2),'#993c1d',12,'left',true);
-    // A is outside — draw faded with circle
-    ctx.globalAlpha=.3;drawDot(ctx,R.x(2),R.y(3),'#888',8,'A','r',12);ctx.globalAlpha=1;
-    ctx.fillStyle=DK()?'rgba(29,158,117,.22)':'rgba(29,158,117,.18)';
-    ctx.beginPath();ctx.arc(R.x(2),R.y(3),22,0,2*Math.PI);ctx.fill();
-    txt(ctx,'A อยู่นอก BL₂',R.x(2),R.y(3)+30,'#0f6e56',12,'center',true);
-    txt(ctx,'(2+3=5 > 4)',R.x(2),R.y(3)+46,'#0f6e56',11,'center');
-    drawDot(ctx,R.x(3),R.y(1),'#d85a30',11,'B=(3,1)✓ เลือก','l',13);
-    document.getElementById('c2fb').innerHTML='<strong>✓ WARP ไม่ขัดแย้ง</strong> — เลือก B=(3,1) แต่ A=(2,3) ซื้อไม่ได้ใน BL₂ เพราะ 2+3=5 > 4 → ไม่ขัดแย้ง! ราคาเปลี่ยนทำให้ A แพงเกินงบ';
-    document.getElementById('c2fb').className='fb on ok';
-  } else {
-    // BL2: X+Y=6 → (0,6)→(6,0)
-    // B2=(4,2): 4+2=6 ✓ on BL2
-    // A=(2,3): 2+3=5 ≤ 6 → inside ✓
-    drawLine(ctx,R.x(0),R.y(6),R.x(6),R.y(0),'#e24b4a',3,[8,5]);
-    txt(ctx,'BL₂: X+Y=6',R.x(3.5),R.y(1.8),'#a32d2d',12,'right',true);
-    // A inside — highlighted
-    ctx.fillStyle='rgba(220,80,80,.18)';
-    ctx.beginPath();ctx.arc(R.x(2),R.y(3),22,0,2*Math.PI);ctx.fill();
-    drawDot(ctx,R.x(2),R.y(3),'#e24b4a',9,'A=(2,3)','r',12);
-    txt(ctx,'A ยังซื้อได้!',R.x(2),R.y(3)+30,'#a32d2d',12,'center',true);
-    txt(ctx,'(2+3=5 ≤ 6)',R.x(2),R.y(3)+46,'#a32d2d',11,'center');
-    drawDot(ctx,R.x(4),R.y(2),'#d85a30',11,'B=(4,2)✓ เลือก','l',13);
-    drawLine(ctx,R.x(4),R.y(2),R.x(2),R.y(3),'#e24b4a88',1.5,[3,3]);
-    txt(ctx,'→ B≻A ???',R.x(3.1),R.y(2.4),'#a32d2d',12,'center',true);
-    document.getElementById('c2fb').innerHTML='<strong>✗ WARP ถูกละเมิด!</strong> — เลือก B=(4,2) ทั้งที่ A=(2,3) ยังซื้อได้ใน BL₂ (2+3=5 ≤ 6) → B≻A??? แต่สัปดาห์ 1 A≻B → ขัดแย้ง!';
-    document.getElementById('c2fb').className='fb on no';
-  }
-}
-
-/* ═══════════════════════════════════
-   S3 — SARP
-   BL1: X+Y=8, A=(4,4)✓ B=(2,6)✓
-   BL2: 2X+Y=10, B=(2,6)✓ C=(1,3) affordable(5≤10)✓
-═══════════════════════════════════ */
-function drawS3(){
-  const CSS_W=Math.min(680,window.innerWidth-32);
-  const CSS_H=Math.round(CSS_W*0.68);
-  const ctx=setupCanvas('c3',CSS_W,CSS_H);
-  ctx.clearRect(0,0,CSS_W,CSS_H);
-  const c=makeCoords(CSS_W,CSS_H,60,50,30,20,11,11);
-  drawAxes(ctx,c,'X','Y');
-  drawGrid(ctx,c,[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]);
-
-  // BL1: X+Y=8 → (0,8) to (8,0)
-  drawLine(ctx,c.x(0),c.y(8),c.x(8),c.y(0),'#534ab7',3);
-  txt(ctx,'BL₁: X+Y=8',c.x(7.2),c.y(.5),'#3d2f9e',13,'right',true);
-
-  // BL2: 2X+Y=10 → (0,10) to (5,0)
-  // At B=(2,6): 2*2+6=10 ✓ on BL2
-  drawLine(ctx,c.x(0),c.y(10),c.x(5),c.y(0),'#d85a30',3,[9,5]);
-  txt(ctx,'BL₂: 2X+Y=10',c.x(4.8),c.y(.5),'#993c1d',13,'right',true);
-
-  // Points — each verified above
-  // A=(4,4): on BL1 (4+4=8 ✓)
-  // B=(2,6): on BL1 (2+6=8 ✓) AND on BL2 (2*2+6=10 ✓)
-  // C=(1,3): inside BL2 (2*1+3=5 ≤ 10 ✓, affordable)
-  drawDot(ctx,c.x(4),c.y(4),'#e24b4a',14,'A=(4,4) ✓ เลือก บน BL₁','r',14);
-  drawDot(ctx,c.x(2),c.y(6),'#534ab7',12,'B=(2,6) ✓ เลือก บน BL₁ และ BL₂','r',13);
-  drawDot(ctx,c.x(1),c.y(3),'#d85a30',12,'C=(1,3) ซื้อได้ใน BL₂','r',13);
-
-  // A≻B (dashed connection)
-  drawLine(ctx,c.x(4),c.y(4),c.x(2),c.y(6),'#534ab777',1.5,[4,3]);
-  txt(ctx,'① A≻B',c.x(2.8),c.y(5.4),'#534ab7',13,'center',true);
-
-  // B≻C (dashed connection)
-  drawLine(ctx,c.x(2),c.y(6),c.x(1),c.y(3),'#d85a3077',1.5,[4,3]);
-  txt(ctx,'② B≻C',c.x(1.4),c.y(4.7),'#993c1d',13,'center',true);
-
-  // A≻C (SARP — green arrow, solid)
-  drawArrow(ctx,c.x(4),c.y(4),c.x(1),c.y(3),'#1d9e75',2.5);
-  txt(ctx,'③ ∴ A≻C (SARP)',c.x(2.7),c.y(3.2),'#0f6e56',13,'center',true);
-
-  // Summary box
-  const bx=c.ml, by=c.mt, bw=240, bh=86;
-  ctx.fillStyle=DK()?'rgba(20,16,40,.9)':'rgba(255,255,255,.92)';
-  ctx.strokeStyle='#534ab7';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.roundRect(bx,by,bw,bh,8);ctx.fill();ctx.stroke();
-  txt(ctx,'สรุป (SARP Transitivity)',bx+12,by+20,'#534ab7',13,'left',true);
-  txt(ctx,'① A≻B (สังเกตบน BL₁)',bx+12,by+37,TC(),12);
-  txt(ctx,'② B≻C (สังเกตบน BL₂)',bx+12,by+52,TC(),12);
-  txt(ctx,'③ ∴ A≻C (ถ่ายทอดได้)',bx+12,by+68,'#0f6e56',12,'left',true);
-
-  // Violation warning
-  drawLine(ctx,c.x(0),c.y(7),c.x(7),c.y(0),'rgba(180,50,50,.4)',1.5,[4,4]);
-  txt(ctx,'BL₃ (สมมติ)',c.x(6.8),c.y(.4),'rgba(180,50,50,.8)',12,'right');
-  txt(ctx,'⚠ ถ้าเลือก C เมื่อ A ซื้อได้ = SARP ละเมิด!',c.x(5.5),c.y(1.8),'rgba(180,50,50,.9)',12,'right');
-}
-
-/* ═══════════════════════════════════
-   S4 — IC DERIVATION
-   A=(6,8), IC: y=48/x
-   BL1: X+Y=14   → A: 6+8=14 ✓
-   BL2: 2X+Y=20  → A: 12+8=20 ✓
-   BL3: 0.5X+Y=11→ A: 3+8=11 ✓
-═══════════════════════════════════ */
-function drawS4(){
-  const CSS_W=Math.min(680,window.innerWidth-32);
-  const CSS_H=Math.round(CSS_W*0.72);
-  const ctx=setupCanvas('c4',CSS_W,CSS_H);
-  ctx.clearRect(0,0,CSS_W,CSS_H);
-  const c=makeCoords(CSS_W,CSS_H,60,50,30,20,15,15);
-  const Ax=6,Ay=8,k=Ax*Ay; // k=48
-
-  // Preferred region: upper-right of A
-  ctx.fillStyle=DK()?'rgba(29,158,117,.15)':'rgba(29,158,117,.11)';
-  ctx.fillRect(c.x(Ax),c.mt, c.pw-(c.x(Ax)-c.ml), c.y(Ay)-c.mt);
-
-  // Non-preferred region: below BL3 (flattest slope -0.5: y=11-0.5x)
-  // BL3 passes through A, slope -0.5 is flattest → region below it = non-preferred
-  ctx.fillStyle=DK()?'rgba(220,80,80,.12)':'rgba(220,80,80,.08)';
-  ctx.beginPath();ctx.moveTo(c.x(0),c.y(11));
-  for(let x=0;x<=22&&11-.5*x>=0;x+=.2){ctx.lineTo(c.x(x),c.y(11-.5*x));}
-  ctx.lineTo(c.ml+c.pw,c.mt+c.ph);ctx.lineTo(c.ml,c.mt+c.ph);
-  ctx.closePath();ctx.fill();
-
-  drawAxes(ctx,c,'X','Y');
-  drawGrid(ctx,c,[2,4,6,8,10,12,14],[2,4,6,8,10,12,14]);
-
-  // Budget lines through A — all dashed (budget constraints from different situations)
-  const BLs=[
-    {yI:14,xI:14,col:'#534ab7',lbl:'BL₁: X+Y=14 (slope −1)'},
-    {yI:20,xI:10,col:'#d85a30',lbl:'BL₂: 2X+Y=20 (slope −2)'},
-    {yI:11,xI:22,col:'#1d9e75',lbl:'BL₃: 0.5X+Y=11 (slope −0.5)'},
-  ];
-  BLs.forEach(({yI,xI,col,lbl})=>{
-    const slp=yI/xI;
-    let bx0=0,by0=Math.min(yI,c.yMax);
-    if(yI>c.yMax) bx0=(yI-c.yMax)/slp;
-    const bx1=Math.min(xI,c.xMax), by1=Math.max(0,yI-slp*bx1);
-    drawLine(ctx,c.x(bx0),c.y(by0),c.x(bx1),c.y(by1),col,2.5,[8,5]);
-    // Verify A on this BL
-    // BL1: 6+8=14 ✓, BL2: 12+8=20 ✓, BL3: 3+8=11 ✓
-    const margin=4;
-    const lblX=c.x(bx1)>c.ml+c.pw-60?c.x(bx1)-margin:c.x(bx1)+margin;
-    txt(ctx,lbl,lblX,c.y(by1)-6,col,11,c.x(bx1)>c.ml+c.pw-60?'right':'left',true);
-  });
-
-  // IC curve: y=48/x — passes through A=(6,8) ✓
-  ctx.strokeStyle='#534ab7';ctx.lineWidth=3;ctx.setLineDash([8,5]);
-  ctx.beginPath();let go=false;
-  for(let x=.5;x<=c.xMax-.1;x+=.1){
-    const y=k/x;
-    if(y<.1||y>c.yMax-.1){go=false;continue;}
-    go?ctx.lineTo(c.x(x),c.y(y)):(ctx.moveTo(c.x(x),c.y(y)),go=true);
-  }
-  ctx.stroke();ctx.setLineDash([]);
-
-  // Point A — large, centered between the 3 BLs
-  drawDot(ctx,c.x(Ax),c.y(Ay),'#e24b4a',14,'A=(6,8) ← เลือก','r',14);
-
-  // Labels
-  txt(ctx,'Preferred Region',c.x(Ax+.3),c.y(Ay+1.6),'#0f6e56',13,'left',true);
-  txt(ctx,'(ทุกอย่างมากกว่า A)',c.x(Ax+.3),c.y(Ay+.8),'#0f6e56',12,'left');
-  txt(ctx,'Non-preferred Region',c.x(Ax-.5),c.y(3.5),'#a32d2d',13,'right',true);
-  txt(ctx,'(A ซื้อได้แต่ไม่เลือก)',c.x(Ax-.5),c.y(3.5)+18,'#a32d2d',12,'right');
-  txt(ctx,'IC (ต้องอยู่ระหว่างสองเขต)',c.x(11),c.y(5),'#3d2f9e',13,'right',true);
-  ctx.fillStyle=DK()?'rgba(83,74,183,.18)':'rgba(83,74,183,.1)';
-  // Indeterminate zone label
-  txt(ctx,'Indeterminate Zone',c.x(2.5),c.y(7),'#534ab7',13,'center');
-  txt(ctx,'← IC ต้องผ่านที่นี่',c.x(2.5),c.y(6.3),'#534ab7',12,'center');
-
-  // Title
-  txt(ctx,'3 เส้นงบผ่าน A (slope ต่างกัน) บีบพื้นที่ IC',c.ml+c.pw/2,c.mt-8,TC(),13,'center',true);
-}
-
-/* ═══════════════════════════════════  QUIZ  ═══════════════════════════════════ */
-const QQ=[
-  {q:'มีเงิน 100฿ ซื้อ (ข้าว 2×30฿)+(น้ำ 4×10฿) = 100฿ ทั้งที่ (น้ำ 10 ขวด×10฿) ก็ซื้อได้ เราสรุปอะไรได้?',opts:['สรุปไม่ได้','(ข้าว2+น้ำ4) ≻ (น้ำ10) — เปิดเผยว่าชอบมากกว่า','(น้ำ10) ≻ (ข้าว2+น้ำ4)','ราคาน้ำถูกไป'],ans:1,ex:'เลือก (ข้าว2+น้ำ4) ทั้งที่ (น้ำ10) ซื้อได้ด้วยเงินเท่ากัน = เปิดเผยว่าชอบมากกว่า (น้ำ10)'},
-  {q:'ทำไมเรียกว่า "Revealed" (เปิดเผย) Preference?',opts:['ต้องสอบถามผู้บริโภคโดยตรง','ความชอบถูกเปิดเผยผ่านพฤติกรรมการซื้อ ไม่ใช่คำพูด','วัด utility ได้แม่นกว่า','ต้องใช้ IC ก่อน'],ans:1,ex:'Revealed = เปิดเผยผ่านการกระทำ ดูว่าซื้ออะไร ไม่ต้องถาม ไม่ต้องวัด utility'},
-  {q:'WARP: ถ้า A≻B (revealed) แล้วในสถานการณ์ใหม่ B ถูกเลือก WARP จะโอเคเมื่อใด?',opts:['เมื่อราคาเปลี่ยน','เมื่อ A ยังซื้อได้อยู่','เมื่อ A ซื้อไม่ได้แล้วในสถานการณ์ใหม่','ไม่โอเคทุกกรณี'],ans:2,ex:'WARP ไม่ขัดแย้งเมื่อ A ซื้อไม่ได้ในสถานการณ์ใหม่ (นอกเส้นงบ) แต่ถ้า A ยังซื้อได้แต่เลือก B = ขัดแย้ง!'},
-  {q:'A≻B, B≻C → SARP บอกว่าต้องได้อะไร?',opts:['C≻A','A≻C (transitivity)','B≻A','ไม่รู้'],ans:1,ex:'SARP: transitivity — A≻B≻C → A≻C ถ้าเลือก C เมื่อ A ซื้อได้ = SARP ละเมิด'},
-  {q:'IC ที่ได้จาก Revealed Preference ต้องอยู่ที่ไหน?',opts:['ใน Preferred Region','ใน Non-preferred Region','ระหว่าง Preferred และ Non-preferred (Indeterminate Zone)','บน Budget Line เสมอ'],ans:2,ex:'IC อยู่ระหว่างสองเขต ยิ่งสังเกตมากครั้ง ยิ่งบีบ IC ให้แม่นขึ้น จนได้ IC ที่แท้จริง'}
-];
-function buildQuiz(){
-  const z=document.getElementById('qz');if(z.children.length)return;
-  qA=0;qS=0;
-  QQ.forEach((q,qi)=>{
-    const d=document.createElement('div');d.style.marginBottom='18px';
-    d.innerHTML=`<p style="font-size:14px;font-weight:500;margin:0 0 10px;line-height:1.65">${qi+1}. ${q.q}</p>
-    ${q.opts.map((o,oi)=>`<button class="qopt" id="q${qi}_${oi}" onclick="aq(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`).join('')}
-    <div class="fb" id="qf${qi}"></div>`;
-    z.appendChild(d);
-  });
-}
-function aq(qi,oi){
-  const q=QQ[qi];
-  for(let i=0;i<q.opts.length;i++)document.getElementById(`q${qi}_${i}`).disabled=true;
-  const btn=document.getElementById(`q${qi}_${oi}`),fb=document.getElementById(`qf${qi}`);
-  if(oi===q.ans){btn.className='qopt ok';qS++;fb.textContent='✓ ถูก! '+q.ex;fb.className='fb on ok';}
-  else{btn.className='qopt no';document.getElementById(`q${qi}_${q.ans}`).className='qopt ok';fb.textContent='✗ ไม่ถูก — '+q.ex;fb.className='fb on no';}
-  qA++;
-  if(qA===QQ.length){
-    const msg=qS>=4?'ยอดเยี่ยม! เข้าใจ Revealed Preference ครบแล้ว':qS>=3?'ดีมาก ทบทวนจุดที่พลาด':'ลองอ่านทบทวนและทำใหม่';
-    const s=document.createElement('div');s.style.cssText='text-align:center;padding:18px 0';
-    s.innerHTML=`<div class="sc">${qS}/${QQ.length}</div><p style="font-size:14px;color:#666;margin:0">${msg}</p>`;
-    document.getElementById('qz').appendChild(s);
-    document.getElementById('qnav').style.display='flex';
-  }
-}
-function rst(){qA=0;qS=0;document.getElementById('qz').innerHTML='';document.getElementById('qnav').style.display='none';go(0);}
-
-bpg();upg(0);
 </script>
+
 </div></div></body>
 </html>
