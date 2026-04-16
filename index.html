@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajarn.Kwan · ลงทะเบียนเข้าร่วม</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAaETnNaEuZjc6qZxQCSajFs5eXDHIsnbg",
+  authDomain: "ajarnkwan-hub.firebaseapp.com",
+  projectId: "ajarnkwan-hub",
+  storageBucket: "ajarnkwan-hub.firebasestorage.app",
+  messagingSenderId: "467164442711",
+  appId: "1:467164442711:web:ecd054c48b508f2f8bb312",
+  measurementId: "G-7VTM5TZVY1"
+};
+
+const app   = initializeApp(firebaseConfig);
+const auth  = getAuth(app);
+const db    = getFirestore(app);
+const gProvider = new GoogleAuthProvider();
+
+// ── Admin email (เปลี่ยนเป็น email ของอาจารย์) ──
+const ADMIN_EMAIL = 'ajarn.kwan@hotmail.com';
+
+// ── Generate member number ──
+async function genMemberNum() {
+  const now = new Date();
+  const yy = (now.getFullYear() + 543).toString().slice(-2);
+  const mm = (now.getMonth() + 1).toString().padStart(2, '0');
+  const prefix = yy + mm;
+  const snap = await getDocs(collection(db, 'members'));
+  const count = snap.docs.filter(d => (d.data().memberNum || '').startsWith(prefix)).length;
+  return prefix + (count + 1).toString().padStart(3, '0');
+}
+
+// ── Auth state listener ──
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const memberDoc = await getDoc(doc(db, 'members', user.uid));
+    if (user.email === ADMIN_EMAIL) {
+      showAdmin(user);
+    } else if (memberDoc.exists()) {
+      showHub(user, memberDoc.data());
+    } else {
+      showRegister(user);
+    }
+  } else {
+    showLogin();
+  }
+});
+
+// ── LOGIN ──
+window.loginGoogle = async () => {
+  try {
+    setLoading('login', true);
+    await signInWithPopup(auth, gProvider);
+  } catch(e) { showError('login-err', e.code); setLoading('login', false); }
+};
+
+window.loginEmail = async () => {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  if (!email || !pass) { showError('login-err','กรุณากรอก email และรหัสผ่านค่ะ'); return; }
+  try {
+    setLoading('login', true);
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    showError('login-err', e.code === 'auth/invalid-credential' ? 'Email หรือรหัสผ่านไม่ถูกต้องค่ะ' : e.code);
+    setLoading('login', false);
+  }
+};
+
+window.goSignup = () => { showView('view-signup'); };
+window.goLogin  = () => { showView('view-login'); };
+
+// ── SIGNUP ──
+window.signupEmail = async () => {
+  const email = document.getElementById('su-email').value.trim();
+  const pass  = document.getElementById('su-pass').value;
+  const pass2 = document.getElementById('su-pass2').value;
+  if (!email || !pass) { showError('su-err','กรุณากรอก email และรหัสผ่านค่ะ'); return; }
+  if (pass !== pass2)  { showError('su-err','รหัสผ่านไม่ตรงกันค่ะ'); return; }
+  if (pass.length < 6) { showError('su-err','รหัสผ่านต้องมีอย่างน้อย 6 ตัวค่ะ'); return; }
+  try {
+    setLoading('signup', true);
+    await createUserWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    showError('su-err', e.code === 'auth/email-already-in-use' ? 'Email นี้มีบัญชีแล้วค่ะ กรุณา login' : e.code);
+    setLoading('signup', false);
+  }
+};
+
+// ── REGISTER (profile form) ──
+let curStep = 0;
+const regAns = { name:'', edu:'', occ:'', occOther:'', interests:[], intOther:'' };
+
+window.goStep = (n) => {
+  if (n > curStep) {
+    if (curStep===0 && !regAns.name) return;
+    if (curStep===1 && !regAns.edu) return;
+    if (curStep===2 && !regAns.occ) return;
+  }
+  document.getElementById('rstep-'+curStep).classList.remove('active');
+  curStep = n;
+  document.getElementById('rstep-'+n).classList.add('active');
+  const em = document.querySelector('#rstep-'+n+' .step-emoji');
+  if (em) { em.style.animation='none'; em.offsetHeight; em.style.animation='bop .5s ease'; }
+  for (let i=0;i<4;i++) {
+    document.getElementById('rdot-'+i).className = 'step-dot'+(i===curStep?' active':i<curStep?' done':'');
+  }
+  document.getElementById('rprog').textContent = 'ขั้นที่ '+(curStep+1)+' / 4';
+};
+
+window.pickEdu = (btn) => {
+  document.getElementById('edu-list').querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  regAns.edu = btn.textContent.trim();
+  document.getElementById('rbtn-1').disabled = false;
+};
+
+window.pickOcc = (btn, isOther) => {
+  document.getElementById('occ-list').querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  regAns.occ = isOther ? 'อื่นๆ' : btn.textContent.trim();
+  document.getElementById('rbtn-2').disabled = false;
+  const ow = document.getElementById('occ-other-wrap');
+  if (isOther) { ow.classList.add('show'); setTimeout(()=>document.getElementById('occ-other').focus(),100); }
+  else ow.classList.remove('show');
+};
+
+window.toggleInt = (btn, isOther) => {
+  btn.classList.toggle('selected');
+  if (isOther) {
+    const ow = document.getElementById('int-other-wrap');
+    if (btn.classList.contains('selected')) ow.classList.add('show');
+    else { ow.classList.remove('show'); document.getElementById('int-other').value=''; }
+  }
+};
+
+window.submitReg = async (user) => {
+  const btn = document.getElementById('rbtn-3');
+  btn.textContent = 'กำลังบันทึก...'; btn.disabled = true;
+
+  regAns.occOther = document.getElementById('occ-other').value.trim();
+  regAns.intOther = document.getElementById('int-other').value.trim();
+  regAns.interests = [...document.querySelectorAll('#int-list .multi-btn.selected')]
+    .map(b=>b.textContent.trim()).filter(t=>!t.includes('อื่น'));
+  if (regAns.intOther) regAns.interests.push('อื่นๆ: '+regAns.intOther);
+
+  const occFull = regAns.occ==='อื่นๆ' && regAns.occOther ? 'อื่นๆ: '+regAns.occOther : regAns.occ;
+  const memberNum = await genMemberNum();
+
+  const data = {
+    uid: user.uid,
+    email: user.email,
+    name: regAns.name,
+    education: regAns.edu,
+    occupation: occFull,
+    interests: regAns.interests.join(', '),
+    memberNum,
+    joinedAt: new Date().toISOString(),
+    photoURL: user.photoURL || '',
+  };
+
+  await setDoc(doc(db, 'members', user.uid), data);
+
+  // Also send to Google Sheets
+  const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+  if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+    try {
+      const p = new URLSearchParams({ name:data.name, education:data.education, occupation:data.occupation, interests:data.interests, memberNum });
+      await fetch(SCRIPT_URL+'?'+p.toString());
+    } catch(e) {}
+  }
+
+  showHub(user, data);
+};
+
+// ── LOGOUT ──
+window.doLogout = async () => {
+  if (!confirm('ออกจากระบบ?')) return;
+  await signOut(auth);
+};
+
+// ── ADMIN: load members ──
+window.loadMembers = async () => {
+  const snap = await getDocs(query(collection(db, 'members'), orderBy('joinedAt','desc')));
+  const members = snap.docs.map(d => d.data());
+  const tbody = document.getElementById('admin-tbody');
+  tbody.innerHTML = members.map((m,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td>${m.memberNum||'-'}</td>
+      <td>${m.name||'-'}</td>
+      <td>${m.education||'-'}</td>
+      <td>${m.occupation||'-'}</td>
+      <td>${m.interests||'-'}</td>
+      <td>${m.joinedAt ? m.joinedAt.slice(0,10) : '-'}</td>
+    </tr>
+  `).join('');
+  document.getElementById('admin-count').textContent = members.length + ' คน';
+};
+
+// ── VIEW HELPERS ──
+function showView(id) {
+  ['view-login','view-signup','view-register','view-hub','view-admin'].forEach(v => {
+    const el = document.getElementById(v);
+    if (el) el.style.display = v===id ? 'block' : 'none';
+  });
+}
+
+function showLogin() { showView('view-login'); }
+
+function showRegister(user) {
+  showView('view-register');
+  window._regUser = user;
+  document.getElementById('reg-email-display').textContent = user.email;
+  curStep = 0;
+  for (let i=0;i<4;i++) {
+    const d = document.getElementById('rdot-'+i);
+    if (d) d.className = 'step-dot'+(i===0?' active':'');
+    const s = document.getElementById('rstep-'+i);
+    if (s) { s.classList.remove('active'); if(i===0) s.classList.add('active'); }
+  }
+  document.getElementById('rprog').textContent = 'ขั้นที่ 1 / 4';
+}
+
+function showHub(user, data) {
+  showView('view-hub');
+  const first = (data.name||'คุณผู้เรียน').split(' ')[0];
+  document.getElementById('hub-greeting').textContent = 'สวัสดีค่ะ, '+first+'!';
+  document.getElementById('hub-member-name').textContent = data.name||'';
+  document.getElementById('hub-member-num').textContent  = 'สมาชิกหมายเลข: '+(data.memberNum||'—');
+  const av = document.getElementById('hub-avatar');
+  if (av && data.photoURL) { av.src = data.photoURL; av.style.display='block'; }
+}
+
+function showAdmin(user) {
+  showView('view-admin');
+  document.getElementById('admin-email').textContent = user.email;
+  window.loadMembers();
+}
+
+function setLoading(section, on) {
+  const btn = document.getElementById(section+'-submit-btn');
+  if (btn) { btn.disabled = on; btn.textContent = on ? 'กำลังดำเนินการ...' : (section==='login' ? 'เข้าสู่ระบบ' : 'สมัครสมาชิก'); }
+}
+
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  if (el) { el.textContent = msg; el.style.display='block'; setTimeout(()=>el.style.display='none', 4000); }
+}
+
+// Name input handler
+document.addEventListener('DOMContentLoaded', () => {
+  const ni = document.getElementById('reg-name');
+  if (ni) {
+    ni.addEventListener('input', function() {
+      regAns.name = this.value.trim();
+      document.getElementById('rbtn-0').disabled = !regAns.name;
+    });
+    ni.addEventListener('keydown', function(e) { if(e.key==='Enter'&&regAns.name) window.goStep(1); });
+  }
+});
+</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fdf9f5;--card:#fff;
+  --lav:#7c3aed;--lav-mid:#8b5cf6;--lav-soft:#ede9fe;--lav-border:#c4b5fd;
+  --rose:#e11d48;--rose-soft:#fff1f2;--rose-border:#fecdd3;
+  --amber:#d97706;--amber-soft:#fffbeb;--amber-border:#fde68a;
+  --mint:#059669;--mint-soft:#ecfdf5;--mint-border:#a7f3d0;
+  --teal:#0d9488;--teal-soft:#f0fdfa;--teal-border:#99f6e4;
+  --ink:#1c1412;--mid:#4b4540;--muted:#a09890;--border:#ede8e0;
+  --shadow:rgba(28,20,18,.07);
+}
+html{font-size:17px;-webkit-font-smoothing:antialiased}
+body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+
+/* Desktop: card center */
+@media(min-width:700px){
+  body{display:flex;align-items:flex-start;justify-content:center;padding:2.5rem 1.5rem 3rem;background:#f0edf8}
+  .card{max-width:540px;min-height:auto;border-radius:1.75rem;box-shadow:0 12px 60px rgba(91,33,182,.15),0 0 0 1px rgba(124,58,237,.08)}
+  .admin-card{max-width:900px}
+}
+.card{width:100%;min-height:100vh;background:var(--card);overflow:hidden}
+.admin-card{width:100%;background:var(--card);border-radius:1.75rem;overflow:hidden}
+.stripe{height:6px;background:linear-gradient(90deg,var(--lav),#a855f7,var(--rose),#fb923c)}
+
+/* Views */
+#view-login,#view-signup,#view-register,#view-hub,#view-admin{display:none}
+.view-body{padding:2.25rem 2rem}
+
+/* ── AUTH FORMS ── */
+.auth-emoji{font-size:2.5rem;margin-bottom:.75rem;display:block}
+.auth-title{font-family:'Noto Serif Thai',serif;font-size:1.55rem;font-weight:700;margin-bottom:.3rem}
+.auth-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.5}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.82rem;font-weight:600;color:var(--mid);margin-bottom:.4rem}
+.field input{
+  width:100%;padding:.82rem 1rem;font-size:.97rem;
+  font-family:'Noto Sans Thai',sans-serif;
+  background:var(--bg);border:1.5px solid var(--border);border-radius:.75rem;
+  color:var(--ink);outline:none;transition:all .2s;
+}
+.field input:focus{border-color:var(--lav);background:var(--lav-soft);box-shadow:0 0 0 3px rgba(124,58,237,.08)}
+.field input::placeholder{color:var(--muted)}
+
+/* Google button */
+.btn-google{
+  width:100%;padding:.82rem;margin-bottom:.75rem;
+  background:white;color:var(--ink);
+  border:1.5px solid var(--border);border-radius:.75rem;
+  font-family:'Noto Sans Thai',sans-serif;font-size:.97rem;font-weight:600;
+  cursor:pointer;transition:all .22s;
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+}
+.btn-google:hover{border-color:#4285f4;box-shadow:0 3px 12px rgba(66,133,244,.15)}
+
+/* Or divider */
+.or-div{display:flex;align-items:center;gap:.75rem;margin:.9rem 0;color:var(--muted);font-size:.82rem}
+.or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.btn-primary{
+  width:100%;padding:.82rem;margin-top:.25rem;
+  background:var(--lav);color:white;border:none;border-radius:.75rem;
+  font-family:'Noto Sans Thai',sans-serif;font-size:.97rem;font-weight:600;
+  cursor:pointer;transition:all .22s;
+}
+.btn-primary:hover{background:var(--lav-mid);transform:translateY(-1px);box-shadow:0 5px 16px rgba(124,58,237,.28)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+
+.auth-switch{text-align:center;margin-top:1.1rem;font-size:.85rem;color:var(--muted)}
+.auth-switch a{color:var(--lav);cursor:pointer;font-weight:600;text-decoration:none}
+.auth-switch a:hover{text-decoration:underline}
+.err-msg{display:none;color:var(--rose);background:var(--rose-soft);border:1px solid var(--rose-border);border-radius:.5rem;padding:.6rem .85rem;font-size:.85rem;margin-top:.6rem}
+
+/* ── REGISTER STEPS ── */
+.reg-top{padding:2rem 2rem 0}
+.steps-row{display:flex;align-items:center;justify-content:center;gap:.38rem;margin-bottom:.5rem}
+.step-dot{width:28px;height:5px;border-radius:999px;background:var(--border);transition:all .3s}
+.step-dot.active{background:var(--lav);width:40px}
+.step-dot.done{background:var(--lav-border)}
+.prog-txt{text-align:center;font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.08em;margin-bottom:1.5rem}
+.reg-email-note{text-align:center;font-size:.78rem;color:var(--muted);margin-bottom:1.25rem}
+.reg-email-note strong{color:var(--lav)}
+
+.step-panel{display:none;padding:0 2rem 2rem}
+.step-panel.active{display:block;animation:sIn .28s ease}
+@keyframes sIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
+.step-emoji{font-size:2.75rem;margin-bottom:.7rem;display:block;animation:bop .5s ease}
+@keyframes bop{0%{transform:scale(.65)}65%{transform:scale(1.1)}100%{transform:scale(1)}}
+.step-q{font-family:'Noto Serif Thai',serif;font-size:1.4rem;font-weight:700;line-height:1.3;margin-bottom:.3rem}
+.step-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.35rem;line-height:1.5}
+
+.name-input{width:100%;padding:.87rem 1.1rem;font-size:1.05rem;font-family:'Noto Sans Thai',sans-serif;font-weight:500;background:var(--bg);border:2px solid var(--border);border-radius:.875rem;color:var(--ink);outline:none;transition:all .2s}
+.name-input:focus{border-color:var(--lav);background:var(--lav-soft);box-shadow:0 0 0 4px rgba(124,58,237,.08)}
+.name-input::placeholder{color:var(--muted);font-weight:400}
+
+.choice-list{display:flex;flex-direction:column;gap:.42rem}
+.choice-btn{display:flex;align-items:center;gap:.8rem;padding:.72rem 1rem;width:100%;cursor:pointer;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:.75rem;font-family:'Noto Sans Thai',sans-serif;font-size:.95rem;color:var(--mid);font-weight:500;transition:all .17s}
+.choice-btn:hover{border-color:var(--lav-border);background:var(--lav-soft);color:var(--lav)}
+.choice-btn.selected{border-color:var(--lav);background:var(--lav-soft);color:var(--lav)}
+.radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;background:white;display:flex;align-items:center;justify-content:center;transition:all .17s}
+.choice-btn.selected .radio{border-color:var(--lav);background:var(--lav)}
+.choice-btn.selected .radio::after{content:'';width:7px;height:7px;border-radius:50%;background:white}
+
+.multi-list{display:flex;flex-direction:column;gap:.42rem}
+.multi-btn{display:flex;align-items:center;gap:.8rem;padding:.68rem 1rem;width:100%;cursor:pointer;text-align:left;background:var(--bg);border:1.5px solid var(--border);border-radius:.75rem;font-family:'Noto Sans Thai',sans-serif;font-size:.92rem;color:var(--mid);font-weight:500;transition:all .17s}
+.multi-btn:hover{border-color:var(--lav-border);background:var(--lav-soft);color:var(--lav)}
+.multi-btn.selected{border-color:var(--lav);background:var(--lav-soft);color:var(--lav)}
+.chk{width:18px;height:18px;border-radius:.3rem;border:2px solid var(--border);flex-shrink:0;background:white;transition:all .17s;display:flex;align-items:center;justify-content:center}
+.multi-btn.selected .chk{border-color:var(--lav);background:var(--lav)}
+.multi-btn.selected .chk::after{content:'✓';font-size:.7rem;color:white;font-weight:700}
+
+.other-wrap{margin-top:.5rem;display:none}
+.other-wrap.show{display:block}
+.other-in{width:100%;padding:.65rem .9rem;font-size:.88rem;font-family:'Noto Sans Thai',sans-serif;background:var(--bg);border:1.5px solid var(--lav-border);border-radius:.625rem;color:var(--ink);outline:none;transition:border-color .18s}
+.other-in:focus{border-color:var(--lav)}
+.other-in::placeholder{color:var(--muted)}
+.scroll-list{max-height:300px;overflow-y:auto;padding-right:2px}
+.scroll-list::-webkit-scrollbar{width:4px}
+.scroll-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.next-btn{width:100%;padding:.82rem;margin-top:1.25rem;background:var(--lav);color:white;border:none;border-radius:.875rem;font-family:'Noto Sans Thai',sans-serif;font-size:.97rem;font-weight:600;cursor:pointer;transition:all .22s}
+.next-btn:hover{background:var(--lav-mid);transform:translateY(-1px);box-shadow:0 5px 16px rgba(124,58,237,.28)}
+.next-btn:disabled{opacity:.32;cursor:not-allowed;transform:none;box-shadow:none}
+.back-btn{background:none;border:none;cursor:pointer;width:100%;text-align:center;font-family:'Noto Sans Thai',sans-serif;font-size:.8rem;color:var(--muted);margin-top:.55rem;padding:.3rem;display:block;transition:color .18s}
+.back-btn:hover{color:var(--lav)}
+
+/* ── HUB ── */
+.hub-hero{background:linear-gradient(135deg,var(--lav) 0%,#6d28d9 60%,#4c1d95 100%);padding:2.25rem 2rem 2rem;position:relative;overflow:hidden}
+.hub-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.07)}
+.h-emoji{font-size:1.4rem;margin-bottom:.65rem;letter-spacing:.1em}
+.h-title{font-family:'Noto Serif Thai',serif;font-size:1.5rem;font-weight:700;color:white;line-height:1.25;margin-bottom:.45rem}
+.h-title em{font-style:italic;opacity:.9}
+.member-badge{display:inline-flex;align-items:center;gap:.7rem;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:1rem;padding:.7rem 1rem;margin-top:.5rem}
+.mb-av-wrap{position:relative}
+.mb-av{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;border:1.5px solid rgba(255,255,255,.3);overflow:hidden}
+.mb-av img{width:100%;height:100%;object-fit:cover;display:none}
+.mb-name{font-size:.9rem;font-weight:700;color:white;line-height:1.2}
+.mb-num{font-family:'Space Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.55);letter-spacing:.05em}
+
+.hub-body{padding:1.5rem 2rem 1.75rem}
+.hub-sec{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;margin-top:1.35rem}
+.hub-sec::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.hub-link{display:flex;align-items:center;gap:.9rem;padding:.88rem 1.05rem;background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;text-decoration:none;color:var(--ink);transition:all .18s;margin-bottom:.48rem;position:relative}
+.hub-link:hover{border-color:var(--lav-border);background:var(--lav-soft);transform:translateY(-1px);box-shadow:0 3px 12px var(--shadow)}
+.hub-link.featured{background:var(--lav-soft);border-color:var(--lav-border);border-width:2px}
+.hub-link.featured::after{content:'ฟรี';position:absolute;top:.65rem;right:.75rem;font-size:.62rem;font-weight:700;background:var(--lav);color:white;padding:.12rem .5rem;border-radius:999px;font-family:'Space Mono',monospace}
+.hub-link.soon{opacity:.4;pointer-events:none}
+.hl-icon{width:40px;height:40px;border-radius:.625rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.15rem}
+.hl-body{flex:1}
+.hl-title{font-size:.9rem;font-weight:600;margin-bottom:.1rem;line-height:1.3}
+.hl-desc{font-size:.75rem;color:var(--muted);line-height:1.35}
+.hl-arr{color:var(--muted);font-size:.88rem;transition:all .18s}
+.hub-link:hover .hl-arr{color:var(--lav);transform:translateX(3px)}
+
+.connect-row{display:flex;gap:.45rem}
+.conn-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;padding:.8rem .4rem;background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;text-decoration:none;color:var(--mid);font-size:.75rem;font-weight:600;transition:all .18s}
+.conn-btn:hover{color:var(--lav);border-color:var(--lav-border);background:var(--lav-soft);transform:translateY(-1px)}
+.conn-icon{font-size:1.4rem}
+
+.hub-foot{text-align:center;border-top:1px solid var(--border);padding:1rem 2rem 1.4rem;font-size:.7rem;color:var(--muted);line-height:1.85}
+.logout-btn{background:none;border:none;cursor:pointer;font-size:.7rem;color:var(--muted);font-family:'Noto Sans Thai',sans-serif;text-decoration:underline}
+.logout-btn:hover{color:var(--rose)}
+
+/* ── ADMIN ── */
+.admin-hero{background:linear-gradient(135deg,#1e1b4b,#312e81);padding:1.75rem 2rem;color:white}
+.admin-title{font-family:'Noto Serif Thai',serif;font-size:1.4rem;font-weight:700;margin-bottom:.25rem}
+.admin-sub{font-size:.82rem;color:rgba(255,255,255,.65)}
+.admin-body{padding:1.5rem 2rem 2rem;overflow-x:auto}
+.admin-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.admin-count-badge{background:var(--lav-soft);color:var(--lav);border:1px solid var(--lav-border);border-radius:999px;padding:.25rem .85rem;font-size:.82rem;font-weight:600}
+.btn-refresh{background:var(--lav);color:white;border:none;border-radius:.5rem;padding:.45rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'Noto Sans Thai',sans-serif}
+.btn-refresh:hover{background:var(--lav-mid)}
+.members-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:600px}
+.members-table th{background:#1e1b4b;color:white;padding:.6rem .75rem;text-align:left;font-weight:600;white-space:nowrap}
+.members-table td{padding:.55rem .75rem;border-bottom:1px solid var(--border);color:var(--mid);vertical-align:top}
+.members-table tr:hover td{background:var(--lav-soft)}
+.members-table tr:last-child td{border-bottom:none}
+
+@media(max-width:480px){
+  .view-body,.step-panel,.hub-body{padding-left:1.25rem;padding-right:1.25rem}
+  .reg-top{padding:1.75rem 1.25rem 0}
+  .hub-hero{padding:1.75rem 1.25rem 1.5rem}
+  .hub-foot{padding:1rem 1.25rem}
+  .admin-body{padding:1.25rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div class="card" id="view-login">
+  <div class="stripe"></div>
+  <div class="view-body">
+    <span class="auth-emoji">👩‍🏫</span>
+    <div class="auth-title">ยินดีต้อนรับค่ะ</div>
+    <div class="auth-sub">เข้าสู่ระบบเพื่อเข้าถึงบทเรียนและ community ของเราค่ะ</div>
+
+    <button class="btn-google" onclick="loginGoogle()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3.1 0 5.8 1.1 8 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.8 13.5-4.7l-6.2-5.2C29.3 35.7 26.8 36.4 24 36.4c-5.2 0-9.6-3.4-11.2-8.1l-6.5 5C9.8 40 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.4 4.2-4.4 5.5l6.2 5.2C41 35.2 43.7 30 43.7 24c0-1.3-.1-2.7-.1-4z"/></svg>
+      เข้าสู่ระบบด้วย Google
+    </button>
+
+    <div class="or-div">หรือ</div>
+
+    <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="your@email.com"></div>
+    <div class="field"><label>รหัสผ่าน</label><input type="password" id="login-pass" placeholder="รหัสผ่าน" onkeydown="if(event.key==='Enter')loginEmail()"></div>
+    <div class="err-msg" id="login-err"></div>
+    <button class="btn-primary" id="login-submit-btn" onclick="loginEmail()">เข้าสู่ระบบ</button>
+
+    <div class="auth-switch">ยังไม่มีบัญชี? <a onclick="goSignup()">สมัครสมาชิกที่นี่ค่ะ</a></div>
+  </div>
+</div>
+
+<!-- ══ SIGNUP ══ -->
+<div class="card" id="view-signup">
+  <div class="stripe"></div>
+  <div class="view-body">
+    <span class="auth-emoji">✨</span>
+    <div class="auth-title">สมัครสมาชิกค่ะ</div>
+    <div class="auth-sub">สมัครด้วย Google ง่ายที่สุด หรือจะใช้ Email ก็ได้ค่ะ</div>
+
+    <button class="btn-google" onclick="loginGoogle()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3.1 0 5.8 1.1 8 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.8 13.5-4.7l-6.2-5.2C29.3 35.7 26.8 36.4 24 36.4c-5.2 0-9.6-3.4-11.2-8.1l-6.5 5C9.8 40 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.8 2.3-2.4 4.2-4.4 5.5l6.2 5.2C41 35.2 43.7 30 43.7 24c0-1.3-.1-2.7-.1-4z"/></svg>
+      สมัครด้วย Google
+    </button>
+
+    <div class="or-div">หรือสมัครด้วย Email</div>
+
+    <div class="field"><label>Email</label><input type="email" id="su-email" placeholder="your@email.com"></div>
+    <div class="field"><label>รหัสผ่าน <span style="color:var(--muted);font-weight:400">(อย่างน้อย 6 ตัว)</span></label><input type="password" id="su-pass" placeholder="ตั้งรหัสผ่าน"></div>
+    <div class="field"><label>ยืนยันรหัสผ่าน</label><input type="password" id="su-pass2" placeholder="พิมพ์รหัสผ่านอีกครั้ง" onkeydown="if(event.key==='Enter')signupEmail()"></div>
+    <div class="err-msg" id="su-err"></div>
+    <button class="btn-primary" id="signup-submit-btn" onclick="signupEmail()">สมัครสมาชิก</button>
+
+    <div class="auth-switch">มีบัญชีแล้ว? <a onclick="goLogin()">เข้าสู่ระบบค่ะ</a></div>
+  </div>
+</div>
+
+<!-- ══ REGISTER (profile) ══ -->
+<div class="card" id="view-register">
+  <div class="stripe"></div>
+  <div class="reg-top">
+    <div class="steps-row" id="rdots-row">
+      <div class="step-dot active" id="rdot-0"></div>
+      <div class="step-dot" id="rdot-1"></div>
+      <div class="step-dot" id="rdot-2"></div>
+      <div class="step-dot" id="rdot-3"></div>
+    </div>
+    <div class="prog-txt" id="rprog">ขั้นที่ 1 / 4</div>
+    <div class="reg-email-note">เข้าสู่ระบบในฐานะ: <strong id="reg-email-display"></strong></div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="step-panel active" id="rstep-0">
+    <span class="step-emoji">✏️</span>
+    <div class="step-q">ขอรู้จักกันก่อนนะคะ</div>
+    <div class="step-sub">ชื่อที่อยากให้เรียก — ชื่อเล่นก็ได้เลยค่ะ</div>
+    <input class="name-input" type="text" id="reg-name" placeholder="เช่น แนน, ต้น, มิ้ม..." maxlength="40" autocomplete="off" spellcheck="false">
+    <button class="next-btn" id="rbtn-0" onclick="goStep(1)" disabled>ถัดไป →</button>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step-panel" id="rstep-1">
+    <span class="step-emoji">📚</span>
+    <div class="step-q">เรียนอยู่ระดับไหนคะ?</div>
+    <div class="step-sub">เลือกระดับปัจจุบัน หรือสูงสุดที่สำเร็จมาแล้วนะคะ</div>
+    <div class="choice-list" id="edu-list">
+      <button class="choice-btn" onclick="pickEdu(this)"><div class="radio"></div>ประถมศึกษาหรือต่ำกว่า</button>
+      <button class="choice-btn" onclick="pickEdu(this)"><div class="radio"></div>มัธยมศึกษาตอนต้น</button>
+      <button class="choice-btn" onclick="pickEdu(this)"><div class="radio"></div>มัธยมศึกษาตอนปลาย / ปวช.</button>
+      <button class="choice-btn" onclick="pickEdu(this)"><div class="radio"></div>อนุปริญญา / ปวส.</button>
+      <button class="choice-btn" onclick="pickEdu(this)"><div class="radio"></div>ปริญญาตรี</button>
+      <button class="choice-btn" onclick="pickEdu(this)"><div class="radio"></div>สูงกว่าปริญญาตรี</button>
+    </div>
+    <button class="next-btn" id="rbtn-1" onclick="goStep(2)" disabled>ถัดไป →</button>
+    <button class="back-btn" onclick="goStep(0)">← กลับ</button>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step-panel" id="rstep-2">
+    <span class="step-emoji">💼</span>
+    <div class="step-q">ทำงานอะไรอยู่คะ?</div>
+    <div class="step-sub">เลือกที่ตรงกับตัวเองมากที่สุดนะคะ</div>
+    <div class="scroll-list">
+      <div class="choice-list" id="occ-list">
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>นักเรียน / นักศึกษา</button>
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>เกษตรกร</button>
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>ค้าขาย / ธุรกิจส่วนตัว</button>
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>รับจ้างทั่วไป</button>
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>พนักงานเอกชน</button>
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>ข้าราชการ / พนักงานของรัฐ</button>
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>แม่บ้าน / พ่อบ้าน</button>
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>ว่างงาน</button>
+        <button class="choice-btn" onclick="pickOcc(this)"><div class="radio"></div>เกษียณอายุ</button>
+        <button class="choice-btn" onclick="pickOcc(this,true)"><div class="radio"></div>อื่น ๆ โปรดระบุ</button>
+      </div>
+      <div class="other-wrap" id="occ-other-wrap">
+        <input class="other-in" type="text" id="occ-other" placeholder="บอกได้เลยนะคะ..." maxlength="80">
+      </div>
+    </div>
+    <button class="next-btn" id="rbtn-2" onclick="goStep(3)" disabled>ถัดไป →</button>
+    <button class="back-btn" onclick="goStep(1)">← กลับ</button>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step-panel" id="rstep-3">
+    <span class="step-emoji">⭐</span>
+    <div class="step-q">สนใจเรื่องอะไรบ้างคะ?</div>
+    <div class="step-sub">เลือกได้มากกว่า 1 ข้อเลยนะคะ</div>
+    <div class="scroll-list">
+      <div class="multi-list" id="int-list">
+        <button class="multi-btn" onclick="toggleInt(this)"><div class="chk"></div>เศรษฐศาสตร์และการเงิน</button>
+        <button class="multi-btn" onclick="toggleInt(this)"><div class="chk"></div>สถิติและการวิเคราะห์ข้อมูล</button>
+        <button class="multi-btn" onclick="toggleInt(this)"><div class="chk"></div>AI และเทคโนโลยี</button>
+        <button class="multi-btn" onclick="toggleInt(this)"><div class="chk"></div>ธุรกิจและการจัดการ</button>
+        <button class="multi-btn" onclick="toggleInt(this)"><div class="chk"></div>นโยบายสาธารณะและสังคม</button>
+        <button class="multi-btn" onclick="toggleInt(this)"><div class="chk"></div>พัฒนาตัวเองและทักษะชีวิต</button>
+        <button class="multi-btn" onclick="toggleInt(this)"><div class="chk"></div>เตรียมสอบ / เตรียมเรียนต่อ</button>
+        <button class="multi-btn" onclick="toggleInt(this,true)"><div class="chk"></div>อื่น ๆ โปรดระบุ</button>
+      </div>
+      <div class="other-wrap" id="int-other-wrap">
+        <input class="other-in" type="text" id="int-other" placeholder="บอกได้เลยนะคะ..." maxlength="120">
+      </div>
+    </div>
+    <button class="next-btn" id="rbtn-3" onclick="submitReg(window._regUser)">เข้าร่วมได้เลยค่ะ 🎉</button>
+    <button class="back-btn" onclick="goStep(2)">← กลับ</button>
+  </div>
+</div>
+
+<!-- ══ HUB ══ -->
+<div class="card" id="view-hub">
+  <div class="stripe"></div>
+  <div class="hub-hero">
+    <div class="h-emoji">🎉 ✨ 💜 ⭐</div>
+    <div class="h-title" id="hub-greeting">สวัสดีค่ะ!</div>
+    <div class="member-badge">
+      <div class="mb-av"><img id="hub-avatar" src="" alt=""><span>😊</span></div>
+      <div>
+        <div class="mb-name" id="hub-member-name"></div>
+        <div class="mb-num" id="hub-member-num">สมาชิกหมายเลข: —</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hub-body">
+    <div class="hub-sec">Learn</div>
+    <a href="https://ajarnkwan.github.io/econ-math-readiness/" class="hub-link featured" target="_blank">
+      <div class="hl-icon" style="background:#ede9fe;border:1.5px solid #c4b5fd">📐</div>
+      <div class="hl-body"><div class="hl-title">Basic Math &amp; Stats for Econ</div><div class="hl-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 Modules</div></div>
+      <div class="hl-arr">→</div>
+    </a>
+
+    <div class="hub-sec">Freebies</div>
+    <div class="hub-link soon">
+      <div class="hl-icon" style="background:#fffbeb;border:1.5px solid #fde68a">📄</div>
+      <div class="hl-body"><div class="hl-title">PDF สรุปสูตร — เร็วๆ นี้</div><div class="hl-desc">Cheat sheet สำหรับเตรียมสอบ</div></div>
+      <div class="hl-arr">→</div>
+    </div>
+    <div class="hub-link soon">
+      <div class="hl-icon" style="background:#fffbeb;border:1.5px solid #fde68a">📊</div>
+      <div class="hl-body"><div class="hl-title">Worksheet ฝึกทำ — เร็วๆ นี้</div><div class="hl-desc">แบบฝึกหัดพร้อมเฉลย</div></div>
+      <div class="hl-arr">→</div>
+    </div>
+
+    <div class="hub-sec">Connect</div>
+    <div class="connect-row">
+      <a href="#" class="conn-btn"><div class="conn-icon">📣</div><span>LINE OA</span></a>
+      <a href="https://www.tiktok.com/@ajarn.kwan" class="conn-btn" target="_blank"><div class="conn-icon">🎵</div><span>TikTok</span></a>
+      <a href="#" class="conn-btn"><div class="conn-icon">📘</div><span>Facebook</span></a>
+    </div>
+  </div>
+
+  <div class="hub-foot">
+    <strong style="color:#4b4540">Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+    <span style="font-size:.65rem">© 2025 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ</span><br>
+    <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div class="admin-card" id="view-admin">
+  <div class="stripe"></div>
+  <div class="admin-hero">
+    <div class="admin-title">👩‍🏫 Admin Dashboard</div>
+    <div class="admin-sub">ล็อกอินในฐานะ: <span id="admin-email"></span></div>
+  </div>
+  <div class="admin-body">
+    <div class="admin-bar">
+      <div>สมาชิกทั้งหมด: <span class="admin-count-badge" id="admin-count">กำลังโหลด...</span></div>
+      <button class="btn-refresh" onclick="loadMembers()">🔄 Refresh</button>
+      <button class="logout-btn" onclick="doLogout()" style="margin-left:auto">ออกจากระบบ</button>
+    </div>
+    <table class="members-table">
+      <thead>
+        <tr>
+          <th>#</th><th>หมายเลขสมาชิก</th><th>ชื่อ</th><th>การศึกษา</th><th>อาชีพ</th><th>ความสนใจ</th><th>วันที่สมัคร</th>
+        </tr>
+      </thead>
+      <tbody id="admin-tbody">
+        <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
