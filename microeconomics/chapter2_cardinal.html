@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ทฤษฎีที่ 1 — Cardinal Utility</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+      --font-serif:'Noto Serif Thai',serif;
+      --color-background-primary:#ffffff;
+      --color-background-secondary:#f7f5ff;
+      --color-border-secondary:#d8d2ef;
+      --color-border-tertiary:#ece7f7;
+      --color-text-primary:#1d1633;
+      --color-text-secondary:#6b6480;
+      --color-text-tertiary:#9a94ad;
+      --border-radius-md:12px;
+      --border-radius-lg:18px;
+      --shadow:0 10px 30px rgba(61,47,158,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
+    .page{max-width:920px;margin:0 auto;padding:24px 18px 56px}
+    .hero{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
+    .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
+    .hero h1{font-family:var(--font-serif);font-size:30px;line-height:1.25;margin:0 0 8px}
+    .hero p{font-size:14px;line-height:1.7;margin:0;opacity:.92;max-width:720px}
+    .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:14px;font-weight:600;margin:0 0 14px}
+    .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .coming{display:inline-block;background:#fff7ed;color:#c2410c;border:1px solid #fdba74;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+    .available{display:inline-block;background:#ecfdf5;color:#047857;border:1px solid #86efac;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+  </style>
+
+</head>
+<body><div class="page"><a class="backlink" href="chapter2.html">← กลับบทที่ 2</a><div class="panel">
+
+<style>
+*{box-sizing:border-box}
+.app{max-width:680px;margin:0 auto;padding:.75rem 0;font-family:var(--font-sans)}
+.topnav{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem}
+.backbtn{padding:4px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);font-size:11px;cursor:pointer}
+.backbtn:hover{background:var(--color-background-secondary)}
+.tbadge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;background:#E6F1FB;color:#185FA5}
+.pg{display:flex;gap:3px;margin-bottom:1.4rem}
+.pd{flex:1;height:4px;border-radius:2px;background:var(--color-background-secondary)}
+.pd.dn{background:#1D9E75}.pd.ac{background:#378ADD}
+.sl{font-size:10px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.3rem}
+.bq{font-size:16px;font-weight:500;color:var(--color-text-primary);line-height:1.5;margin:0 0 .85rem}
+.sb{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:.85rem 1.1rem;margin-bottom:.7rem;border-left:3px solid #378ADD}
+.sb p{margin:0 0 .35rem;font-size:13px;line-height:1.7;color:var(--color-text-primary)}
+.sb p:last-child{margin:0}
+.rvb{width:100%;padding:7px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:12.5px;cursor:pointer;margin-bottom:6px}
+.rvb:hover{background:var(--color-background-secondary)}
+.rvbox{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.8rem 1rem;margin-bottom:.7rem;display:none}
+.rvbox.on{display:block}
+.rvbox h3{font-size:10.5px;font-weight:500;color:var(--color-text-secondary);margin:0 0 5px;text-transform:uppercase;letter-spacing:.05em}
+.rvbox p{margin:0 0 4px;font-size:13px;line-height:1.6;color:var(--color-text-primary)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:.7rem}
+.tbl th{font-weight:500;font-size:10.5px;color:var(--color-text-secondary);text-align:center;padding:5px 6px;border-bottom:0.5px solid var(--color-border-secondary);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.tbl td{text-align:center;padding:5px 6px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);font-size:13px}
+.tbl tr.hl td{background:#E6F1FB;font-weight:500;color:#185FA5}
+.tbl input[type=text]{width:50px;padding:3px;border:0.5px solid var(--color-border-secondary);border-radius:4px;text-align:center;font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary)}
+.fbox{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.6rem 1rem;font-size:13px;color:var(--color-text-primary);margin-bottom:.65rem;text-align:center;line-height:1.6}
+.eqbox{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:.65rem 1rem;font-size:13px;color:var(--color-text-primary);margin-bottom:.65rem;line-height:1.6}
+.slrow{display:flex;align-items:center;gap:10px;margin-bottom:.5rem}
+.slrow label{font-size:12px;color:var(--color-text-secondary);min-width:72px;flex-shrink:0}
+.slrow span{font-size:13px;font-weight:500;color:var(--color-text-primary);min-width:28px;flex-shrink:0}
+canvas{display:block;max-width:100%;border-radius:var(--border-radius-md);margin:.35rem auto .6rem;border:0.5px solid var(--color-border-tertiary)}
+.fb{font-size:12.5px;padding:6px 11px;border-radius:var(--border-radius-md);margin:.35rem 0;display:none}
+.fb.on{display:block}
+.fb.ok{background:#E1F5EE;color:#0F6E56}
+.fb.no{background:#FCEBEB;color:#A32D2D}
+.fb.info{background:#E6F1FB;color:#185FA5}
+.nav{display:flex;gap:8px;margin-top:1.1rem}
+.nb{flex:1;padding:8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13px;cursor:pointer}
+.nb:hover{background:var(--color-background-secondary)}
+.nb.pr{background:#378ADD;border-color:#378ADD;color:#fff}
+.nb.pr:hover{background:#185FA5}
+.qopt{display:block;width:100%;text-align:left;padding:7px 11px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13px;cursor:pointer;margin-bottom:5px}
+.qopt:hover:not(:disabled){background:var(--color-background-secondary)}
+.qopt.ok{background:#E1F5EE;border-color:#1D9E75;color:#0F6E56}
+.qopt.no{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
+.sc{width:72px;height:72px;border-radius:50%;border:3px solid #378ADD;display:flex;align-items:center;justify-content:center;margin:.6rem auto;font-size:20px;font-weight:500;color:#185FA5}
+.step{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.6rem .9rem;margin-bottom:.5rem;font-size:12.5px;line-height:1.65;color:var(--color-text-primary)}
+.step code{background:var(--color-background-primary);padding:1px 5px;border-radius:4px;font-size:12px;color:#185FA5;border:0.5px solid var(--color-border-tertiary)}
+.mathcalc{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:.85rem 1rem;margin-bottom:.7rem}
+.mathcalc .row{display:flex;align-items:center;gap:10px;margin-bottom:.4rem}
+.mathcalc label{font-size:12px;color:var(--color-text-secondary);min-width:60px}
+.mathcalc .val{font-size:13px;font-weight:500;color:var(--color-text-primary);min-width:24px}
+.mathcalc .rg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.6rem}
+.rbox{background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:.5rem .75rem;font-size:12px;color:var(--color-text-primary);border:0.5px solid var(--color-border-tertiary);line-height:1.6}
+.rbox.match{border-color:#1D9E75;background:#E1F5EE}
+.rbox.nomatch{border-color:#E24B4A}
+.infonote{font-size:11px;color:var(--color-text-secondary);background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:5px 10px;margin-bottom:.5rem;line-height:1.5}
+.section{padding:0}
+</style>
+
+<div class="app">
+<div class="topnav">
+  <button class="backbtn" onclick="location.href='chapter2.html'">\u2190 \u0e1a\u0e17\u0e17\u0e35\u0e48 2</button>
+  <span class="tbadge">\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e17\u0e35\u0e48 1</span>
+  <span style="font-size:13px;color:var(--color-text-primary);font-weight:500">Cardinal Utility Approach</span>
+</div>
+<div class="pg" id="pg"></div>
+
+<!-- S0 -->
+<div class="section" id="s0">
+  <div class="sl">\u0e40\u0e23\u0e34\u0e48\u0e21\u0e15\u0e49\u0e19 \u2014 \u0e25\u0e2d\u0e07\u0e04\u0e34\u0e14\u0e01\u0e48\u0e2d\u0e19</div>
+  <p class="bq">\u0e16\u0e49\u0e32\u0e27\u0e31\u0e14\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e38\u0e02\u0e2d\u0e2d\u0e01\u0e21\u0e32\u0e40\u0e1b\u0e47\u0e19\u0e15\u0e31\u0e27\u0e40\u0e25\u0e02\u0e44\u0e14\u0e49 \u2014 \u0e40\u0e23\u0e32\u0e08\u0e30\u0e23\u0e39\u0e49\u0e17\u0e31\u0e19\u0e17\u0e35\u0e27\u0e48\u0e32\u0e04\u0e27\u0e23\u0e0b\u0e37\u0e49\u0e2d\u0e2d\u0e30\u0e44\u0e23\u0e41\u0e25\u0e30\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48</p>
+  <div class="sb">
+    <p>\u0e2a\u0e21\u0e21\u0e15\u0e34 "1 Utils" = \u0e04\u0e27\u0e32\u0e21\u0e2a\u0e38\u0e02\u0e21\u0e32\u0e15\u0e23\u0e10\u0e32\u0e19 1 \u0e2b\u0e19\u0e48\u0e27\u0e22</p>
+    <p>\ud83c\udf55 \u0e01\u0e34\u0e19\u0e1e\u0e34\u0e0b\u0e0b\u0e48\u0e32\u0e0a\u0e34\u0e49\u0e19\u0e41\u0e23\u0e01\u0e15\u0e2d\u0e19\u0e2b\u0e34\u0e27\u0e21\u0e32\u0e01 \u2192 <strong>10 Utils</strong><br>
+    \ud83c\udf55 \u0e0a\u0e34\u0e49\u0e19\u0e17\u0e35\u0e48 2 \u2192 <strong>8 Utils</strong> (\u0e22\u0e31\u0e07\u0e14\u0e35\u0e41\u0e15\u0e48\u0e19\u0e49\u0e2d\u0e22\u0e25\u0e07)<br>
+    \ud83c\udf55 \u0e0a\u0e34\u0e49\u0e19\u0e17\u0e35\u0e48 6 \u2192 <strong>0 Utils</strong> (\u0e2d\u0e34\u0e48\u0e21\u0e1e\u0e2d\u0e14\u0e35 \u2014 \u0e08\u0e38\u0e14\u0e2d\u0e34\u0e48\u0e21\u0e15\u0e31\u0e27!)<br>
+    \ud83c\udf55 \u0e0a\u0e34\u0e49\u0e19\u0e17\u0e35\u0e48 7 \u2192 <strong>\u22122 Utils</strong> (\u0e01\u0e34\u0e19\u0e41\u0e25\u0e49\u0e27\u0e41\u0e22\u0e48!)</p>
+  </div>
+  <button class="rvb" id="rb0" onclick="tog('r0','rb0','\u0e14\u0e39\u0e02\u0e49\u0e2d\u0e2a\u0e21\u0e21\u0e15\u0e34\u0e02\u0e2d\u0e07\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e19\u0e35\u0e49')">\u0e14\u0e39\u0e02\u0e49\u0e2d\u0e2a\u0e21\u0e21\u0e15\u0e34\u0e02\u0e2d\u0e07\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e19\u0e35\u0e49</button>
+  <div class="rvbox" id="r0">
+    <h3>6 \u0e02\u0e49\u0e2d\u0e2a\u0e21\u0e21\u0e15\u0e34 (Cardinal Utility)</h3>
+    <p>1. \u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04\u0e21\u0e35\u0e40\u0e2b\u0e15\u0e38\u0e1c\u0e25 \u2014 \u0e41\u0e2a\u0e27\u0e07\u0e2b\u0e32\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14</p>
+    <p>2. \u0e27\u0e31\u0e14\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e2d\u0e2d\u0e01\u0e21\u0e32\u0e40\u0e1b\u0e47\u0e19 <strong>Utils</strong> \u0e44\u0e14\u0e49</p>
+    <p>3. TU = \u0e1c\u0e25\u0e23\u0e27\u0e21\u0e02\u0e2d\u0e07 MU \u0e17\u0e38\u0e01\u0e2b\u0e19\u0e48\u0e27\u0e22</p>
+    <p>4. \u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e08\u0e32\u0e01\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32\u0e41\u0e15\u0e48\u0e25\u0e30\u0e0a\u0e19\u0e34\u0e14\u0e40\u0e1b\u0e47\u0e19\u0e2d\u0e34\u0e2a\u0e23\u0e30\u0e15\u0e48\u0e2d\u0e01\u0e31\u0e19</p>
+    <p>5. <strong>MU \u0e25\u0e14\u0e19\u0e49\u0e2d\u0e22\u0e16\u0e2d\u0e22\u0e25\u0e07</strong> (Law of Diminishing MU)</p>
+    <p>6. \u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2a\u0e21\u0e1a\u0e39\u0e23\u0e13\u0e4c\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e01\u0e31\u0e1a\u0e23\u0e32\u0e04\u0e32\u0e41\u0e25\u0e30\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08</p>
+  </div>
+  <div class="nav"><button class="nb pr" onclick="go(1)">\u0e40\u0e23\u0e34\u0e48\u0e21\u0e40\u0e23\u0e35\u0e22\u0e19: TU \u0e41\u0e25\u0e30 MU \u2192</button></div>
+</div>
+
+<!-- S1: TU & MU -->
+<div class="section" id="s1">
+  <div class="sl">\u0e2d\u0e23\u0e23\u0e16\u0e1b\u0e23\u0e30\u0e42\u0e22\u0e0a\u0e19\u0e4c\u0e23\u0e27\u0e21 (TU) \u0e41\u0e25\u0e30\u0e2d\u0e23\u0e23\u0e16\u0e1b\u0e23\u0e30\u0e42\u0e22\u0e0a\u0e19\u0e4c\u0e40\u0e1e\u0e34\u0e48\u0e21 (MU)</div>
+  <p class="bq">\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e38\u0e02\u0e23\u0e27\u0e21 vs \u0e04\u0e27\u0e32\u0e21\u0e2a\u0e38\u0e02\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e48\u0e27\u0e22\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</p>
+  <div class="fbox">
+    <strong>TU = 11Q \u2212 Q\u00b2</strong> &nbsp;|&nbsp; <strong>MU = dTU/dQ = 11 \u2212 2Q</strong><br>
+    <span style="font-size:11.5px;color:var(--color-text-secondary)">MU = 0 \u0e40\u0e21\u0e37\u0e48\u0e2d Q = 5.5 (\u0e08\u0e38\u0e14\u0e2d\u0e34\u0e48\u0e21\u0e15\u0e31\u0e27, TU \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14) | MU &lt; 0 \u0e40\u0e21\u0e37\u0e48\u0e2d Q &gt; 5.5</span>
+  </div>
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.4rem">MU \u0e41\u0e1a\u0e1a\u0e15\u0e32\u0e23\u0e32\u0e07 = \u0394TU/\u0394Q = TU(Q) \u2212 TU(Q\u22121) \u0e01\u0e23\u0e2d\u0e01\u0e0a\u0e48\u0e2d\u0e07\u0e27\u0e48\u0e32\u0e07:</p>
+  <table class="tbl">
+    <thead><tr><th>Q</th><th>TU</th><th>MU = \u0394TU/\u0394Q</th><th>\u0e2a\u0e39\u0e15\u0e23 11\u22122Q \u0e17\u0e35\u0e48 Q</th><th>\u0e2a\u0e31\u0e07\u0e40\u0e01\u0e15</th></tr></thead>
+    <tbody id="tumubody"></tbody>
+  </table>
+  <button class="rvb" onclick="checkMU()">\u0e15\u0e23\u0e27\u0e08\u0e04\u0e33\u0e15\u0e2d\u0e1a MU</button>
+  <div class="fb" id="mufb"></div>
+
+  <div class="infonote">\ud83d\udccc MU \u0e08\u0e32\u0e01\u0e15\u0e32\u0e23\u0e32\u0e07 (\u0394TU/\u0394Q) \u0e41\u0e17\u0e19\u0e04\u0e48\u0e32\u0e15\u0e23\u0e07\u0e01\u0e25\u0e32\u0e07\u0e0a\u0e48\u0e27\u0e07 \u0e40\u0e0a\u0e48\u0e19 MU \u0e2b\u0e19\u0e48\u0e27\u0e22\u0e17\u0e35\u0e48 1 = 10 \u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48 Q=0.5 \u0e1a\u0e19\u0e01\u0e23\u0e32\u0e1f \u0e08\u0e38\u0e14\u0e08\u0e36\u0e07\u0e2d\u0e22\u0e39\u0e48<strong>\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07</strong>\u0e04\u0e48\u0e32 Q \u0e40\u0e15\u0e47\u0e21 \u0e41\u0e15\u0e48\u0e22\u0e31\u0e07\u0e2d\u0e22\u0e39\u0e48\u0e1a\u0e19\u0e40\u0e2a\u0e49\u0e19 MU=11\u22122Q \u0e1e\u0e2d\u0e14\u0e35</div>
+
+  <div class="slrow">
+    <label>\u0e40\u0e25\u0e37\u0e2d\u0e01 Q = <span id="qv">3</span></label>
+    <input type="range" min="0" max="7" step="1" value="3" id="qsl" oninput="updTU(this.value)" style="flex:1">
+  </div>
+  <div id="tumuinfo" style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.3rem;text-align:center"></div>
+  <canvas id="ctu" width="580" height="285"></canvas>
+
+  <div class="nav">
+    <button class="nb" onclick="go(0)">\u2190 \u0e22\u0e49\u0e2d\u0e19\u0e01\u0e25\u0e31\u0e1a</button>
+    <button class="nb pr" onclick="go(2)">\u0e16\u0e31\u0e14\u0e44\u0e1b: \u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e + CS \u2192</button>
+  </div>
+</div>
+
+<!-- S2: Single-good + CS -->
+<div class="section" id="s2">
+  <div class="sl">\u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32\u0e0a\u0e19\u0e34\u0e14\u0e40\u0e14\u0e35\u0e22\u0e27 + \u0e2a\u0e48\u0e27\u0e19\u0e40\u0e01\u0e34\u0e19\u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04</div>
+  <p class="bq">\u0e0b\u0e37\u0e49\u0e2d\u0e16\u0e36\u0e07\u0e2b\u0e19\u0e48\u0e27\u0e22\u0e17\u0e35\u0e48 MU = \u0e23\u0e32\u0e04\u0e32 \u2014 \u0e08\u0e38\u0e14\u0e17\u0e35\u0e48 "\u0e04\u0e38\u0e49\u0e21\u0e04\u0e48\u0e32\u0e1e\u0e2d\u0e14\u0e35"</p>
+  <div class="eqbox">
+    <strong>\u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02\u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e: MU = P</strong><br>
+    <span style="font-size:12px;color:var(--color-text-secondary)">MU &gt; P \u2192 \u0e22\u0e31\u0e07\u0e04\u0e38\u0e49\u0e21 \u0e0b\u0e37\u0e49\u0e2d\u0e15\u0e48\u0e2d | MU = P \u2192 \u0e2b\u0e22\u0e38\u0e14\u0e1e\u0e2d\u0e14\u0e35 | MU &lt; P \u2192 \u0e44\u0e21\u0e48\u0e04\u0e38\u0e49\u0e21 \u0e2b\u0e22\u0e38\u0e14\u0e0b\u0e37\u0e49\u0e2d</span>
+  </div>
+  <div class="slrow">
+    <label>\u0e23\u0e32\u0e04\u0e32 P =</label>
+    <input type="range" min="10" max="130" step="20" value="50" id="psl" oninput="updCS(this.value)">
+    <span id="pvl">50</span><span style="font-size:11px;color:var(--color-text-secondary);margin-left:2px">\u0e1a\u0e32\u0e17</span>
+  </div>
+  <canvas id="ccs" width="580" height="295"></canvas>
+  <div class="fb on info" id="csinfo"></div>
+  <button class="rvb" id="rbcs" onclick="tog('rcs','rbcs','\u0e2d\u0e48\u0e32\u0e19\u0e04\u0e27\u0e32\u0e21\u0e2b\u0e21\u0e32\u0e22 Consumer Surplus')">\u0e2d\u0e48\u0e32\u0e19\u0e04\u0e27\u0e32\u0e21\u0e2b\u0e21\u0e32\u0e22 Consumer Surplus</button>
+  <div class="rvbox" id="rcs">
+    <h3>\u0e2a\u0e48\u0e27\u0e19\u0e40\u0e01\u0e34\u0e19\u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04 (Consumer Surplus)</h3>
+    <p>\u0e04\u0e27\u0e32\u0e21\u0e41\u0e15\u0e01\u0e15\u0e48\u0e32\u0e07\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 <strong>\u0e23\u0e32\u0e04\u0e32\u0e17\u0e35\u0e48\u0e22\u0e34\u0e19\u0e14\u0e35\u0e08\u0e48\u0e32\u0e22</strong> (\u2248 MU \u0e15\u0e48\u0e2d\u0e2b\u0e19\u0e48\u0e27\u0e22) \u0e01\u0e31\u0e1a <strong>\u0e23\u0e32\u0e04\u0e32\u0e08\u0e48\u0e32\u0e22\u0e08\u0e23\u0e34\u0e07</strong></p>
+    <p>\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07: \u0e1c\u0e25\u0e17\u0e35\u0e48 1 (MU=130) \u0e41\u0e15\u0e48\u0e08\u0e48\u0e32\u0e22\u0e41\u0e04\u0e48 P=50 \u2192 \u0e44\u0e14\u0e49\u0e2a\u0e48\u0e27\u0e19\u0e40\u0e01\u0e34\u0e19 80 utils</p>
+    <p>CS \u0e23\u0e27\u0e21 = \u0e41\u0e16\u0e1a\u0e2a\u0e35\u0e40\u0e02\u0e35\u0e22\u0e27 (\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e43\u0e15\u0e49\u0e40\u0e2a\u0e49\u0e19 MU \u0e40\u0e2b\u0e19\u0e37\u0e2d\u0e23\u0e30\u0e14\u0e31\u0e1a\u0e23\u0e32\u0e04\u0e32)</p>
+  </div>
+  <div class="nav">
+    <button class="nb" onclick="go(1)">\u2190 \u0e22\u0e49\u0e2d\u0e19\u0e01\u0e25\u0e31\u0e1a</button>
+    <button class="nb pr" onclick="go(3)">\u0e16\u0e31\u0e14\u0e44\u0e1b: \u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32\u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e19\u0e34\u0e14 \u2192</button>
+  </div>
+</div>
+
+<!-- S3: Multi-good -->
+<div class="section" id="s3">
+  <div class="sl">\u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32\u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e19\u0e34\u0e14</div>
+  <p class="bq">\u0e17\u0e38\u0e01\u0e1a\u0e32\u0e17\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e2b\u0e49\u0e04\u0e27\u0e32\u0e21\u0e1e\u0e2d\u0e43\u0e08\u0e40\u0e17\u0e48\u0e32\u0e01\u0e31\u0e19\u0e17\u0e38\u0e01\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32</p>
+  <div class="eqbox">
+    <strong>MU<sub>X</sub>/P<sub>X</sub> = MU<sub>Y</sub>/P<sub>Y</sub> = MU<sub>Z</sub>/P<sub>Z</sub> = \u03bb</strong><br>
+    <span style="font-size:12px;color:var(--color-text-secondary)">\u03bb = MU \u0e02\u0e2d\u0e07\u0e40\u0e07\u0e34\u0e19 1 \u0e1a\u0e32\u0e17\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22 | \u0e41\u0e25\u0e30\u0e43\u0e0a\u0e49\u0e07\u0e1a\u0e1e\u0e2d\u0e14\u0e35: \u03a3 P\u00b7Q = I</span>
+  </div>
+  <p style="font-size:12.5px;color:var(--color-text-secondary);margin-bottom:.4rem">I = 29\u0e3f, P<sub>X</sub>=1, P<sub>Y</sub>=2, P<sub>Z</sub>=3 \u2014 \u0e40\u0e25\u0e37\u0e2d\u0e01 X, Y, Z \u0e17\u0e35\u0e48\u0e1e\u0e2d\u0e43\u0e08\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14:</p>
+  <div style="overflow-x:auto"><table class="tbl" id="xyztbl"></table></div>
+  <div style="display:flex;gap:8px;margin:.5rem 0;flex-wrap:wrap;align-items:center">
+    <span style="font-size:12px;color:var(--color-text-secondary)">X (Px=1):</span>
+    <select id="sx" onchange="updXYZ()" style="padding:4px 6px;border:0.5px solid var(--color-border-secondary);border-radius:5px;background:var(--color-background-secondary);color:var(--color-text-primary);font-size:13px">
+      <option>1</option><option>2</option><option>3</option><option>4</option><option value="5" selected>5</option><option>6</option><option>7</option>
+    </select>
+    <span style="font-size:12px;color:var(--color-text-secondary)">Y (Py=2):</span>
+    <select id="sy" onchange="updXYZ()" style="padding:4px 6px;border:0.5px solid var(--color-border-secondary);border-radius:5px;background:var(--color-background-secondary);color:var(--color-text-primary);font-size:13px">
+      <option>1</option><option>2</option><option value="3" selected>3</option><option>4</option><option>5</option><option>6</option><option>7</option>
+    </select>
+    <span style="font-size:12px;color:var(--color-text-secondary)">Z (Pz=3):</span>
+    <select id="sz" onchange="updXYZ()" style="padding:4px 6px;border:0.5px solid var(--color-border-secondary);border-radius:5px;background:var(--color-background-secondary);color:var(--color-text-primary);font-size:13px">
+      <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option value="6" selected>6</option><option>7</option>
+    </select>
+  </div>
+  <div class="fb on info" id="xyzfb"></div>
+  <div class="nav">
+    <button class="nb" onclick="go(2)">\u2190 \u0e22\u0e49\u0e2d\u0e19\u0e01\u0e25\u0e31\u0e1a</button>
+    <button class="nb pr" onclick="go(4)">\u0e16\u0e31\u0e14\u0e44\u0e1b: \u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e04\u0e33\u0e19\u0e27\u0e13 \u2192</button>
+  </div>
+</div>
+
+<!-- S4: Math -->
+<div class="section" id="s4">
+  <div class="sl">\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e04\u0e33\u0e19\u0e27\u0e13</div>
+  <p class="bq">\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e23\u0e39\u0e49\u0e1f\u0e31\u0e07\u0e01\u0e4c\u0e0a\u0e31\u0e19 U = f(X,Y) \u2014 \u0e04\u0e33\u0e19\u0e27\u0e13\u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e\u0e44\u0e14\u0e49\u0e17\u0e31\u0e19\u0e17\u0e35</p>
+  <div class="sb">
+    <p>\u0e42\u0e08\u0e17\u0e22\u0e4c: U = 10X + 24Y \u2212 0.5X\u00b2 \u2212 0.5Y\u00b2, P<sub>X</sub>=2, P<sub>Y</sub>=6, I=44 \u0e1a\u0e32\u0e17</p>
+  </div>
+  <div class="step"><strong>\u0e02\u0e31\u0e49\u0e19 1</strong> \u0e2b\u0e32 MU<br><code>MU_X = \u2202U/\u2202X = 10 \u2212 X</code> &nbsp;|&nbsp; <code>MU_Y = \u2202U/\u2202Y = 24 \u2212 Y</code></div>
+  <div class="step"><strong>\u0e02\u0e31\u0e49\u0e19 2</strong> \u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02 MU_X/P_X = MU_Y/P_Y<br><code>(10\u2212X)/2 = (24\u2212Y)/6</code> \u2192 \u0e04\u0e39\u0e13\u0e44\u0e02\u0e27\u0e49 \u2192 <code>Y = 3X \u2212 6</code> \u2026(1)</div>
+  <div class="step"><strong>\u0e02\u0e31\u0e49\u0e19 3</strong> \u0e41\u0e17\u0e19\u0e43\u0e19\u0e07\u0e1a\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13<br><code>2X + 6(3X\u22126) = 44</code> \u2192 <code>20X = 80</code> \u2192 <code>X*=4, Y*=6</code></div>
+  <div class="step"><strong>\u0e02\u0e31\u0e49\u0e19 4</strong> \u0e15\u0e23\u0e27\u0e08: MU_X/P_X = 6/2 = <strong>3</strong> | MU_Y/P_Y = 18/6 = <strong>3</strong> \u2713 | \u0e07\u0e1a = 2(4)+6(6) = <strong>44</strong> \u2713</div>
+  <p style="font-size:12.5px;color:var(--color-text-secondary);margin:.55rem 0 .35rem">\u0e25\u0e2d\u0e07\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e14\u0e39\u0e27\u0e48\u0e32\u0e17\u0e35\u0e48\u0e04\u0e48\u0e32\u0e2d\u0e37\u0e48\u0e19\u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02\u0e44\u0e21\u0e48\u0e2a\u0e21\u0e14\u0e38\u0e25\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23:</p>
+  <div class="mathcalc">
+    <div class="row"><label>X = <span id="mvx">4</span></label><input type="range" min="1" max="9" value="4" id="mx" oninput="updMath()" style="flex:1"></div>
+    <div class="row"><label>Y = <span id="mvy">6</span></label><input type="range" min="1" max="9" value="6" id="my" oninput="updMath()" style="flex:1"></div>
+    <div class="rg" id="mathres"></div>
+  </div>
+  <div class="nav">
+    <button class="nb" onclick="go(3)">\u2190 \u0e22\u0e49\u0e2d\u0e19\u0e01\u0e25\u0e31\u0e1a</button>
+    <button class="nb pr" onclick="go(5)">\u0e16\u0e31\u0e14\u0e44\u0e1b: \u0e41\u0e1a\u0e1a\u0e1d\u0e36\u0e01\u0e2b\u0e31\u0e14 \u2192</button>
+  </div>
+</div>
+
+<!-- S5: Quiz -->
+<div class="section" id="s5">
+  <div class="sl">\u0e41\u0e1a\u0e1a\u0e1d\u0e36\u0e01\u0e2b\u0e31\u0e14 \u2014 Cardinal Utility</div>
+  <p class="bq">\u0e17\u0e14\u0e2a\u0e2d\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e40\u0e02\u0e49\u0e32\u0e43\u0e08 5 \u0e02\u0e49\u0e2d</p>
+  <div id="qzone"></div>
+  <div class="nav" id="qnav" style="display:none">
+    <button class="nb" onclick="rst()">\u0e17\u0e33\u0e43\u0e2b\u0e21\u0e48</button>
+    <button class="nb" onclick="location.href='chapter2.html'">\u2190 \u0e1a\u0e17\u0e17\u0e35\u0e48 2</button>
+    <button class="nb pr" onclick="location.href='chapter2_ordinal.html'">\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e17\u0e35\u0e48 2 \u2192</button>
+  </div>
+</div>
+</div>
+
+<script>
+const NSEC=6;let cur=0,qAns=0,qScore=0;
+function isDk(){return window.matchMedia('(prefers-color-scheme:dark)').matches;}
+function tc(){return isDk()?'#C8C7C1':'#3A3935';}
+function gc(){return isDk()?'rgba(255,255,255,.09)':'rgba(0,0,0,.07)';}
+function axc(){return isDk()?'rgba(255,255,255,.22)':'rgba(0,0,0,.16)';}
+function tog(bid,btnid,dft){const b=document.getElementById(bid),bt=document.getElementById(btnid);const on=b.classList.toggle('on');bt.textContent=on?'\u0e0b\u0e48\u0e2d\u0e19':(dft||'\u0e40\u0e1c\u0e22');}
+
+function buildPg(){const p=document.getElementById('pg');p.innerHTML='';for(let i=0;i<NSEC;i++){const d=document.createElement('div');d.className='pd';d.id='pd'+i;p.appendChild(d);}}
+function updPg(n){for(let i=0;i<NSEC;i++)document.getElementById('pd'+i).className='pd'+(i<n?' dn':i===n?' ac':'');}
+
+function go(n){
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  document.getElementById('s'+n).style.display='block';
+  cur=n;updPg(n);
+  if(n===1){buildTUMU();updTU(3);}
+  if(n===2){updCS(50);}
+  if(n===3){buildXYZTable();updXYZ();}
+  if(n===4){updMath();}
+  if(n===5){buildQuiz();}
+}
+
+/* =========== S1: TU/MU =========== */
+const TUdata=[0,10,18,24,28,30,30,28];
+// Discrete MU = \u0394TU/\u0394Q between intervals: MU[q] = TUdata[q]-TUdata[q-1]
+// These values sit at q-0.5 on the continuous curve MU=11-2Q
+// e.g. MU[1]=10 at Q=0.5 \u2192 11-2(0.5)=10 \u2713
+const MUdata=[null,10,8,6,4,2,0,-2];
+const MUformula=q=>11-2*q; // continuous formula
+
+function buildTUMU(){
+  const tb=document.getElementById('tumubody');
+  if(tb.children.length)return;
+  const notes=['\u2014','\u0e01\u0e0e DMU \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e23\u0e34\u0e48\u0e21 (MU max)','\u0e01\u0e0e DMU \u0e40\u0e23\u0e34\u0e48\u0e21\u0e41\u0e25\u0e49\u0e27','\u0e01\u0e0e DMU \u0e15\u0e48\u0e2d','\u0e01\u0e0e DMU \u0e15\u0e48\u0e2d','\u0e01\u0e0e DMU \u0e15\u0e48\u0e2d','MU=0 \u2192 TU max (Q=5.5)','MU<0 \u2192 TU \u0e25\u0e14\u0e25\u0e07'];
+  TUdata.forEach((tu,q)=>{
+    const tr=document.createElement('tr');
+    if(q===5||q===6)tr.className='hl';
+    const muCell=q===0?'<td style="color:var(--color-text-secondary)">\u2014</td>':`<td><input type="text" id="mu${q}" placeholder="?"></td>`;
+    tr.innerHTML=`<td>${q}</td><td>${tu}</td>${muCell}<td style="color:#534AB7">${q===0?'11':MUformula(q)}</td><td style="font-size:11px;color:var(--color-text-secondary)">${notes[q]}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function checkMU(){
+  let ok=0;
+  for(let q=1;q<=7;q++){
+    const inp=document.getElementById('mu'+q);if(!inp)continue;
+    const v=parseFloat(inp.value);
+    if(v===MUdata[q]){inp.style.borderColor='#1D9E75';inp.style.background='#E1F5EE';ok++;}
+    else{inp.style.borderColor='#E24B4A';inp.style.background='#FCEBEB';}
+  }
+  const fb=document.getElementById('mufb');
+  fb.textContent=ok===7?'\u0e16\u0e39\u0e01\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14! MU = TU(Q) \u2212 TU(Q\u22121) \u0e08\u0e38\u0e14\u0e40\u0e2b\u0e25\u0e48\u0e32\u0e19\u0e35\u0e49\u0e2d\u0e22\u0e39\u0e48\u0e1a\u0e19\u0e40\u0e2a\u0e49\u0e19 MU=11\u22122Q \u0e17\u0e35\u0e48\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07 Q\u22120.5 \u0e1e\u0e2d\u0e14\u0e35':
+    `\u0e44\u0e14\u0e49 ${ok}/7 \u2014 MU \u0e04\u0e37\u0e2d\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e41\u0e1b\u0e25\u0e07\u0e02\u0e2d\u0e07 TU \u0e40\u0e21\u0e37\u0e48\u0e2d Q \u0e40\u0e1e\u0e34\u0e48\u0e21 1 \u0e2b\u0e19\u0e48\u0e27\u0e22`;
+  fb.className='fb on '+(ok===7?'ok':'no');
+}
+
+function updTU(q){
+  q=parseInt(q);
+  document.getElementById('qv').textContent=q;
+  const tu=TUdata[q];
+  const mu=MUdata[q];
+  let info='';
+  if(q===0)info=`TU(0) = 0 | \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e23\u0e34\u0e48\u0e21\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04`;
+  else{
+    const muFormulaAtQ=MUformula(q).toFixed(1);
+    info=`TU(${q}) = ${tu} | MU \u0e2b\u0e19\u0e48\u0e27\u0e22\u0e17\u0e35\u0e48 ${q} = ${mu} (\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48 Q=${q-0.5} \u0e1a\u0e19\u0e01\u0e23\u0e32\u0e1f) | ${mu>0?'TU \u0e01\u0e33\u0e25\u0e31\u0e07\u0e40\u0e1e\u0e34\u0e48\u0e21':mu===0?'TU \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14!':'TU \u0e01\u0e33\u0e25\u0e31\u0e07\u0e25\u0e14'}`;
+  }
+  document.getElementById('tumuinfo').textContent=info;
+  drawTUMU(q);
+}
+
+function drawTUMU(hq){
+  const cv=document.getElementById('ctu');if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height;
+  ctx.clearRect(0,0,W,H);
+
+  const ml=42,mb=36,mt=26,mr=6;
+  const pw=(W-12)/2-ml-mr;
+  const ph=H-mt-mb;
+  const p1=0, p2=W/2+6;
+
+  // ---- coordinate helpers ----
+  // TU panel: y range 0..34
+  function txQ(px0,q){return px0+ml+(q/7.5)*pw;}
+  function tyT(v){return mt+ph-(v/34)*ph;}
+  // MU panel: y range -4..13 (range=17)
+  const MU_YMIN=-4, MU_YMAX=13, MU_RANGE=MU_YMAX-MU_YMIN;
+  function tyM(v){return mt+ph-((v-MU_YMIN)/MU_RANGE)*ph;}
+
+  const F='11px sans-serif';
+  ctx.font=F;
+
+  /* ===== TU PANEL ===== */
+  ctx.strokeStyle=axc();ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(p1+ml,mt);ctx.lineTo(p1+ml,mt+ph);ctx.lineTo(p1+ml+pw,mt+ph);ctx.stroke();
+
+  ctx.fillStyle=tc();ctx.textAlign='center';
+  ctx.fillText('\u0e2d\u0e23\u0e23\u0e16\u0e1b\u0e23\u0e30\u0e42\u0e22\u0e0a\u0e19\u0e4c\u0e23\u0e27\u0e21 (TU)',p1+ml+pw/2,17);
+  ctx.fillText('Q',p1+ml+pw/2,mt+ph+27);
+
+  // Grid + labels
+  [0,10,20,30].forEach(v=>{
+    ctx.strokeStyle=gc();ctx.lineWidth=.5;
+    ctx.beginPath();ctx.moveTo(p1+ml,tyT(v));ctx.lineTo(p1+ml+pw,tyT(v));ctx.stroke();
+    ctx.fillStyle=tc();ctx.textAlign='right';ctx.fillText(v,p1+ml-4,tyT(v)+4);
+  });
+  for(let q=0;q<=7;q++){ctx.fillStyle=tc();ctx.textAlign='center';ctx.fillText(q,txQ(p1,q),mt+ph+14);}
+
+  // TU curve (smooth, Q=0..7.5)
+  ctx.strokeStyle='#378ADD';ctx.lineWidth=2.5;ctx.beginPath();
+  for(let q=0;q<=7.5;q+=0.04){
+    const tu=11*q-q*q;
+    const x=txQ(p1,q),y=tyT(tu);
+    q<0.01?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // Max annotation at Q=5.5
+  ctx.strokeStyle='rgba(100,100,100,.25)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+  ctx.beginPath();ctx.moveTo(txQ(p1,5.5),tyT(30.25));ctx.lineTo(txQ(p1,5.5),mt+ph);ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='rgba(90,90,90,.65)';ctx.textAlign='center';ctx.font='9px sans-serif';
+  ctx.fillText('Q=5.5',txQ(p1,5.5),mt+ph+24);ctx.font=F;
+
+  // TU data points at integer Q \u2014 exactly on curve since TU[q]=11q-q\u00b2
+  TUdata.forEach((tu,q)=>{
+    const x=txQ(p1,q),y=tyT(tu);
+    const isHL=(q===hq);
+    ctx.fillStyle=isHL?'#E24B4A':'#378ADD';
+    ctx.beginPath();ctx.arc(x,y,isHL?5.5:3,0,2*Math.PI);ctx.fill();
+    if(isHL){
+      // dashed drop line
+      ctx.strokeStyle='#E24B4A';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+      ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,mt+ph);ctx.stroke();
+      // dashed horizontal to y-axis
+      ctx.beginPath();ctx.moveTo(p1+ml,y);ctx.lineTo(x,y);ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='#A32D2D';ctx.textAlign='center';ctx.font='10px sans-serif';
+      ctx.fillText('TU='+tu,x,y-8);ctx.font=F;
+    }
+  });
+
+  /* ===== MU PANEL ===== */
+  ctx.strokeStyle=axc();ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(p2+ml,mt);ctx.lineTo(p2+ml,mt+ph);ctx.lineTo(p2+ml+pw,mt+ph);ctx.stroke();
+
+  ctx.fillStyle=tc();ctx.textAlign='center';
+  ctx.fillText('\u0e2d\u0e23\u0e23\u0e16\u0e1b\u0e23\u0e30\u0e42\u0e22\u0e0a\u0e19\u0e4c\u0e40\u0e1e\u0e34\u0e48\u0e21 (MU)',p2+ml+pw/2,17);
+  ctx.fillText('Q',p2+ml+pw/2,mt+ph+27);
+
+  // Zero dashed line
+  ctx.strokeStyle='rgba(100,100,100,.25)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(p2+ml,tyM(0));ctx.lineTo(p2+ml+pw,tyM(0));ctx.stroke();ctx.setLineDash([]);
+
+  // Grid + y labels
+  [-2,0,2,4,6,8,10].forEach(v=>{
+    if(v!==0){ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(p2+ml,tyM(v));ctx.lineTo(p2+ml+pw,tyM(v));ctx.stroke();}
+    ctx.fillStyle=tc();ctx.textAlign='right';ctx.fillText(v,p2+ml-4,tyM(v)+4);
+  });
+  // x axis: integer Q labels 0..7
+  for(let q=0;q<=7;q++){ctx.fillStyle=tc();ctx.textAlign='center';ctx.fillText(q,txQ(p2,q),mt+ph+14);}
+  ctx.fillStyle='rgba(90,90,90,.55)';ctx.textAlign='right';ctx.font='9px sans-serif';
+  ctx.fillText('MU=0',p2+ml+pw-2,tyM(0)-3);ctx.font=F;
+
+  // MU continuous curve: MU=11-2Q, from Q=0 to Q=7.5
+  // Above-zero part (blue-orange): Q=0..5.5
+  ctx.strokeStyle='#D85A30';ctx.lineWidth=2.5;ctx.beginPath();
+  for(let q=0;q<=5.5;q+=0.04){
+    const mu=11-2*q;const x=txQ(p2,q),y=tyM(mu);
+    q<0.01?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  // Below-zero part (faded): Q=5.5..7.5
+  ctx.strokeStyle='rgba(200,80,60,.45)';ctx.lineWidth=2;ctx.beginPath();
+  for(let q=5.5;q<=7.5;q+=0.04){
+    const mu=11-2*q;const x=txQ(p2,q),y=tyM(mu);
+    q<5.51?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // *** KEY FIX: MU data points plotted at q-0.5 (mid-interval) ***
+  // This places them exactly on the MU=11-2Q curve:
+  //   MU[1]=10 at Q=0.5 \u2192 11-2(0.5)=10 \u2713
+  //   MU[2]=8  at Q=1.5 \u2192 11-2(1.5)=8  \u2713  etc.
+  MUdata.forEach((mu,q)=>{
+    if(q===0)return; // no MU value for Q=0
+    const midQ=q-0.5; // exact position on curve
+    const x=txQ(p2,midQ);
+    const y=tyM(mu);
+    const isHL=(q===hq&&hq>0);
+    // Verify: MUformula(midQ) should === mu
+    ctx.fillStyle=isHL?'#E24B4A':mu>=0?'#D85A30':'rgba(190,60,60,.7)';
+    ctx.beginPath();ctx.arc(x,y,isHL?5.5:3.5,0,2*Math.PI);ctx.fill();
+    // White border to make points pop
+    ctx.strokeStyle=isDk()?'rgba(0,0,0,.4)':'rgba(255,255,255,.8)';
+    ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(x,y,isHL?5.5:3.5,0,2*Math.PI);ctx.stroke();
+
+    if(isHL){
+      // Drop line to x-axis from mid-interval position
+      ctx.strokeStyle='#E24B4A';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+      ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,mt+ph);ctx.stroke();
+      // Horizontal to y-axis
+      ctx.beginPath();ctx.moveTo(p2+ml,y);ctx.lineTo(x,y);ctx.stroke();
+      ctx.setLineDash([]);
+      // Label
+      ctx.fillStyle='#A32D2D';ctx.textAlign='center';ctx.font='10px sans-serif';
+      ctx.fillText('MU='+mu,x,mu>=0?y-8:y+12);
+      // Mid-Q label on x-axis
+      ctx.fillStyle='rgba(180,50,50,.7)';ctx.textAlign='center';
+      ctx.fillText(midQ,x,mt+ph+24);
+      ctx.font=F;
+    }
+  });
+}
+
+/* =========== S2: CS =========== */
+const MANGO=[130,110,90,70,50,30,0,-10]; // MU at Q=1..8
+
+function drawCS(P){
+  P=parseInt(P);
+  const cv=document.getElementById('ccs');if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  const ml=50,mb=42,mt=28,mr=15;
+  const pw=W-ml-mr,ph=H-mt-mb;
+  const YMAX=148,YMIN=-22,YRANGE=YMAX-YMIN;
+  function bx(q){return ml+((q-0.5)/(MANGO.length))*pw;}
+  function cy(v){return mt+ph-((v-YMIN)/YRANGE)*ph;}
+  const BW=pw/(MANGO.length+.5)*.6;
+
+  ctx.font='11px sans-serif';
+  // Axes
+  ctx.strokeStyle=axc();ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+  // Zero line
+  ctx.strokeStyle='rgba(100,100,100,.2)';ctx.lineWidth=.8;ctx.setLineDash([3,3]);
+  ctx.beginPath();ctx.moveTo(ml,cy(0));ctx.lineTo(ml+pw,cy(0));ctx.stroke();ctx.setLineDash([]);
+
+  // Y-axis gridlines + labels
+  [-10,0,30,50,70,90,110,130].forEach(v=>{
+    ctx.strokeStyle=gc();ctx.lineWidth=.4;
+    ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();
+    ctx.fillStyle=tc();ctx.textAlign='right';ctx.fillText(v,ml-3,cy(v)+4);
+  });
+  // X-axis labels
+  MANGO.forEach((_,i)=>{
+    ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='11px sans-serif';
+    ctx.fillText(i+1,bx(i+1),mt+ph+15);
+  });
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='10px sans-serif';
+  ctx.fillText('\u0e1b\u0e23\u0e34\u0e21\u0e32\u0e13 Q (\u0e1c\u0e25)',ml+pw/2,mt+ph+30);ctx.font='11px sans-serif';
+
+  let totalCS=0,optQ=0;
+  MANGO.forEach((mu,i)=>{
+    const q=i+1,x=bx(q)-BW/2;
+    if(mu>P){
+      totalCS+=(mu-P);optQ=q;
+      // CS portion (above P)
+      ctx.fillStyle='rgba(29,158,117,.8)';
+      if(cy(P)-cy(mu)>0)ctx.fillRect(x,cy(mu),BW,cy(P)-cy(mu));
+      // Paid portion (P to zero)
+      ctx.fillStyle='rgba(29,158,117,.25)';
+      if(cy(0)-cy(P)>0)ctx.fillRect(x,cy(P),BW,cy(0)-cy(P));
+      ctx.strokeStyle='#1D9E75';ctx.lineWidth=1.2;
+      ctx.strokeRect(x,cy(mu),BW,cy(0)-cy(mu));
+    } else if(mu===P){
+      totalCS+=0;optQ=q;
+      ctx.fillStyle='rgba(55,138,221,.25)';
+      if(cy(0)-cy(mu)>0)ctx.fillRect(x,cy(mu),BW,cy(0)-cy(mu));
+      ctx.strokeStyle='#378ADD';ctx.lineWidth=1.5;
+      ctx.strokeRect(x,cy(mu),BW,cy(0)-cy(mu));
+    } else if(mu>0){
+      ctx.fillStyle='rgba(160,160,160,.12)';
+      ctx.fillRect(x,cy(mu),BW,cy(0)-cy(mu));
+      ctx.strokeStyle='rgba(160,160,160,.35)';ctx.lineWidth=.7;
+      ctx.strokeRect(x,cy(mu),BW,cy(0)-cy(mu));
+    } else if(mu<0){
+      ctx.fillStyle='rgba(220,80,80,.12)';
+      ctx.fillRect(x,cy(0),BW,cy(mu)-cy(0));
+      ctx.strokeStyle='rgba(220,80,80,.3)';ctx.lineWidth=.7;
+      ctx.strokeRect(x,cy(0),BW,cy(mu)-cy(0));
+    }
+    // MU value label above bar
+    ctx.fillStyle=mu>P?'#0F6E56':mu===P?'#185FA5':tc();
+    ctx.textAlign='center';ctx.font='9.5px sans-serif';
+    ctx.fillText(mu,bx(q),mu>=0?cy(mu)-3:cy(mu)+11);ctx.font='11px sans-serif';
+  });
+
+  // Price line
+  ctx.strokeStyle='#E24B4A';ctx.lineWidth=2;ctx.setLineDash([5,3]);
+  ctx.beginPath();ctx.moveTo(ml,cy(P));ctx.lineTo(ml+pw,cy(P));ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#E24B4A';ctx.textAlign='left';ctx.font='10px sans-serif';
+  ctx.fillText('P='+P+' \u0e1a\u0e32\u0e17',ml+3,cy(P)-5);ctx.font='11px sans-serif';
+
+  // Q* label
+  if(optQ>0){
+    ctx.fillStyle='#185FA5';ctx.textAlign='center';ctx.font='10px sans-serif';
+    ctx.fillText('Q*='+optQ,bx(optQ),cy(P)+13);ctx.font='11px sans-serif';
+  }
+
+  // CS total
+  ctx.fillStyle='#0F6E56';ctx.textAlign='right';ctx.font='10.5px sans-serif';
+  ctx.fillText('CS \u0e23\u0e27\u0e21 = '+totalCS+' utils',ml+pw,mt+13);
+
+  // Legend
+  ctx.fillStyle='rgba(29,158,117,.8)';ctx.fillRect(ml+2,mt+1,11,9);
+  ctx.fillStyle=tc();ctx.textAlign='left';ctx.font='9px sans-serif';
+  ctx.fillText('CS (MU > P)',ml+15,mt+9);
+  ctx.fillStyle='rgba(160,160,160,.2)';ctx.fillRect(ml+90,mt+1,11,9);
+  ctx.strokeStyle='rgba(160,160,160,.4)';ctx.strokeRect(ml+90,mt+1,11,9);
+  ctx.fillStyle=tc();ctx.fillText('\u0e44\u0e21\u0e48\u0e0b\u0e37\u0e49\u0e2d (MU < P)',ml+103,mt+9);
+  ctx.font='11px sans-serif';
+
+  // Info box
+  const fb=document.getElementById('csinfo');
+  if(optQ===0){fb.textContent=`P=${P} \u0e1a\u0e32\u0e17 \u2014 \u0e41\u0e1e\u0e07\u0e40\u0e01\u0e34\u0e19 \u0e44\u0e21\u0e48\u0e04\u0e38\u0e49\u0e21\u0e0b\u0e37\u0e49\u0e2d\u0e41\u0e21\u0e49\u0e41\u0e15\u0e48\u0e1c\u0e25\u0e41\u0e23\u0e01 (MU \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14=${MANGO[0]})`;fb.className='fb on no';}
+  else{fb.textContent=`\u0e23\u0e32\u0e04\u0e32 P=${P} \u0e1a\u0e32\u0e17 \u2192 \u0e0b\u0e37\u0e49\u0e2d Q*=${optQ} \u0e1c\u0e25 | CS \u0e23\u0e27\u0e21 = ${totalCS} utils | \u0e22\u0e34\u0e48\u0e07\u0e23\u0e32\u0e04\u0e32\u0e16\u0e39\u0e01 CS \u0e22\u0e34\u0e48\u0e07\u0e21\u0e32\u0e01`;fb.className='fb on info';}
+}
+function updCS(p){document.getElementById('pvl').textContent=p;drawCS(p);}
+
+/* =========== S3: XYZ =========== */
+const TUX=[50,95,134,166,186,197,202];
+const TUY=[60,114,154,189,211,221,229];
+const TUZ=[106,201,289,369,441,501,551];
+const XMU=[50,45,39,32,20,11,5];
+const YMU=[60,54,40,35,22,10,8];
+const ZMU=[106,95,88,80,72,60,50];
+
+function buildXYZTable(){
+  const tbl=document.getElementById('xyztbl');
+  if(tbl.children.length)return;
+  tbl.innerHTML=`<thead><tr><th>Q</th>
+    <th>TU_X</th><th>MU_X</th><th style="color:#185FA5">MU_X/1</th>
+    <th>TU_Y</th><th>MU_Y</th><th style="color:#0F6E56">MU_Y/2</th>
+    <th>TU_Z</th><th>MU_Z</th><th style="color:#534AB7">MU_Z/3</th>
+  </tr></thead><tbody id="xyzbody"></tbody>`;
+  const tb=document.getElementById('xyzbody');
+  for(let q=1;q<=7;q++){
+    const tr=document.createElement('tr');tr.id='xr'+q;
+    tr.innerHTML=`<td>${q}</td>
+      <td>${TUX[q-1]}</td><td>${XMU[q-1]}</td><td id="mpx${q}">${XMU[q-1]}</td>
+      <td>${TUY[q-1]}</td><td>${YMU[q-1]}</td><td id="mpy${q}">${(YMU[q-1]/2).toFixed(1)}</td>
+      <td>${TUZ[q-1]}</td><td>${ZMU[q-1]}</td><td id="mpz${q}">${(ZMU[q-1]/3).toFixed(1)}</td>`;
+    tb.appendChild(tr);
+  }
+}
+function updXYZ(){
+  const X=+document.getElementById('sx').value;
+  const Y=+document.getElementById('sy').value;
+  const Z=+document.getElementById('sz').value;
+  for(let q=1;q<=7;q++){
+    const tr=document.getElementById('xr'+q);if(!tr)continue;
+    tr.className=(q===X||q===Y||q===Z)?'hl':'';
+  }
+  const bg=X+Y*2+Z*3;
+  const mx=XMU[X-1],my=YMU[Y-1]/2,mz=ZMU[Z-1]/3;
+  const eqOK=mx===my&&my===mz;
+  const bgOK=bg===29;
+  const fb=document.getElementById('xyzfb');
+  if(eqOK&&bgOK){
+    fb.textContent=`\u2713 \u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07! X=${X}, Y=${Y}, Z=${Z} \u2192 MU/P = ${mx} \u0e17\u0e38\u0e01\u0e15\u0e31\u0e27 | \u0e07\u0e1a = ${bg}/29 \u0e1a\u0e32\u0e17 | TU \u0e23\u0e27\u0e21 = ${TUX[X-1]+TUY[Y-1]+TUZ[Z-1]} utils`;
+    fb.className='fb on ok';
+  } else {
+    fb.textContent=`\u0e07\u0e1a = ${bg}/29\u0e3f | MU/P: X=${mx.toFixed(1)}, Y=${my.toFixed(1)}, Z=${mz.toFixed(1)}${!eqOK?' | MU/P \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e17\u0e48\u0e32\u0e01\u0e31\u0e19':''}${!bgOK?' | '+( bg<29?'\u0e43\u0e0a\u0e49\u0e19\u0e49\u0e2d\u0e22\u0e01\u0e27\u0e48\u0e32\u0e07\u0e1a':'\u0e40\u0e01\u0e34\u0e19\u0e07\u0e1a'):''}`;
+    fb.className='fb on no';
+  }
+}
+
+/* =========== S4: MATH =========== */
+function updMath(){
+  const X=+document.getElementById('mx').value,Y=+document.getElementById('my').value;
+  document.getElementById('mvx').textContent=X;document.getElementById('mvy').textContent=Y;
+  const mux=10-X,muy=24-Y,rx=mux/2,ry=muy/6,bg=2*X+6*Y;
+  const eqOK=Math.abs(rx-ry)<0.01,bgOK=bg===44;
+  document.getElementById('mathres').innerHTML=`
+    <div class="rbox ${eqOK?'match':'nomatch'}">
+      MU_X/P_X = (10\u2212${X})/2 = <strong>${rx.toFixed(2)}</strong><br>
+      MU_Y/P_Y = (24\u2212${Y})/6 = <strong>${ry.toFixed(2)}</strong><br>
+      ${eqOK?'\u2713 \u0e40\u0e17\u0e48\u0e32\u0e01\u0e31\u0e19 \u2713':'\u2717 \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e17\u0e48\u0e32\u0e01\u0e31\u0e19'}
+    </div>
+    <div class="rbox ${bgOK?'match':'nomatch'}">
+      \u0e07\u0e1a = 2(${X})+6(${Y}) = <strong>${bg}</strong> \u0e1a\u0e32\u0e17<br>
+      ${bgOK?'\u2713 \u0e1e\u0e2d\u0e14\u0e35 44 \u0e1a\u0e32\u0e17':'\u2717 \u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23 44 \u0e1a\u0e32\u0e17'}
+      ${eqOK&&bgOK?'<br><strong style="color:#0F6E56">\ud83c\udfaf \u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e! X='+X+', Y='+Y+'</strong>':''}
+    </div>`;
+}
+
+/* =========== S5: QUIZ =========== */
+const QQ=[
+  {q:'MU \u0e13 \u0e08\u0e38\u0e14\u0e2d\u0e34\u0e48\u0e21\u0e15\u0e31\u0e27 (Saturation Point) \u0e21\u0e35\u0e04\u0e48\u0e32\u0e40\u0e17\u0e48\u0e32\u0e43\u0e14?',opts:['MU \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14','MU = 0','MU = \u0e23\u0e32\u0e04\u0e32','MU \u0e15\u0e34\u0e14\u0e25\u0e1a'],ans:1,ex:'\u0e13 \u0e08\u0e38\u0e14\u0e2d\u0e34\u0e48\u0e21\u0e15\u0e31\u0e27 TU \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 \u2192 \u0e04\u0e27\u0e32\u0e21\u0e0a\u0e31\u0e19 = 0 \u2192 MU = dTU/dQ = 0'},
+  {q:'MU \u0e43\u0e19\u0e15\u0e32\u0e23\u0e32\u0e07 (\u0394TU/\u0394Q) \u0e15\u0e48\u0e32\u0e07\u0e08\u0e32\u0e01 MU \u0e43\u0e19\u0e2a\u0e39\u0e15\u0e23 (dTU/dQ) \u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23?',opts:['\u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19\u0e01\u0e31\u0e19\u0e17\u0e38\u0e01\u0e1b\u0e23\u0e30\u0e01\u0e32\u0e23','\u0e15\u0e32\u0e23\u0e32\u0e07\u0e43\u0e2b\u0e49\u0e04\u0e48\u0e32\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e0a\u0e48\u0e27\u0e07 \u0e2a\u0e39\u0e15\u0e23\u0e43\u0e2b\u0e49\u0e04\u0e48\u0e32 \u0e13 \u0e08\u0e38\u0e14','\u0e15\u0e32\u0e23\u0e32\u0e07\u0e16\u0e39\u0e01 \u0e2a\u0e39\u0e15\u0e23\u0e1c\u0e34\u0e14','\u0e43\u0e0a\u0e49\u0e41\u0e17\u0e19\u0e01\u0e31\u0e19\u0e44\u0e14\u0e49\u0e17\u0e38\u0e01\u0e01\u0e23\u0e13\u0e35'],ans:1,ex:'\u0394TU/\u0394Q \u0e40\u0e1b\u0e47\u0e19\u0e04\u0e48\u0e32\u0e40\u0e09\u0e25\u0e35\u0e48\u0e22\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 Q \u0e01\u0e31\u0e1a Q-1 \u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48 Q-0.5 | dTU/dQ \u0e40\u0e1b\u0e47\u0e19 instantaneous slope \u0e13 Q'},
+  {q:'\u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32\u0e0a\u0e19\u0e34\u0e14\u0e40\u0e14\u0e35\u0e22\u0e27: \u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04\u0e04\u0e27\u0e23\u0e0b\u0e37\u0e49\u0e2d\u0e16\u0e36\u0e07\u0e2b\u0e19\u0e48\u0e27\u0e22\u0e17\u0e35\u0e48 MU \u0e40\u0e1b\u0e47\u0e19\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48?',opts:['MU = 0','MU \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14','MU = \u0e23\u0e32\u0e04\u0e32 P','MU/P = I'],ans:2,ex:'\u0e0b\u0e37\u0e49\u0e2d\u0e16\u0e36\u0e07\u0e2b\u0e19\u0e48\u0e27\u0e22\u0e17\u0e35\u0e48 MU = P (\u0e04\u0e38\u0e49\u0e21\u0e04\u0e48\u0e32\u0e1e\u0e2d\u0e14\u0e35) \u0e16\u0e49\u0e32 MU > P \u0e22\u0e31\u0e07\u0e0b\u0e37\u0e49\u0e2d\u0e15\u0e48\u0e2d \u0e16\u0e49\u0e32 MU < P \u0e2b\u0e22\u0e38\u0e14\u0e0b\u0e37\u0e49\u0e2d'},
+  {q:'\u0e16\u0e49\u0e32 MU_X/P_X > MU_Y/P_Y \u0e1c\u0e39\u0e49\u0e1a\u0e23\u0e34\u0e42\u0e20\u0e04\u0e04\u0e27\u0e23\u0e17\u0e33\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23?',opts:['\u0e0b\u0e37\u0e49\u0e2d Y \u0e40\u0e1e\u0e34\u0e48\u0e21 \u0e25\u0e14 X','\u0e0b\u0e37\u0e49\u0e2d X \u0e40\u0e1e\u0e34\u0e48\u0e21 \u0e25\u0e14 Y','\u0e04\u0e07\u0e40\u0e14\u0e34\u0e21','\u0e40\u0e25\u0e34\u0e01\u0e0b\u0e37\u0e49\u0e2d\u0e17\u0e31\u0e49\u0e07\u0e04\u0e39\u0e48'],ans:1,ex:'\u0e17\u0e38\u0e01\u0e1a\u0e32\u0e17\u0e17\u0e35\u0e48\u0e25\u0e07\u0e17\u0e38\u0e19\u0e43\u0e19 X \u0e43\u0e2b\u0e49\u0e1c\u0e25\u0e14\u0e35\u0e01\u0e27\u0e48\u0e32 Y \u2192 \u0e0b\u0e37\u0e49\u0e2d X \u0e40\u0e1e\u0e34\u0e48\u0e21 MU_X \u0e08\u0e30\u0e25\u0e14\u0e25\u0e07\u0e08\u0e19\u0e2a\u0e21\u0e14\u0e38\u0e25'},
+  {q:'\u03bb \u0e43\u0e19\u0e2a\u0e21\u0e01\u0e32\u0e23 MU/P = \u03bb \u0e2b\u0e21\u0e32\u0e22\u0e16\u0e36\u0e07\u0e2d\u0e30\u0e44\u0e23?',opts:['\u0e23\u0e32\u0e04\u0e32\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32','\u0e08\u0e33\u0e19\u0e27\u0e19\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32','\u0e2d\u0e23\u0e23\u0e16\u0e1b\u0e23\u0e30\u0e42\u0e22\u0e0a\u0e19\u0e4c\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e02\u0e2d\u0e07\u0e40\u0e07\u0e34\u0e19 1 \u0e1a\u0e32\u0e17\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22','\u0e23\u0e32\u0e22\u0e44\u0e14\u0e49\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14'],ans:2,ex:'\u03bb = MU \u0e17\u0e35\u0e48\u0e44\u0e14\u0e49\u0e08\u0e32\u0e01\u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e40\u0e07\u0e34\u0e19 1 \u0e1a\u0e32\u0e17\u0e40\u0e1e\u0e34\u0e48\u0e21 \u0e13 \u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e \u0e04\u0e48\u0e32 \u03bb \u0e40\u0e17\u0e48\u0e32\u0e01\u0e31\u0e19\u0e17\u0e38\u0e01\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32'}
+];
+function buildQuiz(){
+  const z=document.getElementById('qzone');if(z.children.length)return;
+  qAns=0;qScore=0;
+  QQ.forEach((q,qi)=>{
+    const d=document.createElement('div');d.style.marginBottom='1rem';
+    d.innerHTML=`<p style="font-size:13.5px;font-weight:500;margin:0 0 7px;color:var(--color-text-primary)">${qi+1}. ${q.q}</p>
+    ${q.opts.map((o,oi)=>`<button class="qopt" id="q${qi}_${oi}" onclick="ansQ(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`).join('')}
+    <div class="fb" id="qf${qi}"></div>`;
+    z.appendChild(d);
+  });
+}
+function ansQ(qi,oi){
+  const q=QQ[qi];
+  for(let i=0;i<q.opts.length;i++)document.getElementById(`q${qi}_${i}`).disabled=true;
+  const btn=document.getElementById(`q${qi}_${oi}`),fb=document.getElementById(`qf${qi}`);
+  if(oi===q.ans){btn.className='qopt ok';qScore++;fb.textContent='\u0e16\u0e39\u0e01! '+q.ex;fb.className='fb on ok';}
+  else{btn.className='qopt no';document.getElementById(`q${qi}_${q.ans}`).className='qopt ok';fb.textContent='\u0e44\u0e21\u0e48\u0e16\u0e39\u0e01 \u2014 '+q.ex;fb.className='fb on no';}
+  qAns++;
+  if(qAns===QQ.length){
+    const msg=qScore>=4?'\u0e22\u0e2d\u0e14\u0e40\u0e22\u0e35\u0e48\u0e22\u0e21! \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e44\u0e1b\u0e17\u0e24\u0e29\u0e0e\u0e35\u0e17\u0e35\u0e48 2':qScore>=3?'\u0e1c\u0e48\u0e32\u0e19\u0e44\u0e14\u0e49 \u0e17\u0e1a\u0e17\u0e27\u0e19\u0e08\u0e38\u0e14\u0e17\u0e35\u0e48\u0e1e\u0e25\u0e32\u0e14':'\u0e25\u0e2d\u0e07\u0e2d\u0e48\u0e32\u0e19\u0e41\u0e25\u0e30\u0e17\u0e33\u0e43\u0e2b\u0e21\u0e48';
+    const s=document.createElement('div');s.style.cssText='text-align:center;padding:.75rem 0';
+    s.innerHTML=`<div class="sc">${qScore}/${QQ.length}</div><p style="font-size:13px;color:var(--color-text-secondary);margin:0">${msg}</p>`;
+    document.getElementById('qzone').appendChild(s);
+    document.getElementById('qnav').style.display='flex';
+  }
+}
+function rst(){qAns=0;qScore=0;document.getElementById('qzone').innerHTML='';document.getElementById('qnav').style.display='none';go(0);}
+
+/* =========== INIT =========== */
+(function(){
+  buildPg();
+  document.querySelectorAll('.section').forEach((s,i)=>{s.style.display=i===0?'block':'none';});
+  updPg(0);
+})();
+</script>
+
+</div></div></body>
+</html>
