@@ -1,1 +1,1824 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Math &amp; Stats for Econ · จัดทำโดย Ajarn.Kwan @ คณะเศรษฐศาสตร์ รามคำแหง</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf9f6;--surface:#fff;--card:#fffdf8;
+  --amber:#d97706;--al:#fef3c7;--ab:#fbbf24;
+  --green:#065f46;--gl:#d1fae5;--gm:#059669;
+  --red:#dc2626;--rl:#fee2e2;
+  --blue:#1d4ed8;--bl:#dbeafe;
+  --purple:#7c3aed;--pl:#ede9fe;
+  --text:#1c1917;--mid:#44403c;--muted:#78716c;
+  --border:#e7e5e4;--bdark:#d6d3d1;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:18px}
 
+/* ── TOP NAV ── */
+#topnav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(250,249,246,.97);backdrop-filter:blur(16px);
+  border-bottom:2px solid var(--border);
+  padding:0 1.5rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{
+  font-family:'Lora',serif;font-weight:700;font-size:1rem;
+  display:flex;align-items:center;gap:.5rem;cursor:pointer;
+  flex-wrap:wrap;gap-y:.1rem;
+}
+.nav-dot{width:9px;height:9px;background:var(--amber);border-radius:50%;flex-shrink:0}
+.nav-title-main{color:var(--text)}
+.nav-title-author{
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:.8rem;
+  color:white;background:#7c3aed;
+  padding:.18rem .65rem;border-radius:999px;
+  letter-spacing:.01em;white-space:nowrap;
+}
+#nav-breadcrumb{font-size:.78rem;color:var(--muted);font-family:'Space Mono',monospace}
+#nav-back{
+  display:none;align-items:center;gap:.4rem;
+  background:none;border:1px solid var(--bdark);
+  padding:.35rem .85rem;border-radius:999px;
+  font-size:.8rem;cursor:pointer;color:var(--mid);
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+#nav-back:hover{border-color:var(--amber);color:var(--amber)}
+#progress-bar{position:fixed;top:64px;left:0;height:3px;background:var(--amber);z-index:199;transition:width .3s;width:0}
+
+/* ── PAGES ── */
+.page{display:none;min-height:calc(100vh - 56px)}
+#page-home{display:block}
+
+/* ── HOME ── */
+.home-hero{
+  background:linear-gradient(135deg,#1c1917 0%,#292524 100%);
+  color:white;padding:4rem 2rem 3rem;text-align:center;
+}
+.home-kicker{
+  font-family:'Space Mono',monospace;font-size:.7rem;
+  letter-spacing:.3em;color:var(--ab);text-transform:uppercase;margin-bottom:1rem;
+}
+.home-h1{
+  font-family:'Lora',serif;font-size:clamp(2rem,5vw,3.2rem);
+  font-weight:700;line-height:1.15;margin-bottom:1rem;
+}
+.home-h1 em{color:var(--ab);font-style:italic}
+.home-sub{font-size:1.08rem;color:#a8a29e;max-width:540px;margin:0 auto 2rem;line-height:1.75}
+.home-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.btn-start{
+  background:var(--amber);color:white;
+  border:none;padding:.75rem 1.75rem;border-radius:.5rem;
+  font-size:.95rem;font-weight:600;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.btn-start:hover{background:#b45309;transform:translateY(-1px)}
+.btn-assess{
+  background:transparent;color:white;
+  border:1px solid rgba(255,255,255,.3);padding:.75rem 1.5rem;
+  border-radius:.5rem;font-size:.95rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.btn-assess:hover{border-color:var(--ab);color:var(--ab)}
+
+/* HOME PROGRESS */
+.home-progress{
+  max-width:900px;margin:0 auto;
+  padding:1.5rem 2rem;
+  display:flex;align-items:center;gap:1rem;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.prog-label{font-size:.85rem;color:var(--muted)}
+.prog-bar-wrap{flex:1;min-width:120px;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.prog-bar-fill{height:100%;background:var(--gm);border-radius:3px;transition:width .5s}
+.prog-count{font-family:'Space Mono',monospace;font-size:.78rem;color:var(--amber)}
+
+/* COURSE SECTIONS */
+.home-body{max-width:900px;margin:0 auto;padding:2rem}
+.section-block{margin-bottom:3rem}
+.sb-header{
+  display:flex;align-items:center;gap:.75rem;
+  margin-bottom:1rem;padding-bottom:.75rem;
+  border-bottom:2px solid var(--border);
+}
+.sb-badge{
+  font-family:'Space Mono',monospace;font-size:.68rem;
+  letter-spacing:.15em;padding:.2rem .65rem;border-radius:999px;
+}
+.sb-a{background:var(--gl);color:var(--green)}
+.sb-b{background:var(--al);color:var(--amber)}
+.sb-c{background:var(--bl);color:var(--blue)}
+.sb-d{background:var(--pl);color:var(--purple)}
+.sb-title{font-family:'Lora',serif;font-size:1.1rem;font-weight:700}
+.sb-desc{font-size:.82rem;color:var(--muted)}
+
+/* MODULE CARDS */
+.mods-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.75rem}
+.mod-btn{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:.875rem;padding:1.1rem 1.25rem;
+  cursor:pointer;text-align:left;transition:all .2s;
+  position:relative;overflow:hidden;
+}
+.mod-btn::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.mod-btn.sa::before{background:var(--gm)}
+.mod-btn.sb::before{background:var(--amber)}
+.mod-btn.sc::before{background:var(--blue)}
+.mod-btn.sd::before{background:var(--purple)}
+.mod-btn:hover{border-color:var(--amber);transform:translateY(-2px);box-shadow:0 4px 16px rgba(217,119,6,.1)}
+.mod-btn.done{background:#f0fdf4;border-color:#86efac}
+.mod-btn-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem}
+.mod-num{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.1em;color:var(--muted)}
+.mod-icon-sm{font-size:1.2rem}
+.mod-btn-title{font-family:'Lora',serif;font-size:1.02rem;font-weight:600;margin-bottom:.25rem;line-height:1.3}
+.mod-btn-sub{font-size:.85rem;color:var(--muted);line-height:1.45}
+.mod-check{
+  position:absolute;top:.75rem;right:.75rem;
+  width:18px;height:18px;background:var(--gm);
+  border-radius:50%;display:none;align-items:center;justify-content:center;
+  font-size:.65rem;color:white;
+}
+.mod-btn.done .mod-check{display:flex}
+.mod-btn.locked{opacity:.5;cursor:not-allowed}
+.mod-btn.locked:hover{transform:none;border-color:var(--border);box-shadow:none}
+
+/* ── MODULE PAGE ── */
+.mod-page-inner{max-width:740px;margin:0 auto;padding:2.25rem 2rem}
+.step-header{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:.875rem;padding:1rem 1.25rem;
+  margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.sh-tag{
+  font-family:'Space Mono',monospace;font-size:.65rem;
+  letter-spacing:.15em;background:var(--al);color:var(--amber);
+  padding:.2rem .65rem;border-radius:999px;white-space:nowrap;
+}
+.sh-title{font-size:.98rem;font-weight:600;flex:1}
+.step-dots{display:flex;gap:.3rem}
+.sdot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--border);transition:.3s;
+}
+.sdot.done{background:var(--gm)}
+.sdot.active{background:var(--amber);transform:scale(1.3)}
+
+/* CONTENT BLOCKS */
+.block{margin-bottom:1.5rem}
+.block-q{
+  font-family:'Lora',serif;font-size:1.35rem;font-weight:700;
+  line-height:1.4;margin-bottom:.75rem;
+}
+.block-q em{color:var(--amber);font-style:italic}
+.story{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:.875rem;padding:1.35rem 1.6rem;
+  font-size:1.02rem;line-height:1.8;color:var(--mid);
+}
+.story strong{color:var(--text)}
+.callout{
+  border-left:3px solid var(--amber);background:var(--al);
+  border-radius:0 .625rem .625rem 0;padding:1rem 1.25rem;
+  margin:.75rem 0;
+}
+.callout.green{border-left-color:var(--gm);background:var(--gl)}
+.callout.blue{border-left-color:var(--blue);background:var(--bl)}
+.callout.red{border-left-color:var(--red);background:var(--rl)}
+.callout-label{
+  font-family:'Space Mono',monospace;font-size:.65rem;
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:.35rem;
+}
+.callout.green .callout-label{color:var(--gm)}
+.callout .callout-label{color:var(--amber)}
+.callout.blue .callout-label{color:var(--blue)}
+.callout.red .callout-label{color:var(--red)}
+.formula-line{
+  font-family:'Space Mono',monospace;font-size:1.08rem;
+  font-weight:700;color:var(--text);margin:.2rem 0;
+}
+.formula-note{font-size:.95rem;color:var(--mid);line-height:1.7;margin-top:.3rem}
+.steps-list{display:flex;flex-direction:column;gap:.6rem;margin:.75rem 0}
+.step-item{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:.625rem;overflow:hidden;
+}
+.step-item-head{
+  background:var(--bg);border-bottom:1px solid var(--border);
+  padding:.6rem 1rem;display:flex;align-items:center;gap:.6rem;
+}
+.snum{
+  width:22px;height:22px;background:var(--amber);color:white;
+  border-radius:50%;font-size:.75rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.snum.green{background:var(--gm)}
+.step-head-text{font-size:.95rem;font-weight:600}
+.step-item-body{padding:.85rem 1rem;font-size:.97rem;color:var(--mid);line-height:1.75}
+.inline-formula{
+  font-family:'Space Mono',monospace;background:var(--bg);
+  border:1px solid var(--border);border-radius:.3rem;
+  padding:.15em .4em;font-size:.85em;color:#7c3aed;
+}
+
+/* QUIZ */
+.quiz-block{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:.875rem;padding:1.25rem 1.5rem;margin-bottom:1rem;
+}
+.quiz-q-text{font-size:1.02rem;font-weight:600;margin-bottom:1rem;line-height:1.55}
+.quiz-q-text span{background:var(--bl);color:var(--blue);padding:.1em .35em;border-radius:.25rem;font-family:'Space Mono',monospace;font-size:.88em}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.qopt{
+  background:var(--bg);border:1.5px solid var(--border);
+  border-radius:.5rem;padding:.82rem 1.1rem;
+  cursor:pointer;font-size:.98rem;transition:all .2s;
+  text-align:left;color:var(--text);font-family:'DM Sans',sans-serif;
+}
+.qopt:hover{border-color:var(--amber);background:var(--al)}
+.qopt.correct{background:var(--gl);border-color:var(--gm);color:var(--green)}
+.qopt.wrong{background:var(--rl);border-color:var(--red);color:var(--red)}
+.qopt:disabled,.qopt[disabled]{cursor:not-allowed}
+.quiz-fb{
+  padding:.8rem 1rem;border-radius:.5rem;font-size:.93rem;
+  line-height:1.7;display:none;
+}
+.quiz-fb.show{display:block}
+.quiz-fb.ok{background:var(--gl);color:var(--green);border-left:3px solid var(--gm)}
+.quiz-fb.no{background:var(--rl);color:#7f1d1d;border-left:3px solid var(--red)}
+
+/* NUMBER INPUT */
+.num-q{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:.875rem;padding:1.25rem 1.5rem;margin-bottom:1rem;
+}
+.num-q-text{font-size:1.02rem;font-weight:600;margin-bottom:.75rem;line-height:1.55}
+.num-q-text span{background:var(--bl);color:var(--blue);padding:.1em .35em;border-radius:.25rem;font-family:'Space Mono',monospace;font-size:.88em}
+.num-row{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.num-input{
+  width:130px;padding:.65rem .9rem;
+  border:1.5px solid var(--bdark);border-radius:.45rem;
+  font-size:1rem;font-family:'DM Sans',sans-serif;color:var(--text);
+}
+.num-input:focus{outline:none;border-color:var(--amber)}
+.num-unit{font-size:.92rem;color:var(--muted)}
+.num-check{
+  background:var(--text);color:white;border:none;
+  padding:.65rem 1.2rem;border-radius:.45rem;font-size:.92rem;
+  font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;
+}
+.num-check:hover{background:var(--amber)}
+.num-fb{
+  margin-top:.65rem;padding:.75rem 1rem;border-radius:.45rem;
+  font-size:.93rem;line-height:1.7;display:none;
+}
+.num-fb.show{display:block}
+.num-fb.ok{background:var(--gl);color:var(--green)}
+.num-fb.no{background:var(--rl);color:#7f1d1d}
+
+/* STEP FOOTER */
+.step-label{font-family:'Space Mono',monospace;font-size:.78rem;color:var(--muted)}
+.sfbtn{
+  display:flex;align-items:center;gap:.4rem;
+  background:none;border:1.5px solid var(--bdark);
+  padding:.65rem 1.2rem;border-radius:.45rem;
+  cursor:pointer;font-size:.93rem;font-weight:500;
+  color:var(--mid);font-family:'DM Sans',sans-serif;transition:all .2s;
+}
+.sfbtn:hover{border-color:var(--amber);color:var(--amber)}
+.sfbtn:disabled{opacity:.3;cursor:not-allowed;pointer-events:none}
+.sfbtn.next{background:var(--text);color:white;border-color:var(--text)}
+.sfbtn.next:hover{background:var(--amber);border-color:var(--amber)}
+.sfbtn.next.gate-locked{
+  opacity:.35 !important;cursor:not-allowed !important;
+  pointer-events:none !important;
+  background:var(--bdark) !important;border-color:var(--bdark) !important;
+}
+.gate-tip{
+  font-size:.82rem;color:var(--muted);text-align:center;
+  padding:.4rem 0 0;font-style:italic;
+  background:var(--bg);   /* ให้ sticky footer ครอบ gate-tip ด้วย */
+}
+/* Wrapper ให้ gate-tip + step-footer อยู่รวมกันใน sticky block */
+.step-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.1rem 0 1.25rem;margin-top:.5rem;
+  border-top:1px solid var(--border);
+  position:sticky;bottom:0;background:var(--bg);
+}.done-badge{
+  text-align:center;padding:1.5rem;
+  background:var(--gl);border:1px solid #86efac;
+  border-radius:1rem;margin-top:1rem;
+}
+.done-badge .db-emoji{font-size:2.5rem;margin-bottom:.5rem}
+.done-badge .db-title{font-family:'Lora',serif;font-size:1.2rem;font-weight:700;color:var(--green);margin-bottom:.3rem}
+.done-badge .db-sub{font-size:.95rem;color:var(--green);line-height:1.55}
+
+/* M0 SPECIAL */
+.principle-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:.875rem;padding:1.25rem 1.5rem;margin-bottom:.75rem;
+  display:flex;gap:1rem;align-items:flex-start;
+}
+.pc-icon{font-size:1.75rem;flex-shrink:0}
+.pc-num{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.15em;color:var(--amber);margin-bottom:.2rem}
+.pc-title{font-family:'Lora',serif;font-size:1rem;font-weight:700;margin-bottom:.3rem}
+.pc-desc{font-size:.95rem;color:var(--mid);line-height:1.7}
+
+/* PRE-ASSESS */
+.assess-wrap{max-width:620px;margin:0 auto;padding:2rem}
+.assess-card{background:var(--surface);border:1px solid var(--border);border-radius:1.25rem;padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.assess-prog{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
+.assess-dots-row{display:flex;gap:.35rem}
+.adot{width:8px;height:8px;border-radius:50%;background:var(--border)}
+.adot.done{background:var(--gm)}
+.adot.active{background:var(--amber)}
+.assess-step{display:none}
+.assess-step.active{display:block}
+
+/* BRIDGE TABLE */
+.bridge-table{width:100%;border-collapse:collapse;margin:.75rem 0;font-size:.95rem}
+.bridge-table th{background:var(--bg);padding:.6rem .85rem;text-align:left;font-weight:600;border-bottom:2px solid var(--border);font-size:.78rem;letter-spacing:.05em}
+.bridge-table td{padding:.6rem .85rem;border-bottom:1px solid var(--border);color:var(--mid);vertical-align:top}
+.bridge-table tr:last-child td{border-bottom:none}
+.bt-tag{display:inline-block;padding:.15rem .5rem;border-radius:999px;font-size:.72rem;font-weight:600}
+.bt-micro{background:var(--al);color:var(--amber)}
+.bt-macro{background:var(--bl);color:var(--blue)}
+.bt-econ{background:var(--pl);color:var(--purple)}
+.bt-all{background:var(--gl);color:var(--green)}
+
+/* CHART CSS */
+.bar-chart-wrap{position:relative;margin:.75rem 0}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:110px;margin-bottom:0}
+.bar-chart-neg{display:flex;align-items:flex-start;gap:8px;height:90px;position:relative}
+.bar-chart-neg::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--bdark)}
+.bar-item{flex:1;display:flex;flex-direction:column;align-items:center}
+.bar-item-neg{flex:1;display:flex;flex-direction:column;align-items:center}
+.bar-fill{width:100%;border-radius:5px 5px 0 0;background:var(--amber);transition:height .7s ease}
+.bar-fill.neg{width:100%;background:var(--red);border-radius:0 0 5px 5px;transition:height .7s ease}
+.bar-label-row{display:flex;gap:8px;margin-top:.5rem}
+.bar-label-cell{flex:1;font-size:.8rem;color:var(--muted);text-align:center;font-family:'Space Mono',monospace}
+.bar-val{font-family:'Space Mono',monospace;font-size:.75rem;text-align:center;padding-bottom:3px;font-weight:700}
+.bar-val.pos{color:var(--amber)}
+.bar-val.neg{color:var(--red);padding-top:4px;padding-bottom:0}
+.line-chart-wrap{
+  border:1px solid var(--border);border-radius:.625rem;
+  overflow:hidden;background:var(--surface);
+  padding:.75rem;margin:.75rem 0;
+}
+.dist-wrap{position:relative;height:80px;background:var(--surface);border:1px solid var(--border);border-radius:.5rem;overflow:hidden;margin:.5rem 0}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .mods-grid{grid-template-columns:1fr}
+  .home-hero{padding:2.5rem 1.25rem 2rem}
+  .mod-page-inner{padding:1rem}
+  .home-body{padding:1.25rem}
+}
+/* end styles */
+</style>
+</head>
+<body>
+<!-- NAV -->
+<div id="topnav">
+  <div class="nav-brand" onclick="goHome()">
+    <span class="nav-dot"></span>
+    <span class="nav-title-main">Basic Math &amp; Stats for Econ</span>
+    <span class="nav-title-author">จัดทำโดย Ajarn.Kwan @ คณะเศรษฐศาสตร์ รามคำแหง</span>
+  </div>
+  <span id="nav-breadcrumb"></span>
+  <button id="nav-back" onclick="goHome()">← กลับหน้าหลัก</button>
+</div>
+<div id="progress-bar"></div>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="page" id="page-home">
+  <div class="home-hero">
+    <div class="home-kicker">Self-Learning · คณิตศาสตร์และสถิติสำหรับเศรษฐศาสตร์</div>
+    <h1 class="home-h1">ไม่ต้องเก่งเลข<br>ก็เรียน<em>เศรษฐศาสตร์</em>ได้</h1>
+    <p class="home-sub">สอนเท่าที่จำเป็น เพื่อให้คุณอ่านเข้าใจ และไม่กลัวเศรษฐศาสตร์ — เริ่มจากความหมาย ไม่ใช่สูตร</p>
+    <div class="home-actions">
+      <button class="btn-start" onclick="openMod('m0')">▶ เริ่มเรียนเลย (Module 0)</button>
+      <button class="btn-assess" onclick="openMod('pre')">ประเมินระดับตัวเองก่อน</button>
+    </div>
+  </div>
+
+  <div class="home-progress" id="home-prog">
+    <span class="prog-label">ความคืบหน้า:</span>
+    <div class="prog-bar-wrap"><div class="prog-bar-fill" id="prog-fill" style="width:0%"></div></div>
+    <span class="prog-count" id="prog-count">0 / 14 เสร็จแล้ว</span>
+  </div>
+
+  <div id="reset-section" style="display:none;max-width:900px;margin:0 auto;padding:1.25rem 2rem;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-bottom:1px solid #86efac;text-align:center">
+    <div style="font-size:1.05rem;color:var(--green);font-weight:600;margin-bottom:.75rem">🎉 ยินดีด้วย! คุณเรียนจบทุก Module แล้ว!</div>
+    <div style="font-size:.92rem;color:var(--green);margin-bottom:1rem;line-height:1.6">คุณพร้อมเรียน Microeconomics, Macroeconomics หรือ Econometrics ได้แล้ว<br>อยากทบทวนอีกครั้ง? กด Reset เพื่อเริ่มใหม่ตั้งแต่ต้น</div>
+    <button onclick="resetCourse()" style="background:white;color:var(--green);border:2px solid var(--gm);padding:.65rem 1.75rem;border-radius:.5rem;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s">🔄 รีเซ็ต — เริ่มเรียนใหม่</button>
+  </div>
+
+  <div class="home-body">
+
+    <!-- PRE-ASSESS SPECIAL -->
+    <div class="section-block">
+      <div class="sb-header">
+        <span class="sb-badge sb-a">เริ่มต้น</span>
+        <div><div class="sb-title">ก่อนเริ่มเรียน</div><div class="sb-desc">ทำความรู้จักคอร์สและประเมินระดับตัวเอง</div></div>
+      </div>
+      <div class="mods-grid">
+        <div class="mod-btn sa" id="btn-m0" onclick="openMod('m0')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 00</span><span class="mod-icon-sm">👋</span></div>
+          <div class="mod-btn-title">ก่อนเริ่มเรียน — ทำความรู้จักคอร์ส</div>
+          <div class="mod-btn-sub">คอร์สนี้ต่างจากวิชาเลขอย่างไร และใช้งานอย่างไร</div>
+        </div>
+        <div class="mod-btn sa" id="btn-pre" onclick="openMod('pre')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 0b</span><span class="mod-icon-sm">🔍</span></div>
+          <div class="mod-btn-title">Pre-Assessment</div>
+          <div class="mod-btn-sub">รู้ระดับตัวเอง เลือกจุดเริ่มที่เหมาะ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION A -->
+    <div class="section-block">
+      <div class="sb-header">
+        <span class="sb-badge sb-a">Section A</span>
+        <div><div class="sb-title">Getting Comfortable with Numbers</div><div class="sb-desc">Module 1–3 · สำหรับทุกระดับ · ตัวเลขในชีวิตจริงก่อนทฤษฎี</div></div>
+      </div>
+      <div class="mods-grid">
+        <div class="mod-btn sa" id="btn-m1" onclick="openMod('m1')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 01</span><span class="mod-icon-sm">📰</span></div>
+          <div class="mod-btn-title">Numbers in Real Life Economics</div>
+          <div class="mod-btn-sub">GDP เงินเดือน เงินเฟ้อ — เลขที่อยู่รอบตัว</div>
+        </div>
+        <div class="mod-btn sa" id="btn-m2" onclick="openMod('m2')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 02</span><span class="mod-icon-sm">💯</span></div>
+          <div class="mod-btn-title">Fractions, Decimals &amp; Percentages</div>
+          <div class="mod-btn-sub">ฐานรากของการอ่านข้อมูลเศรษฐกิจ</div>
+        </div>
+        <div class="mod-btn sa" id="btn-m3" onclick="openMod('m3')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 03</span><span class="mod-icon-sm">📈</span></div>
+          <div class="mod-btn-title">Ratios, Rates &amp; Growth</div>
+          <div class="mod-btn-sub">อัตราและการเติบโต — ภาษากลางของเศรษฐศาสตร์</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIDENCE CHECKPOINT A→B -->
+    <div id="checkpoint-ab" style="display:none;background:linear-gradient(135deg,#d1fae5,#a7f3d0);border:1.5px solid #6ee7b7;border-radius:1rem;padding:1.35rem 1.5rem;margin-bottom:2rem;text-align:center">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🌟</div>
+      <div style="font-family:'Lora',serif;font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:.4rem">จบ Section A แล้ว — ยอดเยี่ยมมาก!</div>
+      <div style="font-size:.92rem;color:var(--green);line-height:1.6">คุณอ่านตัวเลขเศรษฐกิจพื้นฐานได้แล้ว ✅ คำนวณ % เปลี่ยนแปลงได้ ✅ รู้จัก Ratio/Rate/Growth แล้ว<br>Section B จะเริ่มเรื่องสมการและกราฟ — ไม่ยากอย่างที่คิด เพราะเราเริ่มจากภาษาพูดก่อนเสมอ</div>
+    </div>
+
+    <!-- SECTION B -->
+    <div class="section-block">
+      <div class="sb-header">
+        <span class="sb-badge sb-b">Section B</span>
+        <div><div class="sb-title">Algebra and Graphs for Economics</div><div class="sb-desc">Module 4–6 · ระดับ 2 ขึ้นไป · สมการและกราฟในฐานะ "ภาษาเล่าเรื่อง"</div></div>
+      </div>
+      <div class="mods-grid">
+        <div class="mod-btn sb" id="btn-m4" onclick="openMod('m4')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 04</span><span class="mod-icon-sm">🔤</span></div>
+          <div class="mod-btn-title">Basic Algebra without Fear</div>
+          <div class="mod-btn-sub">ตัวแปรและสมการ — เริ่มจากประโยคภาษาไทย</div>
+        </div>
+        <div class="mod-btn sb" id="btn-m5" onclick="openMod('m5')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 05</span><span class="mod-icon-sm">📊</span></div>
+          <div class="mod-btn-title">Functions and Graphs as Stories</div>
+          <div class="mod-btn-sub">กราฟคือภาพเล่าเรื่อง — Supply &amp; Demand</div>
+        </div>
+        <div class="mod-btn sb" id="btn-m6" onclick="openMod('m6')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 06</span><span class="mod-icon-sm">🗂️</span></div>
+          <div class="mod-btn-title">Tables, Index Numbers &amp; CPI</div>
+          <div class="mod-btn-sub">อ่านดัชนีและตารางเศรษฐกิจให้เป็น</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION B→C CHECKPOINT -->
+    <div id="checkpoint-bc" style="display:none;background:linear-gradient(135deg,#dbeafe,#bfdbfe);border:1.5px solid #93c5fd;border-radius:1rem;padding:1.35rem 1.5rem;margin-bottom:2rem;text-align:center">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🌟</div>
+      <div style="font-family:'Lora',serif;font-size:1.1rem;font-weight:700;color:var(--blue);margin-bottom:.4rem">จบ Section B แล้ว — ยอดเยี่ยมมาก!</div>
+      <div style="font-size:.92rem;color:var(--blue);line-height:1.6">คุณอ่านสมการและกราฟ Supply-Demand ได้แล้ว ✅ ตีความดัชนีและ CPI ได้แล้ว ✅<br>Section C จะเริ่มเรื่องสถิติ — เริ่มจาก "ทำไมสถิติถึงสำคัญ" ก่อนเลย</div>
+    </div>
+
+    <!-- SECTION C -->
+    <div class="section-block">
+      <div class="sb-header">
+        <span class="sb-badge sb-c">Section C</span>
+        <div><div class="sb-title">Statistics for Understanding Economic Data</div><div class="sb-desc">Module 7–11 · ระดับ 2–3 · สถิติในฐานะเครื่องมืออ่านข้อมูล</div></div>
+      </div>
+      <div class="mods-grid">
+        <div class="mod-btn sc" id="btn-m7" onclick="openMod('m7')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 07</span><span class="mod-icon-sm">🤔</span></div>
+          <div class="mod-btn-title">Why Statistics Matters</div>
+          <div class="mod-btn-sub">สถิติมีไว้สรุปความจริง ไม่ใช่ทำให้ยาก</div>
+        </div>
+        <div class="mod-btn sc" id="btn-m8" onclick="openMod('m8')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 08</span><span class="mod-icon-sm">🎯</span></div>
+          <div class="mod-btn-title">Describing Data</div>
+          <div class="mod-btn-sub">Mean, Median, Mode — เลือกให้ถูกตัว</div>
+        </div>
+        <div class="mod-btn sc" id="btn-m9" onclick="openMod('m9')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 09</span><span class="mod-icon-sm">↔️</span></div>
+          <div class="mod-btn-title">Variability and Dispersion</div>
+          <div class="mod-btn-sub">ค่าเฉลี่ยเท่ากัน ชีวิตอาจต่างกันมาก</div>
+        </div>
+        <div class="mod-btn sc" id="btn-m10" onclick="openMod('m10')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 10</span><span class="mod-icon-sm">🔗</span></div>
+          <div class="mod-btn-title">Correlation ≠ Causation</div>
+          <div class="mod-btn-sub">ความสัมพันธ์ ≠ ความสัมพันธ์เชิงเหตุ</div>
+        </div>
+        <div class="mod-btn sc" id="btn-m11" onclick="openMod('m11')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 11</span><span class="mod-icon-sm">🗞️</span></div>
+          <div class="mod-btn-title">Reading Economic Charts</div>
+          <div class="mod-btn-sub">อ่านกราฟเศรษฐกิจจริงได้เลย</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION C→D CHECKPOINT -->
+    <div id="checkpoint-cd" style="display:none;background:linear-gradient(135deg,#ede9fe,#ddd6fe);border:1.5px solid #c4b5fd;border-radius:1rem;padding:1.35rem 1.5rem;margin-bottom:2rem;text-align:center">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🎓</div>
+      <div style="font-family:'Lora',serif;font-size:1.1rem;font-weight:700;color:var(--purple);margin-bottom:.4rem">จบ Section C แล้ว — เกือบถึงเส้นชัยแล้ว!</div>
+      <div style="font-size:.92rem;color:var(--purple);line-height:1.6">คุณเข้าใจสถิติพื้นฐานครบแล้ว ✅ Module 12 จะเชื่อมทุกอย่างที่เรียนมาเข้ากับวิชาเศรษฐศาสตร์จริงๆ</div>
+    </div>
+
+    <!-- SECTION D -->
+    <div class="section-block">
+      <div class="sb-header">
+        <span class="sb-badge sb-d">Section D</span>
+        <div><div class="sb-title">Ready for Economics</div><div class="sb-desc">Module 12 · บทสุดท้ายเชื่อมทุกอย่างเข้ากับเศรษฐศาสตร์</div></div>
+      </div>
+      <div class="mods-grid">
+        <div class="mod-btn sd" id="btn-m12" onclick="openMod('m12')">
+          <div class="mod-check">✓</div>
+          <div class="mod-btn-top"><span class="mod-num">MODULE · 12</span><span class="mod-icon-sm">🚀</span></div>
+          <div class="mod-btn-title">Bridge to Economics</div>
+          <div class="mod-btn-sub">ทุกอย่างที่เรียนมา ใช้ใน Micro/Macro/Econometrics ตรงไหน</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end home-body -->
+</div><!-- end page-home -->
+
+<!-- ══════════ MODULE 0 ══════════ -->
+<div class="page" id="page-m0">
+<div class="mod-page-inner">
+<div class="step-header">
+  <span class="sh-tag">MODULE · 00</span>
+  <span class="sh-title">ก่อนเริ่มเรียน</span>
+  <div class="step-dots" id="dots-m0"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div></div>
+</div>
+<!-- Step 0 -->
+<div class="mstep" id="m0-s0">
+<div class="block">
+  <div class="block-q">คอร์สนี้ทำมาเพื่อ<em>คุณโดยเฉพาะ</em></div>
+  <div class="story">ถ้าคุณเคยรู้สึกแบบนี้...<br><br>
+  <strong>😰 "เห็นสูตรแล้วใจหาย"</strong><br>
+  <strong>😤 "เลขเยอะมาก ไม่รู้จะเริ่มตรงไหน"</strong><br>
+  <strong>😵 "อยากเรียนเศรษฐศาสตร์ แต่กลัวคณิตฯ"</strong><br><br>
+  คอร์สนี้ออกแบบมาสำหรับคุณโดยเฉพาะ</div>
+</div>
+<div class="callout">
+  <div class="callout-label">เป้าหมายของคอร์สนี้คือ</div>
+  <div class="formula-note">ไม่ได้ทำให้คุณ "เก่งเลข" — แต่ทำให้คุณ <strong>ไม่กลัว</strong> math &amp; stats ในเศรษฐศาสตร์ และ <strong>อ่านเข้าใจ</strong> ข้อมูลเศรษฐกิจพื้นฐานได้</div>
+</div>
+<div class="steps-list">
+  <div class="step-item"><div class="step-item-head"><div class="snum">1</div><div class="step-head-text">ทำได้ทุกคน ไม่ต้องพื้นฐานพิเศษ</div></div>
+  <div class="step-item-body">คอร์สนี้ออกแบบสำหรับคนที่ <strong>ห่างเลขมานาน</strong> หรือ <strong>ไม่ถนัดเลขมาตั้งแต่ต้น</strong> ก็เรียนได้</div></div>
+  <div class="step-item"><div class="step-item-head"><div class="snum">2</div><div class="step-head-text">ความหมายก่อน สูตรทีหลัง</div></div>
+  <div class="step-item-body">ทุกบทเริ่มจากชีวิตจริง → อธิบายความหมาย → แล้วค่อยบอกสูตร ไม่เคยเริ่มจาก notation นามธรรม</div></div>
+  <div class="step-item"><div class="step-item-head"><div class="snum">3</div><div class="step-head-text">เชื่อมกับเศรษฐศาสตร์ทุกบท</div></div>
+  <div class="step-item-body">ทุกสูตร ทุกกราฟ จะบอกเสมอว่า <strong>ใช้ตรงไหนในเศรษฐศาสตร์จริงๆ</strong> ไม่มีเลขลอยๆ</div></div>
+</div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">ขั้น 1 / 3</span><button class="sfbtn next" onclick="goStep('m0',1,3)">ถัดไป →</button></div>
+</div>
+
+<!-- Step 1 -->
+<div class="mstep" id="m0-s1" style="display:none">
+<div class="block">
+  <div class="block-q">3 หลักการของคอร์สนี้</div>
+  <div class="principle-card"><span class="pc-icon">💡</span><div><div class="pc-num">PRINCIPLE 01</div><div class="pc-title">Intuition ก่อน สูตรทีหลัง</div><div class="pc-desc">ก่อนจะให้คุณจำสูตรใดๆ เราจะอธิบายให้คุณ "รู้สึก" ว่ามันคืออะไรก่อน เหมือนเข้าใจว่า % คือ "ต่อ 100" ก่อนที่จะเขียน x/100×100</div></div></div>
+  <div class="principle-card"><span class="pc-icon">📸</span><div><div class="pc-num">PRINCIPLE 02</div><div class="pc-title">ภาพและตัวอย่างก่อนนามธรรม</div><div class="pc-desc">เราจะใช้ราคาข้าวแกง Grab เงินเดือน ค่าเช่า — ตัวเลขที่คุณเจอในชีวิตจริง ไม่ใช่ x, y ลอยๆ</div></div></div>
+  <div class="principle-card"><span class="pc-icon">🏆</span><div><div class="pc-num">PRINCIPLE 03</div><div class="pc-title">สร้างความมั่นใจทีละน้อย</div><div class="pc-desc">เราออกแบบให้คุณรู้สึก "ฉันทำได้" ตั้งแต่บทแรก และสะสมความมั่นใจขึ้นเรื่อยๆ ตลอดคอร์ส</div></div></div>
+</div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m0',0,3)">← ก่อนหน้า</button><span class="step-label">ขั้น 2 / 3</span><button class="sfbtn next" onclick="goStep('m0',2,3)">ถัดไป →</button></div>
+</div>
+
+<!-- Step 2 -->
+<div class="mstep" id="m0-s2" style="display:none">
+<div class="block">
+  <div class="block-q">วิธีใช้คอร์สนี้ให้ได้ผล</div>
+  <div class="steps-list">
+    <div class="step-item"><div class="step-item-head"><div class="snum green">A</div><div class="step-head-text">ทำ Pre-Assessment ก่อน (Module 0b)</div></div>
+    <div class="step-item-body">ใช้เวลา 5 นาที ช่วยให้รู้ว่าควรเน้นบทไหน ไม่ต้องเรียนทุกอย่างถ้าคล่องแล้ว</div></div>
+    <div class="step-item"><div class="step-item-head"><div class="snum green">B</div><div class="step-head-text">อย่าข้ามส่วน "ฝึกทำ"</div></div>
+    <div class="step-item-body">การอ่านอย่างเดียวทำให้คิดว่าเข้าใจแล้ว แต่การ <strong>ลงมือทำ</strong> คือสิ่งที่ทำให้จำได้จริง</div></div>
+    <div class="step-item"><div class="step-item-head"><div class="snum green">C</div><div class="step-head-text">ไม่รู้จะข้ามไม่ได้ — อ่านคำอธิบายในเฉลย</div></div>
+    <div class="step-item-body">เฉลยในคอร์สนี้อธิบาย <strong>ทำไม</strong> และ <strong>วิธีคิดทีละขั้น</strong> ไม่ใช่แค่คำตอบ</div></div>
+    <div class="step-item"><div class="step-item-head"><div class="snum green">D</div><div class="step-head-text">อ่าน "เชื่อมกับเศรษฐศาสตร์" ทุกบท</div></div>
+    <div class="step-item-body">ส่วนนี้บอกว่าสิ่งที่เรียนจะไปโผล่ตรงไหนในวิชาจริง — อย่าข้าม</div></div>
+  </div>
+</div>
+<div class="done-badge"><div class="db-emoji">👍</div><div class="db-title">พร้อมเริ่มแล้ว!</div><div class="db-sub">ทำ Pre-Assessment ต่อ หรือเริ่มเรียน Module 1 ได้เลย</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m0',1,3)">← ก่อนหน้า</button><span class="step-label">ขั้น 3 / 3</span><button class="sfbtn next" onclick="finishMod('m0');openMod('pre')">ประเมินตัวเองต่อ →</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ PRE-ASSESSMENT ══════════ -->
+<div class="page" id="page-pre">
+<div class="assess-wrap">
+<div class="step-header"><span class="sh-tag">MODULE · 0b</span><span class="sh-title">Pre-Assessment</span></div>
+<div class="assess-card">
+<div class="assess-step active" id="as0">
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-size:2.5rem;margin-bottom:.75rem">🔍</div>
+    <div style="font-family:'Lora',serif;font-size:1.2rem;font-weight:700;margin-bottom:.5rem">ประเมินระดับตัวเอง</div>
+    <div style="font-size:.9rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem">5 คำถามสั้นๆ ใช้เวลาไม่ถึง 5 นาที<br>ไม่มีสอบตก — ตอบตามที่รู้จริงๆ</div>
+    <button class="btn-start" onclick="nextAssess('as0','as1')">เริ่มเลย →</button>
+  </div>
+</div>
+<div class="assess-step" id="as1">
+  <div class="assess-prog"><div class="assess-dots-row"><div class="adot active"></div><div class="adot"></div><div class="adot"></div><div class="adot"></div><div class="adot"></div></div><span style="font-size:.78rem;color:var(--muted)">1 / 5</span></div>
+  <div class="quiz-block" style="border:none;padding:0">
+    <div class="quiz-q-text">เงินเดือน <span>15,000 → 16,800 บาท</span> เพิ่มกี่เปอร์เซ็นต์?</div>
+    <div class="quiz-opts">
+      <button class="qopt" onclick="aAssess(this,'q1',false,'f1a','n1')">9%</button>
+      <button class="qopt" onclick="aAssess(this,'q1',false,'f1a','n1')">11%</button>
+      <button class="qopt" onclick="aAssess(this,'q1',true,'f1b','n1')">12%</button>
+      <button class="qopt" onclick="aAssess(this,'q1',false,'f1a','n1')">1,800%</button>
+    </div>
+    <div class="quiz-fb no" id="f1a">❌ <strong>เฉลย:</strong> (16,800−15,000)÷15,000×100 = 1,800÷15,000×100 = <strong>12%</strong> — ใช้สูตร (ใหม่−เก่า)÷เก่า×100</div>
+    <div class="quiz-fb ok" id="f1b">✅ ถูกต้อง! (16,800−15,000)÷15,000×100 = <strong>12%</strong></div>
+    <button class="sfbtn next" id="n1" style="display:none;margin-top:.75rem" onclick="nextAssess('as1','as2')">ถัดไป →</button>
+  </div>
+</div>
+<div class="assess-step" id="as2">
+  <div class="assess-prog"><div class="assess-dots-row"><div class="adot done"></div><div class="adot active"></div><div class="adot"></div><div class="adot"></div><div class="adot"></div></div><span style="font-size:.78rem;color:var(--muted)">2 / 5</span></div>
+  <div class="quiz-block" style="border:none;padding:0">
+    <div class="quiz-q-text">รายได้ 5 คน: <span>9,000 / 11,000 / 13,000 / 15,000 / 72,000</span> บาท — ค่า Median คือ?</div>
+    <div class="quiz-opts">
+      <button class="qopt" onclick="aAssess(this,'q2',false,'f2a','n2')">24,000 บาท</button>
+      <button class="qopt" onclick="aAssess(this,'q2',true,'f2b','n2')">13,000 บาท</button>
+      <button class="qopt" onclick="aAssess(this,'q2',false,'f2a','n2')">11,000 บาท</button>
+      <button class="qopt" onclick="aAssess(this,'q2',false,'f2a','n2')">15,000 บาท</button>
+    </div>
+    <div class="quiz-fb no" id="f2a">❌ <strong>เฉลย:</strong> เรียงลำดับ: 9,000/11,000/<strong>13,000</strong>/15,000/72,000 → ตำแหน่งกลาง (ที่ 3) = 13,000 บาท</div>
+    <div class="quiz-fb ok" id="f2b">✅ ถูกต้อง! Median = ค่าตรงกลาง = <strong>13,000 บาท</strong> (Mean = 24,000 ถูกดึงขึ้นโดยคนรวย)</div>
+    <button class="sfbtn next" id="n2" style="display:none;margin-top:.75rem" onclick="nextAssess('as2','as3')">ถัดไป →</button>
+  </div>
+</div>
+<div class="assess-step" id="as3">
+  <div class="assess-prog"><div class="assess-dots-row"><div class="adot done"></div><div class="adot done"></div><div class="adot active"></div><div class="adot"></div><div class="adot"></div></div><span style="font-size:.78rem;color:var(--muted)">3 / 5</span></div>
+  <div class="quiz-block" style="border:none;padding:0">
+    <div class="quiz-q-text">กราฟ Demand ลาดลงจากซ้ายไปขวา หมายความว่า?</div>
+    <div class="quiz-opts">
+      <button class="qopt" onclick="aAssess(this,'q3',false,'f3a','n3')">ราคาสูง คนซื้อมากขึ้น</button>
+      <button class="qopt" onclick="aAssess(this,'q3',true,'f3b','n3')">ราคาสูง คนซื้อน้อยลง</button>
+      <button class="qopt" onclick="aAssess(this,'q3',false,'f3a','n3')">ราคาและปริมาณไม่สัมพันธ์กัน</button>
+      <button class="qopt" onclick="aAssess(this,'q3',false,'f3a','n3')">ปริมาณลด ราคาสูงขึ้น</button>
+    </div>
+    <div class="quiz-fb no" id="f3a">❌ <strong>เฉลย:</strong> กราฟลาดลง = แกน Y (ราคา) ลดลงเมื่อแกน X (ปริมาณ) เพิ่ม หรือ ราคาสูงขึ้น → ปริมาณลดลง = <strong>Negative relationship</strong></div>
+    <div class="quiz-fb ok" id="f3b">✅ ถูกต้อง! กราฟลาดลง = ความสัมพันธ์เชิงลบ = นี่คือ <strong>Law of Demand</strong></div>
+    <button class="sfbtn next" id="n3" style="display:none;margin-top:.75rem" onclick="nextAssess('as3','as4')">ถัดไป →</button>
+  </div>
+</div>
+<div class="assess-step" id="as4">
+  <div class="assess-prog"><div class="assess-dots-row"><div class="adot done"></div><div class="adot done"></div><div class="adot done"></div><div class="adot active"></div><div class="adot"></div></div><span style="font-size:.78rem;color:var(--muted)">4 / 5</span></div>
+  <div class="quiz-block" style="border:none;padding:0">
+    <div class="quiz-q-text">CPI ปีฐาน = 100, ปีนี้ = <span>112.5</span> หมายความว่าอะไร?</div>
+    <div class="quiz-opts">
+      <button class="qopt" onclick="aAssess(this,'q4',false,'f4a','n4')">ราคาสินค้าเพิ่ม 112.5 บาท</button>
+      <button class="qopt" onclick="aAssess(this,'q4',true,'f4b','n4')">ราคาสินค้าเฉลี่ยสูงขึ้น 12.5% จากปีฐาน</button>
+      <button class="qopt" onclick="aAssess(this,'q4',false,'f4a','n4')">เศรษฐกิจโตขึ้น 12.5%</button>
+      <button class="qopt" onclick="aAssess(this,'q4',false,'f4a','n4')">ของที่ซื้อได้ลดลง 12.5 ชิ้น</button>
+    </div>
+    <div class="quiz-fb no" id="f4a">❌ <strong>เฉลย:</strong> ดัชนี 112.5 = ราคาสูงกว่าปีฐาน <strong>12.5%</strong> ไม่ใช่ 112.5 บาท — ดัชนีเป็นการเปรียบเทียบ ไม่ใช่ตัวเงิน</div>
+    <div class="quiz-fb ok" id="f4b">✅ ถูกต้อง! ดัชนี = (ค่าปัจจุบัน/ค่าปีฐาน)×100 → 112.5 แปลว่าแพงขึ้น <strong>12.5%</strong></div>
+    <button class="sfbtn next" id="n4" style="display:none;margin-top:.75rem" onclick="nextAssess('as4','as5')">ถัดไป →</button>
+  </div>
+</div>
+<div class="assess-step" id="as5">
+  <div class="assess-prog"><div class="assess-dots-row"><div class="adot done"></div><div class="adot done"></div><div class="adot done"></div><div class="adot done"></div><div class="adot active"></div></div><span style="font-size:.78rem;color:var(--muted)">5 / 5</span></div>
+  <div class="quiz-block" style="border:none;padding:0">
+    <div class="quiz-q-text">ไอศกรีมขายดีในช่วงที่คนจมน้ำตายมาก — แปลว่า "ไอศกรีมทำให้คนจมน้ำ" ใช่หรือไม่?</div>
+    <div class="quiz-opts">
+      <button class="qopt" onclick="aAssess(this,'q5',false,'f5a','n5')">ใช่ เพราะข้อมูลสนับสนุน</button>
+      <button class="qopt" onclick="aAssess(this,'q5',true,'f5b','n5')">ไม่ใช่ มีตัวแปรที่ 3 คือ "หน้าร้อน"</button>
+      <button class="qopt" onclick="aAssess(this,'q5',false,'f5a','n5')">บอกไม่ได้เพราะข้อมูลน้อยเกินไป</button>
+      <button class="qopt" onclick="aAssess(this,'q5',false,'f5a','n5')">ใช่ เพราะสัมพันธ์กันทุกครั้ง</button>
+    </div>
+    <div class="quiz-fb no" id="f5a">❌ <strong>เฉลย:</strong> นี่คือ <strong>Correlation ≠ Causation</strong> ทั้งคู่เพิ่มขึ้นเพราะ "หน้าร้อน" ไม่ใช่ไอศกรีมเป็นสาเหตุ</div>
+    <div class="quiz-fb ok" id="f5b">✅ ถูกต้อง! "สัมพันธ์กัน" ≠ "ทำให้เกิด" — นี่คือแนวคิดสำคัญที่สุดในสถิติเศรษฐศาสตร์</div>
+    <button class="sfbtn next" id="n5" style="display:none;margin-top:.75rem" onclick="showAssessResult()">ดูผลประเมิน →</button>
+  </div>
+</div>
+<div class="assess-step" id="as-result">
+  <div style="text-align:center;padding:1rem 0">
+    <div style="font-family:'Lora',serif;font-size:2.5rem;font-weight:700;color:var(--amber)" id="as-score">0/5</div>
+    <div style="font-size:.95rem;color:var(--mid);margin:.4rem 0 1.25rem" id="as-sub"></div>
+    <div class="callout" style="text-align:left;margin-bottom:1.25rem"><div class="callout-label">คำแนะนำสำหรับคุณ</div><div id="as-reco" style="font-size:.9rem;color:var(--mid);line-height:1.65"></div></div>
+    <button class="btn-start" onclick="finishMod('pre');goHome()">กลับหน้าหลัก เลือก Module →</button>
+  </div>
+</div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 1 ══════════ -->
+<div class="page" id="page-m1">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 01</span><span class="sh-title">Numbers in Real Life Economics</span><div class="step-dots" id="dots-m1"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<!-- s0 -->
+<div class="mstep" id="m1-s0">
+<div class="block-q">ข่าวบอกว่า <em>"GDP โต 3.5%"</em> — มันหมายความว่าอะไรกันแน่?</div>
+<div class="story">คุณน่าจะเห็นข่าวแบบนี้ทุกไตรมาส แต่เคยสงสัยไหมว่า <strong>3.5% มาจากไหน?</strong> ทำไมถึงบอกเป็นเปอร์เซ็นต์ ไม่ใช่จำนวนล้านบาท?<br><br>คำตอบคือ <strong>เปอร์เซ็นต์ทำให้เปรียบเทียบได้</strong> — ประเทศจีน GDP โต 5% และประเทศไทยโต 3.5% สามารถเปรียบกันได้ทันที แม้ขนาดเศรษฐกิจจะต่างกันมาก</div>
+<div class="callout"><div class="callout-label">สูตรหลักที่ต้องรู้ตลอดชีวิต</div><div class="formula-line">% การเปลี่ยนแปลง = (ค่าใหม่ − ค่าเก่า) ÷ ค่าเก่า × 100</div><div class="formula-note">อ่านว่า "ส่วนที่เปลี่ยน" หารด้วย "ของเดิม" แล้วคูณ 100 — ใช้ได้กับ GDP เงินเดือน ราคา ทุกอย่าง</div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m1',1,4)">ถัดไป →</button></div>
+</div>
+<!-- s1 -->
+<div class="mstep" id="m1-s1" style="display:none">
+<div class="block-q">ตัวอย่าง — คำนวณ<em>ทีละขั้น</em></div>
+<div class="callout green"><div class="callout-label">โจทย์</div><div class="formula-note">GDP ปี 2566 = 17.5 ล้านล้านบาท, GDP ปี 2567 = 18.1 ล้านล้านบาท — อัตราเติบโตคือ?</div></div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum">1</div><div class="step-head-text">หาส่วนที่เปลี่ยนแปลง</div></div><div class="step-item-body">18.1 − 17.5 = <span class="inline-formula">0.6 ล้านล้านบาท</span></div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">2</div><div class="step-head-text">หารด้วยค่าเดิม</div></div><div class="step-item-body">0.6 ÷ 17.5 = <span class="inline-formula">0.0343...</span></div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">3</div><div class="step-head-text">คูณ 100</div></div><div class="step-item-body">0.0343 × 100 ≈ <span class="inline-formula">3.43%</span> ✓</div></div>
+</div>
+<div class="callout"><div class="callout-label">ตีความ</div><div class="formula-note">GDP โต 3.43% หมายความว่าเศรษฐกิจไทยผลิตสินค้าและบริการได้มากขึ้น 3.43% เทียบกับปีก่อน</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m1',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m1',2,4)">ฝึกทำเอง →</button></div>
+</div>
+<!-- s2 -->
+<div class="mstep" id="m1-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง</div>
+<div class="num-q">
+  <div class="num-q-text">ราคาน้ำมันดีเซล จาก <span>33 บาท</span> เป็น <span>35.64 บาท</span> เพิ่มกี่เปอร์เซ็นต์?</div>
+  <div class="num-row"><input type="number" class="num-input" id="m1p1" placeholder="คำตอบ" step="0.1"><span class="num-unit">%</span><button class="num-check" onclick="checkNum('m1p1',8,'m1fb1','(35.64−33)÷33×100 = 2.64÷33×100 = 8%')">ตรวจ</button></div>
+  <div class="num-fb" id="m1fb1"></div>
+</div>
+<div class="num-q">
+  <div class="num-q-text">ค่าแรงขั้นต่ำจาก <span>300 บาท</span> เป็น <span>330 บาท</span> เพิ่มกี่เปอร์เซ็นต์?</div>
+  <div class="num-row"><input type="number" class="num-input" id="m1p2" placeholder="คำตอบ" step="0.1"><span class="num-unit">%</span><button class="num-check" onclick="checkNum('m1p2',10,'m1fb2','(330−300)÷300×100 = 30÷300×100 = 10%')">ตรวจ</button></div>
+  <div class="num-fb" id="m1fb2"></div>
+</div>
+<div class="num-q">
+  <div class="num-q-text">อัตราว่างงาน ปีก่อน <span>2.8%</span> ปีนี้ <span>3.08%</span> เพิ่มขึ้นกี่เปอร์เซ็นต์?</div>
+  <div class="num-row"><input type="number" class="num-input" id="m1p3" placeholder="คำตอบ" step="0.1"><span class="num-unit">%</span><button class="num-check" onclick="checkNum('m1p3',10,'m1fb3','(3.08−2.8)÷2.8×100 = 0.28÷2.8×100 = 10%')">ตรวจ</button></div>
+  <div class="num-fb" id="m1fb3"></div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m1',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m1',3,4)">สรุป →</button></div>
+</div>
+<!-- s3 -->
+<div class="mstep" id="m1-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>สิ่งที่เรียน</th><th>ใช้ใน</th><th>ตัวอย่าง</th></tr></thead><tbody>
+<tr><td>% การเปลี่ยนแปลง</td><td><span class="bt-tag bt-macro">Macro</span></td><td>GDP growth, Inflation rate, Unemployment rate</td></tr>
+<tr><td>% การเปลี่ยนแปลง</td><td><span class="bt-tag bt-micro">Micro</span></td><td>Elasticity = %ΔQ ÷ %ΔP</td></tr>
+<tr><td>อัตราการเปลี่ยนแปลง</td><td><span class="bt-tag bt-econ">Econometrics</span></td><td>Growth accounting, Log-linear models</td></tr>
+</tbody></table>
+<div class="callout green"><div class="callout-label">จำไว้ตลอดไป</div><div class="formula-line">% เปลี่ยนแปลง = (ใหม่ − เก่า) ÷ เก่า × 100</div><div class="formula-note">สูตรเดียว ใช้ได้ทุกที่ในเศรษฐศาสตร์</div></div>
+<div class="done-badge"><div class="db-emoji">🎉</div><div class="db-title">Module 1 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านตัวเลขในข่าวเศรษฐกิจพื้นฐานได้แล้ว</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m1',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m1');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 2 ══════════ -->
+<div class="page" id="page-m2">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 02</span><span class="sh-title">Fractions, Decimals &amp; Percentages</span><div class="step-dots" id="dots-m2"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m2-s0">
+<div class="block-q">ค่าเช่าห้องจาก <em>6,500 เป็น 7,150 บาท</em> — บอกเจ้าของบ้านว่าขึ้นกี่เปอร์เซ็นต์?</div>
+<div class="story">เราใช้เปอร์เซ็นต์เพราะ <strong>"ขึ้น 650 บาท"</strong> กับ <strong>"ขึ้น 10%"</strong> ให้ข้อมูลต่างกัน — 650 บาทบอกไม่ได้ว่าเยอะหรือเปล่า แต่ 10% บอกได้ทันทีว่าสูงกว่าเงินเฟ้อทั่วไปมาก</div>
+<div class="callout"><div class="callout-label">3 รูปแบบที่แปลงกันได้</div>
+<div class="formula-line">เศษส่วน ↔ ทศนิยม ↔ ร้อยละ</div>
+<div class="formula-note">1/4 = 0.25 = 25% &nbsp;|&nbsp; 3/8 = 0.375 = 37.5% &nbsp;|&nbsp; 0.07 = 7%<br>วิธีจำ: <strong>เศษส่วน ÷ ให้ได้ทศนิยม × 100 ให้ได้ร้อยละ</strong></div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m2',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m2-s1" style="display:none">
+<div class="block-q">ร้อยละ<em>เพิ่ม</em> vs ร้อยละ<em>ลด</em></div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum">1</div><div class="step-head-text">ร้อยละเพิ่ม — ราคาขึ้น 8%</div></div><div class="step-item-body">ของราคา <span class="inline-formula">250 บาท</span> ขึ้น 8%<br>= 250 × (1 + 0.08) = 250 × 1.08 = <span class="inline-formula">270 บาท</span><br><small>คูณด้วย (1 + อัตรา) เสมอ</small></div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">2</div><div class="step-head-text">ร้อยละลด — ลดราคา 15%</div></div><div class="step-item-body">เสื้อราคา <span class="inline-formula">800 บาท</span> ลด 15%<br>= 800 × (1 − 0.15) = 800 × 0.85 = <span class="inline-formula">680 บาท</span><br><small>คูณด้วย (1 − อัตรา) เสมอ</small></div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">3</div><div class="step-head-text">สัดส่วน — ของชิ้นใดมีน้ำหนักมากกว่า</div></div><div class="step-item-body">รายจ่ายอาหาร 4,500 บาทจากรายได้ 15,000 บาท<br>= 4,500 ÷ 15,000 × 100 = <span class="inline-formula">30%</span> ของรายได้</div></div>
+</div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m2',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m2',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m2-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง</div>
+<div class="quiz-block">
+<div class="quiz-q-text">ของราคา <span>120 บาท</span> ขึ้นราคา <span>25%</span> ราคาใหม่คือ?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm2a')">145 บาท</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm2b')">150 บาท</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm2a')">125 บาท</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm2a')">155 บาท</button>
+</div>
+<div class="quiz-fb no" id="qfm2a">❌ <strong>เฉลย:</strong> 120 × (1 + 0.25) = 120 × 1.25 = <strong>150 บาท</strong></div>
+<div class="quiz-fb ok" id="qfm2b">✅ 120 × 1.25 = <strong>150 บาท</strong> — จำไว้ว่าขึ้น X% คือคูณด้วย (1 + X/100)</div>
+</div>
+<div class="num-q">
+<div class="num-q-text">รายจ่ายค่าโดยสาร <span>2,100 บาท</span> จากรายได้ <span>14,000 บาท</span> คิดเป็นกี่เปอร์เซ็นต์?</div>
+<div class="num-row"><input type="number" class="num-input" id="m2p2" placeholder="คำตอบ" step="0.1"><span class="num-unit">%</span><button class="num-check" onclick="checkNum('m2p2',15,'m2fb2','2,100÷14,000×100 = 15%')">ตรวจ</button></div>
+<div class="num-fb" id="m2fb2"></div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m2',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m2',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m2-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>แนวคิด</th><th>ใช้ใน</th><th>ตัวอย่าง</th></tr></thead><tbody>
+<tr><td>ร้อยละ / สัดส่วน</td><td><span class="bt-tag bt-macro">Macro</span></td><td>สัดส่วนการบริโภค (C/GDP), อัตราออม</td></tr>
+<tr><td>ร้อยละเพิ่ม/ลด</td><td><span class="bt-tag bt-micro">Micro</span></td><td>ต้นทุนส่วนเพิ่ม, ราคาหลังภาษี</td></tr>
+<tr><td>แปลง Fraction→%</td><td><span class="bt-tag bt-all">ทั่วไป</span></td><td>อัตราดอกเบี้ย 0.05 = 5%, ส่วนแบ่งตลาด</td></tr>
+</tbody></table>
+<div class="done-badge"><div class="db-emoji">✅</div><div class="db-title">Module 2 เสร็จแล้ว!</div><div class="db-sub">คุณแปลงระหว่างเศษส่วน ทศนิยม และร้อยละได้แล้ว</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m2',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m2');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 3 ══════════ -->
+<div class="page" id="page-m3">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 03</span><span class="sh-title">Ratios, Rates &amp; Growth</span><div class="step-dots" id="dots-m3"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m3-s0">
+<div class="block-q">ข่าวบอก <em>"หนี้ครัวเรือนต่อ GDP 90%"</em> — น่ากลัวไหม?</div>
+<div class="story">ตัวเลขนี้คือ <strong>Ratio (อัตราส่วน)</strong> — เปรียบเทียบหนี้ของครัวเรือนทั้งหมดกับขนาดเศรษฐกิจ ถ้า GDP ไทย 18 ล้านล้านบาท 90% แปลว่าครัวเรือนมีหนี้รวม 16.2 ล้านล้านบาท<br><br>แต่ Ratio คนละตัวกับ Rate และ Growth Rate — ทั้งสามคำนี้ใช้เป็นประจำในข่าวเศรษฐกิจ ต้องแยกให้ออก</div>
+<div class="callout"><div class="callout-label">สามตัวที่ต้องแยกให้ออก</div>
+<div class="formula-note"><strong>Ratio</strong> = เปรียบเทียบสองสิ่ง เช่น หนี้/GDP = 0.9 (90%)<br><strong>Rate</strong> = ต่อหน่วยเวลาหรือต่อฐาน เช่น อัตราว่างงาน 3.5% (ต่อแรงงานทั้งหมด)<br><strong>Growth Rate</strong> = การเปลี่ยนแปลงจากจุดเดิม เช่น GDP โต 3.5% ต่อปี</div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m3',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m3-s1" style="display:none">
+<div class="block-q">การเติบโต<em>ทบต้น</em> — ทำไมต่างจากทบต้นธรรมดา</div>
+<div class="story">สมมติฝากเงิน 100,000 บาท ดอกเบี้ย 5% ต่อปี<br><br>
+<strong>แบบไม่ทบต้น (ผิด):</strong> 5% × 3 ปี = 15% → ได้ 115,000 บาท<br>
+<strong>แบบทบต้น (ถูก):</strong> 100,000 × (1.05)³ = 115,763 บาท<br><br>
+ต่างกัน 763 บาท เพราะดอกเบี้ยปีที่ 2 คำนวณบนยอดรวมของปีที่ 1 ไม่ใช่เงินต้นเดิม</div>
+<div class="callout"><div class="callout-label">สูตรเติบโตทบต้น</div>
+<div class="formula-line">FV = PV × (1 + r)ⁿ</div>
+<div class="fml-note" style="margin-top:.5rem">
+<strong>FV</strong> = มูลค่าอนาคต (Future Value) — เงินที่จะได้ในอนาคต<br>
+<strong>PV</strong> = มูลค่าปัจจุบัน (Present Value) — เงินต้นตอนนี้<br>
+<strong>r</strong> = อัตราดอกเบี้ย/อัตราเติบโต (Rate) เช่น 5% = 0.05<br>
+<strong>n</strong> = จำนวนปีหรืองวด (Number of periods)<br>
+<strong>(1+r)ⁿ</strong> อ่านว่า "หนึ่งบวกอัตรา ยกกำลัง n"
+</div></div>
+<div class="callout green"><div class="callout-label">กฎ 72 — ลัดสูตร</div><div class="formula-note">หาร 72 ด้วยอัตรา = จำนวนปีที่เงินจะสองเท่า<br>เช่น ดอกเบี้ย 6% → 72÷6 = <strong>12 ปี</strong> เงินสองเท่า</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m3',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m3',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m3-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง</div>
+<div class="quiz-block">
+<div class="quiz-q-text">หนี้ครัวเรือน <span>14.4 ล้านล้านบาท</span>, GDP <span>16 ล้านล้านบาท</span> — Debt-to-GDP Ratio คือ?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm3a')">85%</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm3b')">90%</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm3a')">100%</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm3a')">80%</button>
+</div>
+<div class="quiz-fb no" id="qfm3a">❌ <strong>เฉลย:</strong> 14.4 ÷ 16 × 100 = <strong>90%</strong></div>
+<div class="quiz-fb ok" id="qfm3b">✅ 14.4÷16×100 = <strong>90%</strong> — แปลว่าหนี้คิดเป็น 90% ของขนาดเศรษฐกิจ</div>
+</div>
+<div class="num-q">
+<div class="num-q-text">ฝากเงิน <span>50,000 บาท</span> ดอกเบี้ย <span>4%</span> ต่อปี ใช้กฎ 72 — กี่ปีเงินสองเท่า?</div>
+<div class="num-row"><input type="number" class="num-input" id="m3p2" placeholder="ปี" step="1"><span class="num-unit">ปี</span><button class="num-check" onclick="checkNum('m3p2',18,'m3fb2','72 ÷ 4 = 18 ปี')">ตรวจ</button></div>
+<div class="num-fb" id="m3fb2"></div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m3',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m3',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m3-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>แนวคิด</th><th>ใช้ใน</th><th>ตัวอย่าง</th></tr></thead><tbody>
+<tr><td>Ratio</td><td><span class="bt-tag bt-macro">Macro</span></td><td>Debt/GDP, Trade balance/GDP, Investment ratio</td></tr>
+<tr><td>Rate</td><td><span class="bt-tag bt-macro">Macro</span></td><td>Unemployment rate, Interest rate, Inflation rate</td></tr>
+<tr><td>Growth rate (compound)</td><td><span class="bt-tag bt-all">ทั่วไป</span></td><td>GDP growth, Population growth, CAGR</td></tr>
+</tbody></table>
+<div class="done-badge"><div class="db-emoji">📈</div><div class="db-title">Module 3 เสร็จแล้ว!</div><div class="db-sub">คุณแยก Ratio, Rate, Growth Rate ออกจากกันได้แล้ว</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m3',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m3');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 4 ══════════ -->
+<div class="page" id="page-m4">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 04</span><span class="sh-title">Basic Algebra without Fear</span><div class="step-dots" id="dots-m4"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m4-s0">
+<div class="block-q">โรงงานมีต้นทุนคงที่ <em>50,000 บาท</em> และต้นทุนแปรผัน <em>20 บาท/ชิ้น</em> — ผลิต 1,000 ชิ้น ขายชิ้นละ 80 บาท กำไรเท่าไร?</div>
+<div class="story">คุณสามารถตอบข้อนี้ได้ทันทีโดยไม่ต้องรู้ algebra หรือจำสูตร เพราะมันแค่เป็น <strong>ประโยคภาษาที่สั้นลง</strong><br><br>"กำไร = รายรับ − ต้นทุน" → เขียนสั้นว่า <strong>π = TR − TC</strong><br>"รายรับ = ราคา × ปริมาณ" → เขียนสั้นว่า <strong>TR = P × Q</strong></div>
+<div class="callout"><div class="callout-label">สัญลักษณ์และความหมาย</div><div class="formula-note">
+<strong>π</strong> (ออกเสียง: "ไพ") = กำไร (Profit) — ระวัง! ไม่ใช่ค่า 3.14<br>
+<strong>TR</strong> = รายรับรวม (Total Revenue)<br>
+<strong>TC</strong> = ต้นทุนรวม (Total Cost)<br>
+<strong>FC</strong> = ต้นทุนคงที่ (Fixed Cost) — ไม่เปลี่ยนไม่ว่าจะผลิตเท่าไร เช่น ค่าเช่าโรงงาน<br>
+<strong>VC</strong> = ต้นทุนผันแปรต่อหน่วย (Variable Cost per unit) — เพิ่มตามจำนวนที่ผลิต<br>
+<strong>P</strong> = ราคา (Price), <strong>Q</strong> = ปริมาณ (Quantity)
+</div></div>
+<div class="callout" style="margin-top:.5rem"><div class="callout-label">สมการ 3 ตัวที่ต้องจำ</div>
+<div class="formula-line">TR = P × Q</div>
+<div class="formula-line">TC = FC + (VC × Q)</div>
+<div class="formula-line">π = TR − TC</div>
+</div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m4',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m4-s1" style="display:none">
+<div class="block-q">คำนวณโจทย์โรงงาน<em>ทีละขั้น</em></div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum">1</div><div class="step-head-text">หารายรับ: TR = P × Q</div></div><div class="step-item-body">TR = 80 × 1,000 = <span class="inline-formula">80,000 บาท</span></div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">2</div><div class="step-head-text">หาต้นทุนรวม: TC = FC + (VC × Q)</div></div><div class="step-item-body">TC = 50,000 + (20 × 1,000) = 50,000 + 20,000 = <span class="inline-formula">70,000 บาท</span></div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">3</div><div class="step-head-text">หากำไร: π = TR − TC</div></div><div class="step-item-body">π = 80,000 − 70,000 = <span class="inline-formula">10,000 บาท</span> ✓</div></div>
+</div>
+<div class="callout green"><div class="callout-label">แทนค่าในสมการ = ใส่เลขแทนตัวอักษร</div><div class="formula-note">เวลาเห็น π = P×Q − TC ในตำรา → แทน P=80, Q=1000, FC=50000, VC=20 เพื่อหาตัวเลขจริง</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m4',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m4',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m4-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง</div>
+<div class="quiz-block">
+<div class="quiz-q-text">รายรับ = ราคา × ปริมาณ ถ้า P = <span>250</span> และ Q = <span>200</span> — TR เท่าไร?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm4a')">40,000 บาท</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm4b')">50,000 บาท</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm4a')">45,000 บาท</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm4a')">25,000 บาท</button>
+</div>
+<div class="quiz-fb no" id="qfm4a">❌ <strong>เฉลย:</strong> TR = P × Q = 250 × 200 = <strong>50,000 บาท</strong></div>
+<div class="quiz-fb ok" id="qfm4b">✅ TR = 250 × 200 = <strong>50,000 บาท</strong></div>
+</div>
+<div class="num-q">
+<div class="num-q-text">TC = 30,000 + 15×Q ถ้า Q = <span>400</span> — TC เท่าไร (บาท)?</div>
+<div class="num-row"><input type="number" class="num-input" id="m4p2" placeholder="บาท" step="1"><span class="num-unit">บาท</span><button class="num-check" onclick="checkNum('m4p2',36000,'m4fb2','TC = 30,000 + 15×400 = 30,000 + 6,000 = 36,000 บาท')">ตรวจ</button></div>
+<div class="num-fb" id="m4fb2"></div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m4',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m4',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m4-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>สมการ</th><th>ใช้ใน</th><th>ความหมาย</th></tr></thead><tbody>
+<tr><td>π = TR − TC</td><td><span class="bt-tag bt-micro">Micro</span></td><td>กำไรบริษัท, เงื่อนไขการผลิต</td></tr>
+<tr><td>Qd = a − bP</td><td><span class="bt-tag bt-micro">Micro</span></td><td>ฟังก์ชันอุปสงค์เชิงเส้น</td></tr>
+<tr><td>Y = C + I + G + NX</td><td><span class="bt-tag bt-macro">Macro</span></td><td>Identity ของ GDP</td></tr>
+</tbody></table>
+<div class="done-badge"><div class="db-emoji">🔤</div><div class="db-title">Module 4 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านและใช้สมการพื้นฐานในเศรษฐศาสตร์ได้แล้ว</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m4',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m4');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 5 ══════════ -->
+<div class="page" id="page-m5">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 05</span><span class="sh-title">Functions and Graphs as Stories</span><div class="step-dots" id="dots-m5"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m5-s0">
+<div class="block-q">กราฟ Demand <em>ลาดลง</em>เสมอ — ทำไม?</div>
+<div class="story">กราฟไม่ใช่สูตรคณิตศาสตร์ที่น่ากลัว มันคือ <strong>"ภาพเล่าเรื่อง"</strong><br><br>กราฟ Demand ลาดลงเพราะบอกเรื่องนี้: <em>"ยิ่งราคาสูง คนยิ่งซื้อน้อยลง"</em> — แค่นั้นเอง ไม่ต้องจำสูตรก็อ่านได้</div>
+<div class="callout"><div class="callout-label">อ่านกราฟ 3 ขั้นตอน</div>
+<div class="formula-note"><strong>1. ดูแกน</strong> — แกน Y คืออะไร? แกน X คืออะไร?<br><strong>2. ดูทิศทาง</strong> — เส้นไปทางไหน? ขึ้น หรือ ลง?<br><strong>3. อ่านความหมาย</strong> — X เพิ่มแล้ว Y ทำอะไร?</div></div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:.875rem;padding:1.25rem;margin-top:1rem">
+<svg viewBox="0 0 280 180" style="width:100%;max-width:280px;display:block;margin:0 auto">
+<line x1="30" y1="10" x2="30" y2="160" stroke="#d6d3d1" stroke-width="1.5"/>
+<line x1="30" y1="160" x2="270" y2="160" stroke="#d6d3d1" stroke-width="1.5"/>
+<line x1="40" y1="20" x2="260" y2="150" stroke="#ff6b6b" stroke-width="2.5"/>
+<line x1="40" y1="150" x2="260" y2="20" stroke="#059669" stroke-width="2.5"/>
+<circle cx="150" cy="85" r="5" fill="#d97706"/>
+<line x1="30" y1="85" x2="150" y2="85" stroke="#d97706" stroke-width="1" stroke-dasharray="4"/>
+<line x1="150" y1="85" x2="150" y2="160" stroke="#d97706" stroke-width="1" stroke-dasharray="4"/>
+<text x="255" y="18" fill="#059669" font-size="11" font-family="Space Mono">S</text>
+<text x="255" y="155" fill="#ff6b6b" font-size="11" font-family="Space Mono">D</text>
+<text x="154" y="80" fill="#d97706" font-size="9" font-family="Space Mono">E*</text>
+<text x="5" y="89" fill="#d97706" font-size="8" font-family="Space Mono">P*</text>
+<text x="143" y="173" fill="#d97706" font-size="8" font-family="Space Mono">Q*</text>
+<text x="12" y="14" fill="#78716c" font-size="9">P</text>
+<text x="264" y="173" fill="#78716c" font-size="9">Q</text>
+</svg>
+<div style="display:flex;gap:1.25rem;justify-content:center;margin-top:.5rem;font-size:.75rem;color:var(--muted)">
+<span style="display:flex;align-items:center;gap:.3rem"><span style="width:14px;height:2px;background:#ff6b6b;display:inline-block"></span>Demand (ลาดลง)</span>
+<span style="display:flex;align-items:center;gap:.3rem"><span style="width:14px;height:2px;background:#059669;display:inline-block"></span>Supply (ลาดขึ้น)</span>
+</div>
+</div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m5',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m5-s1" style="display:none">
+<div class="block-q">ความชัน (<em>Slope</em>) บอกอะไร?</div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum">1</div><div class="step-head-text">Slope (ความชัน) = ΔY ÷ ΔX</div></div><div class="step-item-body">Slope = ΔY ÷ ΔX = "Y เปลี่ยนเท่าไร เมื่อ X เพิ่ม 1 หน่วย"<br><strong>Δ</strong> (อ่าน: เดลตา) = สัญลักษณ์แทน "การเปลี่ยนแปลงของ"<br><small>เช่น ถ้า Slope = −5 หมายความว่า X เพิ่ม 1 → Y ลด 5</small></div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">2</div><div class="step-head-text">Slope บวก vs ลบ</div></div><div class="step-item-body"><strong>Slope บวก (+)</strong> = X ขึ้น → Y ขึ้น เช่น Supply curve<br><strong>Slope ลบ (−)</strong> = X ขึ้น → Y ลง เช่น Demand curve</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">3</div><div class="step-head-text">ตัวอย่าง: Qd = 100 − 5P</div></div><div class="step-item-body">P เพิ่ม 1 บาท → Qd ลด 5 หน่วย (slope = −5)<br>เมื่อ P = 10: Qd = 100 − 50 = <span class="inline-formula">50 หน่วย</span></div></div>
+</div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m5',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m5',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m5-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง — <em>ตอบก่อนถึงจะไปต่อได้</em></div>
+<div class="callout blue" style="margin-bottom:1rem"><div class="callout-label">เตือนความจำ — สัญลักษณ์ที่ใช้</div>
+<div class="formula-note"><strong>Qd</strong> = ปริมาณที่ต้องการซื้อ (Quantity demanded) — ใช้ใน Demand curve<br>
+<strong>Qs</strong> = ปริมาณที่ต้องการขาย (Quantity supplied) — ใช้ใน Supply curve<br>
+<strong>P</strong> = ราคา (Price) | วิธีทำ: แทนค่า P ด้วยตัวเลข แล้วคำนวณ</div></div>
+<div class="quiz-block">
+<div class="quiz-q-text">Qd = <span>200 − 4P</span> เมื่อราคา P = <span>25 บาท</span> — Qd (ปริมาณที่ซื้อ) เท่าไร?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm5a')">200</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm5b')">100</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm5a')">175</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm5a')">150</button>
+</div>
+<div class="quiz-fb no" id="qfm5a">❌ <strong>คำตอบที่ถูกคือ 100</strong><br>แทน P=25: Qd = 200 − 4×25 = 200 − 100 = <strong>100</strong><br><small>วิธีคิด: เอาเลข 25 แทนตัว P ในสมการ แล้วคำนวณ</small></div>
+<div class="quiz-fb ok" id="qfm5b">✅ <strong>ถูกต้อง! Qd = 100</strong><br>200 − 4×25 = 200 − 100 = 100<br><small>ลองเช็ค: ถ้า P ขึ้นเป็น 30 → Qd = 200 − 4×30 = 80 (น้อยลง = Demand curve ลาดลง ✓)</small></div>
+</div>
+<div class="quiz-block">
+<div class="quiz-q-text">Qs = <span>−30 + 3P</span> — ความชัน (Slope) ของสมการนี้คือเท่าไร และเป็น Supply หรือ Demand?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm5c')">Slope = −3, เป็น Demand (อุปสงค์)</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm5d')">Slope = +3, เป็น Supply (อุปทาน)</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm5c')">Slope = −30</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm5c')">Slope = ไม่มี</button>
+</div>
+<div class="quiz-fb no" id="qfm5c">❌ <strong>เฉลย:</strong> สัมประสิทธิ์หน้า P = +3 แปลว่า slope = <strong>+3</strong> (ลาดขึ้น = Supply curve)</div>
+<div class="quiz-fb ok" id="qfm5d">✅ slope = <strong>+3</strong> — Supply curve ลาดขึ้น P เพิ่ม → Qs เพิ่ม</div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m5',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m5',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m5-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>กราฟ</th><th>ใช้ใน</th><th>อ่านว่า</th></tr></thead><tbody>
+<tr><td>Supply-Demand</td><td><span class="bt-tag bt-micro">Micro</span></td><td>Slope(D)&lt;0, Slope(S)&gt;0, จุดตัด = Equilibrium</td></tr>
+<tr><td>IS-LM curve</td><td><span class="bt-tag bt-macro">Macro</span></td><td>ดุลยภาพในตลาดสินค้าและตลาดเงิน</td></tr>
+<tr><td>Phillips curve</td><td><span class="bt-tag bt-macro">Macro</span></td><td>Trade-off ระหว่างเงินเฟ้อและว่างงาน</td></tr>
+</tbody></table>
+<div class="done-badge"><div class="db-emoji">📊</div><div class="db-title">Module 5 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านกราฟ Supply-Demand และตีความ Slope ได้แล้ว</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m5',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m5');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 6 ══════════ -->
+<div class="page" id="page-m6">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 06</span><span class="sh-title">Tables, Index Numbers &amp; CPI</span><div class="step-dots" id="dots-m6"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m6-s0">
+<div class="block-q">ธนาคารแห่งประเทศไทยรายงาน <em>CPI = 108.3</em> — ตัวเลขนี้แปลว่าอะไร?</div>
+<div class="story">CPI = Consumer Price Index = ดัชนีราคาผู้บริโภค<br><br>ตัวเลข <strong>108.3</strong> ไม่ได้แปลว่าสินค้าราคา 108.3 บาท แต่แปลว่า <strong>ราคาสินค้าเฉลี่ยสูงกว่าปีฐาน 8.3%</strong><br><br>ปีฐาน (Base Year) = ปีที่กำหนดให้ดัชนี = 100 เพื่อใช้เป็นจุดอ้างอิง</div>
+<div class="callout"><div class="callout-label">สูตรดัชนี</div>
+<div class="formula-line">Index = (ค่าปัจจุบัน ÷ ค่าปีฐาน) × 100</div>
+<div class="formula-note">ถ้า Index &gt; 100 = สูงกว่าปีฐาน &nbsp;|&nbsp; Index &lt; 100 = ต่ำกว่าปีฐาน &nbsp;|&nbsp; Index = 100 = เท่ากับปีฐาน</div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m6',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m6-s1" style="display:none">
+<div class="block-q">การอ่านตาราง — <em>Real vs Nominal</em></div>
+<div class="story">ปัญหาของตัวเลข Nominal (ไม่ปรับเงินเฟ้อ): GDP ปี 2557 = 13 ล้านล้านบาท, GDP ปี 2567 = 18 ล้านล้านบาท<br><br>เพิ่มขึ้น 38%! แต่... ถ้าราคาสินค้าก็เพิ่มขึ้น 30% ในช่วงเดียวกัน แปลว่าของจริงๆ ที่ผลิตได้ ไม่ได้เพิ่มมากเท่า</div>
+<div class="callout"><div class="callout-label">Real vs Nominal</div>
+<div class="formula-note"><strong>Nominal</strong> = ตัวเลขจริงๆ ในปีนั้น (ไม่ปรับ inflation)<br><strong>Real</strong> = ปรับเงินเฟ้อออกแล้ว เพื่อเปรียบเทียบข้ามเวลาได้<br><br>Real GDP = Nominal GDP ÷ Price Index × 100</div></div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum">1</div><div class="step-head-text">ตัวอย่าง</div></div><div class="step-item-body">Nominal GDP 2567 = 18,000 พันล้านบาท<br>CPI = 120 (ปีฐาน 2557)<br>Real GDP = 18,000 ÷ 120 × 100 = <span class="inline-formula">15,000 พันล้านบาท</span> (ราคาปี 2557)</div></div>
+</div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m6',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m6',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m6-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง — <em>ตอบก่อนถึงจะไปต่อได้</em></div>
+<div class="callout blue" style="margin-bottom:1rem"><div class="callout-label">สูตรที่ต้องใช้</div>
+<div class="formula-note"><strong>ดัชนี</strong> = (ค่าปัจจุบัน ÷ ค่าปีฐาน) × 100<br>
+ดัชนี = 100 → เท่ากับปีฐาน | &gt;100 → สูงกว่า | &lt;100 → ต่ำกว่า<br>
+<strong>เงินเฟ้อ</strong> = % การเปลี่ยนแปลงของ CPI (ใช้สูตร % เปลี่ยนแปลง)</div></div>
+<div class="quiz-block">
+<div class="quiz-q-text">ราคาข้าว ปีฐาน 2560 = <span>25 บาท/กก.</span>, ปีนี้ = <span>30 บาท/กก.</span> — ดัชนีราคาข้าวปีนี้คือ?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm6a')">105</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm6b')">120</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm6a')">130</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm6a')">115</button>
+</div>
+<div class="quiz-fb no" id="qfm6a">❌ <strong>คำตอบที่ถูกคือ 120</strong><br>สูตร: (ค่าปัจจุบัน ÷ ค่าปีฐาน) × 100 = (30 ÷ 25) × 100 = 1.2 × 100 = <strong>120</strong><br><small>แปลว่าราคาข้าวแพงกว่าปีฐาน 20% (120 − 100 = 20)</small></div>
+<div class="quiz-fb ok" id="qfm6b">✅ <strong>ถูกต้อง! ดัชนี = 120</strong><br>(30 ÷ 25) × 100 = <strong>120</strong> → ราคาข้าวแพงกว่าปีฐาน 20%<br><small>จำ: ดัชนีมากกว่า 100 = แพงขึ้น ดัชนีน้อยกว่า 100 = ถูกลง</small></div>
+</div>
+<div class="quiz-block">
+<div class="quiz-q-text">CPI ปีก่อน = <span>105</span>, CPI ปีนี้ = <span>112.35</span> — อัตราเงินเฟ้อปีนี้คือ?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm6c')">12.35%</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm6d')">7%</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm6c')">5%</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm6c')">7.35%</button>
+</div>
+<div class="quiz-fb no" id="qfm6c">❌ <strong>เฉลย:</strong> เงินเฟ้อ = % เปลี่ยนแปลงของ CPI = (112.35−105)÷105×100 = <strong>7%</strong></div>
+<div class="quiz-fb ok" id="qfm6d">✅ (112.35−105)÷105×100 = <strong>7%</strong> — เงินเฟ้อคือการเปลี่ยนแปลงของ CPI ไม่ใช่ตัว CPI เอง</div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m6',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m6',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m6-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>แนวคิด</th><th>ใช้ใน</th><th>ตัวอย่าง</th></tr></thead><tbody>
+<tr><td>CPI, ดัชนีราคา</td><td><span class="bt-tag bt-macro">Macro</span></td><td>วัดเงินเฟ้อ, นโยบายดอกเบี้ย ธปท.</td></tr>
+<tr><td>Real vs Nominal</td><td><span class="bt-tag bt-macro">Macro</span></td><td>Real GDP, Real wage, Real interest rate</td></tr>
+<tr><td>Base year</td><td><span class="bt-tag bt-econ">Econometrics</span></td><td>Deflating time series data</td></tr>
+</tbody></table>
+<div class="done-badge"><div class="db-emoji">🗂️</div><div class="db-title">Module 6 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านดัชนี CPI และแยก Real/Nominal ได้แล้ว</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m6',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m6');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 7 ══════════ -->
+<div class="page" id="page-m7">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 07</span><span class="sh-title">Why Statistics Matters in Economics</span><div class="step-dots" id="dots-m7"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m7-s0">
+<div class="block-q">รายได้เฉลี่ยคนไทย <em>24,000 บาท/เดือน</em> — คุณรู้สึกว่าตัวเลขนี้จริงไหม?</div>
+<div class="story">ถ้าคุณรู้สึกว่า "24,000 บาท รู้สึกสูงเกินไป" คุณถูกต้อง — <strong>นี่คือปัญหาของการมองแค่ตัวเลขเดียว</strong><br><br>สถิติมีไว้เพื่อช่วยตอบคำถาม เช่น:<br>• "คนส่วนใหญ่ <em>จริงๆ</em> มีรายได้เท่าไร?" (Median ดีกว่า Mean)<br>• "ความแตกต่างระหว่างคนรวย-จนมากแค่ไหน?" (การกระจาย)<br>• "รายได้กับการศึกษาสัมพันธ์กันไหม?" (Correlation)</div>
+<div class="callout"><div class="callout-label">สถิติในเศรษฐศาสตร์ทำ 3 อย่าง</div>
+<div class="formula-note"><strong>1. Describe</strong> = สรุปข้อมูลให้เข้าใจง่าย (เฉลี่ย, กระจาย)<br><strong>2. Infer</strong> = สรุปจากตัวอย่างไปถึงทั้งหมด<br><strong>3. Identify relationships</strong> = หาว่าตัวแปรอะไรสัมพันธ์กัน</div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 3</span><button class="sfbtn next" onclick="goStep('m7',1,3)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m7-s1" style="display:none">
+<div class="block-q">คำถาม 3 ประเภทที่สถิติช่วยตอบ</div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum">1</div><div class="step-head-text">What happened? — สรุปข้อมูล</div></div><div class="step-item-body">"รายได้เฉลี่ยครัวเรือนไทยในปีนี้คือเท่าไร?" → ใช้ Descriptive statistics (Module 8)</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">2</div><div class="step-head-text">How spread out? — วัดความเหลื่อมล้ำ</div></div><div class="step-item-body">"รายได้กระจายตัวมากแค่ไหน?" → ใช้ Variance, SD, Gini coefficient (Module 9)</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">3</div><div class="step-head-text">Are they related? — หาความสัมพันธ์</div></div><div class="step-item-body">"การศึกษาสัมพันธ์กับรายได้ไหม?" → ใช้ Correlation, Regression (Module 10-12)</div></div>
+</div>
+<div class="callout green"><div class="callout-label">สถิติ ≠ ทำให้ยาก</div><div class="formula-note">สถิติเป็นเครื่องมือ เหมือนกล้องถ่ายรูป — ช่วยให้เห็นความจริงที่ตาเปล่ามองข้ามไป</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m7',0,3)">← ก่อนหน้า</button><span class="step-label">2 / 3</span><button class="sfbtn next" onclick="goStep('m7',2,3)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m7-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง — <em>ตอบก่อนถึงจะจบได้</em></div>
+<div class="quiz-block">
+<div class="quiz-q-text">นักเศรษฐศาสตร์ต้องการรู้ว่า "เงินเฟ้อกับการว่างงานสัมพันธ์กันหรือเปล่า?" — ควรใช้เครื่องมือสถิติอะไร?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm7a')">คำนวณ Mean ของทั้งคู่</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm7b')">วิเคราะห์ Correlation หรือ Regression</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm7a')">เปรียบ Median ของทั้งคู่</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm7a')">ดู Standard Deviation</button>
+</div>
+<div class="quiz-fb no" id="qfm7a">❌ <strong>เฉลย:</strong> Mean, Median, SD อธิบาย "แต่ละตัวแปรแยกกัน" แต่ถ้าต้องการรู้ว่า <strong>สองตัวเคลื่อนไปด้วยกันไหม</strong> ต้องใช้ Correlation (ความสัมพันธ์) หรือ Regression (การถดถอย)</div>
+<div class="quiz-fb ok" id="qfm7b">✅ <strong>ถูกต้อง!</strong> Correlation/Regression = เครื่องมือหา "ความสัมพันธ์ระหว่างสองตัวแปร" จะเรียนละเอียดใน Module 10</div>
+</div>
+<div id="m7-done-badge" style="display:none" class="done-badge"><div class="db-emoji">🤔</div><div class="db-title">Module 7 เสร็จแล้ว!</div><div class="db-sub">คุณเข้าใจว่าสถิติมีไว้ทำอะไรในเศรษฐศาสตร์แล้ว</div></div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m7',1,3)">← ก่อนหน้า</button><span class="step-label">3 / 3</span><button class="sfbtn next gate-locked" disabled onclick="finishMod('m7');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 8 ══════════ -->
+<div class="page" id="page-m8">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 08</span><span class="sh-title">Describing Data — Mean, Median, Mode</span><div class="step-dots" id="dots-m8"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m8-s0">
+<div class="block-q">ถ้ามีคน 5 คนในห้อง จะใช้ตัวเลขไหน <em>"แทน"</em> รายได้ทั้งกลุ่ม?</div>
+<div class="story">รายได้: 9,000 / 10,000 / 12,000 / 15,000 / 84,000 บาท<br><br>
+<strong>Mean</strong> = (9+10+12+15+84)÷5 = <strong>26,000 บาท</strong> ← ดูสูงมาก<br>
+<strong>Median</strong> = ค่ากลาง = <strong>12,000 บาท</strong> ← สะท้อนความจริงมากกว่า<br><br>
+ทำไม Mean สูงกว่ามาก? เพราะคนที่รายได้ 84,000 "ดึง" Mean ขึ้นไป นี่คือปัญหาที่ทำให้ "รายได้เฉลี่ย" ในข่าวมักทำให้คนเข้าใจผิด</div>
+<div class="callout"><div class="callout-label">ค่าสถิติพื้นฐาน 3 ตัว</div>
+<div class="formula-note"><strong>Mean (ค่าเฉลี่ย)</strong><br>
+<span class="inline-formula">μ (มิว)</span> = ∑x ÷ n<br>
+<strong>∑</strong> (ซิกมาใหญ่) = ผลรวมทั้งหมด (ให้นึกว่า "รวม")<br>
+<strong>x</strong> = ค่าแต่ละตัวในข้อมูล<br>
+<strong>n</strong> = จำนวนข้อมูลทั้งหมด<br><br>
+<strong>Median (ค่ากลาง)</strong> = ค่าตรงกลางหลังเรียงจากน้อยไปมาก<br>
+<strong>Mode (ฐานนิยม)</strong> = ค่าที่ปรากฏบ่อยที่สุดในข้อมูล</div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m8',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m8-s1" style="display:none">
+<div class="block-q">เมื่อไรใช้<em>อะไร</em>?</div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum green">Mean</div><div class="step-head-text">ใช้เมื่อข้อมูลกระจายสมมาตร ไม่มีค่าสุดโต่ง</div></div><div class="step-item-body">เช่น: คะแนนสอบ (แทบไม่มีคนได้ 0 หรือ 100 เต็ม), ความสูงของคน</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum green">Median</div><div class="step-head-text">ใช้เมื่อมีค่าสุดโต่ง เช่น รายได้ ราคาบ้าน</div></div><div class="step-item-body">เช่น: รายได้ครัวเรือน (มีคนรวยมาก), ราคาอสังหาริมทรัพย์ — <strong>Median มักสะท้อนความจริงมากกว่าในเศรษฐศาสตร์</strong></div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum green">Mode</div><div class="step-head-text">ใช้เมื่อต้องการ "ส่วนใหญ่นิยม"</div></div><div class="step-item-body">เช่น: สินค้าที่ขายดีที่สุด (ไซซ์เสื้อที่ขายได้มากสุด), ราคาบะหมี่ที่ร้านส่วนใหญ่ขาย</div></div>
+</div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m8',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m8',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m8-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง</div>
+<div class="num-q">
+<div class="num-q-text">ค่าจ้าง 6 คน: <span>12,000 / 14,000 / 15,000 / 16,000 / 18,000 / 85,000</span> บาท — Mean คือ (บาท)?</div>
+<div class="num-row"><input type="number" class="num-input" id="m8p1" placeholder="บาท"><span class="num-unit">บาท</span><button class="num-check" onclick="checkNum('m8p1',26667,'m8fb1','วิธีคิด: รวมทั้งหมด ÷ 6 คน = (12000+14000+15000+16000+18000+85000) ÷ 6 = 160,000 ÷ 6 ≈ 26,667 บาท',100)">ตรวจ</button></div>
+<div class="num-fb" id="m8fb1"></div>
+</div>
+<div class="quiz-block">
+<div class="quiz-q-text">จากข้อมูลเดิม: <span>12,000/14,000/15,000/16,000/18,000/85,000</span> — Median คือ?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm8a')">15,000 บาท</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm8b')">15,500 บาท</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm8a')">16,000 บาท</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm8a')">26,667 บาท</button>
+</div>
+<div class="quiz-fb no" id="qfm8a">❌ <strong>เฉลย:</strong> ข้อมูล 6 ตัว → Median = เฉลี่ยตำแหน่งที่ 3 และ 4 = (15,000+16,000)÷2 = <strong>15,500</strong></div>
+<div class="quiz-fb ok" id="qfm8b">✅ (15,000+16,000)÷2 = <strong>15,500 บาท</strong> — ต่างจาก Mean 26,667 มาก เพราะคน 85,000 บาท</div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m8',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m8',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m8-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>แนวคิด</th><th>ใช้ใน</th><th>ตัวอย่าง</th></tr></thead><tbody>
+<tr><td>Median income</td><td><span class="bt-tag bt-macro">Macro</span></td><td>วัดรายได้ครัวเรือนจริงๆ ดีกว่า Mean</td></tr>
+<tr><td>Mean vs Median gap</td><td><span class="bt-tag bt-macro">Macro</span></td><td>ยิ่งห่างมาก = ความเหลื่อมล้ำสูง</td></tr>
+<tr><td>Mode</td><td><span class="bt-tag bt-micro">Micro</span></td><td>ราคาที่นิยมในตลาด, สินค้าขายดี</td></tr>
+</tbody></table>
+<div class="done-badge"><div class="db-emoji">🎯</div><div class="db-title">Module 8 เสร็จแล้ว!</div><div class="db-sub">คุณแยก Mean, Median, Mode ได้และรู้ว่าเมื่อไรใช้อะไร</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m8',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m8');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 9 ══════════ -->
+<div class="page" id="page-m9">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 09</span><span class="sh-title">Variability and Dispersion</span><div class="step-dots" id="dots-m9"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m9-s0">
+<div class="block-q">สองจังหวัด รายได้เฉลี่ยเท่ากันทุกอย่าง — แต่ <em>ชีวิตความเป็นอยู่ต่างกัน</em> ทำไม?</div>
+<div class="story">จ.A: รายได้ทุกคน อยู่ระหว่าง 18,000–22,000 บาท (กระจายน้อย)<br>จ.B: บางคน 3,000 บาท บางคน 80,000 บาท (กระจายมาก)<br><br>Mean เท่ากัน แต่ <strong>ความเหลื่อมล้ำต่างกันมาก</strong><br><br>นี่คือเหตุผลที่เศรษฐศาสตร์ต้องวัด <strong>"การกระจาย"</strong> ไม่ใช่แค่ค่าเฉลี่ย</div>
+<div class="callout"><div class="callout-label">การกระจาย 3 ระดับ</div>
+<div class="formula-note"><strong>Range</strong> = ค่าสูงสุด − ค่าต่ำสุด (ง่าย แต่ไวต่อค่าสุดโต่ง)<br><strong>Variance (σ²)</strong> = ค่าเฉลี่ยของ "ระยะห่างจาก Mean²"<br><strong>Standard Deviation (σ)</strong> = √Variance = หน่วยเดียวกับข้อมูลต้นฉบับ</div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m9',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m9-s1" style="display:none">
+<div class="block-q">Standard Deviation — <em>อ่านอย่างไร</em>?</div>
+<div class="story">สมมติรายได้ใน 5 คน: 10, 12, 15, 18, 20 (หน่วย: พันบาท)<br>Mean = 15 พันบาท<br>SD ≈ 3.7 พันบาท<br><br>ความหมาย: <strong>คนส่วนใหญ่มีรายได้ห่างจาก Mean ประมาณ ±3,700 บาท</strong><br>= รายได้อยู่ระหว่าง 11,300–18,700 บาท (roughly)</div>
+<div class="callout"><div class="callout-label">กฎ 68-95-99.7 สำหรับ Normal Distribution (การแจกแจงปกติ)</div>
+<div class="formula-note">
+<strong>σ</strong> (ซิกมาเล็ก) = ส่วนเบี่ยงเบนมาตรฐาน (Standard Deviation / SD)<br>
+<strong>Normal Distribution</strong> = การแจกแจงปกติ = กราฟรูประฆัง ข้อมูลส่วนใหญ่อยู่ตรงกลาง<br><br>
+ถ้าข้อมูลเป็น Normal Distribution:<br>
+<strong>68%</strong> ของข้อมูลอยู่ใน Mean ±1σ (ห่าง 1 SD)<br>
+<strong>95%</strong> ของข้อมูลอยู่ใน Mean ±2σ (ห่าง 2 SD)<br>
+<strong>99.7%</strong> ของข้อมูลอยู่ใน Mean ±3σ (ห่าง 3 SD)
+</div></div>
+<div class="callout green"><div class="callout-label">SD สูง vs ต่ำ</div><div class="formula-note"><strong>SD สูง</strong> = ข้อมูลกระจายมาก = ความเหลื่อมล้ำสูง / ความเสี่ยงสูง<br><strong>SD ต่ำ</strong> = ข้อมูลใกล้เคียงกัน = ความเท่าเทียมสูง / ความเสี่ยงต่ำ</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m9',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m9',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m9-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง — <em>ตอบให้ครบทั้ง 2 ข้อ</em></div>
+<div class="callout blue" style="margin-bottom:1rem"><div class="callout-label">เตือนความจำ</div>
+<div class="formula-note"><strong>SD ต่ำ</strong> = ข้อมูลใกล้เคียงกัน = ความเสี่ยง/ความเหลื่อมล้ำต่ำ<br>
+<strong>SD สูง</strong> = ข้อมูลกระจายมาก = ความเสี่ยง/ความเหลื่อมล้ำสูง</div></div>
+<div class="quiz-block">
+<div class="quiz-q-text">ราคาอาหารในสองตลาด — Mean เท่ากันที่ <span>50 บาท</span> แต่ ตลาด A มี SD = <span>2 บาท</span> และ ตลาด B มี SD = <span>18 บาท</span> — ตลาดไหนราคาสม่ำเสมอกว่า?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,true,'qfm9b')">ตลาด A (SD = 2 บาท)</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm9a')">ตลาด B (SD = 18 บาท)</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm9a')">เท่ากัน เพราะ Mean เท่ากัน</button>
+</div>
+<div class="quiz-fb no" id="qfm9a">❌ <strong>เฉลย:</strong> SD ต่ำ = กระจายน้อย = ราคาใกล้เคียงกัน ตลาด A (SD=2) ราคาอาหารอยู่ระหว่าง ~48–52 บาท แต่ตลาด B อาจ 32–68 บาท</div>
+<div class="quiz-fb ok" id="qfm9b">✅ <strong>ถูกต้อง!</strong> SD ต่ำ = กระจายน้อย = ราคาสม่ำเสมอ — ตลาด A ราคาใกล้เคียง 50 บาทเสมอ</div>
+</div>
+<div class="quiz-block">
+<div class="quiz-q-text">หุ้น A และหุ้น B ให้ผลตอบแทน <span>Mean = 8%</span> เท่ากัน แต่ หุ้น A มี SD = <span>2%</span> และหุ้น B มี SD = <span>15%</span> — นักลงทุนที่ไม่ชอบความเสี่ยงควรเลือกอะไร?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,true,'qfm9d')">หุ้น A เพราะ SD ต่ำ = ความเสี่ยงน้อยกว่า</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm9c')">หุ้น B เพราะ SD สูง = โอกาสกำไรมากกว่า</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm9c')">เท่ากัน เพราะ Mean return เท่ากัน</button>
+</div>
+<div class="quiz-fb no" id="qfm9c">❌ <strong>เฉลย:</strong> SD = ความเสี่ยง ใน Finance return เท่ากัน แต่เสี่ยงน้อยกว่าย่อมดีกว่า → หุ้น A (SD=2%) ดีกว่า</div>
+<div class="quiz-fb ok" id="qfm9d">✅ <strong>ถูกต้อง!</strong> SD = ความผันผวน = ความเสี่ยง — Return เท่ากัน เลือก SD ต่ำกว่าเสมอถ้าไม่ชอบเสี่ยง</div>
+</div>
+<div class="gate-tip">⬆ ต้องตอบให้ครบทั้ง 2 ข้อก่อน จึงจะไปต่อได้</div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m9',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m9',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m9-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>แนวคิด</th><th>ใช้ใน</th><th>ตัวอย่าง</th></tr></thead><tbody>
+<tr><td>SD รายได้สูง</td><td><span class="bt-tag bt-macro">Macro</span></td><td>ความเหลื่อมล้ำ, Gini coefficient</td></tr>
+<tr><td>SD ราคาสูง</td><td><span class="bt-tag bt-micro">Micro</span></td><td>ตลาดไม่ perfect competition</td></tr>
+<tr><td>SD ผลตอบแทน</td><td><span class="bt-tag bt-econ">Finance</span></td><td>ความเสี่ยงการลงทุน, Portfolio theory</td></tr>
+</tbody></table>
+<div class="done-badge"><div class="db-emoji">↔️</div><div class="db-title">Module 9 เสร็จแล้ว!</div><div class="db-sub">คุณเข้าใจ SD และอ่านความหมายของการกระจายข้อมูลได้แล้ว</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m9',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m9');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 10 ══════════ -->
+<div class="page" id="page-m10">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 10</span><span class="sh-title">Correlation ≠ Causation</span><div class="step-dots" id="dots-m10"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m10-s0">
+<div class="block-q">ประเทศที่มีคนกิน <em>ช็อกโกแลตมาก</em> มีจำนวนผู้ได้รับ <em>รางวัลโนเบลสูง</em> — ช็อกโกแลตทำให้ฉลาดขึ้นจริงไหม?</div>
+<div class="story">นี่คือตัวอย่างสนุกๆ ของ <strong>Spurious Correlation</strong> — ความสัมพันธ์ที่ไม่มีความหมาย<br><br>ทั้งสองสัมพันธ์กันจริง แต่เพราะ <strong>ประเทศที่ร่ำรวย</strong> มักกินช็อกโกแลตมาก และมีนักวิจัยมาก ไม่ใช่เพราะช็อกโกแลตทำให้ฉลาด<br><br>นี่คือหลักการที่สำคัญที่สุดในสถิติเศรษฐศาสตร์: <strong>Correlation ≠ Causation</strong></div>
+<div class="callout red"><div class="callout-label">อย่าสับสน!</div><div class="formula-note"><strong>Correlation</strong> = สองสิ่งเคลื่อนไปด้วยกัน (สัมพันธ์กัน)<br><strong>Causation</strong> = สิ่งหนึ่งทำให้อีกสิ่งเกิดขึ้น (เป็นเหตุเป็นผล)</div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m10',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m10-s1" style="display:none">
+<div class="block-q">ทิศทางของ Correlation</div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum">+</div><div class="step-head-text">Positive Correlation (เชิงบวก)</div></div><div class="step-item-body">X เพิ่ม → Y เพิ่มด้วย เช่น รายได้ขึ้น → การบริโภคขึ้น</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum" style="background:var(--red)">−</div><div class="step-head-text">Negative Correlation (เชิงลบ)</div></div><div class="step-item-body">X เพิ่ม → Y ลดลง เช่น ราคาสูงขึ้น → ปริมาณซื้อลดลง</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum" style="background:var(--muted)">0</div><div class="step-head-text">Zero Correlation (ไม่มีความสัมพันธ์)</div></div><div class="step-item-body">X เปลี่ยน → Y ไม่เปลี่ยน เช่น ชื่อนามสกุลกับรายได้ (ทั่วไป)</div></div>
+</div>
+<div class="callout"><div class="callout-label">ค่า r — สัมประสิทธิ์สหสัมพันธ์ (Correlation Coefficient)</div><div class="formula-note">
+<strong>r</strong> = ตัวเลขบอกความแน่นและทิศทางของความสัมพันธ์<br>
+ค่า r อยู่ระหว่าง −1 ถึง +1 เสมอ<br><br>
+<strong>r ใกล้ +1</strong> = ความสัมพันธ์เชิงบวกแข็งแกร่ง (ขึ้นด้วยกัน)<br>
+<strong>r ใกล้ −1</strong> = ความสัมพันธ์เชิงลบแข็งแกร่ง (ทิศตรงข้าม)<br>
+<strong>r ใกล้ 0</strong> = ไม่มีความสัมพันธ์<br><br>
+⚠️ r บอกแค่ว่า "สัมพันธ์กันไหม" — ไม่บอกว่าอะไรเป็นเหตุอะไรเป็นผล
+</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m10',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m10',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m10-s2" style="display:none">
+<div class="block-q">ฝึกทำด้วยตัวเอง</div>
+<div class="quiz-block">
+<div class="quiz-q-text">ข้อมูลพบว่า ยอดขายไอศกรีมและจำนวนคนจมน้ำ <strong>สูงขึ้นพร้อมกันในช่วงฤดูร้อน</strong> ข้อสรุปที่ถูกต้องคือ?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm10a')">ไอศกรีมทำให้คนจมน้ำมากขึ้น</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm10b')">ทั้งคู่เพิ่มขึ้นเพราะ "ฤดูร้อน" ซึ่งเป็นตัวแปรที่สาม</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm10a')">คนจมน้ำทำให้คนซื้อไอศกรีมมากขึ้น</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm10a')">ข้อมูลผิดพลาดแน่นอน</button>
+</div>
+<div class="quiz-fb no" id="qfm10a">❌ <strong>เฉลย:</strong> นี่คือ <strong>Confounding Variable (ตัวแปรลวงผล)</strong> — "ฤดูร้อน" ทำให้ทั้งคู่เพิ่มพร้อมกัน ไม่ใช่ไอศกรีมเป็นสาเหตุ<br>Correlation (ความสัมพันธ์) มีอยู่จริง แต่ Causation (ความเป็นเหตุเป็นผล) ไม่มี</div>
+<div class="quiz-fb ok" id="qfm10b">✅ ถูกต้อง! <strong>Confounding variable (ตัวแปรลวงผล)</strong> = ตัวแปรที่ 3 ที่ทำให้ทั้งสองขยับพร้อมกัน<br>Correlation ≠ Causation — จำหลักนี้ไว้ตลอดชีวิต!</div>
+</div>
+<div class="quiz-block">
+<div class="quiz-q-text">r = −0.85 ระหว่างราคาน้ำมันและปริมาณการใช้รถ แปลว่า?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm10c')">ราคาน้ำมันทำให้คนขับรถน้อยลง (causation)</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm10d')">ราคาน้ำมันและปริมาณใช้รถสัมพันธ์เชิงลบอย่างแข็งแกร่ง</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm10c')">ปริมาณใช้รถต่ำทำให้ราคาน้ำมันสูง</button>
+</div>
+<div class="quiz-fb no" id="qfm10c">❌ <strong>เฉลย:</strong> r บอก <strong>correlation</strong> ไม่ใช่ causation r = −0.85 = สัมพันธ์เชิงลบแข็งแกร่ง แต่ไม่ใช่หลักฐานว่าอันหนึ่งทำให้อีกอันเกิด</div>
+<div class="quiz-fb ok" id="qfm10d">✅ ถูกต้อง! r = −0.85 = <strong>negative correlation แข็งแกร่ง</strong> แต่ต้องการ causal analysis เพิ่มเติมก่อนสรุปเหตุ-ผล</div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m10',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m10',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m10-s3" style="display:none">
+<div class="block-q">เชื่อมกับ<em>เศรษฐศาสตร์</em></div>
+<table class="bridge-table"><thead><tr><th>แนวคิด</th><th>ใช้ใน</th><th>ตัวอย่าง</th></tr></thead><tbody>
+<tr><td>Correlation coefficient</td><td><span class="bt-tag bt-econ">Econometrics</span></td><td>ดูก่อนใส่ตัวแปรใน Regression</td></tr>
+<tr><td>Spurious correlation (ความสัมพันธ์ลวง)</td><td><span class="bt-tag bt-econ">Econometrics</span></td><td>ต้องระวัง omitted variable bias (อคติจากตัวแปรที่ขาดหายไป)</td></tr>
+<tr><td>Correlation vs Causation</td><td><span class="bt-tag bt-all">Policy</span></td><td>ต้องพิสูจน์ causality ก่อนออกนโยบาย</td></tr>
+</tbody></table>
+<div class="done-badge"><div class="db-emoji">🔗</div><div class="db-title">Module 10 เสร็จแล้ว!</div><div class="db-sub">คุณรู้แล้วว่า "สัมพันธ์กัน" ไม่ได้แปลว่า "เป็นเหตุเป็นผล"</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m10',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m10');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 11 ══════════ -->
+<div class="page" id="page-m11">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 11</span><span class="sh-title">Reading Economic Charts and Reports</span><div class="step-dots" id="dots-m11"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m11-s0">
+<div class="block-q">กราฟ 3 ประเภท ที่พบบ่อยในข่าวเศรษฐกิจ</div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum">📊</div><div class="step-head-text">Bar Chart — เปรียบเทียบ</div></div><div class="step-item-body">ใช้เมื่อ: เปรียบเทียบค่าหลายรายการ หรือหลายช่วงเวลา<br>อ่านว่า: แท่งที่สูงกว่า = ค่ามากกว่า, แท่งสีแดง = ติดลบ</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">📈</div><div class="step-head-text">Line Chart — แนวโน้ม</div></div><div class="step-item-body">ใช้เมื่อ: ดูการเปลี่ยนแปลงในช่วงเวลา (time series)<br>อ่านว่า: เส้นขึ้น = เพิ่ม, ลง = ลด, ราบ = คงที่</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum">🥧</div><div class="step-head-text">Pie Chart — สัดส่วน</div></div><div class="step-item-body">ใช้เมื่อ: ดูส่วนประกอบของทั้งหมด<br>อ่านว่า: ชิ้นใหญ่ = สัดส่วนมาก, รวมทั้งหมด = 100%</div></div>
+</div>
+<div class="callout"><div class="callout-label">อ่านกราฟใดก็ได้ใน 3 ขั้น</div><div class="formula-note">1. อ่านชื่อกราฟ (บอกว่าเรื่องอะไร)<br>2. อ่านแกนและหน่วย (บอกว่าวัดอะไร)<br>3. ตีความแนวโน้มหรือการเปรียบเทียบ</div></div>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 4</span><button class="sfbtn next" onclick="goStep('m11',1,4)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m11-s1" style="display:none">
+<div class="block-q">ฝึกอ่านกราฟ GDP Growth Rate</div>
+<div class="story">ข้อมูล GDP Growth Rate ไทย (ตัวอย่าง):<br><br>
+2563: −6.1% | 2564: +1.5% | 2565: +2.6% | 2566: +1.9% | 2567: +2.5%</div>
+<div style="background:var(--surface);border:1.5px solid var(--border);border-radius:.875rem;padding:1.35rem 1.5rem;margin:.85rem 0">
+<div style="font-size:.75rem;color:var(--muted);margin-bottom:.85rem;font-family:'Space Mono',monospace;letter-spacing:.05em">GDP GROWTH RATE (ไทย, ตัวอย่าง %)</div>
+<svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;display:block;overflow:visible">
+  <!-- Grid lines -->
+  <line x1="50" y1="20"  x2="490" y2="20"  stroke="#e7e5e4" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="50" y1="50"  x2="490" y2="50"  stroke="#e7e5e4" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="50" y1="80"  x2="490" y2="80"  stroke="#e7e5e4" stroke-width="1" stroke-dasharray="4,3"/>
+  <!-- Zero axis (bold) -->
+  <line x1="50" y1="110" x2="490" y2="110" stroke="#78716c" stroke-width="2"/>
+  <!-- Negative grid -->
+  <line x1="50" y1="145" x2="490" y2="145" stroke="#e7e5e4" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="50" y1="180" x2="490" y2="180" stroke="#e7e5e4" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Y-axis labels -->
+  <text x="42" y="24"  text-anchor="end" font-family="Space Mono,monospace" font-size="10" fill="#78716c">+4%</text>
+  <text x="42" y="54"  text-anchor="end" font-family="Space Mono,monospace" font-size="10" fill="#78716c">+3%</text>
+  <text x="42" y="84"  text-anchor="end" font-family="Space Mono,monospace" font-size="10" fill="#78716c">+2%</text>
+  <text x="42" y="114" text-anchor="end" font-family="Space Mono,monospace" font-size="10" fill="#78716c">0%</text>
+  <text x="42" y="149" text-anchor="end" font-family="Space Mono,monospace" font-size="10" fill="#78716c">−3%</text>
+  <text x="42" y="184" text-anchor="end" font-family="Space Mono,monospace" font-size="10" fill="#78716c">−6%</text>
+
+  <!-- Bars: scale 1% = 27.5px, zero at y=110 -->
+  <!-- 2563: -6.1% → below axis, height = 6.1*27.5 = 167.75 → top of bar = 110, bottom = 277 (clamped to 277) → y=110, h=168 -->
+  <rect x="70"  y="110" width="52" height="168" fill="#dc2626" rx="3"/>
+  <text x="96"  y="108" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#dc2626" font-weight="bold">−6.1%</text>
+
+  <!-- 2564: +1.5% → y = 110 - 1.5*27.5 = 68.75 → y=69, h=41 -->
+  <rect x="155" y="69" width="52" height="41" fill="#d97706" rx="3"/>
+  <text x="181" y="65" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#d97706" font-weight="bold">+1.5%</text>
+
+  <!-- 2565: +2.6% → y = 110 - 2.6*27.5 = 38.5 → y=39, h=71 -->
+  <rect x="240" y="39" width="52" height="71" fill="#d97706" rx="3"/>
+  <text x="266" y="35" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#d97706" font-weight="bold">+2.6%</text>
+
+  <!-- 2566: +1.9% → y = 110 - 1.9*27.5 = 57.75 → y=58, h=52 -->
+  <rect x="325" y="58" width="52" height="52" fill="#d97706" rx="3"/>
+  <text x="351" y="54" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#d97706" font-weight="bold">+1.9%</text>
+
+  <!-- 2567: +2.5% → y = 110 - 2.5*27.5 = 41.25 → y=41, h=69 -->
+  <rect x="410" y="41" width="52" height="69" fill="#d97706" rx="3"/>
+  <text x="436" y="37" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#d97706" font-weight="bold">+2.5%</text>
+
+  <!-- X-axis labels -->
+  <text x="96"  y="200" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#44403c">ปี 2563</text>
+  <text x="181" y="200" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#44403c">ปี 2564</text>
+  <text x="266" y="200" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#44403c">ปี 2565</text>
+  <text x="351" y="200" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#44403c">ปี 2566</text>
+  <text x="436" y="200" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#44403c">ปี 2567</text>
+
+  <!-- COVID annotation -->
+  <line x1="96" y1="115" x2="96" y2="190" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="100" y="188" font-family="DM Sans,sans-serif" font-size="9.5" fill="#dc2626">COVID-19</text>
+
+  <!-- Legend -->
+  <rect x="270" y="210" width="11" height="9" fill="#d97706" rx="2"/>
+  <text x="285" y="219" font-family="DM Sans,sans-serif" font-size="10" fill="#78716c">เติบโต (บวก)</text>
+  <rect x="370" y="210" width="11" height="9" fill="#dc2626" rx="2"/>
+  <text x="385" y="219" font-family="DM Sans,sans-serif" font-size="10" fill="#78716c">หดตัว (ลบ)</text>
+</svg>
+</div>
+<div class="callout green"><div class="callout-label">อ่านกราฟนี้ว่า...</div><div class="formula-note">ปี 2563 เศรษฐกิจ <strong>หดตัว 6.1%</strong> (แท่งแดงใต้เส้นศูนย์) เพราะ COVID-19 — ปี 2564–2565 ค่อยๆ ฟื้น — ปี 2566–2567 กลับมาโตสม่ำเสมอที่ ~2%</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m11',0,4)">← ก่อนหน้า</button><span class="step-label">2 / 4</span><button class="sfbtn next" onclick="goStep('m11',2,4)">ฝึกทำ →</button></div>
+</div>
+<div class="mstep" id="m11-s2" style="display:none">
+<div class="block-q">ฝึกตีความกราฟ</div>
+<div class="quiz-block">
+<div class="quiz-q-text">กราฟเส้นแสดงอัตราว่างงานตั้งแต่ปี 2560–2567 โดยเส้นขึ้นสูงสุดในปี 2563–2564 แล้วค่อยๆ ลดลง ควรสรุปอะไร?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,false,'qfm11a')">อัตราว่างงานเพิ่มขึ้นตลอด</button>
+<button class="qopt" onclick="ansQ(this,true,'qfm11b')">ว่างงานพุ่งช่วง COVID แล้วค่อยๆ ฟื้นตัว</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm11a')">อัตราว่างงานคงที่ตลอด</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm11a')">ข้อมูลไม่เพียงพอ</button>
+</div>
+<div class="quiz-fb no" id="qfm11a">❌ <strong>เฉลย:</strong> เส้นขึ้นสูงแล้วลดลง = <strong>spike ช่วงวิกฤต แล้วฟื้นตัว</strong> ไม่ใช่เพิ่มตลอด</div>
+<div class="quiz-fb ok" id="qfm11b">✅ ถูกต้อง! เส้นกราฟ "ขึ้นสูงแล้วลด" = เกิดวิกฤต (COVID) แล้วค่อยๆ ฟื้น</div>
+</div>
+<div class="quiz-block">
+<div class="quiz-q-text">Pie chart แสดงส่วนประกอบ GDP: <strong>C=55%, I=24%, G=17%, NX=4%</strong> — ข้อสรุปที่ถูกต้องคือ?</div>
+<div class="quiz-opts">
+<button class="qopt" onclick="ansQ(this,true,'qfm11d')">การบริโภคภาคเอกชนเป็นส่วนใหญ่ของเศรษฐกิจ</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm11c')">รัฐบาลใช้จ่ายมากที่สุด</button>
+<button class="qopt" onclick="ansQ(this,false,'qfm11c')">การลงทุนคิดเป็น 55%</button>
+</div>
+<div class="quiz-fb no" id="qfm11c">❌ <strong>เฉลย:</strong> C = Consumption = การบริโภคภาคเอกชน = 55% ซึ่งมากสุด</div>
+<div class="quiz-fb ok" id="qfm11d">✅ C (Consumption) = 55% มากที่สุด — ในไทยและประเทศส่วนใหญ่ การบริโภคเอกชนขับเคลื่อนเศรษฐกิจมากที่สุด</div>
+</div>
+<div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div><div class="step-footer"><button class="sfbtn" onclick="goStep('m11',1,4)">← ก่อนหน้า</button><span class="step-label">3 / 4</span><button class="sfbtn next gate-locked" disabled onclick="goStep('m11',3,4)">สรุป →</button></div>
+</div>
+<div class="mstep" id="m11-s3" style="display:none">
+<div class="block-q">แหล่งข้อมูลเศรษฐกิจที่ควรรู้จัก</div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum green">🇹🇭</div><div class="step-head-text">ในประเทศ</div></div><div class="step-item-body"><strong>ธนาคารแห่งประเทศไทย (BOT)</strong> — inflation, policy rate, GDP<br><strong>สภาพัฒนาการเศรษฐกิจและสังคมแห่งชาติ (สศช.)</strong> — GDP quarterly</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum green">🌍</div><div class="step-head-text">ระหว่างประเทศ</div></div><div class="step-item-body"><strong>World Bank Open Data</strong> — ข้อมูลระหว่างประเทศฟรี<br><strong>IMF Data</strong> — World Economic Outlook<br><strong>FRED (St. Louis Fed)</strong> — ข้อมูลสหรัฐฯ ครบมาก</div></div>
+</div>
+<div class="done-badge"><div class="db-emoji">🗞️</div><div class="db-title">Module 11 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านกราฟเศรษฐกิจและรู้แหล่งข้อมูลที่เชื่อถือได้แล้ว</div></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m11',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m11');goHome()">กลับหน้าหลัก ✓</button></div>
+</div>
+</div></div>
+
+<!-- ══════════ MODULE 12 ══════════ -->
+<div class="page" id="page-m12">
+<div class="mod-page-inner">
+<div class="step-header"><span class="sh-tag">MODULE · 12</span><span class="sh-title">Bridge to Economics</span><div class="step-dots" id="dots-m12"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div></div></div>
+<div class="mstep" id="m12-s0">
+<div class="block-q">ทุกอย่างที่เรียนมา — ใช้<em>ตรงไหน</em>ในวิชาเศรษฐศาสตร์?</div>
+<table class="bridge-table"><thead><tr><th>ที่เรียนมา</th><th>วิชา</th><th>บทที่จะเจอ</th></tr></thead><tbody>
+<tr><td>% เปลี่ยนแปลง</td><td><span class="bt-tag bt-micro">Micro</span> <span class="bt-tag bt-macro">Macro</span></td><td>Elasticity, GDP growth, Inflation</td></tr>
+<tr><td>Algebra & สมการ</td><td><span class="bt-tag bt-micro">Micro</span></td><td>Supply/Demand functions, Cost analysis</td></tr>
+<tr><td>กราฟ & Slope</td><td><span class="bt-tag bt-micro">Micro</span> <span class="bt-tag bt-macro">Macro</span></td><td>S&D curves, IS-LM, Phillips curve</td></tr>
+<tr><td>Index & Real/Nominal</td><td><span class="bt-tag bt-macro">Macro</span></td><td>Real GDP, Real wage, CPI, GDP deflator</td></tr>
+<tr><td>Mean, Median, SD</td><td><span class="bt-tag bt-econ">Econometrics</span></td><td>Descriptive stats, Data exploration</td></tr>
+<tr><td>Correlation</td><td><span class="bt-tag bt-econ">Econometrics</span></td><td>Variable selection, Multicollinearity</td></tr>
+</tbody></table>
+<div class="step-footer"><button class="sfbtn" disabled>← ก่อนหน้า</button><span class="step-label">1 / 3</span><button class="sfbtn next" onclick="goStep('m12',1,3)">ถัดไป →</button></div>
+</div>
+<div class="mstep" id="m12-s1" style="display:none">
+<div class="block-q">ระดับความลึกที่จะเจอในแต่ละวิชา</div>
+<div class="steps-list">
+<div class="step-item"><div class="step-item-head"><div class="snum" style="background:var(--gm)">Micro</div><div class="step-head-text">Microeconomics — ใช้ Math มาก</div></div><div class="step-item-body">สูตรหลัก: Qd = a − bP, TR = P×Q, MR, MC, Profit maximization<br><strong>Math จากคอร์สนี้ที่ใช้:</strong> Algebra, Slope, % change, Graph reading</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum" style="background:var(--blue)">Macro</div><div class="step-head-text">Macroeconomics — ใช้กราฟและดัชนีมาก</div></div><div class="step-item-body">สูตรหลัก: Y=C+I+G+NX, GDP growth, Money multiplier<br><strong>Math จากคอร์สนี้ที่ใช้:</strong> % change, Index, Ratio, Graph reading</div></div>
+<div class="step-item"><div class="step-item-head"><div class="snum" style="background:var(--purple)">Econ</div><div class="step-head-text">Econometrics (เศรษฐมิติ) — ใช้ Statistics มาก</div></div><div class="step-item-body">สูตรหลัก: <strong>Y = α + βX + ε</strong><br>
+Y = ตัวแปรที่อยากอธิบาย | α (แอลฟา) = ค่าคงที่ | β (เบตา) = ความชัน | X = ตัวแปรอธิบาย | ε (เอปซิลอน) = ความคลาดเคลื่อน<br>
+R² (อาร์สแควร์) = ตัวบอกว่าโมเดลอธิบายข้อมูลได้ดีแค่ไหน<br>
+<strong>Math จากคอร์สนี้ที่ใช้:</strong> Mean, SD, Correlation, Regression intuition</div></div>
+</div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m12',0,3)">← ก่อนหน้า</button><span class="step-label">2 / 3</span><button class="sfbtn next" onclick="goStep('m12',2,3)">Checklist สุดท้าย →</button></div>
+</div>
+<div class="mstep" id="m12-s2" style="display:none">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem">
+  <div class="block-q" style="margin-bottom:0">ตรวจสอบ Checklist — ทำครบหรือยัง?</div>
+  <button onclick="renderChecklist()" style="display:flex;align-items:center;gap:.35rem;background:var(--bg);border:1.5px solid var(--bdark);padding:.45rem .95rem;border-radius:.45rem;font-size:.85rem;cursor:pointer;color:var(--mid);font-family:'DM Sans',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='var(--amber)';this.style.color='var(--amber)'" onmouseout="this.style.borderColor='var(--bdark)';this.style.color='var(--mid)'">🔄 อัพเดทสถานะ</button>
+</div>
+<div id="readyChecklist"></div>
+<div id="m12-complete-badge" style="display:none" class="done-badge" style="margin-top:1.5rem">
+  <div class="db-emoji">🚀</div>
+  <div class="db-title">จบคอร์สแล้ว!</div>
+  <div class="db-sub">คุณพร้อมลงทะเบียนเรียน Microeconomics, Macroeconomics หรือ Econometrics ได้แล้ว<br><br>"คณิตฯ ไม่ใช่เป้าหมาย — มันแค่เป็นภาษาที่เศรษฐศาสตร์ใช้เล่าเรื่อง"</div>
+</div>
+<div id="m12-incomplete-badge" style="display:none;background:var(--al);border:1.5px solid var(--ab);border-radius:1rem;padding:1.5rem;text-align:center;margin-top:1rem">
+  <div style="font-size:2rem;margin-bottom:.5rem">📋</div>
+  <div style="font-family:'Lora',serif;font-size:1.05rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">ยังเรียนไม่ครบทุก Module</div>
+  <div style="font-size:.92rem;color:var(--mid);line-height:1.6">กลับไปทำ Module ที่ยังค้างอยู่ก่อนนะครับ — รายการที่มี ⬜ คือยังไม่เสร็จ<br>เมื่อกลับมาแล้ว กด <strong>"🔄 อัพเดทสถานะ"</strong> เพื่อตรวจใหม่</div>
+</div>
+<div class="step-footer">
+  <button class="sfbtn" onclick="goStep('m12',1,3)">← ก่อนหน้า</button>
+  <span class="step-label">3 / 3</span>
+  <button class="sfbtn next" id="m12-finish-btn" style="display:none" onclick="finishMod('m12');goHome()">🎉 จบคอร์ส ✓</button>
+  <button class="sfbtn" id="m12-goback-btn" style="display:none" onclick="goHome()">กลับไปเรียนต่อ →</button>
+</div>
+</div>
+</div></div>
+
+<!-- ══════════ JAVASCRIPT ══════════ -->
+<script>
+// ── STATE
+const completed = new Set();
+const totalMods = 14; // m0, pre, m1-m12
+
+// ── ROUTER
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+  document.getElementById('page-'+id).style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+  const nb=document.getElementById('nav-back');
+  const bc=document.getElementById('nav-breadcrumb');
+  if(id==='home'){nb.style.display='none';bc.textContent=''}
+  else{nb.style.display='flex'}
+}
+
+function goHome(){showPage('home');updateProgress()}
+
+function openMod(id){
+  showPage(id);
+  const labels={m0:'Module 0 · ก่อนเริ่มเรียน',pre:'Module 0b · Pre-Assessment',
+    m1:'Module 1 · Numbers',m2:'Module 2 · Percentages',m3:'Module 3 · Ratios & Growth',
+    m4:'Module 4 · Algebra',m5:'Module 5 · Functions & Graphs',m6:'Module 6 · Index & CPI',
+    m7:'Module 7 · Why Stats',m8:'Module 8 · Mean & Median',m9:'Module 9 · Variability',
+    m10:'Module 10 · Correlation',m11:'Module 11 · Charts',m12:'Module 12 · Bridge to Econ'};
+  document.getElementById('nav-breadcrumb').textContent=labels[id]||'';
+}
+
+// ── STEP SYSTEM
+const stepState={};
+function goStep(modId,stepNum,total){
+  const steps=document.querySelectorAll(`#page-${modId} .mstep`);
+  steps.forEach((s,i)=>s.style.display=i===stepNum?'block':'none');
+  updateDots(modId,stepNum,total);
+  stepState[modId]=stepNum;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(modId==='m12'&&stepNum===2)renderChecklist();
+}
+
+function updateDots(modId,active,total){
+  const dotsEl=document.getElementById('dots-'+modId);
+  if(!dotsEl)return;
+  dotsEl.innerHTML='';
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');
+    d.className='sdot'+(i<active?' done':i===active?' active':'');
+    dotsEl.appendChild(d);
+  }
+}
+
+function finishMod(id){
+  completed.add(id);
+  const btn=document.getElementById('btn-'+id);
+  if(btn)btn.classList.add('done');
+  updateProgress();
+}
+
+function updateProgress(){
+  const fill=document.getElementById('prog-fill');
+  const count=document.getElementById('prog-count');
+  if(!fill)return;
+  const pct=Math.round(completed.size/totalMods*100);
+  fill.style.width=pct+'%';
+  count.textContent=completed.size+' / '+totalMods+' เสร็จแล้ว';
+  // Show reset banner when all done
+  const rs=document.getElementById('reset-section');
+  if(rs)rs.style.display=completed.size>=totalMods?'block':'none';
+  // Show Section A checkpoint when m1+m2+m3 all done
+  const cp=document.getElementById('checkpoint-ab');
+  if(cp){
+    const sectionADone=['m1','m2','m3'].every(id=>completed.has(id));
+    cp.style.display=sectionADone?'block':'none';
+  }
+  // Show Section B checkpoint when m4+m5+m6 all done
+  const cpBC=document.getElementById('checkpoint-bc');
+  if(cpBC){
+    const sectionBDone=['m4','m5','m6'].every(id=>completed.has(id));
+    cpBC.style.display=sectionBDone?'block':'none';
+  }
+  // Show Section C checkpoint when m7+m8+m9+m10+m11 all done
+  const cpCD=document.getElementById('checkpoint-cd');
+  if(cpCD){
+    const sectionCDone=['m7','m8','m9','m10','m11'].every(id=>completed.has(id));
+    cpCD.style.display=sectionCDone?'block':'none';
+  }
+}
+
+function resetCourse(){
+  if(!confirm('รีเซ็ตทั้งหมด?\n\nความคืบหน้าและคะแนน Pre-Assessment จะถูกล้าง แต่เนื้อหาไม่หายไป'))return;
+  // Clear completion tracking
+  completed.clear();
+  // Remove done class from all module cards
+  document.querySelectorAll('.mod-btn.done').forEach(b=>b.classList.remove('done'));
+  // Reset all quiz blocks — re-enable options, hide feedback
+  document.querySelectorAll('.quiz-block').forEach(b=>{
+    delete b.dataset.done;
+    b.querySelectorAll('.qopt').forEach(o=>{o.disabled=false;o.classList.remove('correct','wrong')});
+    b.querySelectorAll('.quiz-fb').forEach(f=>f.classList.remove('show'));
+  });
+  // Reset number inputs and feedback
+  document.querySelectorAll('.num-input').forEach(i=>i.value='');
+  document.querySelectorAll('.num-fb').forEach(f=>{f.className='num-fb';f.innerHTML=''});
+  document.querySelectorAll('.num-q').forEach(q=>delete q.dataset.done); // ← ล้าง num-q done
+  // Re-lock all gate buttons
+  document.querySelectorAll('.sfbtn.next:not(.gate-locked)').forEach(b=>{
+    // Only re-lock buttons that are in steps with gate-tip siblings
+    const mstep=b.closest('.mstep');
+    if(mstep&&mstep.querySelector('.gate-tip')){
+      b.classList.add('gate-locked');
+      b.disabled=true;           // ← ใส่ disabled กลับด้วย
+      const tip=mstep.querySelector('.gate-tip');
+      if(tip)tip.style.display='';
+    }
+  });
+  // Reset pre-assessment
+  ascore=0;
+  Object.keys(aqmap).forEach(k=>delete aqmap[k]);
+  document.querySelectorAll('.assess-step').forEach(s=>s.classList.remove('active'));
+  const as0=document.getElementById('as0');
+  if(as0)as0.classList.add('active');
+  // Reset pre-assessment next buttons
+  ['n1','n2','n3','n4','n5'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.style.display='none';
+  });
+  // Reset step positions — go back to step 0 for each module
+  Object.keys(stepState).forEach(k=>delete stepState[k]);
+  ['m0','m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','m12'].forEach(mod=>{
+    const steps=document.querySelectorAll('#page-'+mod+' .mstep');
+    steps.forEach((s,i)=>s.style.display=i===0?'block':'none');
+    updateDots(mod,0,steps.length);
+  });
+  updateProgress();
+  goHome();
+}
+
+// ── GATE UNLOCK
+// ── GATE: ตรวจว่าทุก exercise type ในขั้นนี้ทำแล้วหรือยัง
+function checkAllAndUnlock(el){
+  const step=el.closest('.mstep');
+  if(!step)return;
+  const btn=step.querySelector('.next.gate-locked');
+  if(!btn)return;  // ไม่มี gate ก็ไม่ต้องทำอะไร
+
+  const quizBlocks=step.querySelectorAll('.quiz-block');
+  const numQs=step.querySelectorAll('.num-q');
+
+  // ถ้ามี quiz-block → ต้องตอบ **ทุกข้อ**
+  const quizOk = quizBlocks.length===0 || [...quizBlocks].every(b=>b.dataset.done==='1');
+  // ถ้ามี num-q → ต้องกด "ตรวจ" **ทุกข้อ**
+  const numOk  = numQs.length===0     || [...numQs].every(q=>q.dataset.done==='1');
+
+  // ปลด gate เมื่อทั้งสอง type ทำแล้ว
+  if(quizOk && numOk){
+    btn.classList.remove('gate-locked');
+    btn.disabled=false;
+    const tip=step.querySelector('.gate-tip');
+    if(tip)tip.style.display='none';
+    // แสดง done-badge ที่ซ่อนอยู่ (ถ้ามี) — เช่น Module 7 ที่ exercise อยู่ใน step สุดท้าย
+    const hiddenBadge=step.querySelector('.done-badge[style*="display:none"]');
+    if(hiddenBadge)hiddenBadge.style.display='block';
+  }
+}
+
+// ── QUIZ
+function ansQ(btn,correct,fbId){
+  const block=btn.closest('.quiz-block');
+  if(block.dataset.done)return;
+  block.dataset.done='1';
+  block.querySelectorAll('.qopt').forEach(o=>o.disabled=true);
+  btn.classList.add(correct?'correct':'wrong');
+  document.getElementById(fbId).classList.add('show');
+  checkAllAndUnlock(btn);   // ← ตรวจทุก type ก่อน unlock
+}
+
+// ── NUMBER CHECK
+function checkNum(inputId,answer,fbId,hint,tol=0.5){
+  const inputEl=document.getElementById(inputId);
+  const val=parseFloat(inputEl.value);
+  const fb=document.getElementById(fbId);
+  if(isNaN(val)){fb.className='num-fb show no';fb.textContent='กรุณากรอกตัวเลขก่อนกด "ตรวจ"';return}
+  // ทำเครื่องหมายว่า num-q นี้ถูกกด "ตรวจ" แล้ว
+  const numQ=inputEl.closest('.num-q');
+  if(numQ)numQ.dataset.done='1';
+  if(Math.abs(val-answer)<=tol){
+    fb.className='num-fb show ok';
+    fb.innerHTML='✅ ถูกต้อง! คำตอบ: <strong>'+answer+'</strong><br><small style="color:var(--green)">'+hint+'</small>';
+  } else {
+    fb.className='num-fb show no';
+    fb.innerHTML='❌ <strong>เฉลย:</strong> '+hint+'<br><small>ลองคำนวณใหม่แล้วกด "ตรวจ" อีกครั้ง</small>';
+  }
+  checkAllAndUnlock(inputEl);  // ← ตรวจทุก type ก่อน unlock
+}
+
+// ── PRE-ASSESSMENT
+let ascore=0;const aqmap={};
+function aAssess(btn,qid,correct,fbGoodId,nextId){
+  if(aqmap[qid])return;
+  aqmap[qid]=true;
+  btn.closest('.assess-step').querySelectorAll('.qopt').forEach(o=>o.disabled=true);
+  btn.classList.add(correct?'correct':'wrong');
+  if(correct)ascore++;
+  const fbId=correct?fbGoodId:fbGoodId.replace('b','a');
+  // show the right feedback
+  const goodFb=document.getElementById(fbGoodId);
+  const badFb=document.getElementById(fbGoodId.slice(0,-1)+'a');
+  if(correct&&goodFb)goodFb.classList.add('show');
+  if(!correct){
+    // find bad fb (id ending in 'a')
+    btn.closest('.assess-step').querySelectorAll('.quiz-fb.no').forEach(f=>f.classList.add('show'));
+  }
+  const nb=document.getElementById(nextId);
+  if(nb)nb.style.display='inline-flex';
+}
+function nextAssess(fromId,toId){
+  document.getElementById(fromId).classList.remove('active');
+  document.getElementById(toId).classList.add('active');
+}
+function showAssessResult(){
+  document.getElementById('as5').classList.remove('active');
+  document.getElementById('as-result').classList.add('active');
+  document.getElementById('as-score').textContent=ascore+'/5';
+  const subs=['ไม่ต้องกังวล — เริ่มจาก Module 0 ไปเลย!','พื้นฐานพอมีบ้าง — เริ่ม Level 1 ได้','พอใช้ได้ — แนะนำ Level 2','แข็งแกร่งดี — เริ่ม Level 2–3 ได้เลย','ยอดเยี่ยม! ข้าม Section A ได้บางส่วน'];
+  const recos=['แนะนำให้เรียนทุก Module ตามลำดับ เริ่มจาก Module 0–3 ให้แน่นก่อน','เริ่มจาก Module 1–3 ให้คล่อง จากนั้นเดินหน้าได้เลย','Module 1–2 อาจข้ามได้ถ้าคล่องแล้ว เน้น Module 4–8','เน้น Section C (Statistics) Module 7–11 เพราะ Section A–B น่าจะพอแล้ว','คุณพร้อมมาก! เน้น Module 10–12 และเริ่มวิชาเศรษฐศาสตร์ได้เลย'];
+  document.getElementById('as-sub').textContent=subs[ascore]||subs[4];
+  document.getElementById('as-reco').textContent=recos[ascore]||recos[4];
+}
+
+function renderChecklist(){
+  const cl=document.getElementById('readyChecklist');
+  if(!cl)return;
+  // ไม่ cache — render ใหม่ทุกครั้งเพื่อให้ข้อมูล completed ล่าสุดเสมอ
+  const items=[
+    ['คำนวณ % การเปลี่ยนแปลงได้','m1'],
+    ['แยก Ratio, Rate, Growth Rate ออกจากกันได้','m3'],
+    ['อ่านสมการและแทนค่าได้','m4'],
+    ['อ่านกราฟ Supply-Demand ได้','m5'],
+    ['ตีความดัชนีและ Real/Nominal ได้','m6'],
+    ['เลือก Mean vs Median ได้ถูก','m8'],
+    ['เข้าใจ Correlation ≠ Causation','m10'],
+    ['อ่านกราฟ Bar/Line Chart เศรษฐกิจได้','m11'],
+  ];
+  cl.innerHTML=items.map(([txt,id])=>{
+    const done=completed.has(id);
+    return`<div style="display:flex;align-items:center;gap:.75rem;padding:.75rem .95rem;background:${done?'var(--gl)':'var(--surface)'};border:1.5px solid ${done?'#86efac':'var(--border)'};border-radius:.5rem;margin-bottom:.55rem;font-size:.95rem">
+    <span style="color:${done?'var(--gm)':'var(--muted)'};font-size:1.1rem">${done?'✅':'⬜'}</span>
+    <span style="color:${done?'var(--green)':'var(--mid)'}">${txt}</span>
+    ${done?'':'<span style="margin-left:auto;font-size:.78rem;color:var(--muted)">ยังไม่เสร็จ</span>'}
+    </div>`;
+  }).join('');
+
+  const allDone = items.every(([,id])=>completed.has(id));
+  const doneCnt = items.filter(([,id])=>completed.has(id)).length;
+
+  // แสดง badge ตาม completion
+  const completeBadge = document.getElementById('m12-complete-badge');
+  const incompleteBadge = document.getElementById('m12-incomplete-badge');
+  const finishBtn = document.getElementById('m12-finish-btn');
+  const gobackBtn = document.getElementById('m12-goback-btn');
+
+  if(allDone){
+    if(completeBadge) completeBadge.style.display='block';
+    if(incompleteBadge) incompleteBadge.style.display='none';
+    if(finishBtn) finishBtn.style.display='flex';
+    if(gobackBtn) gobackBtn.style.display='none';
+  } else {
+    if(completeBadge) completeBadge.style.display='none';
+    if(incompleteBadge){
+      incompleteBadge.style.display='block';
+      // อัปเดตข้อความบอกว่าทำไปแล้วกี่ข้อ
+      const sub = incompleteBadge.querySelector('div:last-child');
+      if(sub) sub.textContent=`ทำไปแล้ว ${doneCnt}/${items.length} Module — กลับไปทำ Module ที่ยังค้างอยู่ให้เสร็จก่อนนะครับ`;
+    }
+    if(finishBtn) finishBtn.style.display='none';
+    if(gobackBtn) gobackBtn.style.display='flex';
+  }
+}
+
+// ── SCROLL PROGRESS
+window.addEventListener('scroll',()=>{
+  const page=document.querySelector('.page[style*="block"]');
+  if(!page)return;
+  const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  document.getElementById('progress-bar').style.width=pct+'%';
+});
+
+// ── INIT
+updateProgress();
+</script>
+</body>
+</html>
