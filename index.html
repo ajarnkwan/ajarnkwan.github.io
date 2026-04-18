@@ -506,142 +506,8 @@ function buildPreviewMemberData(user) {
     name: fallbackName,
     memberNum: 'PREVIEW',
     photoURL: user?.photoURL || '',
-    totalPoints: 120,
-    completedChapters: [1, 2],
-    totalChapters: 8,
-    latestBadge: 'จบบทที่ 2 แล้ว',
-    certificateEligible: false,
   };
 }
-
-
-function toSafeNumber(value, fallback = 0) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : fallback;
-}
-
-function summarizeProgress(data = {}) {
-  const totalChapters = Math.max(1, toSafeNumber(data.totalChapters || data.microTotalChapters || 8, 8));
-  let completedCount = 0;
-
-  if (Array.isArray(data.completedChapters)) {
-    completedCount = data.completedChapters.filter(Boolean).length;
-  } else if (Array.isArray(data.progressCompletedChapters)) {
-    completedCount = data.progressCompletedChapters.filter(Boolean).length;
-  } else {
-    completedCount = toSafeNumber(
-      data.completedChapterCount ??
-      data.microCompletedCount ??
-      data.completedCount ??
-      0,
-      0
-    );
-  }
-
-  completedCount = Math.min(Math.max(0, completedCount), totalChapters);
-
-  const totalPoints = Math.max(0, toSafeNumber(data.totalPoints ?? data.points ?? data.scorePoints ?? 0, 0));
-  const latestBadge = normalizeText(
-    data.latestBadge ||
-    (Array.isArray(data.badges) && data.badges.length ? data.badges[data.badges.length - 1] : '') ||
-    '',
-    60
-  );
-
-  const certReady = data.certificateEligible === true || data.certificateReady === true || data.certificateStatus === 'ready';
-  const remaining = Math.max(totalChapters - completedCount, 0);
-  const percent = Math.max(0, Math.min(100, Math.round((completedCount / totalChapters) * 100)));
-
-  let nextChapter = completedCount + 1;
-  if (nextChapter > totalChapters) nextChapter = totalChapters;
-
-  let ctaHref = 'microeconomics/index.html';
-  let ctaTitle = 'พร้อมเริ่มเรียนแล้วค่ะ';
-  let ctaDesc = 'ถ้ายังไม่เคยเริ่มเรียน แนะนำให้เริ่มจากทฤษฎีเศรษฐศาสตร์จุลภาค บทที่ 1 ก่อนค่ะ';
-  let nextGoal = 'เป้าหมายถัดไป: เริ่มบทที่ 1';
-
-  if (completedCount > 0 && completedCount < totalChapters) {
-    ctaHref = `microeconomics/chapter${nextChapter}.html`;
-    ctaTitle = `ไปต่อที่บทที่ ${nextChapter}`;
-    ctaDesc = `ตอนนี้คุณเรียนจบแล้ว ${completedCount} จาก ${totalChapters} บท ลองเรียนต่อทีละบทให้ครบเส้นทางนะคะ`;
-    nextGoal = `เป้าหมายถัดไป: บทที่ ${nextChapter}`;
-  } else if (completedCount >= totalChapters) {
-    ctaHref = 'microeconomics/index.html';
-    ctaTitle = certReady ? 'พร้อมขอใบรับรองแล้วค่ะ' : 'เรียนครบแล้วค่ะ';
-    ctaDesc = certReady
-      ? 'คุณเรียนครบตามจำนวนบทแล้ว เหลือเพียงตรวจเงื่อนไขสุดท้ายก่อนออกใบรับรองค่ะ'
-      : 'คุณเรียนครบทุกบทแล้ว ลองทบทวนแบบฝึกหัดและเงื่อนไขใบรับรองต่อได้เลยค่ะ';
-    nextGoal = certReady ? 'เป้าหมายถัดไป: ขอใบรับรอง' : 'เป้าหมายถัดไป: ทบทวนและเก็บเงื่อนไข certi';
-  }
-
-  let completedNote = completedCount === 0
-    ? 'เริ่มสะสมความคืบหน้าจากบทแรกได้เลยค่ะ'
-    : remaining === 0
-      ? 'ครบทุกบทในเส้นทางนี้แล้วค่ะ'
-      : `เหลืออีก ${remaining} บทก็จะครบเส้นทางนี้แล้วค่ะ`;
-
-  let pointsNote = totalPoints === 0
-    ? 'จะเริ่มนับแต้มเมื่อเปิดระบบสะสมคะแนนค่ะ'
-    : 'แต้มนี้สามารถใช้ต่อยอด badge และใบรับรองได้ในอนาคตค่ะ';
-
-  let badgeValue = latestBadge || 'ยังไม่มี';
-  let badgeNote = latestBadge
-    ? 'badge ล่าสุดของคุณแสดงอยู่ตรงนี้ค่ะ'
-    : 'เมื่อเรียนครบตามเกณฑ์ ระบบจะแสดง badge ให้ตรงนี้ค่ะ';
-
-  let certValue = certReady ? 'พร้อมแล้ว' : 'ยังไม่พร้อม';
-  let certNote = certReady
-    ? 'คุณเข้าเงื่อนไขเบื้องต้นสำหรับการออกใบรับรองแล้วค่ะ'
-    : completedCount >= totalChapters
-      ? 'เรียนครบแล้ว เหลือเช็กคะแนนหรือเงื่อนไขสุดท้ายค่ะ'
-      : 'เรียนครบตามเกณฑ์และผ่านเงื่อนไขก่อนนะคะ';
-
-  return {
-    totalChapters,
-    completedCount,
-    totalPoints,
-    latestBadge: badgeValue,
-    percent,
-    completedNote,
-    pointsNote,
-    badgeNote,
-    certValue,
-    certNote,
-    nextGoal,
-    ctaHref,
-    ctaTitle,
-    ctaDesc,
-  };
-}
-
-function renderProgressPanel(data = {}) {
-  const summary = summarizeProgress(data);
-
-  const setText = (id, value) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = value;
-  };
-
-  setText('progress-completed', `${summary.completedCount} / ${summary.totalChapters} บท`);
-  setText('progress-completed-note', summary.completedNote);
-  setText('progress-points', `${summary.totalPoints} คะแนน`);
-  setText('progress-points-note', summary.pointsNote);
-  setText('progress-badge', summary.latestBadge);
-  setText('progress-badge-note', summary.badgeNote);
-  setText('progress-certificate', summary.certValue);
-  setText('progress-certificate-note', summary.certNote);
-  setText('progress-percent', `ความคืบหน้า ${summary.percent}%`);
-  setText('progress-next-goal', summary.nextGoal);
-  setText('progress-cta-title', summary.ctaTitle);
-  setText('progress-cta-desc', summary.ctaDesc);
-
-  const bar = document.getElementById('progress-bar-fill');
-  if (bar) bar.style.width = `${summary.percent}%`;
-
-  const cta = document.getElementById('progress-cta-link');
-  if (cta) cta.href = summary.ctaHref;
-}
-
 
 window.backToAdmin = () => {
   if (window._currentUser && window._adminProfile) {
@@ -706,7 +572,6 @@ function showHub(user, data, options = {}) {
       av.style.display='none';
     }
   }
-  renderProgressPanel(data || {});
   setPreviewBanner('hub', options.previewMessage || '');
 }
 
@@ -893,32 +758,6 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .mb-num{font-family:'Space Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.55);letter-spacing:.05em}
 
 .hub-body{padding:1.5rem 2rem 1.75rem}
-
-.progress-card{background:linear-gradient(135deg,#f7f0ff 0%,#ffffff 55%,#fff7fb 100%);border:2px solid #d8b4fe;border-radius:1.35rem;padding:1.15rem 1.15rem 1.2rem;margin:0 0 1.25rem;box-shadow:0 14px 34px rgba(91,33,182,.12);position:relative;overflow:hidden}.progress-card::before{content:'';position:absolute;right:-24px;top:-24px;width:110px;height:110px;border-radius:50%;background:rgba(168,85,247,.10)}
-.progress-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.9rem;margin-bottom:.9rem}
-.progress-title{font-size:1.08rem;font-weight:800;color:var(--ink);line-height:1.25}
-.progress-sub{font-size:.8rem;color:var(--mid);line-height:1.5;margin-top:.25rem;max-width:34rem}
-.progress-pill{flex-shrink:0;background:white;color:var(--lav);border:1px solid var(--lav-border);border-radius:999px;padding:.34rem .78rem;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.05em;box-shadow:0 2px 8px rgba(124,58,237,.08)}
-.progress-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin-bottom:.9rem}
-.progress-stat{background:white;border:1px solid #eadcfb;border-radius:1rem;padding:.9rem .9rem;min-height:92px;box-shadow:0 3px 12px rgba(91,33,182,.04)}
-.progress-kicker{font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:#7c3aed;font-family:'Space Mono',monospace;margin-bottom:.38rem}
-.progress-value{font-size:1.2rem;font-weight:800;color:var(--ink);line-height:1.1}
-.progress-note{font-size:.74rem;color:var(--muted);line-height:1.5;margin-top:.26rem}
-.progress-bar-wrap{background:#f1e9ff;border-radius:999px;height:12px;overflow:hidden;margin-bottom:.46rem;border:1px solid #eadcfb}
-.progress-bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--lav),#a855f7);border-radius:999px;transition:width .35s ease}
-.progress-meta{display:flex;justify-content:space-between;gap:.6rem;align-items:center;font-size:.74rem;color:var(--muted);margin-bottom:.85rem}
-.progress-next{display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:#fff;border:1px solid #eadcfb;border-radius:1rem;padding:.88rem .95rem}
-.progress-next-body{flex:1}
-.progress-next-title{font-size:.8rem;font-weight:700;color:var(--ink);margin-bottom:.15rem}
-.progress-next-desc{font-size:.73rem;color:var(--muted);line-height:1.45}
-.progress-cta{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.72rem .95rem;background:var(--lav);color:white;border:none;border-radius:.85rem;font-family:'Noto Sans Thai',sans-serif;font-size:.82rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:all .18s}
-.progress-cta:hover{background:var(--lav-mid);transform:translateY(-1px);box-shadow:0 5px 14px rgba(124,58,237,.22)}
-@media(max-width:640px){
-  .progress-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .progress-next{flex-direction:column;align-items:flex-start}
-  .progress-cta{width:100%}
-}
-
 .hub-sec{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;margin-top:1.35rem}
 .hub-sec::after{content:'';flex:1;height:1px;background:var(--border)}
 
@@ -937,6 +776,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .connect-row{display:flex;gap:.45rem}
 .conn-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;padding:.8rem .4rem;background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;text-decoration:none;color:var(--mid);font-size:.75rem;font-weight:600;transition:all .18s}
 .conn-btn:hover{color:var(--lav);border-color:var(--lav-border);background:var(--lav-soft);transform:translateY(-1px)}
+.conn-btn.disabled{opacity:.55;pointer-events:none;cursor:not-allowed}
 .conn-icon{font-size:1.4rem}
 
 .hub-foot{text-align:center;border-top:1px solid var(--border);padding:1rem 2rem 1.4rem;font-size:.7rem;color:var(--muted);line-height:1.85}
@@ -1140,65 +980,16 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <div class="preview-banner-text"></div>
       <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
     </div>
-
-    <div class="hub-sec">Dashboard ผู้เรียน</div>
-    <div class="progress-card" id="student-progress-card">
-      <div class="progress-top">
-        <div>
-          <div class="progress-title">แดชบอร์ดความคืบหน้าของฉัน</div>
-          <div class="progress-sub">ดูบทที่เรียนจบแล้ว แต้มสะสม badge ล่าสุด และสถานะใบรับรองได้ในหน้าเดียวค่ะ</div>
-        </div>
-        <div class="progress-pill" id="progress-course-label">Student Dashboard</div>
-      </div>
-
-      <div class="progress-grid">
-        <div class="progress-stat">
-          <div class="progress-kicker">เรียนจบแล้ว</div>
-          <div class="progress-value" id="progress-completed">0 / 8 บท</div>
-          <div class="progress-note" id="progress-completed-note">เริ่มสะสมความคืบหน้าจากบทแรกได้เลยค่ะ</div>
-        </div>
-        <div class="progress-stat">
-          <div class="progress-kicker">แต้มสะสม</div>
-          <div class="progress-value" id="progress-points">0 คะแนน</div>
-          <div class="progress-note" id="progress-points-note">จะเริ่มนับแต้มเมื่อเปิดระบบสะสมคะแนนค่ะ</div>
-        </div>
-        <div class="progress-stat">
-          <div class="progress-kicker">Badge ล่าสุด</div>
-          <div class="progress-value" id="progress-badge">ยังไม่มี</div>
-          <div class="progress-note" id="progress-badge-note">เมื่อเรียนครบตามเกณฑ์ ระบบจะแสดง badge ให้ตรงนี้ค่ะ</div>
-        </div>
-        <div class="progress-stat">
-          <div class="progress-kicker">Certificate</div>
-          <div class="progress-value" id="progress-certificate">ยังไม่พร้อม</div>
-          <div class="progress-note" id="progress-certificate-note">เรียนครบตามเกณฑ์และผ่านเงื่อนไขก่อนนะคะ</div>
-        </div>
-      </div>
-
-      <div class="progress-bar-wrap" aria-hidden="true">
-        <div class="progress-bar-fill" id="progress-bar-fill"></div>
-      </div>
-      <div class="progress-meta">
-        <span id="progress-percent">ความคืบหน้า 0%</span>
-        <span id="progress-next-goal">เป้าหมายถัดไป: เริ่มบทที่ 1</span>
-      </div>
-
-      <div class="progress-next">
-        <div class="progress-next-body">
-          <div class="progress-next-title" id="progress-cta-title">พร้อมเริ่มเรียนแล้วค่ะ</div>
-          <div class="progress-next-desc" id="progress-cta-desc">ถ้ายังไม่เคยเริ่มเรียน แนะนำให้เริ่มจากทฤษฎีเศรษฐศาสตร์จุลภาค บทที่ 1 ก่อนค่ะ</div>
-        </div>
-        <a href="microeconomics/index.html" class="progress-cta" id="progress-cta-link" target="_blank">ไปต่อที่บทเรียน →</a>
-      </div>
-    </div>
     <div class="hub-sec">Learn</div>
-    <a href="https://ajarnkwan.github.io/econ-math-readiness/" class="hub-link featured" target="_blank">
+    <a href="econ-math-readiness/" class="hub-link featured">
       <div class="hl-icon" style="background:#ede9fe;border:1.5px solid #c4b5fd">📐</div>
       <div class="hl-body"><div class="hl-title">Basic Math &amp; Stats for Econ</div><div class="hl-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 Modules</div></div>
       <div class="hl-arr">→</div>
     </a>
-    <a href="microeconomics/index.html" class="hub-link" target="_blank">
-      <div class="hl-icon" style="background:#ecfeff;border:1.5px solid #99f6e4">📘</div>
-      <div class="hl-body"><div class="hl-title">ทฤษฎีเศรษฐศาสตร์จุลภาค</div><div class="hl-desc">8 บทเรียนพื้นฐาน · ผู้บริโภค อุปสงค์ ต้นทุน ตลาด และโครงสร้างตลาด</div></div>
+
+    <a href="microeconomics/" class="hub-link">
+      <div class="hl-icon" style="background:#eff6ff;border:1.5px solid #93c5fd">📘</div>
+      <div class="hl-body"><div class="hl-title">Microeconomics</div><div class="hl-desc">ทฤษฎีเศรษฐศาสตร์จุลภาค · บทที่ 1-3 พร้อมเรียน</div></div>
       <div class="hl-arr">→</div>
     </a>
 
@@ -1216,15 +1007,15 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 
     <div class="hub-sec">Connect</div>
     <div class="connect-row">
-      <a href="#" class="conn-btn"><div class="conn-icon">📣</div><span>LINE OA</span></a>
-      <a href="https://www.tiktok.com/@ajarn.kwan" class="conn-btn" target="_blank"><div class="conn-icon">🎵</div><span>TikTok</span></a>
-      <a href="https://www.facebook.com/ajarnkwan" class="conn-btn" target="_blank"><div class="conn-icon">📘</div><span>Facebook</span></a>
+      <div class="conn-btn disabled" title="LINE OA ยังไม่ได้เชื่อมลิงก์"><div class="conn-icon">📣</div><span>LINE OA · เร็วๆ นี้</span></div>
+      <a href="https://www.tiktok.com/@ajarn.kwan" class="conn-btn" target="_blank" rel="noopener noreferrer"><div class="conn-icon">🎵</div><span>TikTok</span></a>
+      <a href="https://www.facebook.com/ajarnkwan" class="conn-btn" target="_blank" rel="noopener noreferrer"><div class="conn-icon">📘</div><span>Facebook</span></a>
     </div>
   </div>
 
   <div class="hub-foot">
     <strong style="color:#4b4540">Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
-    <span style="font-size:.65rem">© 2025 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ</span><br>
+    <span style="font-size:.65rem">© 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ</span><br>
     <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
   </div>
 </div>
