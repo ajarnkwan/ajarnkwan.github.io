@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 3 — อุปสงค์และอุปทาน</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:680px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888}
+@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
+.backbtn:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.backbtn:hover{background:#242424}}
+.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#fff3e0;color:#e65100}
+@media(prefers-color-scheme:dark){.badge{background:#3d2000;color:#ffb347}}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#fff3e0 0%,#fff8f0 100%);border-radius:16px;padding:22px 24px;margin:14px 0 20px;border:1px solid #ffe0b2}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#2a1500 0%,#1a1a1a 100%);border-color:#5c3000}}
+.hero h1{font-size:22px;font-weight:800;margin-bottom:6px;color:#e65100}
+@media(prefers-color-scheme:dark){.hero h1{color:#ffb347}}
+.hero p{font-size:14px;line-height:1.75;color:#555}
+@media(prefers-color-scheme:dark){.hero p{color:#aaa}}
+.hook{background:#fff;border-radius:12px;padding:14px 16px;margin-top:14px;border:1px solid #ffe0b2;font-size:14px;line-height:1.7}
+@media(prefers-color-scheme:dark){.hook{background:#1e1505;border-color:#5c3000}}
+.hook .q{font-weight:700;margin-bottom:8px;font-size:15px}
+.hook .hint{font-size:12.5px;color:#888;margin-top:8px}
+
+
+.status{display:none;background:#fff8e1;border:1px solid #ffe082;color:#8a5a00;border-radius:12px;padding:12px 14px;margin:-6px 0 18px;font-size:13.5px;line-height:1.7}
+.status.on{display:block}
+@media(prefers-color-scheme:dark){.status{background:#2a2100;border-color:#6b5200;color:#ffd54f}}
+
+/* Section cards */
+.sec-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.cards{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.card{background:#fff;border:1.5px solid #eee;border-radius:14px;padding:16px 20px;cursor:pointer;transition:border-color .15s,box-shadow .15s;display:flex;align-items:flex-start;gap:14px}
+@media(prefers-color-scheme:dark){.card{background:#1a1a1a;border-color:#333}}
+.card:hover{border-color:#ff9800;box-shadow:0 4px 16px rgba(255,152,0,.12)}
+.card .icon{font-size:26px;flex-shrink:0;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:10px}
+.card .body{flex:1}
+.card .title{font-size:15px;font-weight:700;margin-bottom:3px}
+.card .sub{font-size:12.5px;color:#888;line-height:1.55}
+@media(prefers-color-scheme:dark){.card .sub{color:#777}}
+.card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.tag{font-size:10.5px;padding:2px 8px;border-radius:99px;font-weight:500}
+
+/* Color themes per card */
+.c1{border-color:#bbdefb}.c1:hover{border-color:#1976d2}
+.c1 .icon{background:#e3f2fd;color:#1565c0}
+.c1 .tag{background:#e3f2fd;color:#1565c0}
+.c2{border-color:#e8f5e9}.c2:hover{border-color:#388e3c}
+.c2 .icon{background:#e8f5e9;color:#2e7d32}
+.c2 .tag{background:#e8f5e9;color:#2e7d32}
+.c3{border-color:#ede7f6}.c3:hover{border-color:#7b1fa2}
+.c3 .icon{background:#ede7f6;color:#6a1b9a}
+.c3 .tag{background:#ede7f6;color:#6a1b9a}
+.c4{border-color:#fff3e0}.c4:hover{border-color:#e65100}
+.c4 .icon{background:#fff3e0;color:#e65100}
+.c4 .tag{background:#fff3e0;color:#e65100}
+.c5{border-color:#fce4ec}.c5:hover{border-color:#c62828}
+.c5 .icon{background:#fce4ec;color:#b71c1c}
+.c5 .tag{background:#fce4ec;color:#b71c1c}
+
+@media(prefers-color-scheme:dark){
+  .c1{border-color:#1a2a40}.c1 .icon{background:#0d1f33;color:#64b5f6}.c1 .tag{background:#0d1f33;color:#64b5f6}
+  .c2{border-color:#1a2a1a}.c2 .icon{background:#0d1f0d;color:#81c784}.c2 .tag{background:#0d1f0d;color:#81c784}
+  .c3{border-color:#2a1a33}.c3 .icon{background:#1e0d2a;color:#ce93d8}.c3 .tag{background:#1e0d2a;color:#ce93d8}
+  .c4{border-color:#2a1a00}.c4 .icon{background:#1f0d00;color:#ffb74d}.c4 .tag{background:#1f0d00;color:#ffb74d}
+  .c5{border-color:#2a0d14}.c5 .icon{background:#1f0d0d;color:#ef9a9a}.c5 .tag{background:#1f0d0d;color:#ef9a9a}
+}
+
+/* Progress mini */
+.progress{display:flex;gap:4px;margin-bottom:18px}
+.pbar{flex:1;height:5px;border-radius:3px;background:#eee}
+@media(prefers-color-scheme:dark){.pbar{background:#333}}
+.pbar.done{background:#4caf50}
+
+/* Reveal answer */
+.revbtn{width:100%;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;text-align:left;color:inherit;margin-top:8px}
+@media(prefers-color-scheme:dark){.revbtn{border-color:#444}}
+.revbtn:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.revbtn:hover{background:#242424}}
+.revbox{background:#f5f5f5;border-radius:10px;padding:12px 16px;margin-top:6px;display:none;font-size:13.5px;line-height:1.7}
+@media(prefers-color-scheme:dark){.revbox{background:#222}}
+.revbox.on{display:block}
+
+/* Bottom nav */
+.botnav{display:flex;gap:8px;margin-top:8px;padding-top:16px;border-top:1px solid #eee}
+@media(prefers-color-scheme:dark){.botnav{border-color:#333}}
+.bnb{flex:1;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;color:inherit;text-align:center}
+@media(prefers-color-scheme:dark){.bnb{border-color:#444}}
+.bnb:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.bnb:hover{background:#242424}}
+.bnb.pr{background:#ff9800;border-color:#ff9800;color:#fff;font-weight:700}
+.bnb.pr:hover{background:#e65100}
+</style>
+
+<style>
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #4338ca;
+  --ajk-primary-soft: #ede9fe;
+  --ajk-primary-dark: #3730a3;
+  --ajk-ink: #1d1633;
+  --ajk-muted: #6b6480;
+  --ajk-border: #e5e1f3;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right;
+  line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  letter-spacing: -.01em;
+}
+.ajk-brand-author {
+  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; padding: 0 1px; }
+
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-back-btn svg { width: 16px; height: 16px; }
+  .ajk-brand-course { font-size: 12.5px; }
+  .ajk-brand-author { font-size: 10.5px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
+}
+
+/* ─── Footer ─── */
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 720px; margin: 0 auto;
+  text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px;
+  background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--ajk-ink); margin: 0 0 4px;
+  letter-spacing: -.01em;
+}
+.ajk-footer-sub {
+  font-size: 12.5px; color: var(--ajk-muted);
+  letter-spacing: .02em;
+  margin-bottom: 26px;
+}
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 26px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface);
+  border: 1px solid var(--ajk-border);
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 13px; font-weight: 500;
+  transition: all .18s;
+  cursor: pointer;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; }
+.ajk-footer-btn:hover {
+  color: var(--ajk-primary);
+  border-color: var(--ajk-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.ajk-footer-bottom {
+  font-size: 11.5px; color: var(--ajk-muted);
+  letter-spacing: .02em;
+  padding-top: 22px;
+  border-top: 1px solid var(--ajk-border);
+  line-height: 1.8;
+}
+.ajk-footer-bottom strong {
+  color: var(--ajk-ink); font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
+  .ajk-footer-name { font-size: 21px; }
+  .ajk-footer-links { gap: 6px; }
+  .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="../index.html" aria-label="กลับหน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 3 · อุปสงค์และอุปทาน</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+
+<div class="topnav">
+  <a class="backbtn" href="index.html" style="text-decoration:none;display:inline-flex;align-items:center;gap:4px">← กลับแผนการเรียนรู้</a>
+  <span class="badge">บทที่ 3</span>
+</div>
+
+<div class="hero">
+  <h1>อุปสงค์ และ อุปทาน</h1>
+  <p>ราคาสินค้าถูกกำหนดจาก 2 ฝั่งตลาด — ฝั่งผู้ซื้อ (Demand) และฝั่งผู้ขาย (Supply)<br>บทนี้อธิบายว่าทำไมราคา iPhone ถึงแพง ทำไมน้ำมันถึงขึ้นลงตาม OPEC และจะเกิดอะไรขึ้นถ้าซัพพลายขาด</p>
+  <div class="hook">
+    <div class="q">💭 ถามก่อนเรียน: ทำไม "กระเป๋า Hermès" ถึงยิ่งแพง ยิ่งมีคนอยากได้?</div>
+    <p style="font-size:13.5px;color:#777">ถ้าราคาสินค้าทั่วไปสูงขึ้น → คนซื้อน้อยลง (law of demand) แต่ Hermès ยิ่งแพงยิ่งขาย — นี่คือ <em>Snob Effect</em> ที่จะเรียนใน 3.1</p>
+    <button class="revbtn" id="rb0" onclick="togRev()">เผยแนวคิดหลักของบทนี้</button>
+    <div class="revbox" id="rev0">
+      <strong>3 แนวคิดหลักที่ต้องเข้าใจ:</strong><br>
+      ① อุปสงค์และอุปทานแต่ละเส้นมีกฎของมัน — slope ลบ / slope บวก<br>
+      ② ความยืดหยุ่น (Elasticity) = วัดว่าปริมาณ "ไหวแค่ไหน" ต่อการเปลี่ยนแปลงราคา/รายได้/ราคาสินค้าอื่น<br>
+      ③ ราคาดุลยภาพ = จุดที่ D กับ S ตัดกัน → ตลาดล้างตัวเองได้
+    </div>
+  </div>
+</div>
+
+<div class="sec-label">เลือกส่วนที่ต้องการเรียน</div>
+<div class="status" id="sectionStatus"></div>
+
+<div class="cards">
+
+  <div class="card c1" onclick="sendPrompt('เรียนบทที่ 3 ส่วนที่ 1: อุปสงค์ตลาด — Market Demand, Bandwagon Effect, Snob Effect')">
+    <div class="icon">🛒</div>
+    <div class="body">
+      <div class="title">3.1 อุปสงค์ตลาด</div>
+      <div class="sub">Market Demand = ผลรวมอุปสงค์บุคคล | Network Externalities — Bandwagon Effect (คนส่วนมากมีแล้วอยากได้ด้วย) และ Snob Effect (ยิ่งคนมีน้อย ยิ่งอยากได้)</div>
+      <div class="tags">
+        <span class="tag">Market Demand</span>
+        <span class="tag">Bandwagon Effect</span>
+        <span class="tag">Snob Effect</span>
+        <span class="tag">กราฟ interactive</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c2" onclick="sendPrompt('เรียนบทที่ 3 ส่วนที่ 2: ปัจจัยกำหนดอุปสงค์และ TR/AR/MR')">
+    <div class="icon">📊</div>
+    <div class="body">
+      <div class="title">3.2 ปัจจัยกำหนดอุปสงค์ + TR/AR/MR</div>
+      <div class="sub">7 ปัจจัยกำหนดอุปสงค์ (P, I, P₀, T, E, N...) | เลื่อนเส้น D vs เคลื่อนบนเส้น | TR=P·Q, AR=D=P, MR มี slope 2 เท่าของ AR</div>
+      <div class="tags">
+        <span class="tag">Demand Shift</span>
+        <span class="tag">TR / AR / MR</span>
+        <span class="tag">สมการเส้นตรง</span>
+        <span class="tag">slider interactive</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c3" onclick="sendPrompt('เรียนบทที่ 3 ส่วนที่ 3: ความยืดหยุ่นของอุปสงค์ — Price, Income, Cross, Advertising Elasticity')">
+    <div class="icon">📐</div>
+    <div class="body">
+      <div class="title">3.3 ความยืดหยุ่นของอุปสงค์</div>
+      <div class="sub">Ep = ความยืดหยุ่นราคา (elastic/inelastic/unitary) + สัมพันธ์กับ TR | EI = รายได้ (luxury/necessity/inferior) | EXY = ไขว้ (substitute/complement) | EA = โฆษณา</div>
+      <div class="tags">
+        <span class="tag">Price Elasticity (Ep)</span>
+        <span class="tag">Income Elasticity (EI)</span>
+        <span class="tag">Cross Elasticity (Exy)</span>
+        <span class="tag">คำนวณจากสูตร</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c4" onclick="sendPrompt('เรียนบทที่ 3 ส่วนที่ 4: อุปทานและความยืดหยุ่นของอุปทาน')">
+    <div class="icon">🏭</div>
+    <div class="body">
+      <div class="title">3.4 อุปทาน + ความยืดหยุ่นอุปทาน</div>
+      <div class="sub">Law of Supply | Market Supply = ผลรวมอุปทานบุคคล | ปัจจัยกำหนดอุปทาน | ES 5 ประเภท (elastic, inelastic, unitary, perfectly elastic/inelastic)</div>
+      <div class="tags">
+        <span class="tag">Supply Curve</span>
+        <span class="tag">Market Supply</span>
+        <span class="tag">Supply Shift</span>
+        <span class="tag">Elasticity of Supply</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c5" onclick="sendPrompt('เรียนบทที่ 3 ส่วนที่ 5: ดุลยภาพตลาด — Equilibrium Price and Quantity')">
+    <div class="icon">⚖️</div>
+    <div class="body">
+      <div class="title">3.5 ดุลยภาพตลาด</div>
+      <div class="sub">Equilibrium P* และ Q* — จุดที่ Qd = Qs | Excess Demand (ขาดแคลน) และ Excess Supply (เหลือเฟือ) | ผลเมื่อ D หรือ S เปลี่ยน — ราคาและปริมาณดุลยภาพใหม่</div>
+      <div class="tags">
+        <span class="tag">Equilibrium</span>
+        <span class="tag">Excess Demand/Supply</span>
+        <span class="tag">D&S Shift</span>
+        <span class="tag">กราฟ interactive</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Quick overview canvas -->
+<div class="sec-label">ภาพรวมบทที่ 3 — D&S และดุลยภาพ</div>
+<canvas id="cv" style="width:100%;max-width:640px;border-radius:14px;border:1px solid #ddd;display:block;margin-bottom:20px"></canvas>
+
+<div class="botnav">
+  <button class="bnb" onclick="sendPrompt('กลับหน้าหลัก')">← กลับแผนการเรียนรู้</button>
+  <button class="bnb pr" onclick="sendPrompt('เรียนบทที่ 3 ส่วนที่ 1: อุปสงค์ตลาด — Market Demand, Bandwagon Effect, Snob Effect')">เริ่มส่วนที่ 1 →</button>
+</div>
+
+</div>
+
+<script>
+function togRev(){
+  const b=document.getElementById('rev0'),t=document.getElementById('rb0');
+  const on=b.classList.toggle('on');
+  t.textContent=on?'ซ่อน':'เผยแนวคิดหลักของบทนี้';
+}
+
+function showSectionStatus(message){
+  const box=document.getElementById('sectionStatus');
+  box.textContent=message;
+  box.classList.add('on');
+  box.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function sendPrompt(message){
+  if(message === 'กลับหน้าหลัก'){
+    window.location.href='index.html';
+    return;
+  }
+
+  const labels = {
+    "เรียนบทที่ 3 ส่วนที่ 1: อุปสงค์ตลาด — Market Demand, Bandwagon Effect, Snob Effect": "ส่วนที่ 3.1 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ ตอนนี้ดูภาพรวมของบทที่ 3 หน้านี้ไปก่อนได้เลย",
+    "เรียนบทที่ 3 ส่วนที่ 2: ปัจจัยกำหนดอุปสงค์และ TR/AR/MR": "ส่วนที่ 3.2 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ ตอนนี้ดูภาพรวมของบทที่ 3 หน้านี้ไปก่อนได้เลย",
+    "เรียนบทที่ 3 ส่วนที่ 3: ความยืดหยุ่นของอุปสงค์ — Price, Income, Cross, Advertising Elasticity": "ส่วนที่ 3.3 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ ตอนนี้ดูภาพรวมของบทที่ 3 หน้านี้ไปก่อนได้เลย",
+    "เรียนบทที่ 3 ส่วนที่ 4: อุปทานและความยืดหยุ่นของอุปทาน": "ส่วนที่ 3.4 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ ตอนนี้ดูภาพรวมของบทที่ 3 หน้านี้ไปก่อนได้เลย",
+    "เรียนบทที่ 3 ส่วนที่ 5: ดุลยภาพตลาด — Equilibrium Price and Quantity": "ส่วนที่ 3.5 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ ตอนนี้ดูภาพรวมของบทที่ 3 หน้านี้ไปก่อนได้เลย"
+  };
+
+  showSectionStatus(labels[message] || 'หัวข้อนี้กำลังจัดเตรียมเพิ่มเติม');
+}
+
+/* ── Overview canvas: D, S, equilibrium ── */
+(function drawOverview(){
+  const cv=document.getElementById('cv');
+  const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+  const cssW=Math.min(640,window.innerWidth-32);
+  const cssH=Math.round(cssW*0.48);
+  const dpr=window.devicePixelRatio||1;
+  cv.width=Math.round(cssW*dpr);
+  cv.height=Math.round(cssH*dpr);
+  cv.style.width=cssW+'px';
+  cv.style.height=cssH+'px';
+  const ctx=cv.getContext('2d');
+  ctx.scale(dpr,dpr);
+
+  const W=cssW,H=cssH;
+  const ml=50,mr=20,mt=28,mb=40;
+  const pw=W-ml-mr,ph=H-mt-mb;
+  const xMax=10,yMax=10;
+  const cx=v=>ml+(v/xMax)*pw;
+  const cy=v=>mt+ph-(v/yMax)*ph;
+  const TC=()=>DK()?'#d4d4d4':'#1a1a1a';
+  const GC=()=>DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';
+  const AC=()=>DK()?'rgba(255,255,255,.22)':'rgba(0,0,0,.18)';
+
+  ctx.clearRect(0,0,W,H);
+
+  // Background
+  ctx.fillStyle=DK()?'#1a1a1a':'#fff';
+  ctx.fillRect(0,0,W,H);
+
+  // Grid
+  ctx.font='10px sans-serif';
+  [2,4,6,8,10].forEach(v=>{
+    ctx.strokeStyle=GC();ctx.lineWidth=.5;
+    ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();
+    ctx.fillStyle=TC();ctx.textAlign='center';ctx.fillText(v,cx(v),mt+ph+16);
+    ctx.textAlign='right';ctx.fillText(v,ml-5,cy(v)+4);
+  });
+
+  // Axes
+  ctx.strokeStyle=AC();ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+  ctx.fillStyle=TC();ctx.font='13px sans-serif';ctx.textAlign='center';
+  ctx.fillText('ปริมาณ (Q)',ml+pw/2,mt+ph+34);
+  ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('ราคา (P)',0,0);ctx.restore();
+
+  // Demand: P = 9 - 0.8Q
+  ctx.strokeStyle='#1976d2';ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(cx(0),cy(9));ctx.lineTo(cx(9/0.8),cy(0));ctx.stroke();
+  ctx.fillStyle='#1976d2';ctx.textAlign='left';ctx.font='bold 13px sans-serif';
+  ctx.fillText('D (อุปสงค์)',cx(8)+4,cy(1.8));ctx.font='11px sans-serif';
+
+  // Supply: P = 1 + 0.8Q
+  ctx.strokeStyle='#e65100';ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(cx(0),cy(1));ctx.lineTo(cx((9)/0.8),cy(1+0.8*(9/0.8)));ctx.stroke();
+  // Clip supply at yMax
+  const sxMax=(yMax-1)/0.8;
+  ctx.beginPath();ctx.moveTo(cx(0),cy(1));ctx.lineTo(cx(Math.min(sxMax,xMax)),cy(Math.min(yMax,1+0.8*Math.min(sxMax,xMax))));ctx.stroke();
+  ctx.fillStyle='#e65100';ctx.textAlign='left';ctx.font='bold 13px sans-serif';
+  ctx.fillText('S (อุปทาน)',cx(8)+4,cy(7.5));ctx.font='11px sans-serif';
+
+  // Equilibrium: 9-0.8Q = 1+0.8Q → 8=1.6Q → Q*=5, P*=5
+  const Qeq=5, Peq=5;
+  // Drop lines
+  ctx.strokeStyle=DK()?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(cx(Qeq),cy(Peq));ctx.lineTo(cx(Qeq),mt+ph);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx(Qeq),cy(Peq));ctx.lineTo(ml,cy(Peq));ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Equilibrium dot
+  ctx.fillStyle='#c62828';
+  ctx.beginPath();ctx.arc(cx(Qeq),cy(Peq),8,0,2*Math.PI);ctx.fill();
+  ctx.strokeStyle=DK()?'#141414':'#fff';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.arc(cx(Qeq),cy(Peq),8,0,2*Math.PI);ctx.stroke();
+
+  ctx.fillStyle='#c62828';ctx.font='bold 12px sans-serif';
+  ctx.textAlign='left';ctx.fillText('E* (P*=5, Q*=5)',cx(Qeq)+12,cy(Peq)-6);
+
+  // Axis labels at equilibrium
+  ctx.fillStyle='#c62828';ctx.font='11px sans-serif';
+  ctx.textAlign='center';ctx.fillText('Q*=5',cx(Qeq),mt+ph+16);
+  ctx.textAlign='right';ctx.fillText('P*=5',ml-5,cy(Peq)+4);
+
+  // Title
+  ctx.fillStyle=TC();ctx.font='bold 13px sans-serif';ctx.textAlign='center';
+  ctx.fillText('ภาพรวม: D ∩ S = ราคาดุลยภาพ E*',ml+pw/2,mt-10);
+  ctx.font='11px sans-serif';
+})();
+</script>
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        หน้าหลัก
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
