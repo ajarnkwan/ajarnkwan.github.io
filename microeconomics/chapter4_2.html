@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 4.2 — การกำหนดราคาขั้นสูง</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:680px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
+.backbtn:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.backbtn:hover{background:#242424}}
+.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#fbe9e7;color:#bf360c}
+@media(prefers-color-scheme:dark){.badge{background:#2a0f08;color:#ff8a65}}
+.badge.sec{background:#1a1a1a;color:#fff}
+@media(prefers-color-scheme:dark){.badge.sec{background:#fff;color:#1a1a1a}}
+
+/* Section hero — coral theme */
+.shero{background:linear-gradient(135deg,#fbe9e7 0%,#fff3f0 100%);border-radius:16px;padding:20px 22px;margin:14px 0 20px;border:1px solid #ffccbc}
+@media(prefers-color-scheme:dark){.shero{background:linear-gradient(135deg,#2a0f08 0%,#1a1a1a 100%);border-color:#5c2a15}}
+.shero .num{font-size:11px;font-weight:700;color:#bf360c;letter-spacing:.1em;margin-bottom:4px}
+@media(prefers-color-scheme:dark){.shero .num{color:#ff8a65}}
+.shero h1{font-size:22px;font-weight:800;margin-bottom:8px;color:#bf360c;line-height:1.3}
+@media(prefers-color-scheme:dark){.shero h1{color:#ff8a65}}
+.shero p{font-size:14px;line-height:1.75;color:#555}
+@media(prefers-color-scheme:dark){.shero p{color:#aaa}}
+
+/* Step label */
+.step{display:inline-block;font-size:11px;font-weight:700;color:#bf360c;background:#fbe9e7;padding:3px 10px;border-radius:99px;margin-bottom:10px;letter-spacing:.04em}
+@media(prefers-color-scheme:dark){.step{background:#2a0f08;color:#ff8a65}}
+
+h2{font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.4}
+h3{font-size:15.5px;font-weight:700;margin:14px 0 6px}
+p.body{font-size:14px;line-height:1.75;color:#444;margin-bottom:12px}
+@media(prefers-color-scheme:dark){p.body{color:#bbb}}
+
+.block{margin-bottom:28px}
+
+/* Question card */
+.qcard{background:#fff8e1;border:1.5px solid #ffe082;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.qcard{background:#2a2100;border-color:#6b5200}}
+.qcard .qlabel{font-size:11px;font-weight:700;color:#8a5a00;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.qcard .qlabel{color:#ffd54f}}
+.qcard .qtext{font-size:15px;font-weight:600;margin-bottom:12px;line-height:1.5}
+
+.choices{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.choice{padding:12px 14px;background:#fff;border:1.5px solid #eee;border-radius:10px;cursor:pointer;font-size:13.5px;line-height:1.5;text-align:left;font-family:inherit;color:inherit;transition:all .15s;display:flex;align-items:flex-start;gap:10px}
+@media(prefers-color-scheme:dark){.choice{background:#1a1a1a;border-color:#333}}
+.choice:hover{border-color:#bf360c;background:#fff3f0}
+@media(prefers-color-scheme:dark){.choice:hover{background:#2a0f08}}
+.choice .clet{font-weight:700;color:#bf360c;flex-shrink:0}
+@media(prefers-color-scheme:dark){.choice .clet{color:#ff8a65}}
+.choice.correct{background:#e8f5e9;border-color:#66bb6a}
+@media(prefers-color-scheme:dark){.choice.correct{background:#0d2a10;border-color:#2e7d32}}
+.choice.wrong{background:#ffebee;border-color:#ef5350;opacity:.7}
+@media(prefers-color-scheme:dark){.choice.wrong{background:#2a0d0d;border-color:#c62828}}
+
+.feedback{display:none;padding:12px 14px;border-radius:10px;font-size:13.5px;line-height:1.7;margin-top:8px}
+.feedback.on{display:block}
+.feedback.good{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+@media(prefers-color-scheme:dark){.feedback.good{background:#0d2a10;border-color:#2e7d32;color:#a5d6a7}}
+.feedback.bad{background:#fff3e0;border:1px solid #ffb74d;color:#e65100}
+@media(prefers-color-scheme:dark){.feedback.bad{background:#2a1a00;border-color:#f57c00;color:#ffb74d}}
+
+/* Lab */
+.lab{background:#fff3f0;border:1.5px solid #ffccbc;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.lab{background:#2a0f08;border-color:#5c2a15}}
+.lab-title{font-size:12.5px;font-weight:700;color:#bf360c;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+@media(prefers-color-scheme:dark){.lab-title{color:#ff8a65}}
+.lab-desc{font-size:13px;color:#666;margin-bottom:14px;line-height:1.6}
+@media(prefers-color-scheme:dark){.lab-desc{color:#999}}
+
+canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #ddd;display:block;background:#fff;margin-bottom:10px}
+@media(prefers-color-scheme:dark){canvas.gcanvas{background:#1a1a1a;border-color:#333}}
+
+.ctl{background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #ddd;margin-top:8px}
+@media(prefers-color-scheme:dark){.ctl{background:#1a1a1a;border-color:#333}}
+.ctl-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.ctl-row:last-child{margin-bottom:0}
+.ctl label{font-size:12.5px;font-weight:600;min-width:80px}
+.ctl input[type=range]{flex:1;min-width:120px;accent-color:#bf360c}
+.ctl .val{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;color:#bf360c;font-weight:700;min-width:68px;text-align:right}
+@media(prefers-color-scheme:dark){.ctl .val{color:#ff8a65}}
+.ctl .readout{font-size:12px;color:#666;margin-top:4px;line-height:1.6;padding:8px 10px;background:#f5f5f5;border-radius:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace}
+@media(prefers-color-scheme:dark){.ctl .readout{background:#242424;color:#aaa}}
+
+/* Theory box */
+.theory{background:#1a1a1a;color:#fff;border-radius:14px;padding:16px 18px;margin-bottom:16px;position:relative}
+@media(prefers-color-scheme:dark){.theory{background:#0a0a0a;border:1px solid #333}}
+.theory-label{font-size:11px;font-weight:700;color:#ff8a65;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.theory h3{font-size:16px;font-weight:700;margin-bottom:10px;color:#fff}
+.theory p{font-size:13.5px;line-height:1.75;color:#d0d0d0;margin-bottom:8px}
+.theory strong{color:#ffd54f}
+.theory .formula{background:rgba(255,138,101,.12);border-left:3px solid #ff8a65;padding:10px 12px;margin:10px 0;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13.5px;color:#fff;border-radius:4px}
+
+/* Calc */
+.calc{background:#fff;border:1.5px solid #ffccbc;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.calc{background:#1a1a1a;border-color:#5c2a15}}
+.calc-step{padding:10px 0;border-bottom:1px dashed #ddd}
+.calc-step:last-child{border-bottom:none}
+@media(prefers-color-scheme:dark){.calc-step{border-bottom-color:#333}}
+.calc-step .slab{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.calc-step .seq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;line-height:1.8;background:#fff3f0;padding:8px 10px;border-radius:6px;margin-top:4px}
+@media(prefers-color-scheme:dark){.calc-step .seq{background:#2a0f08}}
+.calc-step .sexp{font-size:13px;color:#666;line-height:1.6;margin-top:6px}
+@media(prefers-color-scheme:dark){.calc-step .sexp{color:#aaa}}
+
+/* Real-world cards */
+.rw-grid{display:grid;gap:12px;margin-bottom:16px}
+.rw-card{background:#fff;border:1.5px solid #eee;border-radius:12px;padding:14px 16px}
+@media(prefers-color-scheme:dark){.rw-card{background:#1a1a1a;border-color:#333}}
+.rw-card .rw-title{font-size:13.5px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.rw-card .rw-desc{font-size:13px;color:#666;line-height:1.65}
+@media(prefers-color-scheme:dark){.rw-card .rw-desc{color:#aaa}}
+.rw-card .rw-icon{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;background:#fbe9e7}
+@media(prefers-color-scheme:dark){.rw-card .rw-icon{background:#2a0f08}}
+
+/* Try-it */
+.tryit{background:#fff3e0;border:1.5px solid #ffb74d;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.tryit{background:#2a1a00;border-color:#e65100}}
+.tryit h3{color:#e65100;margin-top:0}
+@media(prefers-color-scheme:dark){.tryit h3{color:#ffb74d}}
+.tryit-input{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tryit-input input{flex:1;min-width:80px;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;font-family:ui-monospace,'SF Mono',Menlo,monospace;background:#fff;color:inherit}
+@media(prefers-color-scheme:dark){.tryit-input input{background:#1a1a1a;border-color:#444}}
+.tryit-input button{padding:10px 20px;background:#e65100;color:#fff;border:none;border-radius:8px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.tryit-input button:hover{background:#bf360c}
+
+/* Takeaway */
+.takeaway{background:linear-gradient(135deg,#fbe9e7 0%,#fff3f0 100%);border:1.5px solid #ff8a65;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.takeaway{background:linear-gradient(135deg,#2a0f08 0%,#0a0a0a 100%);border-color:#bf360c}}
+.takeaway .tlab{font-size:11px;font-weight:700;color:#bf360c;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.takeaway .tlab{color:#ff8a65}}
+.takeaway h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.takeaway ul{list-style:none;padding:0}
+.takeaway li{padding:6px 0 6px 24px;position:relative;font-size:13.5px;line-height:1.6}
+.takeaway li::before{content:'✓';position:absolute;left:0;color:#bf360c;font-weight:700;font-size:15px}
+@media(prefers-color-scheme:dark){.takeaway li::before{color:#ff8a65}}
+
+/* Reveal */
+.reveal-toggle{width:100%;padding:10px 14px;border:1.5px dashed #999;border-radius:10px;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:inherit;margin-bottom:10px;font-family:inherit}
+.reveal-toggle:hover{border-color:#bf360c;color:#bf360c}
+@media(prefers-color-scheme:dark){.reveal-toggle:hover{color:#ff8a65}}
+.reveal-content{display:none}
+.reveal-content.on{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+/* Warning box (Black market) */
+.warnbox{background:#2d1b0e;color:#fff;border-radius:14px;padding:16px 18px;margin-bottom:16px;border:1px solid #5c2a15}
+.warnbox .wlab{font-size:11px;font-weight:700;color:#ff8a65;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.warnbox h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px}
+.warnbox p{font-size:13.5px;line-height:1.75;color:#d0d0d0}
+.warnbox strong{color:#ffd54f}
+
+/* Bottom nav */
+.botnav{display:flex;gap:8px;margin-top:32px;padding-top:16px;border-top:1px solid #eee}
+@media(prefers-color-scheme:dark){.botnav{border-color:#333}}
+.bnb{flex:1;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;color:inherit;text-align:center;font-family:inherit}
+@media(prefers-color-scheme:dark){.bnb{border-color:#444}}
+.bnb:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.bnb:hover{background:#242424}}
+.bnb.pr{background:#bf360c;border-color:#bf360c;color:#fff;font-weight:700}
+.bnb.pr:hover{background:#8a2410}
+
+/* Progress */
+.progress{display:flex;gap:4px;margin:10px 0 20px}
+.pbar{flex:1;height:5px;border-radius:3px;background:#eee}
+@media(prefers-color-scheme:dark){.pbar{background:#333}}
+.pbar.current{background:#bf360c}
+.pbar.done{background:#4caf50}
+</style>
+
+<style>
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme { --ajk-primary:#4338ca;--ajk-primary-soft:#ede9fe;--ajk-primary-dark:#3730a3;--ajk-ink:#1d1633;--ajk-muted:#6b6480;--ajk-border:#e5e1f3;--ajk-surface:#ffffff; }
+.ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--ajk-border);font-family:'Noto Sans Thai',system-ui,-apple-system,sans-serif;color:var(--ajk-ink);margin:-16px -16px 0}
+.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:'Noto Sans Thai',system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.ajk-back-btn svg{width:14px;height:14px;flex-shrink:0}
+.ajk-back-btn:hover{background:var(--ajk-primary);color:#fff;transform:translateX(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.ajk-brand{flex:1;min-width:0;text-align:right;line-height:1.25}
+.ajk-brand-course{font-size:13.5px;font-weight:700;color:var(--ajk-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.ajk-brand-author{font-size:11px;color:var(--ajk-muted);font-weight:500;display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.ajk-brand-author-dot{width:5px;height:5px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
+.ajk-brand-author-at{color:var(--ajk-primary);font-weight:700;padding:0 1px}
+@media(max-width:520px){.ajk-back-btn span{display:none}.ajk-back-btn{padding:9px}.ajk-back-btn svg{width:16px;height:16px}.ajk-brand-course{font-size:12.5px}.ajk-brand-author{font-size:10.5px}.ajk-topbar-inner{padding:8px 12px;min-height:52px;gap:10px}}
+.ajk-footer{margin:64px -16px 0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--ajk-primary-soft) 100%);border-top:1px solid var(--ajk-border);padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
+.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}
+.ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+.ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--ajk-primary);opacity:.35}
+.ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
+.ajk-footer-name{font-family:'Noto Serif Thai','Noto Sans Thai',serif;font-size:24px;font-weight:700;color:var(--ajk-ink);margin:0 0 4px;letter-spacing:-.01em}
+.ajk-footer-sub{font-size:12.5px;color:var(--ajk-muted);letter-spacing:.02em;margin-bottom:26px}
+.ajk-footer-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.ajk-footer-btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-surface);border:1px solid var(--ajk-border);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;transition:all .18s;cursor:pointer;font-family:'Noto Sans Thai',system-ui,sans-serif}
+.ajk-footer-btn svg{width:15px;height:15px}
+.ajk-footer-btn:hover{color:var(--ajk-primary);border-color:var(--ajk-primary);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.ajk-footer-bottom{font-size:11.5px;color:var(--ajk-muted);letter-spacing:.02em;padding-top:22px;border-top:1px solid var(--ajk-border);line-height:1.8}
+.ajk-footer-bottom strong{color:var(--ajk-ink);font-weight:700}
+@media(max-width:520px){.ajk-footer{padding:36px 14px 22px;margin-top:48px}.ajk-footer-name{font-size:21px}.ajk-footer-links{gap:6px}.ajk-footer-btn{padding:8px 13px;font-size:12px}}
+</style>
+</head>
+<body>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="../index.html" aria-label="กลับหน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 4.2 · ราคาขั้นสูง</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+
+<div class="topnav">
+  <a class="backbtn" href="chapter4.html">← กลับบทที่ 4</a>
+  <span class="badge">บทที่ 4</span>
+  <span class="badge sec">4.2</span>
+</div>
+
+<div class="progress">
+  <div class="pbar done"></div>
+  <div class="pbar current"></div>
+  <div class="pbar"></div>
+  <div class="pbar"></div>
+  <div class="pbar"></div>
+</div>
+
+<!-- HERO -->
+<div class="shero">
+  <div class="num">SECTION 4.2</div>
+  <h1>การกำหนดราคาขั้นสูง (Price Ceiling)</h1>
+  <p>ราคาในตลาดสูงขึ้นมาก คนบ่นกันทั้งประเทศ → รัฐบาลออกกฎ "ห้ามขายเกินราคานี้"<br>ฟังดูเหมือนจะช่วยคนได้จริง ๆ ใช่มั้ย? บทนี้จะพาไปดูว่า <em>มันช่วยจริงหรือแค่ดูเหมือนช่วย</em></p>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 1: HOOK SCENARIO -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">① ลองคิดตามสถานการณ์</div>
+  <h2>ย้อนกลับไปช่วงโควิดปี 2020</h2>
+  <p class="body">
+    ต้นปี 2020 คนแห่ซื้อหน้ากากอนามัย ร้านขายดียิ่งขึ้น ราคาจาก <strong>กล่องละ 50 บาท</strong> → ถีบไปเป็น <strong>150–300 บาท</strong> ประชาชนด่าว่าแพงเกินเหตุ รัฐบาลต้องทำอะไรสักอย่าง
+  </p>
+  <p class="body">
+    ถ้าคุณเป็นรัฐมนตรี คุณออกกฎว่า: <strong style="color:#bf360c">"ร้านค้าห้ามขายหน้ากากอนามัยเกินกล่องละ 30 บาท"</strong> ตั้งแต่พรุ่งนี้เป็นต้นไป
+  </p>
+  
+  <div class="qcard">
+    <div class="qlabel">💭 Quick Thinking</div>
+    <div class="qtext">พรุ่งนี้ คุณเดินไปหน้าร้าน 7-Eleven จะเจอหน้ากากกล่องละ 30 บาท วางเรียงเต็มชั้นให้ซื้อมั้ย?</div>
+    <div class="choices" id="q1">
+      <button class="choice" data-q="1" data-a="A">
+        <span class="clet">A</span><span>เจอเต็มชั้น — เพราะรัฐบังคับราคาไว้แล้ว</span>
+      </button>
+      <button class="choice" data-q="1" data-a="B">
+        <span class="clet">B</span><span>เจอไม่เยอะ แต่พอซื้อได้ ถ้าไปเร็ว ๆ</span>
+      </button>
+      <button class="choice" data-q="1" data-a="C">
+        <span class="clet">C</span><span>ไม่เจอเลย หมดตั้งแต่ร้านเปิด และจะเห็นคนต่อแถวยาว</span>
+      </button>
+      <button class="choice" data-q="1" data-a="D">
+        <span class="clet">D</span><span>อาจมีขายแต่ราคาแพงกว่า 30 ในที่ที่รัฐเข้าไม่ถึง</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb1"></div>
+  </div>
+  
+  <button class="reveal-toggle" onclick="toggleReveal('r0')">💡 ทำไมถึงเป็นแบบนั้น? เปิดดู</button>
+  <div class="reveal-content" id="r0">
+    <p class="body">
+      <strong>คำตอบคือ C และ D ทั้งคู่ถูก</strong> — นี่คือ paradox ที่น่าสนใจของราคาขั้นสูง<br><br>
+      เมื่อรัฐบังคับราคาที่ <em>ต่ำกว่า</em> ที่ตลาดยอมรับ:<br>
+      🔹 <strong>ผู้ผลิต</strong> — ไม่อยากผลิตออกมาขาย (ขายแล้วได้น้อย สู้เก็บไว้ดีกว่า)<br>
+      🔹 <strong>ผู้บริโภค</strong> — อยากซื้อมากขึ้น เพราะราคาถูก<br>
+      🔹 <strong>ผลลัพธ์</strong> — ของขาดแคลน (Shortage) คนต่อแถว คนไม่ได้ซื้อ<br>
+      🔹 <strong>ตลาดมืด</strong> — คนที่อยากได้จริง ๆ ยอมจ่ายแพงกว่า 30 ใต้โต๊ะ<br><br>
+      นี่ไม่ใช่ว่ารัฐทำผิด — แต่เป็นผลข้างเคียงที่ต้องเข้าใจ ว่าทำไมการกำหนดราคา "เพื่อช่วยคน" จึงมักกลายเป็นการ "ทำให้หาของยากขึ้น"
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 2: INTERACTIVE GRAPH -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">② ทดลองด้วยตัวเอง</div>
+  <h2>เลื่อนราคาขั้นสูง — ดูว่าเกิดอะไรขึ้น</h2>
+  <p class="body">ใช้เส้น D และ S เดียวกับบทที่แล้ว (P* = 3, Q* = 60k) — ลอง<strong>ลาก slider</strong>เพื่อกำหนด "ราคาขั้นสูง" ที่รัฐบังคับ แล้วสังเกตดู</p>
+  
+  <div class="lab">
+    <div class="lab-title">🔬 LAB — Price Ceiling Simulator</div>
+    <div class="lab-desc">ลองทำ 2 อย่าง: (1) ตั้ง ceiling ไว้สูงกว่า 3 บาท แล้วดูว่ามีผลมั้ย (2) ตั้งไว้ต่ำกว่า 3 บาท แล้วเทียบ</div>
+    
+    <canvas id="cvLab" class="gcanvas"></canvas>
+    
+    <div class="ctl">
+      <div class="ctl-row">
+        <label>ราคาขั้นสูง:</label>
+        <input type="range" id="ceilSlider" min="0.5" max="5.5" step="0.1" value="1.5">
+        <div class="val" id="ceilVal">฿ 1.50</div>
+      </div>
+      <div class="readout" id="readout"></div>
+    </div>
+  </div>
+  
+  <div class="qcard" style="margin-top:16px">
+    <div class="qlabel">💭 Think</div>
+    <div class="qtext">ถ้ารัฐตั้งราคาขั้นสูงที่ 5 บาท (สูงกว่าดุลยภาพ 3 บาท) จะเกิดอะไรขึ้น?</div>
+    <div class="choices" id="q2">
+      <button class="choice" data-q="2" data-a="A">
+        <span class="clet">A</span><span>เกิดของล้น (Excess Supply) ใหญ่มาก</span>
+      </button>
+      <button class="choice" data-q="2" data-a="B">
+        <span class="clet">B</span><span>เกิดของขาด (Excess Demand) ใหญ่มาก</span>
+      </button>
+      <button class="choice" data-q="2" data-a="C">
+        <span class="clet">C</span><span>ไม่เกิดผลอะไรเลย ตลาดขายที่ 3 บาทเหมือนเดิม</span>
+      </button>
+      <button class="choice" data-q="2" data-a="D">
+        <span class="clet">D</span><span>ผู้ขายจะขึ้นราคาไปที่ 5 บาททันที</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb2"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 3: THEORY -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">③ สรุปทฤษฎี</div>
+  
+  <div class="theory">
+    <div class="theory-label">★ Core Theory</div>
+    <h3>Price Ceiling (ราคาขั้นสูง)</h3>
+    <p>ราคาสูงสุดที่รัฐบาลกำหนด "ห้ามขายเกิน" — ตั้งใจจะช่วย<strong>ผู้บริโภค</strong>ที่เดือดร้อนกับราคาตลาดที่สูง</p>
+    <div class="formula">
+      กฎทองที่ต้องจำ:<br>
+      → ถ้า P̄ ≥ P*  (สูงหรือเท่าดุลยภาพ)  = <strong>ไม่มีผล</strong> (non-binding)<br>
+      → ถ้า P̄ &lt; P*  (ต่ำกว่าดุลยภาพ)    = <strong>มีผล</strong> (binding) → เกิด Shortage
+    </div>
+    <p>เมื่อ binding: Excess Demand = Qᴅ(P̄) − Qˢ(P̄) → ของขาด ต่อแถว ตลาดมืด</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 4: BLACK MARKET + EFFECTS -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">④ ผลข้างเคียงในโลกจริง</div>
+  <h2>อะไรจะเกิดขึ้นเมื่อของขาด?</h2>
+  
+  <div class="warnbox">
+    <div class="wlab">⚠️ Unintended Consequences</div>
+    <h3>ตลาดมืด (Black Market)</h3>
+    <p>
+      เมื่อ "ของในตลาดถูกต้อง" มีไม่พอ แต่คนยังอยากได้ — จะเกิด<strong>ตลาดใต้ดิน</strong>ที่ขายสินค้านี้ในราคาแพงกว่า<br>
+      ผู้ซื้อในตลาดมืดจะจ่ายราคา "ที่ตลาดยอมรับจริง ๆ" ซึ่งสูงกว่าทั้งราคาดุลยภาพเดิมเสียอีก — เพราะผู้ขายต้องเสี่ยงถูกจับ
+    </p>
+  </div>
+  
+  <h3 style="margin-top:20px">ตัวอย่างจริงที่เคยเกิดขึ้น</h3>
+  
+  <div class="rw-grid">
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">😷</span>หน้ากากอนามัยช่วงโควิด</div>
+      <div class="rw-desc">รัฐตั้งเพดาน 2.50 บาท/ชิ้น (ปี 2020) ผลคือ: ร้านขายของไม่สต๊อก ต้องซื้อในกลุ่ม Facebook ราคา 10–20 บาท/ชิ้น หรือรอคิวจองแอป</div>
+    </div>
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">⛽</span>ราคาน้ำมันในเวเนซุเอลา</div>
+      <div class="rw-desc">รัฐควบคุมราคาน้ำมันให้ถูกที่สุดในโลก — แต่ปั๊มน้ำมันหลายแห่งไม่มีน้ำมัน คนต่อแถวเป็นวัน บางคนจ่ายใต้โต๊ะเพื่อแซงคิว</div>
+    </div>
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">🏠</span>Rent Control (ค่าเช่าบ้าน)</div>
+      <div class="rw-desc">New York / Hong Kong — รัฐจำกัดค่าเช่าได้ไม่เกินเท่านี้ ผลคือเจ้าของปล่อยให้ตึกโทรม ไม่ปรับปรุง และผู้เช่าใหม่หาห้องว่างไม่ได้</div>
+    </div>
+  </div>
+  
+  <p class="body" style="margin-top:16px">
+    ในหนังสือเรียน ทางแก้ที่รัฐบาลมักทำควบคู่กัน คือ <strong>การปันส่วนสินค้า (Rationing)</strong> เช่น แจกคูปอง 1 คน/1 ชิ้น หรือ <strong>การนำเข้าสินค้าจากต่างประเทศ</strong> เพื่อเพิ่มอุปทานชดเชยของขาด
+  </p>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 5: CALCULATION -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑤ คำนวณ Excess Demand</div>
+  <h2>ตัวอย่างจากหนังสือ</h2>
+  
+  <div class="calc">
+    <p style="font-size:14px;font-weight:600;margin-bottom:10px">
+      📝 โจทย์: สินค้าชนิดหนึ่งมี...<br>
+      <span style="font-family:ui-monospace,monospace;font-size:13px;color:#bf360c">อุปสงค์: Qᴅ = −5P + 30<br>อุปทาน: Qˢ = 16 + 2P</span><br>
+      ถ้ารัฐกำหนดราคาขั้นสูง P̄ = 1 บาท/หน่วย จะเกิดอะไรขึ้น?
+    </p>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 1 — หา P* ก่อน (ต้องรู้ก่อนว่าตลาดปกติอยู่ที่เท่าไหร่)</div>
+      <div class="seq">Qᴅ = Qˢ<br>−5P + 30 = 16 + 2P<br>14 = 7P<br><strong style="color:#bf360c">P* = 2 บาท/หน่วย</strong> → Q* = 20 หน่วย</div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 2 — ตรวจว่า P̄ binding หรือไม่</div>
+      <div class="sexp">P̄ = 1 < P* = 2 → <strong style="color:#bf360c">Binding!</strong> (ต่ำกว่าดุลยภาพ → มีผล)</div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 3 — แทน P̄ = 1 เข้าไปในสมการ D และ S</div>
+      <div class="seq">Qᴅ(1) = −5(1) + 30 = <strong>25 หน่วย</strong> (คนอยากซื้อ)<br>Qˢ(1) = 16 + 2(1) = <strong>18 หน่วย</strong> (คนอยากขาย)</div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 4 — หา Excess Demand</div>
+      <div class="seq">Excess Demand = Qᴅ − Qˢ<br>= 25 − 18<br><strong style="color:#bf360c">= 7 หน่วย (ของขาด)</strong></div>
+      <div class="sexp">ทุกคนอยากซื้อ 25 แต่ตลาดมี 18 → 7 คนต้องกลับบ้านมือเปล่า หรือไปซื้อตลาดมืด</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 6: TRY IT -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑥ ลองทำด้วยตัวเอง</div>
+  
+  <div class="tryit">
+    <h3>📝 โจทย์ของคุณ</h3>
+    <p style="font-size:14px;line-height:1.7;margin-bottom:4px">
+      <span style="font-family:ui-monospace,monospace;font-size:13px">อุปสงค์: Qᴅ = 120 − 20P<br>อุปทาน: Qˢ = 10P</span>
+    </p>
+    <p style="font-size:13.5px;color:#666;margin-top:10px;margin-bottom:0">รัฐตั้งราคาขั้นสูง P̄ = 2 บาท/หน่วย จงหา <strong>Excess Demand</strong> (ของขาดกี่หน่วย)</p>
+    
+    <div class="tryit-input">
+      <input type="number" id="ansED" placeholder="Excess Demand = ? หน่วย" step="1">
+      <button onclick="checkAns()">ตรวจคำตอบ</button>
+    </div>
+    <div class="feedback" id="fbAns" style="margin-top:12px"></div>
+    
+    <button class="reveal-toggle" onclick="toggleReveal('rAns')" style="margin-top:12px">🔍 ขอดูวิธีทำ</button>
+    <div class="reveal-content" id="rAns">
+      <div class="calc" style="margin-top:8px">
+        <div class="calc-step">
+          <div class="slab">หา P* ก่อน</div>
+          <div class="seq">120 − 20P = 10P<br>120 = 30P<br><strong>P* = 4 บาท</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">ตรวจว่า P̄ = 2 binding หรือไม่</div>
+          <div class="seq">P̄(2) < P*(4) → <strong>Binding ✓</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">แทน P̄ = 2</div>
+          <div class="seq">Qᴅ = 120 − 20(2) = <strong>80 หน่วย</strong><br>Qˢ = 10(2) = <strong>20 หน่วย</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">Excess Demand</div>
+          <div class="seq">= Qᴅ − Qˢ = 80 − 20 = <strong style="color:#bf360c">60 หน่วย</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- TAKEAWAY -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="takeaway">
+    <div class="tlab">🎯 สรุป Key Takeaways</div>
+    <h3>4 ข้อที่ต้องจำ</h3>
+    <ul>
+      <li><strong>Price Ceiling = ราคาที่ห้ามขายเกิน</strong> — ตั้งใจช่วยผู้บริโภค</li>
+      <li><strong>มีผล (binding)</strong> เฉพาะเมื่อตั้งไว้ <em>ต่ำกว่า</em> ดุลยภาพเท่านั้น</li>
+      <li><strong>ผลลัพธ์คือ Excess Demand</strong> → ของขาด ต่อแถว ตลาดมืด</li>
+      <li><strong>วิธีแก้</strong>: ปันส่วน (rationing), นำเข้าสินค้า, หรือยกเลิกการตรึงราคา</li>
+    </ul>
+  </div>
+  
+  <div class="qcard" style="background:#ede7f6;border-color:#b39ddb">
+    <div class="qlabel" style="color:#4527a0">🔗 เชื่อมไปบทต่อไป</div>
+    <div class="qtext" style="margin-bottom:0;font-weight:500">
+      เราเพิ่งเห็นว่ารัฐช่วยผู้บริโภคด้วยการตรึงราคาต่ำ → ของขาด<br>
+      แล้วถ้ารัฐอยากช่วย <strong>ผู้ผลิต</strong> (เกษตรกร) ด้วยการตรึงราคา <em>สูง</em> กว่าตลาดล่ะ? จะเกิดอะไรขึ้น? → ไปต่อ <strong>4.3 ราคาขั้นต่ำ</strong>
+    </div>
+  </div>
+</div>
+
+<div class="botnav">
+  <button class="bnb" onclick="sendPrompt('กลับบทที่ 4.1')">← กลับ 4.1</button>
+  <button class="bnb pr" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 3: การกำหนดราคาขั้นต่ำ')">ต่อ 4.3 ราคาขั้นต่ำ →</button>
+</div>
+
+</div>
+
+<script>
+/* ══════ Quiz ══════ */
+const quizAnswers = {
+  '1': { correct: 'C', fb: {
+    'A': { type:'bad', msg:'🤔 <strong>ไม่น่าจะใช่นะ</strong> — ลองคิดจากมุมผู้ผลิต: ถ้าเขาเคยขายได้ 150 บาท แล้วรัฐบังคับให้ขาย 30 เขาจะยังอยากผลิตขายเต็มชั้นมั้ย? หรือเก็บของไว้ไม่ขาย/ไปขายใต้ดิน?' },
+    'B': { type:'bad', msg:'🤔 <strong>ใกล้แล้ว แต่ยังไม่ตรง</strong> — ไม่ใช่แค่ "เจอน้อย" แต่ราคา 30 บาทต่ำกว่าต้นทุนของหลายร้านจนไม่คุ้มจะเอาออกมาขายเลย คำตอบที่ตรงกว่าคือข้อ C' },
+    'C': { type:'good', msg:'✅ <strong>ถูกต้อง!</strong> นี่คือผลของ Price Ceiling ในชีวิตจริง — ของหายจากชั้น เพราะผู้ขายไม่อยากขายราคาต่ำ จะเห็นปรากฏการณ์ "ต่อแถว" และ "รอคิว" แทน' },
+    'D': { type:'good', msg:'✅ <strong>ถูกต้อง!</strong> นี่คือปรากฏการณ์ <strong>Black Market (ตลาดมืด)</strong> ที่เกิดขึ้นเสมอเมื่อรัฐคุมราคาต่ำกว่าที่ตลาดยอมรับ — คำตอบ C ก็ถูกเช่นกันนะ' }
+  }},
+  '2': { correct: 'C', fb: {
+    'A': { type:'bad', msg:'❌ ของล้นเกิดจาก Price Floor (ราคาขั้นต่ำ) ไม่ใช่ Ceiling ลองคิดใหม่ — ถ้า ceiling ตั้งสูงกว่าราคาตลาด รัฐไม่ได้บังคับให้ใครทำอะไรเลย' },
+    'B': { type:'bad', msg:'❌ ของขาดเกิดเมื่อ ceiling ตั้ง <em>ต่ำกว่า</em> ดุลยภาพ แต่ในคำถามนี้ ceiling (5) สูงกว่าดุลยภาพ (3)' },
+    'C': { type:'good', msg:'✅ <strong>เยี่ยม!</strong> นี่คือกรณี <strong>non-binding ceiling</strong> — ตลาดขายอยู่ที่ 3 บาทอยู่แล้ว รัฐบอกว่า "ห้ามเกิน 5" ก็เหมือนไม่ได้สั่งอะไร เพราะไม่มีใครอยากขายเกิน 3 อยู่แล้ว' },
+    'D': { type:'bad', msg:'❌ ผู้ขายไม่มีเหตุผลจะขึ้นราคาไปที่ 5 เพราะ ณ ราคาตลาด 3 บาท พวกเขาขายหมดอยู่แล้ว ถ้าขึ้นเป็น 5 ยอดขายจะลดลง (ตามกฎ Demand)' }
+  }}
+};
+
+document.querySelectorAll('.choice').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const q=btn.dataset.q, a=btn.dataset.a;
+    const answer=quizAnswers[q];
+    if(!answer)return;
+    
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(b=>{
+      b.classList.remove('correct','wrong');
+      b.disabled=true;
+      if(b.dataset.a===answer.correct){b.classList.add('correct')}
+      else if(b.dataset.a===a){b.classList.add('wrong')}
+    });
+    
+    // For question 1, both C and D are "correct"
+    if(q==='1' && a==='D'){
+      document.querySelector(`[data-q="1"][data-a="D"]`).classList.remove('wrong');
+      document.querySelector(`[data-q="1"][data-a="D"]`).classList.add('correct');
+    }
+    
+    const fb=answer.fb[a];
+    const fbEl=document.getElementById('fb'+q);
+    fbEl.className='feedback on '+fb.type;
+    fbEl.innerHTML=fb.msg;
+  });
+});
+
+function toggleReveal(id){
+  document.getElementById(id).classList.toggle('on');
+}
+
+/* Check answer */
+function checkAns(){
+  const ed=parseFloat(document.getElementById('ansED').value);
+  const fb=document.getElementById('fbAns');
+  
+  if(isNaN(ed)){
+    fb.className='feedback on bad';
+    fb.innerHTML='กรุณากรอกคำตอบก่อน';
+    return;
+  }
+  
+  if(Math.abs(ed-60)<0.5){
+    fb.className='feedback on good';
+    fb.innerHTML='🎉 <strong>ถูกต้อง!</strong> Excess Demand = 60 หน่วย — เก่งมาก! ตอนนี้คุณเข้าใจแล้วว่าราคาขั้นสูงสร้างของขาดเท่าไหร่';
+  } else if(Math.abs(ed-80)<0.5){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ <strong>80 เป็น Qᴅ</strong> (จำนวนที่คนอยากซื้อ) ไม่ใช่ Excess Demand<br>Excess Demand = Qᴅ − Qˢ นะ';
+  } else if(Math.abs(ed-20)<0.5){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ <strong>20 เป็น Qˢ</strong> (จำนวนที่คนอยากขาย) ไม่ใช่ Excess Demand<br>Excess Demand = Qᴅ − Qˢ = 80 − 20';
+  } else {
+    fb.className='feedback on bad';
+    fb.innerHTML='🤔 ยังไม่ตรงนะ ลองดูวิธีทำข้างล่าง และจำไว้ว่าต้องหา P* ก่อนเสมอ';
+  }
+}
+
+/* ══════ Interactive graph ══════ */
+(function(){
+  const cv=document.getElementById('cvLab');
+  const slider=document.getElementById('ceilSlider');
+  const ceilVal=document.getElementById('ceilVal');
+  const readout=document.getElementById('readout');
+  
+  const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+  
+  function sizeCanvas(){
+    const cssW=Math.min(640,window.innerWidth-80);
+    const cssH=Math.round(cssW*0.72);
+    const dpr=window.devicePixelRatio||1;
+    cv.width=Math.round(cssW*dpr);
+    cv.height=Math.round(cssH*dpr);
+    cv.style.width=cssW+'px';
+    cv.style.height=cssH+'px';
+    const ctx=cv.getContext('2d');
+    ctx.scale(dpr,dpr);
+    return {ctx,W:cssW,H:cssH};
+  }
+  
+  function draw(){
+    const {ctx,W,H}=sizeCanvas();
+    const Pceil=parseFloat(slider.value);
+    const Qd_at_ceil=120000-20000*Pceil;
+    const Qs_at_ceil=20000*Pceil;
+    const binding=Pceil<3;
+    
+    const ml=60,mr=20,mt=30,mb=45;
+    const pw=W-ml-mr,ph=H-mt-mb;
+    const xMax=140000,yMax=6.5;
+    const cx=v=>ml+(v/xMax)*pw;
+    const cy=v=>mt+ph-(v/yMax)*ph;
+    const TC=DK()?'#d4d4d4':'#1a1a1a';
+    const GC=DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';
+    const AC=DK()?'rgba(255,255,255,.22)':'rgba(0,0,0,.18)';
+    
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle=DK()?'#1a1a1a':'#fff';
+    ctx.fillRect(0,0,W,H);
+    
+    // Grid
+    ctx.font='10px sans-serif';
+    [1,2,3,4,5,6].forEach(v=>{
+      ctx.strokeStyle=GC;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();
+      ctx.fillStyle=TC;ctx.textAlign='right';ctx.fillText(v,ml-5,cy(v)+3);
+    });
+    [20000,40000,60000,80000,100000,120000].forEach(v=>{
+      ctx.strokeStyle=GC;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();
+      ctx.fillStyle=TC;ctx.textAlign='center';
+      ctx.fillText((v/1000)+'k',cx(v),mt+ph+14);
+    });
+    
+    // Axes
+    ctx.strokeStyle=AC;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+    ctx.fillStyle=TC;ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('ปริมาณ (Q)',ml+pw/2,mt+ph+30);
+    ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('ราคา P (บาท)',0,0);ctx.restore();
+    
+    // D line
+    ctx.strokeStyle='#1976d2';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(cx(0),cy(6));ctx.lineTo(cx(120000),cy(0));ctx.stroke();
+    ctx.fillStyle='#1976d2';ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+    ctx.fillText('D',cx(115000),cy(0.4));
+    
+    // S line
+    ctx.strokeStyle='#e65100';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(cx(0),cy(0));ctx.lineTo(cx(130000),cy(6.5));ctx.stroke();
+    ctx.fillStyle='#e65100';ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+    ctx.fillText('S',cx(120000),cy(6)-6);
+    
+    // Equilibrium
+    ctx.strokeStyle=DK()?'rgba(255,255,255,.15)':'rgba(0,0,0,.1)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(cx(60000),cy(3));ctx.lineTo(cx(60000),mt+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx(60000),cy(3));ctx.lineTo(ml,cy(3));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#c62828';
+    ctx.beginPath();ctx.arc(cx(60000),cy(3),4.5,0,2*Math.PI);ctx.fill();
+    ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(cx(60000),cy(3),4.5,0,2*Math.PI);ctx.stroke();
+    ctx.fillStyle='#c62828';ctx.font='bold 10px sans-serif';ctx.textAlign='left';
+    ctx.fillText('E* (P*=3)',cx(60000)+8,cy(3)-6);
+    
+    // Ceiling line
+    ctx.strokeStyle='#bf360c';ctx.lineWidth=3;ctx.setLineDash(binding?[]:[6,4]);
+    ctx.beginPath();ctx.moveTo(ml,cy(Pceil));ctx.lineTo(ml+pw,cy(Pceil));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#bf360c';ctx.font='bold 11px sans-serif';ctx.textAlign='right';
+    ctx.fillText(`P̄ = ${Pceil.toFixed(2)}`,ml+pw-5,cy(Pceil)-5);
+    
+    if(binding){
+      // Shaded shortage zone
+      ctx.fillStyle='rgba(191,54,12,.15)';
+      ctx.fillRect(cx(Qs_at_ceil),cy(Pceil),cx(Qd_at_ceil)-cx(Qs_at_ceil),ph-(cy(Pceil)-mt));
+      
+      // Qs and Qd dots
+      ctx.fillStyle='#e65100';
+      ctx.beginPath();ctx.arc(cx(Qs_at_ceil),cy(Pceil),6,0,2*Math.PI);ctx.fill();
+      ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx(Qs_at_ceil),cy(Pceil),6,0,2*Math.PI);ctx.stroke();
+      
+      ctx.fillStyle='#1976d2';
+      ctx.beginPath();ctx.arc(cx(Qd_at_ceil),cy(Pceil),6,0,2*Math.PI);ctx.fill();
+      ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx(Qd_at_ceil),cy(Pceil),6,0,2*Math.PI);ctx.stroke();
+      
+      // Arrow for shortage
+      const gapY=cy(Pceil);
+      const startX=cx(Qs_at_ceil);
+      const endX=cx(Qd_at_ceil);
+      ctx.strokeStyle='#b71c1c';ctx.lineWidth=2;
+      ctx.beginPath();
+      ctx.moveTo(startX,gapY+20);ctx.lineTo(endX,gapY+20);
+      ctx.moveTo(startX+8,gapY+16);ctx.lineTo(startX,gapY+20);ctx.lineTo(startX+8,gapY+24);
+      ctx.moveTo(endX-8,gapY+16);ctx.lineTo(endX,gapY+20);ctx.lineTo(endX-8,gapY+24);
+      ctx.stroke();
+      ctx.fillStyle='#b71c1c';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+      ctx.fillText('SHORTAGE',(startX+endX)/2,gapY+38);
+      
+      // Labels
+      ctx.fillStyle='#e65100';ctx.font='10px sans-serif';ctx.textAlign='center';
+      ctx.fillText('Qˢ='+Math.round(Qs_at_ceil/1000)+'k',cx(Qs_at_ceil),gapY-12);
+      ctx.fillStyle='#1976d2';
+      ctx.fillText('Qᴅ='+Math.round(Qd_at_ceil/1000)+'k',cx(Qd_at_ceil),gapY-12);
+    }
+    
+    // Title
+    ctx.fillStyle=TC;ctx.font='bold 12px sans-serif';ctx.textAlign='center';
+    ctx.fillText(binding?'🔴 Ceiling มีผล — เกิด Shortage':'⚪ Ceiling ไม่มีผล (non-binding)',ml+pw/2,mt-10);
+    
+    ceilVal.textContent='฿ '+Pceil.toFixed(2);
+    
+    if(binding){
+      const excess=Qd_at_ceil-Qs_at_ceil;
+      readout.innerHTML=
+        `สถานะ: <strong style="color:#bf360c">BINDING — ต่ำกว่า P*</strong><br>`+
+        `Qᴅ(${Pceil.toFixed(2)}) = <strong style="color:#1976d2">${Qd_at_ceil.toLocaleString()}</strong> (คนอยากซื้อ)<br>`+
+        `Qˢ(${Pceil.toFixed(2)}) = <strong style="color:#e65100">${Qs_at_ceil.toLocaleString()}</strong> (คนอยากขาย)<br>`+
+        `<strong style="color:#b71c1c">Excess Demand = ${excess.toLocaleString()} หน่วย (ของขาด!)</strong>`;
+    } else {
+      readout.innerHTML=
+        `สถานะ: <strong style="color:#666">NON-BINDING — สูงกว่า P*</strong><br>`+
+        `รัฐบังคับว่า "ห้ามขายเกิน ${Pceil.toFixed(2)}" แต่ตลาดขายอยู่ที่ P* = 3 บาทอยู่แล้ว<br>`+
+        `<strong style="color:#2e7d32">→ ไม่มีผลกระทบต่อตลาด</strong>`;
+    }
+  }
+  
+  slider.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',draw);
+  draw();
+})();
+
+function sendPrompt(msg){
+  if(msg==='กลับบทที่ 4.1'){window.location.href='chapter4_1.html';return}
+  if(msg==='กลับบทที่ 4'){window.location.href='chapter4.html';return}
+  if(typeof window.sendPrompt==='function' && window.sendPrompt !== sendPrompt){
+    window.sendPrompt(msg);
+  } else {
+    alert('กลับไปที่ช่องแชทแล้วพิมพ์ว่า:\n\n"'+msg+'"');
+  }
+}
+</script>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        หน้าหลัก
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

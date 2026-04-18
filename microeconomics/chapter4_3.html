@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 4.3 — การกำหนดราคาขั้นต่ำ</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:680px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
+.backbtn:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.backbtn:hover{background:#242424}}
+.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#e8f5e9;color:#2e7d32}
+@media(prefers-color-scheme:dark){.badge{background:#0d1f0d;color:#81c784}}
+.badge.sec{background:#1a1a1a;color:#fff}
+@media(prefers-color-scheme:dark){.badge.sec{background:#fff;color:#1a1a1a}}
+
+/* Section hero — green theme */
+.shero{background:linear-gradient(135deg,#e8f5e9 0%,#f1f8f4 100%);border-radius:16px;padding:20px 22px;margin:14px 0 20px;border:1px solid #c8e6c9}
+@media(prefers-color-scheme:dark){.shero{background:linear-gradient(135deg,#0d1f0d 0%,#1a1a1a 100%);border-color:#2a4a2a}}
+.shero .num{font-size:11px;font-weight:700;color:#2e7d32;letter-spacing:.1em;margin-bottom:4px}
+@media(prefers-color-scheme:dark){.shero .num{color:#81c784}}
+.shero h1{font-size:22px;font-weight:800;margin-bottom:8px;color:#2e7d32;line-height:1.3}
+@media(prefers-color-scheme:dark){.shero h1{color:#81c784}}
+.shero p{font-size:14px;line-height:1.75;color:#555}
+@media(prefers-color-scheme:dark){.shero p{color:#aaa}}
+
+.step{display:inline-block;font-size:11px;font-weight:700;color:#2e7d32;background:#e8f5e9;padding:3px 10px;border-radius:99px;margin-bottom:10px;letter-spacing:.04em}
+@media(prefers-color-scheme:dark){.step{background:#0d1f0d;color:#81c784}}
+
+h2{font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.4}
+h3{font-size:15.5px;font-weight:700;margin:14px 0 6px}
+p.body{font-size:14px;line-height:1.75;color:#444;margin-bottom:12px}
+@media(prefers-color-scheme:dark){p.body{color:#bbb}}
+
+.block{margin-bottom:28px}
+
+/* Question card */
+.qcard{background:#fff8e1;border:1.5px solid #ffe082;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.qcard{background:#2a2100;border-color:#6b5200}}
+.qcard .qlabel{font-size:11px;font-weight:700;color:#8a5a00;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.qcard .qlabel{color:#ffd54f}}
+.qcard .qtext{font-size:15px;font-weight:600;margin-bottom:12px;line-height:1.5}
+
+.choices{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.choice{padding:12px 14px;background:#fff;border:1.5px solid #eee;border-radius:10px;cursor:pointer;font-size:13.5px;line-height:1.5;text-align:left;font-family:inherit;color:inherit;transition:all .15s;display:flex;align-items:flex-start;gap:10px}
+@media(prefers-color-scheme:dark){.choice{background:#1a1a1a;border-color:#333}}
+.choice:hover{border-color:#2e7d32;background:#f1f8f4}
+@media(prefers-color-scheme:dark){.choice:hover{background:#0d1f0d}}
+.choice .clet{font-weight:700;color:#2e7d32;flex-shrink:0}
+@media(prefers-color-scheme:dark){.choice .clet{color:#81c784}}
+.choice.correct{background:#e8f5e9;border-color:#66bb6a}
+@media(prefers-color-scheme:dark){.choice.correct{background:#0d2a10;border-color:#2e7d32}}
+.choice.wrong{background:#ffebee;border-color:#ef5350;opacity:.7}
+@media(prefers-color-scheme:dark){.choice.wrong{background:#2a0d0d;border-color:#c62828}}
+
+.feedback{display:none;padding:12px 14px;border-radius:10px;font-size:13.5px;line-height:1.7;margin-top:8px}
+.feedback.on{display:block}
+.feedback.good{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+@media(prefers-color-scheme:dark){.feedback.good{background:#0d2a10;border-color:#2e7d32;color:#a5d6a7}}
+.feedback.bad{background:#fff3e0;border:1px solid #ffb74d;color:#e65100}
+@media(prefers-color-scheme:dark){.feedback.bad{background:#2a1a00;border-color:#f57c00;color:#ffb74d}}
+
+/* Lab */
+.lab{background:#f1f8f4;border:1.5px solid #c8e6c9;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.lab{background:#0d1f0d;border-color:#2a4a2a}}
+.lab-title{font-size:12.5px;font-weight:700;color:#2e7d32;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+@media(prefers-color-scheme:dark){.lab-title{color:#81c784}}
+.lab-desc{font-size:13px;color:#666;margin-bottom:14px;line-height:1.6}
+@media(prefers-color-scheme:dark){.lab-desc{color:#999}}
+
+canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #ddd;display:block;background:#fff;margin-bottom:10px}
+@media(prefers-color-scheme:dark){canvas.gcanvas{background:#1a1a1a;border-color:#333}}
+
+.ctl{background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #ddd;margin-top:8px}
+@media(prefers-color-scheme:dark){.ctl{background:#1a1a1a;border-color:#333}}
+.ctl-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.ctl-row:last-child{margin-bottom:0}
+.ctl label{font-size:12.5px;font-weight:600;min-width:80px}
+.ctl input[type=range]{flex:1;min-width:120px;accent-color:#2e7d32}
+.ctl .val{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;color:#2e7d32;font-weight:700;min-width:68px;text-align:right}
+@media(prefers-color-scheme:dark){.ctl .val{color:#81c784}}
+.ctl .readout{font-size:12px;color:#666;margin-top:4px;line-height:1.6;padding:8px 10px;background:#f5f5f5;border-radius:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace}
+@media(prefers-color-scheme:dark){.ctl .readout{background:#242424;color:#aaa}}
+
+/* Comparison table */
+.cmpr{background:#fff;border:1.5px solid #ddd;border-radius:12px;overflow:hidden;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.cmpr{background:#1a1a1a;border-color:#333}}
+.cmpr table{width:100%;border-collapse:collapse;font-size:13px}
+.cmpr th{background:#f5f5f5;padding:10px 12px;text-align:left;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#555}
+@media(prefers-color-scheme:dark){.cmpr th{background:#242424;color:#aaa}}
+.cmpr td{padding:12px;border-top:1px solid #eee;vertical-align:top}
+@media(prefers-color-scheme:dark){.cmpr td{border-top-color:#2a2a2a}}
+.cmpr td:first-child{font-weight:600;width:35%;background:#fafafa}
+@media(prefers-color-scheme:dark){.cmpr td:first-child{background:#151515}}
+.cmpr .cpc{color:#bf360c}
+.cmpr .cpf{color:#2e7d32}
+@media(prefers-color-scheme:dark){.cmpr .cpc{color:#ff8a65}.cmpr .cpf{color:#81c784}}
+
+/* Theory */
+.theory{background:#1a1a1a;color:#fff;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.theory{background:#0a0a0a;border:1px solid #333}}
+.theory-label{font-size:11px;font-weight:700;color:#81c784;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.theory h3{font-size:16px;font-weight:700;margin-bottom:10px;color:#fff}
+.theory p{font-size:13.5px;line-height:1.75;color:#d0d0d0;margin-bottom:8px}
+.theory strong{color:#ffd54f}
+.theory .formula{background:rgba(129,199,132,.12);border-left:3px solid #81c784;padding:10px 12px;margin:10px 0;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13.5px;color:#fff;border-radius:4px}
+
+/* Calc */
+.calc{background:#fff;border:1.5px solid #c8e6c9;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.calc{background:#1a1a1a;border-color:#2a4a2a}}
+.calc-step{padding:10px 0;border-bottom:1px dashed #ddd}
+.calc-step:last-child{border-bottom:none}
+@media(prefers-color-scheme:dark){.calc-step{border-bottom-color:#333}}
+.calc-step .slab{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.calc-step .seq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;line-height:1.8;background:#f1f8f4;padding:8px 10px;border-radius:6px;margin-top:4px}
+@media(prefers-color-scheme:dark){.calc-step .seq{background:#0d1f0d}}
+.calc-step .sexp{font-size:13px;color:#666;line-height:1.6;margin-top:6px}
+@media(prefers-color-scheme:dark){.calc-step .sexp{color:#aaa}}
+
+/* Revenue split visualization */
+.revenue-split{background:#fff;border:1.5px solid #c8e6c9;border-radius:12px;padding:16px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.revenue-split{background:#1a1a1a;border-color:#2a4a2a}}
+.rev-title{font-size:13px;font-weight:700;margin-bottom:12px;color:#2e7d32}
+@media(prefers-color-scheme:dark){.rev-title{color:#81c784}}
+.rev-bar{display:flex;height:40px;border-radius:8px;overflow:hidden;font-size:11.5px;font-weight:600;color:#fff;margin-bottom:6px}
+.rev-part{display:flex;align-items:center;justify-content:center;padding:0 6px;text-align:center;line-height:1.2}
+.rev-part.market{background:#1976d2}
+.rev-part.govt{background:#2e7d32}
+.rev-legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:#666}
+@media(prefers-color-scheme:dark){.rev-legend{color:#aaa}}
+.rev-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
+
+/* Real world cards */
+.rw-grid{display:grid;gap:12px;margin-bottom:16px}
+.rw-card{background:#fff;border:1.5px solid #eee;border-radius:12px;padding:14px 16px}
+@media(prefers-color-scheme:dark){.rw-card{background:#1a1a1a;border-color:#333}}
+.rw-card .rw-title{font-size:13.5px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.rw-card .rw-desc{font-size:13px;color:#666;line-height:1.65}
+@media(prefers-color-scheme:dark){.rw-card .rw-desc{color:#aaa}}
+.rw-card .rw-icon{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;background:#e8f5e9}
+@media(prefers-color-scheme:dark){.rw-card .rw-icon{background:#0d1f0d}}
+
+/* Try it */
+.tryit{background:#fff3e0;border:1.5px solid #ffb74d;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.tryit{background:#2a1a00;border-color:#e65100}}
+.tryit h3{color:#e65100;margin-top:0}
+@media(prefers-color-scheme:dark){.tryit h3{color:#ffb74d}}
+.tryit-input{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tryit-input input{flex:1;min-width:80px;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;font-family:ui-monospace,'SF Mono',Menlo,monospace;background:#fff;color:inherit}
+@media(prefers-color-scheme:dark){.tryit-input input{background:#1a1a1a;border-color:#444}}
+.tryit-input button{padding:10px 20px;background:#e65100;color:#fff;border:none;border-radius:8px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.tryit-input button:hover{background:#bf360c}
+
+/* Takeaway */
+.takeaway{background:linear-gradient(135deg,#e8f5e9 0%,#f1f8f4 100%);border:1.5px solid #66bb6a;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.takeaway{background:linear-gradient(135deg,#0d1f0d 0%,#0a0a0a 100%);border-color:#388e3c}}
+.takeaway .tlab{font-size:11px;font-weight:700;color:#2e7d32;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.takeaway .tlab{color:#81c784}}
+.takeaway h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.takeaway ul{list-style:none;padding:0}
+.takeaway li{padding:6px 0 6px 24px;position:relative;font-size:13.5px;line-height:1.6}
+.takeaway li::before{content:'✓';position:absolute;left:0;color:#2e7d32;font-weight:700;font-size:15px}
+@media(prefers-color-scheme:dark){.takeaway li::before{color:#81c784}}
+
+/* Reveal */
+.reveal-toggle{width:100%;padding:10px 14px;border:1.5px dashed #999;border-radius:10px;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:inherit;margin-bottom:10px;font-family:inherit}
+.reveal-toggle:hover{border-color:#2e7d32;color:#2e7d32}
+@media(prefers-color-scheme:dark){.reveal-toggle:hover{color:#81c784}}
+.reveal-content{display:none}
+.reveal-content.on{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+/* Bottom nav */
+.botnav{display:flex;gap:8px;margin-top:32px;padding-top:16px;border-top:1px solid #eee}
+@media(prefers-color-scheme:dark){.botnav{border-color:#333}}
+.bnb{flex:1;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;color:inherit;text-align:center;font-family:inherit}
+@media(prefers-color-scheme:dark){.bnb{border-color:#444}}
+.bnb:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.bnb:hover{background:#242424}}
+.bnb.pr{background:#2e7d32;border-color:#2e7d32;color:#fff;font-weight:700}
+.bnb.pr:hover{background:#1b5e20}
+
+/* Progress */
+.progress{display:flex;gap:4px;margin:10px 0 20px}
+.pbar{flex:1;height:5px;border-radius:3px;background:#eee}
+@media(prefers-color-scheme:dark){.pbar{background:#333}}
+.pbar.current{background:#2e7d32}
+.pbar.done{background:#4caf50}
+</style>
+
+<style>
+/* ═══════════ Ajarn.Kwan top bar + footer ═══════════ */
+.ajk-shell-theme { --ajk-primary:#4338ca;--ajk-primary-soft:#ede9fe;--ajk-primary-dark:#3730a3;--ajk-ink:#1d1633;--ajk-muted:#6b6480;--ajk-border:#e5e1f3;--ajk-surface:#ffffff; }
+.ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--ajk-border);font-family:'Noto Sans Thai',system-ui,-apple-system,sans-serif;color:var(--ajk-ink);margin:-16px -16px 0}
+.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:'Noto Sans Thai',system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.ajk-back-btn svg{width:14px;height:14px;flex-shrink:0}
+.ajk-back-btn:hover{background:var(--ajk-primary);color:#fff;transform:translateX(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.ajk-brand{flex:1;min-width:0;text-align:right;line-height:1.25}
+.ajk-brand-course{font-size:13.5px;font-weight:700;color:var(--ajk-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.ajk-brand-author{font-size:11px;color:var(--ajk-muted);font-weight:500;display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.ajk-brand-author-dot{width:5px;height:5px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
+.ajk-brand-author-at{color:var(--ajk-primary);font-weight:700;padding:0 1px}
+@media(max-width:520px){.ajk-back-btn span{display:none}.ajk-back-btn{padding:9px}.ajk-back-btn svg{width:16px;height:16px}.ajk-brand-course{font-size:12.5px}.ajk-brand-author{font-size:10.5px}.ajk-topbar-inner{padding:8px 12px;min-height:52px;gap:10px}}
+.ajk-footer{margin:64px -16px 0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--ajk-primary-soft) 100%);border-top:1px solid var(--ajk-border);padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
+.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}
+.ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+.ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--ajk-primary);opacity:.35}
+.ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
+.ajk-footer-name{font-family:'Noto Serif Thai','Noto Sans Thai',serif;font-size:24px;font-weight:700;color:var(--ajk-ink);margin:0 0 4px;letter-spacing:-.01em}
+.ajk-footer-sub{font-size:12.5px;color:var(--ajk-muted);letter-spacing:.02em;margin-bottom:26px}
+.ajk-footer-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.ajk-footer-btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-surface);border:1px solid var(--ajk-border);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;transition:all .18s;cursor:pointer;font-family:'Noto Sans Thai',system-ui,sans-serif}
+.ajk-footer-btn svg{width:15px;height:15px}
+.ajk-footer-btn:hover{color:var(--ajk-primary);border-color:var(--ajk-primary);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.ajk-footer-bottom{font-size:11.5px;color:var(--ajk-muted);letter-spacing:.02em;padding-top:22px;border-top:1px solid var(--ajk-border);line-height:1.8}
+.ajk-footer-bottom strong{color:var(--ajk-ink);font-weight:700}
+@media(max-width:520px){.ajk-footer{padding:36px 14px 22px;margin-top:48px}.ajk-footer-name{font-size:21px}.ajk-footer-links{gap:6px}.ajk-footer-btn{padding:8px 13px;font-size:12px}}
+</style>
+</head>
+<body>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="../index.html" aria-label="กลับหน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 4.3 · ราคาขั้นต่ำ</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+
+<div class="topnav">
+  <a class="backbtn" href="chapter4.html">← กลับบทที่ 4</a>
+  <span class="badge">บทที่ 4</span>
+  <span class="badge sec">4.3</span>
+</div>
+
+<div class="progress">
+  <div class="pbar done"></div>
+  <div class="pbar done"></div>
+  <div class="pbar current"></div>
+  <div class="pbar"></div>
+  <div class="pbar"></div>
+</div>
+
+<!-- HERO -->
+<div class="shero">
+  <div class="num">SECTION 4.3</div>
+  <h1>การกำหนดราคาขั้นต่ำ (Price Floor)</h1>
+  <p>ราคาในตลาดต่ำลง <em>เกษตรกร</em>ขายข้าวได้ไม่คุ้มทุน รัฐต้องช่วย<br>บทนี้พาไปดูว่า "ประกันราคา" ทำงานยังไง และ <strong>ใครเป็นคนจ่ายเงินส่วนเกินกันแน่</strong></p>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 1: HOOK -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">① ลองคิดตามสถานการณ์</div>
+  <h2>โครงการจำนำข้าว ปี 2011–2014</h2>
+  <p class="body">
+    ตอนนั้น ราคาข้าวเปลือกในตลาดอยู่ที่ <strong>กิโลกรัมละ 8 บาท</strong> เกษตรกรบ่นว่าต่ำเกินไป ไม่คุ้มปุ๋ย ไม่คุ้มแรง ทำนาแล้วขาดทุน<br>
+    รัฐบาลเลยออกนโยบาย <strong style="color:#2e7d32">"จำนำข้าวทุกเม็ด กิโลกรัมละ 15 บาท"</strong> — ใครมีข้าว มารับเงินไปเลย
+  </p>
+  
+  <div class="qcard">
+    <div class="qlabel">💭 Quick Thinking</div>
+    <div class="qtext">คิดว่าจะเกิดอะไรขึ้นกับจำนวนข้าวที่ออกมาในตลาด?</div>
+    <div class="choices" id="q1">
+      <button class="choice" data-q="1" data-a="A">
+        <span class="clet">A</span><span>เท่าเดิม เพราะข้าวขึ้นกับฤดูกาล ไม่ใช่ราคา</span>
+      </button>
+      <button class="choice" data-q="1" data-a="B">
+        <span class="clet">B</span><span>น้อยลง เพราะเกษตรกรคิดว่าราคา 15 บาทยังไม่พอ</span>
+      </button>
+      <button class="choice" data-q="1" data-a="C">
+        <span class="clet">C</span><span>เยอะขึ้นมาก — ทุกคนแห่กันมาปลูกข้าว/ปลูกซ้ำ</span>
+      </button>
+      <button class="choice" data-q="1" data-a="D">
+        <span class="clet">D</span><span>เท่าเดิมแต่ราคาแพงขึ้นทั่วประเทศ</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb1"></div>
+  </div>
+  
+  <div class="qcard">
+    <div class="qlabel">💭 Think again</div>
+    <div class="qtext">ถ้ามีข้าวออกมา <em>มากเกิน</em> คนกินข้าว — คิดว่าใครจะเป็นคนซื้อข้าวส่วนเกินนั้น?</div>
+    <div class="choices" id="q2">
+      <button class="choice" data-q="2" data-a="A">
+        <span class="clet">A</span><span>พ่อค้าคนกลาง — พวกเขามีเงินและที่เก็บ</span>
+      </button>
+      <button class="choice" data-q="2" data-a="B">
+        <span class="clet">B</span><span>ผู้บริโภค — คนจะซื้อข้าวตุนไว้</span>
+      </button>
+      <button class="choice" data-q="2" data-a="C">
+        <span class="clet">C</span><span>รัฐบาลเอง — เพราะรัฐสัญญาจะรับซื้อที่ 15 บาท</span>
+      </button>
+      <button class="choice" data-q="2" data-a="D">
+        <span class="clet">D</span><span>ต่างประเทศ — ส่งออกไปขายเวียดนาม/ฟิลิปปินส์</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb2"></div>
+  </div>
+  
+  <button class="reveal-toggle" onclick="toggleReveal('r0')">💡 เข้าใจแล้ว? อยากดูว่าทฤษฎีพูดยังไง</button>
+  <div class="reveal-content" id="r0">
+    <p class="body">
+      <strong>คำตอบคือ C ทั้ง 2 ข้อ</strong> — นี่คือหัวใจของ Price Floor:<br><br>
+      🌾 <strong>ราคาสูงขึ้น → ผู้ผลิตผลิตมากขึ้น</strong> (Law of Supply — Slope บวก)<br>
+      🏪 <strong>ราคาสูงขึ้น → ผู้บริโภคซื้อน้อยลง</strong> (Law of Demand — Slope ลบ)<br>
+      ⚖️ <strong>ผลคือ: ผลิตล้น (Excess Supply)</strong><br>
+      💰 <strong>ถ้ารัฐสัญญาว่าจะรับซื้อ</strong> ทุกกิโลที่ขายไม่ออก → รัฐต้องมีเงินพอจ่าย<br><br>
+      ในโครงการจำนำข้าวจริง ๆ รัฐใช้งบไปประมาณ <strong>8 แสนล้านบาท</strong> ตอนปิดโครงการ โกดังเต็มไปด้วยข้าวหลายล้านตัน
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 2: INTERACTIVE GRAPH -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">② ทดลองด้วยตัวเอง</div>
+  <h2>เลื่อนราคาขั้นต่ำ — ดูว่าเกิดอะไรขึ้น</h2>
+  <p class="body">ใช้เส้น D และ S เดียวกับบทก่อนหน้า (P* = 3, Q* = 60k) — ลอง<strong>ลาก slider</strong>กำหนด "ราคาขั้นต่ำ" ที่รัฐประกัน แล้วสังเกตผล</p>
+  
+  <div class="lab">
+    <div class="lab-title">🔬 LAB — Price Floor Simulator</div>
+    <div class="lab-desc">ทดลอง 2 อย่าง: (1) ตั้ง floor ไว้ต่ำกว่า 3 บาท แล้วดูว่ามีผลมั้ย (2) ตั้งไว้สูงกว่า 3 บาท แล้วดู Excess Supply</div>
+    
+    <canvas id="cvLab" class="gcanvas"></canvas>
+    
+    <div class="ctl">
+      <div class="ctl-row">
+        <label>ราคาขั้นต่ำ:</label>
+        <input type="range" id="floorSlider" min="0.5" max="5.5" step="0.1" value="4.5">
+        <div class="val" id="floorVal">฿ 4.50</div>
+      </div>
+      <div class="readout" id="readout"></div>
+    </div>
+  </div>
+  
+  <div class="qcard" style="margin-top:16px">
+    <div class="qlabel">💭 Think</div>
+    <div class="qtext">ถ้ารัฐตั้งราคาขั้นต่ำที่ 2 บาท (ต่ำกว่าดุลยภาพ 3 บาท) จะเกิดอะไรขึ้น?</div>
+    <div class="choices" id="q3">
+      <button class="choice" data-q="3" data-a="A">
+        <span class="clet">A</span><span>เกิดของล้น — Excess Supply ขนาดใหญ่</span>
+      </button>
+      <button class="choice" data-q="3" data-a="B">
+        <span class="clet">B</span><span>เกิดของขาด — Excess Demand ขนาดใหญ่</span>
+      </button>
+      <button class="choice" data-q="3" data-a="C">
+        <span class="clet">C</span><span>ไม่มีผลอะไร ตลาดขายที่ 3 บาทเหมือนเดิม</span>
+      </button>
+      <button class="choice" data-q="3" data-a="D">
+        <span class="clet">D</span><span>ผู้ผลิตจะลดราคาลงเหลือ 2 บาททันที</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb3"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 3: THEORY -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">③ สรุปทฤษฎี</div>
+  
+  <div class="theory">
+    <div class="theory-label">★ Core Theory</div>
+    <h3>Price Floor (ราคาขั้นต่ำ)</h3>
+    <p>ราคาต่ำสุดที่รัฐบาลประกัน "ห้ามขายต่ำกว่า" — ตั้งใจช่วย<strong>ผู้ผลิต</strong>ที่เดือดร้อนกับราคาตลาดที่ต่ำ</p>
+    <div class="formula">
+      กฎทองที่ต้องจำ:<br>
+      → ถ้า P̲ ≤ P*  (ต่ำหรือเท่าดุลยภาพ)  = <strong>ไม่มีผล</strong> (non-binding)<br>
+      → ถ้า P̲ &gt; P*  (สูงกว่าดุลยภาพ)    = <strong>มีผล</strong> (binding) → เกิด Surplus
+    </div>
+    <p>เมื่อ binding: Excess Supply = Qˢ(P̲) − Qᴅ(P̲) → ของล้น — <strong>รัฐต้องรับซื้อเอง</strong> เพื่อให้ผู้ผลิตได้ราคา P̲ ตามที่ประกันไว้</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 4: CEILING vs FLOOR -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">④ เปรียบเทียบ Ceiling vs Floor</div>
+  <h2>ตัดกันให้เห็นชัด</h2>
+  <p class="body">สังเกตว่า <strong>ทั้งสองเป็นเหรียญคนละด้าน</strong> ของเรื่องเดียวกัน — ลองดูตารางนี้:</p>
+  
+  <div class="cmpr">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th class="cpc">Ceiling (4.2)</th>
+          <th class="cpf">Floor (4.3)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ช่วยใคร?</td>
+          <td class="cpc">ผู้บริโภค</td>
+          <td class="cpf">ผู้ผลิต</td>
+        </tr>
+        <tr>
+          <td>ตั้งราคาไว้ที่ไหน?</td>
+          <td class="cpc">ต่ำกว่า P*</td>
+          <td class="cpf">สูงกว่า P*</td>
+        </tr>
+        <tr>
+          <td>เกิดอะไร?</td>
+          <td class="cpc">Excess Demand<br><em style="font-size:12px">(ของขาด)</em></td>
+          <td class="cpf">Excess Supply<br><em style="font-size:12px">(ของล้น)</em></td>
+        </tr>
+        <tr>
+          <td>รัฐต้องทำอะไรต่อ?</td>
+          <td class="cpc">ปันส่วน / นำเข้า</td>
+          <td class="cpf">รับซื้อส่วนเกิน</td>
+        </tr>
+        <tr>
+          <td>ใครเสียเปรียบ?</td>
+          <td class="cpc">ผู้ผลิต + คนที่ซื้อไม่ได้</td>
+          <td class="cpf">ผู้บริโภค + รัฐ (ที่ต้องจ่าย)</td>
+        </tr>
+        <tr>
+          <td>ผลข้างเคียง</td>
+          <td class="cpc">ตลาดมืด</td>
+          <td class="cpf">สต๊อกเต็มโกดัง</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <h3 style="margin-top:20px">ตัวอย่างจริงของ Price Floor</h3>
+  <div class="rw-grid">
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">🌾</span>โครงการจำนำข้าว (ไทย 2011–2014)</div>
+      <div class="rw-desc">รับจำนำที่ 15 บาท/กก. สูงกว่าตลาด 8 บาท เกษตรกรกำไร แต่รัฐใช้งบ 8 แสนล้าน โกดังเต็ม ข้าวเสื่อมคุณภาพ</div>
+    </div>
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">💼</span>ค่าแรงขั้นต่ำ (Minimum Wage)</div>
+      <div class="rw-desc">รัฐตั้งค่าแรงต่ำสุดสูงกว่าที่ตลาดจะจ่าย → แรงงานที่มีงานจะได้ค่าตอบแทนดีขึ้น แต่อาจมีคนตกงานเพราะนายจ้างจ้างไม่ไหว</div>
+    </div>
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">🥛</span>EU Milk Quota</div>
+      <div class="rw-desc">ประกันราคานม — ผลคือ "ภูเขานม" (Milk lake / Butter mountain) ที่ยุโรปสต๊อกไว้จำนวนมหาศาลในยุค 80s</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 5: CALCULATION -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑤ คำนวณ: รัฐต้องจ่ายเท่าไหร่?</div>
+  <h2>ตัวอย่างจากหนังสือ</h2>
+  
+  <div class="calc">
+    <p style="font-size:14px;font-weight:600;margin-bottom:10px">
+      📝 โจทย์:<br>
+      <span style="font-family:ui-monospace,monospace;font-size:13px;color:#2e7d32">อุปสงค์: Qᴅ = 120 − 20P<br>อุปทาน: Qˢ = 10P</span><br>
+      ถ้ารัฐประกันราคาขั้นต่ำ P̲ = 5 บาท/หน่วย — เกิดอะไรขึ้น?
+    </p>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 1 — หาดุลยภาพก่อน</div>
+      <div class="seq">Qᴅ = Qˢ<br>120 − 20P = 10P<br>120 = 30P<br><strong style="color:#2e7d32">P* = 4 บาท, Q* = 40 หน่วย</strong></div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 2 — ตรวจว่า binding หรือไม่</div>
+      <div class="sexp">P̲ = 5 > P* = 4 → <strong style="color:#2e7d32">Binding!</strong> (สูงกว่าดุลยภาพ → มีผล)</div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 3 — แทน P̲ = 5 เข้าไปในสมการ D และ S</div>
+      <div class="seq">Qᴅ(5) = 120 − 20(5) = <strong>20 หน่วย</strong> (คนอยากซื้อ)<br>Qˢ(5) = 10(5) = <strong>50 หน่วย</strong> (ผู้ผลิตอยากขาย)</div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 4 — Excess Supply และ งบที่รัฐต้องจ่าย</div>
+      <div class="seq">Excess Supply = Qˢ − Qᴅ = 50 − 20 = <strong>30 หน่วย</strong><br><br>
+        <em>ถ้ารัฐรับซื้อส่วนเกินที่ 5 บาท:</em><br>
+        งบที่รัฐจ่าย = 30 × 5 = <strong style="color:#2e7d32">150 บาท</strong></div>
+      <div class="sexp">ถ้ารัฐ<em>ไม่</em>รับซื้อ ผู้ผลิตจะขายได้แค่ 20 หน่วยที่ราคา 5 บาท = รายได้ 100 บาท แต่เหลือข้าว 30 หน่วยขายไม่ออก</div>
+    </div>
+  </div>
+  
+  <div class="revenue-split">
+    <div class="rev-title">💰 รายได้ทั้งหมดของเกษตรกรแตกตัวยังไง?</div>
+    <div class="rev-bar">
+      <div class="rev-part market" style="flex:2">จากตลาด 100 บาท (40%)</div>
+      <div class="rev-part govt" style="flex:3">จากรัฐ 150 บาท (60%)</div>
+    </div>
+    <div class="rev-legend">
+      <span><span class="rev-dot" style="background:#1976d2"></span>ขายในตลาดได้ = Qᴅ × P̲ = 20 × 5 = <strong>100</strong></span>
+      <span><span class="rev-dot" style="background:#2e7d32"></span>รัฐรับซื้อ = Excess × P̲ = 30 × 5 = <strong>150</strong></span>
+    </div>
+    <p style="margin-top:10px;font-size:12px;color:#666;line-height:1.6">
+      @ เกษตรกรได้ <strong>250 บาท</strong> ทั้งหมด → แต่ <strong>60% มาจากภาษีประชาชน</strong> ไม่ได้มาจากตลาดจริง ๆ นี่คือหัวใจของ Price Floor
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 6: TRY IT -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑥ ลองทำด้วยตัวเอง</div>
+  
+  <div class="tryit">
+    <h3>📝 โจทย์ของคุณ</h3>
+    <p style="font-size:14px;line-height:1.7;margin-bottom:4px">
+      <span style="font-family:ui-monospace,monospace;font-size:13px">อุปสงค์: Qᴅ = 100 − 10P<br>อุปทาน: Qˢ = 20P − 20</span>
+    </p>
+    <p style="font-size:13.5px;color:#666;margin-top:10px;margin-bottom:0">รัฐประกันราคาขั้นต่ำ P̲ = 6 บาท/หน่วย ให้หา:<br>
+      1) Excess Supply กี่หน่วย?<br>
+      2) งบประมาณที่รัฐต้องใช้รับซื้อส่วนเกิน (บาท)</p>
+    
+    <div class="tryit-input">
+      <input type="number" id="ansES" placeholder="Excess Supply = ?" step="1">
+      <input type="number" id="ansBudget" placeholder="งบรัฐ = ? บาท" step="1">
+      <button onclick="checkAns()">ตรวจคำตอบ</button>
+    </div>
+    <div class="feedback" id="fbAns" style="margin-top:12px"></div>
+    
+    <button class="reveal-toggle" onclick="toggleReveal('rAns')" style="margin-top:12px">🔍 ขอดูวิธีทำ</button>
+    <div class="reveal-content" id="rAns">
+      <div class="calc" style="margin-top:8px">
+        <div class="calc-step">
+          <div class="slab">หา P* ก่อน</div>
+          <div class="seq">100 − 10P = 20P − 20<br>120 = 30P<br><strong>P* = 4 บาท</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">ตรวจ binding</div>
+          <div class="seq">P̲(6) > P*(4) → <strong>Binding ✓</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">แทน P̲ = 6</div>
+          <div class="seq">Qᴅ = 100 − 10(6) = <strong>40 หน่วย</strong><br>Qˢ = 20(6) − 20 = <strong>100 หน่วย</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">คำตอบ</div>
+          <div class="seq">Excess Supply = 100 − 40 = <strong style="color:#2e7d32">60 หน่วย</strong><br>งบรัฐ = 60 × 6 = <strong style="color:#2e7d32">360 บาท</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- TAKEAWAY -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="takeaway">
+    <div class="tlab">🎯 สรุป Key Takeaways</div>
+    <h3>5 ข้อที่ต้องจำ</h3>
+    <ul>
+      <li><strong>Price Floor = ราคาที่ห้ามขายต่ำกว่า</strong> — ตั้งใจช่วยผู้ผลิต</li>
+      <li><strong>มีผล (binding)</strong> เฉพาะเมื่อตั้ง <em>สูงกว่า</em> ดุลยภาพ</li>
+      <li><strong>ผลลัพธ์คือ Excess Supply</strong> → ของล้น สต๊อกเต็ม</li>
+      <li><strong>รัฐต้องรับซื้อส่วนเกิน</strong> ไม่อย่างนั้นผู้ผลิตได้รายได้ไม่เต็ม</li>
+      <li><strong>งบที่รัฐจ่าย = Excess Supply × P̲</strong> — มาจากภาษีประชาชน</li>
+    </ul>
+  </div>
+  
+  <div class="qcard" style="background:#ede7f6;border-color:#b39ddb">
+    <div class="qlabel" style="color:#4527a0">🔗 เชื่อมไปบทต่อไป</div>
+    <div class="qtext" style="margin-bottom:0;font-weight:500">
+      ผ่านมาแล้ว 3 บท — รัฐแทรกตลาดด้วยการ <em>ตรึงราคา</em><br>
+      ยังมีอีกวิธีที่รัฐชอบใช้มากกว่า: <strong>การเก็บภาษี</strong><br>
+      น่าสนใจคือ ภาษีที่รัฐเก็บจากผู้ขาย ไม่ได้ตกที่ผู้ขายเต็ม ๆ — มันถูก "ผลัก" บางส่วนให้ผู้ซื้อ ทำไม? → ไปต่อ <strong>4.4 การเก็บภาษี</strong>
+    </div>
+  </div>
+</div>
+
+<div class="botnav">
+  <button class="bnb" onclick="sendPrompt('กลับบทที่ 4.2')">← กลับ 4.2</button>
+  <button class="bnb pr" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 4: การเก็บภาษี')">ต่อ 4.4 การเก็บภาษี →</button>
+</div>
+
+</div>
+
+<script>
+const quizAnswers = {
+  '1': { correct: 'C', fb: {
+    'A': { type:'bad', msg:'❌ จำนวนข้าวในตลาดขึ้นกับราคาด้วย — ถ้าราคาจูงใจ คนจะลงทุนปลูกมากขึ้น ขยายเนื้อที่ ใส่ปุ๋ยเพิ่ม ฯลฯ (นึกถึงเส้น Supply slope บวกจากบทที่ 3)' },
+    'B': { type:'bad', msg:'🤔 ลองคิดใหม่ — ถ้าราคาเดิม 8 บาท แล้วรัฐให้ 15 บาท เกษตรกรควรจะอยากขายมากขึ้นหรือน้อยลง?' },
+    'C': { type:'good', msg:'✅ <strong>ถูกต้อง!</strong> ราคาสูงขึ้น → Law of Supply บอกว่าคนอยากขายเยอะขึ้น (เคลื่อนขึ้นบนเส้น S) + เกษตรกรใหม่ ๆ ก็แห่กันมาทำนา → เกิด <strong>Excess Supply</strong>' },
+    'D': { type:'bad', msg:'🤔 ราคาแพงขึ้นใช่ — แต่จำนวนข้าวเท่าเดิม? ไม่น่าจะใช่ เพราะเกษตรกรเห็นราคา 15 ก็อยากผลิตเยอะกว่าเดิม' }
+  }},
+  '2': { correct: 'C', fb: {
+    'A': { type:'bad', msg:'🤔 พ่อค้าคนกลางซื้อเท่าที่จะขายต่อได้ในตลาด แต่ตลาดต้องการแค่เท่าที่ Qᴅ ที่ราคา 15 บาท ซึ่งน้อยลง — ส่วนเกินเหลือใครรับ?' },
+    'B': { type:'bad', msg:'❌ ผู้บริโภค <em>ซื้อน้อยลง</em> ที่ราคาสูง (Law of Demand) ไม่ใช่เยอะขึ้น' },
+    'C': { type:'good', msg:'✅ <strong>ถูกต้อง!</strong> นี่คือหัวใจของ Price Floor — ถ้ารัฐประกันราคา แต่ไม่รับซื้อส่วนเกิน เกษตรกรก็จะขายได้แค่เท่าที่ตลาดรับ (Qᴅ) ที่ราคา P̲ เท่านั้น ที่เหลือ (Excess) รัฐต้องซื้อเอง' },
+    'D': { type:'bad', msg:'🤔 ส่งออกเป็นทางเลือกหนึ่ง แต่ในหลักทฤษฎี ถ้ารัฐประกันราคาเอง ก็ต้องรับผิดชอบเอง การส่งออกจะทำได้ต่อเมื่อตลาดโลกยอมซื้อที่ราคานั้น — ซึ่งปกติไม่' }
+  }},
+  '3': { correct: 'C', fb: {
+    'A': { type:'bad', msg:'❌ Excess Supply เกิดเมื่อ floor สูง<em>กว่า</em> ดุลยภาพ — แต่โจทย์นี้ floor (2) ต่ำกว่า P* (3)' },
+    'B': { type:'bad', msg:'❌ Excess Demand เกิดจาก Price Ceiling (บทก่อน) ไม่ใช่ Price Floor' },
+    'C': { type:'good', msg:'✅ <strong>เยี่ยม!</strong> นี่คือ <strong>non-binding floor</strong> — รัฐบอกว่า "ห้ามขายต่ำกว่า 2" แต่ตลาดซื้อขายอยู่ที่ 3 บาทอยู่แล้ว ไม่มีใครอยากขาย 2 บาท → คำสั่งรัฐเหมือนไม่ได้สั่ง' },
+    'D': { type:'bad', msg:'❌ ไม่มีเหตุผลที่ผู้ผลิตจะลดราคาต่ำกว่าที่ตลาดยอมจ่าย (3 บาท) → คำตอบที่ถูกคือ C' }
+  }}
+};
+
+document.querySelectorAll('.choice').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const q=btn.dataset.q, a=btn.dataset.a;
+    const answer=quizAnswers[q];
+    if(!answer)return;
+    
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(b=>{
+      b.classList.remove('correct','wrong');
+      b.disabled=true;
+      if(b.dataset.a===answer.correct){b.classList.add('correct')}
+      else if(b.dataset.a===a){b.classList.add('wrong')}
+    });
+    
+    const fb=answer.fb[a];
+    const fbEl=document.getElementById('fb'+q);
+    fbEl.className='feedback on '+fb.type;
+    fbEl.innerHTML=fb.msg;
+  });
+});
+
+function toggleReveal(id){
+  document.getElementById(id).classList.toggle('on');
+}
+
+function checkAns(){
+  const es=parseFloat(document.getElementById('ansES').value);
+  const budget=parseFloat(document.getElementById('ansBudget').value);
+  const fb=document.getElementById('fbAns');
+  
+  if(isNaN(es)||isNaN(budget)){
+    fb.className='feedback on bad';
+    fb.innerHTML='กรุณากรอกทั้ง 2 คำตอบ';
+    return;
+  }
+  
+  const esOK=Math.abs(es-60)<0.5;
+  const budgetOK=Math.abs(budget-360)<1;
+  
+  if(esOK && budgetOK){
+    fb.className='feedback on good';
+    fb.innerHTML='🎉 <strong>ยอดเยี่ยม!</strong> Excess Supply = 60 หน่วย, งบรัฐ = 360 บาท — คุณเข้าใจแล้วว่า Price Floor มีต้นทุนสำหรับภาษีประชาชน!';
+  } else if(esOK && !budgetOK){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ Excess Supply (60) ถูกแล้ว! แต่งบรัฐยังไม่ถูก — ลองคิดใหม่: <strong>งบ = Excess × ราคาที่รัฐรับซื้อ (P̲)</strong>';
+  } else if(!esOK && budgetOK){
+    fb.className='feedback on bad';
+    fb.innerHTML='🤔 งบถูก แต่ Excess Supply ยังไม่ถูก... ปกติไม่น่าเป็นไปได้ ลองตรวจใหม่';
+  } else if(Math.abs(es-40)<0.5){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ <strong>40 คือ Qᴅ</strong> (คนอยากซื้อ) ไม่ใช่ Excess Supply<br>Excess Supply = Qˢ − Qᴅ = 100 − 40 = 60';
+  } else if(Math.abs(es-100)<0.5){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ <strong>100 คือ Qˢ</strong> (ผู้ผลิตอยากขาย) ไม่ใช่ Excess Supply<br>ต้องลบด้วย Qᴅ ก่อน = 100 − 40 = 60';
+  } else {
+    fb.className='feedback on bad';
+    fb.innerHTML='🤔 ยังไม่ตรง — ลองกดปุ่ม "ขอดูวิธีทำ" ด้านล่าง ทำทีละขั้น';
+  }
+}
+
+/* ══════ Interactive graph ══════ */
+(function(){
+  const cv=document.getElementById('cvLab');
+  const slider=document.getElementById('floorSlider');
+  const floorVal=document.getElementById('floorVal');
+  const readout=document.getElementById('readout');
+  
+  const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+  
+  function sizeCanvas(){
+    const cssW=Math.min(640,window.innerWidth-80);
+    const cssH=Math.round(cssW*0.72);
+    const dpr=window.devicePixelRatio||1;
+    cv.width=Math.round(cssW*dpr);
+    cv.height=Math.round(cssH*dpr);
+    cv.style.width=cssW+'px';
+    cv.style.height=cssH+'px';
+    const ctx=cv.getContext('2d');
+    ctx.scale(dpr,dpr);
+    return {ctx,W:cssW,H:cssH};
+  }
+  
+  function draw(){
+    const {ctx,W,H}=sizeCanvas();
+    const Pfloor=parseFloat(slider.value);
+    const Qd_at=120000-20000*Pfloor;
+    const Qs_at=20000*Pfloor;
+    const binding=Pfloor>3;
+    
+    const ml=60,mr=20,mt=30,mb=45;
+    const pw=W-ml-mr,ph=H-mt-mb;
+    const xMax=140000,yMax=6.5;
+    const cx=v=>ml+(v/xMax)*pw;
+    const cy=v=>mt+ph-(v/yMax)*ph;
+    const TC=DK()?'#d4d4d4':'#1a1a1a';
+    const GC=DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';
+    const AC=DK()?'rgba(255,255,255,.22)':'rgba(0,0,0,.18)';
+    
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle=DK()?'#1a1a1a':'#fff';
+    ctx.fillRect(0,0,W,H);
+    
+    // Grid
+    ctx.font='10px sans-serif';
+    [1,2,3,4,5,6].forEach(v=>{
+      ctx.strokeStyle=GC;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();
+      ctx.fillStyle=TC;ctx.textAlign='right';ctx.fillText(v,ml-5,cy(v)+3);
+    });
+    [20000,40000,60000,80000,100000,120000].forEach(v=>{
+      ctx.strokeStyle=GC;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();
+      ctx.fillStyle=TC;ctx.textAlign='center';
+      ctx.fillText((v/1000)+'k',cx(v),mt+ph+14);
+    });
+    
+    // Axes
+    ctx.strokeStyle=AC;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+    ctx.fillStyle=TC;ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('ปริมาณ (Q)',ml+pw/2,mt+ph+30);
+    ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('ราคา P (บาท)',0,0);ctx.restore();
+    
+    // D
+    ctx.strokeStyle='#1976d2';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(cx(0),cy(6));ctx.lineTo(cx(120000),cy(0));ctx.stroke();
+    ctx.fillStyle='#1976d2';ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+    ctx.fillText('D',cx(115000),cy(0.4));
+    
+    // S
+    ctx.strokeStyle='#e65100';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(cx(0),cy(0));ctx.lineTo(cx(130000),cy(6.5));ctx.stroke();
+    ctx.fillStyle='#e65100';ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+    ctx.fillText('S',cx(120000),cy(6)-6);
+    
+    // E*
+    ctx.strokeStyle=DK()?'rgba(255,255,255,.15)':'rgba(0,0,0,.1)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(cx(60000),cy(3));ctx.lineTo(cx(60000),mt+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx(60000),cy(3));ctx.lineTo(ml,cy(3));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#c62828';
+    ctx.beginPath();ctx.arc(cx(60000),cy(3),4.5,0,2*Math.PI);ctx.fill();
+    ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(cx(60000),cy(3),4.5,0,2*Math.PI);ctx.stroke();
+    ctx.fillStyle='#c62828';ctx.font='bold 10px sans-serif';ctx.textAlign='left';
+    ctx.fillText('E* (P*=3)',cx(60000)+8,cy(3)+12);
+    
+    // Floor line
+    ctx.strokeStyle='#2e7d32';ctx.lineWidth=3;ctx.setLineDash(binding?[]:[6,4]);
+    ctx.beginPath();ctx.moveTo(ml,cy(Pfloor));ctx.lineTo(ml+pw,cy(Pfloor));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#2e7d32';ctx.font='bold 11px sans-serif';ctx.textAlign='right';
+    ctx.fillText(`P̲ = ${Pfloor.toFixed(2)}`,ml+pw-5,cy(Pfloor)-5);
+    
+    if(binding){
+      // Surplus zone (shaded)
+      ctx.fillStyle='rgba(46,125,50,.15)';
+      ctx.fillRect(cx(Qd_at),mt,cx(Qs_at)-cx(Qd_at),cy(Pfloor)-mt);
+      
+      // Government purchase zone (darker)
+      ctx.fillStyle='rgba(46,125,50,.3)';
+      ctx.fillRect(cx(Qd_at),cy(Pfloor),cx(Qs_at)-cx(Qd_at),Math.min(30,ph-(cy(Pfloor)-mt)));
+      
+      // Dots
+      ctx.fillStyle='#1976d2';
+      ctx.beginPath();ctx.arc(cx(Qd_at),cy(Pfloor),6,0,2*Math.PI);ctx.fill();
+      ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx(Qd_at),cy(Pfloor),6,0,2*Math.PI);ctx.stroke();
+      
+      ctx.fillStyle='#e65100';
+      ctx.beginPath();ctx.arc(cx(Qs_at),cy(Pfloor),6,0,2*Math.PI);ctx.fill();
+      ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx(Qs_at),cy(Pfloor),6,0,2*Math.PI);ctx.stroke();
+      
+      // Arrow
+      const gapY=cy(Pfloor);
+      const startX=cx(Qd_at);
+      const endX=cx(Qs_at);
+      ctx.strokeStyle='#1b5e20';ctx.lineWidth=2;
+      ctx.beginPath();
+      ctx.moveTo(startX,gapY-20);ctx.lineTo(endX,gapY-20);
+      ctx.moveTo(startX+8,gapY-24);ctx.lineTo(startX,gapY-20);ctx.lineTo(startX+8,gapY-16);
+      ctx.moveTo(endX-8,gapY-24);ctx.lineTo(endX,gapY-20);ctx.lineTo(endX-8,gapY-16);
+      ctx.stroke();
+      ctx.fillStyle='#1b5e20';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+      ctx.fillText('SURPLUS',(startX+endX)/2,gapY-28);
+      
+      // Labels
+      ctx.fillStyle='#1976d2';ctx.font='10px sans-serif';ctx.textAlign='center';
+      ctx.fillText('Qᴅ='+Math.round(Qd_at/1000)+'k',cx(Qd_at),gapY+18);
+      ctx.fillStyle='#e65100';
+      ctx.fillText('Qˢ='+Math.round(Qs_at/1000)+'k',cx(Qs_at),gapY+18);
+    }
+    
+    // Title
+    ctx.fillStyle=TC;ctx.font='bold 12px sans-serif';ctx.textAlign='center';
+    ctx.fillText(binding?'🟢 Floor มีผล — เกิด Surplus (รัฐต้องรับซื้อ)':'⚪ Floor ไม่มีผล (non-binding)',ml+pw/2,mt-10);
+    
+    floorVal.textContent='฿ '+Pfloor.toFixed(2);
+    
+    if(binding){
+      const excess=Qs_at-Qd_at;
+      const budget=excess*Pfloor;
+      readout.innerHTML=
+        `สถานะ: <strong style="color:#2e7d32">BINDING — สูงกว่า P*</strong><br>`+
+        `Qᴅ(${Pfloor.toFixed(2)}) = <strong style="color:#1976d2">${Qd_at.toLocaleString()}</strong> (คนอยากซื้อ)<br>`+
+        `Qˢ(${Pfloor.toFixed(2)}) = <strong style="color:#e65100">${Qs_at.toLocaleString()}</strong> (ผู้ผลิตอยากขาย)<br>`+
+        `<strong style="color:#1b5e20">Excess Supply = ${excess.toLocaleString()} หน่วย (ของล้น!)</strong><br>`+
+        `<strong style="color:#2e7d32">💰 งบรัฐรับซื้อ = ${Math.round(budget).toLocaleString()} บาท</strong>`;
+    } else {
+      readout.innerHTML=
+        `สถานะ: <strong style="color:#666">NON-BINDING — ต่ำกว่า P*</strong><br>`+
+        `รัฐประกันว่า "ห้ามต่ำกว่า ${Pfloor.toFixed(2)}" แต่ตลาดขายอยู่ที่ P* = 3 บาทอยู่แล้ว<br>`+
+        `<strong style="color:#2e7d32">→ ไม่มีผลกระทบต่อตลาด</strong>`;
+    }
+  }
+  
+  slider.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',draw);
+  draw();
+})();
+
+function sendPrompt(msg){
+  if(msg==='กลับบทที่ 4.2'){window.location.href='chapter4_2.html';return}
+  if(msg==='กลับบทที่ 4'){window.location.href='chapter4.html';return}
+  if(typeof window.sendPrompt==='function' && window.sendPrompt !== sendPrompt){
+    window.sendPrompt(msg);
+  } else {
+    alert('กลับไปที่ช่องแชทแล้วพิมพ์ว่า:\n\n"'+msg+'"');
+  }
+}
+</script>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        หน้าหลัก
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

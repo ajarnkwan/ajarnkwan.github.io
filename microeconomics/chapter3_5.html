@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.5 ดุลยภาพตลาด</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}.app{max-width:700px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:10px}.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#ede7f6;color:#4527a0}@media(prefers-color-scheme:dark){.badge{background:#1a0d3d;color:#b39ddb}}
+.pg{display:flex;gap:3px;margin-bottom:16px}.pd{flex:1;height:5px;border-radius:3px;background:#eee}@media(prefers-color-scheme:dark){.pd{background:#333}}.pd.dn{background:#4527a0}.pd.ac{background:#b39ddb}
+.section{display:none}.sl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}.bq{font-size:17px;font-weight:700;line-height:1.5;margin-bottom:12px}p.tx{font-size:14.5px;line-height:1.85;margin-bottom:10px}
+.sb{background:#f3f0fa;border-radius:12px;padding:14px 18px;margin-bottom:12px;border-left:4px solid #4527a0}@media(prefers-color-scheme:dark){.sb{background:#140d2a;border-color:#7c4dff}}.sb p{font-size:14px;line-height:1.85;margin-bottom:6px}.sb p:last-child{margin:0}
+.def{background:#ede7f6;border:1px solid #b39ddb;border-radius:12px;padding:14px 18px;margin:12px 0}@media(prefers-color-scheme:dark){.def{background:#1a0d3d;border-color:#4527a0}}.def .dt{font-weight:800;font-size:15px;color:#4527a0;margin-bottom:4px}@media(prefers-color-scheme:dark){.def .dt{color:#b39ddb}}.def p{font-size:14px;line-height:1.8;margin-bottom:4px}
+.think{background:linear-gradient(135deg,#ede7f6,#f3f0fa);border:2px dashed #b39ddb;border-radius:14px;padding:16px 18px;margin:14px 0;position:relative}@media(prefers-color-scheme:dark){.think{background:linear-gradient(135deg,#1a0d3d,#140d2a);border-color:#4527a0}}.think::before{content:'🤔';font-size:20px;position:absolute;top:-12px;left:14px;background:#fff;border-radius:50%;padding:0 4px}@media(prefers-color-scheme:dark){.think::before{background:#141414}}.think .q{font-size:15px;font-weight:600;margin-bottom:8px;color:#4527a0}@media(prefers-color-scheme:dark){.think .q{color:#b39ddb}}
+.opts{display:flex;flex-direction:column;gap:6px;margin:8px 0}.opt{padding:10px 14px;border:2px solid #d1c4e9;border-radius:10px;background:#fff;cursor:pointer;font-size:14px;transition:all .2s;text-align:left}@media(prefers-color-scheme:dark){.opt{background:#1a1a1a;border-color:#2a1d3d;color:#e0e0e0}}.opt:hover{border-color:#4527a0;background:#f3f0fa}.opt.correct{border-color:#1D9E75;background:#e1f5ee;color:#0f6e56}@media(prefers-color-scheme:dark){.opt.correct{background:#0d3d28;color:#5fe4a8}}.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}@media(prefers-color-scheme:dark){.opt.wrong{background:#3d1010;color:#ff9999}}.opt.disabled{pointer-events:none;opacity:.7}
+.fb{font-size:13.5px;padding:10px 14px;border-radius:10px;margin:8px 0;display:none;line-height:1.6}.fb.on{display:block}.fb.ok{background:#e1f5ee;color:#0f6e56;border:1px solid #1d9e75}@media(prefers-color-scheme:dark){.fb.ok{background:#0d3d28;color:#5fe4a8}}.fb.no{background:#fcebeb;color:#a32d2d;border:1px solid #e24b4a}@media(prefers-color-scheme:dark){.fb.no{background:#3d1010;color:#ff9999}}
+canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto;border:1px solid #eee}@media(prefers-color-scheme:dark){canvas{border-color:#333}}
+.nav{display:flex;justify-content:space-between;margin-top:16px;padding-top:10px;border-top:1px solid #eee}@media(prefers-color-scheme:dark){.nav{border-color:#333}}.nb{padding:8px 16px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.nb{border-color:#444;color:#aaa}}.nb:hover{background:#f5f5f5}.nb.pr{background:#4527a0;color:#fff;border-color:#4527a0}@media(prefers-color-scheme:dark){.nb.pr{background:#7c4dff;color:#fff}}
+.note{font-size:12.5px;color:#888;margin:8px 0;padding:8px 12px;border-left:3px solid #b39ddb}@media(prefers-color-scheme:dark){.note{border-color:#4527a0}}.hl{color:#4527a0;font-weight:700}@media(prefers-color-scheme:dark){.hl{color:#b39ddb}}
+.eqbox{background:#f0f0f0;border-radius:10px;padding:10px 16px;margin:10px 0;font-family:'Courier New',monospace;font-size:14px;text-align:center}@media(prefers-color-scheme:dark){.eqbox{background:#222}}
+.sdots{display:flex;gap:5px;justify-content:center;margin:8px 0}.sdot{width:10px;height:10px;border-radius:50%;background:#ddd;transition:all .2s}@media(prefers-color-scheme:dark){.sdot{background:#444}}.sdot.ac{background:#4527a0;transform:scale(1.2)}@media(prefers-color-scheme:dark){.sdot.ac{background:#b39ddb}}
+.stxt{text-align:center;font-size:13.5px;font-weight:600;margin-bottom:8px;min-height:40px;color:#4527a0;line-height:1.5;padding:0 10px}@media(prefers-color-scheme:dark){.stxt{color:#b39ddb}}
+.snav{display:flex;justify-content:center;gap:8px;margin-bottom:6px}.snb{padding:5px 16px;border:1.5px solid #ddd;border-radius:8px;background:transparent;font-size:13px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.snb{border-color:#444;color:#aaa}}
+.sn{display:inline-block;background:#4527a0;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:4px}
+</style></head><body><div class="app">
+<div class="topnav"><button class="backbtn" onclick="sendPrompt('กลับหน้าหลักบทที่ 3')">← บทที่ 3</button><span class="badge">3.5 ดุลยภาพ</span></div>
+<div class="pg" id="pg"></div>
+
+<!-- ===== S0: EQUILIBRIUM ===== -->
+<div class="section" id="s0" style="display:block">
+<div class="sl">ส่วนที่ 1 — ดุลยภาพตลาด (Market Equilibrium)</div>
+<p class="bq">ราคาดุลยภาพ — จุดที่ผู้ซื้อและผู้ขาย "พอใจ" ทั้งสองฝ่าย</p>
+
+<div class="def"><div class="dt">ดุลยภาพ (Equilibrium) คืออะไร?</div>
+<p><strong>ดุลยภาพตลาด</strong> เกิดขึ้นเมื่อ ปริมาณที่ผู้ซื้อต้องการซื้อ (Q<sup>d</sup>) <strong>เท่ากับ</strong> ปริมาณที่ผู้ขายต้องการเสนอขาย (Q<sup>s</sup>)</p>
+<div class="eqbox">Q<sup>d</sup> = Q<sup>s</sup> → ได้ราคาดุลยภาพ P* และปริมาณดุลยภาพ Q*</div>
+<p>ที่จุดนี้ ตลาด "ล้างตัวเอง" ได้ — ไม่มีสินค้าเหลือ ไม่มีขาดแคลน</p>
+</div>
+
+<p class="tx"><strong>ตัวอย่าง:</strong> D: P = 10 − Q  |  S: P = 2 + Q</p>
+<div class="sb">
+<p>หาดุลยภาพ: ให้ Q<sup>d</sup> = Q<sup>s</sup></p>
+<p>10 − Q = 2 + Q → 2Q = 8 → <span class="hl">Q* = 4</span></p>
+<p>แทนค่า: P* = 10 − 4 = <span class="hl">P* = 6</span></p>
+<p>ดุลยภาพอยู่ที่ <strong>(Q*=4, P*=6)</strong> — จุดตัดของเส้น D กับเส้น S</p>
+</div>
+
+<div class="think"><div class="q">ถ้าราคาตลาดอยู่ที่ P=4 (ต่ำกว่า P*=6) จะเกิดอะไรขึ้น?</div>
+<div class="opts" id="q0Opts"><div class="opt" onclick="q0Ans(this,0)">ก. Excess Supply — สินค้าเหลือ</div><div class="opt" onclick="q0Ans(this,1)">ข. Excess Demand — สินค้าขาดแคลน</div><div class="opt" onclick="q0Ans(this,2)">ค. ตลาดดุลยภาพ ไม่มีอะไรเกิด</div></div>
+<div class="fb" id="q0Fb"></div></div>
+
+<div class="sdots" id="eDots"></div>
+<div class="stxt" id="eDesc"></div>
+<div class="snav"><button class="snb" id="eP" onclick="eStep(-1)">← ก่อนหน้า</button><button class="snb" id="eN" onclick="eStep(1)">ถัดไป →</button></div>
+<canvas id="c1" width="600" height="400"></canvas>
+
+<div class="sb">
+<p><strong>กลไกการปรับตัว:</strong></p>
+<p>🔵 <strong>P < P*</strong> → Q<sup>d</sup> > Q<sup>s</sup> → <span class="hl">Excess Demand</span> (ขาดแคลน) → ราคาถูกดัน<strong>ขึ้น</strong><br>😷 เช่น ช่วง COVID หน้ากากอนามัยขายในราคาเดิม → คนแย่งซื้อ สินค้าหมดเร็ว = ขาดแคลน → ราคาตลาดมืดพุ่งขึ้น</p>
+<p>🟠 <strong>P > P*</strong> → Q<sup>s</sup> > Q<sup>d</sup> → <span class="hl">Excess Supply</span> (เหลือเฟือ) → ราคาถูกดัน<strong>ลง</strong><br>🏠 เช่น คอนโดสร้างเสร็จพร้อมกันหลายโครงการ แต่คนซื้อไม่พอ → ห้องว่างเยอะ → ต้องลดราคา จัดโปรฟรีค่าส่วนกลาง</p>
+<p>⚖️ <strong>P = P*</strong> → Q<sup>d</sup> = Q<sup>s</sup> → <span class="hl">ดุลยภาพ</span> → ราคาไม่มีแรงกดดันให้เปลี่ยน<br>🏪 เช่น ข้าวแกงจานละ 50 บาท ทั้งร้านพอใจขาย คนก็พอใจซื้อ → ไม่มีแรงดันให้ราคาเปลี่ยน</p>
+</div>
+
+<div class="nav"><span></span><button class="nb pr" onclick="go(1)">ถัดไป: ผลของ D/S เลื่อน →</button></div>
+</div>
+
+<!-- ===== S1: SHIFTS ===== -->
+<div class="section" id="s1">
+<div class="sl">ส่วนที่ 2 — ผลเมื่อ D หรือ S เลื่อน</div>
+<p class="bq">เมื่อเส้น D หรือ S เลื่อน → ดุลยภาพใหม่จะเป็นอย่างไร?</p>
+
+<p class="tx">เมื่อปัจจัยกำหนดอุปสงค์หรืออุปทานเปลี่ยนแปลง → เส้น D หรือ S เลื่อน → <strong>ราคาและปริมาณดุลยภาพเปลี่ยน</strong></p>
+
+<div class="sdots" id="fDots"></div>
+<div class="stxt" id="fDesc"></div>
+<div class="snav"><button class="snb" id="fP" onclick="fStep(-1)">← ก่อนหน้า</button><button class="snb" id="fN" onclick="fStep(1)">ถัดไป →</button></div>
+<canvas id="c2" width="600" height="400"></canvas>
+
+<div class="sb">
+<p><strong>สรุปผลการเลื่อน (เลื่อนทีละเส้น):</strong></p>
+<p>📈 <strong>D เลื่อนขวา</strong> → P*↑ Q*↑ — 🎉 เช่น เทศกาลสงกรานต์ คนอยากเที่ยวมากขึ้น → ราคาตั๋วเครื่องบินขึ้น + จำนวนเที่ยวบินเต็ม</p>
+<p>📉 <strong>D เลื่อนซ้าย</strong> → P*↓ Q*↓ — 📉 เช่น คนหันมาดื่มน้ำเปล่าแทนน้ำอัดลม → ยอดขายและราคาน้ำอัดลมลดลง</p>
+<p>📈 <strong>S เลื่อนขวา</strong> → P*↓ Q*↑ — 🤖 เช่น เทคโนโลยีผลิตจอ OLED ถูกลง → ทีวีจอใหญ่ราคาลดลงแต่ขายได้มากขึ้น</p>
+<p>📉 <strong>S เลื่อนซ้าย</strong> → P*↑ Q*↓ — 🌊 เช่น น้ำท่วมภาคใต้ ผลไม้เสียหาย → ทุเรียนราคาพุ่งแต่หาซื้อยาก</p>
+</div>
+
+<div class="def"><div class="dt">⚠️ ถ้า D กับ S เลื่อนพร้อมกันล่ะ?</div>
+<p>จะมี<strong>ตัวแปร 1 ตัวที่ทิศทางแน่นอน</strong> แต่อีกตัว<strong>ไม่แน่นอน</strong> (ขึ้นกับว่าเส้นไหนเลื่อนมากกว่า)</p>
+</div>
+
+<div class="sb">
+<p><span class="sn">D↑ S↑</span> <span class="hl">Q* เพิ่มแน่</span> | P* ไม่แน่</p>
+<p>🍖 ตัวอย่าง: ช่วงเทศกาล คนอยากกินหมูกระทะมากขึ้น (D↑) + ฟาร์มหมูเพิ่มกำลังผลิต (S↑) → จำนวนหมูกระทะที่ขายได้<strong>เพิ่มแน่</strong> แต่ราคาจะขึ้นหรือลดขึ้นกับว่าฝั่งไหนเพิ่มมากกว่า</p>
+</div>
+
+<div class="sb">
+<p><span class="sn">D↓ S↓</span> <span class="hl">Q* ลดแน่</span> | P* ไม่แน่</p>
+<p>🚗 ตัวอย่าง: เศรษฐกิจถดถอย คนซื้อรถน้อยลง (D↓) + โรงงานรถปิดตัวลดการผลิต (S↓) → จำนวนรถที่ขายได้<strong>ลดแน่</strong> แต่ราคารถจะขึ้นหรือลดไม่แน่</p>
+</div>
+
+<div class="sb">
+<p><span class="sn">D↑ S↓</span> <span class="hl">P* เพิ่มแน่</span> | Q* ไม่แน่</p>
+<p>⛽ ตัวอย่าง: สงคราม คนกักตุนน้ำมันมากขึ้น (D↑) + OPEC ลดกำลังผลิต (S↓) → ราคาน้ำมัน<strong>พุ่งขึ้นแน่นอน</strong> แต่ปริมาณที่ซื้อขายจริงขึ้นหรือลดไม่แน่</p>
+</div>
+
+<div class="sb">
+<p><span class="sn">D↓ S↑</span> <span class="hl">P* ลดแน่</span> | Q* ไม่แน่</p>
+<p>📱 ตัวอย่าง: มือถือรุ่นเก่า คนเปลี่ยนไปใช้รุ่นใหม่ (D↓) + เทคโนโลยีผลิตถูกลง (S↑) → ราคารุ่นเก่า<strong>ลดแน่</strong> แต่ปริมาณที่ขายได้จะเพิ่มหรือลดไม่แน่</p>
+</div>
+
+<div class="nav"><button class="nb" onclick="go(0)">← ย้อนกลับ</button><button class="nb pr" onclick="go(2)">แบบฝึกหัด →</button></div>
+</div>
+
+<!-- ===== S2: QUIZ ===== -->
+<div class="section" id="s2">
+<div class="sl">ส่วนที่ 3 — แบบฝึกหัด</div>
+<p class="bq">ทดสอบความเข้าใจ — 5 ข้อ</p>
+<div id="qz"></div>
+<div class="nav" id="qnav" style="display:none"><button class="nb" onclick="rstQ()">ทำใหม่</button><button class="nb" onclick="go(0)">กลับต้นบท</button><button class="nb pr" onclick="sendPrompt('กลับหน้าหลักบทที่ 3')">จบบทที่ 3 → กลับ Hub</button></div>
+</div>
+
+</div>
+<script>
+const NSEC=3;var cur=0;
+const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+const TC=()=>DK()?'#d4d4d4':'#1a1a1a';const GC=()=>DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';const AC=()=>DK()?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)';const PC=()=>DK()?'#b39ddb':'#4527a0';const BG=()=>DK()?'#141414':'#fff';
+function sendPrompt(t){window.parent?.postMessage({type:'sendPrompt',text:t},'*');}
+function buildPg(){const p=document.getElementById('pg');p.innerHTML='';for(let i=0;i<NSEC;i++){const d=document.createElement('div');d.className='pd';d.id='pd'+i;p.appendChild(d);}}
+function updPg(n){for(let i=0;i<NSEC;i++)document.getElementById('pd'+i).className='pd'+(i<n?' dn':i===n?' ac':'');}
+function go(n){document.querySelectorAll('.section').forEach(s=>s.style.display='none');document.getElementById('s'+n).style.display='block';cur=n;updPg(n);window.scrollTo({top:0,behavior:'smooth'});
+  if(n===0){initS('e',eSS);eDraw();}if(n===1){initS('f',fSS);fDraw();}if(n===2)buildQ();}
+function initS(p,ss){const dots=document.getElementById(p+'Dots');dots.innerHTML='';for(let i=0;i<ss.length;i++){const d=document.createElement('div');d.className='sdot'+(i===0?' ac':'');d.id=p+'d'+i;dots.appendChild(d);}window[p+'St']=0;updSt(p,ss);}
+function updSt(p,ss){const st=window[p+'St'];document.getElementById(p+'Desc').innerHTML=ss[st].t;for(let i=0;i<ss.length;i++)document.getElementById(p+'d'+i).className='sdot'+(i===st?' ac':'');document.getElementById(p+'P').style.visibility=st===0?'hidden':'visible';document.getElementById(p+'N').style.visibility=st===ss.length-1?'hidden':'visible';}
+function stepG(p,ss,fn,d){window[p+'St']=Math.max(0,Math.min(ss.length-1,window[p+'St']+d));updSt(p,ss);fn();}
+function dot(ctx,x,y,r,col){ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,r,0,2*Math.PI);ctx.fill();ctx.strokeStyle=BG();ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,r,0,2*Math.PI);ctx.stroke();}
+
+function q0Ans(el,i){const opts=document.querySelectorAll('#q0Opts .opt');opts.forEach(o=>o.classList.add('disabled'));const fb=document.getElementById('q0Fb');if(i===1){el.classList.add('correct');fb.className='fb on ok';fb.textContent='ถูก! P=4 < P*=6 → Qd=6 > Qs=2 → คนอยากซื้อมากกว่าที่ผู้ขายเสนอ → Excess Demand (ขาดแคลน) → ราคาจะถูกดันขึ้นสู่ดุลยภาพ';}else{el.classList.add('wrong');opts[1].classList.add('correct');fb.className='fb on no';fb.textContent='P < P* → Qd > Qs → ผู้ซื้ออยากได้มากกว่าที่มีขาย → Excess Demand (ขาดแคลน)';}}
+
+/* ═══ S0: EQUILIBRIUM GRAPH ═══ */
+var eSt=0;
+const eSS=[
+  {t:'<strong>Step 1:</strong> เส้น <span style="color:#1565c0">D: P = 10−Q</span> (ฝั่งผู้ซื้อ) และเส้น <span style="color:#2e7d32">S: P = 2+Q</span> (ฝั่งผู้ขาย)'},
+  {t:'<strong>Step 2:</strong> D ตัด S ที่จุด <span style="color:#4527a0">E* (Q*=4, P*=6)</span> — นี่คือดุลยภาพ!<br>ที่จุดนี้ Q<sup>d</sup> = Q<sup>s</sup> = 4 ตลาดล้างตัวเอง'},
+  {t:'<strong>Step 3:</strong> ถ้า P=4 (ต่ำกว่าดุลยภาพ) → <span style="color:#1565c0">Qd=6</span> > <span style="color:#2e7d32">Qs=2</span><br>→ <span style="color:#c62828">Excess Demand = 4</span> (ขาดแคลน!) → ราคาถูกดัน↑'},
+  {t:'<strong>Step 4:</strong> ถ้า P=8 (สูงกว่าดุลยภาพ) → <span style="color:#2e7d32">Qs=6</span> > <span style="color:#1565c0">Qd=2</span><br>→ <span style="color:#e65100">Excess Supply = 4</span> (เหลือเฟือ!) → ราคาถูกดัน↓'},
+];
+function eStep(d){stepG('e',eSS,eDraw,d);}
+
+function eDraw(){
+  const cv=document.getElementById('c1');if(!cv)return;
+  const ctx=cv.getContext('2d');const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  const ml=50,mr=20,mt=35,mb=45,pw=W-ml-mr,ph=H-mt-mb;
+  const cx=q=>ml+(q/12)*pw,cy=p=>mt+(1-p/12)*ph;
+  const st=eSt;
+
+  ctx.strokeStyle=GC();ctx.lineWidth=1;
+  for(let v=2;v<=10;v+=2){ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();}
+  ctx.strokeStyle=AC();ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+  ctx.fillStyle=TC();ctx.font='11px sans-serif';ctx.textAlign='center';
+  for(let q=0;q<=10;q+=2)ctx.fillText(q,cx(q),mt+ph+16);
+  ctx.textAlign='right';for(let p=0;p<=10;p+=2)ctx.fillText(p,ml-6,cy(p)+4);
+  ctx.textAlign='center';ctx.fillText('Q',ml+pw/2,mt+ph+34);
+  ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('P',0,0);ctx.restore();
+
+  // D: P=10-Q
+  ctx.strokeStyle='#1565c0';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cy(10));ctx.lineTo(cx(10),cy(0));ctx.stroke();
+  ctx.fillStyle='#1565c0';ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.fillText('D',cx(10)+4,cy(0)+4);
+
+  // S: P=2+Q
+  ctx.strokeStyle='#2e7d32';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cy(2));ctx.lineTo(cx(8),cy(10));ctx.stroke();
+  ctx.fillStyle='#2e7d32';ctx.font='bold 12px sans-serif';ctx.fillText('S',cx(8)+4,cy(10)-6);
+
+  // Step 2+: Equilibrium dot
+  if(st>=1){
+    dot(ctx,cx(4),cy(6),8,PC());
+    ctx.fillStyle=PC();ctx.font='bold 13px sans-serif';ctx.textAlign='left';
+    ctx.fillText('E* (Q*=4, P*=6)',cx(4)+12,cy(6)-8);
+    // Dashed lines
+    ctx.strokeStyle=AC();ctx.lineWidth=1;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(cx(4),cy(6));ctx.lineTo(cx(4),mt+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx(4),cy(6));ctx.lineTo(ml,cy(6));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=PC();ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Q*=4',cx(4),mt+ph+28);ctx.textAlign='right';ctx.fillText('P*=6',ml-6,cy(6)-8);
+  }
+
+  // Step 3: Excess Demand at P=4
+  if(st===2){
+    ctx.strokeStyle='rgba(150,150,150,.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(ml,cy(4));ctx.lineTo(cx(8),cy(4));ctx.stroke();ctx.setLineDash([]);
+    dot(ctx,cx(2),cy(4),6,'#2e7d32'); // Qs=2
+    dot(ctx,cx(6),cy(4),6,'#1565c0'); // Qd=6
+    ctx.fillStyle='#2e7d32';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText('Qs=2',cx(2),cy(4)+18);
+    ctx.fillStyle='#1565c0';ctx.fillText('Qd=6',cx(6),cy(4)+18);
+    // Excess Demand arrow
+    ctx.strokeStyle='#c62828';ctx.lineWidth=2.5;ctx.setLineDash([5,3]);
+    ctx.beginPath();ctx.moveTo(cx(2)+8,cy(4));ctx.lineTo(cx(6)-8,cy(4));ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#c62828';ctx.font='bold 12px sans-serif';ctx.fillText('Excess Demand = 4',cx(4),cy(4)-12);
+    ctx.font='10px sans-serif';ctx.fillText('ขาดแคลน! → ราคาถูกดัน↑',cx(4),cy(4)-26);
+    // P label
+    ctx.textAlign='right';ctx.fillStyle='#c62828';ctx.font='11px sans-serif';ctx.fillText('P=4',ml-6,cy(4)+4);
+  }
+
+  // Step 4: Excess Supply at P=8
+  if(st===3){
+    ctx.strokeStyle='rgba(150,150,150,.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(ml,cy(8));ctx.lineTo(cx(8),cy(8));ctx.stroke();ctx.setLineDash([]);
+    dot(ctx,cx(2),cy(8),6,'#1565c0'); // Qd=2
+    dot(ctx,cx(6),cy(8),6,'#2e7d32'); // Qs=6
+    ctx.fillStyle='#1565c0';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText('Qd=2',cx(2),cy(8)+18);
+    ctx.fillStyle='#2e7d32';ctx.fillText('Qs=6',cx(6),cy(8)+18);
+    // Excess Supply arrow
+    ctx.strokeStyle='#e65100';ctx.lineWidth=2.5;ctx.setLineDash([5,3]);
+    ctx.beginPath();ctx.moveTo(cx(2)+8,cy(8));ctx.lineTo(cx(6)-8,cy(8));ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#e65100';ctx.font='bold 12px sans-serif';ctx.fillText('Excess Supply = 4',cx(4),cy(8)-12);
+    ctx.font='10px sans-serif';ctx.fillText('เหลือเฟือ! → ราคาถูกดัน↓',cx(4),cy(8)-26);
+    ctx.textAlign='right';ctx.fillStyle='#e65100';ctx.font='11px sans-serif';ctx.fillText('P=8',ml-6,cy(8)+4);
+  }
+
+  ctx.fillStyle=TC();ctx.font='bold 13px sans-serif';ctx.textAlign='center';
+  ctx.fillText('ดุลยภาพตลาด: D ∩ S = E*',ml+pw/2,mt-16);
+}
+
+/* ═══ S1: SHIFT EFFECTS ═══ */
+var fSt=0;
+const fSS=[
+  {t:'<strong>Step 1:</strong> ดุลยภาพเดิม E₁ (Q*=4, P*=6) จากเส้น D และ S เดิม'},
+  {t:'<strong>Step 2: D เลื่อนขวา</strong> (รายได้เพิ่ม) → D₂: P = 14−Q<br>ดุลยภาพใหม่ E₂: <span style="color:#c62828">Q*=6, P*=8</span> → ทั้ง P* และ Q* เพิ่มขึ้น!'},
+  {t:'<strong>Step 3: S เลื่อนขวา</strong> (ต้นทุนลด) → S₂: P = Q<br>ดุลยภาพใหม่ E₃: <span style="color:#2e7d32">Q*=5, P*=5</span> → Q* เพิ่ม แต่ P* ลด!'},
+  {t:'<strong>Step 4: D↑ + S↑ พร้อมกัน</strong> 🍖 เทศกาล: คนอยากกินหมูกระทะมากขึ้น + ฟาร์มเพิ่มผลิต<br><span style="color:#4527a0">Q* เพิ่มแน่</span> แต่ P* ไม่แน่ (ขึ้นกับเส้นไหนเลื่อนมากกว่า)'},
+  {t:'<strong>Step 5: D↑ + S↓ พร้อมกัน</strong> ⛽ สงคราม: คนกักตุนน้ำมัน + OPEC ลดผลิต<br><span style="color:#c62828">P* เพิ่มแน่</span> แต่ Q* ไม่แน่ (ขึ้นกับเส้นไหนเลื่อนมากกว่า)'},
+];
+function fStep(d){stepG('f',fSS,fDraw,d);}
+
+function fDraw(){
+  const cv=document.getElementById('c2');if(!cv)return;
+  const ctx=cv.getContext('2d');const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  const ml=50,mr=20,mt=35,mb=45,pw=W-ml-mr,ph=H-mt-mb;
+  const cx=q=>ml+(q/14)*pw,cy=p=>mt+(1-p/14)*ph;
+  const st=fSt;
+
+  ctx.strokeStyle=GC();ctx.lineWidth=1;
+  for(let v=2;v<=12;v+=2){ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();}
+  ctx.strokeStyle=AC();ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+  ctx.fillStyle=TC();ctx.font='11px sans-serif';ctx.textAlign='center';
+  for(let q=0;q<=12;q+=2)ctx.fillText(q,cx(q),mt+ph+16);
+  ctx.textAlign='right';for(let p=0;p<=12;p+=2)ctx.fillText(p,ml-6,cy(p)+4);
+  ctx.textAlign='center';ctx.fillText('Q',ml+pw/2,mt+ph+34);
+  ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('P',0,0);ctx.restore();
+
+  // Original D: P=10-Q (fade when shifted)
+  ctx.strokeStyle='#1565c0';ctx.lineWidth=2;ctx.globalAlpha=(st>=1&&st<=2)?.4:(st>=3?.35:1);
+  ctx.beginPath();ctx.moveTo(cx(0),cy(10));ctx.lineTo(cx(10),cy(0));ctx.stroke();
+  ctx.globalAlpha=1;ctx.fillStyle='#1565c0';ctx.font='bold 11px sans-serif';ctx.textAlign='left';ctx.fillText('D',cx(10)+4,cy(0)+4);
+
+  // Original S: P=2+Q (fade when shifted)
+  ctx.strokeStyle='#2e7d32';ctx.lineWidth=2;ctx.globalAlpha=(st===2)?.4:(st>=3?.35:1);
+  ctx.beginPath();ctx.moveTo(cx(0),cy(2));ctx.lineTo(cx(10),cy(12));ctx.stroke();
+  ctx.globalAlpha=1;ctx.fillStyle='#2e7d32';ctx.font='bold 11px sans-serif';ctx.fillText('S',cx(10)+4,cy(12)-6);
+
+  // E1 always
+  dot(ctx,cx(4),cy(6),st===0?8:5,PC());
+  ctx.fillStyle=PC();ctx.font='bold 11px sans-serif';ctx.textAlign='left';
+  ctx.fillText(st===0?'E₁ (4, 6)':'E₁',cx(4)+(st===0?10:6),cy(6)+(st===0?-8:4));
+
+  // Step 2: D shifts right only
+  if(st===1){
+    ctx.strokeStyle='#c62828';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(2),cy(12));ctx.lineTo(cx(12),cy(2));ctx.stroke();
+    ctx.fillStyle='#c62828';ctx.font='bold 11px sans-serif';ctx.textAlign='left';ctx.fillText('D₂',cx(12)+4,cy(2)+4);
+    ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText('D → D₂',cx(8),cy(3));
+    dot(ctx,cx(6),cy(8),8,'#c62828');
+    ctx.fillStyle='#c62828';ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.fillText('E₂ (6, 8)',cx(6)+12,cy(8)-8);
+    ctx.fillStyle=TC();ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText('P*↑ Q*↑',cx(5),cy(7)-10);
+  }
+
+  // Step 3: S shifts right only
+  if(st===2){
+    ctx.strokeStyle='#1D9E75';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cy(0));ctx.lineTo(cx(12),cy(12));ctx.stroke();
+    ctx.fillStyle='#1D9E75';ctx.font='bold 11px sans-serif';ctx.textAlign='left';ctx.fillText('S₂',cx(12)+4,cy(12)-6);
+    ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText('S → S₂',cx(3),cy(1));
+    dot(ctx,cx(5),cy(5),8,'#1D9E75');
+    ctx.fillStyle='#1D9E75';ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.fillText('E₃ (5, 5)',cx(5)+12,cy(5)-8);
+    ctx.fillStyle=TC();ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText('P*↓ Q*↑',cx(4.5),cy(5.5)+16);
+  }
+
+  // Step 4: D↑ + S↑ simultaneously
+  // D2: P=14-Q, S2: P=Q → 14-Q=Q → Q*=7, P*=7
+  if(st===3){
+    // D2
+    ctx.strokeStyle='#c62828';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(2),cy(12));ctx.lineTo(cx(12),cy(2));ctx.stroke();
+    ctx.fillStyle='#c62828';ctx.font='bold 11px sans-serif';ctx.textAlign='left';ctx.fillText('D₂ (เลื่อนขวา)',cx(10),cy(4));
+    // S2
+    ctx.strokeStyle='#1D9E75';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cy(0));ctx.lineTo(cx(12),cy(12));ctx.stroke();
+    ctx.fillStyle='#1D9E75';ctx.font='bold 11px sans-serif';ctx.fillText('S₂ (เลื่อนขวา)',cx(10),cy(11));
+    // New eq
+    dot(ctx,cx(7),cy(7),8,PC());
+    ctx.fillStyle=PC();ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.fillText('E₄ (7, 7)',cx(7)+12,cy(7)-8);
+    // Arrow E1→E4
+    ctx.strokeStyle='rgba(150,150,150,.5)';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(cx(4)+6,cy(6)-2);ctx.lineTo(cx(7)-6,cy(7)+2);ctx.stroke();ctx.setLineDash([]);
+    // Labels
+    ctx.fillStyle='#4527a0';ctx.font='bold 12px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Q*: 4→7 ✓ เพิ่มแน่',cx(5.5),cy(3));
+    ctx.fillStyle='#e65100';ctx.font='11px sans-serif';
+    ctx.fillText('P*: 6→7 — ไม่แน่นอน',cx(7),cy(1.5));
+    ctx.fillStyle=TC();ctx.font='10px sans-serif';
+    ctx.fillText('🍖 เทศกาล: คนกินเพิ่ม + ฟาร์มผลิตเพิ่ม',cx(7),mt+ph-8);
+  }
+
+  // Step 5: D↑ + S↓ simultaneously
+  // D2: P=14-Q, S3: P=4+Q → 14-Q=4+Q → Q*=5, P*=9
+  if(st===4){
+    // D2
+    ctx.strokeStyle='#c62828';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(2),cy(12));ctx.lineTo(cx(12),cy(2));ctx.stroke();
+    ctx.fillStyle='#c62828';ctx.font='bold 11px sans-serif';ctx.textAlign='left';ctx.fillText('D₂ (เลื่อนขวา)',cx(10),cy(4));
+    // S3: P=4+Q (shifted left)
+    ctx.strokeStyle='#e65100';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cy(4));ctx.lineTo(cx(8),cy(12));ctx.stroke();
+    ctx.fillStyle='#e65100';ctx.font='bold 11px sans-serif';ctx.fillText('S₃ (เลื่อนซ้าย)',cx(6),cy(11));
+    // New eq
+    dot(ctx,cx(5),cy(9),8,'#c62828');
+    ctx.fillStyle='#c62828';ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.fillText('E₅ (5, 9)',cx(5)+12,cy(9)-8);
+    // Arrow E1→E5
+    ctx.strokeStyle='rgba(150,150,150,.5)';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(cx(4)+4,cy(6)-6);ctx.lineTo(cx(5)-2,cy(9)+6);ctx.stroke();ctx.setLineDash([]);
+    // Labels
+    ctx.fillStyle='#c62828';ctx.font='bold 12px sans-serif';ctx.textAlign='center';
+    ctx.fillText('P*: 6→9 ✓ เพิ่มแน่',cx(2.5),cy(10));
+    ctx.fillStyle='#e65100';ctx.font='11px sans-serif';
+    ctx.fillText('Q*: 4→5 — ไม่แน่นอน',cx(7),cy(1.5));
+    ctx.fillStyle=TC();ctx.font='10px sans-serif';
+    ctx.fillText('⛽ สงคราม: คนกักตุนน้ำมัน + OPEC ลดผลิต',cx(7),mt+ph-8);
+  }
+
+  ctx.fillStyle=TC();ctx.font='bold 13px sans-serif';ctx.textAlign='center';
+  ctx.fillText(st<=2?'ผลของการเลื่อนเส้น D หรือ S ต่อดุลยภาพ':'ผลเมื่อ D กับ S เลื่อนพร้อมกัน',ml+pw/2,mt-16);
+}
+
+/* ═══ QUIZ ═══ */
+const QS=[
+  {q:'ดุลยภาพตลาดเกิดเมื่อ?',o:['P สูงสุด','Qd = Qs','Qd > Qs','TR สูงสุด'],a:1,e:'ดุลยภาพ = จุดที่ Qd = Qs → ตลาดล้างตัวเอง ไม่มีสินค้าเหลือหรือขาดแคลน'},
+  {q:'ถ้า P < P* (ราคาต่ำกว่าดุลยภาพ) จะเกิด?',o:['Excess Supply','Excess Demand','ดุลยภาพ','ราคาลดลง'],a:1,e:'P < P* → Qd > Qs → Excess Demand (ขาดแคลน) → ราคาถูกดันขึ้นสู่ดุลยภาพ'},
+  {q:'D เลื่อนขวา (รายได้เพิ่ม) → ดุลยภาพใหม่เป็นอย่างไร?',o:['P*↑ Q*↑','P*↓ Q*↓','P*↑ Q*↓','P*↓ Q*↑'],a:0,e:'D เลื่อนขวา → ผู้ซื้ออยากได้มากขึ้นที่ทุกราคา → P* เพิ่มขึ้น Q* เพิ่มขึ้น'},
+  {q:'S เลื่อนขวา (ต้นทุนลด) → ดุลยภาพใหม่เป็นอย่างไร?',o:['P*↑ Q*↑','P*↓ Q*↓','P*↑ Q*↓','P*↓ Q*↑'],a:3,e:'S เลื่อนขวา → ผู้ขายเสนอขายมากขึ้นที่ทุกราคา → สินค้ามีมากขึ้น → P* ลด Q* เพิ่ม'},
+  {q:'D: P=10−Q, S: P=2+Q → ราคาดุลยภาพ P* เท่าไร?',o:['4','5','6','8'],a:2,e:'10−Q = 2+Q → 2Q = 8 → Q*=4 → P* = 10−4 = 6'}
+];
+var qA=0,qS=0;
+function buildQ(){const z=document.getElementById('qz');if(z.children.length)return;qA=0;qS=0;QS.forEach((qq,qi)=>{const d=document.createElement('div');d.style.cssText='margin-bottom:14px';let h=`<div style="font-weight:700;font-size:14px;margin-bottom:6px">${qi+1}. ${qq.q}</div><div class="opts" id="qo${qi}">`;qq.o.forEach((o,oi)=>{h+=`<div class="opt" onclick="qAns(${qi},${oi})">${o}</div>`;});h+=`</div><div class="fb" id="qf${qi}"></div>`;d.innerHTML=h;z.appendChild(d);});}
+function qAns(qi,oi){const opts=document.querySelectorAll(`#qo${qi} .opt`);if(opts[0].classList.contains('disabled'))return;opts.forEach(o=>o.classList.add('disabled'));const fb=document.getElementById('qf'+qi);if(oi===QS[qi].a){opts[oi].classList.add('correct');fb.className='fb on ok';fb.textContent='✓ '+QS[qi].e;qS++;}else{opts[oi].classList.add('wrong');opts[QS[qi].a].classList.add('correct');fb.className='fb on no';fb.textContent='✗ '+QS[qi].e;}qA++;if(qA===QS.length)setTimeout(()=>{document.getElementById('qnav').style.display='flex';const msg=document.createElement('div');msg.className='fb on '+(qS>=4?'ok':'no');msg.textContent=`ได้ ${qS}/${QS.length} คะแนน`+(qS===5?' — ยอดเยี่ยม! จบบทที่ 3 แล้ว!':qS>=3?' — ดีมาก!':' — ลองทบทวน');document.getElementById('qz').appendChild(msg);},300);}
+function rstQ(){document.getElementById('qz').innerHTML='';document.getElementById('qnav').style.display='none';buildQ();}
+
+buildPg();updPg(0);initS('e',eSS);eDraw();
+</script></body></html>

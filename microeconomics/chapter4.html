@@ -2,27 +2,109 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>บทที่ 4 — การกำหนดราคาและการแทรกแซงตลาด</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 4 — การกำหนดราคา</title>
 <style>
-:root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--bg:#f4f2fb;--panel:#fff;--border:#ece7f7;--ink:#1d1633;--muted:#6b6480;--accent:#4338ca;--soft:#ede9fe;--warn-bg:#fff7ed;--warn:#c2410c;--radius:24px;--shadow:0 10px 30px rgba(61,47,158,.08);}
-*{box-sizing:border-box}
-body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
-.page{max-width:880px;margin:0 auto;padding:24px 18px 56px}
-.backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--accent);font-size:14px;font-weight:600;margin:0 0 14px}
-.hero{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
-.hero p{font-size:14px;line-height:1.75;margin:0;opacity:.92;max-width:720px}
-.hero h1{font-family:var(--font-serif);font-size:30px;line-height:1.25;margin:0 0 8px}
-.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
-.badge{display:inline-block;background:var(--warn-bg);color:var(--warn);border:1px solid #fdba74;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
-.note{background:var(--soft);border:1px solid #d8d2ef;border-radius:18px;padding:16px 18px;font-size:14px;line-height:1.8;color:var(--muted);margin-bottom:16px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:12px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid #d8d2ef;color:var(--ink);background:#fff}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.panel ul{color:var(--muted);font-size:14px;margin:6px 0 0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:680px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
+.backbtn:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.backbtn:hover{background:#242424}}
+.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#e0f2f1;color:#00695c}
+@media(prefers-color-scheme:dark){.badge{background:#002822;color:#4db6ac}}
 
+/* Hero — teal theme for chapter 4 */
+.hero{background:linear-gradient(135deg,#e0f2f1 0%,#f0fbfa 100%);border-radius:16px;padding:22px 24px;margin:14px 0 20px;border:1px solid #b2dfdb}
+@media(prefers-color-scheme:dark){.hero{background:linear-gradient(135deg,#002822 0%,#1a1a1a 100%);border-color:#004d40}}
+.hero h1{font-size:22px;font-weight:800;margin-bottom:6px;color:#00695c}
+@media(prefers-color-scheme:dark){.hero h1{color:#4db6ac}}
+.hero p{font-size:14px;line-height:1.75;color:#555}
+@media(prefers-color-scheme:dark){.hero p{color:#aaa}}
+.hook{background:#fff;border-radius:12px;padding:14px 16px;margin-top:14px;border:1px solid #b2dfdb;font-size:14px;line-height:1.7}
+@media(prefers-color-scheme:dark){.hook{background:#051a18;border-color:#004d40}}
+.hook .q{font-weight:700;margin-bottom:8px;font-size:15px}
+.hook .hint{font-size:12.5px;color:#888;margin-top:8px}
+
+.status{display:none;background:#e0f2f1;border:1px solid #80cbc4;color:#00695c;border-radius:12px;padding:12px 14px;margin:-6px 0 18px;font-size:13.5px;line-height:1.7}
+.status.on{display:block}
+@media(prefers-color-scheme:dark){.status{background:#002822;border-color:#00796b;color:#4db6ac}}
+
+/* Section cards */
+.sec-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.cards{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.card{background:#fff;border:1.5px solid #eee;border-radius:14px;padding:16px 20px;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .15s;display:flex;align-items:flex-start;gap:14px}
+@media(prefers-color-scheme:dark){.card{background:#1a1a1a;border-color:#333}}
+.card:hover{transform:translateY(-2px)}
+.card .icon{font-size:26px;flex-shrink:0;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:10px}
+.card .body{flex:1;min-width:0}
+.card .title{font-size:15px;font-weight:700;margin-bottom:3px}
+.card .sub{font-size:12.5px;color:#888;line-height:1.55}
+@media(prefers-color-scheme:dark){.card .sub{color:#777}}
+.card .ask{font-size:12.5px;color:#555;font-style:italic;margin-top:6px;line-height:1.5;padding-left:10px;border-left:2px solid #ddd}
+@media(prefers-color-scheme:dark){.card .ask{color:#aaa;border-left-color:#444}}
+.card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tag{font-size:10.5px;padding:2px 8px;border-radius:99px;font-weight:500}
+
+/* Color themes per card (chapter 4 specific) */
+.c1{border-color:#b2dfdb}.c1:hover{border-color:#00796b;box-shadow:0 4px 16px rgba(0,121,107,.14)}
+.c1 .icon{background:#e0f2f1;color:#00695c}
+.c1 .tag{background:#e0f2f1;color:#00695c}
+
+.c2{border-color:#ffccbc}.c2:hover{border-color:#d84315;box-shadow:0 4px 16px rgba(216,67,21,.14)}
+.c2 .icon{background:#fbe9e7;color:#bf360c}
+.c2 .tag{background:#fbe9e7;color:#bf360c}
+
+.c3{border-color:#c8e6c9}.c3:hover{border-color:#388e3c;box-shadow:0 4px 16px rgba(56,142,60,.14)}
+.c3 .icon{background:#e8f5e9;color:#2e7d32}
+.c3 .tag{background:#e8f5e9;color:#2e7d32}
+
+.c4{border-color:#d1c4e9}.c4:hover{border-color:#5e35b1;box-shadow:0 4px 16px rgba(94,53,177,.14)}
+.c4 .icon{background:#ede7f6;color:#4527a0}
+.c4 .tag{background:#ede7f6;color:#4527a0}
+
+.c5{border-color:#fff9c4}.c5:hover{border-color:#f57f17;box-shadow:0 4px 16px rgba(245,127,23,.14)}
+.c5 .icon{background:#fffde7;color:#e65100}
+.c5 .tag{background:#fffde7;color:#e65100}
+
+@media(prefers-color-scheme:dark){
+  .c1{border-color:#003833}.c1 .icon{background:#002822;color:#4db6ac}.c1 .tag{background:#002822;color:#4db6ac}
+  .c2{border-color:#3d1a0f}.c2 .icon{background:#2a0f08;color:#ff8a65}.c2 .tag{background:#2a0f08;color:#ff8a65}
+  .c3{border-color:#1a2a1a}.c3 .icon{background:#0d1f0d;color:#81c784}.c3 .tag{background:#0d1f0d;color:#81c784}
+  .c4{border-color:#1f1830}.c4 .icon{background:#120d1f;color:#b39ddb}.c4 .tag{background:#120d1f;color:#b39ddb}
+  .c5{border-color:#2a1f05}.c5 .icon{background:#1f1500;color:#ffb74d}.c5 .tag{background:#1f1500;color:#ffb74d}
+}
+
+/* Reveal answer */
+.revbtn{width:100%;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;text-align:left;color:inherit;margin-top:8px;font-family:inherit}
+@media(prefers-color-scheme:dark){.revbtn{border-color:#444}}
+.revbtn:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.revbtn:hover{background:#242424}}
+.revbox{background:#f5f5f5;border-radius:10px;padding:12px 16px;margin-top:6px;display:none;font-size:13.5px;line-height:1.75}
+@media(prefers-color-scheme:dark){.revbox{background:#222}}
+.revbox.on{display:block}
+
+/* Study tip */
+.tip{background:#fff8e1;border:1px solid #ffe082;border-radius:12px;padding:14px 16px;margin-bottom:20px;font-size:13.5px;line-height:1.7}
+@media(prefers-color-scheme:dark){.tip{background:#2a2100;border-color:#6b5200;color:#ffd54f}}
+.tip-title{font-weight:700;margin-bottom:6px;color:#8a5a00}
+@media(prefers-color-scheme:dark){.tip-title{color:#ffd54f}}
+.tip ul{list-style:none;padding:0;margin:0}
+.tip li{padding:4px 0 4px 22px;position:relative}
+.tip li::before{content:'→';position:absolute;left:0;color:#f57f17;font-weight:700}
+
+/* Bottom nav */
+.botnav{display:flex;gap:8px;margin-top:8px;padding-top:16px;border-top:1px solid #eee}
+@media(prefers-color-scheme:dark){.botnav{border-color:#333}}
+.bnb{flex:1;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;color:inherit;text-align:center;font-family:inherit}
+@media(prefers-color-scheme:dark){.bnb{border-color:#444}}
+.bnb:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.bnb:hover{background:#242424}}
+.bnb.pr{background:#00796b;border-color:#00796b;color:#fff;font-weight:700}
+.bnb.pr:hover{background:#00695c}
 </style>
 
 <style>
@@ -44,6 +126,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   border-bottom: 1px solid var(--ajk-border);
   font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
   color: var(--ajk-ink);
+  margin: -16px -16px 0;
 }
 .ajk-topbar-inner {
   max-width: 960px; margin: 0 auto;
@@ -101,7 +184,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
 
 /* ─── Footer ─── */
 .ajk-footer {
-  margin-top: 64px;
+  margin: 64px -16px 0;
   background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
   border-top: 1px solid var(--ajk-border);
   padding: 48px 16px 28px;
@@ -175,10 +258,10 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   .ajk-footer-links { gap: 6px; }
   .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
 }
-
 </style>
 </head>
 <body>
+
 <header class="ajk-topbar ajk-shell-theme">
   <div class="ajk-topbar-inner">
     <a class="ajk-back-btn" href="../index.html" aria-label="กลับหน้าหลัก">
@@ -186,41 +269,296 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
       <span>หน้าหลัก</span>
     </a>
     <div class="ajk-brand">
-      <div class="ajk-brand-course">บทที่ 4 · การกำหนดราคาและการแทรกแซงตลาด</div>
+      <div class="ajk-brand-course">บทที่ 4 · การกำหนดราคา</div>
       <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
 </header>
 
-<div class="page">
-  <a class="backlink" href="index.html">← กลับแผนการเรียนรู้</a>
-  <div class="hero">
-    
-    <h1>บทที่ 4 — การกำหนดราคาและการแทรกแซงตลาด</h1>
-    <p>เรียนต่อจากดุลยภาพตลาด ไปสู่ภาษี ราคาเพดาน ราคาขั้นต่ำ และประสิทธิภาพทางเศรษฐกิจ</p>
-  </div>
-  <div class="panel">
-    <div class="badge">เร็ว ๆ นี้</div>
-    <h2 style="font-family:var(--font-serif);font-size:20px;margin:6px 0 10px;color:var(--ink)">บทนี้กำลังเตรียมอยู่นะคะ</h2>
-    <div class="note" style="color:var(--ink)">
-      ขอบคุณที่สนใจนะคะ ตอนนี้ครูกำลังเตรียมเนื้อหาของบทนี้อยู่ ยังไม่พร้อมให้เข้ามาเรียนในตอนนี้<br><br>
-      ระหว่างที่รอ ลองย้อนไปทบทวนบทก่อนหน้าให้แม่น ๆ ก่อนนะคะ เพราะพื้นฐานจากบทก่อน ๆ จะทำให้เข้าใจบทนี้ได้ง่ายขึ้นเยอะเลยค่ะ
-    </div>
-    <div class="note">
-      <strong style="color:var(--ink)">สิ่งที่จะได้เรียนในบทนี้</strong>
-      <ul style="margin:8px 0 0;padding-left:20px;line-height:1.85">
-      <li>ภาษีตกอยู่กับใคร — ผู้ซื้อหรือผู้ขาย?</li>
-      <li>ราคาเพดาน (Price Ceiling) และราคาขั้นต่ำ (Price Floor)</li>
-      <li>Deadweight Loss — ทำไมการแทรกแซงตลาดถึงมีต้นทุน</li>
-      <li>Tax Incidence — ใครแบกภาระภาษีจริง ๆ</li>
-      </ul>
-    </div>
-    <div class="actions">
-      <a class="btn" href="index.html">← กลับแผนการเรียนรู้</a>
-      <a class="btn primary" href="chapter3.html">ทบทวน บทที่ 3 →</a>
+<div class="app">
+
+<div class="topnav">
+  <a class="backbtn" href="index.html">← กลับแผนการเรียนรู้</a>
+  <span class="badge">บทที่ 4</span>
+</div>
+
+<div class="hero">
+  <h1>การกำหนดราคา</h1>
+  <p>ต่อจากบทที่ 3 — เมื่อเรารู้แล้วว่า Demand กับ Supply คืออะไร บทนี้จะพาไปดู<br>ว่าราคาในตลาด <em>ถูกกำหนด</em> ขึ้นได้อย่างไร และจะเกิดอะไรขึ้นเมื่อ "มือของรัฐ"<br>เข้ามาแทรกแซงด้วยการตรึงราคาขั้นสูง ขั้นต่ำ หรือเก็บภาษี</p>
+  <div class="hook">
+    <div class="q">💭 ถามก่อนเรียน: รัฐบาลออกกฎห้ามขายน้ำมันเกินลิตรละ 25 บาท คนจะได้น้ำมันถูกลงจริงมั้ย?</div>
+    <p style="font-size:13.5px;color:#777">สัญชาตญาณบอกว่า "ถูกลงสิ! รัฐบังคับไว้แล้ว" — แต่เศรษฐศาสตร์บอกอีกเรื่องหนึ่ง ลองคิดดูก่อนนะ ว่าผู้ขายจะยังอยากขายเท่าเดิมมั้ย ถ้าได้ราคาน้อยลง?</p>
+    <button class="revbtn" id="rb0" onclick="togRev()">เผยแนวคิดหลักของบทนี้</button>
+    <div class="revbox" id="rev0">
+      <strong>3 แนวคิดหลักที่ต้องเข้าใจ:</strong><br>
+      ① <strong>ดุลยภาพ (Equilibrium)</strong> = จุดที่คนอยากซื้อ = คนอยากขาย → ตลาด "เคลียร์ตัวเอง" ได้<br>
+      ② <strong>Excess demand/supply</strong> = เมื่อราคาอยู่ผิดจากดุลยภาพ จะเกิดแรงกดดันให้ราคากลับไปที่ดุลยภาพเสมอ<br>
+      ③ <strong>Tax incidence (ภาระภาษี)</strong> = ภาษีที่รัฐเก็บจากผู้ขาย ไม่ได้ตกที่ผู้ขายเต็ม ๆ — มันถูก "ผลัก" ไปหาผู้ซื้อบางส่วน
     </div>
   </div>
 </div>
+
+<div class="tip">
+  <div class="tip-title">🎯 วิธีใช้เพื่อให้เรียนรู้ด้วยตัวเอง</div>
+  <ul>
+    <li><strong>อย่ากดข้ามคำถาม</strong> — ทุกส่วนจะเริ่มด้วยคำถามให้คิด ลองเดาก่อน ผิดไม่เป็นไร</li>
+    <li><strong>เล่นกับกราฟ</strong> — ลองลากเลื่อน slider ดูว่าอะไรเปลี่ยน แล้วค่อยอ่านคำอธิบาย</li>
+    <li><strong>เริ่มจากส่วนที่ 1</strong> — ถ้าข้ามไปราคาขั้นสูง/ต่ำเลย อาจจะงงตรงคอนเซ็ปต์ Excess demand/supply</li>
+  </ul>
+</div>
+
+<div class="sec-label">เลือกส่วนที่ต้องการเรียน</div>
+<div class="status" id="sectionStatus"></div>
+
+<div class="cards">
+
+  <div class="card c1" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 1: ราคาดุลยภาพ — Equilibrium Price, Excess Demand/Supply')">
+    <div class="icon">⚖️</div>
+    <div class="body">
+      <div class="title">4.1 ราคาดุลยภาพ</div>
+      <div class="sub">จุดที่ D ตัด S = ราคาและปริมาณที่ตลาดจะ "นิ่ง" | ถ้าราคาสูงเกินไป → Excess Supply (ขายไม่หมด) → ราคาลด | ถ้าต่ำเกินไป → Excess Demand (ของขาด) → ราคาขึ้น</div>
+      <div class="ask">"ถ้าร้านขนมตั้งราคา 60 บาทแต่คนแห่ซื้อจนหมดภายใน 10 นาที ร้านควรทำยังไง?"</div>
+      <div class="tags">
+        <span class="tag">Equilibrium</span>
+        <span class="tag">Excess Demand</span>
+        <span class="tag">Excess Supply</span>
+        <span class="tag">กราฟ interactive</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c2" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 2: การกำหนดราคาขั้นสูง — Price Ceiling, Shortage, Black Market')">
+    <div class="icon">🔒</div>
+    <div class="body">
+      <div class="title">4.2 การกำหนดราคาขั้นสูง</div>
+      <div class="sub">Maximum Price — รัฐกำหนดราคา "ห้ามขายเกิน" ต่ำกว่าดุลยภาพ เพื่อช่วยผู้บริโภค ผลคือของขาด เกิดตลาดมืด ต้องปันส่วน หรือนำเข้าจากต่างประเทศ</div>
+      <div class="ask">"ทำไมรัฐควบคุมราคาข้าวสารแล้วคนกลับซื้อยากขึ้น ไม่ง่ายขึ้น?"</div>
+      <div class="tags">
+        <span class="tag">Price Ceiling</span>
+        <span class="tag">Shortage</span>
+        <span class="tag">Black Market</span>
+        <span class="tag">โจทย์คำนวณ</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c3" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 3: การกำหนดราคาขั้นต่ำ — Price Floor, Excess Supply, Government Purchase')">
+    <div class="icon">🌾</div>
+    <div class="body">
+      <div class="title">4.3 การกำหนดราคาขั้นต่ำ</div>
+      <div class="sub">Minimum Price / ประกันราคา — รัฐกำหนดราคาสูงกว่าดุลยภาพเพื่อช่วยผู้ผลิต (เช่น เกษตรกร) ผลคือผลิตล้น ตลาดไม่ซื้อ → รัฐต้องเข้ามารับซื้อส่วนเกิน</div>
+      <div class="ask">"โครงการจำนำข้าว ทำไมรัฐต้องเก็บข้าวไว้ในโกดัง? เงินมาจากไหน?"</div>
+      <div class="tags">
+        <span class="tag">Price Floor</span>
+        <span class="tag">Excess Supply</span>
+        <span class="tag">รัฐรับซื้อ</span>
+        <span class="tag">คำนวณรายได้เกษตรกร</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c4" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 4: การเก็บภาษี — Per Unit Tax, Tax Incidence, Tax Shifting')">
+    <div class="icon">💰</div>
+    <div class="body">
+      <div class="title">4.4 การเก็บภาษี</div>
+      <div class="sub">ภาษีต่อหน่วย (Excise Tax) ทำให้เส้นอุปทานเลื่อนขึ้น | ภาระภาษีถูก "แบ่ง" ระหว่างผู้ขายและผู้ซื้อ — ใครจ่ายมากขึ้นอยู่กับความชันของเส้น D และ S</div>
+      <div class="ask">"รัฐเก็บภาษีบุหรี่ 0.60 บาท/ซอง จากผู้ผลิต สุดท้ายคนสูบจ่ายเพิ่มเท่าไหร่?"</div>
+      <div class="tags">
+        <span class="tag">Per Unit Tax</span>
+        <span class="tag">Tax Incidence</span>
+        <span class="tag">เก็บจากผู้ซื้อ</span>
+        <span class="tag">ภาระภาษี</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card c5" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 5: การเปลี่ยนแปลงของดุลยภาพ — Shifts in Equilibrium, Comparative Statics')">
+    <div class="icon">🔀</div>
+    <div class="body">
+      <div class="title">4.5 การเปลี่ยนแปลงของดุลยภาพ</div>
+      <div class="sub">เมื่อ D หรือ S เลื่อน → ราคาและปริมาณดุลยภาพใหม่จะไปที่ไหน? | 3 กรณี: D เปลี่ยน, S เปลี่ยน, ทั้งคู่เปลี่ยน | เจอสถานการณ์จริงแล้วคาดการณ์ได้</div>
+      <div class="ask">"ตอนโควิด คนอยู่บ้านมากขึ้น ราคาขนมขบเคี้ยวควรขึ้นหรือลง? แล้วยอดขายล่ะ?"</div>
+      <div class="tags">
+        <span class="tag">D Shift</span>
+        <span class="tag">S Shift</span>
+        <span class="tag">Comparative Statics</span>
+        <span class="tag">พยากรณ์ตลาด</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Quick overview canvas -->
+<div class="sec-label">ภาพรวมบทที่ 4 — การแทรกแซงราคาของรัฐ</div>
+<canvas id="cv" style="width:100%;max-width:640px;border-radius:14px;border:1px solid #ddd;display:block;margin-bottom:10px"></canvas>
+<p style="font-size:12.5px;color:#888;margin-bottom:20px;line-height:1.6">
+  จุด <strong style="color:#c62828">E*</strong> คือดุลยภาพธรรมชาติของตลาด · เส้น <strong style="color:#1976d2">P̄</strong> คือราคาขั้นสูง (ต่ำกว่า E* → เกิด shortage) · เส้น <strong style="color:#2e7d32">P̲</strong> คือราคาขั้นต่ำ (สูงกว่า E* → เกิด surplus) · เราจะไล่เรียนทีละกรณีในแต่ละส่วน
+</p>
+
+<div class="botnav">
+  <button class="bnb" onclick="sendPrompt('กลับหน้าหลัก')">← กลับแผนการเรียนรู้</button>
+  <button class="bnb pr" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 1: ราคาดุลยภาพ — Equilibrium Price, Excess Demand/Supply')">เริ่มส่วนที่ 1 →</button>
+</div>
+
+</div>
+
+<script>
+function togRev(){
+  const b=document.getElementById('rev0'),t=document.getElementById('rb0');
+  const on=b.classList.toggle('on');
+  t.textContent=on?'ซ่อน':'เผยแนวคิดหลักของบทนี้';
+}
+
+function showSectionStatus(message){
+  const box=document.getElementById('sectionStatus');
+  box.textContent=message;
+  box.classList.add('on');
+  box.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function sendPrompt(message){
+  if(message === 'กลับหน้าหลัก'){
+    window.location.href='index.html';
+    return;
+  }
+
+  const labels = {
+    "เรียนบทที่ 4 ส่วนที่ 1: ราคาดุลยภาพ — Equilibrium Price, Excess Demand/Supply": "ส่วนที่ 4.1 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 1' หรือ 'ราคาดุลยภาพ' เพื่อเริ่มได้เลยค่ะ",
+    "เรียนบทที่ 4 ส่วนที่ 2: การกำหนดราคาขั้นสูง — Price Ceiling, Shortage, Black Market": "ส่วนที่ 4.2 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 2' หรือ 'ราคาขั้นสูง' เพื่อเริ่มได้เลยค่ะ",
+    "เรียนบทที่ 4 ส่วนที่ 3: การกำหนดราคาขั้นต่ำ — Price Floor, Excess Supply, Government Purchase": "ส่วนที่ 4.3 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 3' หรือ 'ราคาขั้นต่ำ' เพื่อเริ่มได้เลยค่ะ",
+    "เรียนบทที่ 4 ส่วนที่ 4: การเก็บภาษี — Per Unit Tax, Tax Incidence, Tax Shifting": "ส่วนที่ 4.4 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 4' หรือ 'การเก็บภาษี' เพื่อเริ่มได้เลยค่ะ",
+    "เรียนบทที่ 4 ส่วนที่ 5: การเปลี่ยนแปลงของดุลยภาพ — Shifts in Equilibrium, Comparative Statics": "ส่วนที่ 4.5 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 5' หรือ 'การเปลี่ยนดุลยภาพ' เพื่อเริ่มได้เลยค่ะ"
+  };
+
+  showSectionStatus(labels[message] || 'หัวข้อนี้กำลังจัดเตรียมเพิ่มเติม');
+}
+
+/* ── Overview canvas: D, S, equilibrium, price ceiling, price floor ── */
+(function drawOverview(){
+  const cv=document.getElementById('cv');
+  const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+  const cssW=Math.min(640,window.innerWidth-32);
+  const cssH=Math.round(cssW*0.55);
+  const dpr=window.devicePixelRatio||1;
+  cv.width=Math.round(cssW*dpr);
+  cv.height=Math.round(cssH*dpr);
+  cv.style.width=cssW+'px';
+  cv.style.height=cssH+'px';
+  const ctx=cv.getContext('2d');
+  ctx.scale(dpr,dpr);
+
+  const W=cssW,H=cssH;
+  const ml=50,mr=20,mt=28,mb=40;
+  const pw=W-ml-mr,ph=H-mt-mb;
+  const xMax=10,yMax=10;
+  const cx=v=>ml+(v/xMax)*pw;
+  const cy=v=>mt+ph-(v/yMax)*ph;
+  const TC=()=>DK()?'#d4d4d4':'#1a1a1a';
+  const GC=()=>DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';
+  const AC=()=>DK()?'rgba(255,255,255,.22)':'rgba(0,0,0,.18)';
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle=DK()?'#1a1a1a':'#fff';
+  ctx.fillRect(0,0,W,H);
+
+  // Grid
+  ctx.font='10px sans-serif';
+  [2,4,6,8,10].forEach(v=>{
+    ctx.strokeStyle=GC();ctx.lineWidth=.5;
+    ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();
+    ctx.fillStyle=TC();ctx.textAlign='center';ctx.fillText(v,cx(v),mt+ph+16);
+    ctx.textAlign='right';ctx.fillText(v,ml-5,cy(v)+4);
+  });
+
+  // Axes
+  ctx.strokeStyle=AC();ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+  ctx.fillStyle=TC();ctx.font='13px sans-serif';ctx.textAlign='center';
+  ctx.fillText('ปริมาณ (Q)',ml+pw/2,mt+ph+34);
+  ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('ราคา (P)',0,0);ctx.restore();
+
+  // Demand: P = 9 - 0.8Q
+  ctx.strokeStyle='#1976d2';ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(cx(0),cy(9));ctx.lineTo(cx(9/0.8),cy(0));ctx.stroke();
+  ctx.fillStyle='#1976d2';ctx.textAlign='left';ctx.font='bold 12px sans-serif';
+  ctx.fillText('D',cx(9/0.8)-14,cy(0.6));
+
+  // Supply: P = 1 + 0.8Q
+  ctx.strokeStyle='#e65100';ctx.lineWidth=3;
+  const sxMax=(yMax-1)/0.8;
+  ctx.beginPath();ctx.moveTo(cx(0),cy(1));ctx.lineTo(cx(Math.min(sxMax,xMax)),cy(Math.min(yMax,1+0.8*Math.min(sxMax,xMax))));ctx.stroke();
+  ctx.fillStyle='#e65100';ctx.textAlign='left';ctx.font='bold 12px sans-serif';
+  ctx.fillText('S',cx(Math.min(sxMax,xMax))-14,cy(Math.min(yMax-0.4,1+0.8*Math.min(sxMax,xMax))-0.3));
+
+  // Equilibrium: P*=5, Q*=5
+  const Qeq=5, Peq=5;
+  ctx.strokeStyle=DK()?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(cx(Qeq),cy(Peq));ctx.lineTo(cx(Qeq),mt+ph);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx(Qeq),cy(Peq));ctx.lineTo(ml,cy(Peq));ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Price Ceiling line (P=3, below equilibrium)
+  const Pceil=3;
+  ctx.strokeStyle='#1976d2';ctx.lineWidth=2;ctx.setLineDash([6,3]);
+  ctx.beginPath();ctx.moveTo(ml,cy(Pceil));ctx.lineTo(ml+pw,cy(Pceil));ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#1976d2';ctx.textAlign='right';ctx.font='bold 11px sans-serif';
+  ctx.fillText('P̄ (ราคาขั้นสูง)',ml+pw-4,cy(Pceil)-5);
+
+  // Price Floor line (P=7, above equilibrium)
+  const Pfloor=7;
+  ctx.strokeStyle='#2e7d32';ctx.lineWidth=2;ctx.setLineDash([6,3]);
+  ctx.beginPath();ctx.moveTo(ml,cy(Pfloor));ctx.lineTo(ml+pw,cy(Pfloor));ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#2e7d32';ctx.textAlign='right';ctx.font='bold 11px sans-serif';
+  ctx.fillText('P̲ (ราคาขั้นต่ำ)',ml+pw-4,cy(Pfloor)-5);
+
+  // Shortage zone at price ceiling
+  const QdCeil=(9-Pceil)/0.8;  // 7.5
+  const QsCeil=(Pceil-1)/0.8;  // 2.5
+  ctx.fillStyle='rgba(25,118,210,0.12)';
+  ctx.fillRect(cx(QsCeil),cy(Pceil),cx(QdCeil)-cx(QsCeil),2);
+  // Arrow showing shortage
+  ctx.strokeStyle='#1976d2';ctx.lineWidth=1.5;
+  ctx.beginPath();
+  ctx.moveTo(cx(QsCeil),cy(Pceil)+3);
+  ctx.lineTo(cx(QdCeil),cy(Pceil)+3);
+  ctx.stroke();
+  ctx.fillStyle='#1976d2';ctx.font='italic 10px sans-serif';ctx.textAlign='center';
+  ctx.fillText('Shortage',cx((QsCeil+QdCeil)/2),cy(Pceil)+16);
+
+  // Surplus zone at price floor
+  const QdFloor=(9-Pfloor)/0.8;  // 2.5
+  const QsFloor=(Pfloor-1)/0.8;  // 7.5
+  ctx.strokeStyle='#2e7d32';ctx.lineWidth=1.5;
+  ctx.beginPath();
+  ctx.moveTo(cx(QdFloor),cy(Pfloor)-3);
+  ctx.lineTo(cx(QsFloor),cy(Pfloor)-3);
+  ctx.stroke();
+  ctx.fillStyle='#2e7d32';ctx.font='italic 10px sans-serif';ctx.textAlign='center';
+  ctx.fillText('Surplus',cx((QdFloor+QsFloor)/2),cy(Pfloor)-8);
+
+  // Equilibrium dot
+  ctx.fillStyle='#c62828';
+  ctx.beginPath();ctx.arc(cx(Qeq),cy(Peq),7,0,2*Math.PI);ctx.fill();
+  ctx.strokeStyle=DK()?'#141414':'#fff';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.arc(cx(Qeq),cy(Peq),7,0,2*Math.PI);ctx.stroke();
+  ctx.fillStyle='#c62828';ctx.font='bold 12px sans-serif';
+  ctx.textAlign='left';ctx.fillText('E*',cx(Qeq)+10,cy(Peq)+4);
+
+  // Axis labels at equilibrium
+  ctx.fillStyle='#c62828';ctx.font='11px sans-serif';
+  ctx.textAlign='center';ctx.fillText('Q*',cx(Qeq),mt+ph+16);
+  ctx.textAlign='right';ctx.fillText('P*',ml-5,cy(Peq)+4);
+
+  // Title
+  ctx.fillStyle=TC();ctx.font='bold 13px sans-serif';ctx.textAlign='center';
+  ctx.fillText('ดุลยภาพ + การตรึงราคา: P̄ → Shortage | P̲ → Surplus',ml+pw/2,mt-10);
+})();
+</script>
+
 <footer class="ajk-footer ajk-shell-theme">
   <div class="ajk-footer-inner">
     <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
