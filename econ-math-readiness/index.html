@@ -19,38 +19,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:18px}
 
-/* ── TOP NAV ── */
-#topnav{
-  position:sticky;top:0;z-index:200;
-  background:rgba(250,249,246,.97);backdrop-filter:blur(16px);
-  border-bottom:2px solid var(--border);
-  padding:0 1.5rem;height:64px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-brand{
-  font-family:'Lora',serif;font-weight:700;font-size:1rem;
-  display:flex;align-items:center;gap:.5rem;cursor:pointer;
-  flex-wrap:wrap;gap-y:.1rem;
-}
-.nav-dot{width:9px;height:9px;background:var(--amber);border-radius:50%;flex-shrink:0}
-.nav-title-main{color:var(--text)}
-.nav-title-author{
-  font-family:'DM Sans',sans-serif;font-weight:600;font-size:.8rem;
-  color:white;background:#7c3aed;
-  padding:.18rem .65rem;border-radius:999px;
-  letter-spacing:.01em;white-space:nowrap;
-}
-#nav-breadcrumb{font-size:.78rem;color:var(--muted);font-family:'Space Mono',monospace}
-#nav-back{
-  display:none;align-items:center;gap:.4rem;
-  background:none;border:1px solid var(--bdark);
-  padding:.35rem .85rem;border-radius:999px;
-  font-size:.8rem;cursor:pointer;color:var(--mid);
-  font-family:'DM Sans',sans-serif;transition:all .2s;
-}
-#nav-back:hover{border-color:var(--amber);color:var(--amber)}
-#progress-bar{position:fixed;top:64px;left:0;height:3px;background:var(--amber);z-index:199;transition:width .3s;width:0}
-
 /* ── PAGES ── */
 .page{display:none;min-height:calc(100vh - 56px)}
 #page-home{display:block}
@@ -384,20 +352,183 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   .home-body{padding:1.25rem}
 }
 /* end styles */
+
+
+/* Module-level breadcrumb (back to module list) */
+.mod-breadcrumb{display:inline-flex;align-items:center;gap:.45rem;margin-bottom:1.25rem;padding:.4rem .85rem;border:1px solid var(--border);background:#fff;border-radius:999px;font-size:.78rem;font-weight:500;color:var(--muted);cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .18s}
+.mod-breadcrumb:hover{color:var(--amber);border-color:var(--ab);transform:translateX(-2px);box-shadow:0 4px 12px rgba(217,119,6,.12)}
+.mod-breadcrumb-arrow{display:inline-block;width:14px;height:14px;flex-shrink:0}
+@media(max-width:520px){.mod-breadcrumb{font-size:.76rem;margin-bottom:1rem}}
+</style>
+
+<style>
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #d97706;
+  --ajk-primary-soft: #fef3c7;
+  --ajk-primary-dark: #b45309;
+  --ajk-ink: #1c1917;
+  --ajk-muted: #78716c;
+  --ajk-border: #e7e5e4;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right;
+  line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  letter-spacing: -.01em;
+}
+.ajk-brand-author {
+  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; padding: 0 1px; }
+
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-back-btn svg { width: 16px; height: 16px; }
+  .ajk-brand-course { font-size: 12.5px; }
+  .ajk-brand-author { font-size: 10.5px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
+}
+
+/* ─── Footer ─── */
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 720px; margin: 0 auto;
+  text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px;
+  background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--ajk-ink); margin: 0 0 4px;
+  letter-spacing: -.01em;
+}
+.ajk-footer-sub {
+  font-size: 12.5px; color: var(--ajk-muted);
+  letter-spacing: .02em;
+  margin-bottom: 26px;
+}
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 26px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface);
+  border: 1px solid var(--ajk-border);
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 13px; font-weight: 500;
+  transition: all .18s;
+  cursor: pointer;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; }
+.ajk-footer-btn:hover {
+  color: var(--ajk-primary);
+  border-color: var(--ajk-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.ajk-footer-bottom {
+  font-size: 11.5px; color: var(--ajk-muted);
+  letter-spacing: .02em;
+  padding-top: 22px;
+  border-top: 1px solid var(--ajk-border);
+  line-height: 1.8;
+}
+.ajk-footer-bottom strong {
+  color: var(--ajk-ink); font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
+  .ajk-footer-name { font-size: 21px; }
+  .ajk-footer-links { gap: 6px; }
+  .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+}
+
 </style>
 </head>
 <body>
-<!-- NAV -->
-<div id="topnav">
-  <div class="nav-brand" onclick="goHome()">
-    <span class="nav-dot"></span>
-    <span class="nav-title-main">Basic Math &amp; Stats for Econ</span>
-    <span class="nav-title-author">จัดทำโดย Ajarn.Kwan @ คณะเศรษฐศาสตร์ รามคำแหง</span>
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="../index.html" aria-label="กลับไปเลือก Module">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">Basic Math & Stats for Econ</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
   </div>
-  <span id="nav-breadcrumb"></span>
-  <button id="nav-back" onclick="goHome()">← กลับหน้าหลัก</button>
-</div>
-<div id="progress-bar"></div>
+</header>
+
+
 
 <!-- ══════════ HOME ══════════ -->
 <div class="page" id="page-home">
@@ -586,6 +717,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <!-- ══════════ MODULE 0 ══════════ -->
 <div class="page" id="page-m0">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header">
   <span class="sh-tag">MODULE · 00</span>
   <span class="sh-title">ก่อนเริ่มเรียน</span>
@@ -650,6 +783,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <!-- ══════════ PRE-ASSESSMENT ══════════ -->
 <div class="page" id="page-pre">
 <div class="assess-wrap">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 0b</span><span class="sh-title">Pre-Assessment</span></div>
 <div class="assess-card">
 <div class="assess-step active" id="as0">
@@ -740,7 +875,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
     <div style="font-family:'Lora',serif;font-size:2.5rem;font-weight:700;color:var(--amber)" id="as-score">0/5</div>
     <div style="font-size:.95rem;color:var(--mid);margin:.4rem 0 1.25rem" id="as-sub"></div>
     <div class="callout" style="text-align:left;margin-bottom:1.25rem"><div class="callout-label">คำแนะนำสำหรับคุณ</div><div id="as-reco" style="font-size:.9rem;color:var(--mid);line-height:1.65"></div></div>
-    <button class="btn-start" onclick="finishMod('pre');goHome()">กลับหน้าหลัก เลือก Module →</button>
+    <button class="btn-start" onclick="finishMod('pre');goHome()">กลับไปเลือก Module เลือก Module →</button>
   </div>
 </div>
 </div>
@@ -749,6 +884,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <!-- ══════════ MODULE 1 ══════════ -->
 <div class="page" id="page-m1">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 01</span><span class="sh-title">Numbers in Real Life Economics</span><div class="step-dots" id="dots-m1"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <!-- s0 -->
 <div class="mstep" id="m1-s0">
@@ -799,13 +936,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 </tbody></table>
 <div class="callout green"><div class="callout-label">จำไว้ตลอดไป</div><div class="formula-line">% เปลี่ยนแปลง = (ใหม่ − เก่า) ÷ เก่า × 100</div><div class="formula-note">สูตรเดียว ใช้ได้ทุกที่ในเศรษฐศาสตร์</div></div>
 <div class="done-badge"><div class="db-emoji">🎉</div><div class="db-title">Module 1 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านตัวเลขในข่าวเศรษฐกิจพื้นฐานได้แล้ว</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m1',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m1');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m1',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m1');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 2 ══════════ -->
 <div class="page" id="page-m2">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 02</span><span class="sh-title">Fractions, Decimals &amp; Percentages</span><div class="step-dots" id="dots-m2"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m2-s0">
 <div class="block-q">ค่าเช่าห้องจาก <em>6,500 เป็น 7,150 บาท</em> — บอกเจ้าของบ้านว่าขึ้นกี่เปอร์เซ็นต์?</div>
@@ -852,13 +991,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <tr><td>แปลง Fraction→%</td><td><span class="bt-tag bt-all">ทั่วไป</span></td><td>อัตราดอกเบี้ย 0.05 = 5%, ส่วนแบ่งตลาด</td></tr>
 </tbody></table>
 <div class="done-badge"><div class="db-emoji">✅</div><div class="db-title">Module 2 เสร็จแล้ว!</div><div class="db-sub">คุณแปลงระหว่างเศษส่วน ทศนิยม และร้อยละได้แล้ว</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m2',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m2');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m2',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m2');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 3 ══════════ -->
 <div class="page" id="page-m3">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 03</span><span class="sh-title">Ratios, Rates &amp; Growth</span><div class="step-dots" id="dots-m3"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m3-s0">
 <div class="block-q">ข่าวบอก <em>"หนี้ครัวเรือนต่อ GDP 90%"</em> — น่ากลัวไหม?</div>
@@ -913,13 +1054,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <tr><td>Growth rate (compound)</td><td><span class="bt-tag bt-all">ทั่วไป</span></td><td>GDP growth, Population growth, CAGR</td></tr>
 </tbody></table>
 <div class="done-badge"><div class="db-emoji">📈</div><div class="db-title">Module 3 เสร็จแล้ว!</div><div class="db-sub">คุณแยก Ratio, Rate, Growth Rate ออกจากกันได้แล้ว</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m3',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m3');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m3',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m3');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 4 ══════════ -->
 <div class="page" id="page-m4">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 04</span><span class="sh-title">Basic Algebra without Fear</span><div class="step-dots" id="dots-m4"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m4-s0">
 <div class="block-q">โรงงานมีต้นทุนคงที่ <em>50,000 บาท</em> และต้นทุนแปรผัน <em>20 บาท/ชิ้น</em> — ผลิต 1,000 ชิ้น ขายชิ้นละ 80 บาท กำไรเท่าไร?</div>
@@ -977,13 +1120,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <tr><td>Y = C + I + G + NX</td><td><span class="bt-tag bt-macro">Macro</span></td><td>Identity ของ GDP</td></tr>
 </tbody></table>
 <div class="done-badge"><div class="db-emoji">🔤</div><div class="db-title">Module 4 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านและใช้สมการพื้นฐานในเศรษฐศาสตร์ได้แล้ว</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m4',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m4');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m4',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m4');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 5 ══════════ -->
 <div class="page" id="page-m5">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 05</span><span class="sh-title">Functions and Graphs as Stories</span><div class="step-dots" id="dots-m5"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m5-s0">
 <div class="block-q">กราฟ Demand <em>ลาดลง</em>เสมอ — ทำไม?</div>
@@ -1061,13 +1206,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <tr><td>Phillips curve</td><td><span class="bt-tag bt-macro">Macro</span></td><td>Trade-off ระหว่างเงินเฟ้อและว่างงาน</td></tr>
 </tbody></table>
 <div class="done-badge"><div class="db-emoji">📊</div><div class="db-title">Module 5 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านกราฟ Supply-Demand และตีความ Slope ได้แล้ว</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m5',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m5');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m5',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m5');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 6 ══════════ -->
 <div class="page" id="page-m6">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 06</span><span class="sh-title">Tables, Index Numbers &amp; CPI</span><div class="step-dots" id="dots-m6"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m6-s0">
 <div class="block-q">ธนาคารแห่งประเทศไทยรายงาน <em>CPI = 108.3</em> — ตัวเลขนี้แปลว่าอะไร?</div>
@@ -1125,13 +1272,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <tr><td>Base year</td><td><span class="bt-tag bt-econ">Econometrics</span></td><td>Deflating time series data</td></tr>
 </tbody></table>
 <div class="done-badge"><div class="db-emoji">🗂️</div><div class="db-title">Module 6 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านดัชนี CPI และแยก Real/Nominal ได้แล้ว</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m6',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m6');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m6',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m6');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 7 ══════════ -->
 <div class="page" id="page-m7">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 07</span><span class="sh-title">Why Statistics Matters in Economics</span><div class="step-dots" id="dots-m7"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m7-s0">
 <div class="block-q">รายได้เฉลี่ยคนไทย <em>24,000 บาท/เดือน</em> — คุณรู้สึกว่าตัวเลขนี้จริงไหม?</div>
@@ -1165,13 +1314,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 </div>
 <div id="m7-done-badge" style="display:none" class="done-badge"><div class="db-emoji">🤔</div><div class="db-title">Module 7 เสร็จแล้ว!</div><div class="db-sub">คุณเข้าใจว่าสถิติมีไว้ทำอะไรในเศรษฐศาสตร์แล้ว</div></div>
 <div class="gate-tip">⬆ ต้องทำให้ครบทุกข้อก่อน จึงจะไปต่อได้</div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m7',1,3)">← ก่อนหน้า</button><span class="step-label">3 / 3</span><button class="sfbtn next gate-locked" disabled onclick="finishMod('m7');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m7',1,3)">← ก่อนหน้า</button><span class="step-label">3 / 3</span><button class="sfbtn next gate-locked" disabled onclick="finishMod('m7');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 8 ══════════ -->
 <div class="page" id="page-m8">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 08</span><span class="sh-title">Describing Data — Mean, Median, Mode</span><div class="step-dots" id="dots-m8"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m8-s0">
 <div class="block-q">ถ้ามีคน 5 คนในห้อง จะใช้ตัวเลขไหน <em>"แทน"</em> รายได้ทั้งกลุ่ม?</div>
@@ -1226,13 +1377,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <tr><td>Mode</td><td><span class="bt-tag bt-micro">Micro</span></td><td>ราคาที่นิยมในตลาด, สินค้าขายดี</td></tr>
 </tbody></table>
 <div class="done-badge"><div class="db-emoji">🎯</div><div class="db-title">Module 8 เสร็จแล้ว!</div><div class="db-sub">คุณแยก Mean, Median, Mode ได้และรู้ว่าเมื่อไรใช้อะไร</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m8',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m8');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m8',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m8');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 9 ══════════ -->
 <div class="page" id="page-m9">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 09</span><span class="sh-title">Variability and Dispersion</span><div class="step-dots" id="dots-m9"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m9-s0">
 <div class="block-q">สองจังหวัด รายได้เฉลี่ยเท่ากันทุกอย่าง — แต่ <em>ชีวิตความเป็นอยู่ต่างกัน</em> ทำไม?</div>
@@ -1292,13 +1445,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <tr><td>SD ผลตอบแทน</td><td><span class="bt-tag bt-econ">Finance</span></td><td>ความเสี่ยงการลงทุน, Portfolio theory</td></tr>
 </tbody></table>
 <div class="done-badge"><div class="db-emoji">↔️</div><div class="db-title">Module 9 เสร็จแล้ว!</div><div class="db-sub">คุณเข้าใจ SD และอ่านความหมายของการกระจายข้อมูลได้แล้ว</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m9',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m9');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m9',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m9');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 10 ══════════ -->
 <div class="page" id="page-m10">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 10</span><span class="sh-title">Correlation ≠ Causation</span><div class="step-dots" id="dots-m10"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m10-s0">
 <div class="block-q">ประเทศที่มีคนกิน <em>ช็อกโกแลตมาก</em> มีจำนวนผู้ได้รับ <em>รางวัลโนเบลสูง</em> — ช็อกโกแลตทำให้ฉลาดขึ้นจริงไหม?</div>
@@ -1356,13 +1511,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <tr><td>Correlation vs Causation</td><td><span class="bt-tag bt-all">Policy</span></td><td>ต้องพิสูจน์ causality ก่อนออกนโยบาย</td></tr>
 </tbody></table>
 <div class="done-badge"><div class="db-emoji">🔗</div><div class="db-title">Module 10 เสร็จแล้ว!</div><div class="db-sub">คุณรู้แล้วว่า "สัมพันธ์กัน" ไม่ได้แปลว่า "เป็นเหตุเป็นผล"</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m10',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m10');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m10',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m10');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 11 ══════════ -->
 <div class="page" id="page-m11">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 11</span><span class="sh-title">Reading Economic Charts and Reports</span><div class="step-dots" id="dots-m11"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m11-s0">
 <div class="block-q">กราฟ 3 ประเภท ที่พบบ่อยในข่าวเศรษฐกิจ</div>
@@ -1473,13 +1630,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
 <div class="step-item"><div class="step-item-head"><div class="snum green">🌍</div><div class="step-head-text">ระหว่างประเทศ</div></div><div class="step-item-body"><strong>World Bank Open Data</strong> — ข้อมูลระหว่างประเทศฟรี<br><strong>IMF Data</strong> — World Economic Outlook<br><strong>FRED (St. Louis Fed)</strong> — ข้อมูลสหรัฐฯ ครบมาก</div></div>
 </div>
 <div class="done-badge"><div class="db-emoji">🗞️</div><div class="db-title">Module 11 เสร็จแล้ว!</div><div class="db-sub">คุณอ่านกราฟเศรษฐกิจและรู้แหล่งข้อมูลที่เชื่อถือได้แล้ว</div></div>
-<div class="step-footer"><button class="sfbtn" onclick="goStep('m11',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m11');goHome()">กลับหน้าหลัก ✓</button></div>
+<div class="step-footer"><button class="sfbtn" onclick="goStep('m11',2,4)">← ก่อนหน้า</button><span class="step-label">4 / 4</span><button class="sfbtn next" onclick="finishMod('m11');goHome()">กลับไปเลือก Module ✓</button></div>
 </div>
 </div></div>
 
 <!-- ══════════ MODULE 12 ══════════ -->
 <div class="page" id="page-m12">
 <div class="mod-page-inner">
+<a class="mod-breadcrumb" href="javascript:void(0)" onclick="goHome()"><svg class="mod-breadcrumb-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>กลับไปเลือก Module</a>
+
 <div class="step-header"><span class="sh-tag">MODULE · 12</span><span class="sh-title">Bridge to Economics</span><div class="step-dots" id="dots-m12"><div class="sdot active"></div><div class="sdot"></div><div class="sdot"></div></div></div>
 <div class="mstep" id="m12-s0">
 <div class="block-q">ทุกอย่างที่เรียนมา — ใช้<em>ตรงไหน</em>ในวิชาเศรษฐศาสตร์?</div>
@@ -1541,10 +1700,18 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.style.display='none');
   document.getElementById('page-'+id).style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
+  // legacy topnav elements are no longer in the DOM — guard against nulls
   const nb=document.getElementById('nav-back');
   const bc=document.getElementById('nav-breadcrumb');
-  if(id==='home'){nb.style.display='none';bc.textContent=''}
-  else{nb.style.display='flex'}
+  const fh=document.getElementById('floating-home-btn');
+  if(id==='home'){
+    if(nb)nb.style.display='none';
+    if(bc)bc.textContent='';
+    if(fh)fh.style.display='none';
+  } else {
+    if(nb)nb.style.display='flex';
+    if(fh)fh.style.display='flex';
+  }
 }
 
 function goHome(){showPage('home');updateProgress()}
@@ -1556,7 +1723,7 @@ function openMod(id){
     m4:'Module 4 · Algebra',m5:'Module 5 · Functions & Graphs',m6:'Module 6 · Index & CPI',
     m7:'Module 7 · Why Stats',m8:'Module 8 · Mean & Median',m9:'Module 9 · Variability',
     m10:'Module 10 · Correlation',m11:'Module 11 · Charts',m12:'Module 12 · Bridge to Econ'};
-  document.getElementById('nav-breadcrumb').textContent=labels[id]||'';
+  const bcEl=document.getElementById('nav-breadcrumb');if(bcEl)bcEl.textContent=labels[id]||'';
 }
 
 // ── STEP SYSTEM
@@ -1814,11 +1981,37 @@ window.addEventListener('scroll',()=>{
   const page=document.querySelector('.page[style*="block"]');
   if(!page)return;
   const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
-  document.getElementById('progress-bar').style.width=pct+'%';
+  const pb=document.getElementById('progress-bar');if(pb)pb.style.width=pct+'%';
 });
 
 // ── INIT
 updateProgress();
 </script>
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        หน้าหลัก
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>
