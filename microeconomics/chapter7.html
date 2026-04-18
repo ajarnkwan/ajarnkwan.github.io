@@ -177,6 +177,46 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
 }
 
 </style>
+
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#be185d;
+  --theme-primary-soft:#fff1f2;
+  --theme-primary-dark:#9f1239;
+  --theme-hero-a:#9f1239;
+  --theme-hero-b:#db2777;
+  --theme-page-bg:#fff7f8;
+  --theme-border:#fecdd3;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#fff1f2;
+  --color-border-secondary:#fecdd3;
+  --color-border-tertiary:#e7e6f0;
+  --color-text-primary:#1f2430;
+  --color-text-secondary:#5f667a;
+  --color-text-tertiary:#8b93a6;
+  --shadow:0 14px 34px rgba(31,36,48,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: var(--theme-primary);
+  --ajk-primary-soft: var(--theme-primary-soft);
+  --ajk-primary-dark: var(--theme-primary-dark);
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #e6e8f0;
+  --ajk-surface: #ffffff;
+}
+body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!important;font-family:var(--font-sans)!important;}
+.hero{background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;box-shadow:var(--shadow)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.backlink{color:var(--theme-primary)!important;}
+.available{background:#ecfdf5!important;color:#047857!important;border-color:#86efac!important;}
+.coming{background:#fff7ed!important;color:#b45309!important;border-color:#fdba74!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+</style>
+
 </head>
 <body>
 <header class="ajk-topbar ajk-shell-theme">

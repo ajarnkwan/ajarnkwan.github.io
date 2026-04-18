@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>บทที่ 4.2 — การกำหนดราคาขั้นสูง</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
@@ -203,6 +204,79 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 .ajk-footer-bottom strong{color:var(--ajk-ink);font-weight:700}
 @media(max-width:520px){.ajk-footer{padding:36px 14px 22px;margin-top:48px}.ajk-footer-name{font-size:21px}.ajk-footer-links{gap:6px}.ajk-footer-btn{padding:8px 13px;font-size:12px}}
 </style>
+
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#2f6f67;
+  --theme-primary-soft:#eef7f5;
+  --theme-primary-dark:#285f59;
+  --theme-hero-a:#eef7f5;
+  --theme-hero-b:#fbfdfc;
+  --theme-page-bg:#f6faf9;
+  --theme-border:#cfe3de;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f3f8f7;
+  --color-border-secondary:#cfe3de;
+  --color-border-tertiary:#e6ecea;
+  --color-text-primary:#1f2937;
+  --color-text-secondary:#5f6b76;
+  --color-text-tertiary:#8b95a1;
+  --shadow:0 14px 34px rgba(31,41,55,.06);
+}
+.ajk-shell-theme {
+  --ajk-primary: var(--theme-primary);
+  --ajk-primary-soft: var(--theme-primary-soft);
+  --ajk-primary-dark: var(--theme-primary-dark);
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #dbe7e4;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.hero,.shero{
+  background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;
+  border:1px solid var(--theme-border)!important;
+  box-shadow:var(--shadow)!important;
+}
+.hero h1,.hero h2,.hero h3,.shero h1,.shero h2,.shero h3{
+  color:#134e4a!important;
+}
+.hero p,.shero p,.hero li,.shero li,
+.hero .sub,.shero .sub,.hero .desc,.shero .desc,
+.hero .muted,.shero .muted{
+  color:var(--color-text-secondary)!important;
+}
+.hook,.mini-hook,.callout,.summary-box,.lesson-box,.example-box{
+  background:#ffffff!important;
+  border:1px solid var(--theme-border)!important;
+  color:var(--color-text-primary)!important;
+}
+.badge,.chapter-badge{
+  background:#eaf5f2!important;
+  color:#285f59!important;
+  border:1px solid var(--theme-border)!important;
+}
+.backlink,.backbtn{color:var(--theme-primary)!important;}
+.backbtn,.revbtn,.bnb,.btn,.ghost-btn{
+  border-color:#d6e3df!important;
+}
+.panel,.card,.chapter-card,.lesson-card,.section-card,.tile,.step,.info-card,.eq-card{
+  box-shadow:var(--shadow)!important;
+}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+</style>
+
 </head>
 <body>
 
@@ -733,12 +807,13 @@ function checkAns(){
 })();
 
 function sendPrompt(msg){
-  if(msg==='กลับบทที่ 4.1'){window.location.href='chapter4_1.html';return}
-  if(msg==='กลับบทที่ 4'){window.location.href='chapter4.html';return}
-  if(typeof window.sendPrompt==='function' && window.sendPrompt !== sendPrompt){
+  const routes = {
+    'กลับบทที่ 4.1':'chapter4_1.html',
+    'เรียนบทที่ 4 ส่วนที่ 3: การกำหนดราคาขั้นต่ำ':'chapter4_3.html'
+  };
+  if(routes[msg]){ window.location.href = routes[msg]; return; }
+  if (window.sendPrompt) {
     window.sendPrompt(msg);
-  } else {
-    alert('กลับไปที่ช่องแชทแล้วพิมพ์ว่า:\n\n"'+msg+'"');
   }
 }
 </script>

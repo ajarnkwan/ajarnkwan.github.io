@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>บทที่ 4 — การกำหนดราคา</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
@@ -259,6 +260,79 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
 }
 </style>
+
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#2f6f67;
+  --theme-primary-soft:#eef7f5;
+  --theme-primary-dark:#285f59;
+  --theme-hero-a:#eef7f5;
+  --theme-hero-b:#fbfdfc;
+  --theme-page-bg:#f6faf9;
+  --theme-border:#cfe3de;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f3f8f7;
+  --color-border-secondary:#cfe3de;
+  --color-border-tertiary:#e6ecea;
+  --color-text-primary:#1f2937;
+  --color-text-secondary:#5f6b76;
+  --color-text-tertiary:#8b95a1;
+  --shadow:0 14px 34px rgba(31,41,55,.06);
+}
+.ajk-shell-theme {
+  --ajk-primary: var(--theme-primary);
+  --ajk-primary-soft: var(--theme-primary-soft);
+  --ajk-primary-dark: var(--theme-primary-dark);
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #dbe7e4;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.hero,.shero{
+  background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;
+  border:1px solid var(--theme-border)!important;
+  box-shadow:var(--shadow)!important;
+}
+.hero h1,.hero h2,.hero h3,.shero h1,.shero h2,.shero h3{
+  color:#134e4a!important;
+}
+.hero p,.shero p,.hero li,.shero li,
+.hero .sub,.shero .sub,.hero .desc,.shero .desc,
+.hero .muted,.shero .muted{
+  color:var(--color-text-secondary)!important;
+}
+.hook,.mini-hook,.callout,.summary-box,.lesson-box,.example-box{
+  background:#ffffff!important;
+  border:1px solid var(--theme-border)!important;
+  color:var(--color-text-primary)!important;
+}
+.badge,.chapter-badge{
+  background:#eaf5f2!important;
+  color:#285f59!important;
+  border:1px solid var(--theme-border)!important;
+}
+.backlink,.backbtn{color:var(--theme-primary)!important;}
+.backbtn,.revbtn,.bnb,.btn,.ghost-btn{
+  border-color:#d6e3df!important;
+}
+.panel,.card,.chapter-card,.lesson-card,.section-card,.tile,.step,.info-card,.eq-card{
+  box-shadow:var(--shadow)!important;
+}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+</style>
+
 </head>
 <body>
 
@@ -418,20 +492,16 @@ function showSectionStatus(message){
 }
 
 function sendPrompt(message){
-  if(message === 'กลับหน้าหลัก'){
-    window.location.href='index.html';
-    return;
-  }
-
-  const labels = {
-    "เรียนบทที่ 4 ส่วนที่ 1: ราคาดุลยภาพ — Equilibrium Price, Excess Demand/Supply": "ส่วนที่ 4.1 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 1' หรือ 'ราคาดุลยภาพ' เพื่อเริ่มได้เลยค่ะ",
-    "เรียนบทที่ 4 ส่วนที่ 2: การกำหนดราคาขั้นสูง — Price Ceiling, Shortage, Black Market": "ส่วนที่ 4.2 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 2' หรือ 'ราคาขั้นสูง' เพื่อเริ่มได้เลยค่ะ",
-    "เรียนบทที่ 4 ส่วนที่ 3: การกำหนดราคาขั้นต่ำ — Price Floor, Excess Supply, Government Purchase": "ส่วนที่ 4.3 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 3' หรือ 'ราคาขั้นต่ำ' เพื่อเริ่มได้เลยค่ะ",
-    "เรียนบทที่ 4 ส่วนที่ 4: การเก็บภาษี — Per Unit Tax, Tax Incidence, Tax Shifting": "ส่วนที่ 4.4 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 4' หรือ 'การเก็บภาษี' เพื่อเริ่มได้เลยค่ะ",
-    "เรียนบทที่ 4 ส่วนที่ 5: การเปลี่ยนแปลงของดุลยภาพ — Shifts in Equilibrium, Comparative Statics": "ส่วนที่ 4.5 กำลังจัดเตรียมหน้าเรียนแบบแยกบทอยู่ — กลับไปที่ช่องแชทแล้วพิมพ์ว่า 'ไป section 5' หรือ 'การเปลี่ยนดุลยภาพ' เพื่อเริ่มได้เลยค่ะ"
+  const routes = {
+    'กลับหน้าหลัก':'index.html',
+    'เรียนบทที่ 4 ส่วนที่ 1: ราคาดุลยภาพ — Equilibrium Price, Excess Demand/Supply':'chapter4_1.html',
+    'เรียนบทที่ 4 ส่วนที่ 2: การกำหนดราคาขั้นสูง — Price Ceiling, Shortage, Black Market':'chapter4_2.html',
+    'เรียนบทที่ 4 ส่วนที่ 3: การกำหนดราคาขั้นต่ำ — Price Floor, Excess Supply, Government Purchase':'chapter4_3.html',
+    'เรียนบทที่ 4 ส่วนที่ 4: การเก็บภาษี — Per Unit Tax, Tax Incidence, Tax Shifting':'chapter4_4.html',
+    'เรียนบทที่ 4 ส่วนที่ 5: การเปลี่ยนแปลงของดุลยภาพ — Shifts in Equilibrium, Comparative Statics':'chapter4_5.html'
   };
-
-  showSectionStatus(labels[message] || 'หัวข้อนี้กำลังจัดเตรียมเพิ่มเติม');
+  if(routes[message]){ window.location.href = routes[message]; return; }
+  if (window.sendPrompt) window.sendPrompt(message);
 }
 
 /* ── Overview canvas: D, S, equilibrium, price ceiling, price floor ── */
