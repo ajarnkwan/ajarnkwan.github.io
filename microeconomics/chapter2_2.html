@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ทฤษฎีที่ 2 — Ordinal Utility</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+      --font-serif:'Noto Serif Thai',serif;
+      --color-background-primary:#ffffff;
+      --color-background-secondary:#f7f5ff;
+      --color-border-secondary:#d8d2ef;
+      --color-border-tertiary:#ece7f7;
+      --color-text-primary:#1d1633;
+      --color-text-secondary:#6b6480;
+      --color-text-tertiary:#9a94ad;
+      --border-radius-md:12px;
+      --border-radius-lg:18px;
+      --shadow:0 10px 30px rgba(61,47,158,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
+    .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
+    .hero{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
+    .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
+    .hero h1{font-family:var(--font-serif);font-size:30px;line-height:1.25;margin:0 0 8px}
+    .hero p{font-size:14px;line-height:1.7;margin:0;opacity:.92;max-width:720px}
+    .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:14px;font-weight:600;margin:0 0 14px}
+    .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .coming{display:inline-block;background:#fff7ed;color:#c2410c;border:1px solid #fdba74;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+    .available{display:inline-block;background:#ecfdf5;color:#047857;border:1px solid #86efac;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+  </style>
+
+<style>
+*{box-sizing:border-box}
+.app{max-width:780px;margin:0 auto;padding:.75rem 0;font-family:var(--font-sans,-apple-system,sans-serif)}
+.topnav{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem}
+.backbtn{padding:4px 10px;border:0.5px solid #ccc;border-radius:8px;background:transparent;color:#666;font-size:11px;cursor:pointer}
+.tbadge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;background:#E1F5EE;color:#0F6E56}
+.pg{display:flex;gap:3px;margin-bottom:1.4rem}
+.pd{flex:1;height:4px;border-radius:2px;background:#eee}
+.pd.dn{background:#1D9E75}.pd.ac{background:#378ADD}
+.sl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.3rem}
+.bq{font-size:16px;font-weight:500;line-height:1.5;margin:0 0 .85rem}
+.sb{background:#f5f5f5;border-radius:12px;padding:.85rem 1.1rem;margin-bottom:.7rem;border-left:3px solid #1D9E75}
+.sb p{margin:0 0 .35rem;font-size:13px;line-height:1.7}.sb p:last-child{margin:0}
+.rvb{width:100%;padding:7px;border:0.5px solid #ccc;border-radius:8px;background:transparent;color:inherit;font-size:12.5px;cursor:pointer;margin-bottom:6px}
+.rvbox{background:#fff;border:0.5px solid #ddd;border-radius:12px;padding:.8rem 1rem;margin-bottom:.7rem;display:none}
+.rvbox.on{display:block}
+.rvbox h3{font-size:10.5px;font-weight:500;color:#888;margin:0 0 5px;text-transform:uppercase;letter-spacing:.05em}
+.rvbox p{margin:0 0 4px;font-size:13px;line-height:1.6}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:.7rem}
+.tbl th{font-weight:500;font-size:10.5px;color:#888;text-align:center;padding:5px 8px;border-bottom:0.5px solid #ddd;text-transform:uppercase}
+.tbl td{text-align:center;padding:5px 8px;border-bottom:0.5px solid #eee;font-size:13px}
+.tbl input{width:52px;padding:3px;border:0.5px solid #ddd;border-radius:4px;text-align:center;font-size:13px}
+.eqbox{background:#f5f5f5;border-radius:12px;padding:.65rem 1rem;font-size:13px;margin-bottom:.65rem;line-height:1.6;text-align:center}
+.slrow{display:flex;align-items:center;gap:10px;margin-bottom:.5rem}
+.slrow label{font-size:12px;color:#888;min-width:80px;flex-shrink:0}
+.slrow span{font-size:13px;font-weight:500;min-width:28px;flex-shrink:0}
+canvas{display:block;max-width:100%;border-radius:8px;margin:.35rem auto .6rem;border:0.5px solid #ddd}
+.fb{font-size:12.5px;padding:6px 11px;border-radius:8px;margin:.35rem 0;display:none}
+.fb.on{display:block}
+.fb.ok{background:#E1F5EE;color:#0F6E56}
+.fb.no{background:#FCEBEB;color:#A32D2D}
+.fb.info{background:#E6F1FB;color:#185FA5}
+.nav{display:flex;gap:8px;margin-top:1.1rem}
+.nb{flex:1;padding:8px;border:0.5px solid #ddd;border-radius:8px;background:transparent;color:inherit;font-size:13px;cursor:pointer}
+.nb.pr{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.qopt{display:block;width:100%;text-align:left;padding:7px 11px;border:0.5px solid #ddd;border-radius:8px;background:transparent;color:inherit;font-size:13px;cursor:pointer;margin-bottom:5px}
+.qopt.ok{background:#E1F5EE;border-color:#1D9E75;color:#0F6E56}
+.qopt.no{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
+.sc{width:72px;height:72px;border-radius:50%;border:3px solid #1D9E75;display:flex;align-items:center;justify-content:center;margin:.6rem auto;font-size:20px;font-weight:500;color:#0F6E56}
+.togrow{display:flex;gap:8px;margin-bottom:.65rem}
+.tgb{padding:6px 14px;border:0.5px solid #ddd;border-radius:8px;background:transparent;color:#888;font-size:12px;cursor:pointer}
+.note{font-size:11.5px;color:#888;background:#f5f5f5;border-radius:8px;padding:5px 10px;margin-bottom:.5rem;line-height:1.5}
+.stepbar{display:flex;align-items:center;gap:8px;margin-bottom:.4rem}
+.stepbar .slbl{font-size:12px;color:#888;min-width:72px}
+.sdots{display:flex;gap:4px}
+.sdot{width:8px;height:8px;border-radius:50%;background:#ddd;transition:background .2s}
+.sdot.cur{background:#1D9E75}.sdot.done{background:#9FE1CB}
+.stepdesc{font-size:13px;background:#f5f5f5;border-radius:8px;padding:.55rem .9rem;margin-bottom:.4rem;line-height:1.6;min-height:2.8em}
+.snb{flex:1;padding:7px;border:0.5px solid #ddd;border-radius:8px;background:transparent;color:inherit;font-size:12.5px;cursor:pointer;text-align:center}
+.snb.dis{opacity:.35;pointer-events:none}
+.section{padding:0}
+@media(prefers-color-scheme:dark){
+  body{background:#141414;color:#e0e0e0}
+  .sb,.eqbox,.note,.stepdesc{background:#1e1e1e}
+  .rvbox{background:#1a1a1a;border-color:#333}
+  .backbtn,.rvb,.nb,.qopt,.snb,.tgb{border-color:#444}
+  .tbl th{border-color:#444}.tbl td{border-color:#333}
+  .tbl input{background:#222;border-color:#444;color:#e0e0e0}
+  canvas{border-color:#333}
+  .pd{background:#333}
+}
+</style>
+
+<style>
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #3b82f6;
+  --ajk-primary-soft: #eff6ff;
+  --ajk-primary-dark: #2563eb;
+  --ajk-ink: #1d1633;
+  --ajk-muted: #6b6480;
+  --ajk-border: #e5e1f3;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right;
+  line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  letter-spacing: -.01em;
+}
+.ajk-brand-author {
+  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; padding: 0 1px; }
+
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-back-btn svg { width: 16px; height: 16px; }
+  .ajk-brand-course { font-size: 12.5px; }
+  .ajk-brand-author { font-size: 10.5px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
+}
+
+/* ─── Footer ─── */
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 720px; margin: 0 auto;
+  text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px;
+  background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--ajk-ink); margin: 0 0 4px;
+  letter-spacing: -.01em;
+}
+.ajk-footer-sub {
+  font-size: 12.5px; color: var(--ajk-muted);
+  letter-spacing: .02em;
+  margin-bottom: 26px;
+}
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 26px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface);
+  border: 1px solid var(--ajk-border);
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 13px; font-weight: 500;
+  transition: all .18s;
+  cursor: pointer;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; }
+.ajk-footer-btn:hover {
+  color: var(--ajk-primary);
+  border-color: var(--ajk-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.ajk-footer-bottom {
+  font-size: 11.5px; color: var(--ajk-muted);
+  letter-spacing: .02em;
+  padding-top: 22px;
+  border-top: 1px solid var(--ajk-border);
+  line-height: 1.8;
+}
+.ajk-footer-bottom strong {
+  color: var(--ajk-ink); font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
+  .ajk-footer-name { font-size: 21px; }
+  .ajk-footer-links { gap: 6px; }
+  .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+}
+
+</style>
+
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#2563eb;
+  --theme-primary-soft:#eff6ff;
+  --theme-primary-dark:#1d4ed8;
+  --theme-hero-a:#1d4ed8;
+  --theme-hero-b:#3b82f6;
+  --theme-page-bg:#f5f9ff;
+  --theme-border:#bfdbfe;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#eff6ff;
+  --color-border-secondary:#bfdbfe;
+  --color-border-tertiary:#e7e6f0;
+  --color-text-primary:#1f2430;
+  --color-text-secondary:#5f667a;
+  --color-text-tertiary:#8b93a6;
+  --shadow:0 14px 34px rgba(31,36,48,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #3b82f6;
+  --ajk-primary-soft: #eff6ff;
+  --ajk-primary-dark: #2563eb;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #e6e8f0;
+  --ajk-surface: #ffffff;
+}
+body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!important;font-family:var(--font-sans)!important;}
+.hero{background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;box-shadow:var(--shadow)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.backlink{color:var(--theme-primary)!important;}
+.available{background:#ecfdf5!important;color:#047857!important;border-color:#86efac!important;}
+.coming{background:#fff7ed!important;color:#b45309!important;border-color:#fdba74!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+</style>
+
+</head>
+<body>
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter2.html" aria-label="กลับบทที่ 2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 2</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 2.2 · Ordinal Utility</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+<div class="page"><a class="backlink" href="chapter2.html">← กลับบทที่ 2</a><div class="panel">
+<div class="app">
+<div class="topnav">
+  <button class="backbtn" onclick="history.back()">← บทที่ 2</button>
+  <span class="tbadge">ทฤษฎีที่ 2</span>
+  <span style="font-size:13px;font-weight:500">Ordinal Utility Approach</span>
+</div>
+<div class="pg" id="pg"></div>
+
+<!-- S0 -->
+<div class="section" id="s0">
+  <div class="sl">เริ่มต้น</div>
+  <p class="bq">คุณชอบ "พิซซ่า 5 ชิ้น" หรือ "พิซซ่า 3 ชิ้น + โค้ก 2 กระป๋อง"?</p>
+  <div class="sb"><p>ตอบได้ทันทีโดย<strong>ไม่ต้องบอกตัวเลข</strong> — นี่คือแก่น Ordinal</p><p>เครื่องมือ: <strong>IC (เส้นความพอใจเท่ากัน)</strong> + <strong>Budget Line (เส้นงบประมาณ)</strong></p></div>
+  <button class="rvb" id="rb0" onclick="tog('r0','rb0','ดูข้อสมมติ')">ดูข้อสมมติ 5 ข้อ</button>
+  <div class="rvbox" id="r0">
+    <h3>ข้อสมมติ</h3>
+    <p>1. เรียงลำดับความพอใจได้ &nbsp;2. ถ่ายทอดได้ (Transitivity) &nbsp;3. ยิ่งมากยิ่งพอใจ &nbsp;4. สม่ำเสมอ &nbsp;5. แบ่งย่อยได้</p>
+  </div>
+  <div class="nav"><button class="nb pr" onclick="go(1)">เริ่ม: IC →</button></div>
+</div>
+
+<!-- S1 IC+MRS -->
+<div class="section" id="s1">
+  <div class="sl">เส้นความพอใจเท่ากัน (IC) + MRS</div>
+  <p class="bq">ทุกจุดบน IC เดียวกัน = ความพอใจเท่ากัน</p>
+  <canvas id="cic" width="460" height="320"></canvas>
+  <div class="note">5 คุณสมบัติ: ① Slope ลบ &nbsp;② เส้นสูงกว่า=พอใจมากกว่า &nbsp;③ ไม่ตัดกัน &nbsp;④ โค้งเข้า Origin (MRS ลดน้อยถอย) &nbsp;⑤ ต่อเนื่อง</div>
+  <p style="font-size:13px;font-weight:500;margin:.5rem 0 .3rem">คำนวณ MRS จากตาราง 2-8 ในตำรา</p>
+  <table class="tbl"><thead><tr><th>จาก→ถึง</th><th>X</th><th>Y</th><th>ΔX</th><th>ΔY</th><th>MRS=|ΔY/ΔX|</th></tr></thead><tbody id="mrsbody"></tbody></table>
+  <button class="rvb" onclick="checkMRS()">ตรวจ MRS</button>
+  <div class="fb" id="mrsfb"></div>
+  <div class="nav"><button class="nb" onclick="go(0)">←</button><button class="nb pr" onclick="go(2)">Budget Line →</button></div>
+</div>
+
+<!-- S2 BL -->
+<div class="section" id="s2">
+  <div class="sl">เส้นงบประมาณ (Budget Line)</div>
+  <p class="bq">ส่วนผสมทุกแบบที่ซื้อได้พอดีงบ</p>
+  <div class="eqbox"><strong>Y = I/P<sub>Y</sub> − (P<sub>X</sub>/P<sub>Y</sub>)·X</strong><br><span style="font-size:11.5px;color:#888">ตัดแกน Y ที่ I/P<sub>Y</sub> | ตัดแกน X ที่ I/P<sub>X</sub> | Slope = −P<sub>X</sub>/P<sub>Y</sub></span></div>
+  <div class="slrow"><label>รายได้ I =</label><input type="range" min="12" max="48" step="4" value="24" id="blI" oninput="updBL()"><span id="vblI">24</span></div>
+  <div class="slrow"><label>ราคา P<sub>X</sub> =</label><input type="range" min="1" max="6" step="0.5" value="2" id="blPx" oninput="updBL()"><span id="vblPx">2</span></div>
+  <div class="slrow"><label>ราคา P<sub>Y</sub> =</label><input type="range" min="1" max="6" step="0.5" value="2" id="blPy" oninput="updBL()"><span id="vblPy">2</span></div>
+  <canvas id="cbl" width="430" height="300"></canvas>
+  <div class="fb on info" id="blinfo"></div>
+  <div class="nav"><button class="nb" onclick="go(1)">←</button><button class="nb pr" onclick="go(3)">ดุลยภาพ →</button></div>
+</div>
+
+<!-- S3 Equilibrium -->
+<div class="section" id="s3">
+  <div class="sl">ดุลยภาพ — IC สัมผัส Budget Line</div>
+  <p class="bq">IC สูงสุดที่แตะเส้นงบได้ = ดุลยภาพ</p>
+  <div class="eqbox"><strong>MRS<sub>XY</sub> = P<sub>X</sub>/P<sub>Y</sub></strong> &nbsp;→&nbsp; <strong>MU<sub>X</sub>/P<sub>X</sub> = MU<sub>Y</sub>/P<sub>Y</sub></strong></div>
+  <div class="slrow"><label>รายได้ I =</label><input type="range" min="12" max="40" step="4" value="24" id="eqI" oninput="updEQ()"><span id="veqI">24</span></div>
+  <div class="slrow"><label>ราคา P<sub>X</sub> =</label><input type="range" min="1" max="5" step="0.5" value="2" id="eqPx" oninput="updEQ()"><span id="veqPx">2</span></div>
+  <div class="slrow"><label>ราคา P<sub>Y</sub> =</label><input type="range" min="1" max="5" step="0.5" value="3" id="eqPy" oninput="updEQ()"><span id="veqPy">3</span></div>
+  <canvas id="ceq" width="460" height="330"></canvas>
+  <div class="fb on info" id="eqinfo"></div>
+  <div class="nav"><button class="nb" onclick="go(2)">←</button><button class="nb pr" onclick="go(4)">ICC & Engel →</button></div>
+</div>
+
+<!-- S4 ICC step-by-step -->
+<div class="section" id="s4">
+  <div class="sl">ICC & Engel Curve — สร้างทีละขั้น</div>
+  <p class="bq">รายได้เพิ่ม → ดุลยภาพย้าย → ICC เชื่อมทุกจุด</p>
+  <div class="togrow">
+    <button class="tgb" id="btnN" onclick="setICC('n')">Normal Good</button>
+    <button class="tgb" id="btnI" onclick="setICC('i')">Inferior Good</button>
+  </div>
+  <div class="stepbar"><span class="slbl" id="icc_slbl">ขั้น 1/4</span><div class="sdots" id="icc_dots"></div></div>
+  <div class="stepdesc" id="icc_desc"></div>
+  <div style="display:flex;gap:8px;margin-bottom:.45rem">
+    <button class="snb" id="icc_prev" onclick="iccStep(-1)">← ก่อนหน้า</button>
+    <button class="snb" id="icc_next" onclick="iccStep(+1)">ถัดไป →</button>
+  </div>
+  <canvas id="cicc" width="600" height="310"></canvas>
+  <div class="nav"><button class="nb" onclick="go(3)">←</button><button class="nb pr" onclick="go(5)">PCC & อุปสงค์ →</button></div>
+</div>
+
+<!-- S5 PCC step-by-step -->
+<div class="section" id="s5">
+  <div class="sl">PCC & เส้นอุปสงค์ — สร้างทีละขั้น</div>
+  <p class="bq">ราคาเปลี่ยน → BL หมุน → PCC → เส้นอุปสงค์</p>
+  <div class="stepbar"><span class="slbl" id="pcc_slbl">ขั้น 1/4</span><div class="sdots" id="pcc_dots"></div></div>
+  <div class="stepdesc" id="pcc_desc"></div>
+  <div style="display:flex;gap:8px;margin-bottom:.45rem">
+    <button class="snb" id="pcc_prev" onclick="pccStep(-1)">← ก่อนหน้า</button>
+    <button class="snb" id="pcc_next" onclick="pccStep(+1)">ถัดไป →</button>
+  </div>
+  <canvas id="cpcc" width="580" height="370"></canvas>
+  <div class="nav"><button class="nb" onclick="go(4)">←</button><button class="nb pr" onclick="go(6)">Hicks & Slutsky →</button></div>
+</div>
+
+<!-- S6 Hicks & Slutsky -->
+<div class="section" id="s6">
+  <div class="sl">การแยก Price Effect — Hicks vs Slutsky</div>
+  <p class="bq">Price Effect = Substitution Effect + Income Effect</p>
+  <div class="sb">
+    <p>① <strong>SE</strong>: X ถูกลง → หันมาใช้ X แทน Y (ความพอใจเท่าเดิม)</p>
+    <p>② <strong>IE</strong>: กำลังซื้อจริงเพิ่ม → ซื้อ X เพิ่ม (Normal Good)</p>
+  </div>
+  <div class="eqbox" style="font-size:12px">ตัวอย่าง: I=40, P<sub>Y</sub>=2, P<sub>X</sub> ลดจาก 4 → 2 | E₁=(5,10) → E₃=(10,10) | PE=5</div>
+  <div class="togrow">
+    <button class="tgb" id="btnH" onclick="showHS('hicks')">วิธี Hicks</button>
+    <button class="tgb" id="btnS" onclick="showHS('slutsky')">วิธี Slutsky</button>
+  </div>
+  <canvas id="chs" width="560" height="370"></canvas>
+  <div class="fb on info" id="hsinfo"></div>
+  <button class="rvb" id="rbhs" onclick="tog('rhs','rbhs','เปรียบเทียบ')">เปรียบเทียบ Hicks vs Slutsky</button>
+  <div class="rvbox" id="rhs">
+    <h3>ความต่าง</h3>
+    <p><strong>Hicks</strong>: คง utility เดิม (IC เดิม) — ทางทฤษฎี</p>
+    <p><strong>Slutsky</strong>: คงให้ซื้อ bundle เดิมได้ — ปฏิบัติได้จริง</p>
+    <p>Slutsky SE ≥ Hicks SE | Hicks: SE=2.07, IE=2.93 | Slutsky: SE=2.5, IE=2.5</p>
+  </div>
+  <div class="nav"><button class="nb" onclick="go(5)">←</button><button class="nb pr" onclick="go(7)">แบบฝึกหัด →</button></div>
+</div>
+
+<!-- S7 Quiz -->
+<div class="section" id="s7">
+  <div class="sl">แบบฝึกหัด</div>
+  <p class="bq">ทดสอบ 5 ข้อ</p>
+  <div id="qzone"></div>
+  <div class="nav" id="qnav" style="display:none">
+    <button class="nb" onclick="rst()">ทำใหม่</button>
+    <button class="nb" onclick="history.back()">← บทที่ 2</button>
+    <button class="nb pr" onclick="location.href='chapter2_3.html'">ทฤษฎีที่ 3 →</button>
+  </div>
+</div>
+</div>
+
+<script>
+const NSEC=8;let cur=0,iccMode='n',iccStep_=0,pccStep_=0,hsMode='hicks',qAns=0,qScore=0;
+function isDk(){return window.matchMedia('(prefers-color-scheme:dark)').matches;}
+function tc(){return isDk()?'#C8C7C1':'#3A3935';}
+function gc(){return isDk()?'rgba(255,255,255,.09)':'rgba(0,0,0,.07)';}
+function axc(){return isDk()?'rgba(255,255,255,.22)':'rgba(0,0,0,.16)';}
+function tog(bid,btnid,dft){const b=document.getElementById(bid),bt=document.getElementById(btnid);const on=b.classList.toggle('on');bt.textContent=on?'ซ่อน':(dft||'เผย');}
+function buildPg(){const p=document.getElementById('pg');p.innerHTML='';for(let i=0;i<NSEC;i++){const d=document.createElement('div');d.className='pd';d.id='pd'+i;p.appendChild(d);}}
+function updPg(n){for(let i=0;i<NSEC;i++)document.getElementById('pd'+i).className='pd'+(i<n?' dn':i===n?' ac':'');}
+function go(n){
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  document.getElementById('s'+n).style.display='block';cur=n;updPg(n);
+  if(n===1){buildMRSTable();drawIC();}
+  if(n===2){updBL();}
+  if(n===3){updEQ();}
+  if(n===4){iccStep_=0;setICC(iccMode);}
+  if(n===5){pccStep_=0;renderPCC();}
+  if(n===6){showHS(hsMode);}
+  if(n===7){buildQuiz();}
+}
+
+/* ===== CANVAS HELPERS ===== */
+function makeC(cv,ml,mb,mt,mr,xMax,yMax){
+  const W=cv.width,H=cv.height,pw=W-ml-mr,ph=H-mt-mb;
+  return{W,H,pw,ph,ml,mt,mr,mb,xMax,yMax,x:v=>ml+(v/xMax)*pw,y:v=>mt+ph-(v/yMax)*ph};
+}
+function drawAxes(ctx,c,xl,yl){
+  ctx.strokeStyle=axc();ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(c.ml,c.mt);ctx.lineTo(c.ml,c.mt+c.ph);ctx.lineTo(c.ml+c.pw,c.mt+c.ph);ctx.stroke();
+  ctx.fillStyle=tc();ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText(xl,c.ml+c.pw/2,c.mt+c.ph+28);
+  ctx.save();ctx.translate(10,c.mt+c.ph/2);ctx.rotate(-Math.PI/2);ctx.fillText(yl,0,0);ctx.restore();
+}
+function drawGrid(ctx,c,xs,ys){
+  ctx.font='10px sans-serif';
+  xs.forEach(v=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(c.x(v),c.mt);ctx.lineTo(c.x(v),c.mt+c.ph);ctx.stroke();ctx.fillStyle=tc();ctx.textAlign='center';ctx.fillText(v,c.x(v),c.mt+c.ph+14);});
+  ys.forEach(v=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(c.ml,c.y(v));ctx.lineTo(c.ml+c.pw,c.y(v));ctx.stroke();ctx.fillStyle=tc();ctx.textAlign='right';ctx.fillText(v,c.ml-4,c.y(v)+4);});
+  ctx.font='11px sans-serif';
+}
+function drawHyp(ctx,c,k,col,lw,dash){
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.setLineDash(dash||[]);ctx.beginPath();let go=false;
+  for(let x=0.12;x<=c.xMax;x+=0.04){const y=k/x;if(y<0.08||y>c.yMax-.05){go=false;continue;}go?ctx.lineTo(c.x(x),c.y(y)):(ctx.moveTo(c.x(x),c.y(y)),go=true);}
+  ctx.stroke();ctx.setLineDash([]);
+}
+function drawCR(ctx,c,pts,col,lw,dash){
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.setLineDash(dash||[]);ctx.beginPath();
+  let go=false;const n=pts.length-1;
+  for(let i=0;i<n;i++){
+    const p0=pts[Math.max(i-1,0)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(i+2,n)];
+    for(let t=0;t<=1;t+=0.025){
+      const t2=t*t,t3=t2*t;
+      const bx=0.5*((-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t3+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t2+(-p0[0]+p2[0])*t+2*p1[0]);
+      const by=0.5*((-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2+(-p0[1]+p2[1])*t+2*p1[1]);
+      if(bx<0.05||bx>c.xMax-.05||by<0.05||by>c.yMax-.05){go=false;continue;}
+      go?ctx.lineTo(c.x(bx),c.y(by)):(ctx.moveTo(c.x(bx),c.y(by)),go=true);
+    }
+  }
+  ctx.stroke();ctx.setLineDash([]);
+}
+function drawBL(ctx,c,yI,xI,col,lw,dash){
+  const slp=yI/xI;let bx0=0,by0=Math.min(yI,c.yMax);
+  if(yI>c.yMax)bx0=(yI-c.yMax)/slp;
+  const bx1=Math.min(xI,c.xMax),by1=Math.max(0,yI-slp*bx1);
+  ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.setLineDash(dash||[]);
+  ctx.beginPath();ctx.moveTo(c.x(bx0),c.y(by0));ctx.lineTo(c.x(bx1),c.y(by1));ctx.stroke();ctx.setLineDash([]);
+}
+function drawDot(ctx,px,py,col,r){
+  ctx.fillStyle=col;ctx.beginPath();ctx.arc(px,py,r,0,2*Math.PI);ctx.fill();
+  ctx.strokeStyle=isDk()?'rgba(0,0,0,.5)':'rgba(255,255,255,.85)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.arc(px,py,r,0,2*Math.PI);ctx.stroke();
+}
+function drawDrops(ctx,c,x,y,col){
+  ctx.strokeStyle=col+'77';ctx.lineWidth=.8;ctx.setLineDash([2,2]);
+  ctx.beginPath();ctx.moveTo(c.x(x),c.y(y));ctx.lineTo(c.x(x),c.mt+c.ph);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(c.x(x),c.y(y));ctx.lineTo(c.ml,c.y(y));ctx.stroke();
+  ctx.setLineDash([]);
+}
+function hArrow(ctx,px1,px2,py,col,lbl){
+  ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(px1,py);ctx.lineTo(px2,py);ctx.stroke();
+  const d=5,dr=px2>px1?1:-1;
+  ctx.fillStyle=col;
+  [[px2,dr],[px1,-dr]].forEach(([px,dr2])=>{ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px-dr2*d,py-3);ctx.lineTo(px-dr2*d,py+3);ctx.closePath();ctx.fill();});
+  ctx.fillStyle=col;ctx.textAlign='center';ctx.font='9px sans-serif';ctx.fillText(lbl,(px1+px2)/2,py-4);ctx.font='11px sans-serif';
+}
+
+/* ===== S1 IC ===== */
+const IC_PTS=[[1,23],[2,15.5],[3,10.5],[4,7],[5,4.5],[6,3]];
+const MRS_ANS=[7.5,5,3.5,2.5,1.5];
+function drawIC(){
+  const cv=document.getElementById('cic');if(!cv)return;
+  const ctx=cv.getContext('2d');ctx.clearRect(0,0,cv.width,cv.height);
+  const c=makeC(cv,44,36,22,14,10,26);
+  drawAxes(ctx,c,'สินค้า X','สินค้า Y');drawGrid(ctx,c,[2,4,6,8,10],[5,10,15,20,25]);
+  const scales=[0.55,1.0,1.65],cols=['#9FE1CB','#1D9E75','#0A4E34'],lbls=['IC₁','IC₂','IC₃'];
+  scales.forEach((s,i)=>{
+    const pts=IC_PTS.map(([x,y])=>[x,y*s]);
+    drawCR(ctx,c,pts,cols[i],i===1?2.5:1.8,null);
+    const mx=pts[2][0],my=pts[2][1];
+    ctx.fillStyle=cols[i];ctx.textAlign='right';ctx.font='9.5px sans-serif';ctx.fillText(lbls[i],c.x(mx)-3,c.y(my)-3);ctx.font='11px sans-serif';
+  });
+  IC_PTS.forEach(([x,y],i)=>{
+    drawDot(ctx,c.x(x),c.y(y),'#1D9E75',3.5);
+    ctx.fillStyle=tc();ctx.textAlign='left';ctx.font='9px sans-serif';ctx.fillText(['A','B','C','D','E','F'][i],c.x(x)+4,c.y(y)-2);ctx.font='11px sans-serif';
+  });
+  // tangent lines: from (x0-h, y0+MRS*h) to (x0+h, y0-MRS*h) → slope=-MRS ✓
+  [[2,15.5,7.5,.55],[5,4.5,1.5,1.1]].forEach(([x0,y0,mrs,h])=>{
+    ctx.strokeStyle='#E24B4A';ctx.lineWidth=1.8;ctx.setLineDash([4,2]);
+    ctx.beginPath();ctx.moveTo(c.x(x0-h),c.y(y0+mrs*h));ctx.lineTo(c.x(x0+h),c.y(y0-mrs*h));ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#A32D2D';ctx.textAlign='left';ctx.font='9px sans-serif';ctx.fillText('MRS='+mrs,c.x(x0+h)+2,c.y(y0-mrs*h)+4);ctx.font='11px sans-serif';
+  });
+  ctx.fillStyle='#185FA5';ctx.font='9.5px sans-serif';ctx.textAlign='left';ctx.fillText('IC₃>IC₂>IC₁ (พอใจมากขึ้น)',c.ml+3,c.mt+14);
+  ctx.fillStyle='#993C1D';ctx.fillText('MRS ลดน้อยถอยลง → IC โค้งเข้า Origin',c.x(3),c.y(2));ctx.font='11px sans-serif';
+}
+function buildMRSTable(){
+  const tb=document.getElementById('mrsbody');if(tb.children.length)return;
+  const pairs=[['A→B',[1,23],[2,15.5]],['B→C',[2,15.5],[3,10.5]],['C→D',[3,10.5],[4,7]],['D→E',[4,7],[5,4.5]],['E→F',[5,4.5],[6,3]]];
+  pairs.forEach(([nm,p1,p2],i)=>{const dx=p2[0]-p1[0],dy=(p2[1]-p1[1]).toFixed(1);const tr=document.createElement('tr');tr.innerHTML=`<td>${nm}</td><td>${p1[0]}→${p2[0]}</td><td>${p1[1]}→${p2[1]}</td><td style="color:#185FA5">+${dx}</td><td style="color:#A32D2D">${dy}</td><td><input id="mrs${i}" placeholder="?"></td>`;tb.appendChild(tr);});
+}
+function checkMRS(){
+  let ok=0;MRS_ANS.forEach((ans,i)=>{const inp=document.getElementById('mrs'+i);if(!inp)return;const v=parseFloat(inp.value);if(Math.abs(v-ans)<.01){inp.style.borderColor='#1D9E75';inp.style.background='#E1F5EE';ok++;}else{inp.style.borderColor='#E24B4A';inp.style.background='#FCEBEB';}});
+  const fb=document.getElementById('mrsfb');fb.textContent=ok===5?'ถูกทั้งหมด! MRS ลด 7.5→5→3.5→2.5→1.5 ✓':`ได้ ${ok}/5 — MRS = |ΔY/ΔX|`;fb.className='fb on '+(ok===5?'ok':'no');
+}
+
+/* ===== S2 BL ===== */
+function updBL(){
+  const I=+document.getElementById('blI').value,Px=+document.getElementById('blPx').value,Py=+document.getElementById('blPy').value;
+  document.getElementById('vblI').textContent=I;document.getElementById('vblPx').textContent=Px;document.getElementById('vblPy').textContent=Py;
+  document.getElementById('blinfo').innerHTML=`ตัดแกน Y = <strong>${(I/Py).toFixed(1)}</strong> | ตัดแกน X = <strong>${(I/Px).toFixed(1)}</strong> | Slope = <strong>−${(Px/Py).toFixed(2)}</strong>`;
+  const cv=document.getElementById('cbl');if(!cv)return;
+  const ctx=cv.getContext('2d');ctx.clearRect(0,0,cv.width,cv.height);
+  const xM=Math.max(I/Px,I/Py)*1.35,c=makeC(cv,44,36,22,14,xM,xM);
+  const step=Math.ceil(xM/5);const gv=[];for(let v=step;v<xM;v+=step)gv.push(v);
+  drawAxes(ctx,c,'X','Y');drawGrid(ctx,c,gv,gv);
+  ctx.fillStyle=isDk()?'rgba(55,138,221,.06)':'rgba(55,138,221,.07)';
+  ctx.beginPath();ctx.moveTo(c.x(0),c.y(I/Py));ctx.lineTo(c.x(I/Px),c.y(0));ctx.lineTo(c.ml,c.mt+c.ph);ctx.closePath();ctx.fill();
+  drawBL(ctx,c,I/Py,I/Px,'#378ADD',2.5,null);
+  ctx.fillStyle='#185FA5';ctx.textAlign='right';ctx.font='10.5px sans-serif';ctx.fillText((I/Py).toFixed(1),c.x(0)-2,c.y(I/Py)-5);
+  ctx.textAlign='center';ctx.fillText((I/Px).toFixed(1),c.x(I/Px),c.mt+c.ph+26);ctx.font='11px sans-serif';
+}
+
+/* ===== S3 EQ ===== */
+function updEQ(){
+  const I=+document.getElementById('eqI').value,Px=+document.getElementById('eqPx').value,Py=+document.getElementById('eqPy').value;
+  document.getElementById('veqI').textContent=I;document.getElementById('veqPx').textContent=Px;document.getElementById('veqPy').textContent=Py;
+  const Xs=(I/(2*Px)).toFixed(1),Ys=(I/(2*Py)).toFixed(1);
+  document.getElementById('eqinfo').innerHTML=`X* = <strong>${Xs}</strong> | Y* = <strong>${Ys}</strong> | MRS = Px/Py = <strong>${(Px/Py).toFixed(2)}</strong>`;
+  const cv=document.getElementById('ceq');if(!cv)return;
+  const ctx=cv.getContext('2d');ctx.clearRect(0,0,cv.width,cv.height);
+  const c=makeC(cv,44,36,22,14,44,44);
+  drawAxes(ctx,c,'X','Y');drawGrid(ctx,c,[5,10,15,20,25,30,35,40],[5,10,15,20,25,30,35,40]);
+  const X=I/(2*Px),Y=I/(2*Py),Us=X*Y;
+  [0.45,1,1.65].forEach((f,i)=>{
+    const k=Us*f,col=['#9FE1CB','#1D9E75','rgba(10,78,52,.55)'][i];
+    drawHyp(ctx,c,k,col,i===1?2.5:1.5,i===2?[5,3]:null);
+    let lx=0.3;while(k/lx>43&&lx<43)lx+=.4;
+    ctx.fillStyle=i===2?'#0A4E34':col;ctx.textAlign='left';ctx.font='9.5px sans-serif';ctx.fillText(['IC₁','IC*','IC₃'][i],c.x(lx)+3,c.y(k/lx));ctx.font='11px sans-serif';
+  });
+  drawBL(ctx,c,I/Py,I/Px,'#378ADD',2.5,null);
+  drawDrops(ctx,c,X,Y,'#E24B4A');
+  drawDot(ctx,c.x(X),c.y(Y),'#E24B4A',7);
+  ctx.fillStyle='#A32D2D';ctx.textAlign='left';ctx.font='10.5px sans-serif';ctx.fillText(`E*(${X.toFixed(1)},${Y.toFixed(1)})`,c.x(X)+9,c.y(Y)-7);
+  ctx.textAlign='center';ctx.fillText('X*='+X.toFixed(1),c.x(X),c.mt+c.ph+26);ctx.textAlign='right';ctx.fillText('Y*='+Y.toFixed(1),c.ml-2,c.y(Y)+4);ctx.font='11px sans-serif';
+}
+
+/* ===== S4 ICC ===== */
+// Verified Catmull-Rom control points for Inferior ICs
+// slope=-1 at each eq, convex, non-intersecting ✓
+const INF_PTS=[
+  [[0.2,17],[1,11],[3,5],[5,3],[7,1],[9,0.5]],
+  [[0.2,16.5],[1,13],[2,10],[3,9],[4,8],[6,6.5],[8,5.5],[9,5]],
+  [[0.2,19.8],[0.8,16],[1.5,14.5],[2,14],[3,13],[5,11.5],[7,10],[9,9]]
+];
+const ICC_DATA={
+  n:{eqs:[{xs:4,ys:4,I:16},{xs:6,ys:6,I:24},{xs:8,ys:8,I:32}],
+     descs:['🔵 รายได้ I=16: E₁=(4,4) — IC₁ สัมผัส BL₁ พอดี','🟡 รายได้ I=24: BL เลื่อนออก → E₂=(6,6) บน IC₂','🔴 รายได้ I=32: E₃=(8,8) — X เพิ่มตามรายได้ = Normal Good','✅ ICC ทอดขึ้นขวา | Engel slope (+) = Normal Good']},
+  i:{eqs:[{xs:5,ys:3,I:16},{xs:3,ys:9,I:24},{xs:2,ys:14,I:32}],
+     descs:['🔵 รายได้ I=16: E₁=(5,3)','⚠️ รายได้ I=24: E₂=(3,9) — X ลดลง! ทั้งที่รายได้เพิ่ม = Inferior Good','🔴 รายได้ I=32: E₃=(2,14) — X ลดอีก ยืนยัน Inferior','✅ ICC ทอดขึ้นซ้าย | Engel slope (−) = Inferior Good']}
+};
+function setICC(mode){
+  iccMode=mode;iccStep_=0;
+  const bn=document.getElementById('btnN'),bi=document.getElementById('btnI');
+  const on='padding:6px 14px;border:0.5px solid;border-radius:8px;font-size:12px;cursor:pointer;';
+  bn.style.cssText=on+(mode==='n'?'border-color:#1D9E75;color:#0F6E56;background:#E1F5EE':'border-color:#ddd;color:#888;background:transparent');
+  bi.style.cssText=on+(mode==='i'?'border-color:#E24B4A;color:#A32D2D;background:#FCEBEB':'border-color:#ddd;color:#888;background:transparent');
+  renderICC();
+}
+function iccStep(d){iccStep_=Math.max(0,Math.min(3,iccStep_+d));renderICC();}
+function renderICC(){
+  const s=iccStep_,data=ICC_DATA[iccMode];
+  document.getElementById('icc_slbl').textContent=`ขั้น ${s+1}/4`;
+  const dotsEl=document.getElementById('icc_dots');dotsEl.innerHTML='';
+  for(let i=0;i<4;i++){const d=document.createElement('div');d.className='sdot'+(i<s?' done':i===s?' cur':'');dotsEl.appendChild(d);}
+  document.getElementById('icc_prev').className='snb'+(s===0?' dis':'');
+  document.getElementById('icc_next').className='snb'+(s===3?' dis':'');
+  document.getElementById('icc_desc').textContent=data.descs[s];
+  drawICC(iccMode,s+1);
+}
+function drawICC(mode,step){
+  const cv=document.getElementById('cicc');if(!cv)return;
+  const ctx=cv.getContext('2d');const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  const data=ICC_DATA[mode];
+  const lW=W*0.59,ml=38,mb=34,mt=20,mr=6,ph=H-mt-mb,lPW=lW-ml-mr;
+  const xM=mode==='n'?13:10,yM=mode==='n'?13:20;
+  function lx(x){return ml+(x/xM)*lPW;}function ly(y){return mt+ph-(y/yM)*ph;}
+  const lc={x:lx,y:ly,xMax:xM,yMax:yM};
+  ctx.strokeStyle=axc();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+lPW,mt+ph);ctx.stroke();
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='11px sans-serif';ctx.fillText('X',ml+lPW/2,mt+ph+28);
+  ctx.save();ctx.translate(10,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('Y',0,0);ctx.restore();
+  const gs=mode==='n'?[3,6,9,12]:[2,4,6,8,10],gsY=mode==='n'?[3,6,9,12]:[5,10,15,20];
+  ctx.font='9.5px sans-serif';
+  gs.forEach(v=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(lx(v),mt);ctx.lineTo(lx(v),mt+ph);ctx.stroke();ctx.fillStyle=tc();ctx.textAlign='center';ctx.fillText(v,lx(v),mt+ph+14);});
+  gsY.forEach(v=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(ml,ly(v));ctx.lineTo(ml+lPW,ly(v));ctx.stroke();ctx.fillStyle=tc();ctx.textAlign='right';ctx.fillText(v,ml-3,ly(v)+4);});
+  ctx.font='11px sans-serif';
+  const blues=['#B5D4F4','#6BB0E8','#1A67B5'],greens=['#9FE1CB','#1D9E75','#0A4E34'];
+  const numShow=Math.min(step,3),ePts=[];
+  for(let i=0;i<numShow;i++){
+    const eq=data.eqs[i];
+    const yI=eq.I/2,xI=eq.I/2,slp=1;
+    let bx0=0,by0=Math.min(yI,yM);if(yI>yM)bx0=(yI-yM)/slp;
+    const bx1=Math.min(xI,xM),by1=Math.max(0,yI-slp*bx1);
+    ctx.strokeStyle=blues[i];ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(lx(bx0),ly(by0));ctx.lineTo(lx(bx1),ly(by1));ctx.stroke();
+    if(mode==='n'){drawHyp(ctx,lc,eq.xs*eq.ys,greens[i],1.8,null);}
+    else{drawCR(ctx,lc,INF_PTS[i],greens[i],1.8,null);}
+    const ex=lx(eq.xs),ey=ly(eq.ys);
+    drawDot(ctx,ex,ey,'#E24B4A',5);
+    ctx.fillStyle='#A32D2D';ctx.textAlign='center';ctx.font='9.5px sans-serif';ctx.fillText('E'+(i+1),ex,ey-8);ctx.font='11px sans-serif';
+    // tangent at eq point: slope=-1 (Px=Py=2)
+    const h=mode==='n'?.7:.6;
+    ctx.strokeStyle=blues[i]+'cc';ctx.lineWidth=1.2;ctx.setLineDash([3,2]);
+    ctx.beginPath();ctx.moveTo(lx(eq.xs-h),ly(eq.ys+h));ctx.lineTo(lx(eq.xs+h),ly(eq.ys-h));ctx.stroke();ctx.setLineDash([]);
+    ePts.push(eq);
+  }
+  if(step>=4&&ePts.length===3){
+    ctx.strokeStyle='#D85A30';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(lx(ePts[0].xs),ly(ePts[0].ys));ePts.forEach(e=>ctx.lineTo(lx(e.xs),ly(e.ys)));ctx.stroke();
+    // arrow at end
+    const l=ePts[2],p=ePts[1];const dx=lx(l.xs)-lx(p.xs),dy=ly(l.ys)-ly(p.ys),dl=Math.sqrt(dx*dx+dy*dy);
+    if(dl>2){const ux=dx/dl,uy=dy/dl;ctx.fillStyle='#D85A30';ctx.beginPath();ctx.moveTo(lx(l.xs),ly(l.ys));ctx.lineTo(lx(l.xs)-ux*10-uy*5,ly(l.ys)-uy*10+ux*5);ctx.lineTo(lx(l.xs)-ux*10+uy*5,ly(l.ys)-uy*10-ux*5);ctx.closePath();ctx.fill();}
+    const mi=ePts[1];ctx.fillStyle='#993C1D';ctx.textAlign=mode==='n'?'left':'right';ctx.font='10px sans-serif';ctx.fillText('ICC',lx(mi.xs)+(mode==='n'?5:-5),ly(mi.ys)-5);
+    if(mode==='i'){ctx.fillStyle='#A32D2D';ctx.font='9.5px sans-serif';ctx.textAlign='center';ctx.fillText('← X ลดลงเมื่อ I เพิ่ม',lx(3),ly(12));ctx.font='11px sans-serif';}
+  }
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='10px sans-serif';ctx.fillText(mode==='n'?'IC map (Normal Good)':'IC map (Inferior Good)',ml+lPW/2,mt-6);ctx.font='11px sans-serif';
+  // Engel curve panel
+  const rx=lW+10,rml=30,rpw=W-rx-rml-8;
+  const allI=data.eqs.map(e=>e.I),allX=data.eqs.map(e=>e.xs);
+  const iMin=allI[0]-3,iRange=allI[2]-iMin+3;
+  const xMin=Math.min(...allX)-.5,xRng=Math.max(...allX)-xMin+1;
+  function ex(xq){return rx+rml+(xq-xMin)/xRng*rpw;}function ey(inc){return mt+ph-((inc-iMin)/iRange)*ph;}
+  ctx.strokeStyle=axc();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(rx+rml,mt);ctx.lineTo(rx+rml,mt+ph);ctx.lineTo(rx+rml+rpw,mt+ph);ctx.stroke();
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='11px sans-serif';ctx.fillText('X',rx+rml+rpw/2,mt+ph+28);
+  ctx.save();ctx.translate(rx-2,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('I',0,0);ctx.restore();
+  allI.forEach(inc=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.setLineDash([2,2]);ctx.beginPath();ctx.moveTo(rx+rml,ey(inc));ctx.lineTo(rx+rml+rpw,ey(inc));ctx.stroke();ctx.setLineDash([]);ctx.fillStyle=tc();ctx.textAlign='right';ctx.font='9px sans-serif';ctx.fillText(inc,rx+rml-3,ey(inc)+4);ctx.font='11px sans-serif';});
+  allX.forEach(xq=>{ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='9px sans-serif';ctx.fillText(xq,ex(xq),mt+ph+14);ctx.font='11px sans-serif';});
+  ePts.forEach(e=>{drawDot(ctx,ex(e.xs),ey(e.I),'#E24B4A',4.5);});
+  if(step>=4){
+    const pts=data.eqs;ctx.strokeStyle='#534AB7';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(ex(pts[0].xs),ey(pts[0].I));pts.forEach(e=>ctx.lineTo(ex(e.xs),ey(e.I)));ctx.stroke();
+    const mid=pts[1];ctx.fillStyle='#534AB7';ctx.textAlign=mode==='n'?'left':'right';ctx.font='10px sans-serif';ctx.fillText('Engel',ex(mid.xs)+(mode==='n'?5:-5),ey(mid.I)+(mode==='n'?-4:5));
+    ctx.textAlign='center';ctx.fillStyle=tc();ctx.fillText(mode==='n'?'Engel (slope+)':'Engel (slope−)',rx+rml+rpw/2,mt-6);ctx.font='11px sans-serif';
+  }else{ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='10px sans-serif';ctx.fillText('Engel Curve',rx+rml+rpw/2,mt-6);ctx.font='11px sans-serif';}
+}
+
+/* ===== S5 PCC ===== */
+const PCC_DATA=[{px:4,xs:5,ys:10,k:50,xI:10},{px:2,xs:10,ys:10,k:100,xI:20},{px:1,xs:20,ys:10,k:200,xI:40}];
+const PCC_DESCS=['🔵 Px=4: BL (0,20)→(10,0) | E₁=(5,10) บน IC₁','🟡 Px ลดเป็น 2: BL หมุน (0,20)→(20,0) | E₂=(10,10) บน IC₂','🔴 Px ลดเป็น 1: BL (0,20)→(40,0) | E₃=(20,10) บน IC₃','✅ PCC แนวนอน (Y*=10 คงที่) | พล็อต (Px,X*) → เส้นอุปสงค์ Px=20/X'];
+function pccStep(d){pccStep_=Math.max(0,Math.min(3,pccStep_+d));renderPCC();}
+function renderPCC(){
+  const s=pccStep_;
+  document.getElementById('pcc_slbl').textContent=`ขั้น ${s+1}/4`;
+  const dotsEl=document.getElementById('pcc_dots');dotsEl.innerHTML='';
+  for(let i=0;i<4;i++){const d=document.createElement('div');d.className='sdot'+(i<s?' done':i===s?' cur':'');dotsEl.appendChild(d);}
+  document.getElementById('pcc_prev').className='snb'+(s===0?' dis':'');
+  document.getElementById('pcc_next').className='snb'+(s===3?' dis':'');
+  document.getElementById('pcc_desc').textContent=PCC_DESCS[s];
+  drawPCC(s+1);
+}
+function drawPCC(step){
+  const cv=document.getElementById('cpcc');if(!cv)return;
+  const ctx=cv.getContext('2d');const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  const I=40,Py=2,yEq=10;
+  const tH=Math.round(H*.54),ml=44,mr=14,mt=22,mb=26,pw=W-ml-mr;
+  const tph=tH-mt-mb,xM=44,yM=22;
+  function cx(x){return ml+(x/xM)*pw;}function cy(y){return mt+tph-(y/yM)*tph;}
+  ctx.strokeStyle=axc();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+tph);ctx.lineTo(ml+pw,mt+tph);ctx.stroke();
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='10px sans-serif';ctx.fillText('X',ml+pw/2,mt+tph+18);
+  ctx.save();ctx.translate(10,mt+tph/2);ctx.rotate(-Math.PI/2);ctx.fillText('Y',0,0);ctx.restore();
+  [5,10,15,20,25,30,35,40].forEach(v=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+tph);ctx.stroke();ctx.fillStyle=tc();ctx.textAlign='center';ctx.fillText(v,cx(v),mt+tph+14);});
+  [5,10,15,20].forEach(v=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();ctx.fillStyle=tc();ctx.textAlign='right';ctx.fillText(v,ml-3,cy(v)+4);});
+  ctx.font='11px sans-serif';
+  const pCols=['#B5D4F4','#6BB0E8','#1A67B5'],iCols=['#9FE1CB','#1D9E75','#0A4E34'];
+  const tc2={x:cx,y:cy,xMax:xM,yMax:yM};
+  const shown=PCC_DATA.slice(0,Math.min(step,3));
+  shown.forEach((d,i)=>{
+    // IC: k=xs*yEq, y=k/x. At (xs,yEq): k/xs=yEq ✓
+    drawHyp(ctx,tc2,d.k,iCols[i],1.6,null);
+    // BL: y=I/Py - (px/Py)*x = 20 - (d.px/2)*x
+    drawBL(ctx,tc2,I/Py,d.xI,pCols[i],i===step-1?2.5:1.5,null);
+    drawDot(ctx,cx(d.xs),cy(yEq),'#E24B4A',5.5);
+    ctx.fillStyle=pCols[i];ctx.textAlign='center';ctx.font='9px sans-serif';ctx.fillText('E'+(i+1)+' (Px='+d.px+')',cx(d.xs),cy(yEq)-9);ctx.font='11px sans-serif';
+  });
+  if(step>=4){
+    ctx.strokeStyle='#D85A30';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(PCC_DATA[0].xs),cy(yEq));PCC_DATA.forEach(d=>ctx.lineTo(cx(d.xs),cy(yEq)));ctx.stroke();
+    ctx.fillStyle='#993C1D';ctx.textAlign='left';ctx.font='10px sans-serif';ctx.fillText('PCC (Y*='+yEq+' คงที่)',cx(PCC_DATA[0].xs)+3,cy(yEq)-7);ctx.font='11px sans-serif';
+  }
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='10px sans-serif';ctx.fillText('IC map + PCC (I=40, Py=2)',ml+pw/2,mt-6);ctx.font='11px sans-serif';
+  // Bottom demand panel
+  const by=tH+12,bph=H-by-mb,pMax=5.2,pMin=0.3;
+  function dx(x){return ml+(x/xM)*pw;}function dp(p){return by+bph-((p-pMin)/(pMax-pMin))*bph;}
+  ctx.strokeStyle=axc();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ml,by);ctx.lineTo(ml,by+bph);ctx.lineTo(ml+pw,by+bph);ctx.stroke();
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='10px sans-serif';ctx.fillText('ปริมาณ X',ml+pw/2,by+bph+18);
+  ctx.save();ctx.translate(10,by+bph/2);ctx.rotate(-Math.PI/2);ctx.fillText('ราคา Px',0,0);ctx.restore();
+  [1,2,3,4,5].forEach(p=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(ml,dp(p));ctx.lineTo(ml+pw,dp(p));ctx.stroke();ctx.fillStyle=tc();ctx.textAlign='right';ctx.fillText(p,ml-3,dp(p)+4);});
+  [5,10,15,20,25,30,35,40].forEach(x=>{ctx.fillStyle=tc();ctx.textAlign='center';ctx.fillText(x,dx(x),by+bph+14);});
+  ctx.font='11px sans-serif';
+  if(step>=4){
+    ctx.strokeStyle='#534AB7';ctx.lineWidth=2.5;ctx.beginPath();let fd=true;
+    for(let x=1.2;x<=xM-.5;x+=.2){const p=I/(2*x);if(p<pMin||p>pMax){fd=true;continue;}fd?(ctx.moveTo(dx(x),dp(p)),fd=false):ctx.lineTo(dx(x),dp(p));}
+    ctx.stroke();ctx.fillStyle='#534AB7';ctx.textAlign='left';ctx.font='10px sans-serif';ctx.fillText('อุปสงค์: Px=20/X',dx(22),dp(1.1));ctx.font='11px sans-serif';
+  }
+  shown.forEach((d,i)=>{
+    drawDot(ctx,dx(d.xs),dp(d.px),pCols[i],5.5);
+    ctx.strokeStyle=gc();ctx.lineWidth=.5;ctx.setLineDash([2,2]);
+    ctx.beginPath();ctx.moveTo(dx(d.xs),dp(d.px));ctx.lineTo(dx(d.xs),by+bph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(ml,dp(d.px));ctx.lineTo(dx(d.xs),dp(d.px));ctx.stroke();ctx.setLineDash([]);
+  });
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='10px sans-serif';ctx.fillText('เส้นอุปสงค์ส่วนบุคคล (จาก PCC)',ml+pw/2,by-5);ctx.font='11px sans-serif';
+}
+
+/* ===== S6 HICKS & SLUTSKY ===== */
+const sq50=Math.sqrt(50);
+const HSE1={x:5,y:10},HSE3={x:10,y:10},HSE2H={x:sq50,y:sq50},HSE2S={x:7.5,y:7.5};
+function showHS(mode){
+  hsMode=mode;
+  const bh=document.getElementById('btnH'),bs=document.getElementById('btnS');
+  const on='padding:6px 14px;border:0.5px solid;border-radius:8px;font-size:12px;cursor:pointer;';
+  bh.style.cssText=on+(mode==='hicks'?'border-color:#D85A30;color:#993C1D;background:#FDF0E6':'border-color:#ddd;color:#888;background:transparent');
+  bs.style.cssText=on+(mode==='slutsky'?'border-color:#534AB7;color:#3D2F9E;background:#EDE9FF':'border-color:#ddd;color:#888;background:transparent');
+  const E2=mode==='hicks'?HSE2H:HSE2S;
+  const se=(E2.x-HSE1.x).toFixed(2),ie=(HSE3.x-E2.x).toFixed(2);
+  document.getElementById('hsinfo').innerHTML=mode==='hicks'
+    ?`Hicks E₂=(${E2.x.toFixed(2)},${E2.y.toFixed(2)}) บน IC₁ เดิม | SE=${se} | IE=${ie} | PE=5`
+    :`Slutsky E₂=(${E2.x},${E2.y}) ซื้อ bundle เดิมได้ | SE=${se} | IE=${ie} | PE=5`;
+  const cv=document.getElementById('chs');if(!cv)return;
+  const ctx=cv.getContext('2d');ctx.clearRect(0,0,cv.width,cv.height);
+  const xM=22,yM=22,ml=42,mb=82,mt=20,mr=10,pw=cv.width-ml-mr,ph=cv.height-mt-mb;
+  function cx(x){return ml+(x/xM)*pw;}function cy(y){return mt+ph-(y/yM)*ph;}
+  const c={x:cx,y:cy,xMax:xM,yMax:yM};
+  ctx.font='11px sans-serif';
+  ctx.strokeStyle=axc();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.fillText('X',ml+pw/2,mt+ph+15);
+  ctx.save();ctx.translate(10,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('Y',0,0);ctx.restore();
+  [5,10,15,20].forEach(v=>{ctx.strokeStyle=gc();ctx.lineWidth=.4;ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();ctx.fillStyle=tc();ctx.textAlign='center';ctx.fillText(v,cx(v),mt+ph+14);ctx.textAlign='right';ctx.fillText(v,ml-3,cy(v)+4);});
+  drawHyp(ctx,c,50,'#9FE1CB',1.5,null);
+  if(mode==='slutsky')drawHyp(ctx,c,56.25,'#B094D4',1.5,[4,2]);
+  drawHyp(ctx,c,100,'#1D9E75',2.5,null);
+  [['IC₁(U=50)',50,'#9FE1CB'],mode==='slutsky'?['IC_S',56.25,'#B094D4']:null,['IC₃(U=100)',100,'#1D9E75']].filter(Boolean).forEach(([lbl,k,col])=>{let lx2=0.4;while(k/lx2>yM-1.8&&lx2<xM-2)lx2+=.3;ctx.fillStyle=col;ctx.textAlign='left';ctx.font='9px sans-serif';ctx.fillText(lbl,cx(lx2)+2,cy(k/lx2)-2);ctx.font='11px sans-serif';});
+  // BL1 Px=4: y=20-2x → (0,20)→(10,0)
+  ctx.strokeStyle='#B5D4F4';ctx.lineWidth=1.8;ctx.beginPath();ctx.moveTo(cx(0),cy(20));ctx.lineTo(cx(10),cy(0));ctx.stroke();
+  ctx.fillStyle='#5A9AD4';ctx.textAlign='right';ctx.font='9px sans-serif';ctx.fillText('BL₁(Px=4)',cx(9.5),cy(.8));
+  // BL3 Px=2: y=20-x → (0,20)→(20,0)
+  ctx.strokeStyle='#378ADD';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cy(20));ctx.lineTo(cx(20),cy(0));ctx.stroke();
+  ctx.fillStyle='#185FA5';ctx.textAlign='right';ctx.font='9px sans-serif';ctx.fillText('BL₃(Px=2)',cx(19.5),cy(.4));
+  if(mode==='hicks'){const yI=2*sq50;ctx.strokeStyle='#D85A30';ctx.lineWidth=2;ctx.setLineDash([5,3]);ctx.beginPath();ctx.moveTo(cx(0),cy(yI));ctx.lineTo(cx(yI),cy(0));ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#D85A30';ctx.textAlign='left';ctx.font='9px sans-serif';ctx.fillText('BL_H',cx(0)+3,cy(yI)-3);ctx.font='11px sans-serif';}
+  else{ctx.strokeStyle='#8B5CF6';ctx.lineWidth=2;ctx.setLineDash([5,3]);ctx.beginPath();ctx.moveTo(cx(0),cy(15));ctx.lineTo(cx(15),cy(0));ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#8B5CF6';ctx.textAlign='left';ctx.font='9px sans-serif';ctx.fillText('BL_S',cx(0)+3,cy(15)-3);ctx.font='11px sans-serif';}
+  const aCols=['#E24B4A',mode==='hicks'?'#D85A30':'#8B5CF6','#1D9E75'];
+  [[HSE1,'E₁'],[E2,'E₂'],[HSE3,'E₃']].forEach(([pt,lbl],i)=>{
+    ctx.strokeStyle=aCols[i]+'77';ctx.lineWidth=.8;ctx.setLineDash([2,2]);ctx.beginPath();ctx.moveTo(cx(pt.x),cy(pt.y));ctx.lineTo(cx(pt.x),mt+ph);ctx.stroke();ctx.setLineDash([]);
+    drawDot(ctx,cx(pt.x),cy(pt.y),aCols[i],6);
+    ctx.fillStyle=aCols[i];ctx.textAlign='left';ctx.font='10px sans-serif';ctx.fillText(lbl+'('+pt.x.toFixed(1)+','+pt.y.toFixed(1)+')',cx(pt.x)+8,cy(pt.y)-7);ctx.font='11px sans-serif';
+  });
+  const axY=mt+ph,ar1=axY+22,ar2=axY+40,ar3=axY+60,acol=mode==='hicks'?'#D85A30':'#8B5CF6';
+  hArrow(ctx,cx(HSE1.x),cx(E2.x),ar1,acol,'SE='+(E2.x-HSE1.x).toFixed(2));
+  hArrow(ctx,cx(E2.x),cx(HSE3.x),ar2,'#185FA5','IE='+(HSE3.x-E2.x).toFixed(2));
+  ctx.strokeStyle='#0F6E56';ctx.lineWidth=1.5;ctx.setLineDash([3,2]);ctx.beginPath();ctx.moveTo(cx(HSE1.x),ar3);ctx.lineTo(cx(HSE3.x),ar3);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#0F6E56';ctx.textAlign='center';ctx.font='9px sans-serif';ctx.fillText('PE = SE+IE = 5',(cx(HSE1.x)+cx(HSE3.x))/2,ar3-4);ctx.font='11px sans-serif';
+  [[HSE1.x,'#E24B4A'],[E2.x,acol],[HSE3.x,'#1D9E75']].forEach(([v,col])=>{ctx.fillStyle=col;ctx.textAlign='center';ctx.font='9px sans-serif';ctx.fillText(v.toFixed(1),cx(v),axY+14);ctx.font='11px sans-serif';});
+  ctx.fillStyle=tc();ctx.textAlign='center';ctx.font='10px sans-serif';ctx.fillText(mode==='hicks'?'Hicks: คง utility เดิม (IC₁)':'Slutsky: คงให้ซื้อ bundle เดิมได้',ml+pw/2,mt-4);ctx.font='11px sans-serif';
+}
+
+/* ===== QUIZ ===== */
+const QQ=[
+  {q:'MRS_XY = 3 หมายความว่า?',opts:['MU_X=3×MU_Y','ยินดีสละ Y 3 หน่วยเพื่อได้ X เพิ่ม 1 หน่วย (ความพอใจเท่าเดิม)','Px=3Py','Slope BL=−3'],ans:1,ex:'MRS_XY = |ΔY/ΔX| = จำนวน Y ที่สละเพื่อได้ X 1 หน่วย บน IC เดิม'},
+  {q:'Slope ของ Budget Line เท่ากับ?',opts:['+Px/Py','−I/Px','−Px/Py','Py/Px'],ans:2,ex:'Y=I/Py−(Px/Py)X → slope=−Px/Py'},
+  {q:'ดุลยภาพ Ordinal Approach เกิดเมื่อ?',opts:['IC ตัดกับ BL','IC สัมผัส BL: MRS=Px/Py','TU สูงสุด','MU=0'],ans:1,ex:'Slope IC = Slope BL → MRS=Px/Py → MU_X/P_X=MU_Y/P_Y'},
+  {q:'Engel Curve slope ลบ → สินค้าชนิดนั้นเป็นอะไร?',opts:['Normal Good','Inferior Good','Luxury Good','Free Good'],ans:1,ex:'Inferior: รายได้เพิ่ม → ซื้อน้อยลง เช่น บะหมี่สำเร็จรูป'},
+  {q:'ความต่าง Hicks vs Slutsky คืออะไร?',opts:['Hicks ใช้ BL ใหม่','Hicks คง utility (IC เดิม); Slutsky คงให้ซื้อ bundle เดิมได้','ผลเหมือนกัน','Slutsky เป็นทฤษฎีเท่านั้น'],ans:1,ex:'Hicks SE บน IC เดิม | Slutsky SE ผ่าน bundle เดิม | Slutsky SE ≥ Hicks SE'}
+];
+function buildQuiz(){const z=document.getElementById('qzone');if(z.children.length)return;qAns=0;qScore=0;QQ.forEach((q,qi)=>{const d=document.createElement('div');d.style.marginBottom='1rem';d.innerHTML=`<p style="font-size:13.5px;font-weight:500;margin:0 0 7px">${qi+1}. ${q.q}</p>${q.opts.map((o,oi)=>`<button class="qopt" id="q${qi}_${oi}" onclick="ansQ(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`).join('')}<div class="fb" id="qf${qi}"></div>`;z.appendChild(d);});}
+function ansQ(qi,oi){const q=QQ[qi];for(let i=0;i<q.opts.length;i++)document.getElementById(`q${qi}_${i}`).disabled=true;const btn=document.getElementById(`q${qi}_${oi}`),fb=document.getElementById(`qf${qi}`);if(oi===q.ans){btn.className='qopt ok';qScore++;fb.textContent='ถูก! '+q.ex;fb.className='fb on ok';}else{btn.className='qopt no';document.getElementById(`q${qi}_${q.ans}`).className='qopt ok';fb.textContent='ไม่ถูก — '+q.ex;fb.className='fb on no';}qAns++;if(qAns===QQ.length){const msg=qScore>=4?'ยอดเยี่ยม!':qScore>=3?'ดีมาก':'ลองทำใหม่';const s=document.createElement('div');s.style.cssText='text-align:center;padding:.75rem 0';s.innerHTML=`<div class="sc">${qScore}/${QQ.length}</div><p style="font-size:13px;color:#888;margin:0">${msg}</p>`;document.getElementById('qzone').appendChild(s);document.getElementById('qnav').style.display='flex';}}
+function rst(){qAns=0;qScore=0;document.getElementById('qzone').innerHTML='';document.getElementById('qnav').style.display='none';go(0);}
+
+(function(){buildPg();document.querySelectorAll('.section').forEach((s,i)=>{s.style.display=i===0?'block':'none';});updPg(0);setICC('n');showHS('hicks');})();
+</script>
+</div></div><footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

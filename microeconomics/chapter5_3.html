@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 5.3 — กฎผลตอบแทนลดน้อยถอยลง</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+    --font-serif:'Noto Serif Thai',serif;
+    --color-background-primary:#ffffff;
+    --color-background-secondary:#f7f5ff;
+    --color-border-secondary:#d8d2ef;
+    --color-border-tertiary:#ece7f7;
+    --color-text-primary:#1d1633;
+    --color-text-secondary:#6b6480;
+    --color-text-tertiary:#9a94ad;
+    --border-radius-md:12px;
+    --border-radius-lg:18px;
+    --shadow:0 10px 30px rgba(61,47,158,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
+  .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
+  .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:14px;font-weight:600;margin:0 0 14px}
+  .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+  .ajk-shell-theme {
+    --ajk-primary: #f59e0b;
+    --ajk-primary-soft: #fffbeb;
+    --ajk-primary-dark: #d97706;
+    --ajk-ink: #1d1633;
+    --ajk-muted: #6b6480;
+    --ajk-border: #e5e1f3;
+    --ajk-surface: #ffffff;
+  }
+  .ajk-topbar {
+    position: sticky; top: 0; z-index: 1000;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid var(--ajk-border);
+    font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+    color: var(--ajk-ink);
+  }
+  .ajk-topbar-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; min-height: 58px;
+  }
+  .ajk-back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none; color: var(--ajk-ink);
+    background: var(--ajk-primary-soft);
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    border: 1px solid transparent;
+    transition: all .18s;
+    flex-shrink: 0;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .ajk-back-btn:hover {
+    background: var(--ajk-primary); color: #fff;
+    transform: translateX(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  }
+  .ajk-brand {
+    flex: 1; min-width: 0; text-align: right;
+    line-height: 1.25;
+  }
+  .ajk-brand-course {
+    font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    letter-spacing: -.01em;
+  }
+  .ajk-brand-author {
+    font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 2px;
+  }
+  .ajk-brand-author-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--ajk-primary);
+    flex-shrink: 0;
+  }
+  .ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; padding: 0 1px; }
+
+  @media (max-width: 520px) {
+    .ajk-back-btn span { display: none; }
+    .ajk-back-btn { padding: 9px; }
+    .ajk-back-btn svg { width: 16px; height: 16px; }
+    .ajk-brand-course { font-size: 12.5px; }
+    .ajk-brand-author { font-size: 10.5px; }
+    .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
+  }
+
+  /* ─── Footer ─── */
+  .ajk-footer {
+    margin-top: 64px;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+    border-top: 1px solid var(--ajk-border);
+    padding: 48px 16px 28px;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+    color: var(--ajk-ink);
+  }
+  .ajk-footer-inner {
+    max-width: 720px; margin: 0 auto;
+    text-align: center;
+  }
+  .ajk-footer-mark {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .ajk-footer-mark::before, .ajk-footer-mark::after {
+    content: ''; width: 28px; height: 1px;
+    background: var(--ajk-primary); opacity: .35;
+  }
+  .ajk-footer-mark-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--ajk-primary);
+    flex-shrink: 0;
+  }
+  .ajk-footer-name {
+    font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--ajk-ink); margin: 0 0 4px;
+    letter-spacing: -.01em;
+  }
+  .ajk-footer-sub {
+    font-size: 12.5px; color: var(--ajk-muted);
+    letter-spacing: .02em;
+    margin-bottom: 26px;
+  }
+  .ajk-footer-links {
+    display: flex; justify-content: center; gap: 8px;
+    flex-wrap: wrap; margin-bottom: 26px;
+  }
+  .ajk-footer-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    text-decoration: none; color: var(--ajk-ink);
+    background: var(--ajk-surface);
+    border: 1px solid var(--ajk-border);
+    padding: 9px 16px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    transition: all .18s;
+    cursor: pointer;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  }
+  .ajk-footer-btn svg { width: 15px; height: 15px; }
+  .ajk-footer-btn:hover {
+    color: var(--ajk-primary);
+    border-color: var(--ajk-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  }
+  .ajk-footer-bottom {
+    font-size: 11.5px; color: var(--ajk-muted);
+    letter-spacing: .02em;
+    padding-top: 22px;
+    border-top: 1px solid var(--ajk-border);
+    line-height: 1.8;
+  }
+  .ajk-footer-bottom strong {
+    color: var(--ajk-ink); font-weight: 700;
+  }
+
+  @media (max-width: 520px) {
+    .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
+    .ajk-footer-name { font-size: 21px; }
+    .ajk-footer-links { gap: 6px; }
+    .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+  }
+
+  /* ── Section body ── */
+  .chbody{font-family:var(--font-sans);max-width:680px;margin:0 auto;padding:1rem 0}
+  .progress-steps{display:flex;gap:4px;margin-bottom:1.5rem}
+  .step-dot{flex:1;height:4px;border-radius:2px;background:var(--color-background-secondary);transition:background .3s}
+  .step-dot.done{background:#1D9E75}
+  .step-dot.active{background:#4338ca}
+  .section-label{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;font-weight:600}
+  .section-label .chip{background:#ede9fe;color:#3730a3;padding:2px 8px;border-radius:999px;margin-right:8px;font-weight:700}
+  .big-q{font-family:var(--font-serif);font-size:20px;font-weight:700;color:var(--color-text-primary);line-height:1.45;margin:0 0 1rem}
+  .lead{font-size:14.5px;line-height:1.85;color:var(--color-text-primary);margin:0 0 1rem}
+  .lead strong{color:#3730a3;font-weight:700}
+  .nav-row{display:flex;gap:8px;margin-top:1.5rem}
+  .nav-btn{flex:1;padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;cursor:pointer;transition:background .15s;font-family:inherit;font-weight:500}
+  .nav-btn:hover{background:var(--color-background-secondary)}
+  .nav-btn.primary{background:#4338ca;border-color:#4338ca;color:#fff}
+  .nav-btn.primary:hover{background:#3730a3}
+  .section{display:none}
+  .section.active{display:block}
+
+  .reveal-btn{width:100%;padding:11px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;font-weight:500;cursor:pointer;margin-bottom:8px;transition:background .15s;font-family:inherit}
+  .reveal-btn:hover{background:var(--color-background-secondary)}
+  .reveal-box{background:#fff;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;display:none}
+  .reveal-box.shown{display:block}
+  .reveal-box p{margin:0 0 10px;font-size:14px;line-height:1.8;color:var(--color-text-primary)}
+  .reveal-box p:last-child{margin-bottom:0}
+
+  .quiz-opt{display:block;width:100%;text-align:left;padding:11px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;cursor:pointer;margin-bottom:6px;transition:all .15s;font-family:inherit;line-height:1.6}
+  .quiz-opt:hover:not(:disabled){background:var(--color-background-secondary)}
+  .quiz-opt.correct{background:#E1F5EE;border-color:#1D9E75;color:#0F6E56}
+  .quiz-opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
+  .quiz-opt:disabled{cursor:default}
+  .feedback{font-size:13.5px;padding:10px 14px;border-radius:var(--border-radius-md);margin-top:6px;display:none;line-height:1.7}
+  .feedback.show{display:block}
+  .feedback.ok{background:#E1F5EE;color:#0F6E56}
+  .feedback.bad{background:#FCEBEB;color:#A32D2D}
+  .score-circle{width:80px;height:80px;border-radius:50%;border:3px solid #4338ca;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:24px;font-weight:700;color:#3730a3;font-family:var(--font-serif)}
+
+  /* ═══════════ Custom components ═══════════ */
+
+  /* Slider */
+  .ctrl{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:14px 16px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
+  .ctrl label{font-size:13.5px;color:var(--color-text-primary);font-weight:600;flex-shrink:0}
+  .ctrl input[type="range"]{flex:1;accent-color:#4338ca;height:4px}
+  .ctrl .val{background:#4338ca;color:#fff;font-family:var(--font-serif);font-size:17px;font-weight:700;min-width:42px;text-align:center;padding:6px 12px;border-radius:999px}
+
+  /* Question card */
+  .q-card{background:linear-gradient(135deg, #ede9fe, #fef3c7);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;text-align:center}
+  .q-card .q-mark{font-family:var(--font-serif);font-size:38px;font-weight:700;color:#4338ca;line-height:1;margin-bottom:10px}
+  .q-card p{margin:0;font-size:15px;line-height:1.75;color:var(--color-text-primary)}
+  .q-card p strong{color:#3730a3}
+
+  /* Takeaway */
+  .takeaway{background:#3730a3;color:#fff;border-radius:var(--border-radius-lg);padding:1.1rem 1.35rem;margin:1rem 0;font-size:14.5px;line-height:1.8}
+  .takeaway .tag{display:inline-block;background:rgba(255,255,255,.2);padding:3px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+  .takeaway p{margin:0}
+  .takeaway strong{color:#fef3c7}
+
+  /* Story box */
+  .story{background:#fef7e0;border-left:4px solid #f59e0b;border-radius:var(--border-radius-md);padding:14px 18px;margin-bottom:1rem;font-size:14.5px;line-height:1.75;color:#92400e;min-height:60px;transition:all .25s}
+  .story.good{background:#dcfaed;border-left-color:#10b981;color:#065f46}
+  .story.bad{background:#fee2e2;border-left-color:#ef4444;color:#991b1b}
+  .story.peak{background:#fef3c7;border-left-color:#f59e0b;color:#92400e}
+  .story strong{font-weight:700}
+
+  /* ── Kitchen scene (sec 0) ── */
+  .scene{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
+  .scene-label{font-size:11.5px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:14px;text-align:center}
+  .kitchen{background:#f7f5ff;border:2px dashed #c4b5fd;border-radius:var(--border-radius-md);padding:18px;position:relative;min-height:140px}
+  .kitchen-title{font-size:11.5px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:10px;text-align:center}
+  .chefs{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;align-items:center;min-height:80px}
+  .chef{width:24px;height:32px;background:#c4b5fd;border-radius:5px 5px 2px 2px;position:relative;flex-shrink:0;animation:chefPop .3s both}
+  .chef::before{content:'';position:absolute;top:3px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:#ede9fe;border-radius:50%}
+  .chef.crowded{animation:chefShake .4s ease-in-out infinite alternate}
+  @keyframes chefPop{0%{transform:scale(0)}100%{transform:scale(1)}}
+  @keyframes chefShake{0%{transform:translateX(-1px)}100%{transform:translateX(1px)}}
+
+  /* ── Road scene (sec 1) ── */
+  .road-scene{background:#e5e7eb;border-radius:var(--border-radius-md);padding:0;overflow:hidden;margin-bottom:12px;position:relative;height:80px}
+  .road-bg{position:absolute;inset:0;background:repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(255,255,255,.4) 30px, rgba(255,255,255,.4) 50px);background-size:80px 100%;background-position:center}
+  .road-lanes{position:relative;z-index:2;height:100%;display:flex;align-items:center;padding:0 12px;gap:6px;flex-wrap:wrap;justify-content:flex-start}
+  .car{width:28px;height:16px;background:#4338ca;border-radius:3px;flex-shrink:0;position:relative;animation:carPop .3s both}
+  .car::before,.car::after{content:'';position:absolute;top:11px;width:6px;height:5px;background:#1f2937;border-radius:0 0 3px 3px}
+  .car::before{left:3px}
+  .car::after{right:3px}
+  .car.jam{animation:none;opacity:.75}
+  @keyframes carPop{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+
+  /* ── Ratio display ── */
+  .ratio-display{display:flex;gap:12px;margin-bottom:14px}
+  .ratio-box{flex:1;background:#f7f5ff;border-radius:var(--border-radius-md);padding:14px;text-align:center}
+  .ratio-box.fixed{background:#fef1e6}
+  .ratio-box.variable{background:#e6f4f0}
+  .ratio-label{font-size:11px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:4px}
+  .ratio-value{font-family:var(--font-serif);font-size:26px;font-weight:700;color:#4338ca;line-height:1.1}
+  .ratio-box.fixed .ratio-value{color:#9a3412}
+  .ratio-box.variable .ratio-value{color:#065f46}
+  .ratio-box small{display:block;font-size:11px;color:#6b6480;margin-top:3px}
+
+  /* ── Zone cards (sec 2) ── */
+  .zone-card{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px 18px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start}
+  .zone-card .zone-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:16px;font-weight:700;flex-shrink:0}
+  .zone-card.z1{border-left:4px solid #10b981}
+  .zone-card.z1 .zone-num{background:#dcfaed;color:#065f46}
+  .zone-card.z2{border-left:4px solid #f59e0b}
+  .zone-card.z2 .zone-num{background:#fef3c7;color:#92400e}
+  .zone-card.z3{border-left:4px solid #ef4444}
+  .zone-card.z3 .zone-num{background:#fee2e2;color:#991b1b}
+  .zone-body{flex:1;min-width:0}
+  .zone-title{font-size:14.5px;font-weight:700;margin:0 0 6px;color:var(--color-text-primary)}
+  .zone-desc{font-size:13.5px;line-height:1.7;color:var(--color-text-secondary);margin:0 0 6px}
+  .zone-desc strong{color:var(--color-text-primary)}
+  .zone-fact{font-size:12.5px;margin-top:6px;padding:6px 10px;background:#f7f5ff;border-radius:6px;color:#3730a3;font-weight:500}
+
+  /* ── Pattern zone (sec 2 slider) ── */
+  .pattern{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:16px;margin-bottom:12px}
+  .pattern-row{display:flex;gap:4px;margin-bottom:8px;align-items:flex-end}
+  .pattern-cell{flex:1;min-height:60px;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:4px 2px;font-size:10.5px;color:#6b6480;gap:2px;transition:all .3s}
+  .pattern-cell .mp-bar{width:70%;background:#c4b5fd;border-radius:3px;min-height:4px;transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+  .pattern-cell.good .mp-bar{background:#10b981}
+  .pattern-cell.peak .mp-bar{background:#f59e0b}
+  .pattern-cell.declining .mp-bar{background:#fdba74}
+  .pattern-cell.neg .mp-bar{background:#ef4444}
+  .pattern-cell.current{background:#ede9fe;box-shadow:0 0 0 2px #4338ca;border-radius:6px}
+  .pattern-cell .n{font-weight:700;color:#1d1633}
+  .pattern-cell .val{font-family:var(--font-serif);font-weight:700;font-size:11.5px;color:#1d1633}
+  .pattern-cell.neg .val{color:#991b1b}
+
+  /* ── Examples (sec 3) ── */
+  .example-row{display:flex;gap:12px;flex-direction:column;margin-bottom:1rem}
+  .ex-card{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 18px;display:flex;gap:14px;align-items:flex-start;transition:all .18s;cursor:pointer}
+  .ex-card:hover{border-color:#4338ca;background:#fafafe;transform:translateX(2px)}
+  .ex-icon{font-size:28px;flex-shrink:0;line-height:1}
+  .ex-body{flex:1}
+  .ex-title{font-size:14.5px;font-weight:700;margin:0 0 4px;color:var(--color-text-primary)}
+  .ex-scene{font-size:13px;color:var(--color-text-secondary);line-height:1.7;margin:0 0 6px}
+  .ex-fixed{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:3px 10px;background:#fef1e6;color:#9a3412;border-radius:999px;font-weight:600}
+  .ex-var{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:3px 10px;background:#e6f4f0;color:#065f46;border-radius:999px;font-weight:600;margin-left:6px}
+
+  @media (max-width:520px){
+    .big-q{font-size:17.5px}
+    .panel{padding:18px}
+    .ratio-display{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter5.html" aria-label="กลับบทที่ 5">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 5</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 5.3 · กฎผลตอบแทนลดน้อยถอยลง</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+<a class="backlink" href="chapter5.html">← กลับบทที่ 5</a>
+
+<div class="panel">
+<h2 class="sr-only">บทที่ 5.3: กฎผลตอบแทนลดน้อยถอยลง</h2>
+
+<div class="chbody">
+  <div class="progress-steps" id="prog"></div>
+
+  <!-- SEC 0 : Kitchen with too many chefs -->
+  <div id="sec0" class="section active">
+    <div class="section-label"><span class="chip">5.3</span>เปิดเรื่อง</div>
+    <p class="big-q">"Too many cooks spoil the broth" — ทำไมเชฟเยอะก็ไม่ได้แปลว่าดี?</p>
+
+    <p class="lead">ใน 5.2 เราเห็นแล้วว่า <strong>ยิ่งจ้างคนเยอะ MP ก็ยิ่งลด</strong> แล้วถึงจุดหนึ่งกลับ<strong>ติดลบ</strong> — ทำไมถึงเป็นแบบนั้น?</p>
+
+    <p class="lead">บทนี้จะมาตอบให้ชัด ผ่าน<strong>กฎธรรมชาติ</strong>ของการผลิตที่มีชื่อว่า <em>"Law of Diminishing Returns"</em> — กฎผลตอบแทนลดน้อยถอยลง</p>
+
+    <div class="scene">
+      <div class="scene-label">🍳 ครัว 1 ห้องเดียว</div>
+      <div class="kitchen">
+        <div class="kitchen-title">กดเพื่อเพิ่มเชฟ</div>
+        <div class="chefs" id="s0-chefs">
+          <div class="chef"></div>
+        </div>
+      </div>
+      <div class="ctrl" style="margin-top:14px;margin-bottom:0">
+        <label>เชฟในครัว</label>
+        <input type="range" min="1" max="20" step="1" value="1" id="s0-x" oninput="updateS0(this.value)">
+        <div class="val" id="s0-xval">1</div>
+      </div>
+    </div>
+
+    <div class="story" id="s0-story">เชฟ 1 คนในครัว 1 ห้อง — สบาย ๆ ทำอาหารได้เต็มที่</div>
+
+    <button class="reveal-btn" id="rbtn0" onclick="tog('ans0','rbtn0','เกิดอะไรขึ้นที่เชฟ 15 คน?')">เกิดอะไรขึ้นที่เชฟ 15 คน?</button>
+    <div class="reveal-box" id="ans0">
+      <p>🍳 เชฟ 1-2 คน → ทำอาหารได้เต็มที่ เครื่องมือในครัวมีเยอะพอ</p>
+      <p>🍳 เชฟ 3-5 คน → ช่วยกันดี แบ่งงานกัน ทำได้เร็วขึ้น</p>
+      <p>🍳 เชฟ 10 คน → ครัวเริ่มแน่น ต้องรอใช้เตา รอใช้อ่าง</p>
+      <p>🍳 เชฟ 15-20 คน → ยืนเบียดกัน ชนกัน ทำอาหารตก ทำไม่ได้เลย</p>
+      <p style="margin-top:12px;color:#3730a3;padding-top:10px;border-top:1px solid var(--color-border-tertiary)"><strong>📌 "ครัว" ไม่เปลี่ยนขนาด (ปัจจัยคงที่) แต่เชฟเพิ่ม (ปัจจัยแปรผัน) → สัดส่วนเสียสมดุล</strong></p>
+    </div>
+
+    <div class="nav-row"><button class="nav-btn primary" onclick="go(1)">ถัดไป: สาเหตุคือ "สัดส่วน" →</button></div>
+  </div>
+
+  <!-- SEC 1 : Why? The RATIO matters -->
+  <div id="sec1" class="section">
+    <div class="section-label"><span class="chip">5.3</span>สาเหตุที่แท้จริง — "สัดส่วน"</div>
+    <p class="big-q">กฎนี้เกิดจากอะไร? คำตอบซ่อนอยู่ใน 2 คำเดียว: <em>"ปัจจัยคงที่"</em></p>
+
+    <div class="q-card">
+      <p>ในระยะสั้น <strong>อะไรบางอย่างติดอยู่เท่าเดิม</strong> (ครัว เครื่องจักร ที่ดิน)<br>
+      เมื่อเราเพิ่ม <strong>ปัจจัยแปรผัน</strong> (คน วัตถุดิบ) เข้าไป<br>
+      <strong style="color:#4338ca">สัดส่วน</strong>ระหว่างทั้งสองจะเปลี่ยนไปตลอด</p>
+    </div>
+
+    <p class="lead">ลองดูตัวอย่างใกล้ตัว — <strong>ถนนกับรถ</strong>:</p>
+
+    <div class="scene">
+      <div class="scene-label">🛣️ ถนน 1 เลน (คงที่) — เพิ่มรถเรื่อย ๆ</div>
+      <div class="road-scene">
+        <div class="road-bg"></div>
+        <div class="road-lanes" id="s1-cars"></div>
+      </div>
+      <div class="ratio-display">
+        <div class="ratio-box fixed">
+          <div class="ratio-label">ถนน (คงที่)</div>
+          <div class="ratio-value">1</div>
+          <small>เลน</small>
+        </div>
+        <div class="ratio-box variable">
+          <div class="ratio-label">รถ (แปรผัน)</div>
+          <div class="ratio-value" id="s1-cars-num">1</div>
+          <small>คัน</small>
+        </div>
+      </div>
+      <div class="ctrl" style="margin-bottom:0">
+        <label>จำนวนรถ</label>
+        <input type="range" min="1" max="16" step="1" value="1" id="s1-x" oninput="updateS1(this.value)">
+        <div class="val" id="s1-xval">1</div>
+      </div>
+    </div>
+
+    <div class="story" id="s1-story">รถคันเดียว — วิ่งสบาย ๆ เต็มความเร็ว</div>
+
+    <div class="takeaway">
+      <div class="tag">หัวใจของกฎนี้</div>
+      <p>เมื่อ<strong>ปัจจัยคงที่ถูกใช้มากขึ้นเรื่อย ๆ</strong> (ถนนเดียวกัน เครื่องจักรเดิม ครัวเดิม)<br>
+      <strong>"พื้นที่"</strong> หรือ <strong>"เครื่องมือ"</strong> ต่อคนจะน้อยลง → ผลผลิตที่เพิ่มต่อคน (MP) จึง<strong>ลดลง</strong></p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(0)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(2)">ถัดไป: 3 ช่วงของ MP →</button>
+    </div>
+  </div>
+
+  <!-- SEC 2 : 3 zones of MP -->
+  <div id="sec2" class="section">
+    <div class="section-label"><span class="chip">5.3</span>3 ช่วงของ MP</div>
+    <p class="big-q">ถ้า MP ลดลงเสมอ — แล้ว<em>ช่วงต้น</em> ทำไม MP ยังเพิ่มอยู่?</p>
+
+    <p class="lead">ถ้าลองกลับไปดูตัวเลขใน 5.2 จะเห็นว่า MP <strong>เพิ่มก่อน</strong> (คนที่ 1→2→3) แล้วค่อยลด — ทำไมถึงเป็นแบบนี้?</p>
+
+    <p class="lead">คำตอบคือ <strong>กฎนี้จะเริ่ม "ทำงาน" เมื่อสัดส่วนเสียสมดุลเท่านั้น</strong> ซึ่งแบ่ง MP ได้ 3 ช่วง:</p>
+
+    <div class="zone-card z1">
+      <div class="zone-num">1</div>
+      <div class="zone-body">
+        <p class="zone-title">ช่วงแรก · MP กำลัง<em>เพิ่มขึ้น</em></p>
+        <p class="zone-desc">คนน้อยเกินไป → เครื่องจักรยัง<strong>ว่าง</strong> ใช้ไม่เต็ม เพิ่มคน = เพิ่มประสิทธิภาพ</p>
+        <p class="zone-fact">💡 กฎยังไม่เริ่มทำงาน!</p>
+      </div>
+    </div>
+
+    <div class="zone-card z2">
+      <div class="zone-num">2</div>
+      <div class="zone-body">
+        <p class="zone-title">ช่วงกลาง · MP <em>สูงสุด</em> แล้วเริ่มลด</p>
+        <p class="zone-desc">ถึงจุด <strong>"ลงตัวที่สุด"</strong> — หลังจากนี้เพิ่มคน ผลผลิตยังเพิ่มอยู่ แต่น้อยลงเรื่อย ๆ</p>
+        <p class="zone-fact">⚠️ กฎเริ่มทำงานจุดนี้!</p>
+      </div>
+    </div>
+
+    <div class="zone-card z3">
+      <div class="zone-num">3</div>
+      <div class="zone-body">
+        <p class="zone-title">ช่วงหลัง · MP <em>ติดลบ</em></p>
+        <p class="zone-desc">คนล้น → แย่งเครื่อง ชนกันเอง → เพิ่มคนกลับทำให้ผลผลิต<strong>ลด</strong></p>
+        <p class="zone-fact">🔴 เกินจุดวิกฤตแล้ว</p>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:1rem">ลองเลื่อนดูแบบ pattern — ทุก zone ในภาพเดียว:</p>
+
+    <div class="pattern">
+      <div class="pattern-row" id="s2-pattern"></div>
+      <div class="ctrl" style="margin-bottom:0">
+        <label>ดูคนที่</label>
+        <input type="range" min="1" max="8" step="1" value="1" id="s2-x" oninput="updateS2(this.value)">
+        <div class="val" id="s2-xval">1</div>
+      </div>
+    </div>
+
+    <div class="story" id="s2-story">ลากดู — แต่ละช่วง MP แสดงพฤติกรรมต่างกัน</div>
+
+    <div class="takeaway">
+      <div class="tag">นิยามอย่างเป็นทางการ</div>
+      <p><strong>Law of Diminishing Returns:</strong> "เมื่อเพิ่มปัจจัยแปรผันทำงานร่วมกับปัจจัยคงที่ ถึงจุดหนึ่ง <strong>MP จะลดลง</strong>"</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(1)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(3)">ถัดไป: เกิดที่ไหนบ้าง? →</button>
+    </div>
+  </div>
+
+  <!-- SEC 3 : Real-world examples -->
+  <div id="sec3" class="section">
+    <div class="section-label"><span class="chip">5.3</span>กฎนี้อยู่ทุกที่ในชีวิต</div>
+    <p class="big-q">เมื่อไหร่ที่กฎนี้จะเกิด? — ตอบ: ทุกครั้งที่มี "ปัจจัยคงที่"</p>
+
+    <p class="lead">ตราบใดที่มีของบางอย่างที่<strong>เพิ่มขนาดไม่ได้</strong> (ในช่วงเวลาสั้น ๆ) กฎนี้จะทำงานเสมอ ลองดูตัวอย่างใกล้ตัว:</p>
+
+    <div class="example-row">
+      <div class="ex-card">
+        <div class="ex-icon">📚</div>
+        <div class="ex-body">
+          <p class="ex-title">อ่านหนังสือสอบ</p>
+          <p class="ex-scene">ชั่วโมงที่ 1-3 อ่านได้เนื้อหาเยอะ · ชั่วโมงที่ 8-10 สมองล้า จำไม่ค่อยได้แล้ว</p>
+          <span class="ex-fixed">🧠 ปัจจัยคงที่ · สมอง</span>
+          <span class="ex-var">⏱️ แปรผัน · เวลา</span>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-icon">🌾</div>
+        <div class="ex-body">
+          <p class="ex-title">เกษตรกรรม</p>
+          <p class="ex-scene">ที่ดิน 1 ไร่ ใส่ปุ๋ย 1 กระสอบ → ผลผลิตเพิ่ม · ใส่ 20 กระสอบ → พืชตาย!</p>
+          <span class="ex-fixed">🏞️ ปัจจัยคงที่ · ที่ดิน</span>
+          <span class="ex-var">💊 แปรผัน · ปุ๋ย</span>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-icon">💻</div>
+        <div class="ex-body">
+          <p class="ex-title">ทีมพัฒนาซอฟต์แวร์</p>
+          <p class="ex-scene">โปรเจกต์ 1 อัน เพิ่ม dev 1 คน → เสร็จเร็วขึ้น · เพิ่ม 20 คน → ประชุมทั้งวัน code ไม่ได้</p>
+          <span class="ex-fixed">📋 ปัจจัยคงที่ · โปรเจกต์</span>
+          <span class="ex-var">👤 แปรผัน · คน</span>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-icon">🏋️</div>
+        <div class="ex-body">
+          <p class="ex-title">ออกกำลังกาย</p>
+          <p class="ex-scene">วันแรกออก 30 นาที ได้ผล · ออก 5 ชม./วัน → บาดเจ็บ กล้ามเนื้อฟื้นไม่ทัน</p>
+          <span class="ex-fixed">💪 ปัจจัยคงที่ · ร่างกาย</span>
+          <span class="ex-var">⏱️ แปรผัน · เวลาออก</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <div class="tag">สรุปบทที่ 5.3</div>
+      <p>🌟 กฎผลตอบแทนลดน้อยถอยลงเป็น<strong>กฎธรรมชาติ</strong> ที่เกิดทุกครั้ง<br>
+      ที่มีปัจจัยคงที่อยู่ในระบบ<br>
+      <strong>ในระยะยาว</strong> กฎนี้<strong>ไม่เกิด</strong> เพราะทุกอย่างปรับได้ (ขยายโรงงาน สร้างครัวใหม่ ฯลฯ)</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(2)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(4)">ถัดไป: ทดสอบ →</button>
+    </div>
+  </div>
+
+  <!-- SEC 4 : Quiz -->
+  <div id="sec4" class="section">
+    <div class="section-label"><span class="chip">5.3</span>ทดสอบความเข้าใจ</div>
+    <p class="big-q">5 ข้อ เน้นสาเหตุ ไม่ใช่ตัวเลข</p>
+    <div id="quiz-zone"></div>
+    <div class="nav-row" id="quiz-nav" style="display:none">
+      <button class="nav-btn" onclick="resetAll()">เรียนใหม่ตั้งแต่ต้น</button>
+      <button class="nav-btn primary" onclick="location.href='chapter5_4.html'">ไปหัวข้อ 5.4 ต่อ ↗</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOTAL = 5;
+
+/* ── Progress & nav ── */
+function buildProg(){
+  const p = document.getElementById('prog');
+  p.innerHTML = '';
+  for (let i=0;i<TOTAL;i++){
+    const d = document.createElement('div');
+    d.className = 'step-dot';
+    d.id = 'dot'+i;
+    p.appendChild(d);
+  }
+}
+function updateProg(cur){
+  for (let i=0;i<TOTAL;i++){
+    const d = document.getElementById('dot'+i);
+    d.className = i<cur ? 'step-dot done' : (i===cur ? 'step-dot active' : 'step-dot');
+  }
+}
+function go(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec'+n).classList.add('active');
+  updateProg(n);
+  if (n===0) initS0();
+  if (n===1) initS1();
+  if (n===2) initS2();
+  if (n===4 && !document.getElementById('quiz-zone').hasChildNodes()) buildQuiz();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function tog(boxId, btnId, defaultText){
+  const box = document.getElementById(boxId);
+  const btn = document.getElementById(btnId);
+  const showing = box.classList.toggle('shown');
+  btn.textContent = showing ? 'ซ่อน' : defaultText;
+}
+
+/* ── Section 0 : Kitchen ── */
+let s0Init = false;
+function initS0(){
+  if (s0Init) return;
+  s0Init = true;
+  updateS0(1);
+}
+function updateS0(xVal){
+  const x = parseInt(xVal);
+  document.getElementById('s0-xval').textContent = x;
+  const crowdedClass = x >= 12 ? ' crowded' : '';
+  const chefs = Array.from({length:x}, () => `<div class="chef${crowdedClass}"></div>`).join('');
+  document.getElementById('s0-chefs').innerHTML = chefs;
+
+  const s = document.getElementById('s0-story');
+  if (x <= 3){
+    s.className = 'story good';
+    s.innerHTML = `🟢 เชฟ ${x} คน — สบาย ๆ ครัวยังโล่ง ทำอาหารได้เต็มที่`;
+  } else if (x <= 7){
+    s.className = 'story peak';
+    s.innerHTML = `🟡 เชฟ ${x} คน — เริ่มพอเหมาะ แบ่งงานกันได้ดี`;
+  } else if (x <= 12){
+    s.className = 'story';
+    s.innerHTML = `🟠 เชฟ ${x} คน — ครัวเริ่มแน่น ต้องรอใช้เตา รออ่างล้างจาน`;
+  } else {
+    s.className = 'story bad';
+    s.innerHTML = `🔴 เชฟ ${x} คน — ยืนเบียดกัน ชนกันเอง! ทำอาหารตก ๆ หล่น ๆ ผลผลิตลดลง`;
+  }
+}
+
+/* ── Section 1 : Road with cars ── */
+let s1Init = false;
+function initS1(){
+  if (s1Init) return;
+  s1Init = true;
+  updateS1(1);
+}
+function updateS1(xVal){
+  const x = parseInt(xVal);
+  document.getElementById('s1-xval').textContent = x;
+  document.getElementById('s1-cars-num').textContent = x;
+
+  const jammed = x >= 10 ? ' jam' : '';
+  const cars = Array.from({length:x}, () => `<div class="car${jammed}"></div>`).join('');
+  document.getElementById('s1-cars').innerHTML = cars;
+
+  const s = document.getElementById('s1-story');
+  if (x <= 3){
+    s.className = 'story good';
+    s.innerHTML = `🟢 รถ ${x} คัน — วิ่งคล่อง เต็มความเร็ว <strong>ถนนยังโล่ง</strong>`;
+  } else if (x <= 6){
+    s.className = 'story peak';
+    s.innerHTML = `🟡 รถ ${x} คัน — ยังไปได้ แต่ความเร็วลดลง`;
+  } else if (x <= 9){
+    s.className = 'story';
+    s.innerHTML = `🟠 รถ ${x} คัน — <strong>รถติดแล้ว</strong> ความเร็วช้าลงมาก`;
+  } else {
+    s.className = 'story bad';
+    s.innerHTML = `🔴 รถ ${x} คัน — <strong>หยุดนิ่ง!</strong> ยัดกันจนขยับไม่ได้ ถนนคงที่รับมือไม่ไหว`;
+  }
+}
+
+/* ── Section 2 : Pattern strip ── */
+const mpPattern = [
+  {x:1, mp:10, z:'good'},
+  {x:2, mp:20, z:'good'},
+  {x:3, mp:30, z:'peak'},  // peak
+  {x:4, mp:20, z:'declining'},
+  {x:5, mp:10, z:'declining'},
+  {x:6, mp:6,  z:'declining'},
+  {x:7, mp:-1, z:'neg'},
+  {x:8, mp:-7, z:'neg'},
+];
+
+let s2Init = false;
+function initS2(){
+  if (s2Init) return;
+  s2Init = true;
+  updateS2(1);
+}
+function updateS2(xVal){
+  const x = parseInt(xVal);
+  document.getElementById('s2-xval').textContent = x;
+
+  const maxMP = 30;
+  const cells = mpPattern.map(d => {
+    const absVal = Math.abs(d.mp);
+    const heightPct = (absVal / maxMP) * 90 + 10;
+    const isCurrent = d.x === x;
+    return `
+      <div class="pattern-cell ${d.z}${isCurrent ? ' current' : ''}">
+        <div class="val">${d.mp > 0 ? '+' : ''}${d.mp}</div>
+        <div class="mp-bar" style="height:${heightPct}%"></div>
+        <div class="n">${d.x}</div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('s2-pattern').innerHTML = cells;
+
+  const d = mpPattern[x-1];
+  const s = document.getElementById('s2-story');
+  if (x <= 2){
+    s.className = 'story good';
+    s.innerHTML = `ช่วง 1 · คนที่ ${x} → MP = <strong>+${d.mp}</strong> กำลัง<strong>เพิ่มขึ้น</strong> (กฎยังไม่ทำงาน)`;
+  } else if (x === 3){
+    s.className = 'story peak';
+    s.innerHTML = `🎯 จุดพีค · คนที่ 3 → MP = <strong>+${d.mp}</strong> สูงสุด! กฎเริ่มทำงานจุดนี้`;
+  } else if (x <= 6){
+    s.className = 'story';
+    s.innerHTML = `ช่วง 2 · คนที่ ${x} → MP = <strong>+${d.mp}</strong> ยังบวก แต่<strong>กำลังลด</strong>`;
+  } else {
+    s.className = 'story bad';
+    s.innerHTML = `ช่วง 3 · คนที่ ${x} → MP = <strong>${d.mp}</strong> <strong>ติดลบ!</strong> เพิ่มคนแล้วแย่ลง`;
+  }
+}
+
+/* ── Quiz ── */
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const quizDataRaw = [
+  {
+    q: 'กฎผลตอบแทนลดน้อยถอยลง (Law of Diminishing Returns) คืออะไร?',
+    opts: [
+      'เมื่อผลิตมากขึ้น ต้นทุนจะลด',
+      'เมื่อเพิ่มปัจจัยแปรผันร่วมกับปัจจัยคงที่ ถึงจุดหนึ่ง MP จะเริ่มลด',
+      'ยิ่งจ้างคนมาก ยิ่งได้ผลผลิตมากเสมอ',
+      'AP จะเท่ากับ MP เสมอ'
+    ],
+    ans: 1,
+    explain: 'กฎนี้บอกว่า MP ลดเพราะสัดส่วนระหว่างปัจจัยแปรผัน (คน) กับปัจจัยคงที่ (เครื่อง/ที่ดิน) เสียสมดุล'
+  },
+  {
+    q: 'สาเหตุหลักของกฎนี้คืออะไร?',
+    opts: [
+      'คนงานขี้เกียจ',
+      'เทคโนโลยีล้าสมัย',
+      'ปัจจัยคงที่ถูกใช้หนักขึ้นเรื่อย ๆ พื้นที่ต่อคนลดลง',
+      'ค่าจ้างแพงขึ้น'
+    ],
+    ans: 2,
+    explain: 'ไม่เกี่ยวกับคนขี้เกียจ! สาเหตุคือของบางอย่างขยายไม่ได้ (ครัว ที่ดิน เครื่องจักร) ทำให้คนมีพื้นที่ใช้งานน้อยลง'
+  },
+  {
+    q: 'กฎนี้เริ่มทำงานที่จุดใด?',
+    opts: [
+      'ทันทีที่เริ่มผลิต',
+      'เมื่อ TP สูงสุด',
+      'เมื่อ MP ถึงจุดสูงสุดแล้วเริ่มลด',
+      'เมื่อ AP = 0'
+    ],
+    ans: 2,
+    explain: 'ช่วงแรก MP ยังเพิ่มอยู่ (กฎยังไม่เริ่ม) · กฎเริ่มทำงานเมื่อ MP หยุดเพิ่มแล้วเริ่มลด'
+  },
+  {
+    q: 'ในระยะยาว (Long-run) กฎผลตอบแทนลดน้อยถอยลงจะเกิดไหม?',
+    opts: [
+      'เกิดเสมอ',
+      'ไม่เกิด เพราะทุกปัจจัยปรับได้ (ไม่มี Fixed)',
+      'เกิดบางครั้ง',
+      'เกิดแต่น้อยกว่าระยะสั้น'
+    ],
+    ans: 1,
+    explain: 'นิยามของ "ระยะยาว" คือนานพอให้ทุกอย่างปรับได้ → ไม่มีปัจจัยคงที่ → ไม่มีเงื่อนไขให้กฎเกิด'
+  },
+  {
+    q: 'ข้อใดเป็นตัวอย่างของกฎนี้ในชีวิตจริง?',
+    opts: [
+      'ดาวน์โหลดไฟล์เร็วขึ้นเมื่อ Internet เร็วขึ้น',
+      'ราคาข้าวเปลี่ยนตามฤดูกาล',
+      'อ่านหนังสือต่อเนื่อง 10 ชั่วโมงแล้วสมองล้าจำไม่ได้',
+      'ยิ่งมีเงินมาก ยิ่งซื้อของได้มาก'
+    ],
+    ans: 2,
+    explain: 'สมอง = ปัจจัยคงที่ (เปลี่ยนไม่ได้) · เวลาอ่าน = ปัจจัยแปรผัน → ยิ่งอ่านนาน ประสิทธิภาพต่อชั่วโมงลด'
+  }
+];
+
+let qAnswered = 0, qScore = 0, quizData = [];
+
+function buildQuiz(){
+  qAnswered = 0; qScore = 0;
+  quizData = quizDataRaw.map(q => {
+    const indexed = q.opts.map((o, i) => ({text: o, correct: i === q.ans}));
+    const shuffled = shuffle(indexed);
+    return {
+      q: q.q,
+      opts: shuffled.map(o => o.text),
+      ans: shuffled.findIndex(o => o.correct),
+      explain: q.explain
+    };
+  });
+  const z = document.getElementById('quiz-zone');
+  z.innerHTML = '';
+  document.getElementById('quiz-nav').style.display = 'none';
+  quizData.forEach((q, qi)=>{
+    const block = document.createElement('div');
+    block.style.marginBottom = '1.25rem';
+    const optsHtml = q.opts.map((o, oi)=>
+      `<button class="quiz-opt" id="qo-${qi}-${oi}" onclick="answerQ(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`
+    ).join('');
+    block.innerHTML = `<p style="font-size:14.5px;font-weight:600;margin:0 0 10px;color:var(--color-text-primary);line-height:1.6">${qi+1}. ${q.q}</p>${optsHtml}<div class="feedback" id="qfb-${qi}"></div>`;
+    z.appendChild(block);
+  });
+}
+function answerQ(qi, oi){
+  const q = quizData[qi];
+  for (let i=0;i<q.opts.length;i++) document.getElementById('qo-'+qi+'-'+i).disabled = true;
+  const btn = document.getElementById('qo-'+qi+'-'+oi);
+  const fb = document.getElementById('qfb-'+qi);
+  if (oi === q.ans){
+    btn.className = 'quiz-opt correct';
+    fb.textContent = 'ถูกต้อง! ' + q.explain;
+    fb.className = 'feedback show ok';
+    qScore++;
+  } else {
+    btn.className = 'quiz-opt wrong';
+    document.getElementById('qo-'+qi+'-'+q.ans).className = 'quiz-opt correct';
+    fb.textContent = 'ยังไม่ถูก — ' + q.explain;
+    fb.className = 'feedback show bad';
+  }
+  qAnswered++;
+  if (qAnswered === quizData.length){
+    const pct = Math.round(qScore / quizData.length * 100);
+    const msg = pct >= 80 ? 'เข้าใจดีมาก! พร้อมไปต่อเลย'
+              : pct >= 60 ? 'เริ่มเข้าใจแล้ว ลองทบทวนข้อที่พลาด'
+              : 'ย้อนกลับไปดู analogy ครัว/ถนนใหม่นะ จะเข้าใจง่ายขึ้น';
+    const summary = document.createElement('div');
+    summary.style.cssText = 'text-align:center;padding:1rem 0';
+    summary.innerHTML = `<div class="score-circle">${qScore}/${quizData.length}</div><p style="font-size:14px;color:var(--color-text-secondary);margin:0;line-height:1.6">${msg}</p>`;
+    document.getElementById('quiz-zone').appendChild(summary);
+    document.getElementById('quiz-nav').style.display = 'flex';
+  }
+}
+
+function resetAll(){
+  qAnswered=0; qScore=0;
+  s0Init = false; s1Init = false; s2Init = false;
+  document.getElementById('quiz-zone').innerHTML = '';
+  ['ans0'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('shown');
+  });
+  const rb0 = document.getElementById('rbtn0');
+  if (rb0) rb0.textContent = 'เกิดอะไรขึ้นที่เชฟ 15 คน?';
+  go(0);
+}
+
+buildProg();
+updateProg(0);
+initS0();
+</script>
+
+</div>
+</div>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

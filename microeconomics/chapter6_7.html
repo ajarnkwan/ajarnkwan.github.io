@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6.7 — จากระยะสั้น → สร้างระยะยาว</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+.tp{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #e0e7ff;font-family:'Noto Sans Thai',system-ui,sans-serif}.tp-i{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}.bk{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1e1b4b;background:#f3e8ff;padding:8px 14px;border-radius:99px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit}.bk svg{width:14px;height:14px}.bk:hover{background:#7c3aed;color:#fff}.br{flex:1;text-align:right;line-height:1.25}.br-c{font-size:13px;font-weight:700}.br-a{font-size:11px;color:#6b7280;font-weight:500}
+@media(max-width:520px){.bk span{display:none}.bk{padding:9px}.br-c{font-size:12px}}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:780px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:18px}.hero .ey{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px}.hero h1{font-size:22px;font-weight:800;line-height:1.35;margin-bottom:8px}.hero p{font-size:14px;line-height:1.7;opacity:.92}
+h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
+.qz{background:#fff;border:1.5px solid #e0e0e0;border-radius:14px;padding:16px 18px;margin-bottom:14px}
+@media(prefers-color-scheme:dark){.qz{background:#1c1c1c;border-color:#333}}
+.qz .qt{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7b1fa2;font-weight:700;margin-bottom:6px}.qz .qq{font-size:15px;font-weight:700;line-height:1.55;margin-bottom:12px}
+.qz .os{display:flex;flex-direction:column;gap:8px}.qz .o{padding:12px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14px;cursor:pointer;text-align:left;font-family:inherit;color:inherit;line-height:1.5;transition:all .15s;display:flex;gap:10px;align-items:flex-start}
+.qz .o .l{font-weight:800;color:#999;flex-shrink:0;width:20px}.qz .o:hover{border-color:#7b1fa2;background:#f9f5ff}
+.qz .o.ok{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:600}.qz .o.ok .l{color:#2e7d32}
+.qz .o.no{border-color:#c62828;background:#fce4ec;color:#b71c1c}.qz .o.off{pointer-events:none;opacity:.55}
+.rv{display:none;margin-top:14px;background:#f5f0ff;border-left:3px solid #7b1fa2;padding:14px 16px;border-radius:0 10px 10px 0}
+.rv.sh{display:block;animation:si .4s ease}@keyframes si{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.rv .lb{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#4a148c;font-weight:700;margin-bottom:6px}.rv p{font-size:14px;line-height:1.75;margin-bottom:8px}.rv p:last-child{margin-bottom:0}.rv b{color:#4a148c}
+@media(prefers-color-scheme:dark){.rv{background:#1a0d2a;border-color:#ce93d8}.rv .lb,.rv b{color:#ce93d8}}
+.ah{background:linear-gradient(135deg,#e8f5e9,#f5f0ff);border:1.5px solid #81c784;border-radius:14px;padding:14px 16px;margin:14px 0}
+@media(prefers-color-scheme:dark){.ah{background:linear-gradient(135deg,#0d3d14,#1a0d2a);border-color:#388e3c}}
+.ah .lb{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#2e7d32;font-weight:800;margin-bottom:6px}.ah p{font-size:14.5px;line-height:1.7}.ah b{color:#1b5e20}
+@media(prefers-color-scheme:dark){.ah .lb,.ah b{color:#81c784}}
+.pa{font-size:14.5px;line-height:1.75;margin-bottom:10px}.pa b{color:#4a148c;font-weight:700}
+@media(prefers-color-scheme:dark){.pa b{color:#ce93d8}}
+.gr{background:#fff;border:1px solid #eee;border-radius:14px;padding:16px 14px 8px;margin:12px 0;text-align:center}
+@media(prefers-color-scheme:dark){.gr{background:#0f0f0f;border-color:#333}}
+#rb:hover{background:#7b1fa2!important;color:#fff!important}
+.ft{margin-top:64px;background:linear-gradient(180deg,rgba(255,255,255,0),#f3e8ff);border-top:1px solid #e0e7ff;padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;text-align:center}.ft-n{font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;margin:14px 0 4px}.ft-s{font-size:12.5px;color:#6b7280;margin-bottom:20px}.ft-b{font-size:11px;color:#6b7280}
+
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #8b5cf6;
+  --ajk-primary-soft: #f5f3ff;
+  --ajk-primary-dark: #7c3aed;
+  --ajk-ink: #1d1633;
+  --ajk-muted: #6b6480;
+  --ajk-border: #e5e1f3;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s; flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer; white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right; line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ajk-brand-author {
+  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; }
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; }
+}
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 720px; margin: 0 auto; text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 24px; font-weight: 700; margin: 0 0 4px;
+}
+.ajk-footer-sub { font-size: 12.5px; color: var(--ajk-muted); margin-bottom: 26px; }
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 600;
+  border: 1px solid var(--ajk-border);
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface); transition: all .18s;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.ajk-footer-btn:hover {
+  color: #fff!important; background: var(--ajk-primary)!important;
+  border-color: var(--ajk-primary)!important;
+  transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-footer-bottom { font-size: 11px; color: var(--ajk-muted); line-height: 1.7; }
+
+</style></head><body>
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter6.html" aria-label="กลับบทที่ 6">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 6</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">6.7 — จากระยะสั้น → สร้างระยะยาว</div>
+      <div class="ajk-brand-author">
+        <span class="ajk-brand-author-dot"></span>
+        <span class="ajk-brand-author-at">@</span>ajarn.kwan · เศรษฐศาสตร์ รามคำแหง
+      </div>
+    </div>
+  </div>
+</header>
+
+<header class="tp"><div class="tp-i">
+  <a class="bk" href="chapter6.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>บทที่ 6</span></a>
+  <div class="br"><div class="br-c">6.7 · จากระยะสั้น → สร้างระยะยาว</div><div class="br-a">Ajarn.Kwan · เศรษฐศาสตร์ รามคำแหง</div></div>
+</div></header>
+<div style="max-width:720px;margin:0 auto;padding:24px 16px"><div class="app">
+
+<div class="hero">
+  <div class="ey">บทที่ 6 · หัวข้อสุดท้าย</div>
+  <h1>จากเส้นระยะสั้น<br>→ สร้างเส้นระยะยาว</h1>
+  <p>โรงงานแต่ละขนาดมีคู่ SAC+SMC → รวมทุกขนาด → ได้ LAC และ LMC</p>
+</div>
+
+<div class="pa">เริ่มจากสิ่งที่รู้แล้ว — <b>ระยะสั้น</b>: แต่ละโรงงานมี SAC (ทึบ) กับ SMC (ประ) โดย SMC ตัด SAC ที่จุดต่ำสุดเสมอ (กฎจากบทที่ 5)</div>
+
+<div class="gr">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;padding:0 4px">
+    <span style="font-size:11px;font-weight:600;color:#7b1fa2">ตามรูปที่ 6-21</span>
+    <button id="rb" onclick="go()" style="font-size:12px;padding:6px 14px;border-radius:99px;border:1.5px solid #7b1fa2;background:#f5f0ff;color:#7b1fa2;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s">ถัดไป →</button>
+  </div>
+  <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+    <line x1="55" y1="235" x2="385" y2="235" stroke="currentColor" stroke-width="1"/>
+    <line x1="55" y1="235" x2="55" y2="25" stroke="currentColor" stroke-width="1"/>
+    <text x="375" y="250" font-size="10" fill="currentColor" font-weight="600">Q</text>
+    <text x="25" y="30" font-size="9" fill="currentColor" font-weight="600">AC,MC</text>
+    <text x="46" y="245" font-size="9" fill="#aaa">0</text>
+    <g id="s1" opacity="0"><path d="M 100 115 L 103 121 L 106 126 L 109 131 L 112 136 L 115 141 L 118 145 L 121 149 L 124 153 L 127 157 L 130 160 L 133 163 L 136 166 L 139 168 L 142 171 L 145 172 L 148 174 L 151 176 L 154 177 L 157 178 L 160 178 L 163 178 L 166 178 L 169 178 L 172 178 L 175 177 L 178 176 L 181 175 L 184 173 L 187 171 L 190 169 L 193 167 L 196 164 L 199 161 L 202 158 L 205 154 L 208 151 L 211 147 L 214 142 L 217 138 L 220 133" fill="none" stroke="#ef9a9a" stroke-width="1.3"/><text x="103" y="111" font-size="9" fill="#c62828" font-weight="600">SAC₁</text><path d="M 115 156 L 118 164 L 121 171 L 124 177 L 127 182 L 130 186 L 133 190 L 136 193 L 139 195 L 142 196 L 145 196 L 148 196 L 151 195 L 154 193 L 157 190 L 160 186 L 163 182 L 166 177 L 169 171 L 172 164 L 175 156 L 178 147" fill="none" stroke="#c62828" stroke-width="1" stroke-dasharray="4,3"/><text x="175" y="143" font-size="8" fill="#c62828" font-weight="600">SMC₁</text></g>
+    <g id="s2" opacity="0"><path d="M 155 153 L 158 157 L 161 160 L 164 164 L 167 167 L 170 170 L 173 173 L 176 176 L 179 178 L 182 181 L 185 183 L 188 185 L 191 187 L 194 188 L 197 190 L 200 191 L 203 192 L 206 193 L 209 194 L 212 194 L 215 195 L 218 195 L 221 195 L 224 195 L 227 195 L 230 194 L 233 193 L 236 192 L 239 191 L 242 190 L 245 189 L 248 187 L 251 185 L 254 183 L 257 181 L 260 179 L 263 177 L 266 174 L 269 171 L 272 168 L 275 165 L 278 161 L 281 158 L 284 154" fill="none" stroke="#ce93d8" stroke-width="1.3"/><text x="157" y="149" font-size="9" fill="#7b1fa2" font-weight="600">SAC₂</text><path d="M 170 180 L 173 185 L 176 190 L 179 194 L 182 197 L 185 200 L 188 203 L 191 205 L 194 206 L 197 207 L 200 207 L 203 207 L 206 206 L 209 205 L 212 203 L 215 200 L 218 197 L 221 194 L 224 190 L 227 185 L 230 180 L 233 174 L 236 168 L 239 161 L 242 154 L 245 146" fill="none" stroke="#7b1fa2" stroke-width="1" stroke-dasharray="4,3"/><text x="242" y="142" font-size="8" fill="#7b1fa2" font-weight="600">SMC₂</text></g>
+    <g id="s3" opacity="0"><path d="M 220 133 L 223 138 L 226 142 L 229 147 L 232 151 L 235 154 L 238 158 L 241 161 L 244 164 L 247 167 L 250 169 L 253 171 L 256 173 L 259 175 L 262 176 L 265 177 L 268 178 L 271 178 L 274 178 L 277 178 L 280 178 L 283 178 L 286 177 L 289 176 L 292 174 L 295 172 L 298 171 L 301 168 L 304 166 L 307 163 L 310 160 L 313 157 L 316 153 L 319 149 L 322 145 L 325 141 L 328 136 L 331 131 L 334 126 L 337 121 L 340 115" fill="none" stroke="#ba68c8" stroke-width="1.3"/><text x="336" y="111" font-size="9" fill="#9c27b0" font-weight="600">SAC₃</text><path d="M 225 156 L 228 164 L 231 171 L 234 177 L 237 182 L 240 186 L 243 190 L 246 193 L 249 195 L 252 196 L 255 196 L 258 196 L 261 195 L 264 193 L 267 190 L 270 186 L 273 182 L 276 177 L 279 171 L 282 164 L 285 156 L 288 147" fill="none" stroke="#9c27b0" stroke-width="1" stroke-dasharray="4,3"/><text x="285" y="143" font-size="8" fill="#9c27b0" font-weight="600">SMC₃</text></g>
+    <g id="s4" opacity="0"><path d="M 80 117 L 86 123 L 92 129 L 98 135 L 104 141 L 110 147 L 116 152 L 122 157 L 128 161 L 134 165 L 140 169 L 146 173 L 152 177 L 158 180 L 164 182 L 170 185 L 176 187 L 182 189 L 188 191 L 194 192 L 200 193 L 206 194 L 212 195 L 218 195 L 224 195 L 230 195 L 236 194 L 242 193 L 248 192 L 254 190 L 260 189 L 266 187 L 272 184 L 278 182 L 284 179 L 290 175 L 296 172 L 302 168 L 308 164 L 314 160 L 320 155 L 326 150 L 332 145 L 338 139 L 344 133 L 350 127 L 356 121 L 359 118" fill="none" stroke="#2e7d32" stroke-width="1.8"/><text x="356" y="114" font-size="10" fill="#2e7d32" font-weight="700">LAC</text></g>
+    <g id="s5" opacity="0"><path d="M 139 174 L 142 177 L 145 179 L 148 182 L 151 184 L 154 186 L 157 188 L 160 190 L 163 192 L 166 193 L 169 195 L 172 196 L 175 197 L 178 198 L 181 199 L 184 199 L 187 200 L 190 200 L 193 200 L 196 200 L 199 200 L 202 200 L 205 199 L 208 199 L 211 198 L 214 197 L 217 196 L 220 195 L 223 194 L 226 192 L 229 191 L 232 189 L 235 187 L 238 185 L 241 183 L 244 180 L 247 178 L 250 175 L 253 172 L 256 169 L 259 166 L 262 163 L 265 159 L 268 156 L 271 152 L 274 148" fill="none" stroke="#1565c0" stroke-width="1.2" stroke-dasharray="5,3"/><text x="271" y="144" font-size="9" fill="#1565c0" font-weight="600">LMC</text></g>
+    <g id="s6" opacity="0"><circle cx="145" cy="173" r="4" fill="#c62828"/><text x="131" y="169" font-size="9" fill="#c62828" font-weight="700">A'</text><circle cx="165" cy="178" r="2.5" fill="#c62828" opacity=".3"/><line x1="145" y1="173" x2="145" y2="235" stroke="#c62828" stroke-width=".6" stroke-dasharray="3,3"/><text x="143" y="247" font-size="8" fill="#c62828" text-anchor="middle">Q₁</text><circle cx="220" cy="195" r="5" fill="#2e7d32"/><text x="224" y="207" font-size="9" fill="#2e7d32" font-weight="800">B'</text><line x1="220" y1="195" x2="220" y2="235" stroke="#2e7d32" stroke-width=".8" stroke-dasharray="3,3"/><text x="218" y="247" font-size="8" fill="#2e7d32" font-weight="600" text-anchor="middle">Q₂</text><circle cx="295" cy="173" r="4" fill="#9c27b0"/><text x="300" y="169" font-size="9" fill="#9c27b0" font-weight="700">C'</text><circle cx="275" cy="178" r="2.5" fill="#9c27b0" opacity=".3"/><line x1="295" y1="173" x2="295" y2="235" stroke="#9c27b0" stroke-width=".6" stroke-dasharray="3,3"/><text x="293" y="247" font-size="8" fill="#9c27b0" text-anchor="middle">Q₃</text></g>
+  </svg>
+  <div id="ri" style="text-align:center;font-size:13px;color:#555;margin-top:8px;min-height:52px;line-height:1.6;padding:0 8px">กด <b>"ถัดไป →"</b> เพื่อเริ่ม</div>
+</div>
+
+<div class="qz" id="q1"><div class="qt">? คำถามที่ 1</div><div class="qq">ที่จุด A' (ซ้ายของจุดต่ำสุด SAC₁) เกิดอะไรขึ้น?</div><div class="os"><button class="o" data-c="0"><span class="l">A</span><span>ทั้ง 4 เท่ากัน: LAC=SAC=LMC=SMC</span></button><button class="o" data-c="1"><span class="l">B</span><span>SAC₁=LAC และ SMC₁=LMC (2 คู่) แต่ A' ไม่ใช่จุดต่ำสุดของ SAC₁ เพราะผลิตแค่ Q₁ ซึ่งน้อยกว่าจุดคุ้มของโรงงาน</span></button><button class="o" data-c="0"><span class="l">C</span><span>ไม่มีอะไรเท่ากัน</span></button></div><div class="rv"><div class="lb">✓ สัมผัส 2 คู่</div><p>ณ จุดสัมผัส: <b>SAC₁=LAC</b> + <b>SMC₁=LMC</b></p><p>แต่ A' ไม่ใช่จุดต่ำสุดของ SAC₁ → เพราะคุณเลือกผลิต Q₁ ซึ่ง<b>น้อยกว่าจุดที่โรงงานนี้คุ้มที่สุด</b> แต่มันก็ยังเป็นทางเลือกที่ดีที่สุดสำหรับ Q₁</p></div></div>
+
+<div class="qz" id="q2"><div class="qt">? คำถามที่ 2</div><div class="qq">ที่จุด B' มีอะไรพิเศษกว่า A' และ C'?</div><div class="os"><button class="o" data-c="1"><span class="l">A</span><span>B' เป็นจุดเดียวที่ทั้ง 4 เท่ากัน: LAC=SAC=LMC=SMC เพราะจุดต่ำสุดของ SAC₂ ตรงกับจุดต่ำสุดของ LAC</span></button><button class="o" data-c="0"><span class="l">B</span><span>ไม่มีอะไรพิเศษ เหมือน A' และ C'</span></button></div><div class="rv"><div class="lb">✓ Optimum Scale!</div><p>เฉพาะ B': จุดต่ำสุด SAC₂ = จุดต่ำสุด LAC → <b>LAC=SAC=LMC=SMC</b> ทั้ง 4 เท่ากัน</p><p>ส่วน A', C' ได้แค่ 2 คู่ (SAC=LAC, SMC=LMC)</p></div></div>
+
+<div class="ah"><div class="lb">🎯 หัวใจของ 6.7</div>
+<p><b>ระยะยาวขึ้นกับว่าจะผลิตเท่าไหร่</b> ไม่ใช่จุดต่ำสุดของ SAC เสมอไป</p>
+<p>• ผลิตน้อย (Q₁) → สัมผัสที่ A' (<b>ซ้าย</b>ของ SAC₁ min)</p>
+<p>• ผลิตพอดี (Q₂) → สัมผัสที่ B' (<b>ตรง</b> min = Optimum Scale)</p>
+<p>• ผลิตมาก (Q₃) → สัมผัสที่ C' (<b>ขวา</b>ของ SAC₃ min)</p>
+<p style="margin-top:8px">ทุกจุดสัมผัส: <b>SAC=LAC, SMC=LMC</b> · เฉพาะ B': <b>ทั้ง 4 เท่ากัน</b></p></div>
+
+<div style="text-align:center;margin:32px 0 16px;padding:20px;background:linear-gradient(135deg,#4a148c,#7b1fa2);border-radius:16px;color:#fff">
+  <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-bottom:6px">🎉 จบแล้ว!</div>
+  <div style="font-size:20px;font-weight:800;margin-bottom:8px">บทที่ 6 · การผลิตและต้นทุนในระยะยาว</div>
+  <div style="font-size:13px;opacity:.85;line-height:1.6">ครบทั้ง 7 หัวข้อ (6.1–6.7)<br>จาก Isoquant → MRTS → ดุลยภาพ → Expansion Path → LTC → LAC → ความสัมพันธ์ระยะสั้น-ยาว</div>
+  <a href="chapter6.html" style="display:inline-block;margin-top:14px;padding:10px 24px;background:#fff;color:#7b1fa2;border-radius:99px;font-size:13px;font-weight:700;text-decoration:none">← กลับหน้าบทที่ 6</a>
+</div>
+
+</div>
+<script>
+let st=0;const mx=6;
+const ms=['กด <b>"ถัดไป →"</b> เพื่อเริ่ม','① โรงงานเล็ก: <b style="color:#c62828">SAC₁</b> + <b style="color:#c62828">SMC₁</b> → SMC₁ เป็น U ตัด SAC₁ ที่จุดต่ำสุด','② โรงงานกลาง: <b style="color:#7b1fa2">SAC₂</b> + <b style="color:#7b1fa2">SMC₂</b> → จุดต่ำสุดต่ำกว่า SAC₁ (คุ้มกว่า)','③ โรงงานใหญ่: <b style="color:#9c27b0">SAC₃</b> + <b style="color:#9c27b0">SMC₃</b> → จุดต่ำสุดกลับสูงขึ้น (ใหญ่เกินไป)','④ ลากสัมผัส SAC ทุกเส้น → <b style="color:#2e7d32">LAC</b> (เส้นห่อหุ้ม)','⑤ <b style="color:#1565c0">LMC</b> อยู่ใต้ LAC ทางซ้าย (ถูกกว่า) → ตัด LAC ที่จุดต่ำสุด → พุ่งเหนือ LAC ทางขวา','⑥ จุด <b style="color:#c62828">A\'</b>: ซ้ายของ min · จุด <b style="color:#2e7d32">B\'</b>: ตรง min = ทั้ง4เท่ากัน · จุด <b style="color:#9c27b0">C\'</b>: ขวาของ min'];
+function go(){if(st>=mx){st=0;for(let i=1;i<=mx;i++){const e=document.getElementById('s'+i);if(e){e.style.transition='none';e.setAttribute('opacity','0')}}document.getElementById('ri').innerHTML=ms[0];document.getElementById('rb').textContent='ถัดไป →';return}st++;const el=document.getElementById('s'+st);if(el){el.style.transition='opacity 0.5s ease';el.setAttribute('opacity','1')}document.getElementById('ri').innerHTML=ms[st];document.getElementById('rb').textContent=st>=mx?'↺ เริ่มใหม่':'ถัดไป →'}
+document.querySelectorAll('.qz').forEach(q=>{const os=q.querySelectorAll('.o'),rv=q.querySelector('.rv');os.forEach(o=>{o.addEventListener('click',()=>{if(o.dataset.c==='1'){o.classList.add('ok');os.forEach(x=>{if(x!==o)x.classList.add('off')});setTimeout(()=>{rv.classList.add('sh');rv.scrollIntoView({behavior:'smooth',block:'nearest'})},250)}else{o.classList.add('no');setTimeout(()=>o.classList.remove('no'),900)}})})});
+</script>
+</div></div>
+<footer class="ft"><div class="ft-n">Ajarn.Kwan</div><div class="ft-s">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div><div class="ft-b"><strong>© 2026 Ajarn.Kwan</strong> · เนื้อหาแจกฟรีเพื่อการศึกษา</div></footer>
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+</body></html>

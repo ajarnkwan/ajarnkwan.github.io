@@ -9,7 +9,7 @@
 :root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--bg:#f4f2fb;--panel:#fff;--border:#ece7f7;--ink:#1d1633;--muted:#6b6480;--accent:#4338ca;--soft:#ede9fe;--warn-bg:#fff7ed;--warn:#c2410c;--radius:24px;--shadow:0 10px 30px rgba(61,47,158,.08);}
 *{box-sizing:border-box}
 body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
-.page{max-width:880px;margin:0 auto;padding:24px 18px 56px}
+.page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
 .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--accent);font-size:14px;font-weight:600;margin:0 0 14px}
 .hero{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
 .hero p{font-size:14px;line-height:1.75;margin:0;opacity:.92;max-width:720px}
@@ -28,9 +28,9 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
 <style>
 /* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
 .ajk-shell-theme {
-  --ajk-primary: #4338ca;
-  --ajk-primary-soft: #ede9fe;
-  --ajk-primary-dark: #3730a3;
+  --ajk-primary: #ec4899;
+  --ajk-primary-soft: #fdf2f8;
+  --ajk-primary-dark: #db2777;
   --ajk-ink: #1d1633;
   --ajk-muted: #6b6480;
   --ajk-border: #e5e1f3;
@@ -200,9 +200,9 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   --shadow:0 14px 34px rgba(31,36,48,.08);
 }
 .ajk-shell-theme {
-  --ajk-primary: var(--theme-primary);
-  --ajk-primary-soft: var(--theme-primary-soft);
-  --ajk-primary-dark: var(--theme-primary-dark);
+  --ajk-primary: #ec4899;
+  --ajk-primary-soft: #fdf2f8;
+  --ajk-primary-dark: #db2777;
   --ajk-ink: var(--color-text-primary);
   --ajk-muted: var(--color-text-secondary);
   --ajk-border: #e6e8f0;
@@ -221,9 +221,9 @@ body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!i
 <body>
 <header class="ajk-topbar ajk-shell-theme">
   <div class="ajk-topbar-inner">
-    <a class="ajk-back-btn" href="../index.html" aria-label="กลับหน้าหลัก">
+    <a class="ajk-back-btn" href="index.html" aria-label="กลับแผนการเรียน">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      <span>หน้าหลัก</span>
+      <span>แผนการเรียน</span>
     </a>
     <div class="ajk-brand">
       <div class="ajk-brand-course">บทที่ 8 · ตลาดผูกขาด</div>
@@ -233,7 +233,7 @@ body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!i
 </header>
 
 <div class="page">
-  <a class="backlink" href="index.html">← กลับแผนการเรียนรู้</a>
+  <a class="backlink" href="index.html">← กลับแผนการเรียน</a>
   <div class="hero">
     
     <h1>บทที่ 8 — ตลาดผูกขาด</h1>
@@ -256,7 +256,7 @@ body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!i
       </ul>
     </div>
     <div class="actions">
-      <a class="btn" href="index.html">← กลับแผนการเรียนรู้</a>
+      <a class="btn" href="index.html">← กลับแผนการเรียน</a>
       <a class="btn primary" href="chapter7.html">ทบทวน บทที่ 7 →</a>
     </div>
   </div>
@@ -267,9 +267,9 @@ body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!i
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-      <a class="ajk-footer-btn" href="../index.html">
+      <a class="ajk-footer-btn" href="index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        หน้าหลัก
+        แผนการเรียน
       </a>
       <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>

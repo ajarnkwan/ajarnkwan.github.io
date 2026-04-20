@@ -9,7 +9,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
 @media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
-.app{max-width:680px;margin:0 auto}
+.app{max-width:780px;margin:0 auto}
 .topnav{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 @media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
@@ -111,9 +111,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <style>
 /* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
 .ajk-shell-theme {
-  --ajk-primary: #4338ca;
-  --ajk-primary-soft: #ede9fe;
-  --ajk-primary-dark: #3730a3;
+  --ajk-primary: #10b981;
+  --ajk-primary-soft: #ecfdf5;
+  --ajk-primary-dark: #059669;
   --ajk-ink: #1d1633;
   --ajk-muted: #6b6480;
   --ajk-border: #e5e1f3;
@@ -283,9 +283,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   --shadow:0 14px 34px rgba(31,41,55,.06);
 }
 .ajk-shell-theme {
-  --ajk-primary: var(--theme-primary);
-  --ajk-primary-soft: var(--theme-primary-soft);
-  --ajk-primary-dark: var(--theme-primary-dark);
+  --ajk-primary: #10b981;
+  --ajk-primary-soft: #ecfdf5;
+  --ajk-primary-dark: #059669;
   --ajk-ink: var(--color-text-primary);
   --ajk-muted: var(--color-text-secondary);
   --ajk-border: #dbe7e4;
@@ -338,9 +338,9 @@ body{
 
 <header class="ajk-topbar ajk-shell-theme">
   <div class="ajk-topbar-inner">
-    <a class="ajk-back-btn" href="../index.html" aria-label="กลับหน้าหลัก">
+    <a class="ajk-back-btn" href="index.html" aria-label="กลับแผนการเรียน">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      <span>หน้าหลัก</span>
+      <span>แผนการเรียน</span>
     </a>
     <div class="ajk-brand">
       <div class="ajk-brand-course">บทที่ 4 · การกำหนดราคา</div>
@@ -352,7 +352,7 @@ body{
 <div class="app">
 
 <div class="topnav">
-  <a class="backbtn" href="index.html">← กลับแผนการเรียนรู้</a>
+  <a class="backbtn" href="index.html">← กลับแผนการเรียน</a>
   <span class="badge">บทที่ 4</span>
 </div>
 
@@ -471,7 +471,7 @@ body{
 </p>
 
 <div class="botnav">
-  <button class="bnb" onclick="sendPrompt('กลับหน้าหลัก')">← กลับแผนการเรียนรู้</button>
+  <button class="bnb" onclick="sendPrompt('กลับหน้าหลัก')">← กลับแผนการเรียน</button>
   <button class="bnb pr" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 1: ราคาดุลยภาพ — Equilibrium Price, Excess Demand/Supply')">เริ่มส่วนที่ 1 →</button>
 </div>
 
@@ -635,9 +635,9 @@ function sendPrompt(message){
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-      <a class="ajk-footer-btn" href="../index.html">
+      <a class="ajk-footer-btn" href="index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        หน้าหลัก
+        แผนการเรียน
       </a>
       <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>

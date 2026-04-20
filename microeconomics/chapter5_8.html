@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 5.8 — U-shape และ MC–AVC–AC</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+    --font-serif:'Noto Serif Thai',serif;
+    --color-background-primary:#ffffff;
+    --color-background-secondary:#f7f5ff;
+    --color-border-secondary:#d8d2ef;
+    --color-border-tertiary:#ece7f7;
+    --color-text-primary:#1d1633;
+    --color-text-secondary:#6b6480;
+    --color-text-tertiary:#9a94ad;
+    --border-radius-md:12px;
+    --border-radius-lg:18px;
+    --shadow:0 10px 30px rgba(61,47,158,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
+  .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
+  .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:14px;font-weight:600;margin:0 0 14px}
+  .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+  .ajk-shell-theme {
+    --ajk-primary: #f59e0b;
+    --ajk-primary-soft: #fffbeb;
+    --ajk-primary-dark: #d97706;
+    --ajk-ink: #1d1633;
+    --ajk-muted: #6b6480;
+    --ajk-border: #e5e1f3;
+    --ajk-surface: #ffffff;
+  }
+  .ajk-topbar {
+    position: sticky; top: 0; z-index: 1000;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid var(--ajk-border);
+    font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+    color: var(--ajk-ink);
+  }
+  .ajk-topbar-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; min-height: 58px;
+  }
+  .ajk-back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none; color: var(--ajk-ink);
+    background: var(--ajk-primary-soft);
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    border: 1px solid transparent;
+    transition: all .18s;
+    flex-shrink: 0;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .ajk-back-btn:hover {
+    background: var(--ajk-primary); color: #fff;
+    transform: translateX(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  }
+  .ajk-brand {
+    flex: 1; min-width: 0; text-align: right;
+    line-height: 1.25;
+  }
+  .ajk-brand-course {
+    font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    letter-spacing: -.01em;
+  }
+  .ajk-brand-author {
+    font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 2px;
+  }
+  .ajk-brand-author-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--ajk-primary);
+    flex-shrink: 0;
+  }
+  .ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; padding: 0 1px; }
+
+  @media (max-width: 520px) {
+    .ajk-back-btn span { display: none; }
+    .ajk-back-btn { padding: 9px; }
+    .ajk-back-btn svg { width: 16px; height: 16px; }
+    .ajk-brand-course { font-size: 12.5px; }
+    .ajk-brand-author { font-size: 10.5px; }
+    .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
+  }
+
+  /* ─── Footer ─── */
+  .ajk-footer {
+    margin-top: 64px;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+    border-top: 1px solid var(--ajk-border);
+    padding: 48px 16px 28px;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+    color: var(--ajk-ink);
+  }
+  .ajk-footer-inner {
+    max-width: 720px; margin: 0 auto;
+    text-align: center;
+  }
+  .ajk-footer-mark {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .ajk-footer-mark::before, .ajk-footer-mark::after {
+    content: ''; width: 28px; height: 1px;
+    background: var(--ajk-primary); opacity: .35;
+  }
+  .ajk-footer-mark-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--ajk-primary);
+    flex-shrink: 0;
+  }
+  .ajk-footer-name {
+    font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--ajk-ink); margin: 0 0 4px;
+    letter-spacing: -.01em;
+  }
+  .ajk-footer-sub {
+    font-size: 12.5px; color: var(--ajk-muted);
+    letter-spacing: .02em;
+    margin-bottom: 26px;
+  }
+  .ajk-footer-links {
+    display: flex; justify-content: center; gap: 8px;
+    flex-wrap: wrap; margin-bottom: 26px;
+  }
+  .ajk-footer-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    text-decoration: none; color: var(--ajk-ink);
+    background: var(--ajk-surface);
+    border: 1px solid var(--ajk-border);
+    padding: 9px 16px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    transition: all .18s;
+    cursor: pointer;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  }
+  .ajk-footer-btn svg { width: 15px; height: 15px; }
+  .ajk-footer-btn:hover {
+    color: var(--ajk-primary);
+    border-color: var(--ajk-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  }
+  .ajk-footer-bottom {
+    font-size: 11.5px; color: var(--ajk-muted);
+    letter-spacing: .02em;
+    padding-top: 22px;
+    border-top: 1px solid var(--ajk-border);
+    line-height: 1.8;
+  }
+  .ajk-footer-bottom strong {
+    color: var(--ajk-ink); font-weight: 700;
+  }
+
+  @media (max-width: 520px) {
+    .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
+    .ajk-footer-name { font-size: 21px; }
+    .ajk-footer-links { gap: 6px; }
+    .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+  }
+
+  /* ── Section body ── */
+  .chbody{font-family:var(--font-sans);max-width:680px;margin:0 auto;padding:1rem 0}
+  .progress-steps{display:flex;gap:4px;margin-bottom:1.5rem}
+  .step-dot{flex:1;height:4px;border-radius:2px;background:var(--color-background-secondary);transition:background .3s}
+  .step-dot.done{background:#1D9E75}
+  .step-dot.active{background:#0F6E56}
+  .section-label{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;font-weight:600}
+  .section-label .chip{background:#e6f4f0;color:#0F6E56;padding:2px 8px;border-radius:999px;margin-right:8px;font-weight:700}
+  .big-q{font-family:var(--font-serif);font-size:20px;font-weight:700;color:var(--color-text-primary);line-height:1.45;margin:0 0 1rem}
+  .lead{font-size:14.5px;line-height:1.9;color:var(--color-text-primary);margin:0 0 1rem}
+  .lead strong{color:#0F6E56;font-weight:700}
+  .nav-row{display:flex;gap:8px;margin-top:1.5rem}
+  .nav-btn{flex:1;padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;cursor:pointer;transition:background .15s;font-family:inherit;font-weight:500}
+  .nav-btn:hover{background:var(--color-background-secondary)}
+  .nav-btn.primary{background:#0F6E56;border-color:#0F6E56;color:#fff}
+  .nav-btn.primary:hover{background:#0B5940}
+  .section{display:none}
+  .section.active{display:block}
+
+  .reveal-btn{width:100%;padding:11px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;font-weight:500;cursor:pointer;margin-bottom:8px;transition:background .15s;font-family:inherit}
+  .reveal-btn:hover{background:var(--color-background-secondary)}
+  .reveal-box{background:#fff;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;display:none}
+  .reveal-box.shown{display:block}
+  .reveal-box p{margin:0 0 10px;font-size:14px;line-height:1.8;color:var(--color-text-primary)}
+  .reveal-box p:last-child{margin-bottom:0}
+
+  .quiz-opt{display:block;width:100%;text-align:left;padding:11px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;cursor:pointer;margin-bottom:6px;transition:all .15s;font-family:inherit;line-height:1.6}
+  .quiz-opt:hover:not(:disabled){background:var(--color-background-secondary)}
+  .quiz-opt.correct{background:#E1F5EE;border-color:#1D9E75;color:#0F6E56}
+  .quiz-opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
+  .quiz-opt:disabled{cursor:default}
+  .feedback{font-size:13.5px;padding:10px 14px;border-radius:var(--border-radius-md);margin-top:6px;display:none;line-height:1.7}
+  .feedback.show{display:block}
+  .feedback.ok{background:#E1F5EE;color:#0F6E56}
+  .feedback.bad{background:#FCEBEB;color:#A32D2D}
+  .score-circle{width:80px;height:80px;border-radius:50%;border:3px solid #0F6E56;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:24px;font-weight:700;color:#0B5940;font-family:var(--font-serif)}
+
+  /* ═══════════ Custom components ═══════════ */
+
+  .ctrl{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:14px 16px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
+  .ctrl label{font-size:13.5px;color:var(--color-text-primary);font-weight:600;flex-shrink:0}
+  .ctrl input[type="range"]{flex:1;accent-color:#0F6E56;height:4px}
+  .ctrl .val{background:#0F6E56;color:#fff;font-family:var(--font-serif);font-size:17px;font-weight:700;min-width:42px;text-align:center;padding:6px 12px;border-radius:999px}
+
+  .q-card{background:linear-gradient(135deg, #e6f4f0, #ede9fe);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;text-align:center}
+  .q-card .q-mark{font-family:var(--font-serif);font-size:38px;font-weight:700;color:#0F6E56;line-height:1;margin-bottom:10px}
+  .q-card p{margin:0;font-size:15px;line-height:1.75;color:var(--color-text-primary)}
+  .q-card p strong{color:#0B5940}
+
+  .takeaway{background:#0B5940;color:#fff;border-radius:var(--border-radius-lg);padding:1.1rem 1.35rem;margin:1rem 0;font-size:14.5px;line-height:1.85}
+  .takeaway .tag{display:inline-block;background:rgba(255,255,255,.2);padding:3px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+  .takeaway p{margin:0}
+  .takeaway strong{color:#fef3c7}
+
+  .story{background:#fef7e0;border-left:4px solid #f59e0b;border-radius:var(--border-radius-md);padding:14px 18px;margin-bottom:1rem;font-size:14px;line-height:1.75;color:#92400e;min-height:60px;transition:all .25s}
+  .story.good{background:#dcfaed;border-left-color:#10b981;color:#065f46}
+  .story.peak{background:#e6f4f0;border-left-color:#0F6E56;color:#0B5940}
+  .story strong{font-weight:700}
+
+  /* Recap box (from 5.6) */
+  .recap{background:#eef2ff;border:1px dashed #a5b4fc;border-radius:var(--border-radius-lg);padding:14px 18px;margin-bottom:1rem;font-size:14px;line-height:1.7;color:#3730a3}
+  .recap-tag{display:inline-block;background:#4338ca;color:#fff;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+  .recap strong{color:#1e1b4b}
+
+  /* AP-AVC side-by-side tables */
+  .sidebyside{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem}
+  @media (max-width:520px){.sidebyside{grid-template-columns:1fr}}
+  .sb-card{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 14px}
+  .sb-card h4{margin:0 0 10px;font-size:13px;font-weight:700;text-align:center;padding-bottom:8px;border-bottom:1px dashed var(--color-border-tertiary)}
+  .sb-card.prod h4{color:#B45309}
+  .sb-card.cost h4{color:#0F6E56}
+  .sb-card table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .sb-card td,.sb-card th{padding:5px 4px;text-align:center}
+  .sb-card th{font-size:10.5px;color:#6b6480;font-weight:600;text-transform:uppercase}
+  .sb-card td:first-child{text-align:left;font-weight:600;color:var(--color-text-primary)}
+  .sb-card td.val{font-family:'Noto Serif Thai',serif;font-weight:700}
+  .sb-card.prod td.val{color:#B45309}
+  .sb-card.cost td.val{color:#0F6E56}
+  .sb-card tr.peak td{background:#fef3c7}
+  .sb-card tr.min td{background:#e6f4f0}
+
+  /* Visual explanation card */
+  .vis-explain{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px;margin-bottom:1rem}
+  .vis-explain-title{font-size:11.5px;color:#6b6480;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:10px;text-align:center}
+
+  /* Rule cards (MC vs AVC) */
+  .rule-cards{display:flex;flex-direction:column;gap:8px;margin-bottom:1rem}
+  .rule-row{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px 14px;display:flex;gap:12px;align-items:center;font-size:13.5px;line-height:1.6}
+  .rule-row.r1{border-left:4px solid #10b981}
+  .rule-row.r2{border-left:4px solid #f59e0b}
+  .rule-row.r3{border-left:4px solid #ef4444}
+  .rule-row .r-icon{font-size:22px;flex-shrink:0}
+  .rule-row .r-text{flex:1}
+  .rule-row strong{color:var(--color-text-primary)}
+  .rule-row.r1 strong{color:#065f46}
+  .rule-row.r2 strong{color:#92400e}
+  .rule-row.r3 strong{color:#991b1b}
+
+  /* Bowl (cafeteria) analogy box */
+  .analogy-box{background:linear-gradient(135deg,#fef3c7,#e6f4f0);border-radius:var(--border-radius-lg);padding:14px 18px;margin-bottom:1rem}
+  .analogy-box h4{margin:0 0 10px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#0B5940}
+  .analogy-box p{margin:0 0 8px;font-size:14px;line-height:1.8;color:var(--color-text-primary)}
+  .analogy-box p:last-child{margin-bottom:0}
+
+  /* Bowl state visualizer */
+  .bowl-states{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+  @media (max-width:520px){.bowl-states{grid-template-columns:1fr}}
+  .bowl-st{background:#fff;border:1px solid;border-radius:var(--border-radius-md);padding:10px;text-align:center}
+  .bowl-st.down{border-color:#86efac;background:#dcfaed}
+  .bowl-st.flat{border-color:#fcd34d;background:#fef3c7}
+  .bowl-st.up{border-color:#fca5a5;background:#fee2e2}
+  .bowl-st .bs-icon{font-size:20px;margin-bottom:2px}
+  .bowl-st .bs-label{font-size:11px;font-weight:700;margin-bottom:3px}
+  .bowl-st.down .bs-label{color:#065f46}
+  .bowl-st.flat .bs-label{color:#92400e}
+  .bowl-st.up .bs-label{color:#991b1b}
+  .bowl-st .bs-desc{font-size:11.5px;line-height:1.5;color:var(--color-text-secondary)}
+
+  /* Master chart */
+  .master-chart{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px;margin-bottom:12px}
+  .master-chart-title{font-size:12px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:10px;text-align:center}
+  .master-svg{width:100%;height:auto;display:block}
+
+  /* 4-metric grid */
+  .m4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+  @media (max-width:520px){.m4{grid-template-columns:1fr 1fr;gap:6px}}
+  .m4c{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:8px;text-align:center}
+  .m4c .m4-lbl{font-size:10.5px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:2px}
+  .m4c .m4-val{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:700;line-height:1}
+  .m4c.afc .m4-val{color:#9a3412}
+  .m4c.avc .m4-val{color:#0F6E56}
+  .m4c.ac .m4-val{color:#3730a3}
+  .m4c.mc .m4-val{color:#92400e}
+
+  /* Rules grid (final) */
+  .gold-rules{background:#fef3c7;border:2px solid #f59e0b;border-radius:var(--border-radius-lg);padding:14px 18px;margin-bottom:1rem}
+  .gold-rules h4{margin:0 0 10px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78350f}
+  .gold-rules ul{margin:0;padding-left:20px;font-size:14px;line-height:1.9;color:#78350f}
+  .gold-rules ul li{margin-bottom:3px}
+  .gold-rules ul li strong{color:#92400e}
+
+  @media (max-width:520px){
+    .big-q{font-size:17.5px}
+    .panel{padding:18px}
+  }
+</style>
+</head>
+<body>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter5.html" aria-label="กลับบทที่ 5">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 5</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 5.8 · U-shape และ MC-AVC-AC</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+<a class="backlink" href="chapter5.html">← กลับบทที่ 5</a>
+
+<div class="panel">
+<h2 class="sr-only">บทที่ 5.8: U-shaped Cost Curves</h2>
+
+<div class="chbody">
+  <div class="progress-steps" id="prog"></div>
+
+  <!-- ═══════════ SEC 0 · Hook ═══════════ -->
+  <div id="sec0" class="section active">
+    <div class="section-label"><span class="chip">5.8</span>หัวข้อสุดท้าย · เปิดเรื่อง</div>
+    <p class="big-q">ใน 5.6 เราสมมติให้ต้นทุน "เรียบ" — ในความจริงไม่ใช่</p>
+
+    <div class="recap">
+      <span class="recap-tag">🔄 เตือนจาก 5.6</span>
+      <p>ใน 5.6 เราใช้ตัวเลขเรียบ ๆ — AVC = 20 บาท/แก้ว<strong>คงที่</strong> · MC = 20 บาท<strong>คงที่</strong><br>
+      → กราฟ AVC และ MC เป็น<strong>เส้นตรงแนวนอน</strong></p>
+    </div>
+
+    <p class="lead">แต่ในความเป็นจริง — <strong>AVC, AC, MC เป็นรูปตัว U</strong> (ลงก่อน ขึ้นทีหลัง) ทำไมเป็นแบบนั้น?</p>
+
+    <div class="q-card">
+      <div class="q-mark">?</div>
+      <p>3 คำถามสุดท้ายของบทนี้:<br>
+      1️⃣ <strong>ทำไม U-shape?</strong><br>
+      2️⃣ <strong>ทำไม MC ตัด AVC/AC ที่จุดต่ำสุด?</strong><br>
+      3️⃣ <strong>ทำไม AC ต่ำสุดอยู่ช้ากว่า AVC ต่ำสุด?</strong></p>
+    </div>
+
+    <p class="lead">คำตอบ<strong>เชื่อมกลับ</strong>ไปยังทุกอย่างที่เราเรียนมา — กฎผลตอบแทน (5.3), MP-AP (5.2), และสะพาน AVC=w/AP (5.7)</p>
+
+    <div class="takeaway">
+      <div class="tag">ภาพใหญ่</div>
+      <p>🎯 Part 1 + Part 2 + Part 3 เชื่อมกันเป็น<strong>ภาพเดียว</strong><br>
+      หลังจบ section นี้ คุณจะเห็นว่าทุกเรื่องในบทนี้เชื่อมกันยังไง</p>
+    </div>
+
+    <div class="nav-row"><button class="nav-btn primary" onclick="go(1)">ถัดไป: ทำไม U-shape? →</button></div>
+  </div>
+
+  <!-- ═══════════ SEC 1 · Why U-shape? ═══════════ -->
+  <div id="sec1" class="section">
+    <div class="section-label"><span class="chip">5.8</span>คำถามที่ 1 · ทำไม U-shape?</div>
+    <p class="big-q">AVC เป็นตัว U เพราะ AP เป็นตัว <strong>∩</strong> (คว่ำ)</p>
+
+    <div class="recap">
+      <span class="recap-tag">🔄 เตือนจาก 5.7</span>
+      <p><strong>AVC = ค่าจ้าง ÷ AP</strong> (w/AP)</p>
+    </div>
+
+    <p class="lead">จำ<strong>เส้น AP</strong>จาก 5.2 ได้ไหม? — มันเป็น <strong>∩ (ขึ้น→ลงตัว→ลง)</strong><br>
+    เพราะกฎผลตอบแทนลดน้อยถอยลง (5.3)</p>
+
+    <p class="lead">ลองดูข้อมูลเดิม — ผลผลิตที่ร้านคุณน้อย (ค่าจ้าง w = 100/คน):</p>
+
+    <div class="sidebyside">
+      <!-- AP column -->
+      <div class="sb-card prod">
+        <h4>🏭 AP (ผลผลิต)</h4>
+        <table>
+          <thead>
+            <tr><th>X</th><th>TP</th><th>AP</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>10</td><td class="val">10</td></tr>
+            <tr><td>2</td><td>30</td><td class="val">15</td></tr>
+            <tr class="peak"><td>3</td><td>60</td><td class="val">20 ⬆</td></tr>
+            <tr class="peak"><td>4</td><td>80</td><td class="val">20 ⬆</td></tr>
+            <tr><td>5</td><td>90</td><td class="val">18</td></tr>
+            <tr><td>6</td><td>96</td><td class="val">16</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- AVC column -->
+      <div class="sb-card cost">
+        <h4>💰 AVC = 100÷AP</h4>
+        <table>
+          <thead>
+            <tr><th>X</th><th>AP</th><th>AVC</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>10</td><td class="val">10.00</td></tr>
+            <tr><td>2</td><td>15</td><td class="val">6.67</td></tr>
+            <tr class="min"><td>3</td><td>20</td><td class="val">5.00 ⬇</td></tr>
+            <tr class="min"><td>4</td><td>20</td><td class="val">5.00 ⬇</td></tr>
+            <tr><td>5</td><td>18</td><td class="val">5.56</td></tr>
+            <tr><td>6</td><td>16</td><td class="val">6.25</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="lead">🎯 <strong>AP สูงสุดที่ไหน → AVC ต่ำสุดที่นั่น</strong> (X=3, 4)<br>
+    AP ลง → AVC ขึ้น · AP ขึ้น → AVC ลง</p>
+
+    <div class="vis-explain">
+      <div class="vis-explain-title">🪞 ภาพสะท้อน (ดูด้วย SVG)</div>
+      <svg id="s1-svg" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block"></svg>
+    </div>
+
+    <div class="q-card">
+      <p><strong>สรุปเหตุผล U-shape:</strong><br>
+      AP เพิ่มก่อน → ลด (เพราะกฎผลตอบแทน)<br>
+      ∴ AVC = w/AP เป็น<strong>ตัว U</strong> (กลับหัว AP)</p>
+    </div>
+
+    <button class="reveal-btn" id="rbtn1" onclick="tog('ans1','rbtn1','แล้ว MC ล่ะ? เป็น U เหมือนกันไหม?')">แล้ว MC ล่ะ? เป็น U เหมือนกันไหม?</button>
+    <div class="reveal-box" id="ans1">
+      <p>✅ ใช่! — ด้วยเหตุผลเดียวกัน</p>
+      <p>MC = w ÷ MP · MP เป็น ∩ (ขึ้น→ลง) → MC เป็น U (กลับหัว)</p>
+      <p>ดังนั้น<strong>ทั้ง AVC, MC, และ AC</strong> เป็น U-shape ทั้งหมดในระยะสั้น</p>
+    </div>
+
+    <div class="takeaway">
+      <div class="tag">คำตอบที่ 1</div>
+      <p>เส้นต้นทุนเป็น<strong>ตัว U</strong> เพราะเส้นผลผลิตเป็น<strong>ตัว ∩</strong><br>
+      และนั่นเกิดจาก <strong>กฎผลตอบแทนลดน้อยถอยลง</strong> (บท 5.3)</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(0)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(2)">ถัดไป: ทำไม MC ตัดที่ต่ำสุด? →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ SEC 2 · MC crosses at minimum ═══════════ -->
+  <div id="sec2" class="section">
+    <div class="section-label"><span class="chip">5.8</span>คำถามที่ 2 · ทำไม MC ตัดที่ต่ำสุด?</div>
+    <p class="big-q">MC ดึง AVC เสมอ — เหมือนกฎ MP-AP แต่ฝั่งต้นทุน</p>
+
+    <div class="recap">
+      <span class="recap-tag">🔄 เตือนจาก 5.2</span>
+      <p>กฎคลาสโรงเรียน: <strong>"คนใหม่ดึงเฉลี่ย"</strong><br>
+      • MP > AP → AP ขึ้น<br>
+      • MP < AP → AP ลง<br>
+      • MP = AP → AP จุดสูงสุด</p>
+    </div>
+
+    <p class="lead">กฎเดียวกันเลย — แต่เปลี่ยนจาก "คะแนน" เป็น "ต้นทุน":</p>
+
+    <div class="analogy-box">
+      <h4>🍜 โรงอาหาร — ต้นทุนเฉลี่ยต่อชาม</h4>
+      <p>สมมติโรงอาหารทำก๋วยเตี๋ยว<strong>เฉลี่ยต้นทุน 50 บาท/ชาม</strong> · ชามใหม่ที่จะทำ<strong>ใช้ต้นทุนเท่าไร</strong>?</p>
+      <div class="bowl-states">
+        <div class="bowl-st down">
+          <div class="bs-icon">📉</div>
+          <div class="bs-label">ถ้าชามใหม่ = 30</div>
+          <div class="bs-desc">ถูกกว่าเฉลี่ย → <strong>ลาก</strong>เฉลี่ยลง</div>
+        </div>
+        <div class="bowl-st flat">
+          <div class="bs-icon">⚖️</div>
+          <div class="bs-label">ถ้าชามใหม่ = 50</div>
+          <div class="bs-desc">เท่าเฉลี่ย → เฉลี่ย<strong>ไม่เปลี่ยน</strong></div>
+        </div>
+        <div class="bowl-st up">
+          <div class="bs-icon">📈</div>
+          <div class="bs-label">ถ้าชามใหม่ = 70</div>
+          <div class="bs-desc">แพงกว่าเฉลี่ย → <strong>ดัน</strong>เฉลี่ยขึ้น</div>
+        </div>
+      </div>
+      <p><strong>👉 "ชามใหม่" = MC · "เฉลี่ย" = AVC (หรือ AC)</strong></p>
+    </div>
+
+    <p class="lead">ในภาษาเศรษฐศาสตร์:</p>
+
+    <div class="rule-cards">
+      <div class="rule-row r1">
+        <span class="r-icon">⬇️</span>
+        <span class="r-text"><strong>MC &lt; AVC</strong> → AVC กำลัง<strong>ลด</strong> (MC ดึง AVC ลง)</span>
+      </div>
+      <div class="rule-row r2">
+        <span class="r-icon">⚖️</span>
+        <span class="r-text"><strong>MC = AVC</strong> → AVC ที่<strong>จุดต่ำสุด</strong> (ไม่มีแรงดึง)</span>
+      </div>
+      <div class="rule-row r3">
+        <span class="r-icon">⬆️</span>
+        <span class="r-text"><strong>MC &gt; AVC</strong> → AVC กำลัง<strong>ขึ้น</strong> (MC ดันขึ้น)</span>
+      </div>
+    </div>
+
+    <p class="lead">📌 <strong>กฎเดียวกันใช้กับ AC</strong> — เวลา MC ต่ำกว่า AC, AC จะลด · เวลา MC = AC, AC ที่ต่ำสุด</p>
+
+    <p class="lead">มาดูเลขจริงจากร้านคุณน้อย (TFC = 60, w = 100):</p>
+
+    <div style="overflow-x:auto;margin-bottom:1rem">
+      <table class="cost-data-table" style="width:100%;border-collapse:collapse;font-size:13px;border-radius:var(--border-radius-md);overflow:hidden;border:1px solid var(--color-border-tertiary)">
+        <thead>
+          <tr style="background:var(--color-background-secondary)">
+            <th style="padding:8px;font-size:11px;text-transform:uppercase;color:#6b6480">X</th>
+            <th style="padding:8px;font-size:11px;text-transform:uppercase;color:#6b6480">Q</th>
+            <th style="padding:8px;font-size:11px;text-transform:uppercase;color:#92400e">MC</th>
+            <th style="padding:8px;font-size:11px;text-transform:uppercase;color:#0F6E56">AVC</th>
+            <th style="padding:8px;font-size:11px;text-transform:uppercase;color:#6b6480">ผลกับ AVC</th>
+          </tr>
+        </thead>
+        <tbody style="text-align:center;font-family:'Noto Serif Thai',serif;font-size:13px">
+          <tr style="border-top:1px solid var(--color-border-tertiary)"><td style="padding:8px">2</td><td>30</td><td style="color:#92400e;font-weight:700">5.00</td><td style="color:#0F6E56;font-weight:700">6.67</td><td style="color:#065f46;font-family:'Noto Sans Thai',sans-serif;font-size:12px">MC &lt; AVC → AVC ลด ⬇</td></tr>
+          <tr style="border-top:1px solid var(--color-border-tertiary);background:#fef3c7"><td style="padding:8px">3</td><td>60</td><td style="color:#92400e;font-weight:700">3.33</td><td style="color:#0F6E56;font-weight:700">5.00</td><td style="color:#065f46;font-family:'Noto Sans Thai',sans-serif;font-size:12px">MC &lt; AVC → AVC ลด ⬇</td></tr>
+          <tr style="border-top:1px solid var(--color-border-tertiary);background:#dcfaed"><td style="padding:8px">4 ⭐</td><td>80</td><td style="color:#92400e;font-weight:700">5.00</td><td style="color:#0F6E56;font-weight:700">5.00</td><td style="color:#065f46;font-family:'Noto Sans Thai',sans-serif;font-size:12px;font-weight:700">MC = AVC → AVC ต่ำสุด 🎯</td></tr>
+          <tr style="border-top:1px solid var(--color-border-tertiary)"><td style="padding:8px">5</td><td>90</td><td style="color:#92400e;font-weight:700">10.00</td><td style="color:#0F6E56;font-weight:700">5.56</td><td style="color:#991b1b;font-family:'Noto Sans Thai',sans-serif;font-size:12px">MC &gt; AVC → AVC ขึ้น ⬆</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="lead">✨ ที่ X=4: MC = AVC = 5.00 — <strong>นี่คือจุดที่ MC ตัด AVC</strong> และเป็นจุดต่ำสุดของ AVC พอดี!</p>
+
+    <div class="takeaway">
+      <div class="tag">คำตอบที่ 2</div>
+      <p>MC <strong>ตัด</strong> AVC และ AC ที่<strong>จุดต่ำสุด</strong>ของแต่ละเส้น<br>
+      เพราะ MC เป็น "ตัวดึง" ที่ลากเฉลี่ยในทิศเดียวกับตัวเอง</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(1)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(3)">ถัดไป: ภาพใหญ่ 4 เส้น →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ SEC 3 · Master chart ═══════════ -->
+  <div id="sec3" class="section">
+    <div class="section-label"><span class="chip">5.8</span>คำถามที่ 3 · ภาพใหญ่ 4 เส้น</div>
+    <p class="big-q">ทำไม AC ต่ำสุด<strong>ช้ากว่า</strong> AVC ต่ำสุด?</p>
+
+    <p class="lead">มาดูเส้นทั้ง 4 พร้อมกัน: <strong>AFC, AVC, AC, MC</strong> — ลากแถบดูทุกค่า</p>
+
+    <div class="master-chart">
+      <div class="master-chart-title">📊 ต้นทุนทั้ง 4 บนแกนเดียว</div>
+      <svg class="master-svg" id="s3-svg" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+
+    <div class="ctrl">
+      <label>X</label>
+      <input type="range" min="1" max="6" step="1" value="4" id="s3-x" oninput="updateS3(this.value)">
+      <div class="val" id="s3-xval">4</div>
+    </div>
+
+    <div class="m4">
+      <div class="m4c afc"><div class="m4-lbl">AFC</div><div class="m4-val" id="s3-afc">0.75</div></div>
+      <div class="m4c avc"><div class="m4-lbl">AVC</div><div class="m4-val" id="s3-avc">5.00</div></div>
+      <div class="m4c ac"><div class="m4-lbl">AC</div><div class="m4-val" id="s3-ac">5.75</div></div>
+      <div class="m4c mc"><div class="m4-lbl">MC</div><div class="m4-val" id="s3-mc">5.00</div></div>
+    </div>
+
+    <div class="story" id="s3-story">ลากแถบ — สังเกตเส้น AFC ลดตลอด · AVC และ AC เป็นตัว U · MC ตัดทั้ง AVC และ AC ที่จุดต่ำสุด</div>
+
+    <button class="reveal-btn" id="rbtn3" onclick="tog('ans3','rbtn3','ทำไม AC ต่ำสุดอยู่ช้ากว่า AVC ต่ำสุด?')">ทำไม AC ต่ำสุดอยู่ช้ากว่า AVC ต่ำสุด?</button>
+    <div class="reveal-box" id="ans3">
+      <p>🎯 <strong>ข้อเท็จจริง:</strong> AC = AFC + AVC (จาก 5.6)</p>
+      <p>🟠 <strong>AFC ลดลงเสมอ</strong> เมื่อ Q เพิ่ม (TFC คงที่ หารด้วย Q ที่เพิ่ม)</p>
+      <p>🟢 AVC เป็นตัว U — ลงก่อน แล้วค่อยขึ้น</p>
+      <p style="margin-top:10px"><strong>จุด AVC ต่ำสุด:</strong> AVC เริ่มขึ้น · แต่ AFC ยังลดอยู่ → <strong>AFC ชดเชย</strong>การเพิ่มของ AVC → AC ยังลดได้อีก</p>
+      <p><strong>จุด AC ต่ำสุด:</strong> AVC ขึ้น<em>เร็วกว่า</em>ที่ AFC ลด → AC เริ่มขึ้น</p>
+      <p style="margin-top:10px;padding:10px;background:#fef3c7;border-radius:var(--border-radius-md);color:#92400e">👉 ผลคือ <strong>AC ต่ำสุดมาช้ากว่า AVC ต่ำสุดเสมอ</strong> (ในข้อมูลนี้: AVC min ที่ X=3,4 · AC min ที่ X=4)</p>
+    </div>
+
+    <div class="gold-rules">
+      <h4>🏆 กฎทอง 4 ข้อ</h4>
+      <ul>
+        <li>🟠 <strong>AFC ลด</strong>เสมอ (= TFC/Q · Q เพิ่ม)</li>
+        <li>🟢 <strong>AVC, AC, MC = รูปตัว U</strong> (เพราะกฎลดน้อยถอยลง)</li>
+        <li>✂️ <strong>MC ตัด AVC ที่ AVC ต่ำสุด</strong> · ตัด AC ที่ AC ต่ำสุด</li>
+        <li>🏁 <strong>AC ต่ำสุดอยู่ทางขวาของ AVC ต่ำสุด</strong> (เพราะ AFC ยังช่วยลด)</li>
+      </ul>
+    </div>
+
+    <div class="takeaway">
+      <div class="tag">🎓 จบบทที่ 5</div>
+      <p>คุณเข้าใจ<strong>ทฤษฎีการผลิตและต้นทุนระยะสั้นครบถ้วน</strong>แล้ว<br>
+      จาก TP, AP, MP → Stage I-III → Explicit/Implicit → ต้นทุน 7 ตัว → Mirror → U-shape<br>
+      <strong>ทุกอย่างเชื่อมกันเป็นภาพเดียว</strong> 🎯</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(2)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(4)">ถัดไป: ทดสอบสุดท้าย →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ SEC 4 · Final Quiz ═══════════ -->
+  <div id="sec4" class="section">
+    <div class="section-label"><span class="chip">5.8</span>แบบฝึกหัดปิดบท</div>
+    <p class="big-q">6 ข้อ · รวมทุกอย่างจากบทที่ 5</p>
+    <div id="quiz-zone"></div>
+    <div class="nav-row" id="quiz-nav" style="display:none">
+      <button class="nav-btn" onclick="resetAll()">เรียนใหม่ตั้งแต่ต้น</button>
+      <button class="nav-btn primary" onclick="location.href='chapter5.html'">กลับสารบัญ (จบบทแล้ว!) 🎓</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOTAL = 5;
+
+/* ── Data (ต่อเนื่องจากทุก section) ── */
+const DATA = [
+  { x:1, tp:10 },
+  { x:2, tp:30 },
+  { x:3, tp:60 },
+  { x:4, tp:80 },
+  { x:5, tp:90 },
+  { x:6, tp:96 },
+];
+const WAGE = 100;
+const TFC = 60;
+
+DATA.forEach((d, i) => {
+  d.mp = i > 0 ? d.tp - DATA[i-1].tp : d.tp;  // คนแรก MP = TP(1)
+  d.ap = d.tp / d.x;
+  d.avc = WAGE / d.ap;
+  d.mc = WAGE / d.mp;
+  d.afc = TFC / d.tp;
+  d.ac = d.afc + d.avc;
+});
+
+/* ── Progress & nav ── */
+function buildProg(){
+  const p = document.getElementById('prog');
+  p.innerHTML = '';
+  for (let i=0;i<TOTAL;i++){
+    const d = document.createElement('div');
+    d.className = 'step-dot';
+    d.id = 'dot'+i;
+    p.appendChild(d);
+  }
+}
+function updateProg(cur){
+  for (let i=0;i<TOTAL;i++){
+    const d = document.getElementById('dot'+i);
+    d.className = i<cur ? 'step-dot done' : (i===cur ? 'step-dot active' : 'step-dot');
+  }
+}
+function go(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec'+n).classList.add('active');
+  updateProg(n);
+  if (n===1) drawS1();
+  if (n===3) initS3();
+  if (n===4 && !document.getElementById('quiz-zone').hasChildNodes()) buildQuiz();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function tog(boxId, btnId, defaultText){
+  const box = document.getElementById(boxId);
+  const btn = document.getElementById(btnId);
+  const showing = box.classList.toggle('shown');
+  btn.textContent = showing ? 'ซ่อน' : defaultText;
+}
+
+/* ── SVG helpers ── */
+function xPix(x, pad, cw){ return pad.l + ((x - 1) / 5) * cw; }
+function yPix(y, min, max, pad, ch){ return pad.t + (1 - (y - min)/(max - min)) * ch; }
+
+function makeAxes(vbW, vbH, pad, cw, ch, yMin, yMax, yTicks, xLabel){
+  let svg = '';
+  yTicks.forEach(v => {
+    const yp = yPix(v, yMin, yMax, pad, ch);
+    svg += `<line x1="${pad.l}" y1="${yp}" x2="${vbW-pad.r}" y2="${yp}" stroke="#ece7f7" stroke-width="1" />`;
+    svg += `<text x="${pad.l-6}" y="${yp+4}" font-size="10" fill="#9a94ad" text-anchor="end" font-family="Noto Sans Thai">${v}</text>`;
+  });
+  for (let x=1; x<=6; x++){
+    const xp = xPix(x, pad, cw);
+    svg += `<line x1="${xp}" y1="${pad.t+ch}" x2="${xp}" y2="${pad.t+ch+3}" stroke="#9a94ad" />`;
+    svg += `<text x="${xp}" y="${pad.t+ch+16}" font-size="10" fill="#9a94ad" text-anchor="middle" font-family="Noto Sans Thai">${x}</text>`;
+  }
+  svg += `<line x1="${pad.l}" y1="${pad.t+ch}" x2="${vbW-pad.r}" y2="${pad.t+ch}" stroke="#6b6480" stroke-width="1.2" />`;
+  svg += `<line x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${pad.t+ch}" stroke="#6b6480" stroke-width="1.2" />`;
+  svg += `<text x="${pad.l+cw/2}" y="${vbH-6}" font-size="10" fill="#6b6480" text-anchor="middle" font-family="Noto Sans Thai">${xLabel}</text>`;
+  return svg;
+}
+
+function polyPath(points, yMin, yMax, pad, ch){
+  return points.map((p, i) => {
+    return (i===0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + yPix(p.y, yMin, yMax, pad, ch).toFixed(1);
+  }).join(' ');
+}
+
+/* ── Section 1: AP vs AVC side-by-side ── */
+function drawS1(){
+  const vbW = 600, vbH = 240;
+  const halfW = 300;
+  const pad = {l:40, r:15, t:18, b:32};
+  const cw = halfW - pad.l - pad.r;
+  const ch = vbH - pad.t - pad.b;
+
+  let svg = '';
+
+  // Left: AP chart
+  const apPoints = DATA.map(d => ({x: xPix(d.x, pad, cw), y: d.ap}));
+  svg += makeAxes(halfW, vbH, pad, cw, ch, 0, 25, [0, 5, 10, 15, 20, 25], 'X (AP)');
+  svg += `<path d="${polyPath(apPoints, 0, 25, pad, ch)}" fill="none" stroke="#B45309" stroke-width="2.5" />`;
+  DATA.forEach(d => {
+    const cx = xPix(d.x, pad, cw);
+    const cy = yPix(d.ap, 0, 25, pad, ch);
+    const peak = d.x === 3 || d.x === 4;
+    svg += `<circle cx="${cx}" cy="${cy}" r="${peak?5:3}" fill="${peak?'#B45309':'#fff'}" stroke="#B45309" stroke-width="1.8" />`;
+  });
+  svg += `<text x="${halfW-pad.r-6}" y="${pad.t+12}" font-size="11" font-weight="700" fill="#B45309" text-anchor="end" font-family="Noto Sans Thai">AP</text>`;
+  svg += `<text x="${halfW/2}" y="14" font-size="12" font-weight="700" fill="#B45309" text-anchor="middle" font-family="Noto Sans Thai">∩ (peak at 3,4)</text>`;
+
+  // Right: AVC chart (offset)
+  const pad2 = {l: halfW + 40, r:15, t:18, b:32};
+  const cw2 = halfW - 40 - 15;
+  const avcPoints = DATA.map(d => ({x: xPix(d.x, pad2, cw2), y: d.avc}));
+
+  // Axes for right chart
+  [0, 2, 4, 6, 8, 10].forEach(v => {
+    const yp = yPix(v, 0, 10, pad2, ch);
+    svg += `<line x1="${pad2.l}" y1="${yp}" x2="${vbW-pad2.r}" y2="${yp}" stroke="#ece7f7" stroke-width="1" />`;
+    svg += `<text x="${pad2.l-6}" y="${yp+4}" font-size="10" fill="#9a94ad" text-anchor="end" font-family="Noto Sans Thai">${v}</text>`;
+  });
+  for (let x=1; x<=6; x++){
+    const xp = xPix(x, pad2, cw2);
+    svg += `<line x1="${xp}" y1="${pad2.t+ch}" x2="${xp}" y2="${pad2.t+ch+3}" stroke="#9a94ad" />`;
+    svg += `<text x="${xp}" y="${pad2.t+ch+16}" font-size="10" fill="#9a94ad" text-anchor="middle" font-family="Noto Sans Thai">${x}</text>`;
+  }
+  svg += `<line x1="${pad2.l}" y1="${pad2.t+ch}" x2="${vbW-pad2.r}" y2="${pad2.t+ch}" stroke="#6b6480" stroke-width="1.2" />`;
+  svg += `<line x1="${pad2.l}" y1="${pad2.t}" x2="${pad2.l}" y2="${pad2.t+ch}" stroke="#6b6480" stroke-width="1.2" />`;
+  svg += `<text x="${pad2.l+cw2/2}" y="${vbH-6}" font-size="10" fill="#6b6480" text-anchor="middle" font-family="Noto Sans Thai">X (AVC)</text>`;
+
+  svg += `<path d="${polyPath(avcPoints, 0, 10, pad2, ch)}" fill="none" stroke="#0F6E56" stroke-width="2.5" />`;
+  DATA.forEach(d => {
+    const cx = xPix(d.x, pad2, cw2);
+    const cy = yPix(d.avc, 0, 10, pad2, ch);
+    const min = d.x === 3 || d.x === 4;
+    svg += `<circle cx="${cx}" cy="${cy}" r="${min?5:3}" fill="${min?'#0F6E56':'#fff'}" stroke="#0F6E56" stroke-width="1.8" />`;
+  });
+  svg += `<text x="${vbW-pad2.r-6}" y="${pad2.t+12}" font-size="11" font-weight="700" fill="#0F6E56" text-anchor="end" font-family="Noto Sans Thai">AVC</text>`;
+  svg += `<text x="${pad2.l + cw2/2}" y="14" font-size="12" font-weight="700" fill="#0F6E56" text-anchor="middle" font-family="Noto Sans Thai">U (min at 3,4)</text>`;
+
+  // Mirror line divider
+  svg += `<line x1="${halfW}" y1="0" x2="${halfW}" y2="${vbH}" stroke="#d8d2ef" stroke-width="1" stroke-dasharray="3 3" />`;
+
+  document.getElementById('s1-svg').innerHTML = svg;
+}
+
+/* ── Section 3: Master chart ── */
+let s3Init = false;
+function initS3(){
+  if (s3Init) return;
+  s3Init = true;
+  updateS3(4);
+}
+function updateS3(xVal){
+  const x = parseInt(xVal);
+  const d = DATA[x-1];
+  document.getElementById('s3-xval').textContent = x;
+  document.getElementById('s3-afc').textContent = d.afc.toFixed(2);
+  document.getElementById('s3-avc').textContent = d.avc.toFixed(2);
+  document.getElementById('s3-ac').textContent = d.ac.toFixed(2);
+  document.getElementById('s3-mc').textContent = d.mc.toFixed(2);
+
+  drawS3(x);
+
+  // Story
+  const s = document.getElementById('s3-story');
+  if (x === 3){
+    s.className = 'story peak';
+    s.innerHTML = `✨ X=3 · MC=${d.mc.toFixed(2)} ต่ำสุด · AVC=5.00 · AC=6.00 (AC ยังลดได้เพราะ AFC ช่วย)`;
+  } else if (x === 4){
+    s.className = 'story peak';
+    s.innerHTML = `🎯 X=4 · MC=AVC=5.00 → AVC ที่ต่ำสุด! · AC=5.75 → AC ที่ต่ำสุดด้วย`;
+  } else if (x <= 2){
+    s.className = 'story';
+    s.innerHTML = `X=${x} · MC ต่ำกว่า AVC และ AC → AVC, AC กำลังลด (อยู่ช่วงซ้ายของ U)`;
+  } else {
+    s.className = 'story';
+    s.innerHTML = `X=${x} · MC สูงกว่า AVC และ AC → AVC, AC กำลังขึ้น (อยู่ช่วงขวาของ U)`;
+  }
+}
+function drawS3(cur){
+  const vbW = 600, vbH = 280;
+  const pad = {l:44, r:100, t:20, b:34};
+  const cw = vbW - pad.l - pad.r;
+  const ch = vbH - pad.t - pad.b;
+
+  const yMin = 0, yMax = 20;
+  const yTicks = [0, 5, 10, 15, 20];
+
+  let svg = makeAxes(vbW, vbH, pad, cw, ch, yMin, yMax, yTicks, 'X (จำนวนคน)');
+
+  // AFC curve (orange, declining)
+  const afcPts = DATA.map(d => ({x: xPix(d.x, pad, cw), y: Math.min(d.afc, yMax)}));
+  svg += `<path d="${polyPath(afcPts, yMin, yMax, pad, ch)}" fill="none" stroke="#9a3412" stroke-width="2" opacity="0.7" />`;
+
+  // AVC curve (green, U)
+  const avcPts = DATA.map(d => ({x: xPix(d.x, pad, cw), y: Math.min(d.avc, yMax)}));
+  svg += `<path d="${polyPath(avcPts, yMin, yMax, pad, ch)}" fill="none" stroke="#0F6E56" stroke-width="2.5" />`;
+
+  // AC curve (indigo, U shifted)
+  const acPts = DATA.map(d => ({x: xPix(d.x, pad, cw), y: Math.min(d.ac, yMax)}));
+  svg += `<path d="${polyPath(acPts, yMin, yMax, pad, ch)}" fill="none" stroke="#3730a3" stroke-width="2.5" />`;
+
+  // MC curve (amber, dashed, U)
+  const mcPts = DATA.map(d => ({x: xPix(d.x, pad, cw), y: Math.min(d.mc, yMax)}));
+  svg += `<path d="${polyPath(mcPts, yMin, yMax, pad, ch)}" fill="none" stroke="#B45309" stroke-width="2.5" stroke-dasharray="6 3" />`;
+
+  // Vertical line at current X
+  const curXp = xPix(cur, pad, cw);
+  svg += `<line x1="${curXp}" y1="${pad.t}" x2="${curXp}" y2="${pad.t + ch}" stroke="#1d1633" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6" />`;
+
+  // Dots for each curve at all X
+  DATA.forEach(d => {
+    const cx = xPix(d.x, pad, cw);
+    const active = d.x === cur;
+    const r = active ? 5 : 3;
+    svg += `<circle cx="${cx}" cy="${yPix(Math.min(d.afc,yMax), yMin, yMax, pad, ch)}" r="${r}" fill="${active?'#9a3412':'#fff'}" stroke="#9a3412" stroke-width="1.5" />`;
+    svg += `<circle cx="${cx}" cy="${yPix(Math.min(d.avc,yMax), yMin, yMax, pad, ch)}" r="${r}" fill="${active?'#0F6E56':'#fff'}" stroke="#0F6E56" stroke-width="1.5" />`;
+    svg += `<circle cx="${cx}" cy="${yPix(Math.min(d.ac,yMax), yMin, yMax, pad, ch)}" r="${r}" fill="${active?'#3730a3':'#fff'}" stroke="#3730a3" stroke-width="1.5" />`;
+    svg += `<circle cx="${cx}" cy="${yPix(Math.min(d.mc,yMax), yMin, yMax, pad, ch)}" r="${r}" fill="${active?'#B45309':'#fff'}" stroke="#B45309" stroke-width="1.5" />`;
+  });
+
+  // Legend (right side)
+  const legendX = vbW - pad.r + 8;
+  svg += `<rect x="${legendX}" y="${pad.t}" width="84" height="96" rx="6" fill="#fafafa" stroke="#e5e7eb" />`;
+  svg += `<text x="${legendX+10}" y="${pad.t+18}" font-size="11" font-weight="700" fill="#9a3412" font-family="Noto Sans Thai">— AFC</text>`;
+  svg += `<text x="${legendX+10}" y="${pad.t+36}" font-size="11" font-weight="700" fill="#0F6E56" font-family="Noto Sans Thai">— AVC</text>`;
+  svg += `<text x="${legendX+10}" y="${pad.t+54}" font-size="11" font-weight="700" fill="#3730a3" font-family="Noto Sans Thai">— AC</text>`;
+  svg += `<text x="${legendX+10}" y="${pad.t+72}" font-size="11" font-weight="700" fill="#B45309" font-family="Noto Sans Thai">┅ MC</text>`;
+  svg += `<text x="${legendX+10}" y="${pad.t+92}" font-size="9" fill="#6b6480" font-family="Noto Sans Thai">(TFC=60, w=100)</text>`;
+
+  document.getElementById('s3-svg').innerHTML = svg;
+}
+
+/* ── Quiz ── */
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const quizDataRaw = [
+  {
+    q: 'ทำไมเส้น AVC ถึงเป็นรูปตัว U ในระยะสั้น?',
+    opts: [
+      'เพราะค่าจ้างเปลี่ยนแปลง',
+      'เพราะ AP เป็นรูป ∩ (ขึ้นแล้วลง) และ AVC = w/AP',
+      'เพราะ TFC ลดลง',
+      'เพราะเทคโนโลยีเปลี่ยน'
+    ],
+    ans: 1,
+    explain: 'AP เป็น ∩ เพราะกฎลดน้อยถอยลง (5.3) · สูตร AVC = w/AP (5.7) ทำให้ AVC เป็นกลับหัวของ AP = ตัว U'
+  },
+  {
+    q: 'เมื่อ MC ตัดเส้น AVC — เส้น AVC จะอยู่ในจุดใด?',
+    opts: [
+      'จุดสูงสุด',
+      'จุดต่ำสุด',
+      'จุดเริ่มต้น',
+      'ไม่มีความสัมพันธ์'
+    ],
+    ans: 1,
+    explain: 'เมื่อ MC = AVC → AVC อยู่จุดต่ำสุด (เหมือนกฎ MP-AP — "ตัวดึง" ไม่ดึงเฉลี่ยอีก)'
+  },
+  {
+    q: 'เมื่อ MC < AVC — AVC จะมีแนวโน้มอย่างไร?',
+    opts: [
+      'เพิ่มขึ้น',
+      'ลดลง',
+      'คงที่',
+      'เปลี่ยนเป็น 0'
+    ],
+    ans: 1,
+    explain: 'MC "ดึง" AVC ในทิศเดียวกัน · MC ต่ำกว่า AVC → ดึง AVC ลง (เหมือนชามก๋วยเตี๋ยวใหม่ที่ถูกกว่าเฉลี่ย ทำให้เฉลี่ยลด)'
+  },
+  {
+    q: 'AFC มีพฤติกรรมอย่างไรเมื่อ Q เพิ่มขึ้น?',
+    opts: [
+      'คงที่',
+      'เพิ่มขึ้น',
+      'ลดลงเสมอ',
+      'เป็นรูปตัว U'
+    ],
+    ans: 2,
+    explain: 'AFC = TFC/Q · TFC คงที่ Q เพิ่ม → AFC ลดลงเสมอ (ไม่ใช่ U!) — เฉพาะ AVC, AC, MC ที่เป็น U'
+  },
+  {
+    q: 'ทำไม AC ต่ำสุดอยู่ช้ากว่า AVC ต่ำสุด?',
+    opts: [
+      'เพราะ AC = AVC + AFC และ AFC ยังช่วยลดแม้ AVC เริ่มขึ้น',
+      'เพราะ AC ใหญ่กว่า AVC',
+      'เพราะ MC ตัด AC ทีหลัง',
+      'เพราะค่าจ้างเพิ่ม'
+    ],
+    ans: 0,
+    explain: 'AC = AFC + AVC · หลังจุด AVC min · AVC เริ่มขึ้น แต่ AFC ยังลดได้อยู่ → AC ยังลดต่อ จนกว่า AVC ขึ้นเร็วกว่า AFC ลด'
+  },
+  {
+    q: 'ข้อใดไม่ใช่ลักษณะของเส้นต้นทุนในระยะสั้น?',
+    opts: [
+      'AVC เป็นรูปตัว U',
+      'AFC ลดลงเสมอ',
+      'MC ตัด AVC ที่จุดต่ำสุดของ AVC',
+      'MC เป็นเส้นตรงแนวนอนเสมอ'
+    ],
+    ans: 3,
+    explain: 'MC ไม่ใช่เส้นตรงแนวนอน · ในระยะสั้นจริง ๆ MC เป็น U เพราะ MC = w/MP และ MP เป็น ∩'
+  }
+];
+
+let qAnswered = 0, qScore = 0, quizData = [];
+
+function buildQuiz(){
+  qAnswered = 0; qScore = 0;
+  quizData = quizDataRaw.map(q => {
+    const indexed = q.opts.map((o, i) => ({text: o, correct: i === q.ans}));
+    const shuffled = shuffle(indexed);
+    return {
+      q: q.q,
+      opts: shuffled.map(o => o.text),
+      ans: shuffled.findIndex(o => o.correct),
+      explain: q.explain
+    };
+  });
+  const z = document.getElementById('quiz-zone');
+  z.innerHTML = '';
+  document.getElementById('quiz-nav').style.display = 'none';
+  quizData.forEach((q, qi)=>{
+    const block = document.createElement('div');
+    block.style.marginBottom = '1.25rem';
+    const optsHtml = q.opts.map((o, oi)=>
+      `<button class="quiz-opt" id="qo-${qi}-${oi}" onclick="answerQ(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`
+    ).join('');
+    block.innerHTML = `<p style="font-size:14.5px;font-weight:600;margin:0 0 10px;color:var(--color-text-primary);line-height:1.6">${qi+1}. ${q.q}</p>${optsHtml}<div class="feedback" id="qfb-${qi}"></div>`;
+    z.appendChild(block);
+  });
+}
+function answerQ(qi, oi){
+  const q = quizData[qi];
+  for (let i=0;i<q.opts.length;i++) document.getElementById('qo-'+qi+'-'+i).disabled = true;
+  const btn = document.getElementById('qo-'+qi+'-'+oi);
+  const fb = document.getElementById('qfb-'+qi);
+  if (oi === q.ans){
+    btn.className = 'quiz-opt correct';
+    fb.innerHTML = 'ถูกต้อง! ' + q.explain;
+    fb.className = 'feedback show ok';
+    qScore++;
+  } else {
+    btn.className = 'quiz-opt wrong';
+    document.getElementById('qo-'+qi+'-'+q.ans).className = 'quiz-opt correct';
+    fb.innerHTML = 'ยังไม่ถูก — ' + q.explain;
+    fb.className = 'feedback show bad';
+  }
+  qAnswered++;
+  if (qAnswered === quizData.length){
+    const pct = Math.round(qScore / quizData.length * 100);
+    const msg = pct >= 80 ? '🎉 ยอดเยี่ยม! คุณเข้าใจบทที่ 5 อย่างครบถ้วน'
+              : pct >= 60 ? 'พอใช้ได้ ลองทบทวน Master chart อีกครั้ง'
+              : 'ควรย้อนไปทบทวนตั้งแต่หัวข้อ 5.2 ใหม่นะ';
+    const summary = document.createElement('div');
+    summary.style.cssText = 'text-align:center;padding:1rem 0';
+    summary.innerHTML = `<div class="score-circle">${qScore}/${quizData.length}</div><p style="font-size:14px;color:var(--color-text-secondary);margin:0;line-height:1.6">${msg}</p>`;
+    document.getElementById('quiz-zone').appendChild(summary);
+    document.getElementById('quiz-nav').style.display = 'flex';
+  }
+}
+
+function resetAll(){
+  qAnswered=0; qScore=0;
+  s3Init = false;
+  document.getElementById('quiz-zone').innerHTML = '';
+  ['ans1','ans3'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('shown');
+  });
+  const rb1 = document.getElementById('rbtn1');
+  if (rb1) rb1.textContent = 'แล้ว MC ล่ะ? เป็น U เหมือนกันไหม?';
+  const rb3 = document.getElementById('rbtn3');
+  if (rb3) rb3.textContent = 'ทำไม AC ต่ำสุดอยู่ช้ากว่า AVC ต่ำสุด?';
+  go(0);
+}
+
+buildProg();
+updateProg(0);
+</script>
+
+</div>
+</div>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
