@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6.4 — ส่วนผสมปัจจัยที่เหมาะสมที่สุด</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+.ajk-shell-theme{--ajk-primary:#8b5cf6;--ajk-primary-soft:#f5f3ff;--ajk-primary-dark:#7c3aed;--ajk-ink:#1e1b4b;--ajk-muted:#6b7280;--ajk-border:#e0e7ff;--ajk-surface:#ffffff}
+.ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--ajk-border);font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
+.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:'Noto Sans Thai',system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.ajk-back-btn svg{width:14px;height:14px;flex-shrink:0}.ajk-back-btn:hover{background:var(--ajk-primary);color:#fff;transform:translateX(-2px)}
+.ajk-brand{flex:1;min-width:0;text-align:right;line-height:1.25}.ajk-brand-course{font-size:13.5px;font-weight:700;color:var(--ajk-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ajk-brand-author{font-size:11px;color:var(--ajk-muted);font-weight:500;display:inline-flex;align-items:center;gap:5px;margin-top:2px}.ajk-brand-author-dot{width:5px;height:5px;border-radius:50%;background:var(--ajk-primary)}.ajk-brand-author-at{color:var(--ajk-primary);font-weight:700}
+@media(max-width:520px){.ajk-back-btn span{display:none}.ajk-back-btn{padding:9px}.ajk-brand-course{font-size:12.5px}.ajk-topbar-inner{padding:8px 12px;min-height:52px;gap:10px}}
+.ajk-footer{margin-top:64px;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--ajk-primary-soft) 100%);border-top:1px solid var(--ajk-border);padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
+.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}.ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}.ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--ajk-primary);opacity:.35}.ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--ajk-primary)}.ajk-footer-name{font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;margin:0 0 4px}.ajk-footer-sub{font-size:12.5px;color:var(--ajk-muted);margin-bottom:26px}
+.ajk-footer-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}.ajk-footer-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:#fff;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--ajk-border);transition:all .18s}.ajk-footer-btn svg{width:15px;height:15px}.ajk-footer-btn:hover{background:var(--ajk-primary);color:#fff;border-color:var(--ajk-primary);transform:translateY(-2px)}.ajk-footer-bottom{font-size:11px;color:var(--ajk-muted);line-height:1.6}
+</style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:780px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:18px}.hero .ey{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px}.hero h1{font-size:22px;font-weight:800;line-height:1.35;margin-bottom:8px}.hero p{font-size:14px;line-height:1.7;opacity:.92}
+.step{margin:26px 0 14px;display:flex;align-items:center;gap:10px}.step .nm{font-size:11px;font-weight:700;color:#7b1fa2;background:#f5f0ff;padding:4px 10px;border-radius:99px;letter-spacing:.05em}.step .ln{flex:1;height:1px;background:#eee}
+@media(prefers-color-scheme:dark){.step .nm{color:#ce93d8;background:#1a0d2a}.step .ln{background:#333}}
+h2.q{font-size:18px;font-weight:800;line-height:1.4;margin-bottom:12px}
+.think{background:#fff9c4;border:1px dashed #ffd54f;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px;line-height:1.65;color:#6d4c00}
+@media(prefers-color-scheme:dark){.think{background:#2a2400;color:#ffd54f}}.think b{color:#b37400}
+.quiz{background:#fff;border:1.5px solid #e0e0e0;border-radius:14px;padding:16px 18px;margin-bottom:14px}
+@media(prefers-color-scheme:dark){.quiz{background:#1c1c1c;border-color:#333}}
+.quiz .qtag{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7b1fa2;font-weight:700;margin-bottom:6px}.quiz .q{font-size:15px;font-weight:700;line-height:1.55;margin-bottom:12px}
+.quiz .opts{display:flex;flex-direction:column;gap:8px}.quiz .opt{padding:12px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14px;cursor:pointer;text-align:left;font-family:inherit;color:inherit;line-height:1.5;transition:all .15s;display:flex;gap:10px;align-items:flex-start}
+.quiz .opt .lt{font-weight:800;color:#999;flex-shrink:0;width:20px}.quiz .opt:hover{border-color:#7b1fa2;background:#f9f5ff}
+.quiz .opt.correct{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:600}.quiz .opt.correct .lt{color:#2e7d32}
+@media(prefers-color-scheme:dark){.quiz .opt.correct{background:#0d3d14;color:#81c784}}
+.quiz .opt.wrong{border-color:#c62828;background:#fce4ec;color:#b71c1c}
+.quiz .opt.disabled{pointer-events:none;opacity:.55}
+.reveal{display:none;margin-top:14px;background:#f5f0ff;border-left:3px solid #7b1fa2;padding:14px 16px;border-radius:0 10px 10px 0}
+@media(prefers-color-scheme:dark){.reveal{background:#1a0d2a;border-color:#ce93d8}}
+.reveal.show{display:block;animation:slideIn .4s ease}@keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.reveal .lb{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#4a148c;font-weight:700;margin-bottom:6px}.reveal p{font-size:14px;line-height:1.75;margin-bottom:8px}.reveal p:last-child{margin-bottom:0}.reveal b{color:#4a148c}
+@media(prefers-color-scheme:dark){.reveal .lb{color:#ce93d8}.reveal b{color:#ce93d8}}
+.graph{background:#fff;border:1px solid #eee;border-radius:14px;padding:16px;margin:12px 0;text-align:center}
+@media(prefers-color-scheme:dark){.graph{background:#0f0f0f;border-color:#333}}
+.graph svg{max-width:100%;height:auto}.graph .cap{font-size:12px;color:#888;font-style:italic;margin-top:6px}
+.aha{background:linear-gradient(135deg,#e8f5e9,#f5f0ff);border:1.5px solid #81c784;border-radius:14px;padding:14px 16px;margin:14px 0}
+@media(prefers-color-scheme:dark){.aha{background:linear-gradient(135deg,#0d3d14,#1a0d2a);border-color:#388e3c}}
+.aha .lb{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#2e7d32;font-weight:800;margin-bottom:6px}.aha p{font-size:14.5px;line-height:1.7}.aha b{color:#1b5e20}
+@media(prefers-color-scheme:dark){.aha .lb{color:#81c784}.aha b{color:#81c784}}
+.formula{background:#f5f0ff;border:1.5px solid #d1c4e9;border-radius:14px;padding:16px 20px;margin:14px 0;text-align:center}
+@media(prefers-color-scheme:dark){.formula{background:#1a0d2a;border-color:#4a148c}}
+.formula .main{font-size:20px;font-weight:800;color:#4a148c;font-family:Georgia,serif;margin-bottom:6px}
+@media(prefers-color-scheme:dark){.formula .main{color:#ce93d8}}
+.formula .desc{font-size:13px;color:#666;line-height:1.6}
+@media(prefers-color-scheme:dark){.formula .desc{color:#aaa}}
+.next{background:#fce4ec;border:1px solid #f8bbd0;border-radius:14px;padding:14px 16px;margin:14px 0}.next .lb{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#c62828;font-weight:700;margin-bottom:4px}.next p{font-size:14px;line-height:1.65}
+@media(prefers-color-scheme:dark){.next{background:#3d1020}.next .lb{color:#ef9a9a}}
+.para{font-size:14.5px;line-height:1.75;margin-bottom:10px}.para b{color:#4a148c;font-weight:700}
+@media(prefers-color-scheme:dark){.para b{color:#ce93d8}}
+</style>
+</head>
+<body>
+<header class="ajk-topbar ajk-shell-theme"><div class="ajk-topbar-inner">
+  <a class="ajk-back-btn" href="chapter6.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>บทที่ 6</span></a>
+  <a class="ajk-back-btn" href="chapter6.html" style="margin-left:8px;background:#f1f5f9;color:#64748b;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg><span>บทที่ 6</span></a>
+  <div class="ajk-brand"><div class="ajk-brand-course">บทที่ 6.4 · จุดดุลยภาพผู้ผลิต</div><div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div></div>
+</div></header>
+<div style="max-width:720px;margin:0 auto;padding:24px 16px"><div class="app">
+
+<div class="hero">
+  <div class="ey">บทที่ 6 · หัวข้อ 6.4</div>
+  <h1>จุดดุลยภาพผู้ผลิต<br>(Producer's Equilibrium)</h1>
+  <p>Isoquant บอก "ผลิตได้เท่ากัน" · Isocost บอก "จ่ายเท่ากัน" → ซ้อนกัน หาจุดที่ดีที่สุด!</p>
+</div>
+
+<!-- ═══ กรณี 1: ผลผลิตสูงสุด จากต้นทุนที่กำหนด ═══ -->
+<div class="step"><span class="nm">กรณีที่ 1</span><span class="ln"></span></div>
+<h2 class="q">📈 ผลผลิตสูงสุด จากงบที่มี</h2>
+
+<div class="para">ผู้ผลิตมีเงิน C บาท (งบจำกัด) อยากได้ผลผลิตมากที่สุด → ต้องหาจุดที่ <b>Isoquant เส้นสูงสุด</b> ที่ยังแตะ Isocost ได้</div>
+
+<div class="graph">
+  <div style="font-size:12px;font-weight:700;color:#7b1fa2;letter-spacing:.05em;margin-bottom:4px;text-align:left">ตามรูปที่ 6-13 ในตำรา — ผลผลิตสูงสุดจากต้นทุนที่กำหนด</div>
+  <svg viewBox="0 0 380 310" xmlns="http://www.w3.org/2000/svg">
+    <!-- Axes -->
+    <line x1="55" y1="275" x2="365" y2="275" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="55" y1="275" x2="55" y2="15" stroke="currentColor" stroke-width="1.5"/>
+    <text x="368" y="290" font-size="12" fill="currentColor" font-weight="700" font-family="Georgia,serif" font-style="italic">L</text>
+    <text x="30" y="20" font-size="12" fill="currentColor" font-weight="700" font-family="Georgia,serif" font-style="italic">K</text>
+    <text x="44" y="286" font-size="10" fill="#888">0</text>
+
+    <!-- Isocost AB: A(55,48) to B(305,275) slope≈0.908 -->
+    <line x1="55" y1="48" x2="305" y2="275" stroke="#e040fb" stroke-width="2.5"/>
+    <circle cx="55" cy="48" r="3" fill="#e040fb"/>
+    <text x="30" y="46" font-size="11" fill="#e040fb" font-weight="700">A=C/P<tspan font-size="7" baseline-shift="sub">K</tspan></text>
+    <circle cx="305" cy="275" r="3" fill="#e040fb"/>
+    <text x="280" y="292" font-size="11" fill="#e040fb" font-weight="700">B=C/P<tspan font-size="7" baseline-shift="sub">L</tspan></text>
+
+    <!-- Q₁: y=270.5-9323/(x-45) — crosses Isocost at D(95,84) and F(250,225) -->
+    <path d="M 84 31 L 88 54 L 92 72 L 96 88 L 100 101 L 104 112 L 108 123 L 112 131 L 116 139 L 120 146 L 124 152 L 128 158 L 132 163 L 136 168 L 140 172 L 144 176 L 148 180 L 152 183 L 156 187 L 160 189 L 164 192 L 168 195 L 172 197 L 176 199 L 180 201 L 184 203 L 188 205 L 192 207 L 196 209 L 200 210 L 204 212 L 208 213 L 212 215 L 216 216 L 220 217 L 224 218 L 228 220 L 232 221 L 236 222 L 240 223 L 244 224 L 248 225 L 252 225 L 256 226 L 260 227 L 264 228 L 268 229 L 272 229 L 276 230 L 280 231 L 284 231 L 288 232 L 292 233 L 296 233 L 300 234 L 304 235 L 308 235 L 312 236 L 316 236 L 320 237 L 324 237 L 328 238 L 332 238 L 336 238 L 340 239 L 344 239 L 348 240 L 352 240"
+          fill="none" stroke="#bbb" stroke-width="2"/>
+    <text x="338" y="250" font-size="11" fill="#999" font-weight="600" font-style="italic">Q₁</text>
+    <!-- D(95,84) — on Isocost ∩ Q₁ -->
+    <circle cx="95" cy="84" r="4" fill="#666"/>
+    <text x="78" y="79" font-size="11" fill="#555" font-weight="700">D</text>
+    <!-- F(250,225) — on Isocost ∩ Q₁ -->
+    <circle cx="250" cy="225" r="4" fill="#666"/>
+    <text x="255" y="220" font-size="11" fill="#555" font-weight="700">F</text>
+
+    <!-- Q₂: y=279-17797/(x-30) — TANGENT to Isocost at E(170,152) -->
+    <path d="M 100 25 L 104 38 L 108 51 L 112 62 L 116 72 L 120 81 L 124 90 L 128 97 L 132 105 L 136 111 L 140 117 L 144 123 L 148 128 L 152 133 L 156 138 L 160 142 L 164 146 L 168 150 L 172 154 L 176 157 L 180 160 L 184 163 L 188 166 L 192 169 L 196 172 L 200 174 L 204 177 L 208 179 L 212 181 L 216 183 L 220 185 L 224 187 L 228 189 L 232 191 L 236 193 L 240 194 L 244 196 L 248 197 L 252 199 L 256 200 L 260 202 L 264 203 L 268 204 L 272 205 L 276 207 L 280 208 L 284 209 L 288 210 L 292 211 L 296 212 L 300 213 L 304 214 L 308 215 L 312 216 L 316 217 L 320 218 L 324 218 L 328 219 L 332 220 L 336 221 L 340 222 L 344 222 L 348 223 L 352 224"
+          fill="none" stroke="#7b1fa2" stroke-width="2.8"/>
+    <text x="348" y="216" font-size="12" fill="#7b1fa2" font-weight="700" font-style="italic" font-family="Georgia,serif">Q₂</text>
+
+    <!-- E(170,152) — tangent point ON Isocost and ON Q₂ -->
+    <circle cx="170" cy="152" r="6" fill="#2e7d32"/>
+    <text x="178" y="146" font-size="12" fill="#2e7d32" font-weight="800">E ★</text>
+
+    <!-- Dashed lines from E to axes -->
+    <line x1="170" y1="152" x2="170" y2="275" stroke="#2e7d32" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="170" y1="152" x2="55" y2="152" stroke="#2e7d32" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="170" y="290" font-size="10" fill="#2e7d32" font-weight="600" text-anchor="middle">L*</text>
+    <text x="42" y="156" font-size="10" fill="#2e7d32" font-weight="600">K*</text>
+
+    <!-- Q₃: y=260-20000/(x-30) — entirely beyond Isocost -->
+    <path d="M 114 22 L 118 33 L 122 43 L 126 52 L 130 60 L 134 68 L 138 75 L 142 81 L 146 88 L 150 93 L 154 99 L 158 104 L 162 108 L 166 113 L 170 117 L 174 121 L 178 125 L 182 128 L 186 132 L 190 135 L 194 138 L 198 141 L 202 144 L 206 146 L 210 149 L 214 151 L 218 154 L 222 156 L 226 158 L 230 160 L 234 162 L 238 164 L 242 166 L 246 167 L 250 169 L 254 171 L 258 172 L 262 174 L 266 175 L 270 177 L 274 178 L 278 179 L 282 181 L 286 182 L 290 183 L 294 184 L 298 185 L 302 186 L 306 188 L 310 189 L 314 190 L 318 191 L 322 192 L 326 192 L 330 193 L 334 194 L 338 195 L 342 196 L 346 197 L 350 198 L 354 198"
+          fill="none" stroke="#ddd" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <text x="352" y="190" font-size="11" fill="#ccc" font-weight="600" font-style="italic">Q₃</text>
+
+    <!-- G on Q₃ at (215,151) — above Isocost (iso_y=193) by 42px -->
+    <circle cx="215" cy="151" r="3" fill="#ccc"/>
+    <text x="222" y="147" font-size="10" fill="#bbb" font-weight="600">G</text>
+
+    <!-- Equilibrium condition -->
+    <rect x="195" y="58" rx="8" ry="8" width="158" height="50" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1.2" opacity=".95"/>
+    <text x="274" y="76" font-size="10" fill="#2e7d32" font-weight="700" text-anchor="middle">ณ จุด E (จุดสัมผัส)</text>
+    <text x="274" y="95" font-size="12" fill="#1b5e20" font-weight="800" text-anchor="middle" font-family="Georgia,serif">MP<tspan font-size="9" baseline-shift="sub">L</tspan>/P<tspan font-size="9" baseline-shift="sub">L</tspan> = MP<tspan font-size="9" baseline-shift="sub">K</tspan>/P<tspan font-size="9" baseline-shift="sub">K</tspan></text>
+  </svg>
+  <div class="cap">จุด E = Isoquant สัมผัส Isocost → ผลผลิตสูงสุด (Q₂) จากงบที่มี · D,F ได้แค่ Q₁ · G ไม่มีเงินพอ</div>
+</div>
+
+<div class="quiz" id="q1">
+  <div class="qtag">? คำถามที่ 1</div>
+  <div class="q">ทำไมจุด D และ F ไม่ดีเท่าจุด E? (ทั้ง 3 จุดใช้เงินเท่ากัน)</div>
+  <div class="opts">
+    <button class="opt" data-correct="1"><span class="lt">A</span><span>D และ F อยู่บน Q₁ (ผลผลิตน้อยกว่า) แต่ E อยู่บน Q₂ (ผลผลิตมากกว่า)</span></button>
+    <button class="opt" data-correct="0"><span class="lt">B</span><span>D และ F ใช้เงินมากกว่า E</span></button>
+    <button class="opt" data-correct="0"><span class="lt">C</span><span>D และ F อยู่นอก Ridge Lines</span></button>
+  </div>
+  <div class="reveal">
+    <div class="lb">✓ ต้นทุนเท่ากัน แต่ผลผลิตต่างกัน</div>
+    <p>ทั้ง D, E, F อยู่บนเส้น Isocost เดียวกัน → <b>ใช้เงินเท่ากัน</b></p>
+    <p>แต่ E อยู่บน Q₂ ซึ่งสูงกว่า Q₁ → <b>ได้ผลผลิตมากกว่า</b></p>
+    <p>ส่วน G บน Q₃ ดีกว่า E แต่<b>ซื้อไม่ได้</b> (อยู่เลย Isocost ออกไป)</p>
+  </div>
+</div>
+
+<!-- ═══ กรณี 2: ต้นทุนต่ำสุด จากผลผลิตที่กำหนด ═══ -->
+<div class="step"><span class="nm">กรณีที่ 2</span><span class="ln"></span></div>
+<h2 class="q">📉 ต้นทุนต่ำสุด จากผลผลิตที่ต้องการ</h2>
+
+<div class="para">ผู้ผลิตต้องการผลิต Q หน่วย (กำหนดให้) อยากเสียเงินน้อยที่สุด → หา <b>Isocost เส้นต่ำสุด</b> ที่ยังแตะ Isoquant ได้</div>
+
+<div class="graph">
+  <div style="font-size:12px;font-weight:700;color:#7b1fa2;letter-spacing:.05em;margin-bottom:4px;text-align:left">ตามรูปที่ 6-14 ในตำรา — ต้นทุนต่ำสุดจากผลผลิตที่กำหนด</div>
+  <svg viewBox="0 0 380 300" xmlns="http://www.w3.org/2000/svg">
+    <line x1="55" y1="265" x2="365" y2="265" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="55" y1="265" x2="55" y2="15" stroke="currentColor" stroke-width="1.5"/>
+    <text x="368" y="280" font-size="12" fill="currentColor" font-weight="700" font-family="Georgia,serif" font-style="italic">L</text>
+    <text x="30" y="20" font-size="12" fill="currentColor" font-weight="700" font-family="Georgia,serif" font-style="italic">K</text>
+    <text x="44" y="276" font-size="10" fill="#888">0</text>
+
+    <!-- Three parallel Isocost lines (same slope ≈0.83) -->
+
+    <!-- C₁ (too cheap — doesn't reach Q) -->
+    <line x1="55" y1="138" x2="210" y2="265" stroke="#e040fb" stroke-width="1.5" opacity=".35"/>
+    <text x="33" y="136" font-size="9" fill="#e040fb" opacity=".55" font-weight="600">A₁</text>
+    <text x="212" y="260" font-size="9" fill="#e040fb" opacity=".55" font-weight="600">B₁</text>
+
+    <!-- C₂ (optimal — tangent to Q at E) -->
+    <line x1="55" y1="78" x2="283" y2="265" stroke="#e040fb" stroke-width="2.5"/>
+    <circle cx="55" cy="78" r="3" fill="#e040fb"/>
+    <text x="30" y="75" font-size="10" fill="#e040fb" font-weight="700">A₂</text>
+    <circle cx="283" cy="265" r="3" fill="#e040fb"/>
+    <text x="285" y="260" font-size="10" fill="#e040fb" font-weight="700">B₂</text>
+
+    <!-- C₃ (too expensive — crosses Q at D and F) -->
+    <line x1="55" y1="28" x2="345" y2="265" stroke="#e040fb" stroke-width="1.5" opacity=".35"/>
+    <text x="33" y="26" font-size="9" fill="#e040fb" opacity=".55" font-weight="600">A₃</text>
+    <text x="347" y="260" font-size="9" fill="#e040fb" opacity=".55" font-weight="600">B₃</text>
+
+    <text x="300" y="25" font-size="10" fill="#888">C₃ &gt; C₂ &gt; C₁</text>
+
+    <!-- Isoquant Q: y=283-16072/(x-25) — tangent to C₂ at E, crosses C₃ at D and F -->
+    <path d="M 88 28 L 92 43 L 96 57 L 100 69 L 104 80 L 108 89 L 112 98 L 116 106 L 120 114 L 124 121 L 128 127 L 132 133 L 136 138 L 140 143 L 144 148 L 148 152 L 152 156 L 156 160 L 160 164 L 164 167 L 168 171 L 172 174 L 176 177 L 180 179 L 184 182 L 188 184 L 192 187 L 196 189 L 200 191 L 204 193 L 208 195 L 212 197 L 216 199 L 220 201 L 224 202 L 228 204 L 232 205 L 236 207 L 240 208 L 244 210 L 248 211 L 252 212 L 256 213 L 260 215 L 264 216 L 268 217 L 272 218 L 276 219 L 280 220 L 284 221 L 288 222 L 292 223 L 296 224 L 300 225 L 304 225 L 308 226 L 312 227 L 316 228 L 320 229 L 324 229 L 328 230 L 332 231 L 336 231 L 340 232 L 344 233 L 348 233 L 352 234"
+          fill="none" stroke="#7b1fa2" stroke-width="2.8"/>
+    <text x="348" y="225" font-size="12" fill="#7b1fa2" font-weight="700" font-style="italic" font-family="Georgia,serif">Q</text>
+
+    <!-- D(98,63) — on Q ∩ C₃ -->
+    <circle cx="98" cy="63" r="4" fill="#888"/>
+    <text x="82" y="58" font-size="11" fill="#666" font-weight="700">D</text>
+
+    <!-- F(294,223) — on Q ∩ C₃ -->
+    <circle cx="294" cy="223" r="4" fill="#888"/>
+    <text x="299" y="218" font-size="11" fill="#666" font-weight="700">F</text>
+
+    <!-- E(165,168) — tangent point ON C₂ -->
+    <circle cx="165" cy="168" r="6" fill="#2e7d32"/>
+    <text x="173" y="162" font-size="12" fill="#2e7d32" font-weight="800">E ★</text>
+
+    <!-- Dashed from E to axes -->
+    <line x1="165" y1="168" x2="165" y2="265" stroke="#2e7d32" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="165" y1="168" x2="55" y2="168" stroke="#2e7d32" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="165" y="280" font-size="10" fill="#2e7d32" font-weight="600" text-anchor="middle">L*</text>
+    <text x="42" y="172" font-size="10" fill="#2e7d32" font-weight="600">K*</text>
+  </svg>
+  <div class="cap">จุด E = Isoquant สัมผัส Isocost C₂ → ต้นทุนต่ำสุด · D,F บน C₃ แพงกว่า · C₁ ถูกแต่ผลิตไม่ถึง Q</div>
+</div>
+
+<div class="quiz" id="q2">
+  <div class="qtag">? คำถามที่ 2</div>
+  <div class="q">กรณีที่ 1 กับกรณีที่ 2 ให้ "เงื่อนไขที่จุดดีที่สุด" เหมือนหรือต่างกัน?</div>
+  <div class="opts">
+    <button class="opt" data-correct="1"><span class="lt">A</span><span>เหมือนกัน — ทั้งคู่คือจุดที่ Isoquant สัมผัส Isocost (Slope เท่ากัน)</span></button>
+    <button class="opt" data-correct="0"><span class="lt">B</span><span>ต่างกัน — กรณี 1 ดู Isoquant, กรณี 2 ดู Isocost</span></button>
+  </div>
+  <div class="reveal">
+    <div class="lb">✓ เงื่อนไขเดียวกัน!</div>
+    <p>ทั้ง 2 กรณีให้จุดดุลยภาพเดียวกัน คือ <b>จุดสัมผัส</b> ที่ Slope เท่ากัน:</p>
+    <div class="formula" style="margin-top:10px">
+      <div class="main">Slope Isoquant = Slope Isocost</div>
+      <div class="desc">MRTS<sub>L.K</sub> = P<sub>L</sub>/P<sub>K</sub></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ สูตรดุลยภาพ ═══ -->
+<div class="step"><span class="nm">ขั้นที่ 3</span><span class="ln"></span></div>
+<h2 class="q">🔑 เงื่อนไขดุลยภาพ</h2>
+
+<div class="para">ณ จุดสัมผัส Slope ของ 2 เส้นเท่ากัน จัดสมการใหม่:</div>
+
+<div class="formula">
+  <div class="main" style="font-size:18px">MP<sub>L</sub>/P<sub>L</sub> = MP<sub>K</sub>/P<sub>K</sub></div>
+  <div class="desc">ผลผลิตเพิ่มต่อเงิน 1 บาทสุดท้าย ที่ได้จากปัจจัยแต่ละชนิด ต้องเท่ากัน</div>
+</div>
+
+<div class="think">
+  💭 <b>แปลเป็นภาษาคน:</b> ถ้าจ่ายเงินบาทสุดท้ายซื้อคน กับจ่ายเงินบาทสุดท้ายเช่าเตา → ต้องได้ขนมเพิ่มเท่ากัน ถ้าไม่เท่า ก็ย้ายเงินไปซื้อตัวที่ "คุ้มกว่า"
+</div>
+
+<div class="quiz" id="q3">
+  <div class="qtag">? คำถามที่ 3</div>
+  <div class="q">ถ้า MP<sub>L</sub>/P<sub>L</sub> = 5 แต่ MP<sub>K</sub>/P<sub>K</sub> = 3 ผู้ผลิตควรทำอะไร?</div>
+  <div class="opts">
+    <button class="opt" data-correct="1"><span class="lt">A</span><span>จ้างคน (L) เพิ่ม ลดเตา (K) → เพราะ L ให้ผลผลิตต่อบาทมากกว่า</span></button>
+    <button class="opt" data-correct="0"><span class="lt">B</span><span>เช่าเตา (K) เพิ่ม ลดคน (L)</span></button>
+    <button class="opt" data-correct="0"><span class="lt">C</span><span>ไม่ต้องเปลี่ยนอะไร ดีแล้ว</span></button>
+  </div>
+  <div class="reveal">
+    <div class="lb">✓ ย้ายเงินไปซื้อ L!</div>
+    <p>MP<sub>L</sub>/P<sub>L</sub> = 5 &gt; MP<sub>K</sub>/P<sub>K</sub> = 3 → จ่าย 1 บาทซื้อ L ได้ขนมเพิ่ม <b>5 ชิ้น</b> แต่ซื้อ K ได้แค่ <b>3 ชิ้น</b></p>
+    <p>ดังนั้นย้ายเงินจาก K ไปซื้อ L → ผลผลิตเพิ่มขึ้น จนกว่า MP<sub>L</sub>/P<sub>L</sub> = MP<sub>K</sub>/P<sub>K</sub></p>
+  </div>
+</div>
+
+<div class="quiz" id="q4">
+  <div class="qtag">? คำถามที่ 4</div>
+  <div class="q">ถ้า MP<sub>L</sub> = 20, P<sub>L</sub> = 10, MP<sub>K</sub> = 30, P<sub>K</sub> = 15 → ผู้ผลิตอยู่ที่จุดดุลยภาพหรือยัง?</div>
+  <div class="opts">
+    <button class="opt" data-correct="1"><span class="lt">A</span><span>อยู่แล้ว เพราะ 20/10 = 2 = 30/15</span></button>
+    <button class="opt" data-correct="0"><span class="lt">B</span><span>ยังไม่อยู่ เพราะ MP<sub>L</sub> ≠ MP<sub>K</sub></span></button>
+    <button class="opt" data-correct="0"><span class="lt">C</span><span>ยังไม่อยู่ เพราะ P<sub>L</sub> ≠ P<sub>K</sub></span></button>
+  </div>
+  <div class="reveal">
+    <div class="lb">✓ อยู่ที่ดุลยภาพแล้ว!</div>
+    <p>MP<sub>L</sub>/P<sub>L</sub> = 20/10 = <b>2</b></p>
+    <p>MP<sub>K</sub>/P<sub>K</sub> = 30/15 = <b>2</b></p>
+    <p>เท่ากัน! → เงิน 1 บาทสุดท้ายซื้อ L หรือ K ได้ผลผลิตเพิ่มเท่ากัน → <b>ไม่จำเป็นต้องเปลี่ยนอะไร</b></p>
+  </div>
+</div>
+
+<!-- ═══ SUMMARY ═══ -->
+<div class="step"><span class="nm">สรุป</span><span class="ln"></span></div>
+<h2 class="q">สิ่งที่ได้จาก 6.4</h2>
+
+<div class="aha">
+  <div class="lb">🎯 จุดดุลยภาพผู้ผลิต (Producer's Equilibrium)</div>
+  <p>เงื่อนไข: <b>Isoquant สัมผัส Isocost</b> (Slope เท่ากัน)</p>
+  <p style="margin-top:8px">สูตร 3 แบบ (ค่าเดียวกัน):</p>
+  <p>① <b>MRTS<sub>L.K</sub> = P<sub>L</sub>/P<sub>K</sub></b></p>
+  <p>② <b>MP<sub>L</sub>/MP<sub>K</sub> = P<sub>L</sub>/P<sub>K</sub></b></p>
+  <p>③ <b>MP<sub>L</sub>/P<sub>L</sub> = MP<sub>K</sub>/P<sub>K</sub></b> (ผลผลิตเพิ่มต่อบาทเท่ากัน)</p>
+  <p style="margin-top:8px;font-size:13px;color:#666">ใช้ได้ทั้ง 2 กรณี: ผลผลิตสูงสุดจากงบจำกัด / ต้นทุนต่ำสุดจากผลผลิตที่กำหนด</p>
+</div>
+
+<div class="next">
+  <div class="lb">→ ไปต่อที่ 6.5</div>
+  <p>ถ้าผู้ผลิตมีเงินเพิ่มขึ้นเรื่อย ๆ จุดดุลยภาพจะเลื่อนไปตามเส้นที่เรียกว่า <b>Expansion Path</b> (เส้นแนวทางขยายการผลิต) แล้วจะเชื่อมโยงกับ<b>ต้นทุนระยะยาว</b></p>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll('.quiz').forEach(quiz=>{
+  const opts=quiz.querySelectorAll('.opt'),reveal=quiz.querySelector('.reveal');
+  opts.forEach(opt=>{opt.addEventListener('click',()=>{
+    if(opt.dataset.correct==='1'){opt.classList.add('correct');opts.forEach(o=>{if(o!==opt)o.classList.add('disabled')});setTimeout(()=>{reveal.classList.add('show');reveal.scrollIntoView({behavior:'smooth',block:'nearest'})},250)}
+    else{opt.classList.add('wrong');setTimeout(()=>opt.classList.remove('wrong'),900)}
+  })});
+});
+if(window.matchMedia('(prefers-color-scheme:dark)').matches){
+  document.querySelectorAll('svg text[fill="currentColor"]').forEach(t=>t.setAttribute('fill','#e0e0e0'));
+  document.querySelectorAll('svg line[stroke="currentColor"]').forEach(l=>l.setAttribute('stroke','#e0e0e0'));
+}
+</script>
+</div></div>
+
+<footer class="ajk-footer ajk-shell-theme"><div class="ajk-footer-inner">
+  <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+  <div class="ajk-footer-name">Ajarn.Kwan</div>
+  <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+  <div class="ajk-footer-links">
+    <a class="ajk-footer-btn" href="chapter6.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 6</a>
+    <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+    <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
+  </div>
+  <div class="ajk-footer-bottom"><strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ</div>
+</div></footer>
+</body></html>

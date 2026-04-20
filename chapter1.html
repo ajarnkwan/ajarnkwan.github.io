@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 1 — บทนำเศรษฐศาสตร์</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+      --font-serif:'Noto Serif Thai',serif;
+      --color-background-primary:#ffffff;
+      --color-background-secondary:#f7f5ff;
+      --color-border-secondary:#d8d2ef;
+      --color-border-tertiary:#ece7f7;
+      --color-text-primary:#1d1633;
+      --color-text-secondary:#6b6480;
+      --color-text-tertiary:#9a94ad;
+      --border-radius-md:12px;
+      --border-radius-lg:18px;
+      --shadow:0 10px 30px rgba(61,47,158,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
+    .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
+    .hero{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
+    .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
+    .hero h1{font-family:var(--font-serif);font-size:30px;line-height:1.25;margin:0 0 8px}
+    .hero p{font-size:14px;line-height:1.7;margin:0;opacity:.92;max-width:720px}
+    .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:14px;font-weight:600;margin:0 0 14px}
+    .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .coming{display:inline-block;background:#fff7ed;color:#c2410c;border:1px solid #fdba74;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+    .available{display:inline-block;background:#ecfdf5;color:#047857;border:1px solid #86efac;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700}
+  </style>
+
+
+<style>
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #6366f1;
+  --ajk-primary-soft: #eef2ff;
+  --ajk-primary-dark: #4f46e5;
+  --ajk-ink: #1d1633;
+  --ajk-muted: #6b6480;
+  --ajk-border: #e5e1f3;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right;
+  line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  letter-spacing: -.01em;
+}
+.ajk-brand-author {
+  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; padding: 0 1px; }
+
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-back-btn svg { width: 16px; height: 16px; }
+  .ajk-brand-course { font-size: 12.5px; }
+  .ajk-brand-author { font-size: 10.5px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
+}
+
+/* ─── Footer ─── */
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 720px; margin: 0 auto;
+  text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px;
+  background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--ajk-ink); margin: 0 0 4px;
+  letter-spacing: -.01em;
+}
+.ajk-footer-sub {
+  font-size: 12.5px; color: var(--ajk-muted);
+  letter-spacing: .02em;
+  margin-bottom: 26px;
+}
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 26px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface);
+  border: 1px solid var(--ajk-border);
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 13px; font-weight: 500;
+  transition: all .18s;
+  cursor: pointer;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; }
+.ajk-footer-btn:hover {
+  color: var(--ajk-primary);
+  border-color: var(--ajk-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.ajk-footer-bottom {
+  font-size: 11.5px; color: var(--ajk-muted);
+  letter-spacing: .02em;
+  padding-top: 22px;
+  border-top: 1px solid var(--ajk-border);
+  line-height: 1.8;
+}
+.ajk-footer-bottom strong {
+  color: var(--ajk-ink); font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
+  .ajk-footer-name { font-size: 21px; }
+  .ajk-footer-links { gap: 6px; }
+  .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+}
+
+</style>
+
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#4f46e5;
+  --theme-primary-soft:#eef2ff;
+  --theme-primary-dark:#3730a3;
+  --theme-hero-a:#3730a3;
+  --theme-hero-b:#6366f1;
+  --theme-page-bg:#f6f7ff;
+  --theme-border:#c7d2fe;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#eef2ff;
+  --color-border-secondary:#c7d2fe;
+  --color-border-tertiary:#e7e6f0;
+  --color-text-primary:#1f2430;
+  --color-text-secondary:#5f667a;
+  --color-text-tertiary:#8b93a6;
+  --shadow:0 14px 34px rgba(31,36,48,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #6366f1;
+  --ajk-primary-soft: #eef2ff;
+  --ajk-primary-dark: #4f46e5;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #e6e8f0;
+  --ajk-surface: #ffffff;
+}
+body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!important;font-family:var(--font-sans)!important;}
+.hero{background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;box-shadow:var(--shadow)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.backlink{color:var(--theme-primary)!important;}
+.available{background:#ecfdf5!important;color:#047857!important;border-color:#86efac!important;}
+.coming{background:#fff7ed!important;color:#b45309!important;border-color:#fdba74!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+</style>
+
+</head>
+<body>
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="index.html" aria-label="กลับแผนการเรียน">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>แผนการเรียน</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 1 · บทนำเศรษฐศาสตร์จุลภาค</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+<div class="page"><a class="backlink" href="index.html">← กลับแผนการเรียน</a><div class="panel">
+
+<style>
+*{box-sizing:border-box}
+.ch1{font-family:var(--font-sans);max-width:680px;margin:0 auto;padding:1rem 0}
+.progress-steps{display:flex;gap:4px;margin-bottom:1.5rem}
+.step-dot{flex:1;height:4px;border-radius:2px;background:var(--color-background-secondary);transition:background .3s}
+.step-dot.done{background:#1D9E75}
+.step-dot.active{background:#378ADD}
+.section-label{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem}
+.big-q{font-size:18px;font-weight:500;color:var(--color-text-primary);line-height:1.5;margin:0 0 1rem}
+.scenario-box{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;border-left:3px solid #378ADD}
+.scenario-box p{margin:0;font-size:14px;line-height:1.7;color:var(--color-text-primary)}
+.think-prompt{font-size:13px;color:var(--color-text-secondary);margin:.75rem 0;font-style:italic}
+.reveal-btn{width:100%;padding:9px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13px;cursor:pointer;margin-bottom:8px;transition:background .15s}
+.reveal-btn:hover{background:var(--color-background-secondary)}
+.reveal-box{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;display:none}
+.reveal-box.shown{display:block}
+.reveal-box h3{font-size:13px;font-weight:500;color:var(--color-text-secondary);margin:0 0 6px;text-transform:uppercase;letter-spacing:.05em}
+.reveal-box p{margin:0 0 6px;font-size:13px;line-height:1.7;color:var(--color-text-primary)}
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.concept-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem 1rem;font-size:13px;color:var(--color-text-primary);line-height:1.5}
+.concept-card strong{display:block;font-weight:500;margin-bottom:3px;font-size:12px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em}
+.classify-item{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.6rem 1rem;font-size:13px;color:var(--color-text-primary);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.classify-btns{display:flex;gap:5px;flex-shrink:0}
+.cls-btn{font-size:11px;padding:3px 8px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;cursor:pointer;color:var(--color-text-secondary);white-space:nowrap;transition:all .15s}
+.cls-btn:hover:not(:disabled){background:var(--color-background-primary)}
+.quiz-opt{display:block;width:100%;text-align:left;padding:9px 12px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13px;cursor:pointer;margin-bottom:6px;transition:all .15s}
+.quiz-opt:hover:not(:disabled){background:var(--color-background-secondary)}
+.quiz-opt.correct{background:#E1F5EE;border-color:#1D9E75;color:#0F6E56}
+.quiz-opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
+.quiz-opt:disabled{cursor:default}
+.feedback{font-size:13px;padding:8px 12px;border-radius:var(--border-radius-md);margin-top:6px;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:#E1F5EE;color:#0F6E56}
+.feedback.bad{background:#FCEBEB;color:#A32D2D}
+.feedback.info{background:#E6F1FB;color:#185FA5}
+.nav-row{display:flex;gap:8px;margin-top:1.25rem}
+.nav-btn{flex:1;padding:8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13px;cursor:pointer;transition:background .15s}
+.nav-btn:hover{background:var(--color-background-secondary)}
+.nav-btn.primary{background:#378ADD;border-color:#378ADD;color:#fff}
+.nav-btn.primary:hover{background:#185FA5}
+.score-circle{width:80px;height:80px;border-radius:50%;border:3px solid #378ADD;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:24px;font-weight:500;color:#185FA5}
+.section{display:none}
+.section.active{display:block}
+</style>
+
+<h2 class="sr-only">บทที่ 1: บทนำ — เศรษฐศาสตร์คืออะไร</h2>
+
+<div class="ch1">
+  <div class="progress-steps" id="prog"></div>
+
+  <div id="sec0" class="section active">
+    <div class="section-label">บทที่ 1 — ลองคิดก่อน</div>
+    <p class="big-q">น้ำดื่มสำคัญกับชีวิตกว่าเพชร แต่ทำไมเพชรถึงแพงกว่ามาก?</p>
+    <div class="scenario-box">
+      <p>คุณอยู่กลางทะเลทราย กระหายน้ำมาก มีคนเสนอแลก: <strong>น้ำ 1 ขวด</strong> กับ <strong>เพชรเม็ดงาม</strong> — คุณจะเลือกอะไร?<br><br>แต่ในชีวิตประจำวัน น้ำประปาลิตรละไม่กี่สตางค์ ส่วนเพชรราคาเป็นแสน ทำไมถึงเป็นแบบนั้น?</p>
+    </div>
+    <p class="think-prompt">ลองคิดคำตอบของคุณก่อน แล้วกดเผยเฉลย</p>
+    <button class="reveal-btn" id="rbtn0" onclick="tog('ans0','rbtn0')">เผยคำอธิบาย</button>
+    <div class="reveal-box" id="ans0">
+      <h3>เพราะ "ความขาดแคลน" ต่างหากที่กำหนดราคา</h3>
+      <p>น้ำมีอรรถประโยชน์สูง แต่หาได้ทั่วไป — ไม่ขาดแคลน จึงราคาถูก</p>
+      <p>เพชรมีอรรถประโยชน์น้อยกว่า แต่มีอยู่จำกัด — ขาดแคลน จึงราคาแพง</p>
+      <p>นี่คือแก่นของ <strong>เศรษฐศาสตร์</strong>: วิชาที่ว่าด้วยการจัดสรรทรัพยากรที่มีอยู่อย่างจำกัด เพื่อตอบสนองความต้องการที่ไม่มีขีดจำกัดของมนุษย์</p>
+    </div>
+    <div class="nav-row"><button class="nav-btn primary" onclick="go(1)">ถัดไป: ปัญหาเศรษฐกิจพื้นฐาน →</button></div>
+  </div>
+
+  <div id="sec1" class="section">
+    <div class="section-label">ปัญหาเศรษฐกิจขั้นมูลฐาน</div>
+    <p class="big-q">ถ้าคุณเป็นรัฐบาล คุณต้องตอบ 3 คำถามนี้ให้ได้</p>
+    <div class="scenario-box">
+      <p>ลองนึกภาพว่าคุณบริหารประเทศเล็ก ๆ มีทรัพยากรจำกัด ต้องตัดสินใจ 3 เรื่อง:</p>
+    </div>
+    <div class="card-grid">
+      <div class="concept-card"><strong>What to produce?</strong>จะผลิตอะไร? ข้าว โรงพยาบาล ถนน หรืออาวุธ?</div>
+      <div class="concept-card"><strong>How to produce?</strong>จะผลิตอย่างไร? ใช้คนงาน หรือใช้เครื่องจักร?</div>
+      <div class="concept-card"><strong>For whom?</strong>ผลิตแล้วจะแจกจ่ายให้ใคร? คนรวย คนจน หรือเท่ากันหมด?</div>
+      <div class="concept-card" style="background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary)"><strong>วิธีแก้ปัญหา</strong>ประเพณี / สั่งการกลาง / กลไกตลาด / ผสมผสาน</div>
+    </div>
+    <button class="reveal-btn" id="rbtn1" onclick="tog('ans1','rbtn1')">ดูตัวอย่างประเทศจริง</button>
+    <div class="reveal-box" id="ans1">
+      <h3>ตัวอย่าง</h3>
+      <p>🇨🇺 <strong>คิวบา / เกาหลีเหนือ</strong> — ระบบสั่งการกลาง รัฐตัดสินใจทุกอย่าง</p>
+      <p>🇺🇸 <strong>สหรัฐอเมริกา</strong> — กลไกตลาดเป็นหลัก ราคาเป็นตัวจัดสรร</p>
+      <p>🇹🇭 <strong>ไทย</strong> — ระบบผสม ตลาดเป็นหลัก แต่รัฐแทรกแซงบางส่วน</p>
+      <p>🏘️ <strong>ชนเผ่าดั้งเดิม</strong> — อาศัยขนบธรรมเนียมประเพณี</p>
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(0)">← ย้อนกลับ</button>
+      <button class="nav-btn primary" onclick="go(2)">ถัดไป: จุลภาค vs มหภาค →</button>
+    </div>
+  </div>
+
+  <div id="sec2" class="section">
+    <div class="section-label">จุลภาค vs มหภาค</div>
+    <p class="big-q">สองวิธีมองเศรษฐกิจ — เลือกมุมต่าง ผลต่าง</p>
+    <div class="scenario-box">
+      <p>ชาวนาคนหนึ่งปลูกข้าวได้มากขึ้น รายได้เขา <strong>มากขึ้น</strong> ✓<br>
+      แต่ถ้า <strong>ชาวนาทุกคน</strong> ปลูกข้าวได้มากขึ้นพร้อมกัน รายได้แต่ละคนอาจ <strong>ลดลง</strong> ✗<br><br>
+      สิ่งที่จริงสำหรับ "ส่วนย่อย" ไม่จำเป็นต้องจริงสำหรับ "ส่วนรวม" — นี่คือ Fallacy of Composition</p>
+    </div>
+    <div class="card-grid">
+      <div class="concept-card" style="border-left:3px solid #378ADD">
+        <strong>จุลภาค (Micro)</strong>
+        มองหน่วยเล็ก: คน บริษัท อุตสาหกรรม<br><br>
+        เช่น ราคาข้าว ต้นทุนบริษัท พฤติกรรมผู้บริโภค
+      </div>
+      <div class="concept-card" style="border-left:3px solid #534AB7">
+        <strong>มหภาค (Macro)</strong>
+        มองภาพรวมทั้งระบบ<br><br>
+        เช่น GDP เงินเฟ้อ การจ้างงาน นโยบายการเงิน
+      </div>
+    </div>
+    <p class="think-prompt">ฝึกจัดหมวด: คำถามต่อไปนี้เป็น Micro หรือ Macro?</p>
+    <div id="classify-zone"></div>
+    <div class="feedback" id="cls-fb"></div>
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(1)">← ย้อนกลับ</button>
+      <button class="nav-btn primary" onclick="go(3)">ถัดไป: Positive vs Normative →</button>
+    </div>
+  </div>
+
+  <div id="sec3" class="section">
+    <div class="section-label">Positive vs Normative Economics</div>
+    <p class="big-q">นักเศรษฐศาสตร์ "บรรยายความจริง" กับ "ตัดสินว่าควรทำอะไร" — ต่างกันยังไง?</p>
+    <div class="card-grid">
+      <div class="concept-card" style="border-left:3px solid #378ADD">
+        <strong>Positive (ตามที่เป็นจริง)</strong>
+        อธิบายว่า "อะไรเป็นอะไร" — What is?<br><br>
+        พิสูจน์ได้ด้วยข้อมูล ไม่ตัดสินว่าดีหรือเลว
+      </div>
+      <div class="concept-card" style="border-left:3px solid #854F0B">
+        <strong>Normative (เชิงหลักการ)</strong>
+        บอกว่า "ควรจะเป็นอย่างไร" — What ought to be?<br><br>
+        อิงคุณค่า ศีลธรรม ความยุติธรรม
+      </div>
+    </div>
+    <p class="think-prompt">กดจัดหมวดประโยคต่อไปนี้:</p>
+    <div id="pn-zone"></div>
+    <div class="feedback" id="pn-fb"></div>
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(2)">← ย้อนกลับ</button>
+      <button class="nav-btn primary" onclick="go(4)">ถัดไป: แบบฝึกหัด →</button>
+    </div>
+  </div>
+
+  <div id="sec4" class="section">
+    <div class="section-label">แบบฝึกหัดบทที่ 1</div>
+    <p class="big-q">ทดสอบความเข้าใจ — 4 ข้อ</p>
+    <div id="quiz-zone"></div>
+    <div class="nav-row" id="quiz-nav" style="display:none">
+      <button class="nav-btn" onclick="resetAll()">เรียนใหม่ตั้งแต่ต้น</button>
+      <button class="nav-btn primary" onclick="location.href='chapter2.html'">บทที่ 2 ต่อเลย ↗</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOTAL = 5;
+
+function buildProg() {
+  const p = document.getElementById('prog');
+  p.innerHTML = '';
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot';
+    d.id = 'dot' + i;
+    p.appendChild(d);
+  }
+}
+
+function updateProg(cur) {
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.getElementById('dot' + i);
+    if (i < cur) d.className = 'step-dot done';
+    else if (i === cur) d.className = 'step-dot active';
+    else d.className = 'step-dot';
+  }
+}
+
+function go(n) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec' + n).classList.add('active');
+  updateProg(n);
+  if (n === 2 && !document.getElementById('classify-zone').hasChildNodes()) buildClassify();
+  if (n === 3 && !document.getElementById('pn-zone').hasChildNodes()) buildPN();
+  if (n === 4 && !document.getElementById('quiz-zone').hasChildNodes()) buildQuiz();
+}
+
+// FIX 1: รับ btn element โดยตรง ไม่ใช้ event global
+function tog(boxId, btnId) {
+  const box = document.getElementById(boxId);
+  const btn = document.getElementById(btnId);
+  const showing = box.classList.toggle('shown');
+  btn.textContent = showing ? 'ซ่อน' : 'เผยคำอธิบาย';
+}
+
+const clsItems = [
+  { q: 'ทำไมราคาน้ำมันขึ้นในปีนี้?', ans: 'micro' },
+  { q: 'อัตราว่างงานทั้งประเทศอยู่ที่ 3%', ans: 'macro' },
+  { q: 'บริษัท A ควรผลิตกี่หน่วยเพื่อกำไรสูงสุด?', ans: 'micro' },
+  { q: 'เงินเฟ้อส่งผลต่อการบริโภครวมอย่างไร?', ans: 'macro' },
+];
+
+// FIX 2: แยก answered กับ correct
+let clsAnswered = 0, clsCorrect = 0;
+
+function buildClassify() {
+  clsAnswered = 0; clsCorrect = 0;
+  const z = document.getElementById('classify-zone');
+  z.innerHTML = '';
+  clsItems.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'classify-item';
+    row.innerHTML = `<span>${item.q}</span>
+      <div class="classify-btns">
+        <button class="cls-btn" id="cb-m-${i}" onclick="checkCls(${i},'micro')">จุลภาค</button>
+        <button class="cls-btn" id="cb-M-${i}" onclick="checkCls(${i},'macro')">มหภาค</button>
+      </div>`;
+    z.appendChild(row);
+  });
+  document.getElementById('cls-fb').className = 'feedback';
+  document.getElementById('cls-fb').textContent = '';
+}
+
+function checkCls(i, choice) {
+  const item = clsItems[i];
+  const mBtn = document.getElementById('cb-m-' + i);
+  const MBtn = document.getElementById('cb-M-' + i);
+  mBtn.disabled = true;
+  MBtn.disabled = true;
+  const correct = choice === item.ans;
+  if (correct) clsCorrect++;
+  const chosenBtn = choice === 'micro' ? mBtn : MBtn;
+  const otherBtn = choice === 'micro' ? MBtn : mBtn;
+  if (correct) {
+    chosenBtn.style.cssText = 'background:#E1F5EE;border-color:#1D9E75;color:#0F6E56;font-size:11px;padding:3px 8px;border-radius:6px;cursor:default;white-space:nowrap';
+  } else {
+    chosenBtn.style.cssText = 'background:#FCEBEB;border-color:#E24B4A;color:#A32D2D;font-size:11px;padding:3px 8px;border-radius:6px;cursor:default;white-space:nowrap';
+    otherBtn.style.cssText = 'background:#E1F5EE;border-color:#1D9E75;color:#0F6E56;font-size:11px;padding:3px 8px;border-radius:6px;cursor:default;white-space:nowrap';
+  }
+  clsAnswered++;
+  // FIX 3: เช็ค answered ไม่ใช่ correct
+  if (clsAnswered === clsItems.length) {
+    const fb = document.getElementById('cls-fb');
+    const all = clsCorrect === clsItems.length;
+    fb.textContent = all
+      ? 'ถูกทั้งหมด! เข้าใจความต่างระหว่างจุลภาคและมหภาคแล้ว'
+      : `ได้ ${clsCorrect}/${clsItems.length} — จำไว้ว่า Micro ดูระดับบุคคล/บริษัท, Macro ดูภาพรวมทั้งระบบ`;
+    fb.className = 'feedback show ' + (all ? 'ok' : 'info');
+  }
+}
+
+const pnItems = [
+  { q: 'ถ้าขึ้นภาษีบุหรี่ คนสูบบุหรี่น้อยลง', ans: 'pos' },
+  { q: 'รัฐบาลควรขึ้นภาษีบุหรี่เพื่อสุขภาพประชาชน', ans: 'nor' },
+  { q: 'ค่าแรงขั้นต่ำที่สูงขึ้นทำให้การจ้างงานลดลง', ans: 'pos' },
+  { q: 'รัฐควรแจกเงินผู้มีรายได้น้อยเพื่อความเท่าเทียม', ans: 'nor' },
+];
+
+let pnAnswered = 0, pnCorrect = 0;
+
+function buildPN() {
+  pnAnswered = 0; pnCorrect = 0;
+  const z = document.getElementById('pn-zone');
+  z.innerHTML = '';
+  pnItems.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'classify-item';
+    row.innerHTML = `<span>${item.q}</span>
+      <div class="classify-btns">
+        <button class="cls-btn" id="pb-p-${i}" onclick="checkPN(${i},'pos')">Positive</button>
+        <button class="cls-btn" id="pb-n-${i}" onclick="checkPN(${i},'nor')">Normative</button>
+      </div>`;
+    z.appendChild(row);
+  });
+  document.getElementById('pn-fb').className = 'feedback';
+  document.getElementById('pn-fb').textContent = '';
+}
+
+function checkPN(i, choice) {
+  const item = pnItems[i];
+  const pBtn = document.getElementById('pb-p-' + i);
+  const nBtn = document.getElementById('pb-n-' + i);
+  pBtn.disabled = true;
+  nBtn.disabled = true;
+  const correct = choice === item.ans;
+  if (correct) pnCorrect++;
+  const chosenBtn = choice === 'pos' ? pBtn : nBtn;
+  const otherBtn = choice === 'pos' ? nBtn : pBtn;
+  if (correct) {
+    chosenBtn.style.cssText = 'background:#E1F5EE;border-color:#1D9E75;color:#0F6E56;font-size:11px;padding:3px 8px;border-radius:6px;cursor:default;white-space:nowrap';
+  } else {
+    chosenBtn.style.cssText = 'background:#FCEBEB;border-color:#E24B4A;color:#A32D2D;font-size:11px;padding:3px 8px;border-radius:6px;cursor:default;white-space:nowrap';
+    otherBtn.style.cssText = 'background:#E1F5EE;border-color:#1D9E75;color:#0F6E56;font-size:11px;padding:3px 8px;border-radius:6px;cursor:default;white-space:nowrap';
+  }
+  pnAnswered++;
+  if (pnAnswered === pnItems.length) {
+    const fb = document.getElementById('pn-fb');
+    const all = pnCorrect === pnItems.length;
+    fb.textContent = all
+      ? 'เยี่ยม! จำไว้: Positive = พิสูจน์ได้จากข้อมูล, Normative = ขึ้นกับคุณค่าและศีลธรรม'
+      : `ได้ ${pnCorrect}/${pnItems.length} — จำง่าย ๆ ว่า Normative มักมีคำว่า "ควร" หรือ "ต้อง"`;
+    fb.className = 'feedback show ' + (all ? 'ok' : 'info');
+  }
+}
+
+const quizData = [
+  {
+    q: 'ทำไมถึงต้องมีวิชาเศรษฐศาสตร์?',
+    opts: ['เพราะมนุษย์โลภ', 'เพราะทรัพยากรมีจำกัดแต่ความต้องการไม่จำกัด', 'เพราะรัฐบาลไม่มีประสิทธิภาพ', 'เพราะเงินไม่พอใช้'],
+    ans: 1,
+    explain: 'แก่นของเศรษฐศาสตร์คือ Scarcity — ทรัพยากรขาดแคลน จึงต้องเลือกและจัดสรรอย่างมีประสิทธิภาพ'
+  },
+  {
+    q: 'ในระบบตลาด ใครเป็นคนตัดสินว่าผลิตอะไร?',
+    opts: ['รัฐบาล', 'สหประชาชาติ', 'ผู้บริโภค ผ่านกลไกราคา', 'คณะกรรมการวางแผน'],
+    ans: 2,
+    explain: 'ในระบบตลาด ราคาทำหน้าที่เป็น "สัญญาณ" ผู้บริโภคสั่งซื้อ = ผู้ผลิตรับสัญญาณและผลิตตาม'
+  },
+  {
+    q: 'ข้อใดเป็น Free Goods (สินค้าเสรี)?',
+    opts: ['น้ำดื่มบรรจุขวด', 'แสงแดดกลางทุ่งโล่ง', 'น้ำมันเชื้อเพลิง', 'ที่ดิน'],
+    ans: 1,
+    explain: 'Free Goods = หาได้ไม่จำกัด ไม่ต้องจ่ายเงิน แสงแดดกลางทุ่งหาได้ฟรีไม่จำกัด ส่วนน้ำขวดต้องซื้อ'
+  },
+  {
+    q: 'Fallacy of Composition หมายถึงอะไร?',
+    opts: ['ข้อผิดพลาดในการคำนวณ', 'สิ่งที่จริงสำหรับส่วนย่อยไม่จำเป็นต้องจริงสำหรับส่วนรวม', 'การวิเคราะห์แบบสถิต', 'ความผิดพลาดของรัฐบาล'],
+    ans: 1,
+    explain: 'เช่น ชาวนาคนเดียวปลูกข้าวได้มากขึ้น → รายได้มากขึ้น แต่ถ้าทุกคนปลูกได้มากขึ้น → ราคาข้าวร่วง → รายได้ลดลง!'
+  }
+];
+
+let qAnswered = 0, qScore = 0;
+
+function buildQuiz() {
+  qAnswered = 0; qScore = 0;
+  const z = document.getElementById('quiz-zone');
+  z.innerHTML = '';
+  document.getElementById('quiz-nav').style.display = 'none';
+  quizData.forEach((q, qi) => {
+    const block = document.createElement('div');
+    block.style.marginBottom = '1.25rem';
+    const optsHtml = q.opts.map((o, oi) =>
+      `<button class="quiz-opt" id="qo-${qi}-${oi}" onclick="answerQ(${qi},${oi})">${String.fromCharCode(65 + oi)}. ${o}</button>`
+    ).join('');
+    block.innerHTML = `<p style="font-size:14px;font-weight:500;margin:0 0 8px;color:var(--color-text-primary)">${qi + 1}. ${q.q}</p>${optsHtml}<div class="feedback" id="qfb-${qi}"></div>`;
+    z.appendChild(block);
+  });
+}
+
+function answerQ(qi, oi) {
+  const q = quizData[qi];
+  for (let i = 0; i < q.opts.length; i++) {
+    document.getElementById('qo-' + qi + '-' + i).disabled = true;
+  }
+  const btn = document.getElementById('qo-' + qi + '-' + oi);
+  const fb = document.getElementById('qfb-' + qi);
+  if (oi === q.ans) {
+    btn.className = 'quiz-opt correct';
+    fb.textContent = 'ถูก! ' + q.explain;
+    fb.className = 'feedback show ok';
+    qScore++;
+  } else {
+    btn.className = 'quiz-opt wrong';
+    document.getElementById('qo-' + qi + '-' + q.ans).className = 'quiz-opt correct';
+    fb.textContent = 'ไม่ถูกต้อง ' + q.explain;
+    fb.className = 'feedback show bad';
+  }
+  qAnswered++;
+  if (qAnswered === quizData.length) {
+    const pct = Math.round(qScore / quizData.length * 100);
+    const msg = pct >= 75 ? 'ผ่านฉลุย! พร้อมไปบทต่อไปได้เลย' : pct >= 50 ? 'พอใช้ได้ ลองทบทวนจุดที่พลาดนะ' : 'ลองอ่านทบทวนอีกรอบแล้วทำใหม่';
+    const summary = document.createElement('div');
+    summary.style.cssText = 'text-align:center;padding:1rem 0';
+    summary.innerHTML = `<div class="score-circle">${qScore}/${quizData.length}</div><p style="font-size:14px;color:var(--color-text-secondary);margin:0">${msg}</p>`;
+    document.getElementById('quiz-zone').appendChild(summary);
+    document.getElementById('quiz-nav').style.display = 'flex';
+  }
+}
+
+// FIX 4: reset ทุก state พร้อมกัน
+function resetAll() {
+  clsAnswered = 0; clsCorrect = 0;
+  pnAnswered = 0; pnCorrect = 0;
+  qAnswered = 0; qScore = 0;
+  document.getElementById('classify-zone').innerHTML = '';
+  document.getElementById('pn-zone').innerHTML = '';
+  document.getElementById('quiz-zone').innerHTML = '';
+  document.getElementById('ans0').classList.remove('shown');
+  document.getElementById('rbtn0').textContent = 'เผยคำอธิบาย';
+  document.getElementById('ans1').classList.remove('shown');
+  document.getElementById('rbtn1').textContent = 'ดูตัวอย่างประเทศจริง';
+  go(0);
+}
+
+buildProg();
+updateProg(0);
+</script>
+
+</div></div><footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

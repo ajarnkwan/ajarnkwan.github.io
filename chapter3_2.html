@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.2 ปัจจัยกำหนดอุปสงค์ + TR/AR/MR</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}.app{max-width:780px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:10px}.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#e3f2fd;color:#1565c0}@media(prefers-color-scheme:dark){.badge{background:#0d2744;color:#64b5f6}}
+.pg{display:flex;gap:3px;margin-bottom:16px}.pd{flex:1;height:5px;border-radius:3px;background:#eee}@media(prefers-color-scheme:dark){.pd{background:#333}}.pd.dn{background:#1565c0}.pd.ac{background:#64b5f6}
+.section{display:none}
+.sl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}.bq{font-size:17px;font-weight:700;line-height:1.5;margin-bottom:12px}p.tx{font-size:14.5px;line-height:1.85;margin-bottom:10px}
+.sb{background:#f0f4f8;border-radius:12px;padding:14px 18px;margin-bottom:12px;border-left:4px solid #1565c0}@media(prefers-color-scheme:dark){.sb{background:#0d1b2a;border-color:#1976d2}}.sb p{font-size:14px;line-height:1.85;margin-bottom:6px}.sb p:last-child{margin:0}
+.def{background:#e3f2fd;border:1px solid #90caf9;border-radius:12px;padding:14px 18px;margin:12px 0}@media(prefers-color-scheme:dark){.def{background:#0d2744;border-color:#1565c0}}.def .dt{font-weight:800;font-size:15px;color:#1565c0;margin-bottom:4px}@media(prefers-color-scheme:dark){.def .dt{color:#64b5f6}}.def p{font-size:14px;line-height:1.8;margin-bottom:4px}
+.think{background:linear-gradient(135deg,#e3f2fd,#e8f0fe);border:2px dashed #64b5f6;border-radius:14px;padding:16px 18px;margin:14px 0;position:relative}@media(prefers-color-scheme:dark){.think{background:linear-gradient(135deg,#0d2744,#0d1b3d);border-color:#1976d2}}.think::before{content:'🤔';font-size:20px;position:absolute;top:-12px;left:14px;background:#fff;border-radius:50%;padding:0 4px}@media(prefers-color-scheme:dark){.think::before{background:#141414}}.think .q{font-size:15px;font-weight:600;margin-bottom:8px;color:#1565c0}@media(prefers-color-scheme:dark){.think .q{color:#64b5f6}}
+.opts{display:flex;flex-direction:column;gap:6px;margin:8px 0}.opt{padding:10px 14px;border:2px solid #c8d6e0;border-radius:10px;background:#fff;cursor:pointer;font-size:14px;transition:all .2s;text-align:left}@media(prefers-color-scheme:dark){.opt{background:#1a1a1a;border-color:#2a3a4a;color:#e0e0e0}}.opt:hover{border-color:#1565c0;background:#e3f2fd}@media(prefers-color-scheme:dark){.opt:hover{border-color:#1976d2;background:#0d2744}}.opt.correct{border-color:#1D9E75;background:#e1f5ee;color:#0f6e56}@media(prefers-color-scheme:dark){.opt.correct{background:#0d3d28;color:#5fe4a8}}.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}@media(prefers-color-scheme:dark){.opt.wrong{background:#3d1010;color:#ff9999}}.opt.disabled{pointer-events:none;opacity:.7}
+.fb{font-size:13.5px;padding:10px 14px;border-radius:10px;margin:8px 0;display:none;line-height:1.6}.fb.on{display:block}.fb.ok{background:#e1f5ee;color:#0f6e56;border:1px solid #1d9e75}@media(prefers-color-scheme:dark){.fb.ok{background:#0d3d28;color:#5fe4a8}}.fb.no{background:#fcebeb;color:#a32d2d;border:1px solid #e24b4a}@media(prefers-color-scheme:dark){.fb.no{background:#3d1010;color:#ff9999}}.fb.info{background:#e8f0fe;color:#1a56db;border:1px solid #7ba4f0}@media(prefers-color-scheme:dark){.fb.info{background:#0d1b3d;color:#99bbff}}
+canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto;border:1px solid #eee}@media(prefers-color-scheme:dark){canvas{border-color:#333}}
+.nav{display:flex;justify-content:space-between;margin-top:16px;padding-top:10px;border-top:1px solid #eee}@media(prefers-color-scheme:dark){.nav{border-color:#333}}.nb{padding:8px 16px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.nb{border-color:#444;color:#aaa}}.nb:hover{background:#f5f5f5}@media(prefers-color-scheme:dark){.nb:hover{background:#242424}}.nb.pr{background:#1565c0;color:#fff;border-color:#1565c0}@media(prefers-color-scheme:dark){.nb.pr{background:#1976d2;color:#fff;border-color:#1976d2}}
+.note{font-size:12.5px;color:#888;margin:8px 0;padding:8px 12px;border-left:3px solid #90caf9}@media(prefers-color-scheme:dark){.note{border-color:#1565c0}}.hl{color:#1565c0;font-weight:700}@media(prefers-color-scheme:dark){.hl{color:#64b5f6}}
+.sdots{display:flex;gap:5px;justify-content:center;margin:8px 0}.sdot{width:10px;height:10px;border-radius:50%;background:#ddd;transition:all .2s}@media(prefers-color-scheme:dark){.sdot{background:#444}}.sdot.ac{background:#1565c0;transform:scale(1.2)}@media(prefers-color-scheme:dark){.sdot.ac{background:#64b5f6}}
+.stxt{text-align:center;font-size:13.5px;font-weight:600;margin-bottom:8px;min-height:40px;color:#1565c0;line-height:1.5;padding:0 10px}@media(prefers-color-scheme:dark){.stxt{color:#64b5f6}}
+.snav{display:flex;justify-content:center;gap:8px;margin-bottom:6px}.snb{padding:5px 16px;border:1.5px solid #ddd;border-radius:8px;background:transparent;font-size:13px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.snb{border-color:#444;color:#aaa}}.snb:hover{background:#f5f5f5}@media(prefers-color-scheme:dark){.snb:hover{background:#242424}}
+.eqbox{background:#f0f0f0;border-radius:10px;padding:10px 16px;margin:10px 0;font-family:'Courier New',monospace;font-size:14px;text-align:center;letter-spacing:.5px}@media(prefers-color-scheme:dark){.eqbox{background:#222}}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:12.5px}.tbl th,.tbl td{border:1px solid #ddd;padding:6px 8px;text-align:center}@media(prefers-color-scheme:dark){.tbl th,.tbl td{border-color:#444}}.tbl th{background:#e3f2fd;font-weight:700;color:#1565c0}@media(prefers-color-scheme:dark){.tbl th{background:#0d2744;color:#64b5f6}}
+.sn{display:inline-block;background:#1565c0;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:4px}@media(prefers-color-scheme:dark){.sn{background:#1976d2}}
+.slider-wrap{text-align:center;margin:8px 0}.slider-wrap input[type=range]{width:80%;margin:4px 0}.slider-label{font-size:14px;font-weight:700;color:#1565c0}@media(prefers-color-scheme:dark){.slider-label{color:#64b5f6}}
+</style>
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#7c3aed;
+  --theme-primary-soft:#f5f3ff;
+  --theme-primary-dark:#5b21b6;
+  --theme-hero-a:#6d28d9;
+  --theme-hero-b:#8b5cf6;
+  --theme-page-bg:#faf7ff;
+  --theme-border:#ddd6fe;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f5f3ff;
+  --color-border-secondary:#ddd6fe;
+  --color-border-tertiary:#e7e6f0;
+  --color-text-primary:#1f2430;
+  --color-text-secondary:#5f667a;
+  --color-text-tertiary:#8b93a6;
+  --shadow:0 14px 34px rgba(31,36,48,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #14b8a6;
+  --ajk-primary-soft: #f0fdfa;
+  --ajk-primary-dark: #0d9488;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #e6e8f0;
+  --ajk-surface: #ffffff;
+}
+body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!important;font-family:var(--font-sans)!important;}
+.hero{background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;box-shadow:var(--shadow)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.backlink{color:var(--theme-primary)!important;}
+.available{background:#ecfdf5!important;color:#047857!important;border-color:#86efac!important;}
+.coming{background:#fff7ed!important;color:#b45309!important;border-color:#fdba74!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+</style>
+
+
+<style id="ajk-shell-style">
+.ajk-shell-theme {
+  --ajk-primary: #14b8a6;
+  --ajk-primary-soft: #f0fdfa;
+  --ajk-primary-dark: #0d9488;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #e6e8f0;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.9);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: var(--font-sans);
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right;
+  line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  letter-spacing: -.01em;
+}
+.ajk-brand-author {
+  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary);
+  flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; padding: 0 1px; }
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: var(--font-sans);
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+.ajk-footer-mark { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ajk-primary); flex-shrink: 0; }
+.ajk-footer-name {
+  font-family: var(--font-serif);
+  font-size: 24px; font-weight: 700; color: var(--ajk-ink); margin: 0 0 4px; letter-spacing: -.01em;
+}
+.ajk-footer-sub { font-size: 12.5px; color: var(--ajk-muted); letter-spacing: .02em; margin-bottom: 26px; }
+.ajk-footer-links { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface);
+  border: 1px solid var(--ajk-border);
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 13px; font-weight: 500;
+  transition: all .18s;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; }
+.ajk-footer-btn:hover {
+  color: #fff; border-color: var(--ajk-primary); background: var(--ajk-primary);
+  transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+.ajk-footer-bottom {
+  font-size: 11.5px; color: var(--ajk-muted); letter-spacing: .02em;
+  padding-top: 22px; border-top: 1px solid var(--ajk-border); line-height: 1.8;
+}
+.ajk-footer-bottom strong { color: var(--ajk-ink); font-weight: 700; }
+@media (max-width: 520px) {
+  .ajk-back-btn span { display:none; }
+  .ajk-back-btn { padding:9px; }
+  .ajk-back-btn svg { width:16px; height:16px; }
+  .ajk-brand-course { font-size:12.5px; }
+  .ajk-brand-author { font-size:10.5px; }
+  .ajk-topbar-inner { padding:8px 12px; min-height:52px; gap:10px; }
+  .ajk-footer { padding:36px 14px 22px; margin-top:48px; }
+  .ajk-footer-name { font-size:21px; }
+  .ajk-footer-links { gap:6px; }
+  .ajk-footer-btn { padding:8px 13px; font-size:12px; }
+}
+</style>
+
+
+<style id="ajk-ch3-polish">
+body { margin:0 !important; padding:0 !important; background:var(--theme-page-bg) !important; color:var(--color-text-primary) !important; }
+.app { max-width: 920px !important; margin: 0 auto !important; padding: 24px 18px 56px !important; }
+* { box-sizing: border-box; }
+.topnav { display:flex !important; align-items:center !important; gap:10px !important; margin:0 0 14px !important; flex-wrap:wrap !important; }
+.backbtn {
+  display:inline-flex !important; align-items:center !important; gap:6px !important;
+  padding:8px 14px !important; border:1px solid var(--color-border-secondary) !important;
+  border-radius:999px !important; background:#fff !important; font-size:13px !important;
+  cursor:pointer !important; color:var(--theme-primary) !important; font-weight:600 !important;
+  text-decoration:none !important;
+}
+.backbtn:hover { background:var(--theme-primary-soft) !important; }
+.badge {
+  font-size:11px !important; font-weight:700 !important; padding:4px 12px !important; border-radius:999px !important;
+  background:var(--theme-primary-soft) !important; color:var(--theme-primary-dark) !important; border:1px solid var(--color-border-secondary) !important;
+}
+.hero { border-radius:28px !important; padding:28px 24px 24px !important; margin-bottom:20px !important; }
+.hero .ey { opacity:.78 !important; }
+.cards, .section { background: transparent; }
+.card {
+  background:#fff !important; border:1px solid #ebe8f5 !important; border-radius:20px !important;
+  padding:18px 20px !important; box-shadow:var(--shadow) !important;
+}
+.card:hover { border-color:var(--theme-border) !important; box-shadow:0 18px 40px rgba(31,36,48,.09) !important; }
+.hook, .def, .sum, .sb, .reveal, .panel-lite, .ibox, .ebox, .formula, .ex, .case {
+  background:#fff !important; border:1px solid #ebe8f5 !important; border-radius:18px !important; box-shadow:var(--shadow) !important;
+}
+.hook { background:linear-gradient(180deg, #fff 0%, var(--theme-primary-soft) 100%) !important; border-color:var(--color-border-secondary) !important; }
+.hook .q, .def .dt, .sl, .eyebrow, .section-title, .kicker { color:var(--theme-primary-dark) !important; }
+.nav { display:flex !important; gap:10px !important; margin-top:14px !important; padding-top:16px !important; border-top:1px solid #ebe8f5 !important; }
+.nb, .btn, .snb {
+  border:1px solid var(--color-border-secondary) !important; background:#fff !important; color:var(--color-text-primary) !important;
+  border-radius:12px !important; padding:10px 14px !important;
+}
+.nb.pr, .btn.pr, .snb.pr {
+  background:var(--theme-primary) !important; border-color:var(--theme-primary) !important; color:#fff !important; font-weight:700 !important;
+}
+.nb:hover, .btn:hover, .snb:hover { background:var(--theme-primary-soft) !important; }
+.opt { border:1px solid #ebe8f5 !important; border-radius:14px !important; background:#fff !important; }
+.opt:hover { border-color:var(--theme-border) !important; background:var(--theme-primary-soft) !important; }
+.fb.ok { background:#ecfdf5 !important; border-color:#86efac !important; color:#065f46 !important; }
+.fb.no { background:#fff7ed !important; border-color:#fdba74 !important; color:#9a3412 !important; }
+canvas { background:#fff !important; border:1px solid #ebe8f5 !important; border-radius:18px !important; box-shadow:var(--shadow) !important; }
+.hl, .accent, .pc { color:var(--theme-primary-dark) !important; }
+.tx, p, li, .sub, .stxt, .think-prompt, .fb, .def p, .sb p { color:var(--color-text-secondary) !important; }
+h1, h2, h3, .title, .bq, .big-q { color:var(--color-text-primary) !important; }
+</style>
+
+</head><body>
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter3.html" aria-label="กลับบทที่ 3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 3</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">3.2 ปัจจัยกำหนดอุปสงค์ + TR/AR/MR</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+<div class="app">
+<div class="topnav"><button class="backbtn" onclick="sendPrompt('กลับหน้าหลักบทที่ 3')">← บทที่ 3</button><span class="badge">3.2 ปัจจัย + TR/AR/MR</span></div>
+<div class="pg" id="pg"></div>
+
+<!-- ===== S0: 7 FACTORS ===== -->
+<div class="section" id="s0" style="display:block">
+<div class="sl">ส่วนที่ 1 — ปัจจัยที่มีอิทธิพลต่ออุปสงค์ตลาด</div>
+<p class="bq">อะไรบ้างที่ทำให้คนอยากซื้อสินค้ามากขึ้นหรือน้อยลง?</p>
+
+<p class="tx">ปริมาณความต้องการซื้อสินค้าชนิดหนึ่ง (Q<sup>d</sup>) ขึ้นอยู่กับ<strong>ปัจจัยหลัก 7 ประการ</strong> ดังนี้:</p>
+
+<div class="def">
+<div class="dt">7 ปัจจัยกำหนดอุปสงค์</div>
+<p><span class="sn">P</span> <strong>ราคาสินค้า</strong>ชนิดนั้น (Price) — P↑ → Q<sup>d</sup>↓<br>🏪 เช่น ราคาข้าวกล่องจาก 40 เป็น 60 บาท → คนซื้อน้อยลง หันไปทำข้าวกินเอง</p>
+<p><span class="sn">I</span> <strong>รายได้</strong>ของผู้บริโภค (Income) — I↑ → Q<sup>d</sup>↑ (สินค้าปกติ)<br>💰 เช่น ได้ขึ้นเงินเดือน → ไปกินร้านอาหารญี่ปุ่นบ่อยขึ้น (สินค้าปกติ) แต่ซื้อบะหมี่กึ่งสำเร็จรูปน้อยลง (สินค้าด้อย)</p>
+<p><span class="sn">P₀</span> <strong>ราคาสินค้าที่เกี่ยวข้อง</strong> (Price of other goods)<br>🥤 สินค้าทดแทน: ราคาเป๊ปซี่ขึ้น → คนซื้อโค้กมากขึ้น<br>⛽ สินค้าประกอบ: ราคาน้ำมันขึ้น → คนซื้อรถยนต์น้อยลง</p>
+<p><span class="sn">T</span> <strong>รสนิยม</strong>ของผู้บริโภค (Taste)<br>📺 เช่น อินฟลูเอนเซอร์รีวิวครีมกันแดดยี่ห้อหนึ่ง → คนแห่ซื้อมากขึ้น</p>
+<p><span class="sn">E</span> <strong>การคาดคะเน</strong> (Expectation)<br>📈 เช่น ข่าวว่าเดือนหน้าน้ำมันจะขึ้นราคา → คนรีบเติมน้ำมันวันนี้มากขึ้น</p>
+<p><span class="sn">N</span> <strong>จำนวนผู้บริโภค</strong> (Number of consumers)<br>🏙️ เช่น คอนโดสร้างใหม่ย่านนี้ → มีคนอยู่อาศัยเพิ่ม → ร้านสะดวกซื้อขายดีขึ้น</p>
+<p><span class="sn">อื่นๆ</span> ปัจจัยอื่น<br>🌧️ เช่น ฤดูฝน → ร่มขายดี | ฤดูร้อน → ไอศกรีมขายดี</p>
+</div>
+
+<div class="eqbox">Q<sup>d</sup> = <em>f</em>( P, I, P₀, T, E, N, ... )</div>
+
+<p class="tx">ในทางเศรษฐศาสตร์ เวลาเขียน<strong>เส้นอุปสงค์</strong> เราจะพิจารณาความสัมพันธ์ระหว่าง <strong>P</strong> กับ <strong>Q<sup>d</sup></strong> เพียง 2 ตัวเท่านั้น โดยสมมติปัจจัยอื่นคงที่ (ceteris paribus):</p>
+<div class="eqbox">Q<sup>d</sup> = <em>f</em>( P ) — โดยกำหนดให้ I, P₀, T, E, N คงที่</div>
+
+<div class="think"><div class="q">ถ้ารายได้ผู้บริโภคเพิ่มขึ้น (สินค้าปกติ) เส้นอุปสงค์จะเปลี่ยนอย่างไร?</div>
+<div class="opts" id="q0Opts"><div class="opt" onclick="q0Ans(this,0)">ก. เคลื่อนไปตามเส้นเดิม (move along)</div><div class="opt" onclick="q0Ans(this,1)">ข. เส้น D เลื่อนไปทางขวา (shift right)</div><div class="opt" onclick="q0Ans(this,2)">ค. เส้น D เลื่อนไปทางซ้าย (shift left)</div></div>
+<div class="fb" id="q0Fb"></div></div>
+
+<div class="def"><div class="dt">การเปลี่ยนแปลง 2 แบบ (สำคัญมาก!)</div>
+<p><span class="sn">1</span> <strong>Change in Quantity Demanded</strong> (การเปลี่ยนแปลงปริมาณซื้อ) — เกิดจาก <span class="hl">P เปลี่ยน</span> เท่านั้น → <strong>เคลื่อนย้ายภายในเส้น D เดิม</strong> (move along the demand curve) เช่น จาก A ไป B บนเส้นเดิม</p>
+<p><span class="sn">2</span> <strong>Change/Shift in Demand</strong> (การเปลี่ยนแปลงในอุปสงค์) — เกิดจาก <span class="hl">ปัจจัยอื่นนอกจาก P เปลี่ยน</span> (I, P₀, T, E, N...) → <strong>เส้น D ทั้งเส้นเลื่อนย้าย</strong> ไปทางขวาหรือซ้าย</p>
+</div>
+
+<div class="sdots" id="dDots"></div>
+<div class="stxt" id="dDesc"></div>
+<div class="snav"><button class="snb" id="dP" onclick="dStep(-1)">← ก่อนหน้า</button><button class="snb" id="dN" onclick="dStep(1)">ถัดไป →</button></div>
+<canvas id="c1" width="600" height="350"></canvas>
+
+<div class="note">📌 รูปที่ 3-4 และ 3-5 ในตำรา: การเปลี่ยนแปลง 2 แบบนี้ต่างกันอย่างสำคัญ ต้องแยกให้ออก!</div>
+
+<div class="nav"><span></span><button class="nb pr" onclick="go(1)">ถัดไป: TR / AR / MR →</button></div>
+</div>
+
+<!-- ===== S1: TR/AR/MR ===== -->
+<div class="section" id="s1">
+<div class="sl">ส่วนที่ 2 — รายรับรวม รายรับเฉลี่ย และรายรับเพิ่ม</div>
+<p class="bq">TR, AR, MR — ความสัมพันธ์ที่ต้องเข้าใจ</p>
+
+<div class="def"><div class="dt">3 แนวคิดเรื่องรายรับ</div>
+<p><span class="sn">TR</span> <strong>รายรับรวม (Total Revenue)</strong> = รายรับทั้งหมดจากการขาย</p>
+<div class="eqbox">TR = P × Q</div>
+<p><span class="sn">AR</span> <strong>รายรับเฉลี่ย (Average Revenue)</strong> = รายรับต่อหน่วย</p>
+<div class="eqbox">AR = TR / Q = P (เท่ากับราคา!)</div>
+<p><span class="sn">MR</span> <strong>รายรับเพิ่ม (Marginal Revenue)</strong> = รายรับที่เพิ่มขึ้นเมื่อขายเพิ่มอีก 1 หน่วย</p>
+<div class="eqbox">MR = ΔTR / ΔQ = dTR / dQ (slope ของ TR)</div>
+</div>
+
+<p class="tx"><strong>ตัวอย่างง่ายๆ:</strong> ร้านขายส้มตำ ขายจานละ 50 บาท วันนี้ขายได้ 80 จาน</p>
+<div class="sb">
+<p>🍽️ <strong>TR</strong> = 50 × 80 = <strong>4,000 บาท</strong> (รายรับทั้งวัน)</p>
+<p>🍽️ <strong>AR</strong> = 4,000 / 80 = <strong>50 บาท/จาน</strong> (เท่ากับราคาขาย!)</p>
+<p>🍽️ <strong>MR</strong> = ถ้าขายจานที่ 81 ได้อีก 50 บาท → MR = 50 (รายรับเพิ่มจากจานสุดท้าย)</p>
+<p>แต่ถ้าต้อง<strong>ลดราคาเหลือ 45 บาท</strong>เพื่อขายจานที่ 81 → TR ใหม่ = 45 × 81 = 3,645 → MR = 3,645 − 4,000 = <strong>−355 บาท!</strong> (ขายเพิ่ม 1 จาน แต่รายรับลด เพราะต้องลดราคาทุกจาน)</p>
+</div>
+
+<p class="tx"><strong>ตัวอย่างจากตำรา:</strong> สมมติเส้นอุปสงค์เป็นเส้นตรงทอดลง <span class="hl">P = 10 − Q</span></p>
+<div class="sb">
+<p>AR = P = <strong>10 − Q</strong> (เส้น AR ซ้อนกับเส้น D!)</p>
+<p>TR = P × Q = (10−Q)×Q = <strong>10Q − Q²</strong></p>
+<p>MR = dTR/dQ = <strong>10 − 2Q</strong></p>
+<p>สังเกต: slope ของ MR = <span class="hl">−2</span> เป็น <strong>2 เท่า</strong>ของ slope ของ AR = −1</p>
+</div>
+
+<div class="think"><div class="q">เมื่อ MR = 0 (รายรับเพิ่มเป็นศูนย์) TR จะเป็นอย่างไร?</div>
+<div class="opts" id="q1Opts"><div class="opt" onclick="q1Ans(this,0)">ก. TR = 0</div><div class="opt" onclick="q1Ans(this,1)">ข. TR สูงสุด</div><div class="opt" onclick="q1Ans(this,2)">ค. TR ต่ำสุด</div></div>
+<div class="fb" id="q1Fb"></div></div>
+
+<p class="tx"><strong>ตาราง (ตารางที่ 3-3):</strong></p>
+<table class="tbl"><tr><th>Q</th><th>P</th><th>TR</th><th>AR</th><th>MR<br><small>(discrete)</small></th><th>MR<br><small>(continuous)</small></th></tr>
+<tr><td>0</td><td>10</td><td>0</td><td>10</td><td>—</td><td>10</td></tr>
+<tr><td>1</td><td>9</td><td>9</td><td>9</td><td>9</td><td>8</td></tr>
+<tr><td>2</td><td>8</td><td>16</td><td>8</td><td>7</td><td>6</td></tr>
+<tr><td>3</td><td>7</td><td>21</td><td>7</td><td>5</td><td>4</td></tr>
+<tr><td>4</td><td>6</td><td>24</td><td>6</td><td>3</td><td>2</td></tr>
+<tr style="background:#e3f2fd"><td><strong>5</strong></td><td><strong>5</strong></td><td><strong>25</strong></td><td><strong>5</strong></td><td><strong>1</strong></td><td><strong>0</strong></td></tr>
+<tr><td>6</td><td>4</td><td>24</td><td>4</td><td>−1</td><td>−2</td></tr>
+<tr><td>7</td><td>3</td><td>21</td><td>3</td><td>−3</td><td>−4</td></tr>
+<tr><td>8</td><td>2</td><td>16</td><td>2</td><td>−5</td><td>−6</td></tr>
+<tr><td>9</td><td>1</td><td>9</td><td>1</td><td>−7</td><td>−8</td></tr>
+<tr><td>10</td><td>0</td><td>0</td><td>0</td><td>−9</td><td>−10</td></tr>
+</table>
+
+<div class="sdots" id="rDots"></div>
+<div class="stxt" id="rDesc"></div>
+<div class="snav"><button class="snb" id="rP" onclick="rStep(-1)">← ก่อนหน้า</button><button class="snb" id="rN" onclick="rStep(1)">ถัดไป →</button></div>
+<canvas id="c2" width="600" height="520"></canvas>
+
+<div class="sb">
+<p><strong>ข้อสรุปสำคัญจากรูปที่ 3-8:</strong></p>
+<p>① MR มี slope เป็น <strong>2 เท่า</strong>ของ AR (หรือเส้น D) — MR ตัดแกน Q ที่จุดกึ่งกลางของ AR</p>
+<p>② เมื่อ MR > 0 → TR ยังเพิ่มขึ้น | เมื่อ MR = 0 → <span class="hl">TR สูงสุด</span> | เมื่อ MR < 0 → TR ลดลง</p>
+<p>③ AR = D = P เสมอ (เส้นรายรับเฉลี่ยคือเส้นอุปสงค์)</p>
+</div>
+
+<div class="nav"><button class="nb" onclick="go(0)">← ย้อนกลับ</button><button class="nb pr" onclick="go(2)">แบบฝึกหัด →</button></div>
+</div>
+
+<!-- ===== S2: QUIZ ===== -->
+<div class="section" id="s2">
+<div class="sl">ส่วนที่ 3 — แบบฝึกหัด</div>
+<p class="bq">ทดสอบความเข้าใจ — 5 ข้อ</p>
+<div id="qz"></div>
+<div class="nav" id="qnav" style="display:none"><button class="nb" onclick="rstQ()">ทำใหม่</button><button class="nb" onclick="go(0)">กลับต้นบท</button><button class="nb pr" onclick="sendPrompt('เรียนบทที่ 3 ส่วนที่ 3: ความยืดหยุ่นของอุปสงค์')">ส่วนที่ 3.3 →</button></div>
+</div>
+
+</div>
+<script>
+const NSEC=3;var cur=0;
+const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+const TC=()=>DK()?'#d4d4d4':'#1a1a1a';const GC=()=>DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';const AC=()=>DK()?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)';const BC=()=>DK()?'#64b5f6':'#1565c0';const BG=()=>DK()?'#141414':'#fff';
+function sendPrompt(t){
+  const routes = {
+    'กลับหน้าหลักบทที่ 3':'chapter3.html',
+    'เรียนบทที่ 3 ส่วนที่ 2: ปัจจัยกำหนดอุปสงค์และ TR/AR/MR':'chapter3_2.html',
+    'เรียนบทที่ 3 ส่วนที่ 3: ความยืดหยุ่นของอุปสงค์':'chapter3_3.html',
+    'เรียนบทที่ 3 ส่วนที่ 4: อุปทานและความยืดหยุ่นของอุปทาน':'chapter3_4.html',
+    'เรียนบทที่ 3 ส่วนที่ 5: ดุลยภาพตลาด':'chapter3_5.html'
+  };
+  if(routes[t]){ window.location.href = routes[t]; return; }
+  window.parent?.postMessage({type:'sendPrompt',text:t},'*');
+}
+function buildPg(){const p=document.getElementById('pg');p.innerHTML='';for(let i=0;i<NSEC;i++){const d=document.createElement('div');d.className='pd';d.id='pd'+i;p.appendChild(d);}}
+function updPg(n){for(let i=0;i<NSEC;i++)document.getElementById('pd'+i).className='pd'+(i<n?' dn':i===n?' ac':'');}
+function go(n){document.querySelectorAll('.section').forEach(s=>s.style.display='none');document.getElementById('s'+n).style.display='block';cur=n;updPg(n);window.scrollTo({top:0,behavior:'smooth'});
+  if(n===0){initS('d',dSS);dDraw();}
+  if(n===1){initS('r',rSS);rDraw();}
+  if(n===2)buildQ();
+}
+
+/* Generic stepper */
+function initS(p,ss){const dots=document.getElementById(p+'Dots');dots.innerHTML='';for(let i=0;i<ss.length;i++){const d=document.createElement('div');d.className='sdot'+(i===0?' ac':'');d.id=p+'d'+i;dots.appendChild(d);}window[p+'St']=0;updS(p,ss);}
+function updS(p,ss){const st=window[p+'St'];document.getElementById(p+'Desc').innerHTML=ss[st].t;for(let i=0;i<ss.length;i++)document.getElementById(p+'d'+i).className='sdot'+(i===st?' ac':'');document.getElementById(p+'P').style.visibility=st===0?'hidden':'visible';document.getElementById(p+'N').style.visibility=st===ss.length-1?'hidden':'visible';}
+function stepG(p,ss,fn,d){window[p+'St']=Math.max(0,Math.min(ss.length-1,window[p+'St']+d));updS(p,ss);fn();}
+
+/* Helpers */
+function dot(ctx,x,y,r,col){ctx.fillStyle=col;ctx.beginPath();ctx.arc(x,y,r,0,2*Math.PI);ctx.fill();ctx.strokeStyle=BG();ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,r,0,2*Math.PI);ctx.stroke();}
+function axes(ctx,ml,mt,pw,ph,xT,yT,xL,yL){
+  ctx.strokeStyle=AC();ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+  ctx.fillStyle=TC();ctx.font='11px sans-serif';ctx.textAlign='center';xT.forEach(([x,l])=>ctx.fillText(l,x,mt+ph+16));
+  ctx.textAlign='right';yT.forEach(([y,l])=>ctx.fillText(l,ml-6,y+4));
+  if(xL){ctx.textAlign='center';ctx.fillText(xL,ml+pw/2,mt+ph+34);}
+  if(yL){ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.fillText(yL,0,0);ctx.restore();}
+}
+
+/* ── S0 Questions ── */
+function q0Ans(el,i){const opts=document.querySelectorAll('#q0Opts .opt');opts.forEach(o=>o.classList.add('disabled'));const fb=document.getElementById('q0Fb');if(i===1){el.classList.add('correct');fb.className='fb on ok';fb.textContent='ถูกต้อง! รายได้เพิ่ม (ปัจจัยอื่นนอกจาก P เปลี่ยน) → เส้น D ทั้งเส้นเลื่อนขวา = Shift in Demand';}else{el.classList.add('wrong');opts[1].classList.add('correct');fb.className='fb on no';fb.textContent='รายได้เป็นปัจจัยอื่นนอกจาก P → ทำให้เส้น D ทั้งเส้นเลื่อนขวา (shift right) ไม่ใช่แค่เคลื่อนบนเส้นเดิม';}}
+
+/* ═══ S0: DEMAND SHIFT GRAPH ═══ */
+var dSt=0;
+const dSS=[
+  {t:'<strong>Step 1:</strong> เส้นอุปสงค์เดิม D — แสดงความสัมพันธ์ P กับ Q<br>ตอนนี้อยู่ที่จุด A (P₁, Q₁)'},
+  {t:'<strong>Step 2:</strong> <span style="color:#1D9E75">ราคาลดจาก P₁ เป็น P₂</span> → เคลื่อนบนเส้นเดิม A→B<br>= <strong>Change in Quantity Demanded</strong> (move along)'},
+  {t:'<strong>Step 3:</strong> <span style="color:#e65100">รายได้เพิ่มขึ้น</span> (ปัจจัยอื่นเปลี่ยน) → เส้น D ทั้งเส้นเลื่อนขวาเป็น D₁<br>= <strong>Shift in Demand</strong> — ที่ราคาเดิม P₁ ซื้อได้มากขึ้น Q₁→Q₃'},
+  {t:'<strong>Step 4:</strong> <span style="color:#c62828">รายได้ลดลง</span> → เส้น D เลื่อนซ้ายเป็น D₂<br>ที่ราคาเดิม P₁ ซื้อได้น้อยลง Q₁→Q₄'},
+];
+function dStep(d){stepG('d',dSS,dDraw,d);}
+
+function dDraw(){
+  const cv=document.getElementById('c1');if(!cv)return;
+  const ctx=cv.getContext('2d');const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  const ml=55,mr=20,mt=35,mb=45,pw=W-ml-mr,ph=H-mt-mb;
+  const cx=q=>ml+(q/12)*pw, cy=p=>mt+(1-p/12)*ph;
+  const st=dSt;
+
+  ctx.strokeStyle=GC();ctx.lineWidth=1;
+  for(let v=2;v<=10;v+=2){ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();}
+
+  const xT=[];for(let q=0;q<=12;q+=2)xT.push([cx(q),String(q)]);
+  const yT=[];for(let p=0;p<=12;p+=2)yT.push([cy(p),String(p)]);
+  axes(ctx,ml,mt,pw,ph,xT,yT,'ปริมาณ (Q)','ราคา (P)');
+
+  // D line: P = 10 - Q → from (0,10) to (10,0)
+  ctx.strokeStyle=BC();ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cy(10));ctx.lineTo(cx(10),cy(0));ctx.stroke();
+  ctx.fillStyle=BC();ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.fillText('D',cx(10)+4,cy(0)+4);
+
+  // Point A at P=7, Q=3
+  dot(ctx,cx(3),cy(7),7,BC());
+  ctx.fillStyle=BC();ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+  ctx.fillText('A (P₁, Q₁)',cx(3)+10,cy(7)-6);
+
+  if(st>=1){
+    // Point B at P=4, Q=6 — move along
+    dot(ctx,cx(6),cy(4),7,'#1D9E75');
+    ctx.fillStyle='#1D9E75';ctx.font='bold 12px sans-serif';ctx.fillText('B (P₂, Q₂)',cx(6)+10,cy(4)-6);
+    // Arrow along curve
+    ctx.strokeStyle='#1D9E75';ctx.lineWidth=2;ctx.setLineDash([5,3]);
+    ctx.beginPath();ctx.moveTo(cx(3),cy(7));ctx.lineTo(cx(3),cy(4));ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx(3),cy(4));ctx.lineTo(cx(6),cy(4));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#1D9E75';ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('ราคาลด P₁→P₂',cx(1.5),cy(5.5));
+    ctx.fillText('Move Along',cx(4.5),cy(4)+20);
+    ctx.fillText('(Q เพิ่มขึ้น)',cx(4.5),cy(4)+34);
+  }
+
+  if(st>=2){
+    // D1 shifted right: P = 13 - Q → from (0,13) to (13,0) but clip
+    ctx.strokeStyle='#e65100';ctx.lineWidth=2;ctx.setLineDash([]);ctx.beginPath();ctx.moveTo(cx(1),cy(12));ctx.lineTo(cx(12),cy(1));ctx.stroke();
+    ctx.fillStyle='#e65100';ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.fillText('D₁',cx(12)+4,cy(1)+4);
+    // Point F at P=7, Q=6 on D1
+    dot(ctx,cx(6),cy(7),7,'#e65100');
+    ctx.fillStyle='#e65100';ctx.fillText('F (P₁, Q₃)',cx(6)+10,cy(7)-6);
+    // Arrow right
+    ctx.strokeStyle='#e65100';ctx.lineWidth=2;ctx.setLineDash([5,3]);
+    ctx.beginPath();ctx.moveTo(cx(3)+8,cy(7));ctx.lineTo(cx(6)-8,cy(7));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#e65100';ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('Shift Right →',cx(4.5),cy(7)+18);
+    ctx.fillText('(รายได้↑)',cx(4.5),cy(7)+32);
+  }
+
+  if(st>=3){
+    // D2 shifted left: P = 7 - Q → from (0,7) to (7,0)
+    ctx.strokeStyle='#c62828';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx(0),cy(7));ctx.lineTo(cx(7),cy(0));ctx.stroke();
+    ctx.fillStyle='#c62828';ctx.font='bold 12px sans-serif';ctx.textAlign='left';ctx.fillText('D₂',cx(7)+4,cy(0)+4);
+    // Point E at P=7, Q=0 on D2
+    dot(ctx,cx(0),cy(7),7,'#c62828');
+    ctx.fillStyle='#c62828';ctx.font='bold 12px sans-serif';ctx.fillText('E (P₁, Q₄)',cx(0)-55,cy(7)-6);
+    ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('← Shift Left',cx(1.5),cy(8.5));
+    ctx.fillText('(รายได้↓)',cx(1.5),cy(9.2));
+  }
+
+  ctx.fillStyle=TC();ctx.font='bold 13px sans-serif';ctx.textAlign='center';
+  ctx.fillText('Move Along vs Shift in Demand',ml+pw/2,mt-16);
+}
+
+/* ═══ S1: TR/AR/MR GRAPH ═══ */
+var rSt=0;
+const rSS=[
+  {t:'<strong>Step 1:</strong> เส้น <span style="color:#1565c0">D = AR = P = 10 − Q</span><br>เส้นอุปสงค์ก็คือเส้นรายรับเฉลี่ย (AR) นั่นเอง'},
+  {t:'<strong>Step 2:</strong> เพิ่มเส้น <span style="color:#c62828">MR = 10 − 2Q</span><br>slope ของ MR เป็น 2 เท่าของ AR → MR ตัดแกน Q ที่ Q=5 (กึ่งกลาง!)'},
+  {t:'<strong>Step 3:</strong> เส้น <span style="color:#e65100">TR = 10Q − Q²</span> (พาราโบลาคว่ำ)<br>TR เพิ่มขึ้นเรื่อยๆ จนสูงสุดที่ Q=5 (ตรงจุดที่ MR=0)'},
+  {t:'<strong>Step 4:</strong> ความสัมพันธ์ครบ: MR>0 → TR↑ | <strong>MR=0 → TR สูงสุด</strong> | MR<0 → TR↓<br>ลากเส้นประเชื่อมจุด Q=5 ระหว่าง 2 กราฟ'},
+];
+function rStep(d){stepG('r',rSS,rDraw,d);}
+function q1Ans(el,i){const opts=document.querySelectorAll('#q1Opts .opt');opts.forEach(o=>o.classList.add('disabled'));const fb=document.getElementById('q1Fb');if(i===1){el.classList.add('correct');fb.className='fb on ok';fb.textContent='ถูกต้อง! MR = 0 หมายความว่า TR ไม่เพิ่มขึ้นอีกแล้ว → TR อยู่ที่จุดสูงสุด (slope ของ TR = 0) ที่ Q=5, TR=25';}else{el.classList.add('wrong');opts[1].classList.add('correct');fb.className='fb on no';fb.textContent='MR คือ slope ของ TR — เมื่อ MR=0 → slope ของ TR = 0 → TR อยู่จุดสูงสุด (ไม่ใช่ศูนย์ ไม่ใช่ต่ำสุด)';}}
+
+function rDraw(){
+  const cv=document.getElementById('c2');if(!cv)return;
+  const ctx=cv.getContext('2d');const W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
+  const st=rSt;
+
+  const ml=55,mr=20;
+  // Top panel: TR
+  const mt1=35,ph1=180,mb1=30;
+  // Bottom panel: AR/MR
+  const mt2=mt1+ph1+mb1+25,ph2=180;
+  const pw=W-ml-mr;
+  const Qm=11;
+
+  // ── Bottom panel: AR / MR ──
+  const cx=q=>ml+(q/Qm)*pw;
+  const cyB=p=>mt2+(1-(p+12)/24)*ph2; // P range -12 to 12
+
+  // Grid bottom
+  ctx.strokeStyle=GC();ctx.lineWidth=1;
+  for(let p=-10;p<=10;p+=5){if(p===0)continue;ctx.beginPath();ctx.moveTo(ml,cyB(p));ctx.lineTo(ml+pw,cyB(p));ctx.stroke();}
+  for(let q=2;q<=10;q+=2){ctx.beginPath();ctx.moveTo(cx(q),mt2);ctx.lineTo(cx(q),mt2+ph2);ctx.stroke();}
+  // Zero line
+  ctx.strokeStyle=AC();ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ml,cyB(0));ctx.lineTo(ml+pw,cyB(0));ctx.stroke();
+
+  // Axes bottom
+  ctx.strokeStyle=AC();ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(ml,mt2);ctx.lineTo(ml,mt2+ph2);ctx.lineTo(ml+pw,mt2+ph2);ctx.stroke();
+  ctx.fillStyle=TC();ctx.font='11px sans-serif';ctx.textAlign='center';
+  for(let q=0;q<=10;q+=2)ctx.fillText(q,cx(q),mt2+ph2+16);
+  ctx.textAlign='right';
+  for(let p=-10;p<=10;p+=5)ctx.fillText(p,ml-6,cyB(p)+4);
+  ctx.textAlign='center';ctx.fillText('Q',ml+pw/2,mt2+ph2+30);
+  ctx.save();ctx.translate(14,mt2+ph2/2);ctx.rotate(-Math.PI/2);ctx.fillText('P, AR, MR (฿/หน่วย)',0,0);ctx.restore();
+
+  // Step 1+: AR = D line (P = 10 - Q)
+  if(st>=0){
+    ctx.strokeStyle=BC();ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cyB(10));ctx.lineTo(cx(10),cyB(0));ctx.stroke();
+    ctx.fillStyle=BC();ctx.font='bold 11px sans-serif';ctx.textAlign='left';
+    ctx.fillText('D = AR = P = 10−Q',cx(6),cyB(4)-8);
+    // Label intercepts
+    ctx.font='10px sans-serif';ctx.fillText('(0, 10)',cx(0)+4,cyB(10)-6);
+    ctx.fillText('(10, 0)',cx(10)+4,cyB(0)-6);
+  }
+
+  // Step 2+: MR line (MR = 10 - 2Q)
+  if(st>=1){
+    ctx.strokeStyle='#c62828';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(cx(0),cyB(10));ctx.lineTo(cx(5),cyB(0));ctx.lineTo(cx(10),cyB(-10));ctx.stroke();
+    ctx.fillStyle='#c62828';ctx.font='bold 11px sans-serif';ctx.textAlign='left';
+    ctx.fillText('MR = 10−2Q',cx(7),cyB(-4)-8);
+    // Highlight Q=5 where MR=0
+    if(st===1){
+      dot(ctx,cx(5),cyB(0),7,'#c62828');
+      ctx.fillStyle='#c62828';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+      ctx.fillText('MR=0 ที่ Q=5',cx(5),cyB(0)+18);
+      ctx.font='10px sans-serif';
+      ctx.fillText('(กึ่งกลางของ AR!)',cx(5),cyB(0)+32);
+      // Show bisect
+      dot(ctx,cx(10),cyB(0),4,BC());
+      ctx.fillStyle=TC();ctx.fillText('AR ตัดที่ Q=10',cx(10),cyB(0)+16);
+      ctx.fillText('MR ตัดที่ Q=5',cx(5),cyB(0)+46);
+    }
+  }
+
+  // ── Top panel: TR ──
+  const cyT=v=>mt1+(1-v/28)*ph1;
+
+  if(st>=2){
+    // Grid top
+    ctx.strokeStyle=GC();ctx.lineWidth=1;
+    for(let v=5;v<=25;v+=5){ctx.beginPath();ctx.moveTo(ml,cyT(v));ctx.lineTo(ml+pw,cyT(v));ctx.stroke();}
+    for(let q=2;q<=10;q+=2){ctx.beginPath();ctx.moveTo(cx(q),mt1);ctx.lineTo(cx(q),mt1+ph1);ctx.stroke();}
+    // Axes top
+    ctx.strokeStyle=AC();ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(ml,mt1);ctx.lineTo(ml,mt1+ph1);ctx.lineTo(ml+pw,mt1+ph1);ctx.stroke();
+    ctx.fillStyle=TC();ctx.font='11px sans-serif';ctx.textAlign='right';
+    for(let v=0;v<=25;v+=5)ctx.fillText(v,ml-6,cyT(v)+4);
+    ctx.save();ctx.translate(14,mt1+ph1/2);ctx.rotate(-Math.PI/2);ctx.textAlign='center';ctx.fillText('TR (฿)',0,0);ctx.restore();
+
+    // TR curve: TR = 10Q - Q²
+    ctx.strokeStyle='#e65100';ctx.lineWidth=2.5;ctx.beginPath();
+    for(let Q=0;Q<=10;Q+=.1){const TR=10*Q-Q*Q;ctx.lineTo(cx(Q),cyT(TR));}ctx.stroke();
+    ctx.fillStyle='#e65100';ctx.font='bold 11px sans-serif';ctx.textAlign='left';
+    ctx.fillText('TR = 10Q − Q²',cx(7.5),cyT(10));
+
+    // TR max at Q=5
+    if(st>=2){
+      dot(ctx,cx(5),cyT(25),7,'#e65100');
+      ctx.fillStyle='#e65100';ctx.textAlign='center';ctx.font='bold 11px sans-serif';
+      ctx.fillText('TR สูงสุด = 25',cx(5),cyT(25)-12);
+    }
+  }
+
+  // Step 4: Connection lines
+  if(st>=3){
+    // Vertical dashed line at Q=5
+    ctx.strokeStyle='rgba(150,150,150,.5)';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(cx(5),mt1);ctx.lineTo(cx(5),mt2+ph2);ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Labels in zones
+    ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+    ctx.fillStyle='#1D9E75';ctx.fillText('MR > 0',cx(2.5),mt2+20);ctx.fillText('TR ↑',cx(2.5),mt2+34);
+    ctx.fillStyle='#c62828';ctx.fillText('MR < 0',cx(7.5),mt2+20);ctx.fillText('TR ↓',cx(7.5),mt2+34);
+    ctx.fillStyle=BC();ctx.fillText('MR = 0',cx(5),mt2-8);ctx.fillText('TR สูงสุด!',cx(5),mt2+6);
+  }
+
+  // Title
+  ctx.fillStyle=TC();ctx.font='bold 13px sans-serif';ctx.textAlign='center';
+  ctx.fillText('รูปที่ 3-8: TR, AR และ MR เมื่อ P = 10 − Q',ml+pw/2,mt1-16);
+}
+
+/* ═══ QUIZ ═══ */
+const QS=[
+  {q:'ปัจจัยใดทำให้เกิดการ "เคลื่อนย้ายภายในเส้น D" (move along)?',o:['รายได้เปลี่ยน','ราคาสินค้าชนิดนั้นเปลี่ยน','รสนิยมเปลี่ยน','จำนวนผู้บริโภคเปลี่ยน'],a:1,e:'เฉพาะ P (ราคาสินค้าชนิดนั้น) เปลี่ยน → move along เส้น D เดิม ปัจจัยอื่นเปลี่ยน → shift ทั้งเส้น'},
+  {q:'AR (Average Revenue) เท่ากับอะไร?',o:['TR × Q','MR × Q','P (ราคาขาย)','TR − TC'],a:2,e:'AR = TR/Q = (P×Q)/Q = P → เส้น AR คือเส้นอุปสงค์ (D) นั่นเอง'},
+  {q:'ถ้า P = 10−Q เส้น MR จะมี slope เท่าไร?',o:['−1','−2','−0.5','−10'],a:1,e:'P = 10−Q → TR = 10Q−Q² → MR = 10−2Q → slope MR = −2 (เป็น 2 เท่าของ slope AR = −1)'},
+  {q:'เมื่อ MR = 0 จะเกิดอะไรขึ้นกับ TR?',o:['TR = 0','TR สูงสุด','TR ต่ำสุด','TR ไม่เปลี่ยน'],a:1,e:'MR คือ slope ของ TR → เมื่อ MR=0 slope=0 → TR อยู่ที่จุดสูงสุด'},
+  {q:'Q^d = f(P, I, P₀, T, E, ...) มีกี่ปัจจัยหลัก?',o:['3 ปัจจัย','5 ปัจจัย','7 ปัจจัย','10 ปัจจัย'],a:2,e:'7 ปัจจัย: P (ราคา), I (รายได้), P₀ (ราคาสินค้าเกี่ยวข้อง), T (รสนิยม), E (คาดคะเน), N (จำนวนผู้บริโภค), อื่นๆ'}
+];
+var qA=0,qS=0;
+function buildQ(){const z=document.getElementById('qz');if(z.children.length)return;qA=0;qS=0;QS.forEach((qq,qi)=>{const d=document.createElement('div');d.style.cssText='margin-bottom:14px';let h=`<div style="font-weight:700;font-size:14px;margin-bottom:6px">${qi+1}. ${qq.q}</div><div class="opts" id="qo${qi}">`;qq.o.forEach((o,oi)=>{h+=`<div class="opt" onclick="qAns(${qi},${oi})">${o}</div>`;});h+=`</div><div class="fb" id="qf${qi}"></div>`;d.innerHTML=h;z.appendChild(d);});}
+function qAns(qi,oi){const opts=document.querySelectorAll(`#qo${qi} .opt`);if(opts[0].classList.contains('disabled'))return;opts.forEach(o=>o.classList.add('disabled'));const fb=document.getElementById('qf'+qi);if(oi===QS[qi].a){opts[oi].classList.add('correct');fb.className='fb on ok';fb.textContent='✓ '+QS[qi].e;qS++;}else{opts[oi].classList.add('wrong');opts[QS[qi].a].classList.add('correct');fb.className='fb on no';fb.textContent='✗ '+QS[qi].e;}qA++;if(qA===QS.length)setTimeout(()=>{document.getElementById('qnav').style.display='flex';const msg=document.createElement('div');msg.className='fb on '+(qS>=4?'ok':'info');msg.textContent=`ได้ ${qS}/${QS.length} คะแนน`+(qS===5?' — ยอดเยี่ยม!':qS>=3?' — ดีมาก!':' — ลองทบทวน');document.getElementById('qz').appendChild(msg);},300);}
+function rstQ(){document.getElementById('qz').innerHTML='';document.getElementById('qnav').style.display='none';buildQ();}
+
+buildPg();updPg(0);initS('d',dSS);dDraw();
+</script>
+
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+</body></html>

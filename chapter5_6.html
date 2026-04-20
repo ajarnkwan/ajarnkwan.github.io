@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 5.6 — ต้นทุน 7 ประเภทในระยะสั้น</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+    --font-serif:'Noto Serif Thai',serif;
+    --color-background-primary:#ffffff;
+    --color-background-secondary:#f7f5ff;
+    --color-border-secondary:#d8d2ef;
+    --color-border-tertiary:#ece7f7;
+    --color-text-primary:#1d1633;
+    --color-text-secondary:#6b6480;
+    --color-text-tertiary:#9a94ad;
+    --border-radius-md:12px;
+    --border-radius-lg:18px;
+    --shadow:0 10px 30px rgba(61,47,158,.08);
+    --c-fixed:#9a3412;
+    --c-fixed-soft:#fef1e6;
+    --c-var:#0F6E56;
+    --c-var-soft:#e6f4f0;
+    --c-total:#4338ca;
+    --c-total-soft:#ede9fe;
+    --c-mc:#B45309;
+    --c-mc-soft:#fef3c7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
+  .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
+  .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:14px;font-weight:600;margin:0 0 14px}
+  .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+  .ajk-shell-theme {
+    --ajk-primary: #f59e0b;
+    --ajk-primary-soft: #fffbeb;
+    --ajk-primary-dark: #d97706;
+    --ajk-ink: #1d1633;
+    --ajk-muted: #6b6480;
+    --ajk-border: #e5e1f3;
+    --ajk-surface: #ffffff;
+  }
+  .ajk-topbar {
+    position: sticky; top: 0; z-index: 1000;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid var(--ajk-border);
+    font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+    color: var(--ajk-ink);
+  }
+  .ajk-topbar-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; min-height: 58px;
+  }
+  .ajk-back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none; color: var(--ajk-ink);
+    background: var(--ajk-primary-soft);
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    border: 1px solid transparent;
+    transition: all .18s;
+    flex-shrink: 0;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .ajk-back-btn:hover {
+    background: var(--ajk-primary); color: #fff;
+    transform: translateX(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  }
+  .ajk-brand {
+    flex: 1; min-width: 0; text-align: right;
+    line-height: 1.25;
+  }
+  .ajk-brand-course {
+    font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    letter-spacing: -.01em;
+  }
+  .ajk-brand-author {
+    font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 2px;
+  }
+  .ajk-brand-author-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--ajk-primary);
+    flex-shrink: 0;
+  }
+  .ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; padding: 0 1px; }
+
+  @media (max-width: 520px) {
+    .ajk-back-btn span { display: none; }
+    .ajk-back-btn { padding: 9px; }
+    .ajk-back-btn svg { width: 16px; height: 16px; }
+    .ajk-brand-course { font-size: 12.5px; }
+    .ajk-brand-author { font-size: 10.5px; }
+    .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
+  }
+
+  /* ─── Footer ─── */
+  .ajk-footer {
+    margin-top: 64px;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+    border-top: 1px solid var(--ajk-border);
+    padding: 48px 16px 28px;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+    color: var(--ajk-ink);
+  }
+  .ajk-footer-inner {
+    max-width: 720px; margin: 0 auto;
+    text-align: center;
+  }
+  .ajk-footer-mark {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .ajk-footer-mark::before, .ajk-footer-mark::after {
+    content: ''; width: 28px; height: 1px;
+    background: var(--ajk-primary); opacity: .35;
+  }
+  .ajk-footer-mark-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--ajk-primary);
+    flex-shrink: 0;
+  }
+  .ajk-footer-name {
+    font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--ajk-ink); margin: 0 0 4px;
+    letter-spacing: -.01em;
+  }
+  .ajk-footer-sub {
+    font-size: 12.5px; color: var(--ajk-muted);
+    letter-spacing: .02em;
+    margin-bottom: 26px;
+  }
+  .ajk-footer-links {
+    display: flex; justify-content: center; gap: 8px;
+    flex-wrap: wrap; margin-bottom: 26px;
+  }
+  .ajk-footer-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    text-decoration: none; color: var(--ajk-ink);
+    background: var(--ajk-surface);
+    border: 1px solid var(--ajk-border);
+    padding: 9px 16px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    transition: all .18s;
+    cursor: pointer;
+    font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  }
+  .ajk-footer-btn svg { width: 15px; height: 15px; }
+  .ajk-footer-btn:hover {
+    color: var(--ajk-primary);
+    border-color: var(--ajk-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  }
+  .ajk-footer-bottom {
+    font-size: 11.5px; color: var(--ajk-muted);
+    letter-spacing: .02em;
+    padding-top: 22px;
+    border-top: 1px solid var(--ajk-border);
+    line-height: 1.8;
+  }
+  .ajk-footer-bottom strong {
+    color: var(--ajk-ink); font-weight: 700;
+  }
+
+  @media (max-width: 520px) {
+    .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
+    .ajk-footer-name { font-size: 21px; }
+    .ajk-footer-links { gap: 6px; }
+    .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+  }
+
+  /* ── Section body ── */
+  .chbody{font-family:var(--font-sans);max-width:680px;margin:0 auto;padding:1rem 0}
+  .progress-steps{display:flex;gap:4px;margin-bottom:1.5rem}
+  .step-dot{flex:1;height:4px;border-radius:2px;background:var(--color-background-secondary);transition:background .3s}
+  .step-dot.done{background:#1D9E75}
+  .step-dot.active{background:#C2410C}
+  .section-label{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;font-weight:600}
+  .section-label .chip{background:#fef1e6;color:#9a3412;padding:2px 8px;border-radius:999px;margin-right:8px;font-weight:700}
+  .big-q{font-family:var(--font-serif);font-size:20px;font-weight:700;color:var(--color-text-primary);line-height:1.45;margin:0 0 1rem}
+  .lead{font-size:14.5px;line-height:1.9;color:var(--color-text-primary);margin:0 0 1rem}
+  .lead strong{color:#9a3412;font-weight:700}
+  .nav-row{display:flex;gap:8px;margin-top:1.5rem}
+  .nav-btn{flex:1;padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;cursor:pointer;transition:background .15s;font-family:inherit;font-weight:500}
+  .nav-btn:hover{background:var(--color-background-secondary)}
+  .nav-btn.primary{background:#C2410C;border-color:#C2410C;color:#fff}
+  .nav-btn.primary:hover{background:#9a3412}
+  .section{display:none}
+  .section.active{display:block}
+
+  .reveal-btn{width:100%;padding:11px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;font-weight:500;cursor:pointer;margin-bottom:8px;transition:background .15s;font-family:inherit}
+  .reveal-btn:hover{background:var(--color-background-secondary)}
+  .reveal-box{background:#fff;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;display:none}
+  .reveal-box.shown{display:block}
+  .reveal-box p{margin:0 0 10px;font-size:14px;line-height:1.8;color:var(--color-text-primary)}
+  .reveal-box p:last-child{margin-bottom:0}
+
+  .quiz-opt{display:block;width:100%;text-align:left;padding:11px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:13.5px;cursor:pointer;margin-bottom:6px;transition:all .15s;font-family:inherit;line-height:1.6}
+  .quiz-opt:hover:not(:disabled){background:var(--color-background-secondary)}
+  .quiz-opt.correct{background:#E1F5EE;border-color:#1D9E75;color:#0F6E56}
+  .quiz-opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
+  .quiz-opt:disabled{cursor:default}
+  .feedback{font-size:13.5px;padding:10px 14px;border-radius:var(--border-radius-md);margin-top:6px;display:none;line-height:1.7}
+  .feedback.show{display:block}
+  .feedback.ok{background:#E1F5EE;color:#0F6E56}
+  .feedback.bad{background:#FCEBEB;color:#A32D2D}
+  .score-circle{width:80px;height:80px;border-radius:50%;border:3px solid #C2410C;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:24px;font-weight:700;color:#9a3412;font-family:var(--font-serif)}
+
+  /* ═══════════ Custom components ═══════════ */
+
+  /* Slider control */
+  .ctrl{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:14px 16px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
+  .ctrl label{font-size:13.5px;color:var(--color-text-primary);font-weight:600;flex-shrink:0}
+  .ctrl input[type="range"]{flex:1;accent-color:#C2410C;height:4px}
+  .ctrl .val{background:#C2410C;color:#fff;font-family:var(--font-serif);font-size:17px;font-weight:700;min-width:42px;text-align:center;padding:6px 12px;border-radius:999px}
+
+  /* Hook/Q card */
+  .q-card{background:linear-gradient(135deg, #fef1e6, #fef3c7);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;text-align:center}
+  .q-card .q-mark{font-family:var(--font-serif);font-size:38px;font-weight:700;color:#C2410C;line-height:1;margin-bottom:10px}
+  .q-card p{margin:0;font-size:15px;line-height:1.75;color:var(--color-text-primary)}
+  .q-card p strong{color:#9a3412}
+
+  /* Takeaway */
+  .takeaway{background:#9a3412;color:#fff;border-radius:var(--border-radius-lg);padding:1.1rem 1.35rem;margin:1rem 0;font-size:14.5px;line-height:1.85}
+  .takeaway .tag{display:inline-block;background:rgba(255,255,255,.2);padding:3px 11px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+  .takeaway p{margin:0}
+  .takeaway strong{color:#fef3c7}
+
+  /* Two-sided cost classifier (like 5.1 style) */
+  .fv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+  @media (max-width:520px){.fv-grid{grid-template-columns:1fr}}
+  .fv-card{background:#fff;border:2px solid;border-radius:var(--border-radius-lg);padding:14px 16px}
+  .fv-card.fixed{border-color:#fdba74;background:#fef1e6}
+  .fv-card.var{border-color:#86efac;background:#e6f4f0}
+  .fv-title{font-size:13.5px;font-weight:700;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+  .fv-card.fixed .fv-title{color:#9a3412}
+  .fv-card.var .fv-title{color:#065f46}
+  .fv-card ul{padding-left:18px;margin:0;font-size:13px;line-height:1.8}
+  .fv-card ul li{margin-bottom:3px}
+  .fv-examples{margin-top:8px;padding-top:8px;border-top:1px dashed}
+  .fv-card.fixed .fv-examples{border-top-color:#fdba74}
+  .fv-card.var .fv-examples{border-top-color:#86efac}
+  .fv-eg-label{font-size:10.5px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:5px}
+  .fv-eg-list{display:flex;flex-wrap:wrap;gap:5px}
+  .fv-eg{font-size:11.5px;padding:3px 9px;border-radius:999px;background:#fff;border:1px solid}
+  .fv-card.fixed .fv-eg{border-color:#fdba74;color:#9a3412}
+  .fv-card.var .fv-eg{border-color:#86efac;color:#065f46}
+
+  /* Stacked cost bar visualization */
+  .stack-vis{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px;margin-bottom:12px}
+  .stack-head{font-size:11.5px;color:#6b6480;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:12px;text-align:center}
+  .stack-row{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+  .stack-layer{display:flex;align-items:center;gap:10px;font-size:13px}
+  .stack-layer .layer-label{width:80px;font-weight:600;flex-shrink:0}
+  .stack-layer.tfc .layer-label{color:#9a3412}
+  .stack-layer.tvc .layer-label{color:#065f46}
+  .stack-layer.tc .layer-label{color:#3730a3}
+  .stack-layer .layer-bar{flex:1;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:#fff;font-weight:700;font-size:13px;transition:width .4s cubic-bezier(.34,1.56,.64,1);min-width:40px}
+  .stack-layer.tfc .layer-bar{background:#C2410C}
+  .stack-layer.tvc .layer-bar{background:#10b981}
+  .stack-layer.tc .layer-bar{background:#4338ca}
+  .stack-equation{text-align:center;font-size:13px;font-weight:600;color:#6b6480;padding:8px 10px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
+  .stack-equation strong{color:#3730a3}
+
+  /* Cost concept card (definition) */
+  .cc-card{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:10px;border-left:4px solid}
+  .cc-card.fixed{border-left-color:#C2410C}
+  .cc-card.var{border-left-color:#10b981}
+  .cc-card.total{border-left-color:#4338ca}
+  .cc-card.mc{border-left-color:#B45309}
+  .cc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+  .cc-name{font-size:15px;font-weight:700;margin:0}
+  .cc-card.fixed .cc-name{color:#9a3412}
+  .cc-card.var .cc-name{color:#065f46}
+  .cc-card.total .cc-name{color:#3730a3}
+  .cc-card.mc .cc-name{color:#92400e}
+  .cc-abbr{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:700;padding:3px 10px;border-radius:6px;background:#f7f5ff;color:#3730a3;flex-shrink:0}
+  .cc-card.fixed .cc-abbr{background:#fef1e6;color:#9a3412}
+  .cc-card.var .cc-abbr{background:#e6f4f0;color:#065f46}
+  .cc-card.mc .cc-abbr{background:#fef3c7;color:#92400e}
+  .cc-meaning{font-size:13.5px;line-height:1.75;margin:0 0 6px}
+  .cc-eg{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 12px;font-size:12.5px;line-height:1.65;color:var(--color-text-secondary);margin-top:8px}
+  .cc-eg strong{color:var(--color-text-primary)}
+  .cc-formula{display:inline-block;padding:4px 10px;background:#f9fafb;border:1px dashed #9ca3af;border-radius:6px;font-family:'Noto Serif Thai',serif;font-size:13px;font-weight:600;color:#374151;margin-top:6px}
+
+  /* Per-cup calculation - visual division */
+  .div-calc{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:12px;text-align:center}
+  .div-calc .d-nom{font-family:'Noto Serif Thai',serif;font-size:22px;font-weight:700;color:#9a3412;margin-bottom:4px}
+  .div-calc .d-bar{height:2px;background:#374151;margin:6px auto;max-width:160px}
+  .div-calc .d-denom{font-family:'Noto Serif Thai',serif;font-size:18px;color:#065f46;margin-bottom:8px}
+  .div-calc .d-arrow{color:#6b6480;font-size:18px;margin:0 6px}
+  .div-calc .d-result{font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;color:#3730a3}
+  .div-calc .d-label{font-size:11px;color:#6b6480;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:2px}
+
+  /* 3 metric row (for averages & MC) */
+  .metrics-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+  .mc3{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;text-align:center}
+  .mc3 .m3-label{font-size:11px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:3px}
+  .mc3 .m3-val{font-family:'Noto Serif Thai',serif;font-size:22px;font-weight:700;line-height:1}
+  .mc3.afc .m3-val{color:#9a3412}
+  .mc3.avc .m3-val{color:#065f46}
+  .mc3.ac .m3-val{color:#3730a3}
+  .mc3.mc .m3-val{color:#92400e}
+
+  /* Story box */
+  .story{background:#fef7e0;border-left:4px solid #f59e0b;border-radius:var(--border-radius-md);padding:14px 18px;margin-bottom:1rem;font-size:14px;line-height:1.75;color:#92400e;min-height:60px;transition:all .25s}
+  .story.good{background:#dcfaed;border-left-color:#10b981;color:#065f46}
+  .story.info{background:#ede9fe;border-left-color:#8b5cf6;color:#4338ca}
+  .story strong{font-weight:700}
+
+  /* Comparison card for MP vs MC */
+  .twin-card{background:linear-gradient(135deg, #fef3c7, #ede9fe);border-radius:var(--border-radius-lg);padding:16px 18px;margin-bottom:1rem}
+  .twin-card h4{margin:0 0 10px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#3730a3}
+  .twin-row{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;font-size:13.5px;line-height:1.5}
+  @media (max-width:520px){.twin-row{grid-template-columns:1fr;text-align:center}.twin-mid{display:none}}
+  .twin-side{background:#fff;border-radius:var(--border-radius-md);padding:10px 12px;text-align:center}
+  .twin-side .t-abbr{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:700;margin-bottom:2px}
+  .twin-side.mp .t-abbr{color:#B45309}
+  .twin-side.mc .t-abbr{color:#92400e}
+  .twin-side .t-desc{font-size:12px;color:var(--color-text-secondary)}
+  .twin-mid{text-align:center;font-size:14px;font-weight:700;color:#6b6480}
+
+  /* 7-cost summary table */
+  .cost-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:1rem;border-radius:var(--border-radius-lg);overflow:hidden;border:1px solid var(--color-border-tertiary)}
+  .cost-table th,.cost-table td{padding:8px 6px;border-bottom:1px solid var(--color-border-tertiary);text-align:center}
+  .cost-table th{background:var(--color-background-secondary);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#6b6480;font-weight:700}
+  .cost-table td:first-child{text-align:left;padding-left:10px;font-weight:600;color:var(--color-text-primary)}
+  .cost-table .col-Q{background:#fafafe;font-weight:700;color:#3730a3;font-family:'Noto Serif Thai',serif}
+  .cost-table .col-tfc{color:#9a3412;font-family:'Noto Serif Thai',serif}
+  .cost-table .col-tvc{color:#065f46;font-family:'Noto Serif Thai',serif}
+  .cost-table .col-tc{color:#3730a3;font-family:'Noto Serif Thai',serif;font-weight:700}
+  .cost-table .col-afc{color:#9a3412;font-family:'Noto Serif Thai',serif;background:#fef1e6}
+  .cost-table .col-avc{color:#065f46;font-family:'Noto Serif Thai',serif;background:#e6f4f0}
+  .cost-table .col-ac{color:#3730a3;font-family:'Noto Serif Thai',serif;font-weight:700;background:#ede9fe}
+  .cost-table .col-mc{color:#92400e;font-family:'Noto Serif Thai',serif;background:#fef3c7}
+  .cost-table tr.highlight td{background:#fff7ed !important;font-weight:700}
+  .cost-table tr.highlight .col-Q{background:#fdba74 !important;color:#fff}
+  @media (max-width:520px){
+    .cost-table th,.cost-table td{padding:6px 3px;font-size:11px}
+  }
+
+  @media (max-width:520px){
+    .big-q{font-size:17.5px}
+    .panel{padding:18px}
+    .metrics-3{grid-template-columns:1fr 1fr 1fr;gap:5px}
+    .mc3{padding:8px 4px}
+    .mc3 .m3-val{font-size:17px}
+  }
+</style>
+</head>
+<body>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter5.html" aria-label="กลับบทที่ 5">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 5</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 5.6 · ต้นทุน 7 ประเภทในระยะสั้น</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+<a class="backlink" href="chapter5.html">← กลับบทที่ 5</a>
+
+<div class="panel">
+<h2 class="sr-only">บทที่ 5.6: ต้นทุน 7 ประเภทในระยะสั้น</h2>
+
+<div class="chbody">
+  <div class="progress-steps" id="prog"></div>
+
+  <!-- ═══════════ SEC 0 · Why split fixed/variable ═══════════ -->
+  <div id="sec0" class="section active">
+    <div class="section-label"><span class="chip">5.6</span>เปิดเรื่อง</div>
+    <p class="big-q">ต้นทุน 7 ประเภท — ฟังดูเยอะ แต่จริง ๆ มีแค่ 3 กลุ่ม</p>
+
+    <p class="lead">ใน 5.5 เราเรียน Explicit + Implicit = ต้นทุนเศรษฐศาสตร์<br>
+    ทีนี้มาดูว่า ในระยะสั้น ต้นทุนทั้งหมดแบ่งย่อย<strong>ตามพฤติกรรม</strong>ได้ยังไงบ้าง</p>
+
+    <div class="q-card">
+      <div class="q-mark">?</div>
+      <p>ถ้าร้านกาแฟ<strong>ขาย 0 แก้ว</strong>ทั้งเดือน<br>
+      ต้นทุน = 0 บาท <strong>จริงหรือ?</strong></p>
+    </div>
+
+    <button class="reveal-btn" id="rbtn0" onclick="tog('ans0','rbtn0','คำตอบ...')">คำตอบ...</button>
+    <div class="reveal-box" id="ans0">
+      <p><strong>ไม่ใช่!</strong> ต่อให้ไม่ขายเลย คุณยังต้องจ่าย:</p>
+      <p>🏠 ค่าเช่าตึก · 📄 ค่าประกัน · 🏦 ค่าผ่อนเครื่องชง (คงที่)</p>
+      <p>แต่สิ่งที่<em>ไม่</em>ต้องจ่าย: ค่าเมล็ดกาแฟ · ค่านม · ไม่ต้องจ้างคน (เพราะไม่มีอะไรให้ชง)</p>
+      <p style="margin-top:10px;color:#9a3412"><strong>สังเกต:</strong> ต้นทุนแบ่งเป็น 2 กลุ่ม — พวก<em>ที่ยังคงจ่ายอยู่</em> กับพวก<em>ที่หายไปถ้าไม่ผลิต</em></p>
+    </div>
+
+    <p class="lead">นี่คือจุดเริ่มของ <strong>ต้นทุนคงที่</strong> กับ <strong>ต้นทุนแปรผัน</strong> ที่เรากำลังจะไปเรียน:</p>
+
+    <!-- Fixed vs Variable cards -->
+    <div class="fv-grid">
+      <div class="fv-card fixed">
+        <p class="fv-title">🏠 ต้นทุนคงที่</p>
+        <ul>
+          <li>จ่าย<strong>เท่าเดิม</strong>ทุกเดือน</li>
+          <li>ไม่ขึ้นกับว่าขายได้กี่แก้ว</li>
+          <li>ผลิต 0 แก้วก็ยังจ่าย</li>
+        </ul>
+        <div class="fv-examples">
+          <p class="fv-eg-label">ตัวอย่าง</p>
+          <div class="fv-eg-list">
+            <span class="fv-eg">ค่าเช่า</span>
+            <span class="fv-eg">ประกัน</span>
+            <span class="fv-eg">ค่าผ่อนเครื่อง</span>
+          </div>
+        </div>
+      </div>
+      <div class="fv-card var">
+        <p class="fv-title">🥤 ต้นทุนแปรผัน</p>
+        <ul>
+          <li><strong>เปลี่ยนตาม</strong>จำนวนที่ผลิต</li>
+          <li>ผลิตมาก = จ่ายมาก</li>
+          <li>ผลิต 0 แก้ว = จ่าย 0</li>
+        </ul>
+        <div class="fv-examples">
+          <p class="fv-eg-label">ตัวอย่าง</p>
+          <div class="fv-eg-list">
+            <span class="fv-eg">เมล็ดกาแฟ</span>
+            <span class="fv-eg">นม</span>
+            <span class="fv-eg">ค่าจ้าง</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <div class="tag">จะได้รู้จัก 7 ตัว แบ่งเป็น 3 กลุ่ม</div>
+      <p>📦 <strong>Total (3 ตัว):</strong> TFC · TVC · TC — ต้นทุนรวม<br>
+      📊 <strong>Average (3 ตัว):</strong> AFC · AVC · AC — ต้นทุนต่อแก้ว<br>
+      ➕ <strong>Marginal (1 ตัว):</strong> MC — ต้นทุนของแก้วใหม่</p>
+    </div>
+
+    <div class="nav-row"><button class="nav-btn primary" onclick="go(1)">เริ่มจาก 3 ตัว Total →</button></div>
+  </div>
+
+  <!-- ═══════════ SEC 1 · Total costs (TFC, TVC, TC) ═══════════ -->
+  <div id="sec1" class="section">
+    <div class="section-label"><span class="chip">5.6</span>กลุ่มที่ 1 · ต้นทุนรวม 3 ตัว</div>
+    <p class="big-q">TFC, TVC, TC — 3 ตัวแรก ที่เห็นภาพง่ายที่สุด</p>
+
+    <!-- TFC definition -->
+    <div class="cc-card fixed">
+      <div class="cc-head">
+        <p class="cc-name">ต้นทุนคงที่รวม</p>
+        <span class="cc-abbr">TFC</span>
+      </div>
+      <p class="cc-meaning">ต้นทุนทุกอย่างที่<strong>ไม่เปลี่ยน</strong>ตามจำนวนที่ผลิต</p>
+      <div class="cc-eg">
+        <strong>ร้านคุณน้อย:</strong> ค่าเช่าตึก 20,000 + ค่าผ่อนเครื่องชง 10,000 = <strong>TFC = 30,000/เดือน</strong>
+      </div>
+    </div>
+
+    <!-- TVC definition -->
+    <div class="cc-card var">
+      <div class="cc-head">
+        <p class="cc-name">ต้นทุนแปรผันรวม</p>
+        <span class="cc-abbr">TVC</span>
+      </div>
+      <p class="cc-meaning">ต้นทุนทุกอย่างที่<strong>เปลี่ยนตาม</strong>จำนวนที่ผลิต (Q)</p>
+      <div class="cc-eg">
+        <strong>ร้านคุณน้อย:</strong> ค่าวัตถุดิบ+ค่าจ้าง รวม <strong>20 บาท/แก้ว</strong><br>
+        ถ้าขาย 1,000 แก้ว → TVC = 20 × 1,000 = <strong>20,000</strong>
+      </div>
+    </div>
+
+    <!-- TC definition -->
+    <div class="cc-card total">
+      <div class="cc-head">
+        <p class="cc-name">ต้นทุนรวมทั้งหมด</p>
+        <span class="cc-abbr">TC</span>
+      </div>
+      <p class="cc-meaning">= TFC + TVC · รวมทุกอย่างที่จ่าย</p>
+      <div class="cc-formula">TC = TFC + TVC</div>
+    </div>
+
+    <p class="lead" style="margin-top:1.5rem">ลองเล่น — เลื่อนจำนวนแก้วที่ขาย ดูต้นทุน 3 ตัว:</p>
+
+    <!-- Stacked bar visualization -->
+    <div class="stack-vis">
+      <div class="stack-head">ต้นทุนรวมของร้าน (แสดงเป็นแถบ)</div>
+      <div class="stack-row">
+        <div class="stack-layer tfc">
+          <span class="layer-label">TFC</span>
+          <div class="layer-bar" id="s1-tfc-bar" style="width:25%">฿ 30,000</div>
+        </div>
+        <div class="stack-layer tvc">
+          <span class="layer-label">TVC</span>
+          <div class="layer-bar" id="s1-tvc-bar" style="width:0%">฿ 0</div>
+        </div>
+        <div class="stack-layer tc">
+          <span class="layer-label">TC</span>
+          <div class="layer-bar" id="s1-tc-bar" style="width:25%">฿ 30,000</div>
+        </div>
+      </div>
+      <div class="stack-equation"><strong>TC = TFC + TVC</strong></div>
+    </div>
+
+    <div class="ctrl">
+      <label>ขายได้ (Q)</label>
+      <input type="range" min="0" max="3000" step="250" value="0" id="s1-q" oninput="updateS1(this.value)">
+      <div class="val" id="s1-qval">0</div>
+    </div>
+
+    <div class="story" id="s1-story">ลากแถบ — สังเกตว่า TFC ไม่เปลี่ยน แต่ TVC ขึ้นตาม Q</div>
+
+    <div class="takeaway">
+      <div class="tag">สรุป 3 ตัวแรก</div>
+      <p>🟠 TFC = คงที่เสมอ (เส้นแนวนอน)<br>
+      🟢 TVC = เพิ่มตาม Q (เส้นขึ้น)<br>
+      🟣 TC = TFC + TVC (แถบเต็ม)</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(0)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(2)">ถัดไป: ต้นทุนต่อแก้ว →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ SEC 2 · Average costs ═══════════ -->
+  <div id="sec2" class="section">
+    <div class="section-label"><span class="chip">5.6</span>กลุ่มที่ 2 · ต้นทุนเฉลี่ย 3 ตัว</div>
+    <p class="big-q">"ต่อแก้วเท่าไร?" — เอาต้นทุนรวม หารด้วย Q</p>
+
+    <p class="lead">Total ทำให้เราเห็นภาพรวม แต่จะตั้งราคาขาย<strong>ต่อแก้ว</strong> เราต้องรู้<strong>ต้นทุนเฉลี่ยต่อแก้ว</strong> → ได้อีก 3 ตัว:</p>
+
+    <!-- AFC definition with division visual -->
+    <div class="cc-card fixed">
+      <div class="cc-head">
+        <p class="cc-name">ต้นทุนคงที่เฉลี่ย</p>
+        <span class="cc-abbr">AFC</span>
+      </div>
+      <p class="cc-meaning">TFC หารด้วย Q = ค่าคงที่<strong>เฉลี่ยต่อแก้ว</strong></p>
+      <div class="cc-formula">AFC = TFC ÷ Q</div>
+    </div>
+
+    <div class="div-calc">
+      <div class="d-label">ตัวอย่างที่ Q = 1,000 แก้ว</div>
+      <div class="d-nom">TFC 30,000</div>
+      <div class="d-bar"></div>
+      <div class="d-denom">Q 1,000</div>
+      <span class="d-arrow">→</span>
+      <div class="d-label" style="margin-top:8px">AFC</div>
+      <div class="d-result">30 บาท/แก้ว</div>
+    </div>
+
+    <p class="lead"><strong>ข้อสังเกตสำคัญ:</strong> ยิ่ง Q เยอะ AFC ยิ่งน้อย (ต้นทุนคงที่ถูกเฉลี่ยกับแก้วเยอะขึ้น)</p>
+
+    <!-- AVC -->
+    <div class="cc-card var" style="margin-top:1.5rem">
+      <div class="cc-head">
+        <p class="cc-name">ต้นทุนแปรผันเฉลี่ย</p>
+        <span class="cc-abbr">AVC</span>
+      </div>
+      <p class="cc-meaning">TVC หารด้วย Q = ค่าแปรผัน<strong>เฉลี่ยต่อแก้ว</strong></p>
+      <div class="cc-formula">AVC = TVC ÷ Q</div>
+      <div class="cc-eg">
+        ร้านคุณน้อย: วัตถุดิบ+ค่าจ้าง = 20 บาท/แก้ว → <strong>AVC = 20</strong> (ค่อนข้างคงที่ในช่วงผลิตปกติ)
+      </div>
+    </div>
+
+    <!-- AC -->
+    <div class="cc-card total" style="margin-top:10px">
+      <div class="cc-head">
+        <p class="cc-name">ต้นทุนเฉลี่ยรวม</p>
+        <span class="cc-abbr">AC</span>
+      </div>
+      <p class="cc-meaning">= AFC + AVC · ต้นทุน<strong>เฉลี่ยต่อแก้ว</strong>รวมทุกอย่าง</p>
+      <div class="cc-formula">AC = TC ÷ Q = AFC + AVC</div>
+    </div>
+
+    <!-- Interactive -->
+    <p class="lead" style="margin-top:1.5rem">เลื่อนดู — สังเกต AFC ลด แต่ AVC คงที่:</p>
+
+    <div class="ctrl">
+      <label>ขายได้ (Q)</label>
+      <input type="range" min="100" max="3000" step="100" value="1000" id="s2-q" oninput="updateS2(this.value)">
+      <div class="val" id="s2-qval">1000</div>
+    </div>
+
+    <div class="metrics-3">
+      <div class="mc3 afc"><div class="m3-label">AFC</div><div class="m3-val" id="s2-afc">30</div></div>
+      <div class="mc3 avc"><div class="m3-label">AVC</div><div class="m3-val" id="s2-avc">20</div></div>
+      <div class="mc3 ac"><div class="m3-label">AC</div><div class="m3-val" id="s2-ac">50</div></div>
+    </div>
+
+    <div class="story" id="s2-story">ลากแถบ — สังเกต AFC ลดลงเรื่อย ๆ (เฉลี่ยกับแก้วเยอะขึ้น) แต่ AVC ยังประมาณ 20</div>
+
+    <div class="takeaway">
+      <div class="tag">สรุป 3 ตัวเฉลี่ย</div>
+      <p>AFC = ลดลงเสมอเมื่อ Q เพิ่ม (ของคงที่กระจายไปแก้วเยอะขึ้น)<br>
+      AVC ≈ คงที่ต่อแก้ว (ในช่วงผลิตปกติ)<br>
+      AC = AFC + AVC</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(1)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(3)">ถัดไป: MC (ตัวสุดท้าย!) →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ SEC 3 · MC ═══════════ -->
+  <div id="sec3" class="section">
+    <div class="section-label"><span class="chip">5.6</span>กลุ่มที่ 3 · ต้นทุนของแก้วใหม่</div>
+    <p class="big-q">MC — "แก้วถัดไป ต้องจ่ายเพิ่มเท่าไร?"</p>
+
+    <p class="lead">ยังจำ <strong>MP</strong> จาก 5.2 ได้ไหม? — "คนใหม่เพิ่มผลผลิตเท่าไร"<br>
+    MC คือ<strong>คู่แฝด</strong>ทางฝั่งต้นทุน:</p>
+
+    <div class="twin-card">
+      <h4>🔗 ความคล้ายคลึง</h4>
+      <div class="twin-row">
+        <div class="twin-side mp">
+          <div class="t-abbr">MP</div>
+          <div class="t-desc">ผลผลิตที่เพิ่ม<br>เมื่อเพิ่มคน 1 คน</div>
+        </div>
+        <div class="twin-mid">⟷</div>
+        <div class="twin-side mc">
+          <div class="t-abbr">MC</div>
+          <div class="t-desc">ต้นทุนที่เพิ่ม<br>เมื่อเพิ่มแก้ว 1 แก้ว</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MC definition -->
+    <div class="cc-card mc">
+      <div class="cc-head">
+        <p class="cc-name">ต้นทุนเพิ่ม / ต้นทุนหน่วยสุดท้าย</p>
+        <span class="cc-abbr">MC</span>
+      </div>
+      <p class="cc-meaning">ต้นทุน<strong>ที่เพิ่มขึ้น</strong>เมื่อผลิต<strong>แก้วใหม่ 1 แก้ว</strong></p>
+      <div class="cc-formula">MC = ΔTC ÷ ΔQ</div>
+      <div class="cc-eg">
+        ขาย 100 แก้ว → TC = 32,000 · ขาย 101 แก้ว → TC = 32,022<br>
+        → <strong>MC = 32,022 − 32,000 = 22 บาท</strong> (ต้นทุนของแก้วที่ 101)
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:1.5rem"><strong>สำคัญ:</strong> MC ใช้ตอบคำถาม "<em>ควรผลิตเพิ่มไหม?</em>" — เหมือน MP ตอบ "<em>ควรจ้างคนเพิ่มไหม?</em>"</p>
+
+    <button class="reveal-btn" id="rbtn3" onclick="tog('ans3','rbtn3','ทำไม MC มาจาก TVC เท่านั้น (ไม่ใช่ TFC)?')">ทำไม MC มาจาก TVC เท่านั้น (ไม่ใช่ TFC)?</button>
+    <div class="reveal-box" id="ans3">
+      <p>🎯 เพราะ <strong>TFC ไม่เปลี่ยน</strong>เมื่อเพิ่ม Q</p>
+      <p>ΔTC = Δ(TFC + TVC) = ΔTFC + ΔTVC = 0 + ΔTVC = <strong>ΔTVC</strong></p>
+      <p>ดังนั้น <strong>MC = ΔTVC ÷ ΔQ</strong> — ต้นทุนแปรผันเท่านั้นที่มีผลต่อ MC</p>
+      <p style="margin-top:10px;color:#92400e;padding:10px;background:#fef3c7;border-radius:var(--border-radius-md)"><strong>💡 นัยสำคัญ:</strong> เวลาตัดสินใจผลิตแก้วถัดไป ต้นทุนคงที่ไม่เกี่ยว (จ่ายไปแล้วไม่ว่าจะผลิตหรือไม่) — ดูแค่ MC พอ</p>
+    </div>
+
+    <div class="takeaway">
+      <div class="tag">MC — ตัวที่ 7 ตัวสุดท้าย</div>
+      <p>💰 MC = ต้นทุนของ<strong>แก้วถัดไป</strong><br>
+      🔗 คู่แฝดกับ MP (ฝั่งผลิต)<br>
+      📌 MC มาจาก TVC เท่านั้น (ไม่เกี่ยว TFC)</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(2)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(4)">ถัดไป: ตาราง 7 ตัวครบ →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ SEC 4 · Full table ═══════════ -->
+  <div id="sec4" class="section">
+    <div class="section-label"><span class="chip">5.6</span>ภาพรวม · ตาราง 7 ตัวครบ</div>
+    <p class="big-q">ดูทั้ง 7 ตัวในตารางเดียว · เลื่อนเลือก Q เพื่อดูค่าจริง</p>
+
+    <p class="lead">ในตารางนี้ TFC = 30,000 · AVC ≈ 20 บาท/แก้ว (ในช่วงปกติ)</p>
+
+    <div class="ctrl">
+      <label>Highlight Q</label>
+      <input type="range" min="0" max="8" step="1" value="3" id="s4-q" oninput="updateS4(this.value)">
+      <div class="val" id="s4-qval">1000</div>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table class="cost-table" id="s4-table">
+        <thead>
+          <tr>
+            <th style="text-align:left">#</th>
+            <th>Q</th>
+            <th>TFC</th>
+            <th>TVC</th>
+            <th>TC</th>
+            <th>AFC</th>
+            <th>AVC</th>
+            <th>AC</th>
+            <th>MC</th>
+          </tr>
+        </thead>
+        <tbody id="s4-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="story info" id="s4-story">เลื่อนแถบ — สังเกตแต่ละคอลัมน์</div>
+
+    <!-- Mnemonic helper -->
+    <button class="reveal-btn" id="rbtn4" onclick="tog('ans4','rbtn4','เทคนิคจำ 7 ตัวให้ง่าย')">💡 เทคนิคจำ 7 ตัวให้ง่าย</button>
+    <div class="reveal-box" id="ans4">
+      <p><strong>จำแบบ 3 × 3 − 2 = 7</strong></p>
+      <p>มี 3 prefix: <strong>T</strong>otal · <strong>A</strong>verage · <strong>M</strong>arginal<br>
+      มี 3 type: <strong>F</strong>ixed · <strong>V</strong>ariable · ไม่ระบุ (รวม)</p>
+      <p>→ เป็นไปได้ 3×3 = 9 ตัว แต่ <strong>MFC</strong> กับ <strong>MVC</strong> ไม่มีประโยชน์ (เพราะ MC = MVC เสมอ) → เหลือ 7 ตัว</p>
+      <table style="width:100%;font-size:12.5px;margin-top:10px;border-collapse:collapse">
+        <tr><td></td><th style="padding:4px">Fixed</th><th style="padding:4px">Variable</th><th style="padding:4px">รวม</th></tr>
+        <tr><th style="text-align:left;padding:4px">Total</th><td style="padding:4px;text-align:center;background:#fef1e6;font-weight:700">TFC</td><td style="padding:4px;text-align:center;background:#e6f4f0;font-weight:700">TVC</td><td style="padding:4px;text-align:center;background:#ede9fe;font-weight:700">TC</td></tr>
+        <tr><th style="text-align:left;padding:4px">Average</th><td style="padding:4px;text-align:center;background:#fef1e6;font-weight:700">AFC</td><td style="padding:4px;text-align:center;background:#e6f4f0;font-weight:700">AVC</td><td style="padding:4px;text-align:center;background:#ede9fe;font-weight:700">AC</td></tr>
+        <tr><th style="text-align:left;padding:4px">Marginal</th><td colspan="2" style="padding:4px;text-align:center;color:#9a94ad">—</td><td style="padding:4px;text-align:center;background:#fef3c7;font-weight:700">MC</td></tr>
+      </table>
+    </div>
+
+    <div class="takeaway">
+      <div class="tag">สูตรที่ต้องจำ</div>
+      <p>📐 TC = TFC + TVC<br>
+      📐 AFC = TFC/Q · AVC = TVC/Q · AC = TC/Q<br>
+      📐 AC = AFC + AVC<br>
+      📐 MC = ΔTC/ΔQ = ΔTVC/ΔQ</p>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="go(3)">← ย้อน</button>
+      <button class="nav-btn primary" onclick="go(5)">ถัดไป: ทดสอบ →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ SEC 5 · Quiz ═══════════ -->
+  <div id="sec5" class="section">
+    <div class="section-label"><span class="chip">5.6</span>ทดสอบความเข้าใจ</div>
+    <p class="big-q">6 ข้อ ครอบคลุมทั้ง 7 ตัว</p>
+    <div id="quiz-zone"></div>
+    <div class="nav-row" id="quiz-nav" style="display:none">
+      <button class="nav-btn" onclick="resetAll()">เรียนใหม่ตั้งแต่ต้น</button>
+      <button class="nav-btn primary" onclick="location.href='chapter5_7.html'">ไปหัวข้อ 5.7 ↗</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOTAL = 6;
+
+/* ── Setup — simple cost structure ──
+   TFC = 30,000 (rent + equipment lease)
+   AVC = 20 บาท/แก้ว (materials + wages)
+   → TVC = 20 × Q
+   → TC  = 30,000 + 20Q
+   ─────────────────────────────── */
+const TFC = 30000;
+const AVC_FLAT = 20;
+
+function costs(Q){
+  const tvc = AVC_FLAT * Q;
+  const tc = TFC + tvc;
+  return {
+    Q, TFC, tvc, tc,
+    afc: Q > 0 ? TFC / Q : null,
+    avc: Q > 0 ? tvc / Q : null,
+    ac: Q > 0 ? tc / Q : null
+  };
+}
+
+/* ── Table rows for Sec 4 ── */
+const Q_ROWS = [0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000];
+const tableData = Q_ROWS.map((q, i) => {
+  const c = costs(q);
+  const prev = i > 0 ? costs(Q_ROWS[i-1]) : null;
+  const mc = prev && q > 0 ? (c.tc - prev.tc) / (q - prev.Q) : null;
+  return { ...c, mc };
+});
+
+/* ── Progress & nav ── */
+function buildProg(){
+  const p = document.getElementById('prog');
+  p.innerHTML = '';
+  for (let i=0;i<TOTAL;i++){
+    const d = document.createElement('div');
+    d.className = 'step-dot';
+    d.id = 'dot'+i;
+    p.appendChild(d);
+  }
+}
+function updateProg(cur){
+  for (let i=0;i<TOTAL;i++){
+    const d = document.getElementById('dot'+i);
+    d.className = i<cur ? 'step-dot done' : (i===cur ? 'step-dot active' : 'step-dot');
+  }
+}
+function go(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec'+n).classList.add('active');
+  updateProg(n);
+  if (n===1) initS1();
+  if (n===2) initS2();
+  if (n===4) initS4();
+  if (n===5 && !document.getElementById('quiz-zone').hasChildNodes()) buildQuiz();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function tog(boxId, btnId, defaultText){
+  const box = document.getElementById(boxId);
+  const btn = document.getElementById(btnId);
+  const showing = box.classList.toggle('shown');
+  btn.textContent = showing ? 'ซ่อน' : defaultText;
+}
+
+function fmt(n){
+  if (n === null || n === undefined) return '—';
+  if (Math.abs(n) >= 1000) return n.toLocaleString('en-US', {maximumFractionDigits:0});
+  if (Math.abs(n) >= 100) return n.toFixed(0);
+  return n.toFixed(1);
+}
+
+/* ── Section 1: Stacked bars ── */
+let s1Init = false;
+function initS1(){
+  if (s1Init) return;
+  s1Init = true;
+  updateS1(0);
+}
+function updateS1(qVal){
+  const q = parseInt(qVal);
+  document.getElementById('s1-qval').textContent = q;
+
+  const c = costs(q);
+  const maxScale = 120000; // max for visualization
+  const tfcPct = (c.TFC / maxScale) * 100;
+  const tvcPct = (c.tvc / maxScale) * 100;
+  const tcPct = (c.tc / maxScale) * 100;
+
+  document.getElementById('s1-tfc-bar').style.width = Math.max(3, tfcPct) + '%';
+  document.getElementById('s1-tfc-bar').textContent = '฿ ' + c.TFC.toLocaleString();
+  document.getElementById('s1-tvc-bar').style.width = Math.max(0, tvcPct) + '%';
+  document.getElementById('s1-tvc-bar').textContent = '฿ ' + c.tvc.toLocaleString();
+  document.getElementById('s1-tc-bar').style.width = Math.max(3, tcPct) + '%';
+  document.getElementById('s1-tc-bar').textContent = '฿ ' + c.tc.toLocaleString();
+
+  const s = document.getElementById('s1-story');
+  if (q === 0){
+    s.className = 'story';
+    s.innerHTML = `🟠 ขายได้ <strong>0 แก้ว</strong> → TFC ยังเป็น <strong>30,000</strong>! (ยังต้องจ่ายค่าเช่า) · TVC = 0 · TC = 30,000`;
+  } else {
+    s.className = 'story good';
+    s.innerHTML = `🟢 ขายได้ <strong>${q.toLocaleString()} แก้ว</strong> → TFC ยังคง <strong>30,000</strong> · TVC = ${c.tvc.toLocaleString()} · <strong>TC = ${c.tc.toLocaleString()}</strong>`;
+  }
+}
+
+/* ── Section 2: Averages ── */
+let s2Init = false;
+function initS2(){
+  if (s2Init) return;
+  s2Init = true;
+  updateS2(1000);
+}
+function updateS2(qVal){
+  const q = parseInt(qVal);
+  document.getElementById('s2-qval').textContent = q;
+  const c = costs(q);
+
+  document.getElementById('s2-afc').textContent = c.afc !== null ? fmt(c.afc) : '—';
+  document.getElementById('s2-avc').textContent = c.avc !== null ? fmt(c.avc) : '—';
+  document.getElementById('s2-ac').textContent = c.ac !== null ? fmt(c.ac) : '—';
+
+  const s = document.getElementById('s2-story');
+  if (q <= 300){
+    s.className = 'story';
+    s.innerHTML = `🟠 Q=${q} แก้วน้อยมาก → <strong>AFC = ${fmt(c.afc)} บาท/แก้ว</strong> สูงมาก! · AC = ${fmt(c.ac)}`;
+  } else if (q >= 2500){
+    s.className = 'story good';
+    s.innerHTML = `🟢 Q=${q.toLocaleString()} แก้วเยอะ → <strong>AFC = ${fmt(c.afc)} บาท/แก้ว</strong> ต่ำ (เฉลี่ยกระจายดี) · AC = ${fmt(c.ac)}`;
+  } else {
+    s.className = 'story info';
+    s.innerHTML = `Q=${q.toLocaleString()} · AFC = <strong>${fmt(c.afc)}</strong> · AVC ≈ <strong>20</strong> (คงที่) · AC = AFC+AVC = <strong>${fmt(c.ac)}</strong>`;
+  }
+}
+
+/* ── Section 4: Full table ── */
+let s4Init = false;
+function initS4(){
+  if (s4Init) return;
+  s4Init = true;
+  buildTable();
+  updateS4(3);
+}
+function buildTable(){
+  const tbody = document.getElementById('s4-tbody');
+  const rows = tableData.map((d, i) => {
+    return `<tr id="tr-${i}">
+      <td>${i}</td>
+      <td class="col-Q">${d.Q.toLocaleString()}</td>
+      <td class="col-tfc">${fmt(d.TFC)}</td>
+      <td class="col-tvc">${fmt(d.tvc)}</td>
+      <td class="col-tc">${fmt(d.tc)}</td>
+      <td class="col-afc">${d.afc !== null ? fmt(d.afc) : '—'}</td>
+      <td class="col-avc">${d.avc !== null ? fmt(d.avc) : '—'}</td>
+      <td class="col-ac">${d.ac !== null ? fmt(d.ac) : '—'}</td>
+      <td class="col-mc">${d.mc !== null ? fmt(d.mc) : '—'}</td>
+    </tr>`;
+  }).join('');
+  tbody.innerHTML = rows;
+}
+function updateS4(idxVal){
+  const idx = parseInt(idxVal);
+  const d = tableData[idx];
+  document.getElementById('s4-qval').textContent = d.Q.toLocaleString();
+
+  // Highlight row
+  tableData.forEach((_, i) => {
+    const tr = document.getElementById('tr-'+i);
+    if (tr) tr.classList.toggle('highlight', i === idx);
+  });
+
+  const s = document.getElementById('s4-story');
+  if (d.Q === 0){
+    s.innerHTML = `<strong>Q = 0</strong> · ยังต้องจ่าย TFC = 30,000 · AFC/AVC/AC/MC คำนวณไม่ได้ (หารด้วย 0)`;
+  } else {
+    s.innerHTML = `<strong>Q = ${d.Q.toLocaleString()}</strong> · TC = ${fmt(d.tc)} · AC = ${fmt(d.ac)} บาท/แก้ว · MC = ${d.mc !== null ? fmt(d.mc) : '—'} บาท/แก้ว`;
+  }
+}
+
+/* ── Quiz ── */
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const quizDataRaw = [
+  {
+    q: 'ร้านเปิดมา 1 เดือน ขายได้ 0 แก้ว · ต้นทุนรวม (TC) เดือนนี้เป็นเท่าไร?',
+    opts: [
+      '0 บาท เพราะไม่ขายเลย',
+      'เท่ากับ TFC เท่านั้น',
+      'เท่ากับ TVC เท่านั้น',
+      'คำนวณไม่ได้'
+    ],
+    ans: 1,
+    explain: 'เมื่อ Q=0 · TVC = 0 (ไม่ซื้อวัตถุดิบ ไม่จ้างคน) แต่ TFC ยังต้องจ่าย → TC = TFC + 0 = TFC'
+  },
+  {
+    q: 'AFC มีลักษณะอย่างไรเมื่อ Q เพิ่มขึ้น?',
+    opts: [
+      'คงที่เสมอ',
+      'ลดลงเสมอ (เพราะ TFC ถูกเฉลี่ยกับ Q ที่มากขึ้น)',
+      'เพิ่มขึ้นเสมอ',
+      'ขึ้น ๆ ลง ๆ'
+    ],
+    ans: 1,
+    explain: 'AFC = TFC/Q · TFC คงที่ แต่ Q เพิ่ม → ตัวหารเพิ่ม → AFC ลด เหมือนหารพิซซ่าถาดเดิมให้คนเยอะขึ้น ต่อคนได้น้อยลง'
+  },
+  {
+    q: 'TC = TFC + TVC · ถ้า TFC = 30,000 · TVC = 15,000 · TC = เท่าไร?',
+    opts: [
+      '15,000',
+      '30,000',
+      '45,000',
+      '450,000'
+    ],
+    ans: 2,
+    explain: 'TC = 30,000 + 15,000 = 45,000 บาท (บวกตรง ๆ)'
+  },
+  {
+    q: 'MC (ต้นทุนหน่วยสุดท้าย) คืออะไร?',
+    opts: [
+      'ต้นทุนรวมทั้งหมด',
+      'ต้นทุนเฉลี่ยต่อแก้ว',
+      'ต้นทุนที่เพิ่มขึ้น เมื่อผลิตแก้วใหม่อีก 1 แก้ว',
+      'ต้นทุนคงที่หารด้วย Q'
+    ],
+    ans: 2,
+    explain: 'MC = ΔTC/ΔQ = ต้นทุนของ "แก้วถัดไป" เป็นคู่แฝดกับ MP (ฝั่งผลิต)'
+  },
+  {
+    q: 'เหตุใด MC ไม่ขึ้นกับ TFC?',
+    opts: [
+      'เพราะ TFC เล็กเกินไป',
+      'เพราะ TFC ไม่เปลี่ยนเมื่อ Q เปลี่ยน จึงไม่มีผลต่อ "การเปลี่ยนแปลง" ของ TC',
+      'เพราะ MC คิดแค่ตอนผลิตใหม่ ๆ',
+      'เพราะ TFC ถูกหารไปแล้ว'
+    ],
+    ans: 1,
+    explain: 'MC = ΔTC/ΔQ = Δ(TFC+TVC)/ΔQ = (0+ΔTVC)/ΔQ = ΔTVC/ΔQ เพราะ TFC คงที่ การเปลี่ยน Q ไม่กระทบ TFC → MC ขึ้นกับ TVC เท่านั้น'
+  },
+  {
+    q: 'ถ้า Q=1,000 · TFC=30,000 · AVC=20 · AC เท่ากับเท่าไร?',
+    opts: [
+      '20 บาท/แก้ว',
+      '30 บาท/แก้ว',
+      '50 บาท/แก้ว',
+      '500 บาท/แก้ว'
+    ],
+    ans: 2,
+    explain: 'AFC = 30,000/1,000 = 30 · AVC = 20 · AC = AFC + AVC = 30 + 20 = 50 บาท/แก้ว'
+  }
+];
+
+let qAnswered = 0, qScore = 0, quizData = [];
+
+function buildQuiz(){
+  qAnswered = 0; qScore = 0;
+  quizData = quizDataRaw.map(q => {
+    const indexed = q.opts.map((o, i) => ({text: o, correct: i === q.ans}));
+    const shuffled = shuffle(indexed);
+    return {
+      q: q.q,
+      opts: shuffled.map(o => o.text),
+      ans: shuffled.findIndex(o => o.correct),
+      explain: q.explain
+    };
+  });
+  const z = document.getElementById('quiz-zone');
+  z.innerHTML = '';
+  document.getElementById('quiz-nav').style.display = 'none';
+  quizData.forEach((q, qi)=>{
+    const block = document.createElement('div');
+    block.style.marginBottom = '1.25rem';
+    const optsHtml = q.opts.map((o, oi)=>
+      `<button class="quiz-opt" id="qo-${qi}-${oi}" onclick="answerQ(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`
+    ).join('');
+    block.innerHTML = `<p style="font-size:14.5px;font-weight:600;margin:0 0 10px;color:var(--color-text-primary);line-height:1.6">${qi+1}. ${q.q}</p>${optsHtml}<div class="feedback" id="qfb-${qi}"></div>`;
+    z.appendChild(block);
+  });
+}
+function answerQ(qi, oi){
+  const q = quizData[qi];
+  for (let i=0;i<q.opts.length;i++) document.getElementById('qo-'+qi+'-'+i).disabled = true;
+  const btn = document.getElementById('qo-'+qi+'-'+oi);
+  const fb = document.getElementById('qfb-'+qi);
+  if (oi === q.ans){
+    btn.className = 'quiz-opt correct';
+    fb.innerHTML = 'ถูกต้อง! ' + q.explain;
+    fb.className = 'feedback show ok';
+    qScore++;
+  } else {
+    btn.className = 'quiz-opt wrong';
+    document.getElementById('qo-'+qi+'-'+q.ans).className = 'quiz-opt correct';
+    fb.innerHTML = 'ยังไม่ถูก — ' + q.explain;
+    fb.className = 'feedback show bad';
+  }
+  qAnswered++;
+  if (qAnswered === quizData.length){
+    const pct = Math.round(qScore / quizData.length * 100);
+    const msg = pct >= 80 ? 'เข้าใจดีมาก! พร้อมเข้า 5.7 (Production ↔ Cost)'
+              : pct >= 60 ? 'เริ่มเข้าใจแล้ว ลองทบทวนข้อที่พลาด'
+              : 'ย้อนไปดูตาราง 7 ตัวใน Section 4 จะช่วยให้เห็นภาพ';
+    const summary = document.createElement('div');
+    summary.style.cssText = 'text-align:center;padding:1rem 0';
+    summary.innerHTML = `<div class="score-circle">${qScore}/${quizData.length}</div><p style="font-size:14px;color:var(--color-text-secondary);margin:0;line-height:1.6">${msg}</p>`;
+    document.getElementById('quiz-zone').appendChild(summary);
+    document.getElementById('quiz-nav').style.display = 'flex';
+  }
+}
+
+function resetAll(){
+  qAnswered=0; qScore=0;
+  s1Init = false; s2Init = false; s4Init = false;
+  document.getElementById('quiz-zone').innerHTML = '';
+  ['ans0','ans3','ans4'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('shown');
+  });
+  const btns = [
+    ['rbtn0','คำตอบ...'],
+    ['rbtn3','ทำไม MC มาจาก TVC เท่านั้น (ไม่ใช่ TFC)?'],
+    ['rbtn4','💡 เทคนิคจำ 7 ตัวให้ง่าย']
+  ];
+  btns.forEach(([id,txt])=>{
+    const el = document.getElementById(id);
+    if (el) el.textContent = txt;
+  });
+  go(0);
+}
+
+buildProg();
+updateProg(0);
+</script>
+
+</div>
+</div>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

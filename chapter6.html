@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>บทที่ 6 — การผลิตในระยะยาวและต้นทุนในระยะยาว</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.7}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:780px;margin:0 auto}
+.backbtn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid #ddd;border-radius:10px;background:transparent;font-size:13px;cursor:pointer;color:#888;margin-bottom:14px;text-decoration:none}
+@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
+.backbtn:hover{background:#f5f5f5}@media(prefers-color-scheme:dark){.backbtn:hover{background:#242424}}
+.hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:20px;padding:28px 24px 24px;margin-bottom:20px}
+.hero .ey{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.hero h1{font-size:26px;font-weight:800;line-height:1.3;margin-bottom:8px}
+.hero p{font-size:14px;line-height:1.7;opacity:.9;max-width:600px}
+.cards{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.card{border:1.5px solid #e0e0e0;border-radius:16px;padding:18px 20px;cursor:pointer;transition:all .2s;display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:inherit}
+@media(prefers-color-scheme:dark){.card{border-color:#333}}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1);border-color:#7b1fa2}
+@media(prefers-color-scheme:dark){.card:hover{box-shadow:0 8px 24px rgba(0,0,0,.4);border-color:#ce93d8}}
+.card .icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.c1 .icon{background:#fff3e0}.c2 .icon{background:#e3f2fd}.c3 .icon{background:#fce4ec}.c4 .icon{background:#e8f5e9}.c5 .icon{background:#ede7f6}
+@media(prefers-color-scheme:dark){.c1 .icon{background:#3d2000}.c2 .icon{background:#0d2744}.c3 .icon{background:#3d1020}.c4 .icon{background:#0d3d14}.c5 .icon{background:#1a0d3d}}
+.card .body{flex:1;min-width:0}
+.card .num{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+@media(prefers-color-scheme:dark){.card .num{color:#aaa}}
+.card .title{font-size:15px;font-weight:700;margin-bottom:4px;line-height:1.4}
+.card .sub{font-size:12.5px;color:#777;line-height:1.6}
+@media(prefers-color-scheme:dark){.card .sub{color:#999}}
+.card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.tag{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600}
+.c1 .tag{background:#fff3e0;color:#e65100}@media(prefers-color-scheme:dark){.c1 .tag{background:#3d2000;color:#ffb347}}
+.c2 .tag{background:#e3f2fd;color:#1565c0}@media(prefers-color-scheme:dark){.c2 .tag{background:#0d2744;color:#64b5f6}}
+.c3 .tag{background:#fce4ec;color:#c62828}@media(prefers-color-scheme:dark){.c3 .tag{background:#3d1020;color:#ef9a9a}}
+.c4 .tag{background:#e8f5e9;color:#2e7d32}@media(prefers-color-scheme:dark){.c4 .tag{background:#0d3d14;color:#81c784}}
+.c5 .tag{background:#ede7f6;color:#4527a0}@media(prefers-color-scheme:dark){.c5 .tag{background:#1a0d3d;color:#b39ddb}}
+.hook{background:#f5f0ff;border:1px solid #d1c4e9;border-radius:14px;padding:16px 18px;margin:16px 0}
+@media(prefers-color-scheme:dark){.hook{background:#1a0d2a;border-color:#4a148c}}
+.hook .q{font-size:15px;font-weight:600;color:#4a148c;margin-bottom:6px}
+@media(prefers-color-scheme:dark){.hook .q{color:#ce93d8}}
+.hook p{font-size:13px;color:#666;line-height:1.7}
+@media(prefers-color-scheme:dark){.hook p{color:#aaa}}
+.nav{display:flex;gap:8px;margin-top:10px;padding-top:14px;border-top:1px solid #eee}
+@media(prefers-color-scheme:dark){.nav{border-color:#333}}
+.nb{flex:1;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13px;cursor:pointer;color:#888;text-align:center;text-decoration:none}
+@media(prefers-color-scheme:dark){.nb{border-color:#444;color:#aaa}}
+.nb:hover{background:#f5f5f5}@media(prefers-color-scheme:dark){.nb:hover{background:#242424}}
+.nb.pr{background:#7b1fa2;border-color:#7b1fa2;color:#fff;font-weight:700}
+@media(prefers-color-scheme:dark){.nb.pr{background:#9c27b0}}
+
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #8b5cf6;
+  --ajk-primary-soft: #f5f3ff;
+  --ajk-primary-dark: #7c3aed;
+  --ajk-ink: #1d1633;
+  --ajk-muted: #6b6480;
+  --ajk-border: #e5e1f3;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 960px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s; flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer; white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right; line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ajk-brand-author {
+  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; }
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; }
+}
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 720px; margin: 0 auto; text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 24px; font-weight: 700; margin: 0 0 4px;
+}
+.ajk-footer-sub { font-size: 12.5px; color: var(--ajk-muted); margin-bottom: 26px; }
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 12.5px; font-weight: 600;
+  border: 1px solid var(--ajk-border);
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface); transition: all .18s;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.ajk-footer-btn:hover {
+  color: #fff!important; background: var(--ajk-primary)!important;
+  border-color: var(--ajk-primary)!important;
+  transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-footer-bottom { font-size: 11px; color: var(--ajk-muted); line-height: 1.7; }
+
+</style></head><body>
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="index.html" aria-label="กลับแผนการเรียน">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>แผนการเรียน</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 6 — การผลิตในระยะยาวและต้นทุนในระยะยาว</div>
+      <div class="ajk-brand-author">
+        <span class="ajk-brand-author-dot"></span>
+        <span class="ajk-brand-author-at">@</span>ajarn.kwan · เศรษฐศาสตร์ รามคำแหง
+      </div>
+    </div>
+  </div>
+</header>
+<div class="app">
+
+<a class="backbtn" href="index.html">← หน้าหลัก</a>
+
+<div class="hero">
+  <div class="ey">ทฤษฎีเศรษฐศาสตร์จุลภาค · บทที่ 6</div>
+  <h1>การผลิตในระยะยาว<br>และต้นทุนในระยะยาว</h1>
+  <p>ระยะสั้นปัจจัยทุนคงที่ — แต่ระยะยาว <b>ทุกอย่างปรับได้</b> ผู้ผลิตต้องเลือกสัดส่วนระหว่างแรงงาน (L) กับทุน (K) เลือกขนาดโรงงาน ให้ได้ผลผลิตมากสุด หรือต้นทุนต่ำสุด</p>
+</div>
+
+<div class="hook">
+  <div class="q">💭 ถามก่อนเรียน: ถ้าจะเปิดโรงงาน ควรใช้ "เครื่องจักรเยอะ" หรือ "คนงานเยอะ"?</div>
+  <p>คำตอบขึ้นอยู่กับ "สัดส่วนที่ประหยัดที่สุด" — ซึ่งเกิดจากการจับคู่ <b>เส้นผลผลิตเท่ากัน (Isoquant)</b> กับ <b>เส้นต้นทุนเท่ากัน (Isocost)</b> และในระยะยาวคุณยังเลือกขนาดโรงงานได้ด้วย เรียนจบบทนี้แล้วจะเห็นวิธีตัดสินใจทั้งหมด!</p>
+</div>
+
+<div class="cards">
+
+  <a class="card c1" href="chapter6_1.html">
+    <div class="icon">🏔️</div>
+    <div class="body">
+      <div class="num">6.1</div>
+      <div class="title">ฟังก์ชันการผลิต 2 ปัจจัย + เส้นผลผลิตเท่ากัน</div>
+      <div class="sub">พื้นผิวการผลิต 3 มิติ → Isoquant 2 มิติ · 5 คุณสมบัติ (slope ลบ, โค้งเว้า, เส้นบนมากกว่า, ตัดไม่ได้, ต่อเนื่อง)</div>
+      <div class="tags"><span class="tag">Production Surface</span><span class="tag">Isoquant</span><span class="tag">5 คุณสมบัติ</span></div>
+    </div>
+  </a>
+
+  <a class="card c2" href="chapter6_2.html">
+    <div class="icon">🔄</div>
+    <div class="body">
+      <div class="num">6.2</div>
+      <div class="title">MRTS + กรณีพิเศษ + Ridge Lines</div>
+      <div class="sub">MRTS = ΔK/ΔL = MP_L/MP_K · Diminishing MRTS · Perfect Substitutes (เส้นตรง) · Perfect Complements (หักมุม) · ขอบเขตการใช้ปัจจัยที่สมเหตุสมผล</div>
+      <div class="tags"><span class="tag">MRTS</span><span class="tag">Perfect Sub</span><span class="tag">Perfect Comp</span><span class="tag">Ridge Lines</span></div>
+    </div>
+  </a>
+
+  <a class="card c3" href="chapter6_3.html">
+    <div class="icon">🎯</div>
+    <div class="body">
+      <div class="num">6.3</div>
+      <div class="title">Isocost + ดุลยภาพผู้ผลิต</div>
+      <div class="sub">C = P_L·L + P_K·K · 2 โจทย์ดุลยภาพ (Output max / Least cost) · เงื่อนไข MP_L/P_L = MP_K/P_K · Lagrangian Method</div>
+      <div class="tags"><span class="tag">Isocost</span><span class="tag">Output Max</span><span class="tag">Least Cost</span><span class="tag">Lagrangian</span></div>
+    </div>
+  </a>
+
+  <a class="card c4" href="chapter6_4.html">
+    <div class="icon">📈</div>
+    <div class="body">
+      <div class="num">6.4</div>
+      <div class="title">Expansion Path + ผลตอบแทนต่อขนาด</div>
+      <div class="sub">เส้นแนวทางขยายการผลิต · L-intensive vs K-intensive · Returns to Scale 3 แบบ (Increasing · Constant · Decreasing)</div>
+      <div class="tags"><span class="tag">Expansion Path</span><span class="tag">L-intensive</span><span class="tag">K-intensive</span><span class="tag">Returns to Scale</span></div>
+    </div>
+  </a>
+
+  <a class="card c5" href="chapter6_5.html">
+    <div class="icon">📉</div>
+    <div class="body">
+      <div class="num">6.5</div>
+      <div class="title">ต้นทุนระยะยาว (LTC · LAC · LMC)</div>
+      <div class="sub">LTC จาก Expansion Path · ทำไม LAC เป็นรูปตัว U? · Envelope Curve · Economies/Diseconomies of Scale · ความสัมพันธ์ SAC · SMC · LAC · LMC</div>
+      <div class="tags"><span class="tag">LTC</span><span class="tag">LAC</span><span class="tag">LMC</span><span class="tag">Envelope</span><span class="tag">Economies of Scale</span></div>
+    </div>
+  </a>
+
+
+  <a class="card c1" href="chapter6_6.html">
+    <div class="icon">📊</div>
+    <div class="body">
+      <div class="num">6.6</div>
+      <div class="title">LAC & Economies of Scale</div>
+      <div class="sub">เส้นต้นทุนเฉลี่ยระยะยาว · Economies of Scale · Diseconomies of Scale</div>
+      <div class="tags"><span class="tag">LAC</span><span class="tag">Economies of Scale</span></div>
+    </div>
+  </a>
+
+  <a class="card c2" href="chapter6_7.html">
+    <div class="icon">🔗</div>
+    <div class="body">
+      <div class="num">6.7</div>
+      <div class="title">จากระยะสั้น → สร้างระยะยาว</div>
+      <div class="sub">SAC/SMC → LAC/LMC · Envelope Curve · จุดสัมผัส · Optimum Scale</div>
+      <div class="tags"><span class="tag">SAC→LAC</span><span class="tag">Envelope</span></div>
+    </div>
+  </a>
+</div>
+
+<div class="nav">
+  <a class="nb" href="index.html">← แผนการเรียน</a>
+  <a class="nb pr" href="chapter6_1.html">เริ่มเรียน 6.1 →</a>
+</div>
+
+</div><footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+</body></html>

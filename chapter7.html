@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 7 — การกำหนดราคาและผลผลิตในตลาดแข่งขันอย่างสมบูรณ์</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b45309;
+  --theme-primary-soft:#fffbeb;
+  --theme-primary-dark:#92400e;
+  --theme-hero-a:#92400e;
+  --theme-hero-b:#d97706;
+  --theme-page-bg:#fefbf6;
+  --theme-border:#fbbf24;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#fffbeb;
+  --color-border-secondary:#fcd34d;
+  --color-border-tertiary:#fef3c7;
+  --color-text-primary:#292524;
+  --color-text-secondary:#78716c;
+  --color-text-tertiary:#a8a29e;
+  --border-radius-md:12px;
+  --border-radius-lg:18px;
+  --shadow:0 14px 34px rgba(13,148,136,.07);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-sans);background:var(--theme-page-bg);color:var(--color-text-primary)}
+
+/* ═══ Topbar ═══ */
+.ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #e7e0d5}
+.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--color-text-primary);background:var(--theme-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:var(--font-sans);cursor:pointer;white-space:nowrap}
+.ajk-back-btn svg{width:14px;height:14px;flex-shrink:0}
+.ajk-back-btn:hover{background:var(--theme-primary);color:#fff;transform:translateX(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.ajk-brand{flex:1;min-width:0;text-align:right;line-height:1.25}
+.ajk-brand-course{font-size:13.5px;font-weight:700;color:var(--color-text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.ajk-brand-author{font-size:11px;color:var(--color-text-secondary);font-weight:500;display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.ajk-brand-author-dot{width:5px;height:5px;border-radius:50%;background:var(--theme-primary);flex-shrink:0}
+.ajk-brand-author-at{color:var(--theme-primary);font-weight:700;padding:0 1px}
+@media(max-width:520px){
+  .ajk-back-btn span{display:none}.ajk-back-btn{padding:9px}.ajk-back-btn svg{width:16px;height:16px}
+  .ajk-brand-course{font-size:12.5px}.ajk-brand-author{font-size:10.5px}
+  .ajk-topbar-inner{padding:8px 12px;min-height:52px;gap:10px}
+}
+
+/* ═══ Page ═══ */
+.page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
+.backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--theme-primary);font-size:14px;font-weight:600;margin:0 0 14px}
+.hero{background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b));color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
+.hero h1{font-family:var(--font-serif);font-size:28px;line-height:1.3;margin:0 0 8px}
+.hero p{font-size:14px;line-height:1.7;margin:0;opacity:.92;max-width:720px}
+.panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ═══ Hub ═══ */
+.hub{max-width:660px;margin:0 auto;padding:1rem 0;font-family:var(--font-sans)}
+.badge{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;background:var(--color-background-secondary);color:var(--color-text-secondary);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.6rem}
+.title{font-size:22px;font-weight:600;color:var(--color-text-primary);margin:0 0 .5rem;line-height:1.3}
+.subtitle{font-size:14px;color:var(--color-text-secondary);margin:0 0 1.5rem;line-height:1.6}
+
+/* Hook */
+.hook{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.1rem 1.3rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.hook::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#d97706,#dc2626)}
+.hook-q{font-size:15px;font-weight:500;color:var(--color-text-primary);margin:0 0 .6rem;line-height:1.5}
+.hook-hint{font-size:12px;color:var(--color-text-secondary);margin:0 0 .75rem;font-style:italic}
+.hook-reveal{display:none;background:var(--color-background-primary);border-radius:var(--border-radius-md);padding:.75rem 1rem;border:.5px solid var(--color-border-tertiary)}
+.hook-reveal.on{display:block}
+.hook-reveal p{font-size:13px;color:var(--color-text-primary);margin:0 0 6px;line-height:1.65}
+.hook-reveal p:last-child{margin:0}
+.hook-btn{font-size:12px;padding:5px 14px;border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);cursor:pointer;margin-top:.5rem;font-family:var(--font-sans)}
+.hook-btn:hover{background:var(--color-background-primary)}
+
+/* Divider */
+.divider{font-size:11px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.divider::after{content:'';flex:1;height:.5px;background:var(--color-border-secondary)}
+
+/* Section cards */
+.section-grid{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem}
+.section-card{display:flex;gap:1rem;align-items:flex-start;background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;cursor:pointer;text-align:left;transition:all .15s;width:100%;font-family:var(--font-sans)}
+.section-card:hover{transform:translateX(2px)}
+.section-card:active{transform:scale(.99)}
+.section-num{width:36px;height:36px;border-radius:var(--border-radius-md);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;margin-top:1px}
+.section-body{flex:1}
+.section-name{font-size:14px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px}
+.section-sub{font-size:12px;color:var(--color-text-secondary);margin:0 0 .4rem}
+.section-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.4rem}
+.tag{font-size:10px;padding:2px 7px;border-radius:999px;background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.section-desc{font-size:12px;color:var(--color-text-secondary);margin:0;line-height:1.5}
+.section-arrow{color:var(--color-text-tertiary);font-size:16px;align-self:center;flex-shrink:0}
+
+/* Section-specific colors */
+.num-1{background:#fef3c7;color:#92400e}
+.num-2{background:#ecfdf5;color:#047857}
+.num-3{background:#fff7ed;color:#c2410c}
+.num-4{background:#f0eeff;color:#5b21b6}
+.num-5{background:#fdf2f8;color:#9d174d}
+.num-6{background:#fef9ee;color:#854d0e}
+.num-7{background:#fef2f2;color:#b91c1c}
+
+.section-card:nth-child(1):hover{border-color:#b45309;background:#fffbeb}
+.section-card:nth-child(2):hover{border-color:#059669;background:#ecfdf5}
+.section-card:nth-child(3):hover{border-color:#c2410c;background:#fff7ed}
+.section-card:nth-child(4):hover{border-color:#7c3aed;background:#f5f3ff}
+.section-card:nth-child(5):hover{border-color:#db2777;background:#fdf2f8}
+.section-card:nth-child(6):hover{border-color:#854d0e;background:#fef9ee}
+.section-card:nth-child(7):hover{border-color:#b91c1c;background:#fef2f2}
+
+/* Flow map */
+.flow-toggle{font-size:12px;padding:7px 16px;border:.5px solid var(--color-border-secondary);border-radius:999px;background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;margin-bottom:1rem;font-family:var(--font-sans);transition:all .15s}
+.flow-toggle:hover{background:var(--theme-primary-soft);border-color:var(--theme-primary);color:var(--theme-primary)}
+.flow-toggle.active{background:var(--theme-primary-soft);border-color:var(--theme-primary);color:var(--theme-primary)}
+.flow-map{display:none;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.2rem;margin-bottom:1.5rem;border:.5px solid var(--color-border-tertiary)}
+.flow-map.on{display:block}
+.flow-map h4{font-size:13px;font-weight:600;color:var(--theme-primary-dark);margin:0 0 .7rem}
+.flow-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px;color:var(--color-text-secondary);line-height:1.4}
+.flow-num{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+
+/* Progress */
+.progress-hint{display:flex;gap:.5rem;align-items:center;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.6rem .9rem;font-size:12px;color:var(--color-text-secondary)}
+.dot-row{display:flex;gap:4px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--color-border-secondary)}
+.dot.active{background:var(--theme-primary)}
+
+/* ════════ Section pages ════════ */
+.section-page{display:none}
+.section-page.active{display:block}
+
+.sp-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:1.2rem}
+.sp-back{font-size:13px;padding:7px 14px;border-radius:999px;border:.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-sans);transition:all .15s}
+.sp-back:hover{background:var(--theme-primary-soft);color:var(--theme-primary);border-color:var(--theme-primary)}
+.sp-progress{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--color-text-tertiary);font-weight:500}
+.sp-bar{width:100px;height:4px;border-radius:4px;background:var(--color-border-tertiary)}
+.sp-bar-fill{height:100%;border-radius:4px;background:var(--theme-primary);transition:width .4s ease}
+
+.step-label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--theme-primary);margin-bottom:4px}
+.step-title{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--color-text-primary);margin:0 0 1rem;line-height:1.35}
+
+.narrative{font-size:14px;line-height:1.8;color:var(--color-text-secondary);margin-bottom:1.2rem}
+.narrative p{margin:0 0 .6rem}
+
+.insight-box{background:var(--theme-primary-soft);border-left:3px solid var(--theme-primary);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:.9rem 1.1rem;margin-bottom:1.2rem}
+.insight-label{font-size:11px;font-weight:700;color:var(--theme-primary);margin-bottom:4px;letter-spacing:.03em}
+.insight-text{font-size:13.5px;color:var(--color-text-primary);line-height:1.7;white-space:pre-line;margin:0}
+
+.formula-box{background:#fffbf5;border:1px solid #fde68a;border-radius:var(--border-radius-md);padding:.9rem 1.1rem;margin-bottom:1.2rem;text-align:center}
+.formula-line{font-size:15px;font-weight:600;color:#92400e;margin-bottom:4px;font-family:'Noto Sans Thai',monospace}
+.formula-line:last-child{margin:0}
+
+/* Quiz */
+.quiz-card{background:var(--color-background-primary);border:.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1.1rem;margin-bottom:1rem}
+.quiz-q{font-size:14px;font-weight:500;color:var(--color-text-primary);margin:0 0 .8rem;line-height:1.6}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{text-align:left;font-size:13px;padding:10px 14px;border-radius:var(--border-radius-md);border:.5px solid var(--color-border-tertiary);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer;transition:all .12s;font-family:var(--font-sans);line-height:1.5}
+.quiz-opt:hover:not(.answered){background:var(--color-background-secondary);border-color:var(--color-border-secondary)}
+.quiz-opt.correct{background:#ecfdf5;border-color:#86efac;color:#047857}
+.quiz-opt.wrong{background:#fef2f2;border-color:#fca5a5;color:#b91c1c}
+.quiz-opt.answered{cursor:default}
+.quiz-opt-label{font-weight:600;color:var(--color-text-tertiary);margin-right:8px;font-size:11px}
+
+.quiz-explain{display:none;margin-top:.7rem;padding:.75rem 1rem;border-radius:var(--border-radius-md);font-size:13px;line-height:1.65;color:var(--color-text-primary);animation:fadeUp .35s ease}
+.quiz-explain.show{display:block}
+.quiz-explain.is-correct{background:#fefce8;border:.5px solid #fde68a}
+.quiz-explain.is-wrong{background:#fffbeb;border:.5px solid #fde68a}
+.quiz-explain strong{color:var(--theme-primary-dark)}
+
+.next-btn{width:100%;padding:13px;border-radius:var(--border-radius-md);background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b));border:none;color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .15s;opacity:0;transform:translateY(6px);pointer-events:none;margin-top:.5rem}
+.next-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.next-btn:hover{box-shadow:0 8px 24px rgba(13,148,136,.2);transform:translateY(-1px)}
+
+/* Completion */
+.completion{text-align:center;padding:2rem 1rem}
+.completion-emoji{font-size:48px;margin-bottom:1rem}
+.completion h2{font-family:var(--font-serif);font-size:22px;margin:0 0 .5rem;color:var(--color-text-primary)}
+.completion p{font-size:14px;color:var(--color-text-secondary);line-height:1.7;margin:0 0 .7rem;max-width:460px;margin-left:auto;margin-right:auto}
+.completion-link{display:inline-block;background:var(--theme-primary-soft);border:.5px solid var(--theme-primary);border-radius:var(--border-radius-md);padding:.6rem 1rem;font-size:13px;color:var(--theme-primary-dark);font-weight:600;margin-bottom:1.2rem;line-height:1.6}
+.completion-back{padding:11px 28px;border-radius:999px;background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b));border:none;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-sans)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ Footer ═══ */
+.ajk-footer{margin-top:64px;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--theme-primary-soft) 100%);border-top:1px solid #e7e0d5;padding:48px 16px 28px;font-family:var(--font-sans);color:var(--color-text-primary)}
+.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}
+.ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+.ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--theme-primary);opacity:.35}
+.ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--theme-primary);flex-shrink:0}
+.ajk-footer-name{font-family:var(--font-serif);font-size:24px;font-weight:700;color:var(--color-text-primary);margin:0 0 4px;letter-spacing:-.01em}
+.ajk-footer-sub{font-size:12.5px;color:var(--color-text-secondary);letter-spacing:.02em;margin-bottom:26px}
+.ajk-footer-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.ajk-footer-btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--color-text-primary);background:#fff;border:1px solid #e7e0d5;padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;transition:all .18s;cursor:pointer;font-family:var(--font-sans)}
+.ajk-footer-btn svg{width:15px;height:15px}
+.ajk-footer-btn:hover{color:#fff;background:var(--theme-primary);border-color:var(--theme-primary);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.ajk-footer-bottom{font-size:11.5px;color:var(--color-text-secondary);letter-spacing:.02em;padding-top:22px;border-top:1px solid #e7e0d5;line-height:1.8}
+.ajk-footer-bottom strong{color:var(--color-text-primary);font-weight:700}
+@media(max-width:520px){.ajk-footer{padding:36px 14px 22px;margin-top:48px}.ajk-footer-name{font-size:21px}.ajk-footer-links{gap:6px}.ajk-footer-btn{padding:8px 13px;font-size:12px}}
+</style>
+</head>
+<body>
+
+<header class="ajk-topbar">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="index.html" aria-label="กลับแผนการเรียน">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>แผนการเรียน</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 7 · ตลาดแข่งขันอย่างสมบูรณ์</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+<a class="backlink" href="index.html">← กลับแผนการเรียน</a>
+<div class="panel">
+
+<!-- ════════════ HUB VIEW ════════════ -->
+<div id="hub-view" class="hub">
+
+  <div class="badge">บทที่ 7</div>
+  <h1 class="title">การกำหนดราคาและผลผลิตในตลาดแข่งขันอย่างสมบูรณ์</h1>
+  <p class="subtitle">Perfect Competition — ตลาดที่ผู้ขายทุกรายเป็น "ผู้ยอมรับราคา" จะกำหนดปริมาณผลิตที่ได้กำไรสูงสุดอย่างไร? และดุลยภาพจะปรับตัวไปสู่จุดใดทั้งในระยะสั้นและระยะยาว?</p>
+
+  <!-- Hook -->
+  <div class="hook">
+    <p class="hook-q">🤔 ลองคิดก่อนเรียน: ถ้าคุณเป็นชาวนาคนหนึ่งใน 10,000 คน ที่ขายข้าวเหมือนกันทุกประการ — คุณจะตั้งราคาข้าวเองได้ไหม? และจะตัดสินใจอย่างไรว่าควรปลูกกี่ตัน?</p>
+    <p class="hook-hint">ลองนึกคำตอบก่อน แล้วจะเข้าใจว่าทฤษฎี MR = MC ตอบคำถามนี้ได้อย่างไร</p>
+    <button class="hook-btn" id="hbtn" onclick="toggleHook()">เผยคำตอบ + โยงกับทฤษฎี</button>
+    <div class="hook-reveal" id="hreveal">
+      <p><strong>ตั้งราคาเองไม่ได้</strong> เพราะข้าวเหมือนกัน ผู้ซื้อจะไม่ซื้อถ้าราคาสูงกว่าตลาด → คุณเป็น "Price Taker" ยอมรับราคาที่ตลาดกำหนด</p>
+      <p><strong>จะปลูกกี่ตัน?</strong> คำตอบคือผลิตจนกว่า "รายรับเพิ่ม (MR) เท่ากับ ต้นทุนเพิ่ม (MC)" พอดี — ถ้ายังได้รายรับเพิ่มมากกว่าต้นทุนเพิ่ม ก็ยังควรผลิตเพิ่ม</p>
+      <p><strong>แต่…</strong> ถ้าราคาตลาดต่ำเกินจนไม่คุ้มต้นทุนผันแปร → ควรหยุดผลิตเลย นี่คือจุดหยุดผลิต (Shutdown Point) ที่จะได้เรียนใน Section 3</p>
+      <p>ทั้ง 7 sections ในบทนี้เชื่อมกันเป็นเรื่องเดียว — จากลักษณะตลาด → หากำไรสูงสุด → ดุลยภาพ → เส้นอุปทาน</p>
+    </div>
+  </div>
+
+  <!-- Flow map -->
+  <button class="flow-toggle" id="flow-btn" onclick="toggleFlow()">🗺️ ดูแผนผังความเชื่อมโยง</button>
+  <div class="flow-map" id="flow-map">
+    <h4>แผนผังการเรียนรู้ — แต่ละ Section เชื่อมกันอย่างไร</h4>
+    <div class="flow-row"><span class="flow-num" style="background:#b45309">1</span> → <span class="flow-num" style="background:#059669">2</span> เข้าใจ Price Taker → D=AR=MR=P → นำไปหากำไรสูงสุด</div>
+    <div class="flow-row"><span class="flow-num" style="background:#059669">2</span> → <span class="flow-num" style="background:#c2410c">3</span> รู้เงื่อนไข MR=MC → ดุลยภาพ 4 กรณีในระยะสั้น</div>
+    <div class="flow-row"><span class="flow-num" style="background:#c2410c">3</span> → <span class="flow-num" style="background:#7c3aed">4</span> Shutdown Point → ส่วน MC เหนือ AVC = เส้น Supply</div>
+    <div class="flow-row"><span class="flow-num" style="background:#c2410c">3</span> → <span class="flow-num" style="background:#db2777">5</span> ดุลยภาพสั้น → เข้า-ออกเสรี → ปรับตัวสู่ดุลยภาพยาว</div>
+    <div class="flow-row"><span class="flow-num" style="background:#db2777">5</span> → <span class="flow-num" style="background:#854d0e">6</span> ดุลยภาพยาว P=LAC<sub>min</sub> → อุปทานยาวของอุตสาหกรรม 3 แบบ</div>
+    <div class="flow-row"><span class="flow-num" style="background:#7c3aed">4</span> → <span class="flow-num" style="background:#b91c1c">7</span> อุปทาน → กรณีพิเศษ: ระยะตลาด (ผลิตเพิ่มไม่ได้เลย)</div>
+  </div>
+
+  <!-- 7 Sections -->
+  <div class="divider">7 sections ในบทนี้</div>
+  <div class="section-grid">
+
+    <a href="chapter7_1.html" class="section-card" style="text-decoration:none;color:inherit">
+      <div class="section-num num-1">1</div>
+      <div class="section-body">
+        <p class="section-name">ลักษณะของตลาดแข่งขันสมบูรณ์</p>
+        <p class="section-sub">Perfect Competition Characteristics</p>
+        <div class="section-tags"><span class="tag">Price Taker</span><span class="tag">Homogeneous</span><span class="tag">Free Entry/Exit</span><span class="tag">Perfect Knowledge</span></div>
+        <p class="section-desc">ทำไมผู้ขายถึงตั้งราคาเองไม่ได้? ทำความเข้าใจ 5 ลักษณะพื้นฐาน และผลที่ตามมา D = AR = MR = P</p>
+      </div>
+      <span class="section-arrow">›</span>
+    </a>
+
+    <a href="chapter7_2.html" class="section-card" style="text-decoration:none;color:inherit">
+      <div class="section-num num-2">2</div>
+      <div class="section-body">
+        <p class="section-name">การหากำไรสูงสุด</p>
+        <p class="section-sub">Profit Maximization: Total vs Marginal Approach</p>
+        <div class="section-tags"><span class="tag">π = TR − TC</span><span class="tag">MR = MC</span><span class="tag">Necessary & Sufficient</span></div>
+        <p class="section-desc">2 วิธีหาจุดผลิตที่ดีที่สุด — Total Approach vs Marginal Approach พร้อมตัวอย่างคำนวณ</p>
+      </div>
+      <span class="section-arrow">›</span>
+    </a>
+
+    <a href="chapter7_3.html" class="section-card" style="text-decoration:none;color:inherit">
+      <div class="section-num num-3">3</div>
+      <div class="section-body">
+        <p class="section-name">ดุลยภาพระยะสั้น</p>
+        <p class="section-sub">Short-run Equilibrium of the Firm</p>
+        <div class="section-tags"><span class="tag">Excess Profit</span><span class="tag">Breakeven</span><span class="tag">Loss</span><span class="tag">Shutdown Point</span></div>
+        <p class="section-desc">4 สถานการณ์ที่ผู้ผลิตเจอได้ในระยะสั้น — กำไร คุ้มทุน ขาดทุน หรือหยุดผลิต?</p>
+      </div>
+      <span class="section-arrow">›</span>
+    </a>
+
+    <a href="chapter7_4.html" class="section-card" style="text-decoration:none;color:inherit">
+      <div class="section-num num-4">4</div>
+      <div class="section-body">
+        <p class="section-name">เส้นอุปทานระยะสั้น</p>
+        <p class="section-sub">Short-run Supply Curve</p>
+        <div class="section-tags"><span class="tag">MC above AVC</span><span class="tag">Industry Supply</span><span class="tag">Factor Prices</span></div>
+        <p class="section-desc">ที่มาของเส้น Supply — ทำไมถึงเป็นส่วนของ MC? และรวมเป็นอุปทานอุตสาหกรรมอย่างไร</p>
+      </div>
+      <span class="section-arrow">›</span>
+    </a>
+
+    <a href="chapter7_5.html" class="section-card" style="text-decoration:none;color:inherit">
+      <div class="section-num num-5">5</div>
+      <div class="section-body">
+        <p class="section-name">ดุลยภาพระยะยาว</p>
+        <p class="section-sub">Long-run Equilibrium</p>
+        <div class="section-tags"><span class="tag">Plant Adjustment</span><span class="tag">Entry & Exit</span><span class="tag">P = LAC<sub>min</sub></span></div>
+        <p class="section-desc">ทำไมกำไรเกินปกติอยู่ไม่ได้นาน? กลไกเข้า-ออกเสรี → ดุลยภาพที่สมบูรณ์แบบที่สุด</p>
+      </div>
+      <span class="section-arrow">›</span>
+    </a>
+
+    <a href="chapter7_6.html" class="section-card" style="text-decoration:none;color:inherit">
+      <div class="section-num num-6">6</div>
+      <div class="section-body">
+        <p class="section-name">เส้นอุปทานระยะยาวของอุตสาหกรรม</p>
+        <p class="section-sub">Long-run Industry Supply (LS)</p>
+        <div class="section-tags"><span class="tag">Constant Cost</span><span class="tag">Increasing Cost</span><span class="tag">Decreasing Cost</span></div>
+        <p class="section-desc">3 แบบของเส้น LS — ขึ้นอยู่กับว่าราคาปัจจัยจะเปลี่ยนหรือไม่เมื่ออุตสาหกรรมขยายตัว</p>
+      </div>
+      <span class="section-arrow">›</span>
+    </a>
+
+    <a href="chapter7_7.html" class="section-card" style="text-decoration:none;color:inherit">
+      <div class="section-num num-7">7</div>
+      <div class="section-body">
+        <p class="section-name">ระยะตลาด (Very Short-run)</p>
+        <p class="section-sub">Market Period Pricing</p>
+        <div class="section-tags"><span class="tag">Perishable Goods</span><span class="tag">Storable Goods</span><span class="tag">Reservation Demand</span></div>
+        <p class="section-desc">เมื่อผลิตเพิ่มไม่ได้เลย — สินค้าเน่าเสียง่าย vs สินค้ากักตุนได้ ราคาถูกกำหนดอย่างไร?</p>
+      </div>
+      <span class="section-arrow">›</span>
+    </a>
+
+  </div>
+
+  <div class="progress-hint">
+    <div class="dot-row">
+      <div class="dot active"></div><div class="dot active"></div><div class="dot active"></div>
+      <div class="dot active"></div><div class="dot active"></div><div class="dot active"></div>
+      <div class="dot active"></div>
+    </div>
+    <span>คลิก Section ด้านบนเพื่อเริ่มเรียน — แต่ละ Section มีคำถามให้คิดและคำอธิบายทฤษฎี</span>
+  </div>
+
+</div>
+
+<!-- ════════════ SECTION PAGES ════════════ -->
+<!-- sections now link to chapter7_N.html -->
+
+</div><!-- panel -->
+</div><!-- page -->
+
+<footer class="ajk-footer">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>แผนการเรียน</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ═══ Data ═══ */
+const DATA = {
+1: {
+  title: "ลักษณะของตลาดแข่งขันสมบูรณ์",
+  completion: "คุณเข้าใจลักษณะสำคัญทั้ง 5 ประการของตลาดแข่งขันสมบูรณ์แล้ว!",
+  link: "เมื่อผู้ขายเป็น Price Taker → D = AR = MR = P → นำไปสู่การหากำไรสูงสุดใน Section 2",
+  steps: [
+    {
+      label: "STEP 1 · ลองคิดก่อน",
+      title: "ลองนึกภาพตลาดที่ \"สมบูรณ์แบบ\"",
+      narrative: "<p>สมมุติคุณเป็นชาวนาขายข้าวเปลือก มีชาวนาอีกหลายพันคนขายข้าวเหมือนกันทุกประการ</p><p>ลองคิดก่อน — ในสถานการณ์แบบนี้ คุณจะตั้งราคาข้าวเองได้ไหม?</p>",
+      quizzes: [{
+        q: "ถ้าคุณเป็นชาวนา 1 ใน 10,000 คน ที่ขายข้าวเหมือนกันทุกประการ คุณจะทำอะไรกับราคาได้?",
+        opts: ["ตั้งราคาสูงกว่าตลาดได้ เพราะข้าวของเราดีกว่า","ต้องยอมรับราคาตลาด เพราะถ้าตั้งสูงกว่าจะไม่มีคนซื้อ","สามารถลดราคาเพื่อดึงลูกค้าได้","ร่วมมือกับชาวนาอื่นตั้งราคา"],
+        ans: 1,
+        explain: "เพราะข้าวเหมือนกัน ผู้ซื้อจะซื้อจากใครก็ได้ ถ้าตั้งราคาสูงกว่าตลาด → ไม่มีคนซื้อเลย ถ้าตั้งต่ำกว่า → ไม่จำเป็น เพราะขายได้อยู่แล้ว นี่คือหัวใจของ <strong>\"Price Taker\"</strong> ผู้ยอมรับราคาตลาด"
+      }]
+    },
+    {
+      label: "STEP 2 · เชื่อมโยงทฤษฎี",
+      title: "5 ลักษณะของตลาดแข่งขันสมบูรณ์",
+      narrative: "<p>จากที่ลองคิดไป ตอนนี้มาดูทฤษฎีกัน — ตลาดแข่งขันสมบูรณ์ต้องมีลักษณะครบทั้ง 5 ข้อ</p>",
+      insight: {label:"✦ หลักสำคัญ 5 ข้อ", text:"1. ผู้ซื้อ-ผู้ขายจำนวนมาก → เป็น Price Taker\n2. สินค้าเหมือนกันทุกประการ (Homogeneous)\n3. ทรัพยากรเคลื่อนย้ายได้สมบูรณ์ (Perfect Mobility)\n4. เข้า-ออกอุตสาหกรรมเสรี (Free Entry & Exit)\n5. ความรู้สมบูรณ์ (Perfect Knowledge)"},
+      quizzes: [{
+        q: "ข้อใดเป็นผลที่ตามมาจากการที่ผู้ขายเป็น Price Taker?",
+        opts: ["เส้นอุปสงค์ของผู้ขายแต่ละรายทอดลงจากซ้ายไปขวา","เส้นอุปสงค์ของผู้ขายแต่ละรายเป็นเส้นราบ ขนานแกนปริมาณ","เส้นอุปสงค์ของผู้ขายเป็นเส้นตั้งฉากกับแกนปริมาณ"],
+        ans: 1,
+        explain: "เมื่อต้องยอมรับราคาตลาด → ไม่ว่าจะขายเท่าไหร่ก็ขายได้ในราคาเดียว → เส้น D ของผู้ขายจึงเป็น<strong>เส้นราบ</strong> (ขนานแกนปริมาณ) ณ ระดับราคาตลาด → <strong>D = AR = MR = P</strong> ทั้งหมดอยู่บนเส้นเดียวกัน!"
+      }]
+    },
+    {
+      label: "STEP 3 · สรุป",
+      title: "ผลลัพธ์สำคัญ: D = AR = MR = P",
+      narrative: "<p>เมื่อเส้นอุปสงค์ราบ → ไม่ว่าขายหน่วยที่เท่าไหร่ก็ได้รายรับเพิ่มเท่ากับราคา</p><p>เส้น TR จึงเป็นเส้นตรงออกจากจุดกำเนิด มี Slope = P</p>",
+      formulas: ["D = AR = MR = P","TR = P × Q  (เส้นตรง)"],
+      insight: {label:"✦ จุดเริ่มต้นของทุกอย่าง", text:"เพราะ MR = P คงที่ → การหากำไรสูงสุดจึงเรียบง่าย:\nผลิตจนกว่า MC จะเท่ากับ P → นำไปสู่ Section 2"}
+    }
+  ]
+},
+
+2: {
+  title: "การหากำไรสูงสุด",
+  completion: "คุณเข้าใจวิธีหากำไรสูงสุดทั้ง 2 แนวทางแล้ว!",
+  link: "เงื่อนไข MR = MC → ใช้ตัดสินว่าผู้ผลิตจะผลิตเท่าไหร่ ณ ราคาต่าง ๆ → สร้างดุลยภาพใน Section 3",
+  steps: [
+    {
+      label: "STEP 1 · ลองคิดก่อน",
+      title: "ถ้าคุณเป็นเจ้าของโรงงาน จะผลิตเท่าไหร่?",
+      narrative: "<p>สมมุติราคาสินค้า 70 บาท/หน่วย ถ้าผลิตเพิ่ม 1 หน่วย ต้นทุนเพิ่ม 50 บาท รายรับเพิ่ม 70 บาท</p><p>ควรผลิตเพิ่มไหม?</p>",
+      quizzes: [{
+        q: "ถ้า MR = 70 และ MC = 50 ผู้ผลิตควรทำอย่างไร?",
+        opts: ["หยุดผลิต เพราะต้นทุนสูง","ผลิตเพิ่ม เพราะยังได้กำไรจากหน่วยนี้อีก 20 บาท","ลดราคาสินค้า","ไม่แน่ใจ ต้องดูกำไรรวมก่อน"],
+        ans: 1,
+        explain: "เมื่อ MR > MC → รายรับเพิ่มจากการขาย 1 หน่วย (70 บาท) > ต้นทุนที่เพิ่ม (50 บาท) → <strong>ได้กำไรเพิ่ม 20 บาท</strong> → ควรผลิตเพิ่ม! จะผลิตไปเรื่อย ๆ จนกว่า MR = MC"
+      }]
+    },
+    {
+      label: "STEP 2 · เชื่อมโยงทฤษฎี",
+      title: "2 วิธีหากำไรสูงสุด ให้คำตอบเดียวกัน",
+      insight: {label:"✦ สองแนวทาง", text:"วิธีที่ 1 (Total): π = TR − TC → หา dπ/dQ = 0 แล้ว d²π/dQ² < 0\nวิธีที่ 2 (Marginal): หาจุดที่ MR = MC โดย Slope MC > Slope MR\nในตลาดแข่งขันสมบูรณ์: MR = P → เงื่อนไขคือ P = MC"},
+      formulas: ["π = TR − TC → dπ/dQ = 0","MR = MC  และ  Slope MC > Slope MR","ในตลาดนี้: P = MC  และ  Slope MC > 0"],
+      quizzes: [{
+        q: "ทำไม MR = MC อย่างเดียวไม่พอ? (Necessary vs Sufficient condition)",
+        opts: ["เพราะ MR = MC อาจเป็นจุดกำไรสูงสุด หรือ ขาดทุนสูงสุดก็ได้!","เพราะ MR = MC ไม่เคยเกิดขึ้นจริง","เพราะต้องคิด TFC ด้วย"],
+        ans: 0,
+        explain: "MR = MC เกิดขึ้นได้ 2 จุด — จุดหนึ่งเป็น<strong>กำไรสูงสุด</strong> อีกจุดเป็น<strong>ขาดทุนสูงสุด</strong>! จึงต้องเช็คเงื่อนไขเพียงพอ: ที่จุดกำไรสูงสุด Slope ของ MC > Slope ของ MR (ในตลาดแข่งขัน Slope MR = 0 → ต้อง Slope MC > 0 คือ MC กำลังเพิ่มขึ้น)"
+      }]
+    },
+    {
+      label: "STEP 3 · ตัวอย่างคำนวณ",
+      title: "ลองคำนวณ: P = 70, TC = 200 + 25Q − 6Q² + ⅓Q³",
+      narrative: "<p>จาก Marginal Approach: หา MC แล้ว set P = MC</p>",
+      formulas: ["MC = dTC/dQ = 25 − 12Q + Q²","P = MC → 70 = 25 − 12Q + Q²","→ Q² − 12Q − 45 = 0","→ (15 − Q)(3 + Q) = 0  →  Q = 15"],
+      quizzes: [{
+        q: "กำไรสูงสุดเท่ากับเท่าไหร่? (π = TR − TC เมื่อ Q = 15)",
+        opts: ["500 บาท","600 บาท","700 บาท","800 บาท"],
+        ans: 2,
+        explain: "TR = 70 × 15 = 1,050 บาท | TC = 200 + 375 − 1,350 + 1,125 = <strong>350 บาท</strong> | π = 1,050 − 350 = <strong>700 บาท</strong>"
+      }]
+    }
+  ]
+},
+
+3: {
+  title: "ดุลยภาพระยะสั้น",
+  completion: "คุณเข้าใจ 4 สถานการณ์ดุลยภาพระยะสั้นแล้ว!",
+  link: "จุด Shutdown (AVC min) → ส่วนของ MC เหนือจุดนี้คือเส้นอุปทานระยะสั้น → ไปต่อ Section 4",
+  steps: [
+    {
+      label: "STEP 1 · ลองคิดก่อน",
+      title: "ขาดทุนแล้ว ควรผลิตต่อไหม?",
+      narrative: "<p>ในระยะสั้น ราคาตลาดอาจอยู่ที่ระดับใดก็ได้ ผู้ผลิตต้องตัดสินใจ — ผลิตต่อหรือหยุด?</p><p>ลองคิดดู: ถ้าราคาสินค้าต่ำกว่าต้นทุนเฉลี่ย (AC) แต่สูงกว่าต้นทุนผันแปรเฉลี่ย (AVC) ควรผลิตต่อไหม?</p>",
+      quizzes: [{
+        q: "ถ้า P < AC แต่ P > AVC ในระยะสั้น ผู้ผลิตควรทำอย่างไร?",
+        opts: ["หยุดผลิตทันที เพราะขาดทุน","ผลิตต่อ เพราะรายรับยังคุ้มต้นทุนผันแปร และชดเชยต้นทุนคงที่ได้บางส่วน","เพิ่มราคาสินค้า"],
+        ans: 1,
+        explain: "ถ้าหยุดผลิต → ยังต้องจ่าย<strong>ต้นทุนคงที่เต็ม (TFC)</strong> อยู่ดี! แต่ถ้าผลิตต่อ → รายรับคุ้ม TVC + คุ้มต้นทุนคงที่บางส่วน → <strong>ขาดทุนน้อยกว่า</strong>หยุดผลิต ดังนั้นควรผลิตต่อ!"
+      }]
+    },
+    {
+      label: "STEP 2 · เชื่อมโยงทฤษฎี",
+      title: "สรุป 4 สถานการณ์ในระยะสั้น",
+      insight: {label:"✦ จำให้ได้ — 4 กรณี + จุดสำคัญ 2 จุด",text:"① P > AC → ได้กำไรเกินปกติ (Excess Profit) 🟢\n② P = AC min → จุดคุ้มทุน (Breakeven) ได้แค่กำไรปกติ 🟡\n③ AVC < P < AC → ขาดทุน แต่ผลิตต่อ (ขาดทุนแค่ TFC บางส่วน) 🟠\n④ P = AVC min → จุดหยุดผลิต (Shutdown Point) ขาดทุน = TFC 🔴\n⑤ P < AVC min → หยุดผลิต! ⛔"},
+      quizzes: [{
+        q: "\"จุดคุ้มทุน\" (Breakeven Point) เกิดขึ้นเมื่อใด?",
+        opts: ["เมื่อ MR = MC = AVC ณ จุดต่ำสุดของ AVC","เมื่อ MR = MC = AC ณ จุดต่ำสุดของ AC","เมื่อ TR = TVC"],
+        ans: 1,
+        explain: "<strong>Breakeven Point</strong> คือจุดที่ P = AC min → TR = TC → กำไรเกินปกติ = 0 (ได้แค่กำไรปกติ) ส่วน P = AVC min คือจุด <strong>Shutdown Point</strong> — ต้องแยกให้ชัด!"
+      }]
+    }
+  ]
+},
+
+4: {
+  title: "เส้นอุปทานระยะสั้น",
+  completion: "คุณเข้าใจที่มาของเส้นอุปทานระยะสั้นแล้ว!",
+  link: "เส้นอุปทานของหน่วยผลิต → รวมกันเป็นอุปทานอุตสาหกรรม → เมื่อมีกำไร/ขาดทุน → เข้า-ออก → Section 5",
+  steps: [
+    {
+      label: "STEP 1 · ลองคิดก่อน",
+      title: "เส้นอุปทานของผู้ผลิตมาจากไหน?",
+      narrative: "<p>จาก Section 3 เรารู้ว่าผู้ผลิตเลือกผลิตตามเส้น MC ตั้งแต่เหนือจุดต่ำสุด AVC ขึ้นไป</p>",
+      quizzes: [{
+        q: "เส้นอุปทานระยะสั้นของผู้ผลิตในตลาดแข่งขันสมบูรณ์คือ?",
+        opts: ["เส้น MC ทั้งเส้น","เส้น MC ส่วนที่อยู่เหนือจุดต่ำสุดของ AVC ขึ้นไป","เส้น AC ทั้งเส้น","เส้น AVC ทั้งเส้น"],
+        ans: 1,
+        explain: "ผู้ผลิตจะไม่ผลิตถ้า P < AVC min (Shutdown) ดังนั้น <strong>Supply = MC ตั้งแต่จุดต่ำสุด AVC ขึ้นไป</strong> ถ้า P ต่ำกว่านั้น ปริมาณเสนอขาย = 0"
+      }]
+    },
+    {
+      label: "STEP 2 · เชื่อมโยงทฤษฎี",
+      title: "จากหน่วยผลิต → อุปทานอุตสาหกรรม",
+      insight: {label:"✦ 2 กรณี", text:"กรณี 1: ราคาปัจจัยไม่เปลี่ยน → อุปทานอุตสาหกรรม = ผลรวมแนวนอนของ MC ทุกบริษัท\n(ถ้ามี n บริษัท → ปริมาณ ณ ราคาหนึ่ง = n × ปริมาณบริษัทเดียว)\n\nกรณี 2: ราคาปัจจัยเปลี่ยน → เมื่ออุตสาหกรรมขยาย ราคาปัจจัยสูงขึ้น → MC เลื่อนขึ้น → ต้องใช้เส้น ss ที่รวมผลการเปลี่ยนของราคาปัจจัยแล้ว"},
+      quizzes: [{
+        q: "ถ้าราคาปัจจัยเพิ่มขึ้นเมื่ออุตสาหกรรมขยายตัว เส้นอุปทานอุตสาหกรรมจะเป็นอย่างไร?",
+        opts: ["ชันกว่ากรณีราคาปัจจัยคงที่","แบนกว่ากรณีราคาปัจจัยคงที่","เหมือนกันทุกประการ"],
+        ans: 0,
+        explain: "เมื่อราคาปัจจัยเพิ่ม → MC ของทุกบริษัทเลื่อนขึ้น → ปริมาณเสนอขายเพิ่มน้อยกว่า → <strong>เส้นอุปทานอุตสาหกรรมจะชันกว่า</strong>"
+      }]
+    }
+  ]
+},
+
+5: {
+  title: "ดุลยภาพระยะยาว",
+  completion: "คุณเข้าใจกลไกการปรับตัวสู่ดุลยภาพระยะยาวแล้ว!",
+  link: "ดุลยภาพ P = LAC min → เมื่ออุปสงค์เปลี่ยน → ราคาและจำนวนบริษัทปรับ → เส้นอุปทานยาว Section 6",
+  steps: [
+    {
+      label: "STEP 1 · ลองคิดก่อน",
+      title: "ทำไมกำไรเกินปกติอยู่ไม่ได้นาน?",
+      narrative: "<p>สมมุติในระยะสั้นผู้ผลิตทุกคนได้กำไรเกินปกติ (Excess Profit) ลองคิดดู: ในระยะยาวจะเกิดอะไรขึ้น?</p>",
+      quizzes: [{
+        q: "ถ้าบริษัทในอุตสาหกรรมหนึ่งได้กำไรเกินปกติ ระยะยาวจะเกิดอะไร?",
+        opts: ["กำไรจะยิ่งเพิ่มขึ้น","บริษัทใหม่จะเข้ามา → อุปทานเพิ่ม → ราคาลด → กำไรเกินปกติหายไป","รัฐบาลจะเข้ามาควบคุม"],
+        ans: 1,
+        explain: "ตลาดแข่งขันสมบูรณ์<strong>เข้า-ออกเสรี</strong> → กำไรเกินปกติดึงดูดบริษัทใหม่ → อุปทานตลาดเพิ่ม (S เลื่อนขวา) → ราคาลด → กำไรลดจนเหลือแค่<strong>กำไรปกติ</strong> — กลไกอัตโนมัติ!"
+      }]
+    },
+    {
+      label: "STEP 2 · เชื่อมโยงทฤษฎี",
+      title: "ดุลยภาพระยะยาว: จุดสมบูรณ์แบบ",
+      narrative: "<p>ในระยะยาว ผู้ผลิตทำ 2 อย่าง: (1) ปรับขนาดโรงงานให้เหมาะสมที่สุด (2) เข้า-ออกจากอุตสาหกรรม</p>",
+      formulas: ["SMC = LMC = MR = P = SAC = LAC","ณ จุดต่ำสุดของ LAC"],
+      insight: {label:"✦ ที่จุดดุลยภาพระยะยาว", text:"• ใช้โรงงานขนาดเหมาะสมที่สุด (Optimum Scale of Plant)\n• ได้แค่กำไรปกติ (Normal Profit) → ไม่มีแรงจูงใจเข้า-ออก\n• ผลิตที่ต้นทุนต่ำที่สุดเท่าที่จะเป็นไปได้ → ประสิทธิภาพสูงสุด!"},
+      quizzes: [{
+        q: "ทำไมดุลยภาพระยะยาวต้องอยู่ที่จุดต่ำสุดของ LAC?",
+        opts: ["เพราะรัฐบาลบังคับ","เพราะถ้า P > LAC min → มีกำไรเกินปกติ → บริษัทใหม่เข้ามา → P ลดจนเท่า LAC min","เพราะเทคโนโลยีบังคับ"],
+        ans: 1,
+        explain: "กลไก<strong>เข้า-ออกเสรี</strong>ทำให้ราคาถูก \"บีบ\" ลงมาเท่า LAC min พอดี ถ้าสูงกว่า → มีคนเข้ามา ถ้าต่ำกว่า → มีคนออกไป จนสุดท้ายอยู่ที่ P = LAC min"
+      }]
+    }
+  ]
+},
+
+6: {
+  title: "เส้นอุปทานระยะยาวของอุตสาหกรรม",
+  completion: "คุณเข้าใจเส้นอุปทานระยะยาว 3 แบบแล้ว!",
+  link: "Constant/Increasing/Decreasing Cost อธิบายว่าราคาดุลยภาพยาวจะเปลี่ยนอย่างไรเมื่ออุปสงค์เพิ่ม → ไปต่อ Section 7",
+  steps: [
+    {
+      label: "STEP 1 · ลองคิดก่อน",
+      title: "เมื่ออุปสงค์เพิ่ม ราคาดุลยภาพยาวใหม่จะเป็นอย่างไร?",
+      narrative: "<p>สมมุติอุปสงค์สินค้าเพิ่ม → ระยะสั้นราคาขึ้น → บริษัทใหม่เข้ามา → คำถามคือ: ราคาดุลยภาพยาวใหม่จะเท่ากับราคาเดิมหรือไม่? ขึ้นอยู่กับว่าราคาปัจจัยเปลี่ยนหรือเปล่า!</p>",
+      quizzes: [{
+        q: "ถ้าบริษัทใหม่เข้ามาแล้วราคาปัจจัยไม่เปลี่ยน ราคาดุลยภาพยาวใหม่จะเป็นอย่างไร?",
+        opts: ["สูงกว่าเดิม","เท่าเดิม — เพราะต้นทุนไม่เปลี่ยน","ต่ำกว่าเดิม"],
+        ans: 1,
+        explain: "ถ้าราคาปัจจัยไม่เปลี่ยน → LAC ไม่เปลี่ยน → ดุลยภาพยาวใหม่ยังอยู่ที่ LAC min เท่าเดิม → <strong>ราคาเท่าเดิม!</strong> นี่คือ Constant Cost Industry — เส้น LS เป็นเส้นราบ"
+      }]
+    },
+    {
+      label: "STEP 2 · เชื่อมโยงทฤษฎี",
+      title: "3 ประเภทอุตสาหกรรม → 3 รูปทรงเส้น LS",
+      insight: {label:"✦ จำ 3 แบบ", text:"① Constant Cost: ราคาปัจจัยคงที่ → LS เป็นเส้นนอนราบ (Slope = 0)\n② Increasing Cost: ราคาปัจจัยเพิ่ม → ต้นทุนสูงขึ้น → LS ทอดขึ้น (Slope > 0)\n③ Decreasing Cost: External Economy → ต้นทุนลด → LS ทอดลง (Slope < 0)"},
+      quizzes: [{
+        q: "ทำไม Decreasing Cost Industry จึงเป็นไปได้? (ยิ่งผลิตมากต้นทุนยิ่งลด)",
+        opts: ["เพราะ Economies of Scale ภายในบริษัท","เพราะ External Economy — เช่น รัฐสร้างถนน ไฟฟ้า ให้เมื่ออุตสาหกรรมใหญ่ขึ้น","เพราะเทคโนโลยีดีขึ้นเสมอ"],
+        ans: 1,
+        explain: "ไม่ใช่ Economies of Scale ภายในบริษัท แต่เป็นผลจาก<strong>ภายนอก</strong> — เช่น รัฐพัฒนาโครงสร้างพื้นฐาน อุตสาหกรรมต้นน้ำ → ลดต้นทุนให้ทุกบริษัท นี่คือ <strong>\"การประหยัดภายนอก\" (External Economy)</strong>"
+      }]
+    }
+  ]
+},
+
+7: {
+  title: "ระยะตลาด (Very Short-run)",
+  completion: "คุณเข้าใจการกำหนดราคาในระยะตลาดแล้ว — จบบทที่ 7! 🎉",
+  link: "สรุปทั้งบท: ลักษณะตลาด → MR=MC → ดุลยภาพสั้น (4 กรณี) → Supply = MC เหนือ AVC → ดุลยภาพยาว P=LAC min → LS 3 แบบ → ระยะตลาด",
+  steps: [
+    {
+      label: "STEP 1 · ลองคิดก่อน",
+      title: "ถ้าผลิตเพิ่มไม่ได้เลย จะตั้งราคาอย่างไร?",
+      narrative: "<p>ระยะตลาด (Very Short-run) = ปริมาณสินค้าคงที่ เปลี่ยนแปลงไม่ได้เลย!</p><p>มีสต๊อคเท่าไหร่ก็เท่านั้น เส้นอุปทานจะมีรูปร่างอย่างไร?</p>",
+      quizzes: [{
+        q: "เส้นอุปทานในระยะตลาดสำหรับสินค้าเน่าเสียง่ายมีลักษณะอย่างไร?",
+        opts: ["ทอดขึ้นจากซ้ายไปขวาตามปกติ","เป็นเส้นตั้งฉากกับแกนปริมาณ (ปริมาณคงที่)","เป็นเส้นราบขนานแกนปริมาณ"],
+        ans: 1,
+        explain: "สินค้าเน่าเสียง่ายต้องขายหมดไม่ว่าราคาเท่าไหร่ → อุปทานคงที่ = <strong>เส้นตั้งฉาก</strong> → ราคาถูกกำหนดโดย \"อุปสงค์\" เท่านั้น!"
+      }]
+    },
+    {
+      label: "STEP 2 · เชื่อมโยงทฤษฎี",
+      title: "สินค้าเน่าเสีย vs สินค้ากักตุนได้",
+      insight: {label:"✦ แยก 2 ประเภท", text:"🍎 สินค้าเน่าเสียง่าย (Perishable):\nต้องขายหมด → S เป็นเส้นตั้งฉาก → ราคาขึ้นกับอุปสงค์อย่างเดียว\n\n📦 สินค้ากักตุนได้ (Storable):\nผู้ขายเลือกขายหรือเก็บได้ → S มี Slope บวก\n(ราคาสูง = ขายมาก, ราคาต่ำ = กักตุน)\nมี Reservation Demand = ปริมาณที่ผู้ขายเก็บไว้ไม่ขาย"},
+      quizzes: [{
+        q: "Reservation Demand คืออะไร?",
+        opts: ["ความต้องการซื้อของผู้บริโภค","ปริมาณสินค้าที่ผู้ขายต้องการเก็บกักตุนไว้ขายทีหลัง","อุปสงค์ของรัฐบาล"],
+        ans: 1,
+        explain: "<strong>Reservation Demand</strong> = ปริมาณที่ผู้ขายเก็บไว้ไม่ขาย → Supply จริง = Total Stock − Reservation Demand → ราคาต่ำ: เก็บมาก ขายน้อย / ราคาสูง: เก็บน้อย ขายมาก → ทำให้เส้น S มี Slope บวก"
+      }]
+    }
+  ]
+}
+};
+
+/* ═══ State ═══ */
+let currentSection = null;
+let currentStep = 0;
+let answeredQuizzes = {};
+
+/* ═══ Hub functions ═══ */
+function toggleHook(){
+  const r=document.getElementById('hreveal');
+  const b=document.getElementById('hbtn');
+  const on=r.classList.toggle('on');
+  b.textContent=on?'ซ่อน':'เผยคำตอบ + โยงกับทฤษฎี';
+}
+function toggleFlow(){
+  const m=document.getElementById('flow-map');
+  const b=document.getElementById('flow-btn');
+  const on=m.classList.toggle('on');
+  b.classList.toggle('active',on);
+  b.textContent=on?'🗺️ ซ่อนแผนผัง':'🗺️ ดูแผนผังความเชื่อมโยง';
+}
+
+/* ═══ Section navigation ═══ */
+function openSection(id){
+  currentSection=id;
+  currentStep=0;
+  answeredQuizzes={};
+  document.getElementById('hub-view').style.display='none';
+  renderStep();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function backToHub(){
+  currentSection=null;
+  document.getElementById('hub-view').style.display='';
+  document.getElementById('section-container').innerHTML='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ═══ Render step ═══ */
+function renderStep(){
+  const sec=DATA[currentSection];
+  const step=sec.steps[currentStep];
+  const total=sec.steps.length;
+  const pct=((currentStep+1)/total)*100;
+  const cont=document.getElementById('section-container');
+
+  let html=`<div class="section-page active" style="animation:fadeUp .4s ease">`;
+
+  // Top bar
+  html+=`<div class="sp-topbar">
+    <button class="sp-back" onclick="backToHub()">← Hub</button>
+    <div class="sp-progress">
+      <span>${currentStep+1}/${total}</span>
+      <div class="sp-bar"><div class="sp-bar-fill" style="width:${pct}%"></div></div>
+    </div>
+  </div>`;
+
+  // Label & title
+  html+=`<div class="step-label">${step.label}</div>`;
+  html+=`<h2 class="step-title">${step.title}</h2>`;
+
+  // Narrative
+  if(step.narrative) html+=`<div class="narrative">${step.narrative}</div>`;
+
+  // Insight
+  if(step.insight) html+=`<div class="insight-box"><div class="insight-label">${step.insight.label}</div><p class="insight-text">${step.insight.text}</p></div>`;
+
+  // Formulas
+  if(step.formulas) {
+    html+=`<div class="formula-box">`;
+    step.formulas.forEach(f=>html+=`<div class="formula-line">${f}</div>`);
+    html+=`</div>`;
+  }
+
+  // Quizzes
+  if(step.quizzes){
+    step.quizzes.forEach((quiz,qi)=>{
+      const qid=`q-${currentSection}-${currentStep}-${qi}`;
+      html+=`<div class="quiz-card" id="${qid}">`;
+      html+=`<p class="quiz-q">${quiz.q}</p>`;
+      html+=`<div class="quiz-opts">`;
+      quiz.opts.forEach((opt,oi)=>{
+        html+=`<button class="quiz-opt" data-qid="${qid}" data-qi="${qi}" data-oi="${oi}" onclick="answerQuiz(this,${qi},${oi},${quiz.ans})">`;
+        html+=`<span class="quiz-opt-label">${String.fromCharCode(65+oi)}.</span>${opt}</button>`;
+      });
+      html+=`</div>`;
+      html+=`<div class="quiz-explain" id="${qid}-exp">${quiz.explain}</div>`;
+      html+=`</div>`;
+    });
+  }
+
+  // Next button
+  const isLast = currentStep >= total-1;
+  const hasQuizzes = step.quizzes && step.quizzes.length>0;
+  const showNow = !hasQuizzes;
+  html+=`<button class="next-btn ${showNow?'visible':''}" id="next-btn" onclick="${isLast?'showCompletion()':'nextStep()'}">`;
+  html+=isLast?'✓ จบ Section นี้':'ถัดไป →';
+  html+=`</button>`;
+
+  html+=`</div>`;
+  cont.innerHTML=html;
+}
+
+function answerQuiz(btn,qi,oi,correctAns){
+  const qid=btn.dataset.qid;
+  if(answeredQuizzes[qid]) return;
+  answeredQuizzes[qid]=true;
+
+  const card=document.getElementById(qid);
+  const btns=card.querySelectorAll('.quiz-opt');
+  btns.forEach((b,i)=>{
+    b.classList.add('answered');
+    if(i===correctAns) b.classList.add('correct');
+    else if(i===oi && oi!==correctAns) b.classList.add('wrong');
+  });
+
+  const exp=document.getElementById(qid+'-exp');
+  const isCorrect=oi===correctAns;
+  exp.classList.add('show',isCorrect?'is-correct':'is-wrong');
+
+  // Check if all quizzes answered
+  const sec=DATA[currentSection];
+  const step=sec.steps[currentStep];
+  if(step.quizzes){
+    const allDone=step.quizzes.every((_,i)=>answeredQuizzes[`q-${currentSection}-${currentStep}-${i}`]);
+    if(allDone){
+      setTimeout(()=>{
+        document.getElementById('next-btn').classList.add('visible');
+      },500);
+    }
+  }
+}
+
+function nextStep(){
+  currentStep++;
+  answeredQuizzes={};
+  renderStep();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showCompletion(){
+  const sec=DATA[currentSection];
+  const cont=document.getElementById('section-container');
+  cont.innerHTML=`<div class="section-page active" style="animation:fadeUp .4s ease">
+    <div class="completion">
+      <div class="completion-emoji">🎉</div>
+      <h2>จบ Section ${currentSection}!</h2>
+      <p>${sec.completion}</p>
+      <div class="completion-link">💡 ความเชื่อมโยง: ${sec.link}</div>
+      <br>
+      <button class="completion-back" onclick="backToHub()">← กลับหน้า Hub</button>
+    </div>
+  </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>

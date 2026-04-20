@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 4.5 — การเปลี่ยนแปลงของดุลยภาพ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:780px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
+.backbtn:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.backbtn:hover{background:#242424}}
+.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#fff9c4;color:#e65100}
+@media(prefers-color-scheme:dark){.badge{background:#1f1500;color:#ffb74d}}
+.badge.sec{background:#1a1a1a;color:#fff}
+@media(prefers-color-scheme:dark){.badge.sec{background:#fff;color:#1a1a1a}}
+
+/* Section hero — amber/gold theme */
+.shero{background:linear-gradient(135deg,#fff9c4 0%,#fffde7 100%);border-radius:16px;padding:20px 22px;margin:14px 0 20px;border:1px solid #fff59d}
+@media(prefers-color-scheme:dark){.shero{background:linear-gradient(135deg,#1f1500 0%,#1a1a1a 100%);border-color:#5c3e00}}
+.shero .num{font-size:11px;font-weight:700;color:#e65100;letter-spacing:.1em;margin-bottom:4px}
+@media(prefers-color-scheme:dark){.shero .num{color:#ffb74d}}
+.shero h1{font-size:22px;font-weight:800;margin-bottom:8px;color:#e65100;line-height:1.3}
+@media(prefers-color-scheme:dark){.shero h1{color:#ffb74d}}
+.shero p{font-size:14px;line-height:1.75;color:#555}
+@media(prefers-color-scheme:dark){.shero p{color:#aaa}}
+
+.step{display:inline-block;font-size:11px;font-weight:700;color:#e65100;background:#fff9c4;padding:3px 10px;border-radius:99px;margin-bottom:10px;letter-spacing:.04em}
+@media(prefers-color-scheme:dark){.step{background:#1f1500;color:#ffb74d}}
+
+h2{font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.4}
+h3{font-size:15.5px;font-weight:700;margin:14px 0 6px}
+p.body{font-size:14px;line-height:1.75;color:#444;margin-bottom:12px}
+@media(prefers-color-scheme:dark){p.body{color:#bbb}}
+
+.block{margin-bottom:28px}
+
+/* Question */
+.qcard{background:#fff8e1;border:1.5px solid #ffe082;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.qcard{background:#2a2100;border-color:#6b5200}}
+.qcard .qlabel{font-size:11px;font-weight:700;color:#8a5a00;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.qcard .qlabel{color:#ffd54f}}
+.qcard .qtext{font-size:15px;font-weight:600;margin-bottom:12px;line-height:1.5}
+
+.choices{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.choice{padding:12px 14px;background:#fff;border:1.5px solid #eee;border-radius:10px;cursor:pointer;font-size:13.5px;line-height:1.5;text-align:left;font-family:inherit;color:inherit;transition:all .15s;display:flex;align-items:flex-start;gap:10px}
+@media(prefers-color-scheme:dark){.choice{background:#1a1a1a;border-color:#333}}
+.choice:hover{border-color:#e65100;background:#fffde7}
+@media(prefers-color-scheme:dark){.choice:hover{background:#1f1500}}
+.choice .clet{font-weight:700;color:#e65100;flex-shrink:0}
+@media(prefers-color-scheme:dark){.choice .clet{color:#ffb74d}}
+.choice.correct{background:#e8f5e9;border-color:#66bb6a}
+@media(prefers-color-scheme:dark){.choice.correct{background:#0d2a10;border-color:#2e7d32}}
+.choice.wrong{background:#ffebee;border-color:#ef5350;opacity:.7}
+@media(prefers-color-scheme:dark){.choice.wrong{background:#2a0d0d;border-color:#c62828}}
+
+.feedback{display:none;padding:12px 14px;border-radius:10px;font-size:13.5px;line-height:1.7;margin-top:8px}
+.feedback.on{display:block}
+.feedback.good{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+@media(prefers-color-scheme:dark){.feedback.good{background:#0d2a10;border-color:#2e7d32;color:#a5d6a7}}
+.feedback.bad{background:#fff3e0;border:1px solid #ffb74d;color:#e65100}
+@media(prefers-color-scheme:dark){.feedback.bad{background:#2a1a00;border-color:#f57c00;color:#ffb74d}}
+
+/* Lab */
+.lab{background:#fffde7;border:1.5px solid #fff59d;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.lab{background:#1f1500;border-color:#5c3e00}}
+.lab-title{font-size:12.5px;font-weight:700;color:#e65100;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+@media(prefers-color-scheme:dark){.lab-title{color:#ffb74d}}
+.lab-desc{font-size:13px;color:#666;margin-bottom:14px;line-height:1.6}
+@media(prefers-color-scheme:dark){.lab-desc{color:#999}}
+
+canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #ddd;display:block;background:#fff;margin-bottom:10px}
+@media(prefers-color-scheme:dark){canvas.gcanvas{background:#1a1a1a;border-color:#333}}
+
+.ctl{background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #ddd;margin-top:8px}
+@media(prefers-color-scheme:dark){.ctl{background:#1a1a1a;border-color:#333}}
+.ctl-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.ctl-row:last-child{margin-bottom:0}
+.ctl label{font-size:12.5px;font-weight:600;min-width:90px}
+.ctl input[type=range]{flex:1;min-width:120px}
+.ctl input#dShift{accent-color:#1976d2}
+.ctl input#sShift{accent-color:#e65100}
+.ctl .val{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12.5px;font-weight:700;min-width:78px;text-align:right}
+.ctl .val.d{color:#1976d2}
+.ctl .val.s{color:#e65100}
+@media(prefers-color-scheme:dark){.ctl .val.d{color:#64b5f6}.ctl .val.s{color:#ff8a65}}
+.ctl .readout{font-size:12.5px;margin-top:4px;line-height:1.7;padding:10px 12px;background:#f5f5f5;border-radius:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace}
+@media(prefers-color-scheme:dark){.ctl .readout{background:#242424}}
+
+.preset-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.preset-btns button{padding:6px 10px;border:1.5px solid #ddd;background:transparent;border-radius:6px;font-size:11.5px;cursor:pointer;font-family:inherit;color:inherit;white-space:nowrap}
+@media(prefers-color-scheme:dark){.preset-btns button{border-color:#444}}
+.preset-btns button:hover{border-color:#e65100;color:#e65100;background:#fffde7}
+@media(prefers-color-scheme:dark){.preset-btns button:hover{background:#1f1500;color:#ffb74d}}
+
+/* 4-case grid */
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:16px}
+.case-item{background:#fff;border:1.5px solid #eee;border-radius:12px;padding:12px 14px;position:relative;overflow:hidden}
+@media(prefers-color-scheme:dark){.case-item{background:#1a1a1a;border-color:#333}}
+.case-item.d-up{border-left:4px solid #1976d2}
+.case-item.d-down{border-left:4px solid #64b5f6}
+.case-item.s-up{border-left:4px solid #e65100}
+.case-item.s-down{border-left:4px solid #ff8a65}
+.case-item .ct{font-size:12.5px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.case-item .cd{font-size:12.5px;color:#666;line-height:1.55;margin-bottom:6px}
+@media(prefers-color-scheme:dark){.case-item .cd{color:#aaa}}
+.case-item .cr{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;padding:6px 8px;background:#fffde7;border-radius:4px;color:#e65100;font-weight:700}
+@media(prefers-color-scheme:dark){.case-item .cr{background:#1f1500;color:#ffb74d}}
+
+/* Theory */
+.theory{background:#1a1a1a;color:#fff;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.theory{background:#0a0a0a;border:1px solid #333}}
+.theory-label{font-size:11px;font-weight:700;color:#ffb74d;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.theory h3{font-size:16px;font-weight:700;margin-bottom:10px;color:#fff}
+.theory p{font-size:13.5px;line-height:1.75;color:#d0d0d0;margin-bottom:8px}
+.theory strong{color:#ffd54f}
+.theory .formula{background:rgba(255,183,77,.12);border-left:3px solid #ffb74d;padding:10px 12px;margin:10px 0;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12.5px;color:#fff;border-radius:4px;line-height:1.9}
+
+/* Scenario card */
+.scen{background:#fff;border:1.5px solid #fff59d;border-radius:12px;padding:14px 16px;margin-bottom:12px}
+@media(prefers-color-scheme:dark){.scen{background:#1a1a1a;border-color:#5c3e00}}
+.scen-ico{display:inline-block;width:32px;height:32px;border-radius:8px;background:#fff9c4;text-align:center;line-height:32px;font-size:18px;margin-right:8px;vertical-align:middle}
+@media(prefers-color-scheme:dark){.scen-ico{background:#1f1500}}
+.scen-title{font-size:14px;font-weight:700;display:inline-block;vertical-align:middle}
+.scen-body{font-size:13px;color:#555;line-height:1.65;margin-top:8px}
+@media(prefers-color-scheme:dark){.scen-body{color:#aaa}}
+.scen-answer{margin-top:10px;padding:8px 12px;background:#fff9c4;border-radius:6px;font-size:12.5px;color:#5d4037;display:none}
+@media(prefers-color-scheme:dark){.scen-answer{background:#1f1500;color:#ffd54f}}
+.scen-answer.on{display:block}
+
+/* Try-it */
+.tryit{background:#fff3e0;border:1.5px solid #ffb74d;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.tryit{background:#2a1a00;border-color:#e65100}}
+.tryit h3{color:#e65100;margin-top:0}
+@media(prefers-color-scheme:dark){.tryit h3{color:#ffb74d}}
+.tryit-input{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tryit-input input{flex:1;min-width:70px;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;font-family:ui-monospace,'SF Mono',Menlo,monospace;background:#fff;color:inherit}
+@media(prefers-color-scheme:dark){.tryit-input input{background:#1a1a1a;border-color:#444}}
+.tryit-input button{padding:10px 20px;background:#e65100;color:#fff;border:none;border-radius:8px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.tryit-input button:hover{background:#bf360c}
+
+/* Calc */
+.calc{background:#fff;border:1.5px solid #fff59d;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.calc{background:#1a1a1a;border-color:#5c3e00}}
+.calc-step{padding:10px 0;border-bottom:1px dashed #ddd}
+.calc-step:last-child{border-bottom:none}
+@media(prefers-color-scheme:dark){.calc-step{border-bottom-color:#333}}
+.calc-step .slab{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.calc-step .seq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;line-height:1.8;background:#fffde7;padding:8px 10px;border-radius:6px;margin-top:4px}
+@media(prefers-color-scheme:dark){.calc-step .seq{background:#1f1500}}
+
+/* Chapter recap */
+.recap{background:linear-gradient(135deg,#fff9c4 0%,#fffde7 100%);border:2px solid #f57f17;border-radius:16px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
+@media(prefers-color-scheme:dark){.recap{background:linear-gradient(135deg,#1f1500 0%,#0a0a0a 100%);border-color:#e65100}}
+.recap::before{content:'🎓';position:absolute;top:12px;right:16px;font-size:32px;opacity:.3}
+.recap-lab{font-size:11px;font-weight:700;color:#e65100;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+@media(prefers-color-scheme:dark){.recap-lab{color:#ffb74d}}
+.recap h3{font-size:18px;font-weight:800;margin-bottom:12px;color:#e65100}
+@media(prefers-color-scheme:dark){.recap h3{color:#ffb74d}}
+.recap-steps{list-style:none;padding:0;counter-reset:rs}
+.recap-steps li{counter-increment:rs;padding:8px 0 8px 40px;position:relative;font-size:13.5px;line-height:1.65;border-bottom:1px dashed rgba(245,127,23,.3)}
+.recap-steps li:last-child{border-bottom:none}
+.recap-steps li::before{content:counter(rs);position:absolute;left:0;top:8px;width:28px;height:28px;border-radius:50%;background:#e65100;color:#fff;font-weight:700;text-align:center;line-height:28px;font-size:13px}
+
+/* Takeaway */
+.takeaway{background:linear-gradient(135deg,#fff9c4 0%,#fffde7 100%);border:1.5px solid #fbc02d;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.takeaway{background:linear-gradient(135deg,#1f1500 0%,#0a0a0a 100%);border-color:#f57f17}}
+.takeaway .tlab{font-size:11px;font-weight:700;color:#e65100;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.takeaway .tlab{color:#ffb74d}}
+.takeaway h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.takeaway ul{list-style:none;padding:0}
+.takeaway li{padding:6px 0 6px 24px;position:relative;font-size:13.5px;line-height:1.6}
+.takeaway li::before{content:'✓';position:absolute;left:0;color:#e65100;font-weight:700;font-size:15px}
+@media(prefers-color-scheme:dark){.takeaway li::before{color:#ffb74d}}
+
+/* Reveal */
+.reveal-toggle{width:100%;padding:10px 14px;border:1.5px dashed #999;border-radius:10px;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:inherit;margin-bottom:10px;font-family:inherit}
+.reveal-toggle:hover{border-color:#e65100;color:#e65100}
+@media(prefers-color-scheme:dark){.reveal-toggle:hover{color:#ffb74d}}
+.reveal-content{display:none}
+.reveal-content.on{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+/* Bottom nav */
+.botnav{display:flex;gap:8px;margin-top:32px;padding-top:16px;border-top:1px solid #eee}
+@media(prefers-color-scheme:dark){.botnav{border-color:#333}}
+.bnb{flex:1;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;color:inherit;text-align:center;font-family:inherit}
+@media(prefers-color-scheme:dark){.bnb{border-color:#444}}
+.bnb:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.bnb:hover{background:#242424}}
+.bnb.pr{background:#e65100;border-color:#e65100;color:#fff;font-weight:700}
+.bnb.pr:hover{background:#bf360c}
+
+/* Progress */
+.progress{display:flex;gap:4px;margin:10px 0 20px}
+.pbar{flex:1;height:5px;border-radius:3px;background:#eee}
+@media(prefers-color-scheme:dark){.pbar{background:#333}}
+.pbar.current{background:#e65100}
+.pbar.done{background:#4caf50}
+</style>
+
+<style>
+/* Ajarn.Kwan top bar + footer */
+.ajk-shell-theme { --ajk-primary:#10b981;--ajk-primary-soft:#ecfdf5;--ajk-primary-dark:#059669;--ajk-ink:#1d1633;--ajk-muted:#6b6480;--ajk-border:#e5e1f3;--ajk-surface:#ffffff; }
+.ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--ajk-border);font-family:'Noto Sans Thai',system-ui,-apple-system,sans-serif;color:var(--ajk-ink);margin:-16px -16px 0}
+.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:'Noto Sans Thai',system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.ajk-back-btn svg{width:14px;height:14px;flex-shrink:0}
+.ajk-back-btn:hover{background:var(--ajk-primary);color:#fff;transform:translateX(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.ajk-brand{flex:1;min-width:0;text-align:right;line-height:1.25}
+.ajk-brand-course{font-size:13.5px;font-weight:700;color:var(--ajk-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.ajk-brand-author{font-size:11px;color:var(--ajk-muted);font-weight:500;display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.ajk-brand-author-dot{width:5px;height:5px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
+.ajk-brand-author-at{color:var(--ajk-primary);font-weight:700;padding:0 1px}
+@media(max-width:520px){.ajk-back-btn span{display:none}.ajk-back-btn{padding:9px}.ajk-back-btn svg{width:16px;height:16px}.ajk-brand-course{font-size:12.5px}.ajk-brand-author{font-size:10.5px}.ajk-topbar-inner{padding:8px 12px;min-height:52px;gap:10px}}
+.ajk-footer{margin:64px -16px 0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--ajk-primary-soft) 100%);border-top:1px solid var(--ajk-border);padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
+.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}
+.ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+.ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--ajk-primary);opacity:.35}
+.ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
+.ajk-footer-name{font-family:'Noto Serif Thai','Noto Sans Thai',serif;font-size:24px;font-weight:700;color:var(--ajk-ink);margin:0 0 4px;letter-spacing:-.01em}
+.ajk-footer-sub{font-size:12.5px;color:var(--ajk-muted);letter-spacing:.02em;margin-bottom:26px}
+.ajk-footer-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.ajk-footer-btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-surface);border:1px solid var(--ajk-border);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;transition:all .18s;cursor:pointer;font-family:'Noto Sans Thai',system-ui,sans-serif}
+.ajk-footer-btn svg{width:15px;height:15px}
+.ajk-footer-btn:hover{color:var(--ajk-primary);border-color:var(--ajk-primary);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.ajk-footer-bottom{font-size:11.5px;color:var(--ajk-muted);letter-spacing:.02em;padding-top:22px;border-top:1px solid var(--ajk-border);line-height:1.8}
+.ajk-footer-bottom strong{color:var(--ajk-ink);font-weight:700}
+@media(max-width:520px){.ajk-footer{padding:36px 14px 22px;margin-top:48px}.ajk-footer-name{font-size:21px}.ajk-footer-links{gap:6px}.ajk-footer-btn{padding:8px 13px;font-size:12px}}
+</style>
+
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#2f6f67;
+  --theme-primary-soft:#eef7f5;
+  --theme-primary-dark:#285f59;
+  --theme-hero-a:#eef7f5;
+  --theme-hero-b:#fbfdfc;
+  --theme-page-bg:#f6faf9;
+  --theme-border:#cfe3de;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f3f8f7;
+  --color-border-secondary:#cfe3de;
+  --color-border-tertiary:#e6ecea;
+  --color-text-primary:#1f2937;
+  --color-text-secondary:#5f6b76;
+  --color-text-tertiary:#8b95a1;
+  --shadow:0 14px 34px rgba(31,41,55,.06);
+}
+.ajk-shell-theme {
+  --ajk-primary: #10b981;
+  --ajk-primary-soft: #ecfdf5;
+  --ajk-primary-dark: #059669;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #dbe7e4;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.hero,.shero{
+  background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;
+  border:1px solid var(--theme-border)!important;
+  box-shadow:var(--shadow)!important;
+}
+.hero h1,.hero h2,.hero h3,.shero h1,.shero h2,.shero h3{
+  color:#134e4a!important;
+}
+.hero p,.shero p,.hero li,.shero li,
+.hero .sub,.shero .sub,.hero .desc,.shero .desc,
+.hero .muted,.shero .muted{
+  color:var(--color-text-secondary)!important;
+}
+.hook,.mini-hook,.callout,.summary-box,.lesson-box,.example-box{
+  background:#ffffff!important;
+  border:1px solid var(--theme-border)!important;
+  color:var(--color-text-primary)!important;
+}
+.badge,.chapter-badge{
+  background:#eaf5f2!important;
+  color:#285f59!important;
+  border:1px solid var(--theme-border)!important;
+}
+.backlink,.backbtn{color:var(--theme-primary)!important;}
+.backbtn,.revbtn,.bnb,.btn,.ghost-btn{
+  border-color:#d6e3df!important;
+}
+.panel,.card,.chapter-card,.lesson-card,.section-card,.tile,.step,.info-card,.eq-card{
+  box-shadow:var(--shadow)!important;
+}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+</style>
+
+</head>
+<body>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter4.html" aria-label="กลับบทที่ 4">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 4</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 4.5 · การเปลี่ยนดุลยภาพ</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+
+<div class="topnav">
+  <a class="backbtn" href="chapter4.html">← กลับบทที่ 4</a>
+  <span class="badge">บทที่ 4</span>
+  <span class="badge sec">4.5</span>
+</div>
+
+<div class="progress">
+  <div class="pbar done"></div>
+  <div class="pbar done"></div>
+  <div class="pbar done"></div>
+  <div class="pbar done"></div>
+  <div class="pbar current"></div>
+</div>
+
+<!-- HERO -->
+<div class="shero">
+  <div class="num">SECTION 4.5 · FINAL</div>
+  <h1>การเปลี่ยนแปลงของดุลยภาพ</h1>
+  <p>บทสุดท้ายของ Chapter 4 — ในโลกจริง D และ S ไม่หยุดนิ่ง<br>คนเปลี่ยนรสนิยม ฤดูกาลผ่านไป เทคโนโลยีเปลี่ยน ราคาน้ำมันเปลี่ยน<br>บทนี้สอนให้คุณ <strong>พยากรณ์</strong> ว่าราคาและปริมาณดุลยภาพจะไปทางไหน</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 1: HOOK -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">① ถามก่อนเรียน</div>
+  <h2>ช่วงโควิดล็อกดาวน์ปี 2020</h2>
+  <p class="body">
+    ช่วงที่ทุกคนอยู่บ้าน 24 ชั่วโมง 7 วันต่อสัปดาห์ — ลองคิดดูว่าจะเกิดอะไรขึ้นกับตลาด<strong>ขนมถุง</strong>?
+  </p>
+  
+  <div class="qcard">
+    <div class="qlabel">💭 Quick Thinking</div>
+    <div class="qtext">ตลาดขนมถุง (เช่น Lay's, เลย์) ในช่วงล็อกดาวน์ จะเกิดอะไร?</div>
+    <div class="choices" id="q1">
+      <button class="choice" data-q="1" data-a="A">
+        <span class="clet">A</span><span>ราคาขึ้น, ยอดขายขึ้น — คนเครียดกินขนมเยอะ</span>
+      </button>
+      <button class="choice" data-q="1" data-a="B">
+        <span class="clet">B</span><span>ราคาขึ้น, ยอดขายลง — ราคาสูงขึ้นเลยซื้อน้อยลง</span>
+      </button>
+      <button class="choice" data-q="1" data-a="C">
+        <span class="clet">C</span><span>ราคาลง, ยอดขายลง — เศรษฐกิจแย่ คนประหยัด</span>
+      </button>
+      <button class="choice" data-q="1" data-a="D">
+        <span class="clet">D</span><span>ไม่มีอะไรเปลี่ยน — คนกินขนมเท่าเดิม</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb1"></div>
+  </div>
+  
+  <div class="qcard">
+    <div class="qlabel">💭 Think harder</div>
+    <div class="qtext">แล้ว<strong>หน้ากากอนามัย</strong>ในช่วงเดียวกัน (คนต้องการมากขึ้น + โรงงานผลิตได้น้อยลงเพราะมาตรการ)?</div>
+    <div class="choices" id="q2">
+      <button class="choice" data-q="2" data-a="A">
+        <span class="clet">A</span><span>ราคาขึ้นมาก แต่ปริมาณขายไม่เปลี่ยนแน่ชัด (อาจขึ้นหรือลง)</span>
+      </button>
+      <button class="choice" data-q="2" data-a="B">
+        <span class="clet">B</span><span>ราคาขึ้นมาก ปริมาณขายขึ้นตาม</span>
+      </button>
+      <button class="choice" data-q="2" data-a="C">
+        <span class="clet">C</span><span>ราคาลง ปริมาณขายเพิ่มขึ้น</span>
+      </button>
+      <button class="choice" data-q="2" data-a="D">
+        <span class="clet">D</span><span>ราคาไม่เปลี่ยน ปริมาณขายลดลง</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb2"></div>
+  </div>
+  
+  <button class="reveal-toggle" onclick="toggleReveal('r0')">💡 เฉลยและความคิดเบื้องหลัง</button>
+  <div class="reveal-content" id="r0">
+    <p class="body">
+      <strong>หน้ากากอนามัย</strong>เป็นกรณีที่<em>ทั้ง</em> D และ S เปลี่ยนพร้อมกัน:<br>
+      • Demand ขึ้น (คนต้องการมากขึ้น) → <strong>ราคาดึงขึ้น, ปริมาณดึงขึ้น</strong><br>
+      • Supply ลง (ผลิตได้น้อย) → <strong>ราคาดึงขึ้น, ปริมาณดึงลง</strong><br><br>
+      🔴 <strong>ราคา</strong>: แน่นอนว่าขึ้น (สองแรงดันไปทางเดียวกัน)<br>
+      ⚪ <strong>ปริมาณ</strong>: <em>ไม่ชัดเจน</em> ขึ้นกับว่าใครแรงกว่า (ในกรณีนี้ ปริมาณจริงลดลง เพราะผลิตไม่พอ)<br><br>
+      นี่คือหัวใจของบทนี้ — เมื่อ D กับ S เปลี่ยนพร้อมกัน ต้องคิดทีละตัว แล้วค่อยรวม!
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 2: 4 BASIC CASES -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">② 4 กรณีพื้นฐาน</div>
+  <h2>เมื่อเส้นเดียวเปลี่ยน</h2>
+  <p class="body">ก่อนจะเข้าเรื่องซับซ้อน มาดู 4 กรณีง่าย ๆ ที่เส้นเดียวเปลี่ยน — จำเป็นต่อการวิเคราะห์ทุกอย่างต่อไป</p>
+  
+  <div class="case-grid">
+    <div class="case-item d-up">
+      <div class="ct">📈 D ↑ (Demand เพิ่ม)</div>
+      <div class="cd">คนอยากซื้อมากขึ้น ณ ทุกราคา เช่น สินค้ากำลังฮิต, รายได้สูงขึ้น</div>
+      <div class="cr">P* ↑ , Q* ↑</div>
+    </div>
+    <div class="case-item d-down">
+      <div class="ct">📉 D ↓ (Demand ลด)</div>
+      <div class="cd">คนเลิกอยาก เช่น สินค้าตกเทรนด์, มีของแทนที่ราคาถูก</div>
+      <div class="cr">P* ↓ , Q* ↓</div>
+    </div>
+    <div class="case-item s-up">
+      <div class="ct">🏭 S ↑ (Supply เพิ่ม)</div>
+      <div class="cd">ผลิตได้มากขึ้น เช่น เทคโนโลยีดีขึ้น, ต้นทุนลด, ผู้ผลิตเพิ่มขึ้น</div>
+      <div class="cr">P* ↓ , Q* ↑</div>
+    </div>
+    <div class="case-item s-down">
+      <div class="ct">🚫 S ↓ (Supply ลด)</div>
+      <div class="cd">ผลิตได้น้อยลง เช่น ภัยธรรมชาติ, ต้นทุนสูงขึ้น, วัตถุดิบขาด</div>
+      <div class="cr">P* ↑ , Q* ↓</div>
+    </div>
+  </div>
+  
+  <p class="body" style="margin-top:12px;font-style:italic">
+    💡 <strong>ทริคจำง่าย</strong>: D กับ P* และ Q* เคลื่อนไป <em>ทางเดียวกัน</em> (↑↑ หรือ ↓↓) — S กับ P* เคลื่อน <em>ตรงข้าม</em>
+  </p>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 3: INTERACTIVE LAB -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">③ ทดลองเอง</div>
+  <h2>Shift Simulator</h2>
+  <p class="body">ลองเลื่อน D และ S ด้วยตัวเอง — สังเกตดุลยภาพเคลื่อนยังไง ลองกดปุ่ม "สถานการณ์" ด้านล่างเพื่อเห็นเคสจริง</p>
+  
+  <div class="lab">
+    <div class="lab-title">🔬 LAB — Demand & Supply Shifter</div>
+    <div class="lab-desc">เริ่มจาก Qᴅ = 120k − 20kP, Qˢ = 20kP (E* เดิม: P=3, Q=60k) · เลื่อน D หรือ S ดู E* ใหม่</div>
+    
+    <canvas id="cvLab" class="gcanvas"></canvas>
+    
+    <div class="ctl">
+      <div class="ctl-row">
+        <label style="color:#1976d2">🔵 เลื่อน D:</label>
+        <input type="range" id="dShift" min="-40" max="40" step="2" value="0">
+        <div class="val d" id="dVal">+0k</div>
+      </div>
+      <div class="ctl-row">
+        <label style="color:#e65100">🟠 เลื่อน S:</label>
+        <input type="range" id="sShift" min="-40" max="40" step="2" value="0">
+        <div class="val s" id="sVal">+0k</div>
+      </div>
+      <div class="readout" id="readout"></div>
+      
+      <div class="preset-btns">
+        <button onclick="setPreset(0,0)">รีเซ็ต</button>
+        <button onclick="setPreset(20,0)">สินค้าฮิต D↑</button>
+        <button onclick="setPreset(-20,0)">ตกเทรนด์ D↓</button>
+        <button onclick="setPreset(0,20)">เทคโนใหม่ S↑</button>
+        <button onclick="setPreset(0,-20)">ภัยธรรมชาติ S↓</button>
+        <button onclick="setPreset(30,-20)">โควิด (หน้ากาก)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 4: COMPOUND SHIFTS THEORY -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">④ เมื่อ D และ S เปลี่ยนพร้อมกัน</div>
+  
+  <div class="theory">
+    <div class="theory-label">★ Compound Shifts</div>
+    <h3>คำถามต้อง "แยกคิดก่อน แล้วค่อยรวม"</h3>
+    <p>เมื่อทั้ง D และ S ขยับ — ให้คิดผลของแต่ละเส้นแยกกันก่อน แล้วดูว่าสองผลนี้ "เสริมกัน" หรือ "ชนกัน"</p>
+    <div class="formula">
+      <strong>เสริมกัน</strong> (ทิศเดียวกัน) → ผลสุทธิ <em>ชัดเจน</em><br>
+      เช่น D↑ กับ S↓  →  P*↑↑ (สองแรงดันขึ้น) แต่ Q* ไม่ชัด<br><br>
+      <strong>ชนกัน</strong> (คนละทิศ) → ผลสุทธิ <em>ขึ้นกับขนาด</em><br>
+      เช่น D↑ กับ S↑  →  Q*↑↑ (สองแรงดันขึ้น) แต่ P* ไม่ชัด
+    </div>
+    <p>ในทุกกรณี — มี <strong>1 ตัวที่ชัด</strong> กับ <strong>1 ตัวที่ต้องรู้ขนาดถึงจะบอกได้</strong></p>
+  </div>
+  
+  <h3 style="margin-top:20px">ตาราง 4 กรณีเมื่อทั้ง D และ S ขยับ</h3>
+  <div class="case-grid">
+    <div class="case-item d-up" style="border-left-color:#2e7d32">
+      <div class="ct">📈 D↑ + S↑ (ทั้งคู่เพิ่ม)</div>
+      <div class="cd">เศรษฐกิจเฟื่องฟู, ทั้งซื้อทั้งขายเพิ่ม</div>
+      <div class="cr">Q* ↑ ชัดเจน · P* ขึ้นกับขนาด</div>
+    </div>
+    <div class="case-item d-down" style="border-left-color:#c62828">
+      <div class="ct">📉 D↓ + S↓ (ทั้งคู่ลด)</div>
+      <div class="cd">เศรษฐกิจถดถอย ทั้งอุปสงค์และอุปทานลด</div>
+      <div class="cr">Q* ↓ ชัดเจน · P* ขึ้นกับขนาด</div>
+    </div>
+    <div class="case-item s-down" style="border-left-color:#f57f17">
+      <div class="ct">📈📉 D↑ + S↓ (เช่น หน้ากาก)</div>
+      <div class="cd">ต้องการสูงขึ้น + ผลิตได้น้อยลง</div>
+      <div class="cr">P* ↑ ชัดเจน · Q* ขึ้นกับขนาด</div>
+    </div>
+    <div class="case-item s-up" style="border-left-color:#1565c0">
+      <div class="ct">📉📈 D↓ + S↑ (เช่น เทคโนเก่า)</div>
+      <div class="cd">คนเลิกใช้ + ผลิตได้ง่ายขึ้น</div>
+      <div class="cr">P* ↓ ชัดเจน · Q* ขึ้นกับขนาด</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 5: REAL-WORLD APPLICATION -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑤ นำไปใช้จริง</div>
+  <h2>ลองวิเคราะห์ 4 สถานการณ์</h2>
+  <p class="body">กดปุ่ม "ลองคิด" แต่ละอัน แล้วกดเฉลยดู — อย่าเปิดเฉลยก่อนคิดนะ!</p>
+  
+  <div class="scen">
+    <div><span class="scen-ico">📱</span><span class="scen-title">iPhone รุ่นใหม่เพิ่งเปิดตัว</span></div>
+    <div class="scen-body">
+      Apple ประกาศ iPhone รุ่นใหม่มาพร้อมกล้องโปร — คนแห่สั่งจอง แต่ Apple ผลิตได้จำกัดในเดือนแรก<br><br>
+      <strong>D เปลี่ยนยังไง?</strong> _______ <br>
+      <strong>S เปลี่ยนยังไง?</strong> _______ <br>
+      <strong>P* และ Q* จะไปทางไหน?</strong> _______
+    </div>
+    <button class="reveal-toggle" onclick="toggleReveal('s1')" style="margin-top:10px">🔍 ดูคำตอบ</button>
+    <div class="reveal-content" id="s1">
+      <div class="scen-answer on">
+        • D↑ (คนอยากได้มากขึ้น — ฮิต)<br>
+        • S คงที่หรือไม่ชัด (ผลิตได้จำกัด = S เทียบเท่าเส้นตั้ง)<br>
+        • <strong>P* ↑ ชัดเจน</strong> (คนยอมจ่ายแพงกว่า retail)<br>
+        • Q* ↑ เล็กน้อย (Apple ขายได้มากขึ้นเท่าที่ผลิตได้)
+      </div>
+    </div>
+  </div>
+  
+  <div class="scen">
+    <div><span class="scen-ico">☕</span><span class="scen-title">บราซิลเจอน้ำค้างแข็งปีนี้</span></div>
+    <div class="scen-body">
+      บราซิลเป็นผู้ส่งออกกาแฟใหญ่ที่สุดของโลก ปีนี้เจอน้ำค้างแข็งผิดปกติ ไร่กาแฟเสียหายครึ่งประเทศ<br><br>
+      <strong>D เปลี่ยนยังไง?</strong> _______ <br>
+      <strong>S เปลี่ยนยังไง?</strong> _______ <br>
+      <strong>P* และ Q* จะไปทางไหน?</strong> _______
+    </div>
+    <button class="reveal-toggle" onclick="toggleReveal('s2')" style="margin-top:10px">🔍 ดูคำตอบ</button>
+    <div class="reveal-content" id="s2">
+      <div class="scen-answer on">
+        • D คงที่ (คนยังชอบกาแฟเหมือนเดิม)<br>
+        • S↓ (ผลผลิตทั่วโลกลดลง)<br>
+        • <strong>P* ↑, Q* ↓</strong> (ราคาพุ่ง ปริมาณซื้อขายลด)<br>
+        • นี่คือที่เกิดขึ้นจริงในปี 2021 — ราคากาแฟขึ้น 30-40%
+      </div>
+    </div>
+  </div>
+  
+  <div class="scen">
+    <div><span class="scen-ico">💻</span><span class="scen-title">กระแส Crypto ปี 2021 → ความต้องการ GPU</span></div>
+    <div class="scen-body">
+      นักขุด crypto ต้องการ GPU มากขึ้น (ขุดบิทคอยน์/อิเธอเรียมได้เงิน) บริษัทอย่าง NVIDIA ยังผลิตเท่าเดิม<br><br>
+      <strong>D เปลี่ยนยังไง?</strong> _______ <br>
+      <strong>S เปลี่ยนยังไง?</strong> _______ <br>
+      <strong>P* และ Q* จะไปทางไหน?</strong> _______
+    </div>
+    <button class="reveal-toggle" onclick="toggleReveal('s3')" style="margin-top:10px">🔍 ดูคำตอบ</button>
+    <div class="reveal-content" id="s3">
+      <div class="scen-answer on">
+        • D↑ มาก (นักขุด + เกมเมอร์ + AI)<br>
+        • S คงที่หรือ↑ เล็กน้อย (ผลิตเร็วขึ้นไม่ทัน)<br>
+        • <strong>P* ↑ มาก, Q* ↑ เล็กน้อย</strong><br>
+        • GPU แพงขึ้น 2–3 เท่าในปี 2021 — เกมเมอร์บ่นกันทั้งโลก
+      </div>
+    </div>
+  </div>
+  
+  <div class="scen">
+    <div><span class="scen-ico">📹</span><span class="scen-title">กล้องวีดีโอ VHS → ทุกคนหันไปใช้มือถือ</span></div>
+    <div class="scen-body">
+      มือถือถ่ายวีดีโอได้ดีขึ้น คนเลิกซื้อกล้องวีดีโอแบบเก่า — ในขณะเดียวกัน โรงงานก็ผลิตน้อยลงและมีเทคโนโลยีที่ดีกว่า<br><br>
+      <strong>D เปลี่ยนยังไง?</strong> _______ <br>
+      <strong>S เปลี่ยนยังไง?</strong> _______ <br>
+      <strong>P* และ Q* จะไปทางไหน?</strong> _______
+    </div>
+    <button class="reveal-toggle" onclick="toggleReveal('s4')" style="margin-top:10px">🔍 ดูคำตอบ</button>
+    <div class="reveal-content" id="s4">
+      <div class="scen-answer on">
+        • D↓ (คนเลิกซื้อ)<br>
+        • S↓ (โรงงานปิด/เปลี่ยนสายการผลิต)<br>
+        • <strong>Q* ↓ ชัดเจน, P* ไม่ชัด</strong> (ขึ้นกับขนาดของแต่ละแรง)<br>
+        • จริง ๆ ในสินค้าที่ตกเทรนด์ ราคามักจะตก เพราะ D ลดแรงกว่า S
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 6: CALCULATION -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑥ คำนวณด้วยสมการ</div>
+  <h2>ตัวอย่างจากหนังสือ</h2>
+  
+  <div class="calc">
+    <p style="font-size:14px;font-weight:600;margin-bottom:10px">
+      📝 เริ่มจาก:<br>
+      <span style="font-family:ui-monospace,monospace;font-size:13px;color:#e65100">Qᴅ = 120,000 − 20,000P<br>Qˢ = 20,000P</span><br>
+      ถ้าทั้ง D และ S เพิ่มขึ้นพร้อมกัน เป็นสมการใหม่:<br>
+      <span style="font-family:ui-monospace,monospace;font-size:13px;color:#e65100">Qᴅ' = 140,000 − 20,000P<br>Qˢ' = 40,000 + 20,000P</span>
+    </p>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 1 — ดุลยภาพเดิม</div>
+      <div class="seq">120k − 20kP = 20kP<br>120k = 40kP<br><strong>P* = 3, Q* = 60k</strong></div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 2 — ดุลยภาพใหม่</div>
+      <div class="seq">Qᴅ' = Qˢ'<br>140k − 20kP = 40k + 20kP<br>100k = 40kP<br><strong style="color:#e65100">P** = 2.5, Q** = 90k</strong></div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 3 — ตีความ</div>
+      <div class="seq">ΔP = 2.5 − 3 = <strong style="color:#c62828">−0.5 (P* ลดลง)</strong><br>ΔQ = 90k − 60k = <strong style="color:#2e7d32">+30k (Q* เพิ่มขึ้น)</strong></div>
+      <p style="font-size:13px;color:#666;margin-top:8px;line-height:1.65">
+        สังเกตว่าในกรณีนี้ <strong>S เพิ่ม (+40k) มากกว่า D เพิ่ม (+20k)</strong> → ทำให้ผลสุทธิคือราคาลดลง และปริมาณเพิ่มขึ้นชัดเจน<br>
+        หลักการ: เมื่อทั้งคู่เพิ่มแต่ขนาดต่างกัน ใครแรงกว่าก็ชี้ทิศทางของราคา
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 7: TRY IT -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑦ ลองทำด้วยตัวเอง</div>
+  
+  <div class="tryit">
+    <h3>📝 โจทย์สุดท้ายของบท!</h3>
+    <p style="font-size:14px;line-height:1.7;margin-bottom:4px">
+      <span style="font-family:ui-monospace,monospace;font-size:13px">เดิม: Qᴅ = 100 − 10P, Qˢ = 10P<br>หลังเปลี่ยน: Qᴅ' = 140 − 10P, Qˢ' = 10P − 20</span>
+    </p>
+    <p style="font-size:13.5px;color:#666;margin-top:10px;margin-bottom:0">
+      (D เพิ่ม: ฮิตขึ้น · S ลด: วัตถุดิบแพง) จงหา:<br>
+      1) P** (ดุลยภาพใหม่, บาท)<br>
+      2) Q** (ปริมาณใหม่, หน่วย)
+    </p>
+    
+    <div class="tryit-input">
+      <input type="number" id="ansP" placeholder="P** = ?" step="0.1">
+      <input type="number" id="ansQ" placeholder="Q** = ?" step="1">
+      <button onclick="checkAns()">ตรวจคำตอบ</button>
+    </div>
+    <div class="feedback" id="fbAns" style="margin-top:12px"></div>
+    
+    <button class="reveal-toggle" onclick="toggleReveal('rAns')" style="margin-top:12px">🔍 ขอดูวิธีทำ</button>
+    <div class="reveal-content" id="rAns">
+      <div class="calc" style="margin-top:8px">
+        <div class="calc-step">
+          <div class="slab">ตั้งเงื่อนไขดุลยภาพใหม่</div>
+          <div class="seq">Qᴅ' = Qˢ'<br>140 − 10P = 10P − 20</div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">แก้หา P</div>
+          <div class="seq">160 = 20P<br><strong>P** = 8 บาท</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">แทนหา Q</div>
+          <div class="seq">Q** = 140 − 10(8) = <strong>60 หน่วย</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">เทียบกับเดิม</div>
+          <div class="seq">เดิม P* = 5, Q* = 50 → ใหม่ P** = 8, Q** = 60<br><strong>ΔP = +3, ΔQ = +10</strong><br>ราคาขึ้นมาก (D↑+S↓ เสริมกัน) และปริมาณก็ขึ้น (D↑ แรงกว่า S↓)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- CHAPTER RECAP -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="recap">
+    <div class="recap-lab">🎓 Chapter 4 Complete</div>
+    <h3>คุณได้เรียน 5 เรื่องใหญ่ของการกำหนดราคา</h3>
+    <ol class="recap-steps">
+      <li><strong>4.1 ราคาดุลยภาพ</strong> — ตลาดจะหาจุดที่ D ตัด S เอง ไม่มีใครสั่ง (Invisible Hand)</li>
+      <li><strong>4.2 ราคาขั้นสูง</strong> — รัฐคุมราคาเพื่อช่วยผู้บริโภค ผลข้างเคียงคือของขาดและตลาดมืด</li>
+      <li><strong>4.3 ราคาขั้นต่ำ</strong> — รัฐประกันราคาเพื่อช่วยผู้ผลิต รัฐต้องใช้งบซื้อส่วนเกิน</li>
+      <li><strong>4.4 การเก็บภาษี</strong> — ภาษีเป็น "Wedge" ระหว่าง Pᵦ และ Pₛ ภาระแบ่งกันตาม elasticity</li>
+      <li><strong>4.5 การเปลี่ยนดุลยภาพ</strong> — เมื่อ D/S เลื่อน พยากรณ์ทิศทางของ P* และ Q* ได้</li>
+    </ol>
+  </div>
+  
+  <div class="takeaway">
+    <div class="tlab">🎯 สุดยอด Key Insights ของทั้งบท</div>
+    <h3>สิ่งที่คุณไม่ควรลืม</h3>
+    <ul>
+      <li><strong>ตลาดไม่โง่</strong> — กลไกราคาทำงานเอง ถ้าไม่มีใครแทรก</li>
+      <li><strong>Intervention มีต้นทุน</strong> — รัฐตรึงราคาหรือเก็บภาษี มักสร้างผลข้างเคียง</li>
+      <li><strong>Tax ไม่ตกที่คนที่รัฐเก็บ</strong> — ภาระแบ่งตาม elasticity เสมอ</li>
+      <li><strong>คิดแยก แล้วรวม</strong> — เมื่อหลายอย่างเปลี่ยนพร้อมกัน</li>
+      <li><strong>ชีวิตจริงคือเศรษฐศาสตร์</strong> — โควิด, จำนำข้าว, ภาษีบุหรี่, ราคากาแฟ — อธิบายได้ด้วยทฤษฎีบทเดียวนี้</li>
+    </ul>
+  </div>
+</div>
+
+<div class="botnav">
+  <button class="bnb" onclick="sendPrompt('กลับบทที่ 4.4')">← กลับ 4.4</button>
+  <button class="bnb pr" onclick="sendPrompt('กลับบทที่ 4')">🎓 จบบทที่ 4 — กลับ Hub</button>
+</div>
+
+</div>
+
+<script>
+const quizAnswers = {
+  '1': { correct: 'A', fb: {
+    'A': { type:'good', msg:'✅ <strong>ถูกต้อง!</strong> ช่วงล็อกดาวน์ คนเครียดกินขนมเยอะขึ้น + ต้องอยู่บ้าน + ไม่มีกิจกรรมนอกบ้าน → <strong>D ขึ้น</strong> ในขณะที่โรงงานขนมผลิตได้ปกติ (S คงที่) → ทั้ง P* และ Q* ขึ้นพร้อมกัน (นึกถึงเคสตัวแรกใน 4 กรณี)' },
+    'B': { type:'bad', msg:'❌ ถ้ายอดขายลดแต่ราคาขึ้น นั่นคือกรณี S↓ ไม่ใช่ D↑ ในกรณีขนมถุง โรงงานยังผลิตได้เหมือนเดิม' },
+    'C': { type:'bad', msg:'🤔 เข้าใจได้ว่าคนอาจจะประหยัด แต่ขนมถุงเป็นสินค้าราคาถูก คนซื้อเพื่อปลอบใจช่วงเครียด (comfort food) — สถิติในช่วงโควิดยืนยันว่าขนมขายดีขึ้นมาก' },
+    'D': { type:'bad', msg:'❌ พฤติกรรมการกินเปลี่ยนแน่ๆ ในช่วงล็อกดาวน์ — ทั้งการทำงานที่บ้าน ความเครียด และการใช้เวลาอยู่บ้านมากขึ้น' }
+  }},
+  '2': { correct: 'A', fb: {
+    'A': { type:'good', msg:'✅ <strong>เยี่ยม!</strong> นี่คือกรณี D↑ + S↓ พร้อมกัน → สองแรงดันราคาขึ้นทิศเดียวกัน (P* ↑ แน่นอน) แต่ Q* เสริม/ชนกัน — D↑ อยากให้ Q เพิ่ม, S↓ อยากให้ Q ลด → <strong>Q* ไม่ชัด</strong> ต้องรู้ขนาดถึงจะบอกได้' },
+    'B': { type:'bad', msg:'🤔 ราคาขึ้นจริง แต่ปริมาณจะขึ้นต้อง D↑ แรงกว่า S↓ ในกรณีหน้ากากโควิดจริง ปริมาณขายในตลาดถูกต้อง (ไม่นับตลาดมืด) <em>ลดลง</em>เพราะผลิตไม่ทัน' },
+    'C': { type:'bad', msg:'❌ ราคาลงไม่น่าเป็นไปได้ — D ขึ้น (สองแรงดันขึ้น) ไม่มีทางที่ P* จะลดลง' },
+    'D': { type:'bad', msg:'❌ ราคาต้องเปลี่ยนแน่ ๆ เมื่อทั้ง D และ S เปลี่ยน — ยกเว้นกรณีเฉพาะที่แรงทั้งสองชดเชยกันพอดี (หายาก)' }
+  }}
+};
+
+document.querySelectorAll('.choice').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const q=btn.dataset.q, a=btn.dataset.a;
+    const answer=quizAnswers[q];
+    if(!answer)return;
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(b=>{
+      b.classList.remove('correct','wrong');
+      b.disabled=true;
+      if(b.dataset.a===answer.correct){b.classList.add('correct')}
+      else if(b.dataset.a===a){b.classList.add('wrong')}
+    });
+    const fb=answer.fb[a];
+    const fbEl=document.getElementById('fb'+q);
+    fbEl.className='feedback on '+fb.type;
+    fbEl.innerHTML=fb.msg;
+  });
+});
+
+function toggleReveal(id){
+  document.getElementById(id).classList.toggle('on');
+}
+
+function checkAns(){
+  const p=parseFloat(document.getElementById('ansP').value);
+  const q=parseFloat(document.getElementById('ansQ').value);
+  const fb=document.getElementById('fbAns');
+  
+  if(isNaN(p)||isNaN(q)){
+    fb.className='feedback on bad';
+    fb.innerHTML='กรุณากรอกทั้ง 2 คำตอบ';
+    return;
+  }
+  
+  const pOK=Math.abs(p-8)<0.1;
+  const qOK=Math.abs(q-60)<0.5;
+  
+  if(pOK && qOK){
+    fb.className='feedback on good';
+    fb.innerHTML='🎉 <strong>ถูกต้อง!</strong> P** = 8, Q** = 60 — คุณเพิ่งจบบทที่ 4 ทั้งหมด! 🎓<br>สังเกตว่า ΔP = +3 (ราคาขึ้นมาก เพราะ D↑ + S↓ เสริมกัน) และ ΔQ = +10 (ปริมาณขึ้น แสดงว่า D↑ แรงกว่า S↓)';
+  } else if(Math.abs(p-5)<0.1){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ <strong>P = 5 คือ P* เดิม</strong> (ก่อน shift) ไม่ใช่ P** (ใหม่) — ต้องแทน Qᴅ<span style="font-size:9px;vertical-align:super">\'</span> = Qˢ<span style="font-size:9px;vertical-align:super">\'</span> (สมการใหม่ทั้งคู่)';
+  } else if(Math.abs(q-50)<0.5){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ <strong>Q = 50 คือ Q* เดิม</strong> ไม่ใช่ Q** ใหม่ — ลองแทน P ที่ได้ในสมการใหม่';
+  } else {
+    fb.className='feedback on bad';
+    fb.innerHTML='🤔 ยังไม่ตรงนะ — กดปุ่ม "ขอดูวิธีทำ" ด้านล่าง อย่าลืมใช้สมการ D\' และ S\' (ใหม่) ไม่ใช่สมการเดิม';
+  }
+}
+
+/* ══════ Interactive graph ══════ */
+(function(){
+  const cv=document.getElementById('cvLab');
+  const dSlider=document.getElementById('dShift');
+  const sSlider=document.getElementById('sShift');
+  const dVal=document.getElementById('dVal');
+  const sVal=document.getElementById('sVal');
+  const readout=document.getElementById('readout');
+  
+  const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+  
+  function sizeCanvas(){
+    const cssW=Math.min(640,window.innerWidth-80);
+    const cssH=Math.round(cssW*0.72);
+    const dpr=window.devicePixelRatio||1;
+    cv.width=Math.round(cssW*dpr);
+    cv.height=Math.round(cssH*dpr);
+    cv.style.width=cssW+'px';
+    cv.style.height=cssH+'px';
+    const ctx=cv.getContext('2d');
+    ctx.scale(dpr,dpr);
+    return {ctx,W:cssW,H:cssH};
+  }
+  
+  function draw(){
+    const {ctx,W,H}=sizeCanvas();
+    const dS=parseInt(dSlider.value); // in thousands
+    const sS=parseInt(sSlider.value); // in thousands
+    
+    // Qd = (120+dS)k - 20kP → P = (120+dS-Q)/20
+    // Qs = sS + 20kP → P = (Q-sS)/20
+    // Equilibrium: (120+dS) - 20P = sS + 20P
+    // P_new = (120+dS-sS)/40
+    // Q_new = sS + 20*P_new (in thousands)
+    
+    const Pold=3, Qold=60;
+    const Pnew=(120+dS-sS)/40;
+    const Qnew=sS+20*Pnew;
+    const shifted = dS!==0 || sS!==0;
+    
+    const ml=60,mr=20,mt=30,mb=45;
+    const pw=W-ml-mr,ph=H-mt-mb;
+    const xMax=180,yMax=8;
+    const cx=v=>ml+(v/xMax)*pw;
+    const cy=v=>mt+ph-(v/yMax)*ph;
+    const TC=DK()?'#d4d4d4':'#1a1a1a';
+    const GC=DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';
+    const AC=DK()?'rgba(255,255,255,.22)':'rgba(0,0,0,.18)';
+    
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle=DK()?'#1a1a1a':'#fff';
+    ctx.fillRect(0,0,W,H);
+    
+    // Grid
+    ctx.font='10px sans-serif';
+    [2,4,6,8].forEach(v=>{
+      ctx.strokeStyle=GC;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();
+      ctx.fillStyle=TC;ctx.textAlign='right';ctx.fillText(v,ml-5,cy(v)+3);
+    });
+    [40,80,120,160].forEach(v=>{
+      ctx.strokeStyle=GC;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();
+      ctx.fillStyle=TC;ctx.textAlign='center';
+      ctx.fillText(v+'k',cx(v),mt+ph+14);
+    });
+    
+    // Axes
+    ctx.strokeStyle=AC;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+    ctx.fillStyle=TC;ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('ปริมาณ Q (พัน)',ml+pw/2,mt+ph+30);
+    ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('ราคา P (บาท)',0,0);ctx.restore();
+    
+    // Original D (always shown)
+    ctx.strokeStyle='#1976d2';ctx.lineWidth=shifted?1.5:2.5;
+    if(shifted && dS!==0){ctx.globalAlpha=0.35;ctx.setLineDash([5,4])}
+    ctx.beginPath();ctx.moveTo(cx(0),cy(6));ctx.lineTo(cx(120),cy(0));ctx.stroke();
+    ctx.globalAlpha=1;ctx.setLineDash([]);
+    
+    // Original S (always shown)
+    ctx.strokeStyle='#e65100';ctx.lineWidth=shifted?1.5:2.5;
+    if(shifted && sS!==0){ctx.globalAlpha=0.35;ctx.setLineDash([5,4])}
+    ctx.beginPath();ctx.moveTo(cx(0),cy(0));ctx.lineTo(cx(160),cy(8));ctx.stroke();
+    ctx.globalAlpha=1;ctx.setLineDash([]);
+    
+    // Labels for original
+    ctx.fillStyle=dS!==0&&shifted?'rgba(25,118,210,.5)':'#1976d2';
+    ctx.font='bold 11px sans-serif';ctx.textAlign='left';
+    ctx.fillText(dS!==0&&shifted?'D':'D',cx(115),cy(0.4));
+    
+    ctx.fillStyle=sS!==0&&shifted?'rgba(230,81,0,.5)':'#e65100';
+    ctx.fillText(sS!==0&&shifted?'S':'S',cx(155),cy(7.5));
+    
+    // Shifted D
+    if(dS!==0){
+      ctx.strokeStyle='#0d47a1';ctx.lineWidth=3;
+      // Qd = (120+dS) - 20P → when P=0, Q=120+dS; when Q=0, P=(120+dS)/20
+      const maxQ=120+dS, maxP=(120+dS)/20;
+      ctx.beginPath();
+      ctx.moveTo(cx(0),cy(Math.min(yMax,maxP)));
+      ctx.lineTo(cx(Math.min(xMax,maxQ)),cy(0));
+      ctx.stroke();
+      ctx.fillStyle='#0d47a1';ctx.font='bold 12px sans-serif';
+      ctx.fillText("D'",cx(Math.min(xMax-5,maxQ-5)),cy(0.5));
+    }
+    
+    // Shifted S
+    if(sS!==0){
+      ctx.strokeStyle='#bf360c';ctx.lineWidth=3;
+      // Qs = sS + 20P → when Q=0, P=-sS/20 (if sS>0, starts below; if sS<0, starts above)
+      const startP=Math.max(0,-sS/20);
+      const startQ=Math.max(0,sS);
+      ctx.beginPath();
+      ctx.moveTo(cx(startQ),cy(startP));
+      ctx.lineTo(cx(160),cy(startP+(160-startQ)/20));
+      ctx.stroke();
+      ctx.fillStyle='#bf360c';ctx.font='bold 12px sans-serif';
+      ctx.fillText("S'",cx(155),cy(startP+(155-startQ)/20)-6);
+    }
+    
+    // Original equilibrium (dim if shifted)
+    ctx.strokeStyle=DK()?'rgba(255,255,255,.15)':'rgba(0,0,0,.1)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(cx(Qold),cy(Pold));ctx.lineTo(cx(Qold),mt+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx(Qold),cy(Pold));ctx.lineTo(ml,cy(Pold));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=shifted?'rgba(198,40,40,.4)':'#c62828';
+    ctx.beginPath();ctx.arc(cx(Qold),cy(Pold),5,0,2*Math.PI);ctx.fill();
+    ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(cx(Qold),cy(Pold),5,0,2*Math.PI);ctx.stroke();
+    ctx.fillStyle=shifted?'rgba(198,40,40,.7)':'#c62828';ctx.font='bold 10px sans-serif';ctx.textAlign='left';
+    ctx.fillText(shifted?'E*':'E* (P=3, Q=60k)',cx(Qold)+8,cy(Pold)-8);
+    
+    // New equilibrium
+    if(shifted && Pnew>0 && Pnew<yMax && Qnew>0 && Qnew<xMax){
+      // Dotted lines
+      ctx.strokeStyle=DK()?'rgba(230,81,0,.35)':'rgba(230,81,0,.35)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+      ctx.beginPath();ctx.moveTo(cx(Qnew),cy(Pnew));ctx.lineTo(cx(Qnew),mt+ph);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(cx(Qnew),cy(Pnew));ctx.lineTo(ml,cy(Pnew));ctx.stroke();
+      ctx.setLineDash([]);
+      
+      // Arrow from E* to E**
+      ctx.strokeStyle='#f57f17';ctx.lineWidth=2;
+      ctx.setLineDash([4,3]);
+      ctx.beginPath();
+      ctx.moveTo(cx(Qold),cy(Pold));ctx.lineTo(cx(Qnew),cy(Pnew));
+      ctx.stroke();
+      ctx.setLineDash([]);
+      
+      // New point
+      ctx.fillStyle='#f57f17';
+      ctx.beginPath();ctx.arc(cx(Qnew),cy(Pnew),7,0,2*Math.PI);ctx.fill();
+      ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx(Qnew),cy(Pnew),7,0,2*Math.PI);ctx.stroke();
+      ctx.fillStyle='#e65100';ctx.font='bold 11px sans-serif';ctx.textAlign='left';
+      ctx.fillText(`E** (P=${Pnew.toFixed(2)}, Q=${Math.round(Qnew)}k)`,cx(Qnew)+10,cy(Pnew)-8);
+    }
+    
+    // Title
+    ctx.fillStyle=TC;ctx.font='bold 12px sans-serif';ctx.textAlign='center';
+    const titleStr=shifted?`D shift: ${dS>=0?'+':''}${dS}k · S shift: ${sS>=0?'+':''}${sS}k`:'ยังไม่ shift — ลอง slider หรือกดปุ่มสถานการณ์';
+    ctx.fillText(titleStr,ml+pw/2,mt-10);
+    
+    // Update readouts
+    dVal.textContent=(dS>=0?'+':'')+dS+'k';
+    sVal.textContent=(sS>=0?'+':'')+sS+'k';
+    
+    if(!shifted){
+      readout.innerHTML=`เริ่มจาก <strong>E*: P = 3, Q = 60k</strong> · ลอง slider หรือกดปุ่มด้านล่าง`;
+    } else {
+      const dP=Pnew-Pold, dQ=Qnew-Qold;
+      const pArrow=Math.abs(dP)<0.01?'→':dP>0?'↑':'↓';
+      const qArrow=Math.abs(dQ)<0.01?'→':dQ>0?'↑':'↓';
+      const pColor=Math.abs(dP)<0.01?'#666':dP>0?'#c62828':'#2e7d32';
+      const qColor=Math.abs(dQ)<0.01?'#666':dQ>0?'#2e7d32':'#c62828';
+      readout.innerHTML=
+        `E** ใหม่: <strong style="color:#e65100">P = ${Pnew.toFixed(2)}, Q = ${Math.round(Qnew)}k</strong><br>`+
+        `ΔP = <strong style="color:${pColor}">${dP>=0?'+':''}${dP.toFixed(2)} ${pArrow}</strong> | `+
+        `ΔQ = <strong style="color:${qColor}">${dQ>=0?'+':''}${Math.round(dQ)}k ${qArrow}</strong>`;
+    }
+  }
+  
+  window.setPreset=function(d,s){
+    dSlider.value=d;
+    sSlider.value=s;
+    draw();
+  };
+  
+  dSlider.addEventListener('input',draw);
+  sSlider.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',draw);
+  draw();
+})();
+
+function sendPrompt(msg){
+  const routes = {
+    'กลับบทที่ 4.4':'chapter4_4.html',
+    'กลับบทที่ 4':'chapter4.html'
+  };
+  if(routes[msg]){ window.location.href = routes[msg]; return; }
+  if (window.sendPrompt) {
+    window.sendPrompt(msg);
+  }
+}
+</script>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

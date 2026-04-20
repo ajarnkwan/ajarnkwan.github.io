@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 4.4 — การเก็บภาษี</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
+@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
+.app{max-width:780px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#888;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
+.backbtn:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.backbtn:hover{background:#242424}}
+.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#ede7f6;color:#4527a0}
+@media(prefers-color-scheme:dark){.badge{background:#120d1f;color:#b39ddb}}
+.badge.sec{background:#1a1a1a;color:#fff}
+@media(prefers-color-scheme:dark){.badge.sec{background:#fff;color:#1a1a1a}}
+
+/* Section hero — purple theme */
+.shero{background:linear-gradient(135deg,#ede7f6 0%,#f5f1fc 100%);border-radius:16px;padding:20px 22px;margin:14px 0 20px;border:1px solid #d1c4e9}
+@media(prefers-color-scheme:dark){.shero{background:linear-gradient(135deg,#120d1f 0%,#1a1a1a 100%);border-color:#2a1f4a}}
+.shero .num{font-size:11px;font-weight:700;color:#4527a0;letter-spacing:.1em;margin-bottom:4px}
+@media(prefers-color-scheme:dark){.shero .num{color:#b39ddb}}
+.shero h1{font-size:22px;font-weight:800;margin-bottom:8px;color:#4527a0;line-height:1.3}
+@media(prefers-color-scheme:dark){.shero h1{color:#b39ddb}}
+.shero p{font-size:14px;line-height:1.75;color:#555}
+@media(prefers-color-scheme:dark){.shero p{color:#aaa}}
+
+.step{display:inline-block;font-size:11px;font-weight:700;color:#4527a0;background:#ede7f6;padding:3px 10px;border-radius:99px;margin-bottom:10px;letter-spacing:.04em}
+@media(prefers-color-scheme:dark){.step{background:#120d1f;color:#b39ddb}}
+
+h2{font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.4}
+h3{font-size:15.5px;font-weight:700;margin:14px 0 6px}
+p.body{font-size:14px;line-height:1.75;color:#444;margin-bottom:12px}
+@media(prefers-color-scheme:dark){p.body{color:#bbb}}
+
+.block{margin-bottom:28px}
+
+/* Question */
+.qcard{background:#fff8e1;border:1.5px solid #ffe082;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.qcard{background:#2a2100;border-color:#6b5200}}
+.qcard .qlabel{font-size:11px;font-weight:700;color:#8a5a00;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.qcard .qlabel{color:#ffd54f}}
+.qcard .qtext{font-size:15px;font-weight:600;margin-bottom:12px;line-height:1.5}
+
+.choices{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.choice{padding:12px 14px;background:#fff;border:1.5px solid #eee;border-radius:10px;cursor:pointer;font-size:13.5px;line-height:1.5;text-align:left;font-family:inherit;color:inherit;transition:all .15s;display:flex;align-items:flex-start;gap:10px}
+@media(prefers-color-scheme:dark){.choice{background:#1a1a1a;border-color:#333}}
+.choice:hover{border-color:#4527a0;background:#f5f1fc}
+@media(prefers-color-scheme:dark){.choice:hover{background:#120d1f}}
+.choice .clet{font-weight:700;color:#4527a0;flex-shrink:0}
+@media(prefers-color-scheme:dark){.choice .clet{color:#b39ddb}}
+.choice.correct{background:#e8f5e9;border-color:#66bb6a}
+@media(prefers-color-scheme:dark){.choice.correct{background:#0d2a10;border-color:#2e7d32}}
+.choice.wrong{background:#ffebee;border-color:#ef5350;opacity:.7}
+@media(prefers-color-scheme:dark){.choice.wrong{background:#2a0d0d;border-color:#c62828}}
+
+.feedback{display:none;padding:12px 14px;border-radius:10px;font-size:13.5px;line-height:1.7;margin-top:8px}
+.feedback.on{display:block}
+.feedback.good{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
+@media(prefers-color-scheme:dark){.feedback.good{background:#0d2a10;border-color:#2e7d32;color:#a5d6a7}}
+.feedback.bad{background:#fff3e0;border:1px solid #ffb74d;color:#e65100}
+@media(prefers-color-scheme:dark){.feedback.bad{background:#2a1a00;border-color:#f57c00;color:#ffb74d}}
+
+/* Lab */
+.lab{background:#f5f1fc;border:1.5px solid #d1c4e9;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.lab{background:#120d1f;border-color:#2a1f4a}}
+.lab-title{font-size:12.5px;font-weight:700;color:#4527a0;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+@media(prefers-color-scheme:dark){.lab-title{color:#b39ddb}}
+.lab-desc{font-size:13px;color:#666;margin-bottom:14px;line-height:1.6}
+@media(prefers-color-scheme:dark){.lab-desc{color:#999}}
+
+canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #ddd;display:block;background:#fff;margin-bottom:10px}
+@media(prefers-color-scheme:dark){canvas.gcanvas{background:#1a1a1a;border-color:#333}}
+
+.ctl{background:#fff;border-radius:10px;padding:12px 14px;border:1px solid #ddd;margin-top:8px}
+@media(prefers-color-scheme:dark){.ctl{background:#1a1a1a;border-color:#333}}
+.ctl-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.ctl-row:last-child{margin-bottom:0}
+.ctl label{font-size:12.5px;font-weight:600;min-width:80px}
+.ctl input[type=range]{flex:1;min-width:120px;accent-color:#4527a0}
+.ctl .val{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;color:#4527a0;font-weight:700;min-width:68px;text-align:right}
+@media(prefers-color-scheme:dark){.ctl .val{color:#b39ddb}}
+.ctl .readout{font-size:12px;color:#666;margin-top:4px;line-height:1.6;padding:8px 10px;background:#f5f5f5;border-radius:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace}
+@media(prefers-color-scheme:dark){.ctl .readout{background:#242424;color:#aaa}}
+
+.tabs{display:flex;gap:4px;margin-bottom:10px}
+.tab{flex:1;padding:8px 10px;border:1.5px solid #ddd;background:transparent;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;color:#888;font-family:inherit;transition:all .15s}
+@media(prefers-color-scheme:dark){.tab{border-color:#444;color:#aaa}}
+.tab.active{background:#4527a0;border-color:#4527a0;color:#fff}
+.tab:hover:not(.active){border-color:#4527a0;color:#4527a0}
+@media(prefers-color-scheme:dark){.tab:hover:not(.active){color:#b39ddb}}
+
+/* Incidence visual */
+.incidence{background:#fff;border:1.5px solid #d1c4e9;border-radius:12px;padding:16px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.incidence{background:#1a1a1a;border-color:#2a1f4a}}
+.inc-title{font-size:13px;font-weight:700;margin-bottom:12px;color:#4527a0}
+@media(prefers-color-scheme:dark){.inc-title{color:#b39ddb}}
+.inc-bar{display:flex;height:50px;border-radius:8px;overflow:hidden;font-size:12px;font-weight:700;color:#fff;margin-bottom:8px}
+.inc-part{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 6px;text-align:center;line-height:1.3}
+.inc-part.consumer{background:linear-gradient(135deg,#1976d2,#2196f3)}
+.inc-part.producer{background:linear-gradient(135deg,#e65100,#ff7043)}
+.inc-bar-labels{display:flex;justify-content:space-between;font-size:11px;color:#666;padding:0 4px}
+@media(prefers-color-scheme:dark){.inc-bar-labels{color:#aaa}}
+
+/* Theory */
+.theory{background:#1a1a1a;color:#fff;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.theory{background:#0a0a0a;border:1px solid #333}}
+.theory-label{font-size:11px;font-weight:700;color:#b39ddb;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.theory h3{font-size:16px;font-weight:700;margin-bottom:10px;color:#fff}
+.theory p{font-size:13.5px;line-height:1.75;color:#d0d0d0;margin-bottom:8px}
+.theory strong{color:#ffd54f}
+.theory .formula{background:rgba(179,157,219,.12);border-left:3px solid #b39ddb;padding:10px 12px;margin:10px 0;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;color:#fff;border-radius:4px;line-height:1.8}
+
+/* Calc */
+.calc{background:#fff;border:1.5px solid #d1c4e9;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.calc{background:#1a1a1a;border-color:#2a1f4a}}
+.calc-step{padding:10px 0;border-bottom:1px dashed #ddd}
+.calc-step:last-child{border-bottom:none}
+@media(prefers-color-scheme:dark){.calc-step{border-bottom-color:#333}}
+.calc-step .slab{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.calc-step .seq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;line-height:1.8;background:#f5f1fc;padding:8px 10px;border-radius:6px;margin-top:4px}
+@media(prefers-color-scheme:dark){.calc-step .seq{background:#120d1f}}
+.calc-step .sexp{font-size:13px;color:#666;line-height:1.6;margin-top:6px}
+@media(prefers-color-scheme:dark){.calc-step .sexp{color:#aaa}}
+
+/* Who bears more — elasticity lesson */
+.elas-box{background:linear-gradient(135deg,#fff3e0,#fff8f0);border:1.5px solid #ffb74d;border-radius:12px;padding:14px 16px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.elas-box{background:linear-gradient(135deg,#2a1a00,#0a0a0a);border-color:#e65100}}
+.elas-title{font-size:13.5px;font-weight:700;color:#e65100;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.elas-title{color:#ffb74d}}
+
+/* Real world cards */
+.rw-grid{display:grid;gap:12px;margin-bottom:16px}
+.rw-card{background:#fff;border:1.5px solid #eee;border-radius:12px;padding:14px 16px}
+@media(prefers-color-scheme:dark){.rw-card{background:#1a1a1a;border-color:#333}}
+.rw-card .rw-title{font-size:13.5px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.rw-card .rw-desc{font-size:13px;color:#666;line-height:1.65}
+@media(prefers-color-scheme:dark){.rw-card .rw-desc{color:#aaa}}
+.rw-card .rw-icon{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;background:#ede7f6}
+@media(prefers-color-scheme:dark){.rw-card .rw-icon{background:#120d1f}}
+
+/* Try-it */
+.tryit{background:#fff3e0;border:1.5px solid #ffb74d;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.tryit{background:#2a1a00;border-color:#e65100}}
+.tryit h3{color:#e65100;margin-top:0}
+@media(prefers-color-scheme:dark){.tryit h3{color:#ffb74d}}
+.tryit-input{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tryit-input input{flex:1;min-width:70px;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;font-family:ui-monospace,'SF Mono',Menlo,monospace;background:#fff;color:inherit}
+@media(prefers-color-scheme:dark){.tryit-input input{background:#1a1a1a;border-color:#444}}
+.tryit-input button{padding:10px 20px;background:#e65100;color:#fff;border:none;border-radius:8px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.tryit-input button:hover{background:#bf360c}
+
+/* Takeaway */
+.takeaway{background:linear-gradient(135deg,#ede7f6 0%,#f5f1fc 100%);border:1.5px solid #9575cd;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.takeaway{background:linear-gradient(135deg,#120d1f 0%,#0a0a0a 100%);border-color:#5e35b1}}
+.takeaway .tlab{font-size:11px;font-weight:700;color:#4527a0;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.takeaway .tlab{color:#b39ddb}}
+.takeaway h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.takeaway ul{list-style:none;padding:0}
+.takeaway li{padding:6px 0 6px 24px;position:relative;font-size:13.5px;line-height:1.6}
+.takeaway li::before{content:'✓';position:absolute;left:0;color:#4527a0;font-weight:700;font-size:15px}
+@media(prefers-color-scheme:dark){.takeaway li::before{color:#b39ddb}}
+
+/* Reveal */
+.reveal-toggle{width:100%;padding:10px 14px;border:1.5px dashed #999;border-radius:10px;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:inherit;margin-bottom:10px;font-family:inherit}
+.reveal-toggle:hover{border-color:#4527a0;color:#4527a0}
+@media(prefers-color-scheme:dark){.reveal-toggle:hover{color:#b39ddb}}
+.reveal-content{display:none}
+.reveal-content.on{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+/* Big insight box */
+.insight{background:#2c1a4d;color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:16px;position:relative;border:1px solid #4527a0}
+.insight::before{content:'💡';position:absolute;top:14px;right:18px;font-size:24px;opacity:.5}
+.insight-lab{font-size:11px;font-weight:700;color:#b39ddb;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.insight h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:10px}
+.insight p{color:#e0d5f5;font-size:13.5px;line-height:1.75}
+.insight strong{color:#ffd54f}
+
+/* Bottom nav */
+.botnav{display:flex;gap:8px;margin-top:32px;padding-top:16px;border-top:1px solid #eee}
+@media(prefers-color-scheme:dark){.botnav{border-color:#333}}
+.bnb{flex:1;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;color:inherit;text-align:center;font-family:inherit}
+@media(prefers-color-scheme:dark){.bnb{border-color:#444}}
+.bnb:hover{background:#f5f5f5}
+@media(prefers-color-scheme:dark){.bnb:hover{background:#242424}}
+.bnb.pr{background:#4527a0;border-color:#4527a0;color:#fff;font-weight:700}
+.bnb.pr:hover{background:#311b92}
+
+/* Progress */
+.progress{display:flex;gap:4px;margin:10px 0 20px}
+.pbar{flex:1;height:5px;border-radius:3px;background:#eee}
+@media(prefers-color-scheme:dark){.pbar{background:#333}}
+.pbar.current{background:#4527a0}
+.pbar.done{background:#4caf50}
+</style>
+
+<style>
+/* Ajarn.Kwan top bar + footer */
+.ajk-shell-theme { --ajk-primary:#10b981;--ajk-primary-soft:#ecfdf5;--ajk-primary-dark:#059669;--ajk-ink:#1d1633;--ajk-muted:#6b6480;--ajk-border:#e5e1f3;--ajk-surface:#ffffff; }
+.ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--ajk-border);font-family:'Noto Sans Thai',system-ui,-apple-system,sans-serif;color:var(--ajk-ink);margin:-16px -16px 0}
+.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:'Noto Sans Thai',system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.ajk-back-btn svg{width:14px;height:14px;flex-shrink:0}
+.ajk-back-btn:hover{background:var(--ajk-primary);color:#fff;transform:translateX(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.ajk-brand{flex:1;min-width:0;text-align:right;line-height:1.25}
+.ajk-brand-course{font-size:13.5px;font-weight:700;color:var(--ajk-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.ajk-brand-author{font-size:11px;color:var(--ajk-muted);font-weight:500;display:inline-flex;align-items:center;gap:5px;margin-top:2px}
+.ajk-brand-author-dot{width:5px;height:5px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
+.ajk-brand-author-at{color:var(--ajk-primary);font-weight:700;padding:0 1px}
+@media(max-width:520px){.ajk-back-btn span{display:none}.ajk-back-btn{padding:9px}.ajk-back-btn svg{width:16px;height:16px}.ajk-brand-course{font-size:12.5px}.ajk-brand-author{font-size:10.5px}.ajk-topbar-inner{padding:8px 12px;min-height:52px;gap:10px}}
+.ajk-footer{margin:64px -16px 0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--ajk-primary-soft) 100%);border-top:1px solid var(--ajk-border);padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
+.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}
+.ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+.ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--ajk-primary);opacity:.35}
+.ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
+.ajk-footer-name{font-family:'Noto Serif Thai','Noto Sans Thai',serif;font-size:24px;font-weight:700;color:var(--ajk-ink);margin:0 0 4px;letter-spacing:-.01em}
+.ajk-footer-sub{font-size:12.5px;color:var(--ajk-muted);letter-spacing:.02em;margin-bottom:26px}
+.ajk-footer-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.ajk-footer-btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-surface);border:1px solid var(--ajk-border);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;transition:all .18s;cursor:pointer;font-family:'Noto Sans Thai',system-ui,sans-serif}
+.ajk-footer-btn svg{width:15px;height:15px}
+.ajk-footer-btn:hover{color:var(--ajk-primary);border-color:var(--ajk-primary);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.ajk-footer-bottom{font-size:11.5px;color:var(--ajk-muted);letter-spacing:.02em;padding-top:22px;border-top:1px solid var(--ajk-border);line-height:1.8}
+.ajk-footer-bottom strong{color:var(--ajk-ink);font-weight:700}
+@media(max-width:520px){.ajk-footer{padding:36px 14px 22px;margin-top:48px}.ajk-footer-name{font-size:21px}.ajk-footer-links{gap:6px}.ajk-footer-btn{padding:8px 13px;font-size:12px}}
+</style>
+
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#2f6f67;
+  --theme-primary-soft:#eef7f5;
+  --theme-primary-dark:#285f59;
+  --theme-hero-a:#eef7f5;
+  --theme-hero-b:#fbfdfc;
+  --theme-page-bg:#f6faf9;
+  --theme-border:#cfe3de;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f3f8f7;
+  --color-border-secondary:#cfe3de;
+  --color-border-tertiary:#e6ecea;
+  --color-text-primary:#1f2937;
+  --color-text-secondary:#5f6b76;
+  --color-text-tertiary:#8b95a1;
+  --shadow:0 14px 34px rgba(31,41,55,.06);
+}
+.ajk-shell-theme {
+  --ajk-primary: #10b981;
+  --ajk-primary-soft: #ecfdf5;
+  --ajk-primary-dark: #059669;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #dbe7e4;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.hero,.shero{
+  background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;
+  border:1px solid var(--theme-border)!important;
+  box-shadow:var(--shadow)!important;
+}
+.hero h1,.hero h2,.hero h3,.shero h1,.shero h2,.shero h3{
+  color:#134e4a!important;
+}
+.hero p,.shero p,.hero li,.shero li,
+.hero .sub,.shero .sub,.hero .desc,.shero .desc,
+.hero .muted,.shero .muted{
+  color:var(--color-text-secondary)!important;
+}
+.hook,.mini-hook,.callout,.summary-box,.lesson-box,.example-box{
+  background:#ffffff!important;
+  border:1px solid var(--theme-border)!important;
+  color:var(--color-text-primary)!important;
+}
+.badge,.chapter-badge{
+  background:#eaf5f2!important;
+  color:#285f59!important;
+  border:1px solid var(--theme-border)!important;
+}
+.backlink,.backbtn{color:var(--theme-primary)!important;}
+.backbtn,.revbtn,.bnb,.btn,.ghost-btn{
+  border-color:#d6e3df!important;
+}
+.panel,.card,.chapter-card,.lesson-card,.section-card,.tile,.step,.info-card,.eq-card{
+  box-shadow:var(--shadow)!important;
+}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+</style>
+
+</head>
+<body>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter4.html" aria-label="กลับบทที่ 4">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 4</span>
+    </a>
+    <div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 4.4 · การเก็บภาษี</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+
+<div class="topnav">
+  <a class="backbtn" href="chapter4.html">← กลับบทที่ 4</a>
+  <span class="badge">บทที่ 4</span>
+  <span class="badge sec">4.4</span>
+</div>
+
+<div class="progress">
+  <div class="pbar done"></div>
+  <div class="pbar done"></div>
+  <div class="pbar done"></div>
+  <div class="pbar current"></div>
+  <div class="pbar"></div>
+</div>
+
+<!-- HERO -->
+<div class="shero">
+  <div class="num">SECTION 4.4</div>
+  <h1>การเก็บภาษี (Taxation)</h1>
+  <p>รัฐบาลเก็บภาษีบุหรี่ซองละ 20 บาทจากโรงงาน — คุณอาจจะคิดว่า "โรงงานจ่ายไปสิ"<br>แต่จริง ๆ แล้ว <em>คนสูบก็จ่ายบางส่วน</em> ทั้งที่ไม่ได้ถูกเก็บโดยตรง ทำไม? บทนี้มีคำตอบ</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 1: HOOK -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">① ถามก่อนเรียน</div>
+  <h2>ภาษีบุหรี่: ใครเป็นคนจ่าย?</h2>
+  <p class="body">
+    สมมติรัฐประกาศ: <strong>"ตั้งแต่พรุ่งนี้ เก็บภาษีบุหรี่จากโรงงานซองละ 20 บาท"</strong><br>
+    ก่อนเก็บภาษี บุหรี่ขายซองละ 100 บาท → วันรุ่งขึ้น เดินไปร้านสะดวกซื้อ คุณเจออะไร?
+  </p>
+  
+  <div class="qcard">
+    <div class="qlabel">💭 Quick Thinking</div>
+    <div class="qtext">ราคาขายบุหรี่ในร้านค้าจะเป็นยังไง?</div>
+    <div class="choices" id="q1">
+      <button class="choice" data-q="1" data-a="A">
+        <span class="clet">A</span><span>ยังคง 100 บาท — เพราะรัฐเก็บจากโรงงาน ไม่ใช่ร้านหรือผู้สูบ</span>
+      </button>
+      <button class="choice" data-q="1" data-a="B">
+        <span class="clet">B</span><span>ขึ้นเป็น 120 บาท — โรงงานผลักภาษีเต็ม ๆ ให้ผู้ซื้อ</span>
+      </button>
+      <button class="choice" data-q="1" data-a="C">
+        <span class="clet">C</span><span>ขึ้นบ้าง เช่น 110 บาท — ผู้ซื้อและโรงงานช่วยกันจ่าย</span>
+      </button>
+      <button class="choice" data-q="1" data-a="D">
+        <span class="clet">D</span><span>ลดลงเหลือ 80 บาท — โรงงานลดราคาเพื่อกระตุ้นยอดขาย</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb1"></div>
+  </div>
+  
+  <button class="reveal-toggle" onclick="toggleReveal('r0')">💡 เฉลยและเหตุผล</button>
+  <div class="reveal-content" id="r0">
+    <p class="body">
+      <strong>คำตอบที่ถูกคือ C</strong> — นี่คือคอนเซ็ปต์ที่ชื่อ <strong style="color:#4527a0">"Tax Incidence" (ภาระภาษี)</strong><br><br>
+      ภาษีที่รัฐเก็บ <em>ไม่ว่าจะเก็บจากใคร</em> จะถูกแบ่งกันจ่ายระหว่างผู้ขายและผู้ซื้อเสมอ — เพราะกลไกตลาดจะปรับราคาใหม่อัตโนมัติ ราคาในท้องตลาดจะขึ้น (แต่ไม่ครบ 20) และโรงงานก็จะได้เงินน้อยลง (แต่ไม่ครบ 20 เหมือนกัน)<br><br>
+      สัดส่วนการแบ่งภาระขึ้นกับ <strong>ความยืดหยุ่น (elasticity)</strong> ของ D และ S — เราจะเห็นกลไกนี้ชัด ๆ ในกราฟหน้าถัดไป
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 2: INTERACTIVE GRAPH — Tax on Producer -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">② ทดลอง: ภาษีจากผู้ผลิต</div>
+  <h2>เส้น Supply เลื่อนยังไงเมื่อเก็บภาษี?</h2>
+  <p class="body">เมื่อรัฐเก็บภาษี <strong>ต่อหน่วย</strong> จากผู้ผลิต (เช่น ภาษีสรรพสามิต) — ผู้ผลิตต้องจ่ายภาษีทุกชิ้นที่ขาย เขาจะยอมผลิตชิ้นที่ราคา P เฉพาะเมื่อ "ได้เงินหลังหักภาษี = ราคาเดิมที่เคยยอมผลิต" เท่านั้น</p>
+  <p class="body">ผลคือ <strong style="color:#e65100">เส้น Supply เลื่อนขึ้นขนานกับเส้นเดิม</strong> เป็นระยะเท่ากับภาษี (t) — <strong>ลอง slider</strong> เพื่อเห็นเอง:</p>
+  
+  <div class="lab">
+    <div class="lab-title">🔬 LAB — Tax Incidence Simulator</div>
+    <div class="lab-desc">Qᴅ = 120,000 − 20,000P | Qˢ = 20,000P (P* = 3, Q* = 60k) · ลาก slider เพื่อกำหนดภาษีต่อหน่วย</div>
+    
+    <canvas id="cvLab" class="gcanvas"></canvas>
+    
+    <div class="ctl">
+      <div class="ctl-row">
+        <label>ภาษี t:</label>
+        <input type="range" id="taxSlider" min="0" max="2" step="0.1" value="1">
+        <div class="val" id="taxVal">฿ 1.00</div>
+      </div>
+      <div class="readout" id="readout"></div>
+    </div>
+  </div>
+  
+  <div class="qcard" style="margin-top:16px">
+    <div class="qlabel">💭 Think</div>
+    <div class="qtext">ลอง t = 1 บาท สังเกตกราฟ แล้วตอบ — ราคาที่ผู้ซื้อจ่าย (P_buyer) เพิ่มขึ้นเท่าไหร่ และราคาที่ผู้ขายได้ (P_seller) ลดลงเท่าไหร่?</div>
+    <div class="choices" id="q2">
+      <button class="choice" data-q="2" data-a="A">
+        <span class="clet">A</span><span>ผู้ซื้อจ่ายเพิ่ม 1.00 ผู้ขายได้เท่าเดิม (ผู้ซื้อรับภาระเต็ม)</span>
+      </button>
+      <button class="choice" data-q="2" data-a="B">
+        <span class="clet">B</span><span>ผู้ซื้อจ่ายเท่าเดิม ผู้ขายได้ลดลง 1.00 (ผู้ขายรับภาระเต็ม)</span>
+      </button>
+      <button class="choice" data-q="2" data-a="C">
+        <span class="clet">C</span><span>ผู้ซื้อจ่ายเพิ่ม 0.50 ผู้ขายได้ลดลง 0.50 (แบ่งคนละครึ่ง)</span>
+      </button>
+      <button class="choice" data-q="2" data-a="D">
+        <span class="clet">D</span><span>ผู้ซื้อจ่ายเพิ่ม 0.30 ผู้ขายได้ลดลง 0.70</span>
+      </button>
+    </div>
+    <div class="feedback" id="fb2"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 3: THEORY -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">③ สรุปทฤษฎี</div>
+  
+  <div class="theory">
+    <div class="theory-label">★ Core Theory</div>
+    <h3>Tax Incidence (ภาระภาษี)</h3>
+    <p>เมื่อรัฐเก็บภาษีต่อหน่วย <em>t</em> จากผู้ผลิต — เส้น Supply เลื่อนขึ้นเป็นระยะ <em>t</em> ดุลยภาพใหม่คือจุดที่ S_ใหม่ ตัดกับ D เดิม</p>
+    <div class="formula">
+      P_buyer = ราคาที่ผู้ซื้อจ่าย (ราคาขายในตลาด)<br>
+      P_seller = P_buyer − t (ราคาที่ผู้ผลิตได้รับจริง)<br><br>
+      <strong>ภาระภาษีของผู้ซื้อ</strong> = (P_buyer − P*) × Q_ใหม่<br>
+      <strong>ภาระภาษีของผู้ขาย</strong> = (P* − P_seller) × Q_ใหม่<br>
+      <strong>รายได้รัฐทั้งหมด</strong> = t × Q_ใหม่
+    </div>
+    <p>สัดส่วนการแบ่งภาระขึ้นกับความชันของเส้น D และ S — ข้อนี้สำคัญ!</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 4: ELASTICITY -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">④ กฎทอง: ใครเป็นคนจ่ายมาก?</div>
+  
+  <div class="insight">
+    <div class="insight-lab">Economic Insight</div>
+    <h3>ฝั่งที่ "ไม่ยืดหยุ่น" (inelastic) จะรับภาระภาษีมากกว่า</h3>
+    <p>
+      ลองคิดง่าย ๆ — ใครที่ "หนีไม่ได้" คนนั้นจะถูกเก็บมากกว่า<br><br>
+      🚬 <strong>บุหรี่</strong>: คนสูบติดแล้วเลิกยาก (Demand ไม่ยืดหยุ่น) → <strong>ผู้สูบ</strong>รับภาระมากกว่า<br>
+      🛒 <strong>ลูกอม</strong>: ถ้าขึ้นราคา คนไปซื้อยี่ห้ออื่นได้ (Demand ยืดหยุ่น) → <strong>ผู้ผลิต</strong>รับภาระมากกว่า<br>
+      🏠 <strong>น้ำมันดิบ</strong>: ผู้ผลิตเปลี่ยนอุตสาหกรรมยาก (Supply ไม่ยืดหยุ่น) → <strong>ผู้ผลิต</strong>รับภาระมากกว่า
+    </p>
+  </div>
+  
+  <div class="elas-box">
+    <div class="elas-title">📊 กฎทอง — จำง่าย ๆ</div>
+    <p style="font-size:13.5px;line-height:1.75;margin:0">
+      • Demand ชัน (inelastic) + Supply ลาด (elastic) → <strong>ผู้ซื้อจ่ายมาก</strong><br>
+      • Demand ลาด (elastic) + Supply ชัน (inelastic) → <strong>ผู้ขายจ่ายมาก</strong><br>
+      • ชันเท่ากัน → <strong>แบ่งคนละครึ่ง</strong> (เหมือนในกราฟข้างบน)
+    </p>
+  </div>
+  
+  <h3 style="margin-top:20px">ในโลกจริง — ตัวอย่างภาษีที่รัฐเก็บ</h3>
+  <div class="rw-grid">
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">🚬</span>ภาษีบุหรี่ (Excise Tax)</div>
+      <div class="rw-desc">รัฐไทยเก็บภาษีบุหรี่ประมาณ 40% ของราคาขาย — ผู้สูบรับภาระเกือบเต็ม เพราะ D ไม่ยืดหยุ่น (ติดแล้วเลิกยาก) รัฐจึงได้รายได้เยอะ</div>
+    </div>
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">🥤</span>ภาษีน้ำตาล (Sugar Tax)</div>
+      <div class="rw-desc">เก็บตามปริมาณน้ำตาลในเครื่องดื่ม — ผู้ผลิตมักแก้โดย "สูตรใหม่น้ำตาลน้อย" ทำให้หลีกเลี่ยงภาษีได้ ผู้บริโภคก็หนีไปเครื่องดื่มสูตรใหม่</div>
+    </div>
+    <div class="rw-card">
+      <div class="rw-title"><span class="rw-icon">🍺</span>ภาษีสรรพสามิต (เหล้า/เบียร์)</div>
+      <div class="rw-desc">คล้ายบุหรี่ — ผู้ดื่มรับภาระมาก เพราะเลือกไม่เยอะ แต่สำหรับวัยรุ่นที่เริ่มดื่ม การเพิ่มภาษีสามารถลดการดื่มลงได้บ้าง</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 5: TAX ON CONSUMER -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑤ ถ้ารัฐเก็บจาก "ผู้ซื้อ" ล่ะ?</div>
+  <h2>ผลลัพธ์เหมือนกันเลย!</h2>
+  <p class="body">
+    น่าสนใจมาก — ถ้ารัฐเปลี่ยนมาเก็บภาษีจากผู้ซื้อแทน (เช่น VAT ที่จ่ายตอนซื้อ) เส้น <strong style="color:#1976d2">Demand จะเลื่อน<em>ลง</em>ด้วยระยะ t</strong> แทน (เพราะผู้ซื้อเต็มใจจ่ายน้อยลง ณ แต่ละราคาตลาด เมื่อต้องบวกภาษี)
+  </p>
+  <p class="body">
+    ผลลัพธ์ทางเศรษฐศาสตร์ <strong>เหมือนกันทุกอย่าง</strong> — ปริมาณใหม่ Q, ภาระของผู้ซื้อ, ภาระของผู้ขาย, รายได้ของรัฐ — ตัวเลขเท่ากันทุกอัน!
+  </p>
+  
+  <div class="insight">
+    <div class="insight-lab">💡 Surprising Insight</div>
+    <h3>รัฐเก็บจากใครก็ได้ผลเหมือนกัน</h3>
+    <p>
+      นี่คือหลักการที่นักเศรษฐศาสตร์เรียกว่า <strong>"Tax Equivalence"</strong> — ในทางเศรษฐศาสตร์ การเก็บภาษีจากผู้ขายหรือผู้ซื้อ <em>ให้ผลเหมือนกันทุกประการ</em><br><br>
+      ที่ต่างกันมีแค่ <strong>ชื่อในใบเสร็จ</strong> — แต่เงินในกระเป๋าของแต่ละฝ่ายสุดท้ายเท่ากัน นี่แหละคือเหตุผลที่นักเศรษฐศาสตร์บอกว่า <em>"Tax incidence ไม่ขึ้นกับว่าเก็บจากใคร"</em>
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 6: CALCULATION -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑥ คำนวณเต็ม ๆ</div>
+  <h2>ตัวอย่างจากหนังสือ (ดัดแปลง)</h2>
+  
+  <div class="calc">
+    <p style="font-size:14px;font-weight:600;margin-bottom:10px">
+      📝 โจทย์:<br>
+      <span style="font-family:ui-monospace,monospace;font-size:13px;color:#4527a0">อุปสงค์: Qᴅ = 150 − 50P<br>อุปทาน: Qˢ = 60 + 40P</span><br>
+      รัฐเก็บภาษีต่อหน่วยจากผู้ผลิต t = 0.9 บาท — ให้หาราคาและปริมาณก่อน/หลังภาษี
+    </p>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 1 — หาดุลยภาพก่อนเก็บภาษี</div>
+      <div class="seq">150 − 50P = 60 + 40P<br>90 = 90P<br><strong style="color:#4527a0">P* = 1, Q* = 100</strong></div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 2 — หาสมการ Supply ใหม่ (หลังภาษี)</div>
+      <div class="sexp">ผู้ผลิตได้เงินสุทธิ P − t ดังนั้นสมการ Supply เปลี่ยนเป็น Qˢ = 60 + 40(P − t)</div>
+      <div class="seq">Qˢ_ใหม่ = 60 + 40(P − 0.9)<br>     = 60 + 40P − 36<br>     = <strong>24 + 40P</strong></div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 3 — หาดุลยภาพใหม่</div>
+      <div class="seq">Qᴅ = Qˢ_ใหม่<br>150 − 50P = 24 + 40P<br>126 = 90P<br><strong style="color:#4527a0">P_buyer = 1.4 บาท</strong><br>P_seller = 1.4 − 0.9 = <strong>0.5 บาท</strong><br>Q_ใหม่ = 150 − 50(1.4) = <strong>80 หน่วย</strong></div>
+    </div>
+    
+    <div class="calc-step">
+      <div class="slab">ขั้นที่ 4 — คำนวณภาระภาษี</div>
+      <div class="seq">ผู้ซื้อจ่ายเพิ่ม = 1.4 − 1.0 = <strong>0.4 / หน่วย</strong><br>ผู้ขายได้ลด = 1.0 − 0.5 = <strong>0.5 / หน่วย</strong><br>รวมภาษี = 0.4 + 0.5 = 0.9 ✓<br><br>
+ภาระภาษีรวมของผู้ซื้อ = 0.4 × 80 = <strong style="color:#1976d2">32 บาท</strong><br>
+ภาระภาษีรวมของผู้ขาย = 0.5 × 80 = <strong style="color:#e65100">40 บาท</strong><br>
+รายได้รัฐทั้งหมด = 0.9 × 80 = <strong style="color:#4527a0">72 บาท</strong></div>
+    </div>
+  </div>
+  
+  <div class="incidence">
+    <div class="inc-title">💸 ภาระภาษีแบ่งยังไง?</div>
+    <div class="inc-bar">
+      <div class="inc-part consumer" style="flex:4">ผู้ซื้อ<br>32 บาท (44%)</div>
+      <div class="inc-part producer" style="flex:5">ผู้ขาย<br>40 บาท (56%)</div>
+    </div>
+    <div class="inc-bar-labels">
+      <span>0.4 /หน่วย</span>
+      <span>รวม 72 บาท</span>
+      <span>0.5 /หน่วย</span>
+    </div>
+    <p style="margin-top:10px;font-size:12.5px;color:#666;line-height:1.6">
+      @ สังเกตว่า <strong>ผู้ขายรับภาระมากกว่าเล็กน้อย</strong> — เพราะในโจทย์นี้ Supply slope (40) ต่ำกว่า Demand slope (50) เล็กน้อย → Supply "ชัน" กว่าในกราฟ (Q,P) → ผู้ขายยืดหยุ่นน้อยกว่า → จ่ายมากกว่า
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- PART 7: TRY IT -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="step">⑦ ลองทำด้วยตัวเอง</div>
+  
+  <div class="tryit">
+    <h3>📝 โจทย์ของคุณ</h3>
+    <p style="font-size:14px;line-height:1.7;margin-bottom:4px">
+      <span style="font-family:ui-monospace,monospace;font-size:13px">อุปสงค์: Qᴅ = 100 − 10P<br>อุปทาน: Qˢ = 10P</span>
+    </p>
+    <p style="font-size:13.5px;color:#666;margin-top:10px;margin-bottom:0">
+      รัฐเก็บภาษี t = 2 บาทต่อหน่วยจากผู้ผลิต — ให้หา:<br>
+      1) P_buyer (ราคาที่ผู้ซื้อจ่าย, บาท)<br>
+      2) Q_ใหม่ (ปริมาณซื้อขายหลังเก็บภาษี, หน่วย)<br>
+      3) รายได้รัฐทั้งหมด (บาท)
+    </p>
+    
+    <div class="tryit-input">
+      <input type="number" id="ansP" placeholder="P_buyer = ?" step="0.1">
+      <input type="number" id="ansQ" placeholder="Q_ใหม่ = ?" step="1">
+      <input type="number" id="ansRev" placeholder="รายได้รัฐ = ?" step="1">
+      <button onclick="checkAns()">ตรวจคำตอบ</button>
+    </div>
+    <div class="feedback" id="fbAns" style="margin-top:12px"></div>
+    
+    <button class="reveal-toggle" onclick="toggleReveal('rAns')" style="margin-top:12px">🔍 ขอดูวิธีทำ</button>
+    <div class="reveal-content" id="rAns">
+      <div class="calc" style="margin-top:8px">
+        <div class="calc-step">
+          <div class="slab">หา P* ก่อน</div>
+          <div class="seq">100 − 10P = 10P → 100 = 20P → <strong>P* = 5, Q* = 50</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">Supply ใหม่หลังภาษี t = 2</div>
+          <div class="seq">Qˢ_ใหม่ = 10(P − 2) = 10P − 20</div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">ดุลยภาพใหม่</div>
+          <div class="seq">100 − 10P = 10P − 20<br>120 = 20P<br><strong>P_buyer = 6, Q_ใหม่ = 40</strong></div>
+        </div>
+        <div class="calc-step">
+          <div class="slab">รายได้รัฐ</div>
+          <div class="seq">= t × Q_ใหม่ = 2 × 40 = <strong style="color:#4527a0">80 บาท</strong></div>
+          <div class="sexp">Extra: ผู้ซื้อจ่ายเพิ่ม 1 → ภาระ 40 บาท | ผู้ขายได้ลด 1 → ภาระ 40 บาท (แบ่งครึ่ง เพราะ slope เท่ากัน)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- TAKEAWAY -->
+<!-- ════════════════════════════════════════════════════ -->
+<div class="block">
+  <div class="takeaway">
+    <div class="tlab">🎯 สรุป Key Takeaways</div>
+    <h3>5 ข้อที่ต้องจำ</h3>
+    <ul>
+      <li><strong>ภาษีต่อหน่วยจากผู้ผลิต</strong> → Supply เลื่อนขึ้นเป็นระยะ t</li>
+      <li><strong>ราคาผู้ซื้อ↑, ราคาผู้ขาย↓</strong> — ทั้งสองฝ่ายจ่ายภาระกันคนละส่วน (Tax Incidence)</li>
+      <li><strong>ฝั่งที่ inelastic รับภาระมากกว่า</strong> — บุหรี่ เหล้า: ผู้ซื้อจ่ายเยอะ</li>
+      <li><strong>เก็บจากผู้ซื้อหรือผู้ขาย ผลเท่ากัน</strong> — Tax Equivalence</li>
+      <li><strong>สูตร:</strong> รายได้รัฐ = t × Q_ใหม่ — ไม่ใช่ t × Q_เดิม!</li>
+    </ul>
+  </div>
+  
+  <div class="qcard" style="background:#fffde7;border-color:#fff59d">
+    <div class="qlabel" style="color:#f57f17">🔗 เชื่อมไปบทต่อไป</div>
+    <div class="qtext" style="margin-bottom:0;font-weight:500">
+      ผ่านมาแล้ว 4 บท — เราเจอทั้งดุลยภาพ, ราคาขั้นสูง, ราคาขั้นต่ำ, และภาษี<br>
+      <strong>คำถามสุดท้าย</strong>: ถ้าในชีวิตจริง D หรือ S เปลี่ยนเอง (เช่น คนนิยมกาแฟมากขึ้น, น้ำมันดิบแพงขึ้น) — ราคาและปริมาณดุลยภาพจะเปลี่ยนยังไง? → ไปต่อ <strong>4.5 การเปลี่ยนแปลงดุลยภาพ</strong>
+    </div>
+  </div>
+</div>
+
+<div class="botnav">
+  <button class="bnb" onclick="sendPrompt('กลับบทที่ 4.3')">← กลับ 4.3</button>
+  <button class="bnb pr" onclick="sendPrompt('เรียนบทที่ 4 ส่วนที่ 5: การเปลี่ยนแปลงของดุลยภาพ')">ต่อ 4.5 การเปลี่ยนดุลยภาพ →</button>
+</div>
+
+</div>
+
+<script>
+const quizAnswers = {
+  '1': { correct: 'C', fb: {
+    'A': { type:'bad', msg:'❌ ลองคิดใหม่ — ถ้าโรงงานต้องจ่ายภาษี 20 บาท/ซอง ต้นทุนเขาก็สูงขึ้น ราคาขายจะเท่าเดิมไม่ได้ เขาจะพยายาม "ผลัก" ภาระบางส่วนให้ผู้ซื้อ' },
+    'B': { type:'bad', msg:'🤔 ใกล้เคียง แต่ยังไม่ถูก — ถ้าโรงงานขึ้นราคาเต็ม 20 บาท ผู้ซื้อบางส่วนจะเลิกซื้อ (Law of Demand) → ยอดขายตก โรงงานจะเสียรายได้หนักกว่านี้ จึงเลือกที่จะ<strong>แบ่งภาระ</strong>กันบางส่วน' },
+    'C': { type:'good', msg:'✅ <strong>ถูกต้อง!</strong> นี่คือ <strong>Tax Incidence</strong> ในทางเศรษฐศาสตร์ — ภาษีที่เก็บจากผู้ผลิต จะถูก<em>แบ่ง</em>ระหว่างผู้ผลิตและผู้ซื้อ สัดส่วนขึ้นกับความยืดหยุ่นของ D/S' },
+    'D': { type:'bad', msg:'❌ ทำไมโรงงานจะลดราคา? เขาเพิ่งต้องเสียภาษีเพิ่ม 20 บาท/ซอง ลดราคายิ่งจะขาดทุนหนัก' }
+  }},
+  '2': { correct: 'C', fb: {
+    'A': { type:'bad', msg:'❌ ถ้าผู้ซื้อรับภาระเต็ม P_buyer = 4 บาท ลองดูกราฟดี ๆ — เห็นว่า P_buyer ขยับไปแค่ 3.5 เท่านั้น' },
+    'B': { type:'bad', msg:'❌ ถ้าผู้ขายรับเต็ม P_seller = 2 บาท แต่ในกราฟ P_seller = 2.5 — มีผลข้างเคียงกับผู้ซื้อด้วย' },
+    'C': { type:'good', msg:'✅ <strong>ถูกต้อง!</strong> เพราะ slope ของ D (-20k) และ S (+20k) มีค่าเท่ากัน (ในแง่ |dQ/dP|) ภาระภาษีจึงแบ่งคนละครึ่งพอดี — ผู้ซื้อจ่ายเพิ่ม 0.5 (3 → 3.5) ผู้ขายได้ลดลง 0.5 (3 → 2.5)' },
+    'D': { type:'bad', msg:'❌ ในโจทย์นี้ slope D = slope S → ภาระต้องเท่ากัน ไม่ใช่ 0.3/0.7' }
+  }}
+};
+
+document.querySelectorAll('.choice').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const q=btn.dataset.q, a=btn.dataset.a;
+    const answer=quizAnswers[q];
+    if(!answer)return;
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(b=>{
+      b.classList.remove('correct','wrong');
+      b.disabled=true;
+      if(b.dataset.a===answer.correct){b.classList.add('correct')}
+      else if(b.dataset.a===a){b.classList.add('wrong')}
+    });
+    const fb=answer.fb[a];
+    const fbEl=document.getElementById('fb'+q);
+    fbEl.className='feedback on '+fb.type;
+    fbEl.innerHTML=fb.msg;
+  });
+});
+
+function toggleReveal(id){
+  document.getElementById(id).classList.toggle('on');
+}
+
+function checkAns(){
+  const p=parseFloat(document.getElementById('ansP').value);
+  const q=parseFloat(document.getElementById('ansQ').value);
+  const rev=parseFloat(document.getElementById('ansRev').value);
+  const fb=document.getElementById('fbAns');
+  
+  if(isNaN(p)||isNaN(q)||isNaN(rev)){
+    fb.className='feedback on bad';
+    fb.innerHTML='กรุณากรอกทั้ง 3 คำตอบ';
+    return;
+  }
+  
+  const pOK=Math.abs(p-6)<0.05;
+  const qOK=Math.abs(q-40)<0.5;
+  const revOK=Math.abs(rev-80)<0.5;
+  
+  if(pOK && qOK && revOK){
+    fb.className='feedback on good';
+    fb.innerHTML='🎉 <strong>ยอดเยี่ยม!</strong> P_buyer = 6, Q = 40, รายได้รัฐ = 80 บาท — คุณเข้าใจแล้วว่าภาษีเปลี่ยนดุลยภาพของตลาดยังไง สังเกตว่าทั้งราคาขึ้น + ปริมาณลดลง = ผู้คนซื้อน้อยลง';
+  } else if(!pOK && Math.abs(p-5)<0.05){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ <strong>P = 5 คือราคาก่อนเก็บภาษี (P*)</strong> ไม่ใช่ P_buyer<br>P_buyer คือราคาหลังเก็บภาษี ต้องเอา Qᴅ = Qˢ_ใหม่ (หลังภาษี) มาแก้';
+  } else if(!qOK && Math.abs(q-50)<0.5){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ <strong>50 คือ Q* (ก่อนภาษี)</strong> ไม่ใช่ Q_ใหม่ — แทน P_buyer ลงในสมการ Qᴅ ดู';
+  } else if(!revOK && Math.abs(rev-100)<0.5){
+    fb.className='feedback on bad';
+    fb.innerHTML='⚠️ ใช้ Q ผิด! <strong>รายได้รัฐ = t × Q_ใหม่</strong> (ไม่ใช่ Q เดิม) — ภาษีเก็บได้จริงเฉพาะจำนวนที่ซื้อขายจริงในตลาดใหม่';
+  } else {
+    fb.className='feedback on bad';
+    let msg='🤔 ยังไม่ตรงนะ — ';
+    if(!pOK) msg += 'P_buyer ยังไม่ถูก ';
+    if(!qOK) msg += 'Q ยังไม่ถูก ';
+    if(!revOK) msg += 'รายได้รัฐยังไม่ถูก ';
+    msg += '<br>กดปุ่ม "ขอดูวิธีทำ" ด้านล่าง';
+    fb.innerHTML=msg;
+  }
+}
+
+/* ══════ Interactive graph — Tax on Producer ══════ */
+(function(){
+  const cv=document.getElementById('cvLab');
+  const slider=document.getElementById('taxSlider');
+  const taxVal=document.getElementById('taxVal');
+  const readout=document.getElementById('readout');
+  
+  const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
+  
+  function sizeCanvas(){
+    const cssW=Math.min(640,window.innerWidth-80);
+    const cssH=Math.round(cssW*0.75);
+    const dpr=window.devicePixelRatio||1;
+    cv.width=Math.round(cssW*dpr);
+    cv.height=Math.round(cssH*dpr);
+    cv.style.width=cssW+'px';
+    cv.style.height=cssH+'px';
+    const ctx=cv.getContext('2d');
+    ctx.scale(dpr,dpr);
+    return {ctx,W:cssW,H:cssH};
+  }
+  
+  function draw(){
+    const {ctx,W,H}=sizeCanvas();
+    const t=parseFloat(slider.value);
+    
+    // Before tax: Qd = 120k-20kP, Qs = 20kP → P*=3, Q*=60k
+    // After tax: Qs_new = 20k(P-t) → new eq: 120k-20kP = 20k(P-t) → P_buyer = 3 + t/2
+    const Pold=3, Qold=60000;
+    const Pbuyer=3+t/2;
+    const Pseller=Pbuyer-t;
+    const Qnew=120000-20000*Pbuyer;
+    
+    const ml=60,mr=20,mt=30,mb=45;
+    const pw=W-ml-mr,ph=H-mt-mb;
+    const xMax=140000,yMax=6.5;
+    const cx=v=>ml+(v/xMax)*pw;
+    const cy=v=>mt+ph-(v/yMax)*ph;
+    const TC=DK()?'#d4d4d4':'#1a1a1a';
+    const GC=DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';
+    const AC=DK()?'rgba(255,255,255,.22)':'rgba(0,0,0,.18)';
+    
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle=DK()?'#1a1a1a':'#fff';
+    ctx.fillRect(0,0,W,H);
+    
+    // Grid
+    ctx.font='10px sans-serif';
+    [1,2,3,4,5,6].forEach(v=>{
+      ctx.strokeStyle=GC;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(ml,cy(v));ctx.lineTo(ml+pw,cy(v));ctx.stroke();
+      ctx.fillStyle=TC;ctx.textAlign='right';ctx.fillText(v,ml-5,cy(v)+3);
+    });
+    [20000,40000,60000,80000,100000,120000].forEach(v=>{
+      ctx.strokeStyle=GC;ctx.lineWidth=.5;
+      ctx.beginPath();ctx.moveTo(cx(v),mt);ctx.lineTo(cx(v),mt+ph);ctx.stroke();
+      ctx.fillStyle=TC;ctx.textAlign='center';
+      ctx.fillText((v/1000)+'k',cx(v),mt+ph+14);
+    });
+    
+    // Axes
+    ctx.strokeStyle=AC;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(ml,mt);ctx.lineTo(ml,mt+ph);ctx.lineTo(ml+pw,mt+ph);ctx.stroke();
+    ctx.fillStyle=TC;ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('ปริมาณ (Q)',ml+pw/2,mt+ph+30);
+    ctx.save();ctx.translate(14,mt+ph/2);ctx.rotate(-Math.PI/2);ctx.fillText('ราคา P (บาท)',0,0);ctx.restore();
+    
+    // D (fixed)
+    ctx.strokeStyle='#1976d2';ctx.lineWidth=2.5;
+    ctx.beginPath();ctx.moveTo(cx(0),cy(6));ctx.lineTo(cx(120000),cy(0));ctx.stroke();
+    ctx.fillStyle='#1976d2';ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+    ctx.fillText('D',cx(115000),cy(0.4));
+    
+    // S (original, dashed if tax>0)
+    ctx.strokeStyle='#e65100';ctx.lineWidth=2.5;
+    if(t>0){ctx.globalAlpha=0.35;ctx.setLineDash([5,4])}
+    ctx.beginPath();ctx.moveTo(cx(0),cy(0));ctx.lineTo(cx(130000),cy(6.5));ctx.stroke();
+    ctx.globalAlpha=1;ctx.setLineDash([]);
+    if(t===0){ctx.fillStyle='#e65100';ctx.textAlign='left';ctx.fillText('S',cx(120000),cy(6)-6)}
+    else{ctx.fillStyle='rgba(230,81,0,.5)';ctx.textAlign='left';ctx.font='11px sans-serif';ctx.fillText('S (เดิม)',cx(115000),cy(5.8));ctx.font='bold 12px sans-serif'}
+    
+    // S' (after tax) — shifted up by t: Qs_new = 20k(P-t), i.e., P(Q) = Q/20k + t
+    if(t>0){
+      ctx.strokeStyle='#c2185b';ctx.lineWidth=3;
+      ctx.beginPath();ctx.moveTo(cx(0),cy(t));ctx.lineTo(cx(Math.min(130000,(yMax-t)*20000)),cy(Math.min(yMax,t+(Math.min(130000,(yMax-t)*20000))/20000)));ctx.stroke();
+      ctx.fillStyle='#c2185b';ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+      const xLabel=(yMax-t)*20000*0.9;
+      ctx.fillText("S'",cx(Math.min(115000,xLabel)),cy(t+Math.min(115000,xLabel)/20000)-6);
+    }
+    
+    // E0 (original equilibrium) — shown with less emphasis when tax > 0
+    ctx.strokeStyle=DK()?'rgba(255,255,255,.15)':'rgba(0,0,0,.1)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(cx(Qold),cy(Pold));ctx.lineTo(cx(Qold),mt+ph);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx(Qold),cy(Pold));ctx.lineTo(ml,cy(Pold));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=t>0?'rgba(198,40,40,.4)':'#c62828';
+    ctx.beginPath();ctx.arc(cx(Qold),cy(Pold),4.5,0,2*Math.PI);ctx.fill();
+    ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(cx(Qold),cy(Pold),4.5,0,2*Math.PI);ctx.stroke();
+    if(t===0){
+      ctx.fillStyle='#c62828';ctx.font='bold 10px sans-serif';ctx.textAlign='left';
+      ctx.fillText('E* (P*=3, Q*=60k)',cx(Qold)+8,cy(Pold)+12);
+    }
+    
+    if(t>0){
+      // Shade tax burden regions
+      // Consumer burden: rectangle from (0, P*) to (Q_new, P_buyer)
+      ctx.fillStyle='rgba(25,118,210,.2)';
+      ctx.fillRect(cx(0)+ml-cx(0),cy(Pbuyer),cx(Qnew)-ml,cy(Pold)-cy(Pbuyer));
+      // Producer burden: rectangle from (0, P_seller) to (Q_new, P*)
+      ctx.fillStyle='rgba(230,81,0,.2)';
+      ctx.fillRect(ml,cy(Pold),cx(Qnew)-ml,cy(Pseller)-cy(Pold));
+      
+      // Lines for P_buyer, P_seller, Q_new
+      ctx.strokeStyle='#1976d2';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+      ctx.beginPath();ctx.moveTo(ml,cy(Pbuyer));ctx.lineTo(cx(Qnew),cy(Pbuyer));ctx.stroke();
+      ctx.strokeStyle='#e65100';
+      ctx.beginPath();ctx.moveTo(ml,cy(Pseller));ctx.lineTo(cx(Qnew),cy(Pseller));ctx.stroke();
+      ctx.strokeStyle=DK()?'rgba(255,255,255,.3)':'rgba(0,0,0,.25)';
+      ctx.beginPath();ctx.moveTo(cx(Qnew),mt+ph);ctx.lineTo(cx(Qnew),cy(Pbuyer));ctx.stroke();
+      ctx.setLineDash([]);
+      
+      // Dots at P_buyer and P_seller on Q_new
+      ctx.fillStyle='#1976d2';
+      ctx.beginPath();ctx.arc(cx(Qnew),cy(Pbuyer),6,0,2*Math.PI);ctx.fill();
+      ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx(Qnew),cy(Pbuyer),6,0,2*Math.PI);ctx.stroke();
+      
+      ctx.fillStyle='#e65100';
+      ctx.beginPath();ctx.arc(cx(Qnew),cy(Pseller),6,0,2*Math.PI);ctx.fill();
+      ctx.strokeStyle=DK()?'#1a1a1a':'#fff';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx(Qnew),cy(Pseller),6,0,2*Math.PI);ctx.stroke();
+      
+      // Tax wedge vertical line
+      ctx.strokeStyle='#4527a0';ctx.lineWidth=3;
+      ctx.beginPath();ctx.moveTo(cx(Qnew),cy(Pbuyer));ctx.lineTo(cx(Qnew),cy(Pseller));ctx.stroke();
+      
+      // Arrow tips for tax wedge
+      ctx.beginPath();
+      ctx.moveTo(cx(Qnew)-4,cy(Pbuyer)+4);ctx.lineTo(cx(Qnew),cy(Pbuyer));ctx.lineTo(cx(Qnew)+4,cy(Pbuyer)+4);
+      ctx.moveTo(cx(Qnew)-4,cy(Pseller)-4);ctx.lineTo(cx(Qnew),cy(Pseller));ctx.lineTo(cx(Qnew)+4,cy(Pseller)-4);
+      ctx.stroke();
+      
+      // Tax label
+      ctx.fillStyle='#4527a0';ctx.font='bold 11px sans-serif';ctx.textAlign='left';
+      ctx.fillText(`t=${t.toFixed(1)}`,cx(Qnew)+10,(cy(Pbuyer)+cy(Pseller))/2+3);
+      
+      // Axis labels
+      ctx.fillStyle='#1976d2';ctx.font='bold 10px sans-serif';ctx.textAlign='right';
+      ctx.fillText(`Pᵦ=${Pbuyer.toFixed(2)}`,ml-5,cy(Pbuyer)+3);
+      ctx.fillStyle='#e65100';
+      ctx.fillText(`Pₛ=${Pseller.toFixed(2)}`,ml-5,cy(Pseller)+3);
+      ctx.fillStyle=DK()?'#888':'#666';
+      ctx.textAlign='center';ctx.font='10px sans-serif';
+      ctx.fillText(`Q=${Math.round(Qnew/1000)}k`,cx(Qnew),mt+ph+14);
+    }
+    
+    // Title
+    ctx.fillStyle=TC;ctx.font='bold 12px sans-serif';ctx.textAlign='center';
+    ctx.fillText(t===0?'ยังไม่เก็บภาษี — ลอง slide t ดู':`เก็บภาษี t = ${t.toFixed(1)} บาท → S เลื่อนขึ้นเป็น S'`,ml+pw/2,mt-10);
+    
+    taxVal.textContent='฿ '+t.toFixed(2);
+    
+    if(t===0){
+      readout.innerHTML=
+        `สถานะ: <strong style="color:#666">ก่อนเก็บภาษี</strong><br>`+
+        `P* = 3.00 บาท, Q* = 60,000 หน่วย<br>`+
+        `<strong>ลองเลื่อน slider →</strong>`;
+    } else {
+      const cBurden=(Pbuyer-Pold)*Qnew;
+      const pBurden=(Pold-Pseller)*Qnew;
+      const totalTax=t*Qnew;
+      readout.innerHTML=
+        `<strong style="color:#1976d2">P_buyer = ${Pbuyer.toFixed(2)}</strong> | <strong style="color:#e65100">P_seller = ${Pseller.toFixed(2)}</strong> | Q = ${Qnew.toLocaleString()}<br>`+
+        `<strong style="color:#1976d2">ผู้ซื้อรับ: ${cBurden.toLocaleString(undefined,{maximumFractionDigits:0})} บาท</strong> (${(Pbuyer-Pold).toFixed(2)}/หน่วย)<br>`+
+        `<strong style="color:#e65100">ผู้ขายรับ: ${pBurden.toLocaleString(undefined,{maximumFractionDigits:0})} บาท</strong> (${(Pold-Pseller).toFixed(2)}/หน่วย)<br>`+
+        `<strong style="color:#4527a0">รายได้รัฐ = ${totalTax.toLocaleString(undefined,{maximumFractionDigits:0})} บาท</strong> (t × Q_ใหม่)`;
+    }
+  }
+  
+  slider.addEventListener('input',draw);
+  window.addEventListener('resize',draw);
+  window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change',draw);
+  draw();
+})();
+
+function sendPrompt(msg){
+  const routes = {
+    'กลับบทที่ 4.3':'chapter4_3.html',
+    'เรียนบทที่ 4 ส่วนที่ 5: การเปลี่ยนแปลงของดุลยภาพ':'chapter4_5.html'
+  };
+  if(routes[msg]){ window.location.href = routes[msg]; return; }
+  if (window.sendPrompt) {
+    window.sendPrompt(msg);
+  }
+}
+</script>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
+        TikTok
+      </a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
