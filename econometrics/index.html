@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ปูพื้นฐานเศรษฐมิติ | Ajarn Kwan</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Caveat:wght@400;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFF8F0;
+  --bg2: #FFF1E3;
+  --card: #FFFFFF;
+  --primary: #E8734A;
+  --primary-soft: #FCEEE8;
+  --secondary: #4A90B8;
+  --secondary-soft: #E8F4FB;
+  --accent: #F5C842;
+  --accent-soft: #FFF8E1;
+  --green: #5BAD7A;
+  --green-soft: #E8F5ED;
+  --text: #3D3232;
+  --text-light: #8A7575;
+  --text-muted: #B8A8A8;
+  --border: #F0E0D6;
+  --shadow: 0 2px 20px rgba(100,60,40,0.06);
+  --shadow-hover: 0 8px 32px rgba(100,60,40,0.12);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans Thai', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Decorative background blobs */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+body::before {
+  width: 500px; height: 500px;
+  top: -200px; right: -100px;
+  background: radial-gradient(circle, rgba(232,115,74,0.06) 0%, transparent 70%);
+}
+body::after {
+  width: 600px; height: 600px;
+  bottom: -200px; left: -150px;
+  background: radial-gradient(circle, rgba(74,144,184,0.06) 0%, transparent 70%);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 50px 20px 40px;
+  animation: fadeInDown 0.8s ease;
+}
+.header-emoji {
+  font-size: 56px;
+  margin-bottom: 12px;
+  display: block;
+  animation: gentleBounce 3s ease-in-out infinite;
+}
+.header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2em;
+  color: var(--primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.header .subtitle {
+  font-size: 1.05em;
+  color: var(--text-light);
+  font-weight: 300;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.header .tag {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: #B8860B;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.82em;
+  font-weight: 500;
+  margin-top: 16px;
+  border: 1px solid rgba(245,200,66,0.3);
+}
+
+
+/* Pre-test */
+.pretest-wrapper {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 2px solid var(--accent);
+  box-shadow: var(--shadow);
+  padding: 28px 24px;
+  margin-bottom: 32px;
+  animation: fadeIn 0.8s ease 0.4s both;
+}
+.pretest-wrapper.passed {
+  border-color: var(--green);
+}
+.pretest-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.pretest-header .pretest-emoji { font-size: 36px; display: block; margin-bottom: 8px; }
+.pretest-header h3 { font-size: 1.05em; font-weight: 600; }
+.pretest-header p { font-size: 0.85em; color: var(--text-light); margin-top: 4px; }
+.pretest-q {
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  transition: all 0.3s;
+}
+.pretest-q.answered-correct {
+  background: var(--green-soft);
+  border-left: 3px solid var(--green);
+}
+.pretest-q.answered-wrong {
+  background: #FDE8E8;
+  border-left: 3px solid #E85D5D;
+}
+.pretest-q label {
+  font-size: 0.9em;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+}
+.pretest-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pretest-opt {
+  padding: 8px 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.88em;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.pretest-opt:hover { border-color: var(--primary); background: var(--primary-soft); }
+.pretest-opt.selected { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
+.pretest-opt:disabled { cursor: default; opacity: 0.7; }
+.pretest-opt.correct-opt { border-color: var(--green); background: var(--green-soft); color: var(--green); }
+.pretest-opt.wrong-opt { border-color: #E85D5D; background: #FDE8E8; color: #E85D5D; text-decoration: line-through; }
+.pretest-check-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  background: var(--accent);
+  color: #5D4800;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.92em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pretest-check-btn:hover { background: #E8BA30; transform: translateY(-1px); }
+.pretest-check-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.pretest-result {
+  text-align: center;
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+  display: none;
+}
+.pretest-result.show { display: block; }
+.pretest-result.pass { background: var(--green-soft); color: #2D7A4A; }
+.pretest-result.partial { background: var(--accent-soft); color: #8B6E00; }
+
+/* Completion action buttons (equal size) */
+.completion-action-btn {
+  flex: 1;
+  min-width: 160px;
+  max-width: 220px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.88em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.completion-action-btn:hover { transform: translateY(-2px); }
+.primary-action {
+  background: linear-gradient(135deg, var(--primary), #D4623D);
+  color: white;
+}
+.primary-action:hover { box-shadow: 0 4px 16px rgba(232,115,74,0.3); }
+.secondary-action {
+  background: var(--secondary);
+  color: white;
+}
+.secondary-action:hover { box-shadow: 0 4px 16px rgba(74,144,184,0.3); }
+
+/* Encouragement banner */
+.encouragement {
+  background: linear-gradient(135deg, var(--secondary-soft), #F0F7FC);
+  border: 1px solid rgba(74,144,184,0.15);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-bottom: 36px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 1s ease 0.3s both;
+}
+.encouragement::after {
+  content: '💪';
+  position: absolute;
+  right: 20px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 36px;
+  opacity: 0.4;
+}
+.encouragement p {
+  font-size: 0.95em;
+  color: var(--secondary);
+  font-weight: 400;
+  max-width: 85%;
+}
+.encouragement strong { color: #2D6E8F; }
+
+/* Progress bar */
+.progress-wrapper {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  animation: fadeIn 1s ease 0.5s both;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.progress-label span:first-child {
+  font-weight: 500;
+  font-size: 0.9em;
+}
+.progress-label span:last-child {
+  font-size: 0.85em;
+  color: var(--primary);
+  font-weight: 600;
+}
+.progress-bar {
+  height: 10px;
+  background: var(--bg2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 0%;
+}
+
+/* Module cards */
+.module-list { display: flex; flex-direction: column; gap: 16px; }
+
+.module-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease both;
+}
+.module-card:nth-child(1) { animation-delay: 0.1s; }
+.module-card:nth-child(2) { animation-delay: 0.15s; }
+.module-card:nth-child(3) { animation-delay: 0.2s; }
+.module-card:nth-child(4) { animation-delay: 0.25s; }
+.module-card:nth-child(5) { animation-delay: 0.3s; }
+.module-card:nth-child(6) { animation-delay: 0.35s; }
+
+.module-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.module-header:hover { background: var(--bg); }
+
+.module-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.module-icon.orange { background: var(--primary-soft); }
+.module-icon.blue { background: var(--secondary-soft); }
+.module-icon.yellow { background: var(--accent-soft); }
+.module-icon.green { background: var(--green-soft); }
+
+.module-info { flex: 1; }
+.module-info h3 {
+  font-size: 1em;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.module-info .module-desc {
+  font-size: 0.82em;
+  color: var(--text-light);
+  font-weight: 300;
+}
+.module-badge {
+  font-size: 0.72em;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.badge-todo { background: var(--bg2); color: var(--text-muted); }
+.badge-done { background: var(--green-soft); color: var(--green); }
+.badge-current { background: var(--primary-soft); color: var(--primary); }
+
+.module-toggle {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+.module-card.open .module-toggle { transform: rotate(180deg); }
+
+/* Module content */
+.module-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.module-card.open .module-content { max-height: 8000px; }
+
+.module-body {
+  padding: 0 24px 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* Lesson sections */
+.lesson-section {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.lesson-section:last-child { border-bottom: none; }
+
+.lesson-section h4 {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lesson-section p, .lesson-section li {
+  font-size: 0.9em;
+  line-height: 1.9;
+  color: var(--text);
+}
+
+/* Friendly callout boxes */
+.callout {
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 14px 0;
+  font-size: 0.88em;
+  line-height: 1.8;
+  position: relative;
+}
+.callout-warm {
+  background: var(--primary-soft);
+  border-left: 3px solid var(--primary);
+}
+.callout-info {
+  background: var(--secondary-soft);
+  border-left: 3px solid var(--secondary);
+}
+.callout-tip {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+}
+.callout-success {
+  background: var(--green-soft);
+  border-left: 3px solid var(--green);
+}
+
+/* Example box */
+.example-box {
+  background: #FAFAFA;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  margin: 14px 0;
+}
+.example-box .example-label {
+  font-size: 0.78em;
+  font-weight: 600;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.example-box p {
+  font-size: 0.88em;
+}
+
+/* Math display (friendly) */
+.math-friendly {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 14px 0;
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: 500;
+  color: var(--secondary);
+  letter-spacing: 0.5px;
+}
+.math-friendly .explain {
+  display: block;
+  font-size: 0.72em;
+  color: var(--text-light);
+  font-weight: 300;
+  margin-top: 6px;
+  letter-spacing: 0;
+}
+
+/* Quiz */
+.quiz-box {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 20px 0;
+  transition: border-color 0.3s;
+}
+.quiz-box.correct { border-color: var(--green); }
+.quiz-box.wrong { border-color: #E85D5D; }
+
+.quiz-question {
+  font-size: 0.92em;
+  font-weight: 500;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 8px;
+}
+.quiz-question .q-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.88em;
+  background: var(--bg);
+}
+.quiz-option:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.quiz-option.selected {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  font-weight: 500;
+}
+.quiz-option.correct-answer {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+.quiz-option.wrong-answer {
+  border-color: #E85D5D;
+  background: #FDE8E8;
+}
+.quiz-option .option-marker {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  color: var(--text-light);
+}
+.quiz-option.selected .option-marker,
+.quiz-option.correct-answer .option-marker {
+  border-color: var(--green);
+  background: var(--green);
+  color: white;
+}
+.quiz-option.wrong-answer .option-marker {
+  border-color: #E85D5D;
+  background: #E85D5D;
+  color: white;
+}
+
+.quiz-feedback {
+  margin-top: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.86em;
+  line-height: 1.7;
+  display: none;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct-fb {
+  background: var(--green-soft);
+  color: #2D7A4A;
+}
+.quiz-feedback.wrong-fb {
+  background: #FDE8E8;
+  color: #B83C3C;
+}
+
+.quiz-btn {
+  margin-top: 14px;
+  padding: 10px 24px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.88em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quiz-btn:hover { background: #D4623D; transform: translateY(-1px); }
+.quiz-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* Completion section */
+.module-complete-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  background: linear-gradient(135deg, var(--green), #4A9E6C);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.92em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.module-complete-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(91,173,122,0.3); }
+.module-complete-btn:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 0.82em;
+}
+.footer a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .container { padding: 12px; }
+  .header h1 { font-size: 1.7em; }
+  .module-header { padding: 16px; gap: 12px; }
+  .module-body { padding: 0 16px 16px; }
+  .module-icon { width: 42px; height: 42px; font-size: 18px; }
+  .encouragement::after { display: none; }
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Visual diagram */
+.visual-diagram {
+  background: linear-gradient(135deg, #FAFAFA, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin: 14px 0;
+  text-align: center;
+}
+.diagram-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.88em;
+}
+.diagram-box {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.85em;
+}
+.diagram-arrow { color: var(--text-muted); font-size: 1.2em; }
+
+/* Interactive slider */
+.slider-demo {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin: 14px 0;
+}
+.slider-demo label {
+  font-size: 0.85em;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+.slider-demo input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+.slider-result {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9em;
+  padding: 10px;
+  background: var(--bg);
+  border-radius: 8px;
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+/* Table-like display */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 0.85em;
+}
+.data-table th {
+  background: var(--bg2);
+  padding: 10px 14px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85em;
+  color: var(--text-light);
+}
+.data-table td {
+  padding: 10px 14px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.data-table tr:hover td { background: var(--bg); }
+
+/* Interactive Regression Chart */
+.reg-chart-wrapper {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 14px 0;
+}
+.reg-chart-wrapper h5 {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 12px;
+  text-align: center;
+}
+.reg-canvas-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+}
+.reg-canvas-wrap canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+.reg-controls {
+  display: flex;
+  gap: 16px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.reg-control-group {
+  flex: 1;
+  min-width: 140px;
+}
+.reg-control-group label {
+  font-size: 0.78em;
+  font-weight: 500;
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 4px;
+}
+.reg-control-group input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+.reg-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.reg-stat-chip {
+  flex: 1;
+  min-width: 100px;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-align: center;
+}
+.reg-stat-chip .stat-label {
+  font-size: 0.7em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.reg-stat-chip .stat-value {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-top: 2px;
+}
+
+/* R² bar */
+.r2-bar-wrap {
+  background: var(--bg2);
+  border-radius: 8px;
+  height: 28px;
+  overflow: hidden;
+  position: relative;
+  margin: 10px 0;
+}
+.r2-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--secondary), var(--green));
+  transition: width 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 0.75em;
+  font-weight: 600;
+  color: white;
+  min-width: 50px;
+}
+
+/* Glossary */
+.glossary-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  margin-top: 24px;
+  overflow: hidden;
+}
+.glossary-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.glossary-header:hover { background: var(--bg); }
+.glossary-header h3 {
+  font-size: 1em;
+  font-weight: 600;
+  flex: 1;
+}
+.glossary-toggle {
+  color: var(--text-muted);
+  transition: transform 0.3s;
+  font-size: 14px;
+}
+.glossary-card.open .glossary-toggle { transform: rotate(180deg); }
+.glossary-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.glossary-card.open .glossary-content { max-height: 4000px; }
+.glossary-body {
+  padding: 0 24px 24px;
+  border-top: 1px solid var(--border);
+}
+.glossary-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.glossary-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.86em;
+}
+.glossary-item:last-child { border-bottom: none; }
+.glossary-en {
+  font-weight: 600;
+  color: var(--secondary);
+  min-width: 140px;
+  flex-shrink: 0;
+}
+.glossary-th {
+  color: var(--text);
+}
+.glossary-search {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.88em;
+  background: var(--bg);
+  margin-bottom: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.glossary-search:focus { border-color: var(--secondary); }
+.glossary-search::placeholder { color: var(--text-muted); }
+
+@media (max-width: 600px) {
+  .reg-controls { flex-direction: column; gap: 10px; }
+  .reg-stats { flex-direction: column; }
+  .glossary-item { flex-direction: column; gap: 2px; }
+  .glossary-en { min-width: unset; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <span class="header-emoji">🌱</span>
+    <h1>ปูพื้นฐานเศรษฐมิติ</h1>
+    <p class="subtitle">สำหรับคนที่เริ่มจากศูนย์ ไม่ต้องกลัวเลข<br>ค่อยๆ เรียนทีละก้าว ทำได้แน่นอนค่ะ</p>
+    <span class="tag">✦ Self-learning โดย Ajarn Kwan</span>
+  </div>
+
+  <!-- Encouragement -->
+  <div class="encouragement">
+    <p><strong>เชื่อเถอะ…</strong> เศรษฐมิติไม่ได้น่ากลัวอย่างที่คิดค่ะ ถ้าเราเข้าใจ "ทำไม" ก่อน "ยังไง" ทุกอย่างจะง่ายขึ้นเอง คอร์สนี้ออกแบบมาให้คนที่กลัวคณิตศาสตร์โดยเฉพาะ เราจะใช้ภาษาง่ายๆ ตัวอย่างจริงจากชีวิตประจำวัน และค่อยๆ ไต่ระดับไปด้วยกันนะคะ 🧡</p>
+  </div>
+
+  <!-- Pre-test -->
+  <div class="pretest-wrapper" id="pretest-wrapper">
+    <div class="pretest-header">
+      <span class="pretest-emoji">✏️</span>
+      <h3>ก่อนเริ่ม… ลองทำ 3 ข้อนี้ดูค่ะ</h3>
+      <p>ไม่ใช่ข้อสอบนะคะ แค่ลองดูว่าพื้นฐานที่มีอยู่เพียงพอแล้ว!</p>
+    </div>
+
+    <div class="pretest-q" id="pt-q1">
+      <label>1️⃣ &nbsp; 5 + 3 × 2 = ?</label>
+      <div class="pretest-options">
+        <button class="pretest-opt" onclick="selectPretest(1, this, 16)">16</button>
+        <button class="pretest-opt" onclick="selectPretest(1, this, 11)">11</button>
+        <button class="pretest-opt" onclick="selectPretest(1, this, 10)">10</button>
+      </div>
+    </div>
+
+    <div class="pretest-q" id="pt-q2">
+      <label>2️⃣ &nbsp; ค่าเฉลี่ยของ 10, 20, 30 คือ?</label>
+      <div class="pretest-options">
+        <button class="pretest-opt" onclick="selectPretest(2, this, 20)">20</button>
+        <button class="pretest-opt" onclick="selectPretest(2, this, 25)">25</button>
+        <button class="pretest-opt" onclick="selectPretest(2, this, 30)">30</button>
+      </div>
+    </div>
+
+    <div class="pretest-q" id="pt-q3">
+      <label>3️⃣ &nbsp; ถ้า Y = 10 + 5X แล้ว X = 3 ดังนั้น Y = ?</label>
+      <div class="pretest-options">
+        <button class="pretest-opt" onclick="selectPretest(3, this, 25)">25</button>
+        <button class="pretest-opt" onclick="selectPretest(3, this, 18)">18</button>
+        <button class="pretest-opt" onclick="selectPretest(3, this, 15)">15</button>
+      </div>
+    </div>
+
+    <button class="pretest-check-btn" id="pretest-check" onclick="checkPretest()" disabled>ดูผลลัพธ์!</button>
+
+    <div class="pretest-result pass" id="pretest-pass">
+      🎉 <strong>เห็นไหมคะ ทำได้!</strong> คณิตศาสตร์ที่ใช้ในเศรษฐมิติไม่ได้ยากไปกว่านี้เลย เริ่มเรียนกันเลยค่ะ!
+    </div>
+    <div class="pretest-result partial" id="pretest-partial">
+      💛 <strong>ไม่เป็นไรเลยค่ะ!</strong> ข้อที่พลาดไป บทเรียนด้านล่างจะสอนทั้งหมด ค่อยๆ เรียนไปด้วยกันนะคะ
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrapper">
+    <div class="progress-label">
+      <span>📊 ความก้าวหน้า</span>
+      <span id="progress-text">0 / 6 บทเรียน</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Modules -->
+  <div class="module-list" id="module-list">
+
+    <!-- ===== Module 1 ===== -->
+    <div class="module-card" data-module="1">
+      <div class="module-header" onclick="toggleModule(1)">
+        <div class="module-icon orange">🤔</div>
+        <div class="module-info">
+          <h3>บทที่ 1 : เศรษฐมิติคืออะไร?</h3>
+          <p class="module-desc">ทำความรู้จักก่อนว่าเราจะเรียนอะไร ทำไมต้องเรียน</p>
+        </div>
+        <span class="module-badge badge-todo" id="badge-1">ยังไม่ได้เรียน</span>
+        <div class="module-toggle">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="module-body">
+
+          <div class="lesson-section">
+            <h4>🎯 เศรษฐมิติ = เครื่องมือหาคำตอบ</h4>
+            <p>ลองนึกภาพว่าเราเป็น "นักสืบทางเศรษฐกิจ" ค่ะ เรามีคำถามมากมาย เช่น:</p>
+            <div class="callout callout-warm" style="margin-top:12px;">
+              ▸ ถ้ารัฐบาลขึ้นค่าแรงขั้นต่ำ คนจะตกงานมากขึ้นจริงไหม?<br>
+              ▸ การเรียนจบปริญญาตรี ทำให้รายได้เพิ่มขึ้นจริงหรือเปล่า?<br>
+              ▸ ราคาน้ำมันแพงขึ้น คนใช้รถน้อยลงแค่ไหน?
+            </div>
+            <p style="margin-top:12px;"><strong>เศรษฐมิติ (Econometrics)</strong> คือเครื่องมือที่ช่วยให้เราตอบคำถามเหล่านี้ด้วย <em>ข้อมูลจริง</em> ไม่ใช่แค่เดาๆ ค่ะ</p>
+          </div>
+
+          <div class="lesson-section">
+            <h4>🧩 สามส่วนประกอบของเศรษฐมิติ</h4>
+            <div class="visual-diagram">
+              <div class="diagram-flow">
+                <div class="diagram-box" style="background:var(--primary-soft); color:var(--primary);">ทฤษฎีเศรษฐศาสตร์</div>
+                <span class="diagram-arrow">＋</span>
+                <div class="diagram-box" style="background:var(--secondary-soft); color:var(--secondary);">คณิต + สถิติ</div>
+                <span class="diagram-arrow">＋</span>
+                <div class="diagram-box" style="background:var(--green-soft); color:var(--green);">ข้อมูลจริง</div>
+                <span class="diagram-arrow">＝</span>
+                <div class="diagram-box" style="background:var(--accent-soft); color:#B8860B;">เศรษฐมิติ ✨</div>
+              </div>
+            </div>
+            <p>พูดง่ายๆ คือเราเอา "ทฤษฎี" มาตั้งเป็นสมมติฐาน แล้วใช้ "คณิตศาสตร์และสถิติ" เป็นเครื่องมือ ทดสอบกับ "ข้อมูลจริง" ว่าทฤษฎีนั้นจริงไหมค่ะ</p>
+          </div>
+
+          <div class="lesson-section">
+            <h4>💡 ตัวอย่างให้เห็นภาพ</h4>
+            <div class="example-box">
+              <div class="example-label">ตัวอย่าง: เรียนมากขึ้น → รายได้มากขึ้น?</div>
+              <p><strong>ทฤษฎี:</strong> ทฤษฎีทุนมนุษย์บอกว่า ยิ่งเรียนสูง รายได้ยิ่งสูง</p>
+              <p><strong>ข้อมูล:</strong> สำรวจคน 1,000 คน เก็บข้อมูลว่าเรียนกี่ปี รายได้เท่าไหร่</p>
+              <p><strong>เศรษฐมิติ:</strong> ใช้สถิติวิเคราะห์ → เรียนเพิ่ม 1 ปี เงินเดือนเพิ่มประมาณ 8%</p>
+            </div>
+            <div class="callout callout-tip">
+              💡 <strong>เคล็ดลับ:</strong> ไม่ต้องเข้าใจตัวเลขตอนนี้ ขอแค่จำว่า "เศรษฐมิติ = ใช้ข้อมูลพิสูจน์ว่าสิ่งที่เราคิดมันจริงไหม" ค่ะ
+            </div>
+          </div>
+
+          <!-- Quiz Module 1 -->
+          <div class="quiz-box" id="quiz-1">
+            <div class="quiz-question">
+              <span class="q-icon">🧪</span>
+              <span>เศรษฐมิติต่างจากเศรษฐศาสตร์ทั่วไปอย่างไร?</span>
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="selectOption(1, this, 0)">
+                <span class="option-marker">ก</span>
+                <span>เศรษฐมิติใช้คณิตศาสตร์ เศรษฐศาสตร์ไม่ใช้เลย</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(1, this, 1)">
+                <span class="option-marker">ข</span>
+                <span>เศรษฐมิติเน้นทดสอบทฤษฎีด้วย "ข้อมูลจริง" และ "สถิติ"</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(1, this, 2)">
+                <span class="option-marker">ค</span>
+                <span>เศรษฐมิติเรียนเฉพาะเรื่องเงินเท่านั้น</span>
+              </div>
+            </div>
+            <div class="quiz-feedback correct-fb" id="quiz-1-correct">
+              ✅ ถูกต้องค่ะ! เศรษฐมิติคือการนำข้อมูลจริงมาทดสอบทฤษฎีทางเศรษฐศาสตร์ ผ่านเครื่องมือทางสถิติ เป็นการ "พิสูจน์" ไม่ใช่แค่ "คิด" ค่ะ
+            </div>
+            <div class="quiz-feedback wrong-fb" id="quiz-1-wrong">
+              ❌ ลองคิดใหม่นะคะ จุดสำคัญคือเศรษฐมิติใช้ "ข้อมูลจริง" มาทดสอบว่าทฤษฎีนั้นจริงไหม เศรษฐศาสตร์ทั่วไปก็ใช้คณิตศาสตร์เหมือนกันค่ะ
+            </div>
+            <button class="quiz-btn" onclick="checkQuiz(1, 1)" id="btn-quiz-1">ตรวจคำตอบ</button>
+          </div>
+
+          <button class="module-complete-btn" onclick="completeModule(1)" id="complete-1">✅ เข้าใจแล้ว ไปบทต่อไป!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Module 2 ===== -->
+    <div class="module-card" data-module="2">
+      <div class="module-header" onclick="toggleModule(2)">
+        <div class="module-icon blue">📐</div>
+        <div class="module-info">
+          <h3>บทที่ 2 : คณิตพื้นฐานที่ต้องรู้ (ไม่ยากเลย!)</h3>
+          <p class="module-desc">ทบทวนพีชคณิตง่ายๆ ที่จะใช้ตลอดวิชา</p>
+        </div>
+        <span class="module-badge badge-todo" id="badge-2">ยังไม่ได้เรียน</span>
+        <div class="module-toggle">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="module-body">
+
+          <div class="callout callout-warm">
+            🤗 <strong>อย่าเพิ่งตกใจนะคะ!</strong> คณิตศาสตร์ที่ใช้ในเศรษฐมิติส่วนใหญ่คือสิ่งที่เราเคยเรียนมาแล้ว แค่อาจลืมไปบ้าง เราจะทบทวนไปด้วยกันค่ะ
+          </div>
+
+          <div class="lesson-section">
+            <h4>📝 สมการเส้นตรง Y = a + bX</h4>
+            <p>นี่คือหัวใจของเศรษฐมิติเลยค่ะ! ลองนึกภาพง่ายๆ:</p>
+            <div class="math-friendly">
+              Y = a + bX
+              <span class="explain">Y = สิ่งที่เราอยากรู้ &nbsp;|&nbsp; X = สิ่งที่มีผลต่อ Y &nbsp;|&nbsp; a = จุดเริ่มต้น &nbsp;|&nbsp; b = อัตราการเปลี่ยน</span>
+            </div>
+
+            <div class="example-box">
+              <div class="example-label">ตัวอย่าง: ค่าไอศกรีม</div>
+              <p>สมมติ ไอศกรีมสกูปละ 30 บาท โคนราคา 10 บาท</p>
+              <p style="margin-top:8px;">
+                <strong>ราคาที่ต้องจ่าย = 10 + 30 × จำนวนสกูป</strong><br>
+                → สั่ง 1 สกูป: 10 + 30(1) = <strong>40 บาท</strong><br>
+                → สั่ง 2 สกูป: 10 + 30(2) = <strong>70 บาท</strong><br>
+                → สั่ง 3 สกูป: 10 + 30(3) = <strong>100 บาท</strong>
+              </p>
+            </div>
+
+            <!-- Interactive slider -->
+            <div class="slider-demo">
+              <label>🍦 ลองเลื่อนเลือกจำนวนสกูปดูค่ะ:</label>
+              <input type="range" min="0" max="5" value="1" id="scoop-slider" oninput="updateScoop()">
+              <div class="slider-result" id="scoop-result">
+                1 สกูป → ราคา = 10 + 30(1) = <strong>40 บาท</strong>
+              </div>
+            </div>
+
+            <div class="callout callout-info">
+              ℹ️ ตัว <strong>b = 30</strong> คือตัวที่บอกว่า "ถ้า X เพิ่มขึ้น 1 หน่วย, Y จะเปลี่ยนไปเท่าไหร่" — ในเศรษฐมิติ เราเรียกมันว่า <strong>สัมประสิทธิ์ (coefficient)</strong> ค่ะ ซึ่งตัวนี้แหละที่สำคัญมากๆ!
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>➕➖ การจัดรูปสมการ</h4>
+            <p>ในเศรษฐมิติ เราจะต้องย้ายข้างสมการบ่อยๆ กฎง่ายๆ คือ:</p>
+            <div class="callout callout-tip">
+              <strong>ย้ายข้าง = เปลี่ยนเครื่องหมาย</strong><br>
+              ▸ บวก ↔ ลบ<br>
+              ▸ คูณ ↔ หาร
+            </div>
+            <div class="example-box">
+              <div class="example-label">ฝึกย้ายข้าง</div>
+              <p>ถ้า Y = 10 + 30X &nbsp;&nbsp;แล้วเราอยากรู้ว่า X เท่าไหร่?</p>
+              <p style="margin-top:6px;">
+                Y - 10 = 30X &nbsp;&nbsp;(ย้าย 10 ไปลบอีกข้าง)<br>
+                X = (Y - 10) / 30 &nbsp;&nbsp;(ย้าย 30 ไปหาร)
+              </p>
+              <p style="margin-top:6px;">ถ้า Y = 100: &nbsp; X = (100 - 10) / 30 = <strong>3 สกูป!</strong> 🍦</p>
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>📊 ค่าเฉลี่ย (Mean) — ง่ายกว่าที่คิด</h4>
+            <p>ค่าเฉลี่ยคือ "ตัวแทน" ของข้อมูลทั้งหมดค่ะ คำนวณโดย:</p>
+            <div class="math-friendly">
+              ค่าเฉลี่ย = ผลรวมทั้งหมด ÷ จำนวนข้อมูล
+              <span class="explain">เช่น คะแนนสอบ 60, 70, 80 → ค่าเฉลี่ย = (60+70+80) ÷ 3 = 70</span>
+            </div>
+            <div class="callout callout-success">
+              🎉 <strong>แค่นี้เองค่ะ!</strong> ถ้าบวกเลขได้ หารเลขได้ ก็คำนวณค่าเฉลี่ยได้แล้ว ซึ่งค่าเฉลี่ยนี่แหละเป็นพื้นฐานสำคัญมากๆ ในเศรษฐมิติค่ะ
+            </div>
+          </div>
+
+          <!-- Quiz Module 2 -->
+          <div class="quiz-box" id="quiz-2">
+            <div class="quiz-question">
+              <span class="q-icon">🧪</span>
+              <span>ในสมการ Y = 5 + 2X ถ้า X = 4 แล้ว Y เท่ากับเท่าไหร่?</span>
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="selectOption(2, this, 0)">
+                <span class="option-marker">ก</span>
+                <span>9</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(2, this, 1)">
+                <span class="option-marker">ข</span>
+                <span>11</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(2, this, 2)">
+                <span class="option-marker">ค</span>
+                <span>13</span>
+              </div>
+            </div>
+            <div class="quiz-feedback correct-fb" id="quiz-2-correct">
+              ✅ เก่งมากค่ะ! Y = 5 + 2(4) = 5 + 8 = 13 ง่ายใช่ไหมคะ ถ้าทำข้อนี้ได้ คุณมีพื้นฐานเพียงพอสำหรับเศรษฐมิติแล้วค่ะ!
+            </div>
+            <div class="quiz-feedback wrong-fb" id="quiz-2-wrong">
+              ❌ ลองใหม่นะคะ: แทนค่า X = 4 → Y = 5 + 2(4) = 5 + 8 = 13 ค่ะ อย่าลืมคูณก่อนบวกนะคะ!
+            </div>
+            <button class="quiz-btn" onclick="checkQuiz(2, 2)" id="btn-quiz-2">ตรวจคำตอบ</button>
+          </div>
+
+          <button class="module-complete-btn" onclick="completeModule(2)" id="complete-2">✅ เข้าใจแล้ว ไปบทต่อไป!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Module 3 ===== -->
+    <div class="module-card" data-module="3">
+      <div class="module-header" onclick="toggleModule(3)">
+        <div class="module-icon yellow">📈</div>
+        <div class="module-info">
+          <h3>บทที่ 3 : ตัวแปร — พระเอกของเศรษฐมิติ</h3>
+          <p class="module-desc">ตัวแปรต้น ตัวแปรตาม คืออะไร ใช้ยังไง</p>
+        </div>
+        <span class="module-badge badge-todo" id="badge-3">ยังไม่ได้เรียน</span>
+        <div class="module-toggle">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="module-body">
+
+          <div class="lesson-section">
+            <h4>🏷️ ตัวแปรคืออะไร?</h4>
+            <p>"ตัวแปร" ก็คือ "สิ่งที่เปลี่ยนแปลงได้" ค่ะ ในชีวิตจริง ตัวแปรอยู่รอบตัวเราเลย:</p>
+            <div class="callout callout-warm">
+              ▸ อุณหภูมิในแต่ละวัน (เปลี่ยนไปเรื่อย)<br>
+              ▸ เงินเดือนของแต่ละคน (ไม่เท่ากัน)<br>
+              ▸ ราคาหุ้นในแต่ละวัน (ขึ้นๆ ลงๆ)
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>🎯 ตัวแปรตาม (Y) vs ตัวแปรต้น (X)</h4>
+            <p>ในเศรษฐมิติ เราแบ่งตัวแปรเป็น 2 กลุ่มหลักค่ะ:</p>
+
+            <table class="data-table">
+              <tr>
+                <th></th>
+                <th>ตัวแปรตาม (Y)</th>
+                <th>ตัวแปรต้น (X)</th>
+              </tr>
+              <tr>
+                <td>🏷️ ชื่อเรียก</td>
+                <td>Dependent Variable</td>
+                <td>Independent Variable</td>
+              </tr>
+              <tr>
+                <td>🎭 บทบาท</td>
+                <td>สิ่งที่เราอยาก<strong>อธิบาย</strong></td>
+                <td>สิ่งที่เรา<strong>ใช้อธิบาย</strong></td>
+              </tr>
+              <tr>
+                <td>🍦</td>
+                <td>ยอดขายไอศกรีม</td>
+                <td>อุณหภูมิ</td>
+              </tr>
+              <tr>
+                <td>💰</td>
+                <td>เงินเดือน</td>
+                <td>จำนวนปีที่เรียน</td>
+              </tr>
+              <tr>
+                <td>🏠</td>
+                <td>ราคาบ้าน</td>
+                <td>ขนาดพื้นที่</td>
+              </tr>
+            </table>
+
+            <div class="callout callout-tip">
+              💡 <strong>เคล็ดลับจำง่ายๆ:</strong> ตัวแปร<strong>ตาม</strong>คือตัวที่ "ตาม" ตัวอื่นไป เช่น ยอดขายไอศกรีม "ตาม" อุณหภูมิ — ร้อนมากขายดี ร้อนน้อยขายไม่ดี ค่ะ
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>🔍 ทำไมต้องแยก Y กับ X?</h4>
+            <p>เพราะเป้าหมายของเศรษฐมิติคือการหาว่า <strong>"X มีผลต่อ Y แค่ไหน"</strong> ค่ะ</p>
+            <div class="example-box">
+              <div class="example-label">ตัวอย่าง</div>
+              <p>เราอยากรู้ว่า "การเรียนเพิ่ม 1 ปี ทำให้เงินเดือนเพิ่มขึ้นกี่บาท?"</p>
+              <p style="margin-top:6px;">Y = เงินเดือน, X = จำนวนปีที่เรียน</p>
+              <p style="margin-top:6px;">เศรษฐมิติจะช่วยตอบว่า "เรียนเพิ่ม 1 ปี → เงินเดือนเพิ่มประมาณ 3,000 บาท" (เป็นตัวอย่างนะคะ)</p>
+            </div>
+          </div>
+
+          <!-- Quiz Module 3 -->
+          <div class="quiz-box" id="quiz-3">
+            <div class="quiz-question">
+              <span class="q-icon">🧪</span>
+              <span>ถ้าเราอยากรู้ว่า "จำนวนชั่วโมงที่อ่านหนังสือ" มีผลต่อ "เกรด" ไหม ตัวแปรตาม (Y) คืออะไร?</span>
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="selectOption(3, this, 0)">
+                <span class="option-marker">ก</span>
+                <span>จำนวนชั่วโมงที่อ่านหนังสือ</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(3, this, 1)">
+                <span class="option-marker">ข</span>
+                <span>เกรด</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(3, this, 2)">
+                <span class="option-marker">ค</span>
+                <span>จำนวนวิชาที่ลงทะเบียน</span>
+              </div>
+            </div>
+            <div class="quiz-feedback correct-fb" id="quiz-3-correct">
+              ✅ ถูกต้องค่ะ! "เกรด" คือสิ่งที่เราอยากอธิบาย จึงเป็นตัวแปรตาม (Y) ส่วน "ชั่วโมงอ่านหนังสือ" เป็นตัวแปรต้น (X) ที่เราคิดว่ามีผลต่อเกรดค่ะ
+            </div>
+            <div class="quiz-feedback wrong-fb" id="quiz-3-wrong">
+              ❌ ลองคิดใหม่นะคะ ตัวแปรตามคือสิ่งที่เราอยากอธิบาย ในที่นี้คือ "ผลลัพธ์" ที่เราสนใจ ซึ่งก็คือ "เกรด" ค่ะ
+            </div>
+            <button class="quiz-btn" onclick="checkQuiz(3, 1)" id="btn-quiz-3">ตรวจคำตอบ</button>
+          </div>
+
+          <button class="module-complete-btn" onclick="completeModule(3)" id="complete-3">✅ เข้าใจแล้ว ไปบทต่อไป!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Module 4 ===== -->
+    <div class="module-card" data-module="4">
+      <div class="module-header" onclick="toggleModule(4)">
+        <div class="module-icon green">🔗</div>
+        <div class="module-info">
+          <h3>บทที่ 4 : ความสัมพันธ์ระหว่างตัวแปร</h3>
+          <p class="module-desc">สหสัมพันธ์ vs สาเหตุ — สิ่งที่ต้องแยกให้ออก</p>
+        </div>
+        <span class="module-badge badge-todo" id="badge-4">ยังไม่ได้เรียน</span>
+        <div class="module-toggle">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="module-body">
+
+          <div class="lesson-section">
+            <h4>📊 สหสัมพันธ์ (Correlation) คืออะไร?</h4>
+            <p>สหสัมพันธ์ = ตัวแปรสองตัว "เคลื่อนที่ไปด้วยกัน" ค่ะ</p>
+
+            <div class="callout callout-warm">
+              <strong>ทิศทางบวก (+):</strong> X เพิ่ม → Y เพิ่มด้วย<br>
+              เช่น อุณหภูมิสูง → ยอดขายไอศกรีมเพิ่ม 🍦☀️<br><br>
+              <strong>ทิศทางลบ (−):</strong> X เพิ่ม → Y ลดลง<br>
+              เช่น ราคาสินค้าสูง → ปริมาณซื้อลดลง 📉💰
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>⚠️ Correlation ≠ Causation!</h4>
+            <p>นี่คือกับดักสำคัญที่สุดในเศรษฐมิติค่ะ: <strong>"เกี่ยวข้องกัน" ไม่ได้แปลว่า "เป็นสาเหตุ"</strong></p>
+
+            <div class="example-box">
+              <div class="example-label">ตัวอย่างสนุกๆ</div>
+              <p>📌 ข้อมูลพบว่า "ยอดขายไอศกรีม" กับ "จำนวนคนจมน้ำ" เพิ่มขึ้นด้วยกัน!</p>
+              <p style="margin-top:8px;">หมายความว่าไอศกรีมทำให้คนจมน้ำ? 🤣</p>
+              <p style="margin-top:8px;"><strong>ไม่ใช่ค่ะ!</strong> ทั้งสองอย่างเกิดขึ้นเพราะ "อากาศร้อน" (ตัวแปรซ่อน) ทำให้คนกินไอศกรีมมากขึ้น "และ" ไปเล่นน้ำมากขึ้นค่ะ</p>
+            </div>
+
+            <div class="callout callout-info">
+              ℹ️ ตัวแปรซ่อนที่ไปมีผลต่อทั้ง X และ Y เราเรียกว่า <strong>Confounding Variable</strong> ค่ะ เศรษฐมิติมีเครื่องมือจัดการกับปัญหานี้ ซึ่งจะได้เรียนในวิชาจริงค่ะ
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>📏 วัดความสัมพันธ์ด้วยค่า r</h4>
+            <p>ค่าสหสัมพันธ์ (r) อยู่ระหว่าง -1 ถึง +1 ค่ะ:</p>
+
+            <table class="data-table">
+              <tr>
+                <th>ค่า r</th>
+                <th>ความหมาย</th>
+                <th>ตัวอย่าง</th>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--green);">+1</strong></td>
+                <td>สัมพันธ์บวกสมบูรณ์</td>
+                <td>ไปด้วยกันเป๊ะ!</td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--secondary);">0</strong></td>
+                <td>ไม่สัมพันธ์กัน</td>
+                <td>ไม่เกี่ยวกันเลย</td>
+              </tr>
+              <tr>
+                <td><strong style="color:#E85D5D;">-1</strong></td>
+                <td>สัมพันธ์ลบสมบูรณ์</td>
+                <td>สวนทางกันเป๊ะ!</td>
+              </tr>
+            </table>
+
+            <div class="callout callout-tip">
+              💡 ในโลกจริง r ไม่ค่อยได้เท่ากับ +1 หรือ -1 เป๊ะๆ หรอกค่ะ ส่วนใหญ่จะอยู่ระหว่างนั้น เช่น r = 0.7 แปลว่า "สัมพันธ์กันค่อนข้างมากในทิศทางบวก"
+            </div>
+          </div>
+
+          <!-- Quiz Module 4 -->
+          <div class="quiz-box" id="quiz-4">
+            <div class="quiz-question">
+              <span class="q-icon">🧪</span>
+              <span>"ยิ่งกินวิตามินซีมาก ยิ่งเป็นหวัดบ่อย" ข้อมูลนี้บอกอะไรเราได้?</span>
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="selectOption(4, this, 0)">
+                <span class="option-marker">ก</span>
+                <span>วิตามินซีทำให้เป็นหวัด</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(4, this, 1)">
+                <span class="option-marker">ข</span>
+                <span>มีความสัมพันธ์กัน แต่ยังสรุปไม่ได้ว่าเป็นสาเหตุ</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(4, this, 2)">
+                <span class="option-marker">ค</span>
+                <span>ข้อมูลผิดแน่นอน ไม่มีทางเป็นไปได้</span>
+              </div>
+            </div>
+            <div class="quiz-feedback correct-fb" id="quiz-4-correct">
+              ✅ ถูกต้องค่ะ! Correlation ≠ Causation เสมอ อาจเป็นเพราะ "คนที่เป็นหวัดบ่อยจึงกินวิตามินซีมาก" (สาเหตุสลับกัน) หรือมีตัวแปรอื่นซ่อนอยู่ก็ได้ค่ะ
+            </div>
+            <div class="quiz-feedback wrong-fb" id="quiz-4-wrong">
+              ❌ อย่าลืมนะคะ: ข้อมูลที่ "สัมพันธ์กัน" ไม่ได้แปลว่า "เป็นสาเหตุ" เสมอไป ต้องวิเคราะห์ลึกกว่านั้นค่ะ
+            </div>
+            <button class="quiz-btn" onclick="checkQuiz(4, 1)" id="btn-quiz-4">ตรวจคำตอบ</button>
+          </div>
+
+          <button class="module-complete-btn" onclick="completeModule(4)" id="complete-4">✅ เข้าใจแล้ว ไปบทต่อไป!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Module 5 ===== -->
+    <div class="module-card" data-module="5">
+      <div class="module-header" onclick="toggleModule(5)">
+        <div class="module-icon orange">📉</div>
+        <div class="module-info">
+          <h3>บทที่ 5 : การถดถอยเชิงเส้น (ไม่น่ากลัว!)</h3>
+          <p class="module-desc">หัวใจของเศรษฐมิติ — เข้าใจแบบง่ายๆ</p>
+        </div>
+        <span class="module-badge badge-todo" id="badge-5">ยังไม่ได้เรียน</span>
+        <div class="module-toggle">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="module-body">
+
+          <div class="lesson-section">
+            <h4>📐 Regression = ลากเส้นให้พอดีที่สุด</h4>
+            <p>ลองนึกภาพว่าเราจุดข้อมูลลงบนกราฟค่ะ แล้ว<strong>ลากเส้นตรงเส้นหนึ่ง</strong>ให้ "ใกล้" จุดทุกจุดมากที่สุด นั่นแหละคือ regression!</p>
+
+            <div class="math-friendly">
+              Y = β₀ + β₁X + ε
+              <span class="explain">β₀ = จุดตัดแกน Y &nbsp;|&nbsp; β₁ = ความชัน &nbsp;|&nbsp; ε = ความคลาดเคลื่อน (error)</span>
+            </div>
+
+            <div class="callout callout-warm">
+              🤗 <strong>อย่าตกใจสัญลักษณ์!</strong> β (เบตา) ก็แค่ชื่อเรียกค่ะ ถ้าเขียนเป็นภาษาคนก็คือ:<br><br>
+              <strong>สิ่งที่อยากรู้ = จุดเริ่มต้น + (ผลกระทบ × ตัวที่มีอิทธิพล) + สิ่งที่เราอธิบายไม่ได้</strong>
+            </div>
+
+            <!-- Interactive Regression Chart -->
+            <div class="reg-chart-wrapper">
+              <h5>🎮 ลองเล่นกราฟ Regression ด้วยตัวเองค่ะ!</h5>
+              <div class="reg-canvas-wrap">
+                <canvas id="regCanvas" width="460" height="340"></canvas>
+              </div>
+              <div class="reg-controls">
+                <div class="reg-control-group">
+                  <label>β₀ (จุดเริ่มต้น): <strong id="b0-val">10</strong></label>
+                  <input type="range" min="0" max="40" value="10" id="b0-slider" oninput="updateRegChart()">
+                </div>
+                <div class="reg-control-group">
+                  <label>β₁ (ความชัน): <strong id="b1-val">2.5</strong></label>
+                  <input type="range" min="-5" max="8" step="0.5" value="2.5" id="b1-slider" oninput="updateRegChart()">
+                </div>
+              </div>
+              <div class="reg-stats">
+                <div class="reg-stat-chip">
+                  <div class="stat-label">สมการ</div>
+                  <div class="stat-value" id="reg-eq">Y = 10 + 2.5X</div>
+                </div>
+                <div class="reg-stat-chip">
+                  <div class="stat-label">R²</div>
+                  <div class="stat-value" id="reg-r2">—</div>
+                </div>
+              </div>
+              <div class="callout callout-tip" style="margin-top:14px; font-size:0.82em;">
+                💡 ลองปรับค่า β₁ ดูค่ะ — สังเกตว่าเส้นเปลี่ยนความชันไหม? เส้นสีแดงเล็กๆ คือ "ε (error)" ระยะห่างระหว่างจุดข้อมูลจริงกับเส้นทำนายค่ะ
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>🎯 ทำไมต้องมี ε (error)?</h4>
+            <p>เพราะในโลกจริง ไม่มีอะไรเป๊ะ 100% ค่ะ</p>
+            <div class="example-box">
+              <div class="example-label">ตัวอย่าง</div>
+              <p>สมมติเราสำรวจว่า "เรียนเพิ่ม 1 ปี → เงินเดือนเพิ่ม 3,000 บาท"</p>
+              <p style="margin-top:8px;">แต่ในความจริง คนที่เรียนเท่ากันก็ได้เงินไม่เท่ากัน เพราะมีปัจจัยอื่นอีกมากมาย เช่น ความสามารถ, โชค, คอนเนกชัน ฯลฯ</p>
+              <p style="margin-top:8px;">สิ่งเหล่านี้ถูก "ซ่อน" อยู่ใน <strong>ε</strong> ค่ะ</p>
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>🔑 ค่าที่สำคัญที่สุด: β₁</h4>
+            <p><strong>β₁ (beta one)</strong> คือตัวเลขที่ตอบคำถามงานวิจัยค่ะ มันบอกว่า:</p>
+            <div class="callout callout-info">
+              "ถ้า X เพิ่มขึ้น 1 หน่วย → Y จะเปลี่ยนไปเท่าไหร่ <em>โดยเฉลี่ย</em>"
+            </div>
+            <div class="example-box">
+              <div class="example-label">อ่านค่า β₁</div>
+              <p>ถ้า β₁ = 3,000 ในสมการ เงินเดือน = 15,000 + 3,000(ปีที่เรียน)</p>
+              <p style="margin-top:6px;">แปลว่า: <strong>"เรียนเพิ่ม 1 ปี → เงินเดือนเพิ่มขึ้นเฉลี่ย 3,000 บาท"</strong></p>
+              <p style="margin-top:8px;">
+                คนเรียน 12 ปี (ม.6): 15,000 + 3,000(12) = <strong>51,000 บาท</strong><br>
+                คนเรียน 16 ปี (ป.ตรี): 15,000 + 3,000(16) = <strong>63,000 บาท</strong>
+              </p>
+            </div>
+            <div class="callout callout-success">
+              🎉 <strong>ถ้าเข้าใจ β₁ ได้</strong> แปลว่าคุณเข้าใจแก่นของเศรษฐมิติแล้วค่ะ! บทเรียนที่เหลือจะเป็นเรื่องของ "ทำยังไงให้ β₁ ถูกต้องน่าเชื่อถือ" ซึ่งจะได้เรียนในวิชาจริงค่ะ
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>📊 R² — โมเดลอธิบายได้ดีแค่ไหน?</h4>
+            <p>เมื่อเราลากเส้น regression แล้ว คำถามต่อมาคือ <strong>"เส้นนี้อธิบายข้อมูลได้ดีแค่ไหน?"</strong> คำตอบคือ <strong>R² (R-squared)</strong> ค่ะ</p>
+
+            <div class="math-friendly">
+              R² อยู่ระหว่าง 0 ถึง 1
+              <span class="explain">0 = อธิบายไม่ได้เลย &nbsp;|&nbsp; 1 = อธิบายได้สมบูรณ์แบบ</span>
+            </div>
+
+            <p style="margin-top:12px;">ลองนึกภาพง่ายๆ ค่ะ:</p>
+
+            <div class="example-box">
+              <div class="example-label">R² = 0.75 หมายความว่า…</div>
+              <p>โมเดลของเราอธิบายการเปลี่ยนแปลงของ Y ได้ <strong>75%</strong></p>
+              <p style="margin-top:6px;">อีก 25% ที่เหลือ เป็นสิ่งที่โมเดลอธิบายไม่ได้ (ซ่อนอยู่ใน ε)</p>
+              <div class="r2-bar-wrap" style="margin-top:12px;">
+                <div class="r2-bar-fill" style="width:75%;">75%</div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:0.75em; color:var(--text-muted); margin-top:4px;">
+                <span>โมเดลอธิบายได้ 🟢</span>
+                <span>อธิบายไม่ได้ (ε) 🔴</span>
+              </div>
+            </div>
+
+            <div class="callout callout-info">
+              ℹ️ <strong>R² สูง = ดีเสมอไหม?</strong> ไม่เสมอไปค่ะ! R² สูงมากๆ อาจหมายความว่าโมเดล "พยายามมากเกินไป" (overfitting) ในทางกลับกัน R² ต่ำก็ไม่ได้แปลว่าไร้ประโยชน์ ถ้า β₁ มีนัยสำคัญทางสถิติก็ยังบอกอะไรเราได้ค่ะ
+            </div>
+
+            <div class="callout callout-tip">
+              💡 <strong>ลองกลับไปเล่นกราฟด้านบน!</strong> ปรับ β₀ และ β₁ แล้วดูว่า R² เปลี่ยนไหม — ค่า R² จะสูงเมื่อเส้นตรง "ใกล้" จุดข้อมูลมากที่สุดค่ะ
+            </div>
+          </div>
+
+          <!-- Quiz Module 5 -->
+          <div class="quiz-box" id="quiz-5">
+            <div class="quiz-question">
+              <span class="q-icon">🧪</span>
+              <span>ในสมการ ยอดขาย = 100 + 50(อุณหภูมิ) + ε ถ้าอุณหภูมิเพิ่มขึ้น 1 องศา ยอดขายจะเปลี่ยนไปอย่างไร?</span>
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="selectOption(5, this, 0)">
+                <span class="option-marker">ก</span>
+                <span>เพิ่มขึ้น 100 หน่วย</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(5, this, 1)">
+                <span class="option-marker">ข</span>
+                <span>เพิ่มขึ้น 50 หน่วยโดยเฉลี่ย</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(5, this, 2)">
+                <span class="option-marker">ค</span>
+                <span>เพิ่มขึ้น 150 หน่วย</span>
+              </div>
+            </div>
+            <div class="quiz-feedback correct-fb" id="quiz-5-correct">
+              ✅ เยี่ยมค่ะ! β₁ = 50 หมายความว่าอุณหภูมิเพิ่ม 1 องศา → ยอดขายเพิ่มขึ้นเฉลี่ย 50 หน่วย ส่วน 100 เป็นแค่จุดเริ่มต้น (β₀) ค่ะ
+            </div>
+            <div class="quiz-feedback wrong-fb" id="quiz-5-wrong">
+              ❌ ลองดูดีๆ นะคะ ค่า β₁ คือตัวเลขที่ "คูณ" กับ X ในที่นี้คือ 50 มันบอกว่า X เพิ่ม 1 → Y เพิ่มเท่าไหร่ค่ะ
+            </div>
+            <button class="quiz-btn" onclick="checkQuiz(5, 1)" id="btn-quiz-5">ตรวจคำตอบ</button>
+          </div>
+
+          <button class="module-complete-btn" onclick="completeModule(5)" id="complete-5">✅ เข้าใจแล้ว ไปบทต่อไป!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Module 6 ===== -->
+    <div class="module-card" data-module="6">
+      <div class="module-header" onclick="toggleModule(6)">
+        <div class="module-icon blue">🗺️</div>
+        <div class="module-info">
+          <h3>บทที่ 6 : เตรียมพร้อมเข้าเรียนเศรษฐมิติ</h3>
+          <p class="module-desc">สรุปสิ่งที่เรียนมา + แผนที่ของวิชา</p>
+        </div>
+        <span class="module-badge badge-todo" id="badge-6">ยังไม่ได้เรียน</span>
+        <div class="module-toggle">▼</div>
+      </div>
+      <div class="module-content">
+        <div class="module-body">
+
+          <div class="lesson-section">
+            <h4>🎯 สรุปสิ่งที่เรียนมาทั้งหมด</h4>
+            <div class="callout callout-success">
+              ✅ เศรษฐมิติ = ใช้ข้อมูลจริงพิสูจน์ทฤษฎีเศรษฐศาสตร์<br>
+              ✅ สมการเส้นตรง Y = a + bX — พื้นฐานสำคัญ<br>
+              ✅ ตัวแปรตาม (Y) คือสิ่งที่อยากอธิบาย, ตัวแปรต้น (X) คือตัวที่ใช้อธิบาย<br>
+              ✅ Correlation ≠ Causation — สัมพันธ์กันไม่ได้แปลว่าเป็นสาเหตุ<br>
+              ✅ Regression = ลากเส้นให้พอดีกับข้อมูลมากที่สุด<br>
+              ✅ β₁ = ตัวเลขที่ตอบคำถามงานวิจัย<br>
+              ✅ R² = โมเดลอธิบายข้อมูลได้ดีแค่ไหน (0 ถึง 1)
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>🗺️ แผนที่ของวิชาเศรษฐมิติ</h4>
+            <p>หัวข้อที่จะเจอเมื่อเข้าเรียนจริงค่ะ (ตอนนี้ไม่ต้องเข้าใจ แค่รู้ว่ามีอะไรรออยู่):</p>
+
+            <div class="visual-diagram" style="text-align:left;">
+              <div style="display:flex; flex-direction:column; gap:10px; font-size:0.88em;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="diagram-box" style="background:var(--green-soft); color:var(--green); min-width:40px; text-align:center;">1</div>
+                  <span><strong>OLS</strong> — วิธีคำนวณหาเส้น regression ที่ดีที่สุด</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="diagram-box" style="background:var(--green-soft); color:var(--green); min-width:40px; text-align:center;">2</div>
+                  <span><strong>Hypothesis Testing</strong> — ทดสอบว่า β₁ "จริงๆ" ≠ 0 ไหม</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="diagram-box" style="background:var(--secondary-soft); color:var(--secondary); min-width:40px; text-align:center;">3</div>
+                  <span><strong>Multiple Regression</strong> — ใส่ตัวแปร X หลายตัว</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="diagram-box" style="background:var(--secondary-soft); color:var(--secondary); min-width:40px; text-align:center;">4</div>
+                  <span><strong>ปัญหาที่ต้องระวัง</strong> — Multicollinearity, Heteroscedasticity ฯลฯ</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="diagram-box" style="background:var(--primary-soft); color:var(--primary); min-width:40px; text-align:center;">5</div>
+                  <span><strong>หัวข้อขั้นสูง</strong> — Time Series, Panel Data, IV ฯลฯ</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-tip">
+              💡 <strong>อย่ากังวล!</strong> คำศัพท์อาจดูน่ากลัว แต่ทั้งหมดสร้างจากพื้นฐานที่เราเพิ่งเรียนมาค่ะ ถ้าเข้าใจ 6 บทเรียนนี้ ก็พร้อมเข้าเรียนจริงแล้ว!
+            </div>
+          </div>
+
+          <div class="lesson-section">
+            <h4>💪 ข้อแนะนำก่อนเข้าเรียนจริง</h4>
+            <div class="callout callout-info">
+              <strong>1. ฝึกแทนค่าสมการบ่อยๆ</strong> — ทำจนเป็นอัตโนมัติ<br><br>
+              <strong>2. จำ Correlation ≠ Causation</strong> — ทุกครั้งที่อ่านข่าว ลองถามตัวเองว่า "จริงเหรอ? หรือมีตัวแปรซ่อนอยู่?"<br><br>
+              <strong>3. อย่ากลัวสัญลักษณ์</strong> — β, ε, Σ ล้วนเป็นแค่ "ชื่อเล่น" ของตัวเลขค่ะ<br><br>
+              <strong>4. เน้น "ทำไม" ก่อน "ยังไง"</strong> — เข้าใจว่าทำไปทำไมก่อน แล้วสูตรจะจำง่ายขึ้นเอง
+            </div>
+          </div>
+
+          <!-- Quiz Module 6 -->
+          <div class="quiz-box" id="quiz-6">
+            <div class="quiz-question">
+              <span class="q-icon">🧪</span>
+              <span>ข้อใดเป็นสิ่งที่เศรษฐมิติ "ไม่สามารถ" ทำได้?</span>
+            </div>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="selectOption(6, this, 0)">
+                <span class="option-marker">ก</span>
+                <span>วัดผลกระทบของนโยบายรัฐบาล</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(6, this, 1)">
+                <span class="option-marker">ข</span>
+                <span>พิสูจน์ความสัมพันธ์เชิงสาเหตุได้ 100% ทุกกรณี</span>
+              </div>
+              <div class="quiz-option" onclick="selectOption(6, this, 2)">
+                <span class="option-marker">ค</span>
+                <span>ทดสอบว่าทฤษฎีเศรษฐศาสตร์สอดคล้องกับข้อมูลจริงไหม</span>
+              </div>
+            </div>
+            <div class="quiz-feedback correct-fb" id="quiz-6-correct">
+              ✅ ยอดเยี่ยมค่ะ! เศรษฐมิติเป็นเครื่องมือที่ทรงพลัง แต่ก็มีข้อจำกัด การพิสูจน์ "เชิงสาเหตุ" ต้องใช้การออกแบบงานวิจัยที่ดี ไม่ใช่แค่กดปุ่มรันโปรแกรมค่ะ 🎓
+            </div>
+            <div class="quiz-feedback wrong-fb" id="quiz-6-wrong">
+              ❌ ลองคิดเรื่อง "Correlation ≠ Causation" ที่เราเรียนในบทที่ 4 ค่ะ เศรษฐมิติมีข้อจำกัดในเรื่องไหน?
+            </div>
+            <button class="quiz-btn" onclick="checkQuiz(6, 1)" id="btn-quiz-6">ตรวจคำตอบ</button>
+          </div>
+
+          <button class="module-complete-btn" onclick="completeModule(6)" id="complete-6">🎓 เรียนจบแล้ว! ยินดีด้วยค่ะ!</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end module-list -->
+
+  <!-- Completion message (hidden initially) -->
+  <div id="completion-msg" style="display:none; animation: fadeIn 1s ease;">
+
+    <div style="text-align:center; padding:40px 20px;">
+      <span style="font-size:64px; display:block; margin-bottom:16px;">🎉</span>
+      <h2 style="font-family:'DM Serif Display',serif; color:var(--primary); font-size:1.6em; margin-bottom:8px;">ยินดีด้วยค่ะ!</h2>
+      <p style="color:var(--text-light); font-size:0.95em; max-width:400px; margin:0 auto;">คุณเรียนจบทั้ง 6 บทเรียนแล้ว! ตอนนี้คุณมีพื้นฐานเพียงพอที่จะเข้าเรียนวิชาเศรษฐมิติอย่างมั่นใจค่ะ 💪</p>
+      <div style="margin-top:20px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button class="completion-action-btn primary-action" onclick="window.open('cheatsheet.html','_blank')">📄 ดูสรุป 1 หน้า (พิมพ์ได้)</button>
+        <button class="completion-action-btn secondary-action" onclick="resetAll()">🔄 เริ่มเรียนใหม่</button>
+      </div>
+    </div>
+
+    <!-- Glossary as BONUS -->
+    <div class="glossary-card" id="glossary-card" style="margin-top:28px;">
+      <div class="glossary-header" onclick="document.getElementById('glossary-card').classList.toggle('open')">
+        <span style="font-size:22px;">🎁</span>
+        <h3>Bonus! คำศัพท์ไทย-อังกฤษ เก็บไว้ใช้ตอนเรียนจริง</h3>
+        <span class="glossary-toggle">▼</span>
+      </div>
+      <div class="glossary-content">
+        <div class="glossary-body">
+          <input type="text" class="glossary-search" id="glossary-search" placeholder="🔍 พิมพ์ค้นหาคำศัพท์..." oninput="filterGlossary()">
+          <div class="glossary-grid" id="glossary-grid">
+            <div class="glossary-item"><span class="glossary-en">Econometrics</span><span class="glossary-th">เศรษฐมิติ — การใช้สถิติวิเคราะห์ข้อมูลเศรษฐกิจ</span></div>
+            <div class="glossary-item"><span class="glossary-en">Dependent Variable (Y)</span><span class="glossary-th">ตัวแปรตาม — สิ่งที่เราต้องการอธิบาย</span></div>
+            <div class="glossary-item"><span class="glossary-en">Independent Variable (X)</span><span class="glossary-th">ตัวแปรต้น / ตัวแปรอิสระ — สิ่งที่ใช้อธิบาย Y</span></div>
+            <div class="glossary-item"><span class="glossary-en">Regression</span><span class="glossary-th">การถดถอย — วิธีหาความสัมพันธ์ระหว่าง X กับ Y</span></div>
+            <div class="glossary-item"><span class="glossary-en">Linear Regression</span><span class="glossary-th">การถดถอยเชิงเส้น — regression ที่ใช้เส้นตรง</span></div>
+            <div class="glossary-item"><span class="glossary-en">Coefficient (β)</span><span class="glossary-th">สัมประสิทธิ์ — ตัวเลขที่บอกผลกระทบของ X ต่อ Y</span></div>
+            <div class="glossary-item"><span class="glossary-en">Intercept (β₀)</span><span class="glossary-th">ค่าคงที่ / จุดตัดแกน Y — ค่า Y เมื่อ X = 0</span></div>
+            <div class="glossary-item"><span class="glossary-en">Slope (β₁)</span><span class="glossary-th">ความชัน — X เพิ่ม 1 หน่วย → Y เปลี่ยนเท่าไหร่</span></div>
+            <div class="glossary-item"><span class="glossary-en">Error Term (ε)</span><span class="glossary-th">ค่าความคลาดเคลื่อน — ส่วนที่โมเดลอธิบายไม่ได้</span></div>
+            <div class="glossary-item"><span class="glossary-en">R-squared (R²)</span><span class="glossary-th">อาร์กำลังสอง — โมเดลอธิบายข้อมูลได้กี่ % (0–1)</span></div>
+            <div class="glossary-item"><span class="glossary-en">Correlation</span><span class="glossary-th">สหสัมพันธ์ — ตัวแปรสองตัวเคลื่อนไหวไปด้วยกันแค่ไหน</span></div>
+            <div class="glossary-item"><span class="glossary-en">Causation</span><span class="glossary-th">ความเป็นเหตุเป็นผล — X เป็นสาเหตุจริงๆ ของ Y</span></div>
+            <div class="glossary-item"><span class="glossary-en">Confounding Variable</span><span class="glossary-th">ตัวแปรกวน / ตัวแปรซ่อน — ตัวแปรที่มีผลต่อทั้ง X และ Y</span></div>
+            <div class="glossary-item"><span class="glossary-en">Mean (X̄)</span><span class="glossary-th">ค่าเฉลี่ย — ผลรวม ÷ จำนวนข้อมูล</span></div>
+            <div class="glossary-item"><span class="glossary-en">OLS</span><span class="glossary-th">Ordinary Least Squares — วิธีหาเส้น regression ที่ดีที่สุด</span></div>
+            <div class="glossary-item"><span class="glossary-en">Hypothesis Testing</span><span class="glossary-th">การทดสอบสมมติฐาน — ทดสอบว่า β มีนัยสำคัญไหม</span></div>
+            <div class="glossary-item"><span class="glossary-en">Statistical Significance</span><span class="glossary-th">นัยสำคัญทางสถิติ — ผลที่ได้ไม่น่าจะเกิดจากโชค</span></div>
+            <div class="glossary-item"><span class="glossary-en">p-value</span><span class="glossary-th">ค่าพี — ยิ่งเล็ก ยิ่งมั่นใจว่าผลไม่ได้เกิดจากโชค</span></div>
+            <div class="glossary-item"><span class="glossary-en">Standard Error</span><span class="glossary-th">ค่าคลาดเคลื่อนมาตรฐาน — บอกว่า β ที่คำนวณได้แม่นแค่ไหน</span></div>
+            <div class="glossary-item"><span class="glossary-en">Sample / Population</span><span class="glossary-th">ตัวอย่าง / ประชากร — ข้อมูลบางส่วน vs ข้อมูลทั้งหมด</span></div>
+            <div class="glossary-item"><span class="glossary-en">Multicollinearity</span><span class="glossary-th">ภาวะร่วมเส้นตรงพหุ — ตัวแปร X หลายตัวสัมพันธ์กันเอง</span></div>
+            <div class="glossary-item"><span class="glossary-en">Heteroscedasticity</span><span class="glossary-th">ความแปรปรวนไม่คงที่ — error กระจายไม่สม่ำเสมอ</span></div>
+            <div class="glossary-item"><span class="glossary-en">Endogeneity</span><span class="glossary-th">ปัญหาภายใน — X มีความสัมพันธ์กับ error ทำให้ β ผิดเพี้ยน</span></div>
+            <div class="glossary-item"><span class="glossary-en">Residual</span><span class="glossary-th">ค่าเศษเหลือ — ค่าจริง - ค่าทำนาย (ตัว ε ที่คำนวณได้)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    สร้างด้วย 🧡 โดย <a href="https://facebook.com/ajarnkwan" target="_blank">Ajarn Kwan</a> &nbsp;|&nbsp; <a href="cheatsheet.html" target="_blank">📄 สรุป 1 หน้า</a>
+  </div>
+
+</div>
+
+<script>
+// State
+let completed = JSON.parse(localStorage.getItem('ecm-completed') || '[]');
+let quizChecked = {}; // track which quizzes have been checked
+let selectedOptions = {};
+
+function init() {
+  // Disable all complete buttons by default (must do quiz first)
+  for (let m = 1; m <= 6; m++) {
+    const btn = document.getElementById('complete-' + m);
+    if (btn && !completed.includes(m)) {
+      btn.disabled = true;
+      btn.style.opacity = '0.4';
+    }
+  }
+  updateProgress();
+  completed.forEach(m => {
+    const badge = document.getElementById('badge-' + m);
+    if (badge) { badge.textContent = 'เรียนจบแล้ว'; badge.className = 'module-badge badge-done'; }
+    const btn = document.getElementById('complete-' + m);
+    if (btn) { btn.disabled = true; btn.textContent = '✅ เรียนจบแล้ว'; btn.style.opacity = '0.5'; }
+    quizChecked[m] = true;
+  });
+  if (completed.length === 6) {
+    document.getElementById('completion-msg').style.display = 'block';
+  }
+}
+
+function toggleModule(n) {
+  const card = document.querySelector(`.module-card[data-module="${n}"]`);
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.module-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) {
+    card.classList.add('open');
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+}
+
+function selectOption(quizId, el, optIdx) {
+  const box = document.getElementById('quiz-' + quizId);
+  if (box.classList.contains('correct') || box.classList.contains('wrong')) return;
+  box.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedOptions[quizId] = optIdx;
+  document.getElementById('btn-quiz-' + quizId).disabled = false;
+}
+
+function checkQuiz(quizId, correctIdx) {
+  const box = document.getElementById('quiz-' + quizId);
+  if (box.classList.contains('correct') || box.classList.contains('wrong')) return;
+  const sel = selectedOptions[quizId];
+  if (sel === undefined) return;
+
+  const options = box.querySelectorAll('.quiz-option');
+  if (sel === correctIdx) {
+    box.classList.add('correct');
+    options[sel].classList.add('correct-answer');
+    document.getElementById('quiz-' + quizId + '-correct').classList.add('show');
+  } else {
+    box.classList.add('wrong');
+    options[sel].classList.add('wrong-answer');
+    options[correctIdx].classList.add('correct-answer');
+    document.getElementById('quiz-' + quizId + '-wrong').classList.add('show');
+  }
+  document.getElementById('btn-quiz-' + quizId).disabled = true;
+
+  // ✅ Unlock the complete button after quiz is checked (correct OR wrong)
+  quizChecked[quizId] = true;
+  const completeBtn = document.getElementById('complete-' + quizId);
+  if (completeBtn && !completed.includes(quizId)) {
+    completeBtn.disabled = false;
+    completeBtn.style.opacity = '1';
+    // Brief highlight animation
+    completeBtn.style.animation = 'fadeIn 0.5s ease';
+  }
+}
+
+function completeModule(n) {
+  if (!quizChecked[n]) return; // safety check
+  if (!completed.includes(n)) {
+    completed.push(n);
+    localStorage.setItem('ecm-completed', JSON.stringify(completed));
+  }
+  const badge = document.getElementById('badge-' + n);
+  badge.textContent = 'เรียนจบแล้ว';
+  badge.className = 'module-badge badge-done';
+  const btn = document.getElementById('complete-' + n);
+  btn.disabled = true; btn.textContent = '✅ เรียนจบแล้ว'; btn.style.opacity = '0.5';
+
+  updateProgress();
+
+  if (completed.length === 6) {
+    document.getElementById('completion-msg').style.display = 'block';
+    setTimeout(() => document.getElementById('completion-msg').scrollIntoView({ behavior: 'smooth' }), 300);
+  } else {
+    const card = document.querySelector(`.module-card[data-module="${n}"]`);
+    card.classList.remove('open');
+    const next = n + 1;
+    if (next <= 6) setTimeout(() => toggleModule(next), 300);
+  }
+}
+
+function updateProgress() {
+  const pct = (completed.length / 6) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = completed.length + ' / 6 บทเรียน';
+}
+
+function resetAll() {
+  completed = [];
+  quizChecked = {};
+  localStorage.removeItem('ecm-completed');
+  selectedOptions = {};
+  document.querySelectorAll('.module-badge').forEach(b => { b.textContent = 'ยังไม่ได้เรียน'; b.className = 'module-badge badge-todo'; });
+  // Reset complete buttons: re-disable and restore text
+  for (let m = 1; m <= 6; m++) {
+    const btn = document.getElementById('complete-' + m);
+    if (btn) {
+      btn.disabled = true;
+      btn.style.opacity = '0.4';
+      btn.style.animation = '';
+      btn.textContent = m === 6 ? '🎓 เรียนจบแล้ว! ยินดีด้วยค่ะ!' : '✅ เข้าใจแล้ว ไปบทต่อไป!';
+    }
+  }
+  document.querySelectorAll('.quiz-box').forEach(q => { q.classList.remove('correct','wrong'); });
+  document.querySelectorAll('.quiz-option').forEach(o => { o.classList.remove('selected','correct-answer','wrong-answer'); });
+  document.querySelectorAll('.quiz-feedback').forEach(f => { f.classList.remove('show'); });
+  document.querySelectorAll('.quiz-btn').forEach(b => { b.disabled = false; });
+  document.getElementById('completion-msg').style.display = 'none';
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateScoop() {
+  const v = document.getElementById('scoop-slider').value;
+  const price = 10 + 30 * v;
+  document.getElementById('scoop-result').innerHTML =
+    v + ' สกูป → ราคา = 10 + 30(' + v + ') = <strong>' + price + ' บาท</strong>';
+}
+
+// ===== Interactive Regression Chart =====
+const regData = [
+  {x:2, y:16}, {x:3, y:18}, {x:4, y:22}, {x:5, y:21},
+  {x:6, y:28}, {x:7, y:25}, {x:8, y:32}, {x:9, y:35},
+  {x:10, y:30}, {x:11, y:38}, {x:12, y:40}, {x:13, y:36},
+  {x:14, y:42}, {x:15, y:48}, {x:16, y:44}
+];
+
+function updateRegChart() {
+  const canvas = document.getElementById('regCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const b0 = parseFloat(document.getElementById('b0-slider').value);
+  const b1 = parseFloat(document.getElementById('b1-slider').value);
+
+  document.getElementById('b0-val').textContent = b0;
+  document.getElementById('b1-val').textContent = b1;
+
+  // Padding
+  const pad = {top:20, right:20, bottom:44, left:50};
+  const cw = W - pad.left - pad.right;
+  const ch = H - pad.top - pad.bottom;
+
+  // Scale
+  const xMin = 0, xMax = 18, yMin = 0, yMax = 60;
+  const sx = x => pad.left + (x - xMin) / (xMax - xMin) * cw;
+  const sy = y => pad.top + ch - (y - yMin) / (yMax - yMin) * ch;
+
+  // Clear
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  ctx.fillStyle = '#FAFAFA';
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = '#F0E0D6';
+  ctx.lineWidth = 1;
+  for (let y = 0; y <= 60; y += 10) {
+    ctx.beginPath(); ctx.moveTo(sx(xMin), sy(y)); ctx.lineTo(sx(xMax), sy(y)); ctx.stroke();
+  }
+  for (let x = 0; x <= 18; x += 2) {
+    ctx.beginPath(); ctx.moveTo(sx(x), sy(yMin)); ctx.lineTo(sx(x), sy(yMax)); ctx.stroke();
+  }
+
+  // Axes
+  ctx.strokeStyle = '#B8A8A8';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(sx(xMin), sy(yMin)); ctx.lineTo(sx(xMax), sy(yMin)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(sx(xMin), sy(yMin)); ctx.lineTo(sx(xMin), sy(yMax)); ctx.stroke();
+
+  // Axis labels
+  ctx.fillStyle = '#8A7575';
+  ctx.font = '11px "Noto Sans Thai", sans-serif';
+  ctx.textAlign = 'center';
+  for (let x = 0; x <= 18; x += 2) {
+    ctx.fillText(x, sx(x), sy(yMin) + 16);
+  }
+  ctx.textAlign = 'right';
+  for (let y = 0; y <= 60; y += 10) {
+    ctx.fillText(y, sx(xMin) - 8, sy(y) + 4);
+  }
+
+  // Axis titles
+  ctx.fillStyle = '#8A7575';
+  ctx.font = '12px "Noto Sans Thai", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('ปีที่เรียน (X)', sx(9), H - 4);
+  ctx.save();
+  ctx.translate(14, sy(30));
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('เงินเดือน (Y) หมื่นบาท', 0, 0);
+  ctx.restore();
+
+  // Error lines (red dashed)
+  ctx.strokeStyle = 'rgba(232, 93, 93, 0.4)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 3]);
+  regData.forEach(d => {
+    const yPred = b0 + b1 * d.x;
+    ctx.beginPath();
+    ctx.moveTo(sx(d.x), sy(d.y));
+    ctx.lineTo(sx(d.x), sy(yPred));
+    ctx.stroke();
+  });
+  ctx.setLineDash([]);
+
+  // Regression line
+  ctx.strokeStyle = '#4A90B8';
+  ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  const lx1 = xMin, lx2 = xMax;
+  ctx.moveTo(sx(lx1), sy(b0 + b1 * lx1));
+  ctx.lineTo(sx(lx2), sy(b0 + b1 * lx2));
+  ctx.stroke();
+
+  // Data points
+  regData.forEach(d => {
+    ctx.beginPath();
+    ctx.arc(sx(d.x), sy(d.y), 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#E8734A';
+    ctx.fill();
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  });
+
+  // Compute R²
+  const yMean = regData.reduce((s, d) => s + d.y, 0) / regData.length;
+  const ssTot = regData.reduce((s, d) => s + (d.y - yMean) ** 2, 0);
+  const ssRes = regData.reduce((s, d) => s + (d.y - (b0 + b1 * d.x)) ** 2, 0);
+  const r2 = Math.max(0, 1 - ssRes / ssTot);
+
+  // Update displays
+  const sign = b1 >= 0 ? '+' : '';
+  document.getElementById('reg-eq').textContent = 'Y = ' + b0 + ' ' + sign + ' ' + b1 + 'X';
+  document.getElementById('reg-r2').textContent = r2.toFixed(3);
+}
+
+// ===== Glossary Filter =====
+function filterGlossary() {
+  const q = document.getElementById('glossary-search').value.toLowerCase();
+  const items = document.querySelectorAll('.glossary-item');
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = text.includes(q) ? '' : 'none';
+  });
+}
+
+// Init chart on load
+setTimeout(updateRegChart, 100);
+
+// ===== Pre-test =====
+const pretestAnswers = {1: 11, 2: 20, 3: 25};
+let pretestSelected = {};
+let pretestDone = false;
+
+function selectPretest(qNum, el, val) {
+  if (pretestDone) return;
+  const q = document.getElementById('pt-q' + qNum);
+  q.querySelectorAll('.pretest-opt').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  pretestSelected[qNum] = val;
+  // Enable check button if all answered
+  if (Object.keys(pretestSelected).length === 3) {
+    document.getElementById('pretest-check').disabled = false;
+  }
+}
+
+function checkPretest() {
+  if (pretestDone) return;
+  pretestDone = true;
+  let score = 0;
+  for (let q = 1; q <= 3; q++) {
+    const el = document.getElementById('pt-q' + q);
+    const correct = pretestAnswers[q];
+    const chosen = pretestSelected[q];
+    el.querySelectorAll('.pretest-opt').forEach(b => {
+      b.disabled = true;
+      const bVal = parseInt(b.textContent);
+      if (bVal === correct) b.classList.add('correct-opt');
+      if (bVal === chosen && chosen !== correct) b.classList.add('wrong-opt');
+    });
+    if (chosen === correct) {
+      el.classList.add('answered-correct');
+      score++;
+    } else {
+      el.classList.add('answered-wrong');
+    }
+  }
+  document.getElementById('pretest-check').disabled = true;
+  if (score === 3) {
+    document.getElementById('pretest-pass').classList.add('show');
+    document.getElementById('pretest-wrapper').classList.add('passed');
+  } else {
+    document.getElementById('pretest-partial').classList.add('show');
+  }
+}
+
+init();
+</script>
+
+</body>
+</html>

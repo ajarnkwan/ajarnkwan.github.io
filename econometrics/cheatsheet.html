@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>สรุปปูพื้นฐานเศรษฐมิติ 1 หน้า | Ajarn Kwan</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4;
+    margin: 10mm 12mm;
+  }
+
+  :root {
+    --primary: #E8734A;
+    --secondary: #4A90B8;
+    --green: #5BAD7A;
+    --accent: #F5C842;
+    --text: #2D2222;
+    --text-light: #6B5A5A;
+    --bg-warm: #FFF8F0;
+    --bg-blue: #EDF5FB;
+    --bg-green: #EDF8F1;
+    --bg-yellow: #FFFAEB;
+    --bg-orange: #FDF0EB;
+    --border: #E8D8CE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: var(--text);
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 8mm 10mm 6mm;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2.5px solid var(--primary);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-left .emoji { font-size: 30px; }
+  .header-left h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--primary);
+    letter-spacing: -0.3px;
+  }
+  .header-right {
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: right;
+    line-height: 1.5;
+  }
+  .header-right strong { color: var(--primary); }
+
+  /* ===== Grid Layout ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    flex: 1;
+    align-content: stretch;
+  }
+  .full-width { grid-column: 1 / -1; }
+
+  /* ===== Section Cards ===== */
+  .card {
+    border-radius: 8px;
+    padding: 10px 13px;
+    border: 1px solid var(--border);
+  }
+  .card-orange { background: var(--bg-orange); border-color: rgba(232,115,74,0.2); }
+  .card-blue { background: var(--bg-blue); border-color: rgba(74,144,184,0.2); }
+  .card-green { background: var(--bg-green); border-color: rgba(91,173,122,0.2); }
+  .card-yellow { background: var(--bg-yellow); border-color: rgba(245,200,66,0.3); }
+  .card-warm { background: var(--bg-warm); border-color: rgba(232,115,74,0.15); }
+
+  .card h2 {
+    font-size: 13.5px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text);
+  }
+  .card h2 .icon { font-size: 15px; }
+  .card-orange h2 { color: var(--primary); }
+  .card-blue h2 { color: var(--secondary); }
+  .card-green h2 { color: var(--green); }
+  .card-yellow h2 { color: #9E7E00; }
+
+  .card p, .card li {
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  /* ===== Formula boxes ===== */
+  .formula {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 10px;
+    text-align: center;
+    margin: 5px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--secondary);
+    letter-spacing: 0.3px;
+  }
+  .formula .sub {
+    display: block;
+    font-size: 9.5px;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-top: 2px;
+    letter-spacing: 0;
+  }
+
+  /* ===== Key-value items ===== */
+  .kv { margin: 3px 0; }
+  .kv-row {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    font-size: 11px;
+    line-height: 1.6;
+    padding: 2px 0;
+  }
+  .kv-key {
+    font-weight: 600;
+    color: var(--secondary);
+    min-width: 24px;
+    flex-shrink: 0;
+  }
+  .kv-val { color: var(--text); }
+  .kv-sep {
+    color: var(--text-light);
+    margin: 0 1px;
+  }
+
+  /* ===== Vocab table ===== */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .vocab-item {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    padding: 2.5px 0;
+    font-size: 9.5px;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .vocab-item:nth-last-child(-n+2) { border-bottom: none; }
+  .vocab-en {
+    font-weight: 600;
+    color: var(--secondary);
+    min-width: 90px;
+    flex-shrink: 0;
+    font-size: 9px;
+  }
+  .vocab-th { color: var(--text); }
+
+  /* ===== Highlight ===== */
+  .hl { 
+    background: rgba(245,200,66,0.25);
+    padding: 0 3px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  /* ===== Diagram flow ===== */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin: 7px 0;
+    flex-wrap: wrap;
+  }
+  .flow-box {
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .flow-arrow { color: var(--text-light); font-size: 13px; }
+
+  /* ===== Warning/tip box ===== */
+  .tip {
+    background: white;
+    border-left: 2.5px solid var(--accent);
+    padding: 6px 10px;
+    margin: 5px 0;
+    font-size: 10.5px;
+    line-height: 1.55;
+    border-radius: 0 5px 5px 0;
+  }
+
+  /* ===== R² bar ===== */
+  .r2-mini-bar {
+    height: 12px;
+    background: #EEE;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 4px 0;
+  }
+  .r2-mini-fill {
+    height: 100%;
+    width: 75%;
+    background: linear-gradient(90deg, var(--secondary), var(--green));
+    border-radius: 6px;
+  }
+  .r2-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 7.5px;
+    color: var(--text-light);
+  }
+
+  /* ===== Footer ===== */
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5px;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    padding-top: 6px;
+    margin-top: 10px;
+  }
+  .page-footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ===== Print button (hide when printing) ===== */
+  .print-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 100;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .print-bar button {
+    padding: 8px 24px;
+    background: white;
+    color: var(--primary);
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .print-bar button:hover { transform: scale(1.05); }
+
+  @media print {
+    .print-bar { display: none !important; }
+    body { background: white; }
+    .page {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: auto;
+      max-height: none;
+    }
+  }
+
+  @media screen {
+    body {
+      background: #E8E0D8;
+      padding: 50px 10px 30px;
+    }
+    .page {
+      background: white;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.12);
+      border-radius: 4px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <span>📄 สรุปปูพื้นฐานเศรษฐมิติ 1 หน้า</span>
+  <button onclick="window.print()">🖨️ พิมพ์ / Save PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <span class="emoji">🌱</span>
+      <h1>สรุปปูพื้นฐานเศรษฐมิติ</h1>
+    </div>
+    <div class="header-right">
+      <strong>Ajarn Kwan</strong><br>
+      facebook.com/ajarnkwan
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="grid">
+
+    <!-- 1. เศรษฐมิติคืออะไร -->
+    <div class="card card-orange">
+      <h2><span class="icon">🤔</span> เศรษฐมิติคืออะไร?</h2>
+      <p>ใช้ <span class="hl">ข้อมูลจริง</span> ทดสอบว่าทฤษฎีเศรษฐศาสตร์จริงไหม ไม่ใช่แค่เดา</p>
+      <div class="flow">
+        <span class="flow-box" style="background:var(--bg-orange); color:var(--primary);">ทฤษฎีเศรษฐศาสตร์</span>
+        <span class="flow-arrow">+</span>
+        <span class="flow-box" style="background:var(--bg-blue); color:var(--secondary);">คณิต + สถิติ</span>
+        <span class="flow-arrow">+</span>
+        <span class="flow-box" style="background:var(--bg-green); color:var(--green);">ข้อมูลจริง</span>
+        <span class="flow-arrow">=</span>
+        <span class="flow-box" style="background:var(--bg-yellow); color:#9E7E00;">เศรษฐมิติ ✨</span>
+      </div>
+    </div>
+
+    <!-- 2. สมการพื้นฐาน -->
+    <div class="card card-blue">
+      <h2><span class="icon">📐</span> สมการพื้นฐาน</h2>
+      <div class="formula">
+        Y = a + bX
+        <span class="sub">Y = สิ่งที่อยากรู้ &nbsp;|&nbsp; X = สิ่งที่มีผล &nbsp;|&nbsp; a = จุดเริ่มต้น &nbsp;|&nbsp; b = อัตราการเปลี่ยน</span>
+      </div>
+      <div class="tip">
+        💡 <strong>b</strong> คือตัวสำคัญ: "ถ้า X เพิ่ม 1 → Y เปลี่ยนเท่าไหร่"<br>
+        เช่น ไอศกรีม: ราคา = 10 + 30(สกูป) → สกูปละ 30 บาท
+      </div>
+    </div>
+
+    <!-- 3. ตัวแปร -->
+    <div class="card card-green">
+      <h2><span class="icon">🏷️</span> ตัวแปรตาม vs ตัวแปรต้น</h2>
+      <div class="kv">
+        <div class="kv-row">
+          <span class="kv-key" style="color:var(--green);">Y</span>
+          <span class="kv-sep">=</span>
+          <span class="kv-val"><strong>ตัวแปรตาม</strong> (Dependent) — สิ่งที่อยากอธิบาย</span>
+        </div>
+        <div class="kv-row">
+          <span class="kv-key" style="color:var(--secondary);">X</span>
+          <span class="kv-sep">=</span>
+          <span class="kv-val"><strong>ตัวแปรต้น</strong> (Independent) — สิ่งที่ใช้อธิบาย</span>
+        </div>
+      </div>
+      <div class="tip">
+        💡 ตัวแปร<strong>ตาม</strong> "ตาม" ตัวอื่น เช่น ยอดขาย<strong>ตาม</strong>อุณหภูมิ
+      </div>
+    </div>
+
+    <!-- 4. Correlation ≠ Causation -->
+    <div class="card card-yellow">
+      <h2><span class="icon">⚠️</span> Correlation ≠ Causation</h2>
+      <p><span class="hl">"สัมพันธ์กัน" ≠ "เป็นสาเหตุ"</span></p>
+      <p style="margin-top:2px; font-size:10.5px;">ยอดขายไอศกรีม ↑ พร้อมกับ คนจมน้ำ ↑ → ไม่ใช่ไอศกรีมทำให้จมน้ำ! แต่เพราะ "อากาศร้อน" (ตัวแปรซ่อน)</p>
+      <div class="kv" style="margin-top:3px;">
+        <div class="kv-row">
+          <span class="kv-key">r</span>
+          <span class="kv-sep">=</span>
+          <span class="kv-val">ค่าสหสัมพันธ์: <strong style="color:var(--green);">+1</strong> ไปด้วยกัน | <strong>0</strong> ไม่เกี่ยว | <strong style="color:#E85D5D;">−1</strong> สวนทาง</span>
+        </div>
+      </div>
+      <p style="font-size:9.5px; color:var(--text-light); margin-top:3px;">ระวัง Confounding Variable = ตัวแปรซ่อนที่มีผลต่อทั้ง X และ Y</p>
+    </div>
+
+    <!-- 5. Regression — FULL WIDTH -->
+    <div class="card card-orange full-width">
+      <h2><span class="icon">📉</span> Regression (การถดถอยเชิงเส้น) — หัวใจของเศรษฐมิติ</h2>
+      <div style="display:flex; gap:8px; align-items:flex-start;">
+        <div style="flex:1;">
+          <div class="formula" style="margin-top:2px;">
+            Y = β₀ + β₁X + ε
+            <span class="sub">β₀ = จุดตัดแกน Y (Intercept) &nbsp;|&nbsp; β₁ = ความชัน (Slope) &nbsp;|&nbsp; ε = Error</span>
+          </div>
+          <div class="kv" style="margin-top:3px;">
+            <div class="kv-row">
+              <span class="kv-key">β₁</span>
+              <span class="kv-sep">=</span>
+              <span class="kv-val"><span class="hl">ตัวที่สำคัญที่สุด!</span> "X เพิ่ม 1 หน่วย → Y เปลี่ยนเท่าไหร่ <em>โดยเฉลี่ย</em>"</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">ε</span>
+              <span class="kv-sep">=</span>
+              <span class="kv-val">สิ่งที่โมเดลอธิบายไม่ได้ (โชค, ความสามารถ, ปัจจัยอื่นๆ)</span>
+            </div>
+          </div>
+        </div>
+        <div style="flex:0.7;">
+          <p style="font-size:11px; font-weight:600; color:var(--secondary); margin-bottom:2px;">R² (R-squared) = อธิบายได้กี่ %</p>
+          <div class="r2-mini-bar"><div class="r2-mini-fill"></div></div>
+          <div class="r2-labels"><span>0 = ไม่ได้เลย</span><span style="color:var(--green); font-weight:600;">0.75</span><span>1 = สมบูรณ์</span></div>
+          <p style="font-size:10px; margin-top:4px;">R² = 0.75 → โมเดลอธิบายการเปลี่ยนแปลงของ Y ได้ 75%<br>R² สูง ≠ ดีเสมอไป (ระวัง overfitting)</p>
+        </div>
+      </div>
+      <div class="tip" style="margin-top:4px;">
+        💡 เช่น เงินเดือน = 15,000 + 3,000(ปีที่เรียน) → เรียนเพิ่ม 1 ปี เงินเดือนเพิ่มเฉลี่ย 3,000 บาท | คนเรียน 16 ปี (ป.ตรี): 15,000 + 3,000×16 = 63,000 บาท
+      </div>
+    </div>
+
+    <!-- 6. แผนที่วิชา -->
+    <div class="card card-blue" style="padding-bottom:5px;">
+      <h2><span class="icon">🗺️</span> แผนที่วิชา (จะเจอเมื่อเรียนจริง)</h2>
+      <div class="kv">
+        <div class="kv-row"><span class="kv-key" style="color:var(--green); min-width:14px;">1</span> <span class="kv-val"><strong>OLS</strong> — วิธีคำนวณหาเส้น regression ที่ดีที่สุด</span></div>
+        <div class="kv-row"><span class="kv-key" style="color:var(--green); min-width:14px;">2</span> <span class="kv-val"><strong>Hypothesis Testing</strong> — ทดสอบว่า β₁ จริงๆ ≠ 0 ไหม</span></div>
+        <div class="kv-row"><span class="kv-key" style="color:var(--secondary); min-width:14px;">3</span> <span class="kv-val"><strong>Multiple Regression</strong> — ใส่ตัวแปร X หลายตัว</span></div>
+        <div class="kv-row"><span class="kv-key" style="color:var(--secondary); min-width:14px;">4</span> <span class="kv-val"><strong>ปัญหาที่ต้องระวัง</strong> — Multicollinearity, Heteroscedasticity</span></div>
+        <div class="kv-row"><span class="kv-key" style="color:var(--primary); min-width:14px;">5</span> <span class="kv-val"><strong>หัวข้อขั้นสูง</strong> — Time Series, Panel Data, IV</span></div>
+      </div>
+    </div>
+
+    <!-- 7. คำศัพท์ -->
+    <div class="card card-warm" style="padding-bottom:5px;">
+      <h2><span class="icon">📖</span> คำศัพท์สำคัญ ไทย-อังกฤษ</h2>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-en">Econometrics</span><span class="vocab-th">เศรษฐมิติ</span></div>
+        <div class="vocab-item"><span class="vocab-en">Dependent Var</span><span class="vocab-th">ตัวแปรตาม (Y)</span></div>
+        <div class="vocab-item"><span class="vocab-en">Independent Var</span><span class="vocab-th">ตัวแปรต้น (X)</span></div>
+        <div class="vocab-item"><span class="vocab-en">Coefficient (β)</span><span class="vocab-th">สัมประสิทธิ์</span></div>
+        <div class="vocab-item"><span class="vocab-en">Intercept (β₀)</span><span class="vocab-th">จุดตัดแกน Y</span></div>
+        <div class="vocab-item"><span class="vocab-en">Slope (β₁)</span><span class="vocab-th">ความชัน</span></div>
+        <div class="vocab-item"><span class="vocab-en">Error Term (ε)</span><span class="vocab-th">ค่าคลาดเคลื่อน</span></div>
+        <div class="vocab-item"><span class="vocab-en">R-squared</span><span class="vocab-th">อธิบายได้กี่ %</span></div>
+        <div class="vocab-item"><span class="vocab-en">Correlation</span><span class="vocab-th">สหสัมพันธ์</span></div>
+        <div class="vocab-item"><span class="vocab-en">Causation</span><span class="vocab-th">เหตุ-ผล</span></div>
+        <div class="vocab-item"><span class="vocab-en">OLS</span><span class="vocab-th">วิธีหา regression</span></div>
+        <div class="vocab-item"><span class="vocab-en">Hypothesis Test</span><span class="vocab-th">ทดสอบสมมติฐาน</span></div>
+        <div class="vocab-item"><span class="vocab-en">p-value</span><span class="vocab-th">ยิ่งเล็ก ยิ่งมั่นใจ</span></div>
+        <div class="vocab-item"><span class="vocab-en">Standard Error</span><span class="vocab-th">β แม่นแค่ไหน</span></div>
+        <div class="vocab-item"><span class="vocab-en">Residual</span><span class="vocab-th">ค่าจริง − ค่าทำนาย</span></div>
+        <div class="vocab-item"><span class="vocab-en">Confounding Var</span><span class="vocab-th">ตัวแปรซ่อน</span></div>
+        <div class="vocab-item"><span class="vocab-en">Sample</span><span class="vocab-th">ตัวอย่าง</span></div>
+        <div class="vocab-item"><span class="vocab-en">Population</span><span class="vocab-th">ประชากร</span></div>
+        <div class="vocab-item"><span class="vocab-en">Multicollinearity</span><span class="vocab-th">X สัมพันธ์กันเอง</span></div>
+        <div class="vocab-item"><span class="vocab-en">Heteroscedasticity</span><span class="vocab-th">error ไม่คงที่</span></div>
+      </div>
+    </div>
+
+  </div><!-- end grid -->
+
+  <!-- Footer -->
+  <div class="page-footer">
+    <span>สร้างด้วย 🧡 โดย <a href="https://facebook.com/ajarnkwan">Ajarn Kwan</a> &nbsp;|&nbsp; <a href="./">← กลับไปบทเรียน</a></span>
+    <span>📌 จำไว้: Correlation ≠ Causation &nbsp;|&nbsp; β₁ คือตัวตอบคำถามงานวิจัย &nbsp;|&nbsp; อย่ากลัวสัญลักษณ์!</span>
+  </div>
+
+</div>
+
+</body>
+</html>
