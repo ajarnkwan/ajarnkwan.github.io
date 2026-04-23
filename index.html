@@ -493,6 +493,8 @@ function showLogin() {
   showView('view-landing');
   window._adminProfile = null;
   window._previewMode = null;
+  const banner = document.getElementById('landing-preview-banner');
+  if (banner) banner.style.display = 'none';
 }
 
 window.goJoin = () => { showView('view-signup'); };
@@ -528,6 +530,14 @@ window.backToAdmin = () => {
     window._previewMode = null;
     showAdmin(window._currentUser, window._adminProfile);
   }
+};
+
+window.previewLanding = () => {
+  if (!window._currentUser || !window._adminProfile) return;
+  window._previewMode = 'landing';
+  showView('view-landing');
+  const banner = document.getElementById('landing-preview-banner');
+  if (banner) banner.style.display = 'flex';
 };
 
 window.previewMemberHub = () => {
@@ -956,6 +966,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   </div>
 
   <div class="land-body">
+    <div class="preview-banner" id="landing-preview-banner">
+      <div class="preview-banner-text">โหมดพรีวิว: กำลังดูหน้าแรกที่คนทั่วไปเห็น</div>
+      <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
+    </div>
     <div class="land-sec">ลองเรียนได้เลย ไม่ต้องสมัคร</div>
 
     <a href="econometrics/" class="land-course">
@@ -1248,6 +1262,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     <div class="admin-bar">
       <div>สมาชิกทั้งหมด: <span class="admin-count-badge" id="admin-count">กำลังโหลด...</span></div>
       <div class="admin-actions">
+        <button class="btn-admin-alt" onclick="previewLanding()">🏠 ดูหน้าแรก</button>
         <button class="btn-admin-alt" id="admin-preview-hub-btn" onclick="previewMemberHub()">👀 ดูหน้า Member Hub</button>
         <button class="btn-admin-alt" id="admin-preview-register-btn" onclick="previewRegisterFlow()">🧭 ดู flow สมัครสมาชิก</button>
         <button class="btn-refresh" onclick="loadMembers(true)">🔄 Refresh</button>
