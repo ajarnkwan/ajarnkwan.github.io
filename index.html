@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ajarn.Kwan · ลงทะเบียนเข้าร่วม</title>
+<title>Ajarn.Kwan · เรียนรู้สิ่งใหม่ไปด้วยกัน</title>
+<meta name="description" content="บทเรียนเศรษฐศาสตร์ออนไลน์ฟรี โดย อ.ขวัญ คณะเศรษฐศาสตร์ ม.รามคำแหง — เรียนง่าย ภาษาไทย ไม่ต้องมีพื้นฐาน | Free Thai economics courses by Ajarn Kwan, Ramkhamhaeng University">
+<meta name="author" content="Ajarn Kwan · คณะเศรษฐศาสตร์ มหาวิทยาลัยรามคำแหง">
+<meta name="keywords" content="เศรษฐศาสตร์, เศรษฐมิติ, econometrics, economics, เรียนฟรี, รามคำแหง, Ajarn Kwan, อาจารย์ขวัญ">
+
+<!-- Open Graph (Facebook, LINE) -->
+<meta property="og:title" content="Ajarn.Kwan — เรียนเศรษฐศาสตร์ ฟรี ง่าย ไม่ต้องกลัวเลข">
+<meta property="og:description" content="บทเรียนออนไลน์จาก อ.ขวัญ คณะเศรษฐศาสตร์ ม.รามคำแหง ออกแบบให้ทุกคนเข้าถึงได้ ไม่ต้องมีพื้นฐาน เรียนฟรีตลอด">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ajarnkwan.github.io/">
+<meta property="og:locale" content="th_TH">
+<meta property="og:site_name" content="Ajarn.Kwan">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <!-- Firebase -->
@@ -472,17 +483,20 @@ window.loadMoreMembers = async () => {
 
 // ── VIEW HELPERS ──
 function showView(id) {
-  ['view-login','view-signup','view-register','view-hub','view-admin'].forEach(v => {
+  ['view-landing','view-login','view-signup','view-register','view-hub','view-admin'].forEach(v => {
     const el = document.getElementById(v);
     if (el) el.style.display = v===id ? 'block' : 'none';
   });
 }
 
 function showLogin() {
-  showView('view-login');
+  showView('view-landing');
   window._adminProfile = null;
   window._previewMode = null;
 }
+
+window.goJoin = () => { showView('view-signup'); };
+window.goLoginFromLanding = () => { showView('view-login'); };
 
 function setPreviewBanner(target, message = '', backLabel = '← กลับหน้า Admin') {
   const wrap = document.getElementById(`${target}-preview-banner`);
@@ -632,6 +646,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 @media(min-width:700px){
   body{display:flex;align-items:flex-start;justify-content:center;padding:2.5rem 1.5rem 3rem;background:#f0edf8}
   .card{max-width:540px;min-height:auto;border-radius:1.75rem;box-shadow:0 12px 60px rgba(91,33,182,.15),0 0 0 1px rgba(124,58,237,.08)}
+  .landing{max-width:540px;border-radius:1.75rem;box-shadow:0 12px 60px rgba(91,33,182,.15),0 0 0 1px rgba(124,58,237,.08)}
   .admin-card{max-width:900px}
 }
 .card{width:100%;min-height:100vh;background:var(--card);overflow:hidden}
@@ -639,8 +654,8 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .stripe{height:6px;background:linear-gradient(90deg,var(--lav),#a855f7,var(--rose),#fb923c)}
 
 /* Views */
-#view-login{display:block}
-#view-signup,#view-register,#view-hub,#view-admin{display:none}
+#view-landing{display:block}
+#view-login,#view-signup,#view-register,#view-hub,#view-admin{display:none}
 .view-body{padding:2.25rem 2rem}
 
 /* ── AUTH FORMS ── */
@@ -811,9 +826,202 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   .hub-foot{padding:1rem 1.25rem}
   .admin-body{padding:1.25rem}
 }
+
+/* ── LANDING PAGE ── */
+.landing{width:100%;background:var(--card);overflow:hidden}
+@media(min-width:700px){
+  body{padding-top:0;padding-bottom:0}
+  .landing{max-width:100%;border-radius:0;box-shadow:none}
+}
+
+.land-hero{
+  background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#4c1d95 100%);
+  padding:3.5rem 2rem 3rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.land-hero::before{
+  content:'';position:absolute;top:-60%;right:-20%;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(168,85,247,.2),transparent 70%);
+  pointer-events:none;
+}
+.land-hero::after{
+  content:'';position:absolute;bottom:-40%;left:-10%;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(236,72,153,.12),transparent 70%);
+  pointer-events:none;
+}
+.land-brand{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1rem}
+.land-title{
+  font-family:'Noto Serif Thai',serif;font-size:1.85rem;font-weight:700;
+  color:white;line-height:1.35;margin-bottom:.65rem;
+  position:relative;z-index:1;
+}
+.land-sub{font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.65;max-width:400px;margin:0 auto .5rem;position:relative;z-index:1}
+.land-tags{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;position:relative;z-index:1}
+.land-tag{
+  font-size:.7rem;font-weight:600;
+  padding:.3rem .7rem;border-radius:999px;
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);
+  backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.1);
+}
+
+.land-body{padding:2rem 2rem 1rem}
+
+.land-sec{
+  font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;margin-top:.5rem;
+}
+.land-sec::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.land-course{
+  display:flex;align-items:center;gap:.9rem;
+  padding:.88rem 1.05rem;margin-bottom:.48rem;
+  background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;
+  text-decoration:none;color:var(--ink);transition:all .2s;
+  position:relative;
+}
+.land-course:hover{border-color:var(--lav-border);background:var(--lav-soft);transform:translateY(-1px);box-shadow:0 3px 12px var(--shadow)}
+.land-course .lc-icon{width:42px;height:42px;border-radius:.625rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.land-course .lc-body{flex:1}
+.land-course .lc-title{font-size:.9rem;font-weight:600;margin-bottom:.1rem;line-height:1.3}
+.land-course .lc-desc{font-size:.73rem;color:var(--muted);line-height:1.35}
+.land-course .lc-arr{color:var(--muted);font-size:.88rem;transition:all .18s}
+.land-course:hover .lc-arr{color:var(--lav);transform:translateX(3px)}
+.land-badge{position:absolute;top:.65rem;right:.75rem;font-size:.6rem;font-weight:700;padding:.12rem .5rem;border-radius:999px;font-family:'Space Mono',monospace}
+.land-badge-free{background:var(--lav);color:white}
+.land-badge-new{background:var(--mint);color:white}
+
+.land-features{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;
+  margin:1.25rem 0;
+}
+.land-feat{
+  text-align:center;padding:1rem .6rem;
+  background:var(--bg);border-radius:.75rem;border:1px solid var(--border);
+}
+.land-feat-icon{font-size:1.5rem;margin-bottom:.4rem;display:block}
+.land-feat-label{font-size:.75rem;font-weight:600;color:var(--mid);line-height:1.35}
+
+@media(max-width:480px){
+  .land-hero{padding:2.5rem 1.25rem 2rem}
+  .land-title{font-size:1.5rem}
+  .land-body{padding:1.5rem 1.25rem 1rem}
+  .land-features{grid-template-columns:1fr 1fr 1fr;gap:.5rem}
+  .land-feat{padding:.8rem .4rem}
+}
+
+.land-cta{
+  text-align:center;
+  padding:1.5rem 2rem 2rem;
+  background:linear-gradient(180deg,transparent,var(--lav-soft));
+  border-top:1px solid var(--border);
+}
+.land-cta-title{font-family:'Noto Serif Thai',serif;font-size:1.15rem;font-weight:700;margin-bottom:.35rem;color:var(--ink)}
+.land-cta-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.1rem;line-height:1.55}
+.btn-cta{
+  display:inline-block;width:100%;max-width:320px;padding:.88rem;
+  background:var(--lav);color:white;border:none;border-radius:.75rem;
+  font-family:'Noto Sans Thai',sans-serif;font-size:1rem;font-weight:700;
+  cursor:pointer;transition:all .22s;
+  box-shadow:0 4px 16px rgba(124,58,237,.25);
+}
+.btn-cta:hover{background:var(--lav-mid);transform:translateY(-2px);box-shadow:0 6px 24px rgba(124,58,237,.35)}
+.btn-cta-ghost{
+  display:inline-block;margin-top:.6rem;
+  background:none;border:none;color:var(--lav);
+  font-family:'Noto Sans Thai',sans-serif;font-size:.85rem;font-weight:600;
+  cursor:pointer;text-decoration:underline;
+}
+.btn-cta-ghost:hover{color:var(--lav-mid)}
+
+.land-foot{text-align:center;padding:.75rem 2rem 1.25rem;font-size:.68rem;color:var(--muted);line-height:1.7}
+.land-foot a{color:var(--lav);text-decoration:none;font-weight:500}
+.land-foot a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
+
+<!-- ══ LANDING ══ -->
+<div class="landing" id="view-landing">
+  <div class="land-hero">
+    <div class="land-brand">Ajarn Kwan</div>
+    <div class="land-title">เรียนเศรษฐศาสตร์<br>ฟรี ง่าย ไม่ต้องกลัวเลข</div>
+    <div class="land-sub">บทเรียนออนไลน์ฟรี โดย อ.ขวัญ อาจารย์ประจำคณะเศรษฐศาสตร์ ม.รามคำแหง ออกแบบมาให้ทุกคนเข้าถึงได้ค่ะ</div>
+    <div class="land-tags">
+      <span class="land-tag">🆓 เรียนฟรีตลอด</span>
+      <span class="land-tag">🇹🇭 ภาษาไทย 100%</span>
+      <span class="land-tag">📱 เรียนได้ทุกที่</span>
+    </div>
+  </div>
+
+  <div class="land-body">
+    <div class="land-sec">ลองเรียนได้เลย ไม่ต้องสมัคร</div>
+
+    <a href="econometrics/" class="land-course">
+      <div class="lc-icon" style="background:#fef2e8;border:1.5px solid #f9c89b">📉</div>
+      <div class="lc-body">
+        <div class="lc-title">ปูพื้นฐานเศรษฐมิติ</div>
+        <div class="lc-desc">เริ่มจากศูนย์ ไม่ต้องกลัวเลข · 6 บท + quiz + กราฟ interactive</div>
+      </div>
+      <span class="lc-arr">→</span>
+      <span class="land-badge land-badge-new">NEW</span>
+    </a>
+
+    <a href="econ-math-readiness/" class="land-course">
+      <div class="lc-icon" style="background:#ede9fe;border:1.5px solid #c4b5fd">📐</div>
+      <div class="lc-body">
+        <div class="lc-title">Basic Math & Stats for Econ</div>
+        <div class="lc-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 Modules</div>
+      </div>
+      <span class="lc-arr">→</span>
+      <span class="land-badge land-badge-free">ฟรี</span>
+    </a>
+
+    <a href="microeconomics/" class="land-course">
+      <div class="lc-icon" style="background:#eff6ff;border:1.5px solid #93c5fd">📘</div>
+      <div class="lc-body">
+        <div class="lc-title">Microeconomics</div>
+        <div class="lc-desc">ทฤษฎีเศรษฐศาสตร์จุลภาค · บทที่ 1-3 พร้อมเรียน</div>
+      </div>
+      <span class="lc-arr">→</span>
+    </a>
+
+    <div class="land-features">
+      <div class="land-feat">
+        <span class="land-feat-icon">💬</span>
+        <div class="land-feat-label">ภาษาง่าย<br>ไม่ต้องมีพื้นฐาน</div>
+      </div>
+      <div class="land-feat">
+        <span class="land-feat-icon">🧪</span>
+        <div class="land-feat-label">มี Quiz<br>ทดสอบความเข้าใจ</div>
+      </div>
+      <div class="land-feat">
+        <span class="land-feat-icon">📄</span>
+        <div class="land-feat-label">Cheat Sheet<br>สรุปให้พิมพ์ฟรี</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="land-cta">
+    <div class="land-cta-title">อยากเรียนเพิ่ม?</div>
+    <div class="land-cta-sub">ลงทะเบียนฟรี เข้าถึงบทเรียนเต็ม, cheat sheet, และ community ของเราค่ะ</div>
+    <button class="btn-cta" onclick="goJoin()">ลงทะเบียนฟรี →</button><br>
+    <button class="btn-cta-ghost" onclick="goLoginFromLanding()">มีบัญชีแล้ว? เข้าสู่ระบบ</button>
+  </div>
+
+  <div class="land-foot">
+    <strong style="color:#4b4540">Ajarn.Kwan (อ.ขวัญ)</strong><br>
+    อาจารย์ประจำคณะเศรษฐศาสตร์ มหาวิทยาลัยรามคำแหง<br>
+    <span style="font-size:.62rem;color:#b0a8a0">Assistant Professor, Faculty of Economics, Ramkhamhaeng University</span><br>
+    <span style="margin-top:.35rem;display:inline-block">
+      <a href="https://www.facebook.com/ajarnkwan" target="_blank">Facebook</a> ·
+      <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank">TikTok</a> ·
+      <a href="https://github.com/ajarnkwan" target="_blank">GitHub</a>
+    </span><br>
+    © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+  </div>
+</div>
 
 <!-- ══ LOGIN ══ -->
 <div class="card" id="view-login">
@@ -836,6 +1044,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     <button class="btn-primary" id="login-submit-btn" onclick="loginEmail()">เข้าสู่ระบบ</button>
 
     <div class="auth-switch">ยังไม่มีบัญชี? <a onclick="goSignup()">สมัครสมาชิกที่นี่ค่ะ</a></div>
+    <div class="auth-switch" style="margin-top:.4rem"><a onclick="showView('view-landing')" style="font-weight:400;color:var(--muted)">← กลับหน้าแรก</a></div>
   </div>
 </div>
 
@@ -861,6 +1070,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     <button class="btn-primary" id="signup-submit-btn" onclick="signupEmail()">สมัครสมาชิก</button>
 
     <div class="auth-switch">มีบัญชีแล้ว? <a onclick="goLogin()">เข้าสู่ระบบค่ะ</a></div>
+    <div class="auth-switch" style="margin-top:.4rem"><a onclick="showView('view-landing')" style="font-weight:400;color:var(--muted)">← กลับหน้าแรก</a></div>
   </div>
 </div>
 
@@ -1020,7 +1230,8 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   </div>
 
   <div class="hub-foot">
-    <strong style="color:#4b4540">Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+    <strong style="color:#4b4540">Ajarn.Kwan (อ.ขวัญ)</strong> · คณะเศรษฐศาสตร์ ม.รามคำแหง<br>
+    <span style="font-size:.6rem">Assistant Professor, Faculty of Economics, Ramkhamhaeng University</span><br>
     <span style="font-size:.65rem">© 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ</span><br>
     <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
   </div>
