@@ -311,6 +311,66 @@ body::after {
   box-shadow: var(--shadow-hover);
   transform: translateY(-2px);
 }
+.module-card.locked {
+  opacity: 0.55;
+  pointer-events: none;
+  position: relative;
+}
+.module-card.locked .module-header { cursor: default; }
+.module-card.locked .module-badge { background: #F0E0D6; color: var(--text-muted); }
+
+/* Signup CTA banner */
+.signup-gate {
+  display: none;
+  background: linear-gradient(135deg, #EDE9FE, #F5F0FF);
+  border: 2px solid #C4B5FD;
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  margin: 8px 0 16px;
+  text-align: center;
+  animation: fadeInUp 0.6s ease both;
+  animation-delay: 0.4s;
+}
+.signup-gate.show { display: block; }
+.signup-gate-emoji { font-size: 36px; display: block; margin-bottom: 8px; }
+.signup-gate h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15em;
+  color: #7C3AED;
+  margin-bottom: 6px;
+}
+.signup-gate p {
+  font-size: 0.88em;
+  color: #6B5A8A;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.signup-gate-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  background: #7C3AED;
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.92em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.signup-gate-btn:hover { background: #6D28D9; transform: translateY(-2px); box-shadow: 0 4px 16px rgba(124,58,237,0.3); }
+.signup-gate-sub {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.78em;
+  color: #A09890;
+}
+.signup-gate-sub a {
+  color: #7C3AED;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .module-header {
   display: flex;
@@ -1188,6 +1248,15 @@ body::after {
       </div>
     </div>
 
+    <!-- Signup Gate -->
+    <div class="signup-gate" id="signup-gate">
+      <span class="signup-gate-emoji">🔓</span>
+      <h3>ชอบบทเรียนไหมคะ?</h3>
+      <p>เรียนจบ 2 บทแรกแล้ว! อีก 4 บทที่เหลือรวมถึง กราฟ interactive, R², และ Cheat Sheet สรุป 1 หน้า ลงทะเบียนฟรีเพื่อเรียนต่อค่ะ</p>
+      <a class="signup-gate-btn" href="../#signup">ลงทะเบียนฟรี เรียนต่อทั้ง 6 บท →</a>
+      <span class="signup-gate-sub">มีบัญชีแล้ว? <a href="../#login">เข้าสู่ระบบ</a></span>
+    </div>
+
     <!-- ===== Module 3 ===== -->
     <div class="module-card" data-module="3">
       <div class="module-header" onclick="toggleModule(3)">
@@ -1738,8 +1807,24 @@ body::after {
 let completed = JSON.parse(localStorage.getItem('ecm-completed') || '[]');
 let quizChecked = {}; // track which quizzes have been checked
 let selectedOptions = {};
+const isFullAccess = new URLSearchParams(window.location.search).has('full');
+const FREE_MODULES = 2; // modules 1-2 are free
 
 function init() {
+  // Lock modules if not full access
+  if (!isFullAccess) {
+    for (let m = FREE_MODULES + 1; m <= 6; m++) {
+      const card = document.querySelector(`.module-card[data-module="${m}"]`);
+      if (card) {
+        card.classList.add('locked');
+        const badge = card.querySelector('.module-badge');
+        if (badge) { badge.textContent = '🔒 ลงทะเบียนเพื่อเรียน'; }
+      }
+    }
+    const gate = document.getElementById('signup-gate');
+    if (gate) gate.classList.add('show');
+  }
+
   // Disable all complete buttons by default (must do quiz first)
   for (let m = 1; m <= 6; m++) {
     const btn = document.getElementById('complete-' + m);
@@ -1750,18 +1835,22 @@ function init() {
   }
   updateProgress();
   completed.forEach(m => {
+    if (!isFullAccess && m > FREE_MODULES) return;
     const badge = document.getElementById('badge-' + m);
     if (badge) { badge.textContent = 'เรียนจบแล้ว'; badge.className = 'module-badge badge-done'; }
     const btn = document.getElementById('complete-' + m);
     if (btn) { btn.disabled = true; btn.textContent = '✅ เรียนจบแล้ว'; btn.style.opacity = '0.5'; }
     quizChecked[m] = true;
   });
-  if (completed.length === 6) {
+  if (isFullAccess && completed.length === 6) {
     document.getElementById('completion-msg').style.display = 'block';
   }
 }
 
 function toggleModule(n) {
+  // Prevent opening locked modules
+  if (!isFullAccess && n > FREE_MODULES) return;
+
   const card = document.querySelector(`.module-card[data-module="${n}"]`);
   const isOpen = card.classList.contains('open');
   document.querySelectorAll('.module-card').forEach(c => c.classList.remove('open'));
@@ -1824,7 +1913,18 @@ function completeModule(n) {
 
   updateProgress();
 
-  if (completed.length === 6) {
+  // In preview mode: after last free module, scroll to signup gate
+  if (!isFullAccess && n === FREE_MODULES) {
+    const card = document.querySelector(`.module-card[data-module="${n}"]`);
+    card.classList.remove('open');
+    setTimeout(() => {
+      const gate = document.getElementById('signup-gate');
+      if (gate) gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+    return;
+  }
+
+  if (isFullAccess && completed.length === 6) {
     document.getElementById('completion-msg').style.display = 'block';
     setTimeout(() => document.getElementById('completion-msg').scrollIntoView({ behavior: 'smooth' }), 300);
   } else {
@@ -1836,9 +1936,11 @@ function completeModule(n) {
 }
 
 function updateProgress() {
-  const pct = (completed.length / 6) * 100;
+  const total = isFullAccess ? 6 : FREE_MODULES;
+  const done = isFullAccess ? completed.length : completed.filter(m => m <= FREE_MODULES).length;
+  const pct = (done / total) * 100;
   document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-text').textContent = completed.length + ' / 6 บทเรียน';
+  document.getElementById('progress-text').textContent = done + ' / ' + total + ' บทเรียน' + (isFullAccess ? '' : ' (ทดลองเรียน)');
 }
 
 function resetAll() {
