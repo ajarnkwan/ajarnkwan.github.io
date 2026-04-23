@@ -500,6 +500,15 @@ function showLogin() {
 window.goJoin = () => { showView('view-signup'); };
 window.goLoginFromLanding = () => { showView('view-login'); };
 
+// Handle hash links (e.g. from econometrics signup gate)
+function checkHash() {
+  const h = window.location.hash;
+  if (h === '#signup') { showView('view-signup'); window.location.hash = ''; }
+  else if (h === '#login') { showView('view-login'); window.location.hash = ''; }
+}
+window.addEventListener('hashchange', checkHash);
+setTimeout(checkHash, 500);
+
 function setPreviewBanner(target, message = '', backLabel = '← กลับหน้า Admin') {
   const wrap = document.getElementById(`${target}-preview-banner`);
   if (!wrap) return;
@@ -1217,7 +1226,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <div class="hl-arr">→</div>
     </a>
 
-    <a href="econometrics/" class="hub-link">
+    <a href="econometrics/?full=1" class="hub-link">
       <div class="hl-icon" style="background:#fef2e8;border:1.5px solid #f9c89b">📉</div>
       <div class="hl-body"><div class="hl-title">ปูพื้นฐานเศรษฐมิติ</div><div class="hl-desc">สำหรับคนเริ่มจากศูนย์ ไม่ต้องกลัวเลข · 6 บทเรียน</div></div>
       <div class="hl-arr">→</div>
