@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ajarn.Kwan · เรียนรู้สิ่งใหม่ไปด้วยกัน</title>
+<title>Ajarn.Kwan — Self-Learning Centre · เรียนเศรษฐศาสตร์ การเงิน AI ฟรี</title>
 <meta name="description" content="บทเรียนเศรษฐศาสตร์ออนไลน์ฟรี โดย อ.ขวัญ คณะเศรษฐศาสตร์ ม.รามคำแหง — เรียนง่าย ภาษาไทย ไม่ต้องมีพื้นฐาน | Free Thai economics courses by Ajarn Kwan, Ramkhamhaeng University">
 <meta name="author" content="Ajarn Kwan · คณะเศรษฐศาสตร์ มหาวิทยาลัยรามคำแหง">
 <meta name="keywords" content="เศรษฐศาสตร์, เศรษฐมิติ, econometrics, economics, เรียนฟรี, รามคำแหง, Ajarn Kwan, อาจารย์ขวัญ">
@@ -957,93 +957,1273 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .land-foot{text-align:center;padding:.75rem 2rem 1.25rem;font-size:.68rem;color:var(--muted);line-height:1.7}
 .land-foot a{color:var(--lav);text-decoration:none;font-weight:500}
 .land-foot a:hover{text-decoration:underline}
+
+
+/* ═══════════════════════════════════════════════════════════
+   NEW LANDING DESIGN — scoped to #view-landing
+   ═══════════════════════════════════════════════════════════ */
+
+
+  
+  :root{
+    --cream: #FDF8F2;
+    --cream-deep: #F7EDDC;
+    --paper: #FFFFFF;
+    --ink: #2A1F1A;
+    --ink-soft: #5C4A40;
+    --ink-mute: #8A7A70;
+    --plum: #6B4A8A;
+    --plum-soft: #9B7BB8;
+    --plum-bg: #EFE6F5;
+    --coral: #E27A5F;
+    --coral-deep: #C85A3D;
+    --coral-bg: #FCEAE2;
+    --leaf: #4A8260;
+    --leaf-bg: #E2EEDF;
+    --sun: #E8B247;
+    --line: #E8DDD0;
+    --shadow-sm: 0 2px 8px rgba(58, 35, 25, 0.06);
+    --shadow-md: 0 8px 24px rgba(58, 35, 25, 0.08);
+    --shadow-lg: 0 16px 48px rgba(58, 35, 25, 0.10);
+    --radius: 14px;
+    --radius-lg: 22px;
+  }
+
+  #view-landing *{ box-sizing: border-box; margin: 0; padding: 0; }
+  #view-landing{ scroll-behavior: smooth; }
+  #view-landing{
+    font-family: 'Sarabun', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  #view-landing h1, #view-landing h2, #view-landing h3{ font-family: 'Bai Jamjuree', 'Sarabun', sans-serif; line-height: 1.3; letter-spacing: -0.01em; }
+  #view-landing a{ color: var(--plum); text-decoration: none; }
+  #view-landing img{ max-width: 100%; display: block; }
+
+  
+  #view-landing .container{ max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  #view-landing section{ padding: 80px 0; }
+
+  
+  #view-landing .nav{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(253, 248, 242, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  #view-landing .nav-inner{
+    max-width: 1100px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  #view-landing .brand{ display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--ink); }
+  #view-landing .brand-mark{
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--plum-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  #view-landing .brand-text-wrap{ display: flex; flex-direction: column; line-height: 1.1; }
+  #view-landing .brand-text{ font-family: 'Bai Jamjuree', sans-serif; font-size: 18px; }
+  #view-landing .brand-tag{ font-size: 11px; font-weight: 500; color: var(--ink-mute); letter-spacing: 0.04em; }
+  #view-landing .nav-actions{ display: flex; align-items: center; gap: 8px; }
+  #view-landing .btn{
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    white-space: nowrap;
+    padding: 11px 22px; border-radius: 999px;
+    font-family: inherit; font-size: 15px; font-weight: 600;
+    line-height: 1.4; text-align: center;
+    cursor: pointer; transition: all 0.2s;
+    border: none; text-decoration: none;
+    -webkit-appearance: none; appearance: none;
+    margin: 0; box-sizing: border-box;
+  }
+  /* button element resets — needed because <button> has different defaults than <a> */
+  #view-landing button.btn {
+    background-clip: padding-box;
+  }
+  #view-landing .btn-primary{
+    background: var(--coral); color: white;
+    box-shadow: 0 4px 12px rgba(226, 122, 95, 0.3);
+  }
+  #view-landing .btn-primary:hover{ background: var(--coral-deep); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(226, 122, 95, 0.4); }
+  #view-landing .btn-ghost{
+    background: var(--plum-bg);
+    color: var(--plum);
+    border: 1px solid transparent;
+  }
+  #view-landing .btn-ghost:hover{
+    background: var(--plum);
+    color: white;
+    border-color: var(--plum);
+  }
+  #view-landing .btn-outline{
+    background: var(--paper); color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+  #view-landing .btn-outline:hover{ background: var(--ink); color: var(--paper); }
+
+  
+  #view-landing .hero{
+    position: relative; padding: 60px 0 90px;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream) 100%);
+    overflow: hidden;
+  }
+  #view-landing .hero::before{
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232, 178, 71, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  #view-landing .hero::after{
+    content: ''; position: absolute; bottom: -200px; left: -150px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(155, 123, 184, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  #view-landing .hero-grid{
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 60px; align-items: center;
+    position: relative; z-index: 1;
+  }
+  #view-landing .hero-eyebrow{
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: var(--plum-bg); color: var(--plum);
+    font-size: 14px; font-weight: 600; margin-bottom: 20px;
+  }
+  #view-landing .hero-eyebrow::before{
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--leaf); animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+  #view-landing .hero h1{
+    font-size: clamp(32px, 4.5vw, 50px);
+    font-weight: 700; color: var(--ink);
+    margin-bottom: 18px;
+  }
+  #view-landing .hero h1 .hl1, #view-landing .hero h1 .hl2, #view-landing .hero h1 .hl3{ display: block; }
+  #view-landing .hero h1 .hl1{ line-height: 1.1; letter-spacing: -0.015em; }
+  #view-landing .hero h1 .hl-name{ color: var(--plum); }
+  #view-landing .hero h1 .hl2{
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.4em; font-weight: 600;
+    color: var(--ink); margin-top: 18px;
+    line-height: 1.4;
+  }
+  #view-landing .hero h1 .hl3{
+    font-family: 'Sarabun', sans-serif;
+    font-size: 0.4em; font-weight: 400;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  #view-landing .hero h1 .accent{
+    background: linear-gradient(180deg, transparent 60%, rgba(232, 178, 71, 0.4) 60%);
+    padding: 0 4px;
+    white-space: nowrap;
+  }
+  #view-landing .hero-sub{
+    font-size: 19px; color: var(--ink-soft);
+    margin-bottom: 28px; max-width: 540px;
+  }
+  #view-landing .hero-cta{ display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+  #view-landing .hero-meta{
+    display: flex; gap: 14px;
+    color: var(--ink-mute); font-size: 13.5px;
+    flex-wrap: nowrap;
+  }
+  #view-landing .hero-meta-item{
+    display: inline-flex; align-items: center; gap: 5px;
+    white-space: nowrap;
+  }
+
+  
+  #view-landing .mascot{
+    position: relative;
+    aspect-ratio: 1; max-width: 420px; margin-left: auto;
+  }
+  #view-landing .mascot-bubble{
+    position: absolute; top: 10%; left: -10%;
+    background: var(--paper); padding: 12px 18px;
+    border-radius: 18px 18px 18px 4px;
+    box-shadow: var(--shadow-md);
+    font-size: 15px; font-weight: 500;
+    color: var(--ink); z-index: 2;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  #view-landing .mascot-svg{ width: 100%; height: 100%; }
+
+  
+  #view-landing .stats{
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 32px 0;
+  }
+  #view-landing .stats-grid{
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    text-align: center;
+  }
+  #view-landing .stat-num{
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 36px; font-weight: 700;
+    color: var(--plum); line-height: 1;
+  }
+  #view-landing .stat-label{ font-size: 14px; color: var(--ink-mute); margin-top: 6px; }
+
+  
+  #view-landing .section-head{ text-align: center; max-width: 680px; margin: 0 auto 50px; }
+  #view-landing .section-head p{
+    color: var(--ink-soft); font-size: 18px;
+    text-wrap: pretty;
+  }
+  #view-landing .section-tag{
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    background: var(--coral-bg); color: var(--coral-deep);
+    font-size: 13px; font-weight: 600; margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+  #view-landing .section-head h2{
+    font-size: clamp(28px, 4vw, 40px); font-weight: 700;
+    color: var(--ink); margin-bottom: 12px;
+  }
+
+  
+  #view-landing .try-lesson{ background: var(--cream-deep); }
+  #view-landing .lesson-card{
+    background: var(--paper); border-radius: var(--radius-lg);
+    padding: 40px; box-shadow: var(--shadow-md);
+    max-width: 820px; margin: 0 auto;
+    border: 1px solid var(--line);
+    position: relative;
+  }
+  #view-landing .lesson-meta{
+    display: flex; gap: 12px; align-items: center; margin-bottom: 8px;
+    font-size: 13px; color: var(--ink-mute);
+  }
+  #view-landing .lesson-pill{
+    background: var(--leaf-bg); color: var(--leaf);
+    padding: 4px 10px; border-radius: 999px;
+    font-weight: 600;
+  }
+  #view-landing .lesson-title{
+    font-size: 28px; font-weight: 700; color: var(--ink);
+    margin-bottom: 20px;
+  }
+  #view-landing .lesson-body p{ margin-bottom: 16px; color: var(--ink-soft); }
+  #view-landing .lesson-body strong{ color: var(--ink); font-weight: 600; }
+
+  
+  #view-landing .interactive-box{
+    background: var(--cream); border-radius: var(--radius);
+    padding: 24px; margin: 24px 0;
+    border: 1px dashed var(--plum-soft);
+  }
+  #view-landing .interactive-label{
+    font-size: 14px; color: var(--plum); font-weight: 600;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 6px;
+  }
+  #view-landing .slider-row{
+    display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+  }
+  #view-landing .slider-row label{
+    font-size: 15px; font-weight: 500; min-width: 130px;
+    color: var(--ink-soft);
+  }
+  #view-landing .price-slider{
+    flex: 1; -webkit-appearance: none; appearance: none;
+    height: 6px; border-radius: 999px;
+    background: linear-gradient(to right, var(--leaf) 0%, var(--sun) 50%, var(--coral) 100%);
+    outline: none;
+  }
+  #view-landing .price-slider::-webkit-slider-thumb{
+    -webkit-appearance: none; appearance: none;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: white; border: 3px solid var(--plum);
+    cursor: pointer; box-shadow: var(--shadow-sm);
+    transition: transform 0.15s;
+  }
+  #view-landing .price-slider::-webkit-slider-thumb:hover{ transform: scale(1.15); }
+  #view-landing .price-slider::-moz-range-thumb{
+    width: 22px; height: 22px; border-radius: 50%;
+    background: white; border: 3px solid var(--plum);
+    cursor: pointer; border: 3px solid var(--plum);
+  }
+  #view-landing .price-readout{
+    display: inline-block; min-width: 80px; text-align: right;
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 22px; font-weight: 700; color: var(--coral-deep);
+  }
+  #view-landing .demand-viz{
+    display: flex; align-items: end; gap: 4px;
+    height: 100px; padding: 0 4px; margin-top: 12px;
+    border-bottom: 2px solid var(--line);
+  }
+  #view-landing .demand-bar{
+    flex: 1; background: var(--plum-soft);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+    min-height: 4px;
+  }
+  #view-landing .viz-caption{
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--ink-mute);
+    margin-top: 6px;
+  }
+  #view-landing .insight-box{
+    margin-top: 16px; padding: 14px 18px;
+    background: var(--plum-bg); border-radius: var(--radius);
+    border-left: 4px solid var(--plum);
+    font-size: 15px; color: var(--ink);
+  }
+
+  
+  #view-landing .quiz-box{
+    background: var(--paper); border: 2px solid var(--line);
+    border-radius: var(--radius); padding: 24px; margin-top: 24px;
+  }
+  #view-landing .quiz-q{
+    font-weight: 600; color: var(--ink); margin-bottom: 14px;
+    font-size: 17px;
+  }
+  #view-landing .quiz-q::before{ content: '🎯 '; }
+  #view-landing .quiz-options{ display: flex; flex-direction: column; gap: 8px; }
+  #view-landing .quiz-opt{
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; border-radius: var(--radius);
+    background: var(--cream); border: 2px solid transparent;
+    cursor: pointer; font-size: 15px; color: var(--ink);
+    transition: all 0.15s; font-family: inherit; text-align: left;
+    width: 100%;
+  }
+  #view-landing .quiz-opt:hover{ background: var(--cream-deep); border-color: var(--plum-soft); }
+  #view-landing .quiz-opt.correct{ background: var(--leaf-bg); border-color: var(--leaf); color: var(--leaf); }
+  #view-landing .quiz-opt.wrong{ background: var(--coral-bg); border-color: var(--coral-deep); color: var(--coral-deep); }
+  #view-landing .quiz-opt-letter{
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--paper); border: 1.5px solid var(--ink-mute);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 13px; flex-shrink: 0;
+  }
+  #view-landing .quiz-opt.correct .quiz-opt-letter{ background: var(--leaf); color: white; border-color: var(--leaf); }
+  #view-landing .quiz-opt.wrong .quiz-opt-letter{ background: var(--coral-deep); color: white; border-color: var(--coral-deep); }
+  #view-landing .quiz-feedback{
+    margin-top: 14px; padding: 14px 16px;
+    border-radius: var(--radius); display: none;
+    font-size: 15px; line-height: 1.6;
+  }
+  #view-landing .quiz-feedback.show{ display: block; }
+  #view-landing .quiz-feedback.success{ background: var(--leaf-bg); color: var(--leaf); }
+  #view-landing .quiz-feedback.fail{ background: var(--coral-bg); color: var(--coral-deep); }
+
+  
+  #view-landing .locked-teaser{
+    margin-top: 30px; padding: 28px;
+    background: linear-gradient(135deg, var(--plum-bg) 0%, var(--coral-bg) 100%);
+    border-radius: var(--radius); text-align: center;
+    border: 2px dashed var(--plum-soft);
+  }
+  #view-landing .locked-teaser h4{
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 22px; color: var(--ink); margin-bottom: 8px;
+  }
+  #view-landing .locked-teaser p{ color: var(--ink-soft); margin-bottom: 16px; font-size: 16px; }
+
+  
+  #view-landing .tracks-grid{
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  #view-landing .track-card{
+    background: var(--paper); border-radius: var(--radius-lg);
+    padding: 26px 22px; border: 1px solid var(--line);
+    transition: all 0.25s; position: relative;
+    display: flex; flex-direction: column;
+    color: inherit;
+  }
+  #view-landing .track-card:hover{
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--plum-soft);
+  }
+  #view-landing .track-emoji{
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--cream-deep);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; margin-bottom: 16px;
+  }
+  #view-landing .track-card.purple .track-emoji{ background: var(--plum-bg); }
+  #view-landing .track-card.coral .track-emoji{ background: var(--coral-bg); }
+  #view-landing .track-card.leaf .track-emoji{ background: var(--leaf-bg); }
+  #view-landing .track-card.amber .track-emoji{ background: #FBEFD3; }
+  #view-landing .track-card h3{
+    font-size: 19px; font-weight: 700; margin-bottom: 6px;
+    color: var(--ink); line-height: 1.3;
+  }
+  #view-landing .track-desc{ color: var(--ink-mute); font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
+  #view-landing .track-list{
+    list-style: none; padding: 0; margin: 0 0 18px;
+    flex-grow: 1; display: flex; flex-direction: column; gap: 10px;
+  }
+  #view-landing .track-list li{
+    font-size: 13.5px; color: var(--ink-soft); line-height: 1.5;
+    padding-left: 16px; position: relative;
+    display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap;
+  }
+  #view-landing .track-list li::before{
+    content: ''; position: absolute; left: 0; top: 8px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--plum-soft);
+  }
+  #view-landing .track-card.coral .track-list li::before{ background: var(--coral); }
+  #view-landing .track-card.leaf .track-list li::before{ background: var(--leaf); }
+  #view-landing .track-card.amber .track-list li::before{ background: var(--sun); }
+  #view-landing .track-pill{
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 2px 7px; border-radius: 999px;
+    background: var(--coral); color: white;
+  }
+  #view-landing .track-pill.soon{ background: var(--cream-deep); color: var(--ink-mute); }
+  #view-landing .track-link{
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 600; font-size: 14px; color: var(--plum);
+    margin-top: auto;
+  }
+  #view-landing .track-card.coral .track-link{ color: var(--coral-deep); }
+  #view-landing .track-card.leaf .track-link{ color: var(--leaf); }
+  #view-landing .track-card.amber .track-link{ color: #B07208; }
+
+  
+  #view-landing .benefits{ background: var(--paper); }
+  #view-landing .benefits-grid{
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px; max-width: 920px; margin: 0 auto;
+  }
+  #view-landing .benefit{
+    display: flex; gap: 18px; padding: 24px;
+    border-radius: var(--radius);
+    background: var(--cream);
+    border: 1px solid var(--line);
+  }
+  #view-landing .benefit-icon{
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--plum-bg); color: var(--plum);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  #view-landing .benefit h3{ font-size: 18px; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+  #view-landing .benefit p{ font-size: 15px; color: var(--ink-soft); }
+
+  
+  #view-landing .faq-list{ max-width: 760px; margin: 0 auto; }
+  #view-landing .faq-item{
+    border-bottom: 1px solid var(--line);
+    padding: 4px 0;
+  }
+  #view-landing .faq-q{
+    width: 100%; background: none; border: none;
+    padding: 20px 0; text-align: left;
+    font-family: inherit; font-size: 18px; font-weight: 600;
+    color: var(--ink); cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px;
+  }
+  #view-landing .faq-q:hover{ color: var(--plum); }
+  #view-landing .faq-q::after{
+    content: '+'; font-size: 24px; font-weight: 400;
+    color: var(--plum); transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  #view-landing .faq-item.open .faq-q::after{ transform: rotate(45deg); }
+  #view-landing .faq-a{
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    color: var(--ink-soft); font-size: 16px;
+  }
+  #view-landing .faq-item.open .faq-a{ max-height: 300px; padding: 0 0 20px; }
+
+  
+  #view-landing .word-week{ background: var(--cream-deep); }
+  #view-landing .word-card{
+    max-width: 720px; margin: 0 auto;
+    background: var(--paper); border-radius: var(--radius-lg);
+    border: 1px solid var(--line); overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+  #view-landing .word-card-meta{
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 28px; background: var(--cream);
+    border-bottom: 1px dashed var(--line);
+    font-size: 13px; color: var(--ink-mute);
+  }
+  #view-landing .word-card-week{ font-weight: 600; color: var(--coral-deep); letter-spacing: 0.05em; }
+  #view-landing .word-card-pos{ font-style: italic; }
+
+  #view-landing .word-card-main{
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 24px;
+    padding: 32px 28px; text-align: center;
+  }
+  #view-landing .word-card-en, #view-landing .word-card-th{ display: flex; flex-direction: column; gap: 4px; }
+  #view-landing .word-en{
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: clamp(32px, 5vw, 44px); font-weight: 700;
+    color: var(--plum); letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  #view-landing .word-phonetic{
+    font-family: 'Bai Jamjuree', monospace;
+    font-size: 15px; color: var(--ink-mute);
+  }
+  #view-landing .word-th{
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: clamp(28px, 4.5vw, 38px); font-weight: 700;
+    color: var(--coral-deep); line-height: 1.2;
+  }
+  #view-landing .word-th-sub{ font-size: 14px; color: var(--ink-mute); }
+  #view-landing .word-card-divider{
+    width: 1px; height: 60px; background: var(--line);
+  }
+
+  #view-landing .word-card-body{ padding: 0 28px 28px; }
+  #view-landing .word-def{
+    margin-bottom: 18px; color: var(--ink-soft);
+    font-size: 16px; line-height: 1.7;
+  }
+  #view-landing .word-def strong{ color: var(--ink); }
+
+  #view-landing .word-example{
+    background: var(--plum-bg); border-radius: var(--radius);
+    padding: 16px 20px; margin-bottom: 14px;
+    border-left: 4px solid var(--plum);
+  }
+  #view-landing .word-example-label{
+    font-size: 11px; font-weight: 700; color: var(--plum);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  #view-landing .word-example p{
+    margin: 4px 0; font-size: 16px;
+    color: var(--ink); line-height: 1.6;
+  }
+  #view-landing .word-example em{ color: var(--plum); font-style: normal; font-weight: 600; }
+  #view-landing .word-example-th{
+    color: var(--ink-soft) !important; font-size: 14.5px !important;
+    margin-top: 6px !important;
+  }
+
+  #view-landing .word-tip{
+    background: #FBEFD3; border-radius: var(--radius);
+    padding: 14px 18px; font-size: 14.5px;
+    color: var(--ink-soft); line-height: 1.6;
+  }
+  #view-landing .word-tip strong{ color: var(--ink); }
+  #view-landing .word-tip em{ color: var(--coral-deep); font-style: normal; font-weight: 600; }
+
+  #view-landing .word-card-foot{
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 28px; background: var(--cream);
+    border-top: 1px solid var(--line);
+    font-size: 14px; color: var(--ink-mute);
+  }
+  #view-landing .word-card-link{ color: var(--plum); font-weight: 600; }
+  #view-landing .word-card-link:hover{ color: var(--coral-deep); }
+
+  @media (max-width: 600px) {
+
+    #view-landing .word-card-main{ grid-template-columns: 1fr; gap: 18px; }
+    #view-landing .word-card-divider{ width: 60px; height: 1px; margin: 0 auto; }
+    #view-landing .word-card-meta{ flex-direction: column; gap: 4px; padding: 14px 20px; }
+    #view-landing .word-card-foot{ flex-direction: column; gap: 6px; padding: 14px 20px; text-align: center; }
+    #view-landing .word-card-body{ padding: 0 20px 24px; }
+  
+}
+
+
+  
+  #view-landing .community{ background: var(--cream); }
+  #view-landing .channels-grid{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 18px; max-width: 920px; margin: 0 auto;
+  }
+  #view-landing .channel-card{
+    background: var(--paper); border-radius: var(--radius-lg);
+    padding: 26px 22px; border: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 10px;
+    transition: all 0.25s; color: inherit; text-decoration: none;
+  }
+  #view-landing .channel-card:hover{
+    transform: translateY(-3px); box-shadow: var(--shadow-md);
+    border-color: var(--plum-soft);
+  }
+  #view-landing .channel-icon{
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; flex-shrink: 0;
+  }
+  #view-landing .channel-icon.line{ background: #06C755; }
+  #view-landing .channel-icon.fb{ background: #1877F2; }
+  #view-landing .channel-icon.tt{ background: #000; }
+  #view-landing .channel-card h3{
+    font-size: 19px; font-weight: 700; color: var(--ink);
+    margin-top: 4px;
+  }
+  #view-landing .channel-desc{
+    font-size: 14px; color: var(--ink-soft);
+    line-height: 1.6; flex-grow: 1; margin: 0;
+  }
+  #view-landing .channel-cta{
+    font-weight: 600; font-size: 14.5px;
+    margin-top: 6px;
+  }
+  #view-landing .channel-card.line .channel-cta{ color: #06C755; }
+  #view-landing .channel-card.fb .channel-cta{ color: #1877F2; }
+  #view-landing .channel-card.tt .channel-cta{ color: var(--ink); }
+  @media (max-width: 760px) {
+
+    #view-landing .channels-grid{ grid-template-columns: 1fr; }
+  
+}
+
+
+  
+  #view-landing .final-cta{
+    background: linear-gradient(135deg, var(--plum) 0%, #553873 100%);
+    color: var(--paper); position: relative; overflow: hidden;
+  }
+  #view-landing .final-cta::before{
+    content: ''; position: absolute;
+    top: -50%; right: -10%; width: 60%; height: 200%;
+    background: radial-gradient(circle, rgba(232, 178, 71, 0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  #view-landing .final-cta-inner{ position: relative; text-align: center; max-width: 680px; margin: 0 auto; }
+  #view-landing .final-cta h2{
+    font-size: clamp(32px, 5vw, 48px); font-weight: 700;
+    color: var(--paper); margin-bottom: 16px;
+  }
+  #view-landing .final-cta p{
+    font-size: 19px; color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 32px;
+  }
+  #view-landing .final-cta .btn-primary{
+    background: var(--coral); color: white;
+    padding: 16px 36px; font-size: 17px;
+  }
+  #view-landing .final-cta-reassure{
+    margin-top: 20px; font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+  }
+
+  
+  #view-landing footer{
+    background: var(--ink); color: rgba(255, 255, 255, 0.85);
+    padding: 60px 0 40px;
+  }
+  #view-landing footer h4{ color: var(--paper); margin-bottom: 14px; font-family: 'Bai Jamjuree'; font-size: 16px; }
+  #view-landing footer p, #view-landing footer a{ color: rgba(255, 255, 255, 0.7); font-size: 14px; line-height: 1.8; }
+  #view-landing footer a:hover{ color: var(--paper); }
+  #view-landing .footer-grid{
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px; margin-bottom: 40px;
+  }
+  #view-landing .footer-social{ display: flex; gap: 12px; margin-top: 14px; }
+  #view-landing .footer-social a{
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  #view-landing .footer-social a:hover{ background: var(--coral); color: white; }
+  #view-landing .footer-bottom{
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px; font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+  }
+
+  
+  @media (max-width: 980px) {
+
+    #view-landing .tracks-grid{ grid-template-columns: repeat(2, 1fr); }
+  
+}
+
+  @media (max-width: 860px) {
+
+    #view-landing .hero-grid{ grid-template-columns: 1fr; gap: 40px; }
+    #view-landing .mascot{ max-width: 280px; margin: 0 auto; }
+    #view-landing .stats-grid{ grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    #view-landing .tracks-grid{ grid-template-columns: 1fr; }
+    #view-landing .benefits-grid{ grid-template-columns: 1fr; }
+    #view-landing .footer-grid{ grid-template-columns: 1fr; gap: 30px; }
+    #view-landing section{ padding: 60px 0; }
+    #view-landing .lesson-card{ padding: 28px 22px; }
+    #view-landing .nav-actions .btn-ghost{ display: none; }
+    #view-landing .brand-tag{ display: none; }
+    #view-landing .hero-meta{ flex-wrap: wrap; gap: 12px 16px; }
+    #view-landing{ font-size: 16px; }
+  
+}
+
+
 </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Bai+Jamjuree:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- ══ LANDING ══ -->
-<div class="landing" id="view-landing">
-  <div class="land-hero">
-    <div class="land-brand">Ajarn Kwan</div>
-    <div class="land-title">เรียนเศรษฐศาสตร์<br>ฟรี ง่าย ไม่ต้องกลัวเลข</div>
-    <div class="land-sub">บทเรียนออนไลน์ฟรี โดย อ.ขวัญ อาจารย์ประจำคณะเศรษฐศาสตร์ ม.รามคำแหง ออกแบบมาให้ทุกคนเข้าถึงได้ค่ะ</div>
-    <div class="land-tags">
-      <span class="land-tag">🆓 เรียนฟรีตลอด</span>
-      <span class="land-tag">🇹🇭 ภาษาไทย 100%</span>
-      <span class="land-tag">📱 เรียนได้ทุกที่</span>
+<!-- ══ LANDING (new design — merged) ══ -->
+<div id="view-landing">
+  <div class="preview-banner" id="landing-preview-banner">
+    <div class="preview-banner-text">โหมดพรีวิว: กำลังดูหน้าแรกที่คนทั่วไปเห็น</div>
+    <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
+  </div>
+<!-- ============ Top Nav ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
+      <span class="brand-mark">👩‍🏫</span>
+      <span class="brand-text-wrap">
+        <span class="brand-text">Ajarn.Kwan</span>
+        <span class="brand-tag">Self-Learning Centre</span>
+      </span>
+    </a>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" onclick="goLoginFromLanding()">เข้าสู่ระบบ</button>
+      <button class="btn btn-primary" onclick="goJoin()">สมัครฟรี</button>
     </div>
   </div>
+</nav>
 
-  <div class="land-body">
-    <div class="preview-banner" id="landing-preview-banner">
-      <div class="preview-banner-text">โหมดพรีวิว: กำลังดูหน้าแรกที่คนทั่วไปเห็น</div>
-      <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
+<!-- ============ Hero ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-eyebrow">เริ่มเรียนได้ทุกวัน · ทุกวันคือจุดเริ่มต้น</span>
+        <h1>
+          <span class="hl1"><span class="accent">Self-Learning Centre</span><br>by <span class="hl-name">Ajarn.Kwan</span></span>
+          <span class="hl2">ชุมชนเรียนรู้ด้วยตัวเอง</span>
+          <span class="hl3">โดย "อาจารย์ขวัญ" เป็นที่ปรึกษา</span>
+        </h1>
+        <p class="hero-sub">
+          อยากเข้าใจ<strong>เงินเฟ้อ</strong>? ลอง <strong>regression</strong> แบบเห็นภาพ?
+          ใช้ <strong>AI</strong> ช่วยทำงาน? อ่าน<strong>ข่าวเศรษฐกิจภาษาอังกฤษ</strong>ได้คล่อง?
+          — ที่นี่มีบทเรียนพร้อมให้คุณค่ะ เรียนง่าย ๆ ใครก็เรียนได้
+          และที่สำคัญ <strong>ฟรีตลอด</strong>
+        </p>
+        <div class="hero-cta">
+          <a href="#try" class="btn btn-primary">ลองเรียน 60 วินาที →</a>
+          <a href="#tracks" class="btn btn-outline">ดูหัวข้อทั้งหมด</a>
+        </div>
+        <div class="hero-meta">
+          <span class="hero-meta-item">🆓 ฟรี ตลอดชีพ</span>
+          <span class="hero-meta-item">🇹🇭 ภาษาไทย 100%</span>
+          <span class="hero-meta-item">📱 เรียนได้ทุกที่</span>
+          <span class="hero-meta-item">💬 มีคอมมูนิตี้</span>
+        </div>
+      </div>
+
+      <!-- Mascot -->
+      <div class="mascot">
+        <div class="mascot-bubble">สวัสดีค่ะ! 👋<br>ลองมาเรียนกันมั้ยคะ?</div>
+        <svg class="mascot-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Soft hover shadow -->
+          <ellipse cx="200" cy="370" rx="125" ry="14" fill="#9B7BB8" opacity="0.12"/>
+
+          <!-- Antenna stem -->
+          <path d="M 200 95 Q 198 78 192 65" stroke="#5C4A40" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+          <!-- Lightbulb glow halo -->
+          <circle cx="190" cy="55" r="26" fill="#E8B247" opacity="0.18"/>
+          <!-- Lightbulb body -->
+          <circle cx="190" cy="55" r="15" fill="#FFD370"/>
+          <circle cx="190" cy="55" r="15" fill="none" stroke="#B07208" stroke-width="2.5"/>
+          <!-- Bulb shine inside -->
+          <ellipse cx="186" cy="50" rx="4" ry="6" fill="#FFEDB8" opacity="0.85"/>
+          <!-- Lightbulb base -->
+          <rect x="184" y="68" width="12" height="5" fill="#5C4A40" rx="1.5"/>
+          <!-- Bulb shine rays -->
+          <line x1="170" y1="40" x2="163" y2="33" stroke="#E8B247" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="210" y1="40" x2="217" y2="33" stroke="#E8B247" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="190" y1="30" x2="190" y2="20" stroke="#E8B247" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="172" y1="58" x2="163" y2="58" stroke="#E8B247" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="208" y1="58" x2="217" y2="58" stroke="#E8B247" stroke-width="2.5" stroke-linecap="round"/>
+
+          <!-- Body (round chibi — head + body merged) -->
+          <circle cx="200" cy="195" r="120" fill="#F5C4B3"/>
+          <!-- Lighter belly highlight -->
+          <ellipse cx="200" cy="232" rx="85" ry="68" fill="#FCEAE2"/>
+
+          <!-- Big cute eyes -->
+          <circle cx="165" cy="180" r="17" fill="#2A1F1A"/>
+          <circle cx="170" cy="173" r="6.5" fill="white"/>
+          <circle cx="161" cy="189" r="3" fill="white"/>
+          <circle cx="235" cy="180" r="17" fill="#2A1F1A"/>
+          <circle cx="240" cy="173" r="6.5" fill="white"/>
+          <circle cx="231" cy="189" r="3" fill="white"/>
+
+          <!-- Cheek blush -->
+          <ellipse cx="143" cy="218" rx="15" ry="9" fill="#E27A5F" opacity="0.6"/>
+          <ellipse cx="257" cy="218" rx="15" ry="9" fill="#E27A5F" opacity="0.6"/>
+
+          <!-- Kawaii smile -->
+          <path d="M 184 222 Q 200 234 216 222" stroke="#2A1F1A" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+          <!-- Tiny arms holding tablet -->
+          <ellipse cx="118" cy="252" rx="20" ry="30" fill="#F5C4B3" transform="rotate(-18 118 252)"/>
+          <ellipse cx="282" cy="252" rx="20" ry="30" fill="#F5C4B3" transform="rotate(18 282 252)"/>
+
+          <!-- Tablet showing AI-style chart -->
+          <rect x="135" y="270" width="130" height="76" rx="11" fill="#FDF8F2" stroke="#2A1F1A" stroke-width="2.5"/>
+          <rect x="143" y="278" width="114" height="56" rx="5" fill="#FFF6E7"/>
+          <!-- Chart bars -->
+          <rect x="150" y="318" width="11" height="14" fill="#9B7BB8" rx="1"/>
+          <rect x="165" y="310" width="11" height="22" fill="#9B7BB8" rx="1"/>
+          <rect x="180" y="302" width="11" height="30" fill="#E27A5F" rx="1"/>
+          <rect x="195" y="294" width="11" height="38" fill="#E27A5F" rx="1"/>
+          <rect x="210" y="286" width="11" height="46" fill="#E8B247" rx="1"/>
+          <rect x="225" y="296" width="11" height="36" fill="#E8B247" rx="1"/>
+          <rect x="240" y="289" width="11" height="43" fill="#6B4A8A" rx="1"/>
+          <!-- Trend line -->
+          <polyline points="155,326 170,318 185,309 200,300 215,289 230,300 245,290" fill="none" stroke="#6B4A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Tablet camera/notch dot -->
+          <circle cx="200" cy="274" r="1.5" fill="#5C4A40"/>
+
+          <!-- Sparkles around (knowledge particles) -->
+          <g fill="#E8B247">
+            <path d="M 65 130 L 69 138 L 77 142 L 69 146 L 65 154 L 61 146 L 53 142 L 61 138 Z"/>
+            <path d="M 335 110 L 338 117 L 345 120 L 338 123 L 335 130 L 332 123 L 325 120 L 332 117 Z"/>
+            <path d="M 350 240 L 353 247 L 360 250 L 353 253 L 350 260 L 347 253 L 340 250 L 347 247 Z"/>
+            <path d="M 60 285 L 63 291 L 69 294 L 63 297 L 60 303 L 57 297 L 51 294 L 57 291 Z"/>
+          </g>
+
+          <!-- Knowledge particles near lightbulb -->
+          <circle cx="148" cy="55" r="3" fill="#E27A5F" opacity="0.7"/>
+          <circle cx="245" cy="48" r="2.5" fill="#9B7BB8" opacity="0.7"/>
+          <circle cx="225" cy="80" r="2" fill="#E8B247" opacity="0.85"/>
+        </svg>
+      </div>
     </div>
-    <div class="land-sec">ลองเรียนได้เลย ไม่ต้องสมัคร</div>
+  </div>
+</header>
 
-    <a href="econometrics/" class="land-course">
-      <div class="lc-icon" style="background:#fef2e8;border:1.5px solid #f9c89b">📉</div>
-      <div class="lc-body">
-        <div class="lc-title">ปูพื้นฐานเศรษฐมิติ</div>
-        <div class="lc-desc">เริ่มจากศูนย์ ไม่ต้องกลัวเลข · 6 บท + quiz + กราฟ interactive</div>
+<!-- ============ Stats ============ -->
+<div class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num">4</div>
+        <div class="stat-label">หัวข้อหลัก · Topic Tracks</div>
       </div>
-      <span class="lc-arr">→</span>
-      <span class="land-badge land-badge-new">NEW</span>
-    </a>
-
-    <a href="econ-math-readiness/" class="land-course">
-      <div class="lc-icon" style="background:#ede9fe;border:1.5px solid #c4b5fd">📐</div>
-      <div class="lc-body">
-        <div class="lc-title">Basic Math & Stats for Econ</div>
-        <div class="lc-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 Modules</div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">ภาษาไทย ฟรีทั้งหมด</div>
       </div>
-      <span class="lc-arr">→</span>
-      <span class="land-badge land-badge-free">ฟรี</span>
-    </a>
-
-    <a href="microeconomics/" class="land-course">
-      <div class="lc-icon" style="background:#eff6ff;border:1.5px solid #93c5fd">📘</div>
-      <div class="lc-body">
-        <div class="lc-title">Microeconomics</div>
-        <div class="lc-desc">ทฤษฎีเศรษฐศาสตร์จุลภาค · บทที่ 1-3 พร้อมเรียน</div>
+      <div>
+        <div class="stat-num">22+</div>
+        <div class="stat-label">บทเรียน + Quiz Interactive</div>
       </div>
-      <span class="lc-arr">→</span>
-    </a>
-
-    <div class="land-features">
-      <div class="land-feat">
-        <span class="land-feat-icon">💬</span>
-        <div class="land-feat-label">ภาษาง่าย<br>ไม่ต้องมีพื้นฐาน</div>
-      </div>
-      <div class="land-feat">
-        <span class="land-feat-icon">🧪</span>
-        <div class="land-feat-label">มี Quiz<br>ทดสอบความเข้าใจ</div>
-      </div>
-      <div class="land-feat">
-        <span class="land-feat-icon">📄</span>
-        <div class="land-feat-label">Cheat Sheet<br>สรุปให้พิมพ์ฟรี</div>
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">ปีที่สอนระดับมหาวิทยาลัย</div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="land-cta">
-    <div class="land-cta-title">อยากเรียนเพิ่ม?</div>
-    <div class="land-cta-sub">ลงทะเบียนฟรี เข้าถึงบทเรียนเต็ม, cheat sheet, และ community ของเราค่ะ</div>
-    <button class="btn-cta" onclick="goJoin()">ลงทะเบียนฟรี →</button><br>
-    <button class="btn-cta-ghost" onclick="goLoginFromLanding()">มีบัญชีแล้ว? เข้าสู่ระบบ</button>
-  </div>
+<!-- ============ Try a Lesson (the key new section) ============ -->
+<section class="try-lesson" id="try">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">บทเรียนตัวอย่าง</span>
+      <h2>ชิมก่อน ค่อยตัดสินใจค่ะ</h2>
+      <p>นี่คือ<strong>บทเรียนจริง</strong>จากหลักสูตรของเรา ลองอ่าน เลื่อนสไลเดอร์ และทำ Quiz ได้เลยค่ะ<br>— ใช้เวลาแค่ 60 วินาที —</p>
+    </div>
 
-  <div class="land-foot">
-    <strong style="color:#4b4540">Ajarn.Kwan (อ.ขวัญ)</strong><br>
-    อาจารย์ประจำคณะเศรษฐศาสตร์ มหาวิทยาลัยรามคำแหง<br>
-    <span style="font-size:.62rem;color:#b0a8a0">Assistant Professor, Faculty of Economics, Ramkhamhaeng University</span><br>
-    <span style="margin-top:.35rem;display:inline-block">
-      <a href="https://www.facebook.com/ajarnkwan" target="_blank">Facebook</a> ·
-      <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank">TikTok</a> ·
-      <a href="https://github.com/ajarnkwan" target="_blank">GitHub</a>
-    </span><br>
-    © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+    <article class="lesson-card">
+      <div class="lesson-meta">
+        <span class="lesson-pill">บทที่ 1</span>
+        <span>Microeconomics · จุลภาค</span>
+        <span>· อ่าน 3 นาที</span>
+      </div>
+      <h3 class="lesson-title">ทำไมราคาขึ้นแล้วคนซื้อน้อยลง?</h3>
+
+      <div class="lesson-body">
+        <p>
+          ลองนึกภาพแม่ค้าขายมะม่วงสุกหน้าตลาดค่ะ เช้านี้แม่ค้าขายมะม่วง
+          กิโลละ <strong>40 บาท</strong> มีคนซื้อเยอะแยะ
+          แต่พอตอนบ่ายแม่ค้าขึ้นราคาเป็น <strong>80 บาท</strong>
+          คนกลับเงียบกริบ ไม่ค่อยมีใครซื้อแล้ว
+        </p>
+        <p>
+          นี่คือเรื่องที่นักเศรษฐศาสตร์เรียกว่า <strong>"กฎอุปสงค์" (Law of Demand)</strong>
+          — เมื่อราคาสูงขึ้น ปริมาณที่คนต้องการซื้อจะลดลง และในทางกลับกัน
+          ราคาต่ำลง คนก็ซื้อเยอะขึ้น (ถ้าปัจจัยอื่น ๆ คงที่นะคะ)
+        </p>
+
+        <!-- Interactive: Drag to see -->
+        <div class="interactive-box">
+          <div class="interactive-label">✋ ลองเลื่อนดูเองค่ะ — เปลี่ยนราคา แล้วดูว่ามีคนซื้อกี่คน</div>
+          <div class="slider-row">
+            <label for="price">ราคา (บาท/กก.)</label>
+            <input type="range" id="price" class="price-slider" min="20" max="120" value="40" step="5">
+            <span class="price-readout" id="priceOut">฿40</span>
+          </div>
+          <div class="demand-viz" id="viz">
+            <!-- bars created by JS -->
+          </div>
+          <div class="viz-caption">
+            <span>← ราคาต่ำ คนซื้อเยอะ</span>
+            <span>ราคาสูง คนซื้อน้อย →</span>
+          </div>
+          <div class="insight-box" id="insight">
+            ที่ราคา <strong>฿40</strong> มีคนอยากซื้อประมาณ <strong>10 คน</strong> 👥
+          </div>
+        </div>
+
+        <p>
+          ในชีวิตจริง เรื่องนี้เกิดขึ้นทุกวันค่ะ — ตั๋วหนัง ค่าน้ำมัน
+          ค่าโทรศัพท์ ราคาบ้าน ทุกอย่างมีกฎอุปสงค์ทำงานอยู่เบื้องหลัง
+        </p>
+
+        <!-- Quiz -->
+        <div class="quiz-box" id="quiz">
+          <div class="quiz-q">ถ้าร้านกาแฟขึ้นราคาจาก 35 เป็น 65 บาท อะไรน่าจะเกิดขึ้น?</div>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-correct="false">
+              <span class="quiz-opt-letter">A</span>
+              <span>คนซื้อเยอะขึ้น เพราะแพงแสดงว่าดี</span>
+            </button>
+            <button class="quiz-opt" data-correct="true">
+              <span class="quiz-opt-letter">B</span>
+              <span>คนซื้อน้อยลง บางคนเปลี่ยนไปดื่มที่อื่น</span>
+            </button>
+            <button class="quiz-opt" data-correct="false">
+              <span class="quiz-opt-letter">C</span>
+              <span>ไม่มีอะไรเปลี่ยน ราคาไม่เกี่ยวกับการตัดสินใจ</span>
+            </button>
+          </div>
+          <div class="quiz-feedback" id="feedback"></div>
+        </div>
+      </div>
+
+      <!-- Locked next section -->
+      <div class="locked-teaser">
+        <h4>🔒 อยากเรียนต่อมั้ยคะ?</h4>
+        <p>บทต่อไปคือ <strong>"กฎอุปทาน (Law of Supply)"</strong> และเส้นกราฟอุปสงค์-อุปทาน
+        ที่เป็นหัวใจของเศรษฐศาสตร์ — สมัครฟรีเพื่อปลดล็อกได้เลยค่ะ</p>
+        <button class="btn btn-primary" onclick="goJoin()">สมัครฟรีเพื่อเรียนต่อ →</button>
+      </div>
+    </article>
   </div>
+</section>
+
+<!-- ============ Tracks ============ -->
+<section id="tracks">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">หัวข้อในห้องเรียน</span>
+      <h2>4 หัวข้อหลัก · เรียนตามใจที่อยากรู้</h2>
+      <p>เลือกหัวข้อที่สนใจ — แต่ละหัวข้อมีบทเรียนหลายระดับ ตั้งแต่ผู้เริ่มต้นจนถึงต่อยอดขั้นสูงค่ะ</p>
+    </div>
+
+    <div class="tracks-grid">
+      <a href="https://ajarnkwan.github.io/econometrics/" class="track-card purple">
+        <span class="track-emoji">📊</span>
+        <h3>เข้าใจเศรษฐกิจ</h3>
+        <p class="track-desc">เศรษฐศาสตร์จุลภาค · มหภาค · เศรษฐมิติ</p>
+        <ul class="track-list">
+          <li>Microeconomics · บทที่ 1-3 พร้อม</li>
+          <li>ปูพื้นฐานเศรษฐมิติ · 6 บท <span class="track-pill">NEW</span></li>
+          <li>Math &amp; Stats for Econ · 13 modules</li>
+        </ul>
+        <span class="track-link">เริ่มเรียน →</span>
+      </a>
+
+      <a href="#community" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth',block:'start'});event.preventDefault()" class="track-card coral">
+        <span class="track-emoji">💰</span>
+        <h3>การเงินส่วนตัว</h3>
+        <p class="track-desc">เงินของคุณ · การออม · การลงทุน · ดอกเบี้ย</p>
+        <ul class="track-list">
+          <li>การเงินส่วนบุคคล 101 <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+          <li>เข้าใจดอกเบี้ย เงินเฟ้อ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+          <li>พื้นฐานการลงทุน <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+        </ul>
+        <span class="track-link">ติดตามทางช่องทางของเรา →</span>
+      </a>
+
+      <a href="#community" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth',block:'start'});event.preventDefault()" class="track-card leaf">
+        <span class="track-emoji">🤖</span>
+        <h3>AI ในชีวิตจริง</h3>
+        <p class="track-desc">ใช้ AI ทำงาน · เขียนโค้ด · เรียนรู้ · ทุ่นแรง</p>
+        <ul class="track-list">
+          <li>Vibe Coding · เขียนโค้ดด้วย AI <span class="track-pill">มาแล้ว</span></li>
+          <li>AI ช่วยได้ · prompt library <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+          <li>AI สำหรับงานเศรษฐศาสตร์ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+        </ul>
+        <span class="track-link">ดูช่องทางอัปเดต →</span>
+      </a>
+
+      <a href="#community" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth',block:'start'});event.preventDefault()" class="track-card amber">
+        <span class="track-emoji">🔤</span>
+        <h3>อังกฤษเศรษฐกิจ</h3>
+        <p class="track-desc">ศัพท์พื้นฐาน · อ่านข่าว · อ่าน paper ได้</p>
+        <ul class="track-list">
+          <li>50 คำพื้นฐาน · ที่ต้องรู้ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+          <li>Word of the Week · ทุกวันจันทร์ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+          <li>อ่านข่าวเศรษฐกิจภาษาอังกฤษ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+        </ul>
+        <span class="track-link">ดูช่องทางอัปเดต →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Benefits ============ -->
+<section class="benefits">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">สิทธิพิเศษสมาชิก</span>
+      <h2>เป็นสมาชิกแล้วได้อะไรบ้าง?</h2>
+      <p>เราใช้ระบบสมาชิกเพื่อสร้าง<strong>คอมมูนิตี้ผู้เรียน</strong>ที่ช่วยกันเติบโต<br>— ไม่ได้เก็บเงิน แค่อยากรู้จักผู้เรียนค่ะ —</p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit">
+        <div class="benefit-icon">💬</div>
+        <div>
+          <h3>คอมมูนิตี้ผู้เรียน</h3>
+          <p>เข้าร่วมกลุ่มเพื่อนเรียน ถามคำถาม แลกเปลี่ยนความเข้าใจ และอัปเดตเนื้อหาใหม่ก่อนใคร</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🔓</div>
+        <div>
+          <h3>ปลดล็อกเนื้อหาเต็ม</h3>
+          <p>เข้าถึงทุกบทเรียนของทุกหัวข้อ พร้อม Quiz เฉลย และตัวอย่างจากชีวิตจริง</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">📄</div>
+        <div>
+          <h3>Cheat Sheet พิมพ์ได้</h3>
+          <p>สรุปสูตร ศัพท์ และคอนเซปต์สำคัญใน 1 หน้า A4 — พิมพ์เก็บไว้ทบทวนได้เลย</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🎫</div>
+        <div>
+          <h3>เลขสมาชิกประจำตัว</h3>
+          <p>ได้รหัสสมาชิกของตัวเอง (เช่น 2604001) ใช้เป็นที่ระลึก และอ้างอิงได้ในอนาคต</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Word of the Week ============ -->
+<section class="word-week">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">ศัพท์ประจำสัปดาห์</span>
+      <h2>Word of the Week</h2>
+      <p>ทุกวันจันทร์ เราเลือกศัพท์เศรษฐศาสตร์ภาษาอังกฤษ 1 คำ มาอธิบายให้เข้าใจง่าย พร้อมตัวอย่างจากชีวิตจริง</p>
+    </div>
+
+    <article class="word-card">
+      <div class="word-card-meta">
+        <span class="word-card-week">Week 17 / 2026</span>
+        <span class="word-card-pos">noun · เศรษฐศาสตร์มหภาค</span>
+      </div>
+
+      <div class="word-card-main">
+        <div class="word-card-en">
+          <h3 class="word-en">Inflation</h3>
+          <span class="word-phonetic">/ɪnˈfleɪʃn/</span>
+        </div>
+        <div class="word-card-divider"></div>
+        <div class="word-card-th">
+          <h3 class="word-th">ภาวะเงินเฟ้อ</h3>
+          <span class="word-th-sub">การที่ราคาสินค้าโดยรวมแพงขึ้น</span>
+        </div>
+      </div>
+
+      <div class="word-card-body">
+        <p class="word-def">
+          <strong>ความหมาย:</strong> ภาวะที่ระดับราคาสินค้าและบริการโดยทั่วไปสูงขึ้นอย่างต่อเนื่อง
+          ทำให้เงินจำนวนเท่าเดิมซื้อของได้น้อยลงค่ะ
+        </p>
+        <div class="word-example">
+          <span class="word-example-label">Example</span>
+          <p>"Thailand's <em>inflation</em> rate was 2.5% in 2025, lower than the global average."</p>
+          <p class="word-example-th">"อัตราเงินเฟ้อของไทยปี 2025 อยู่ที่ 2.5% ต่ำกว่าค่าเฉลี่ยทั่วโลก"</p>
+        </div>
+        <div class="word-tip">
+          💡 <strong>เกร็ดน่ารู้:</strong> ตรงข้ามกับ <em>inflation</em> คือ <em>deflation</em> (ภาวะเงินฝืด) ซึ่งเป็นเรื่องที่นักเศรษฐศาสตร์มักกลัวมากกว่าเงินเฟ้อค่ะ
+        </div>
+      </div>
+
+      <div class="word-card-foot">
+        <span>📅 อัปเดตทุกวันจันทร์</span>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" class="word-card-link">รับคำใหม่ทุกสัปดาห์ทาง Line OA →</a>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="community" id="community">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">ชุมชนของเรา</span>
+      <h2>ตามเราได้ทุกช่องทาง</h2>
+      <p>ติดตามอัปเดตและพูดคุยกันได้ตามแพลตฟอร์มที่คุณใช้บ่อยค่ะ</p>
+    </div>
+
+    <div class="channels-grid">
+      <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" class="channel-card line" id="lineLink">
+        <div class="channel-icon line">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/>
+          </svg>
+        </div>
+        <h3>Line OA</h3>
+        <p class="channel-desc">ช่องทางใกล้ชิด สำหรับติดตามอัปเดตและคุยกันแบบส่วนตัวค่ะ</p>
+        <span class="channel-cta">เพิ่มเพื่อน →</span>
+      </a>
+
+      <a href="https://www.facebook.com/ajarnkwan" class="channel-card fb">
+        <div class="channel-icon fb">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M14 13.5h2.5l1-4H14v-2c0-1 .5-2 2-2h1.5V2.1S16.2 2 14.9 2C12.2 2 10.5 3.7 10.5 6.4v3.1H7v4h3.5V22H14V13.5z"/>
+          </svg>
+        </div>
+        <h3>Facebook</h3>
+        <p class="channel-desc">เพจสำหรับแชร์เนื้อหา และแลกเปลี่ยนความคิดเห็นกับเพื่อนผู้เรียนค่ะ</p>
+        <span class="channel-cta">กดถูกใจเพจ →</span>
+      </a>
+
+      <a href="https://www.tiktok.com/@ajarn.kwan" class="channel-card tt">
+        <div class="channel-icon tt">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M19.6 8.3v3.5c-2.4 0-4-.8-5.3-2v6.5c0 4.5-3.7 5.7-5.7 5.7-2 0-5-1.3-5-5.4 0-4 3.6-5.6 5.7-5.6.4 0 .9.1 1.3.2v3.7c-.4-.1-.8-.2-1.2-.2-1.7 0-2.4 1.2-2.4 2.1 0 1.4 1 2.1 2.2 2.1 1.4 0 2.4-.9 2.4-3V0h3.5c.4 4.5 3.6 4.7 4.5 4.7v3.6"/>
+          </svg>
+        </div>
+        <h3>TikTok</h3>
+        <p class="channel-desc">คลิปสั้น ๆ สไตล์เป็นกันเอง สำหรับคนชอบเรียนรู้ผ่านวิดีโอ · @ajarn.kwan</p>
+        <span class="channel-cta">ติดตาม →</span>
+      </a>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">คำถามที่พบบ่อย</span>
+      <h2>มีคำถามมั้ยคะ?</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">ฟรีจริงเหรอคะ? มีค่าใช้จ่ายแอบแฝงมั้ย?</button>
+        <div class="faq-a">ฟรีจริง 100% ค่ะ ไม่มีค่าใช้จ่ายใด ๆ ทั้งสิ้น เนื้อหาทั้งหมดทำขึ้นเพื่อการศึกษา และเปิดให้ทุกคนเข้าถึงได้ค่ะ</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">ต้องมีพื้นฐานคณิตศาสตร์หรือเศรษฐศาสตร์มาก่อนมั้ย?</button>
+        <div class="faq-a">ไม่ต้องเลยค่ะ บทเรียนออกแบบมาสำหรับคนที่กลัวเลข เริ่มจากศูนย์ ใช้ภาษาง่าย ๆ และมีตัวอย่างจากชีวิตจริง — ทั้งหัวข้อเศรษฐศาสตร์ การเงิน AI และศัพท์อังกฤษ เริ่มได้หมดค่ะ</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">ทำไมต้องสมัครสมาชิก ในเมื่อบางหัวข้อเปิดให้ลองได้?</button>
+        <div class="faq-a">การสมัครสมาชิกช่วยให้เรารู้ว่าผู้เรียนเป็นใคร จะได้ออกแบบเนื้อหาให้เหมาะ และยังช่วยเก็บความก้าวหน้าการเรียน ดาวน์โหลด Cheat Sheet เข้าร่วมคอมมูนิตี้ และเข้าถึงเนื้อหาเต็มทุกหัวข้อได้ค่ะ</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">เรียนผ่านมือถือได้มั้ย?</button>
+        <div class="faq-a">ได้ค่ะ ทุกบทเรียนออกแบบให้เรียนได้ทั้งบนคอมพิวเตอร์และมือถือ — รถติด รอคิว ระหว่างพักเที่ยง ก็เปิดเรียนได้</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">ถ้าเรียนไม่เข้าใจ ถามได้มั้ย?</button>
+        <div class="faq-a">ได้ค่ะ เข้าร่วมคอมมูนิตี้ และทักมาที่ Facebook page / TikTok / Line OA เพื่อสอบถามและแชร์ความรู้ในแง่มุมต่าง ๆ กันค่ะ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Final CTA ============ -->
+<section class="final-cta" id="signup">
+  <div class="container">
+    <div class="final-cta-inner">
+      <h2>พร้อมเริ่มแล้วใช่ไหมคะ?</h2>
+      <p>ใช้เวลาสมัครแค่ 30 วินาที สมัครด้วย Email ได้เลย<br>— แล้วมาเริ่มต้นการเรียนรู้ไปด้วยกันค่ะ ✨</p>
+      <button class="btn btn-primary" onclick="goJoin()">สมัครสมาชิกฟรี →</button>
+      <div class="final-cta-reassure">
+        <span>✓ ไม่มีค่าใช้จ่าย</span>
+        <span>✓ ไม่ต้องใส่บัตรเครดิต</span>
+        <span>✓ ลบบัญชีได้ทุกเมื่อ</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Ajarn.Kwan - Self-Learning Centre</h4>
+        <p>
+          <strong style="color: white;">ผศ.ดร.ขวัญ เพชรสว่าง</strong><br>
+          ผู้ช่วยศาสตราจารย์ คณะเศรษฐศาสตร์<br>
+          มหาวิทยาลัยรามคำแหง<br>
+          <span style="opacity: 0.6;">Asst. Prof. Dr. Kwan Phetsawang<br>Faculty of Economics, Ramkhamhaeng University</span>
+        </p>
+        <div class="footer-social">
+          <a href="#" id="footerLine" aria-label="Line OA" title="Line OA">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/ajarnkwan" aria-label="Facebook" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" aria-label="TikTok" title="TikTok">▶</a>
+          <a href="https://github.com/ajarnkwan" aria-label="GitHub" title="GitHub">◐</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>หัวข้อในห้องเรียน</h4>
+        <p>
+          <a href="#tracks">เข้าใจเศรษฐกิจ</a><br>
+          <a href="#tracks">การเงินส่วนตัว</a><br>
+          <a href="#tracks">AI ในชีวิตจริง</a><br>
+          <a href="#tracks">อังกฤษเศรษฐกิจ</a>
+        </p>
+      </div>
+
+      <div>
+        <h4>คอมมูนิตี้</h4>
+        <p>
+          <a href="#" onclick="event.preventDefault();goJoin()">สมัครสมาชิกฟรี</a><br>
+          <a href="#" onclick="event.preventDefault();goLoginFromLanding()">เข้าสู่ระบบ</a><br>
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" id="footerLineLink">เพิ่มเพื่อน Line OA</a><br>
+          <a href="#" onclick="event.preventDefault();goLoginFromLanding()">Member Hub</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Ajarn.Kwan - Self-Learning Centre · ผศ.ดร.ขวัญ เพชรสว่าง · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+    </div>
+  </div>
+</footer>
 </div>
 
 <!-- ══ LOGIN ══ -->
@@ -1294,5 +2474,95 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   </div>
 </div>
 
+<script>
+/* New landing design interactions */
+
+  // ===== Demand curve interactive =====
+  const priceSlider = document.getElementById('price');
+  const priceOut = document.getElementById('priceOut');
+  const viz = document.getElementById('viz');
+  const insight = document.getElementById('insight');
+
+  // Build 12 bars (each represents customers at a price tier)
+  const numBars = 12;
+  const bars = [];
+  for (let i = 0; i < numBars; i++) {
+    const b = document.createElement('div');
+    b.className = 'demand-bar';
+    viz.appendChild(b);
+    bars.push(b);
+  }
+
+  function updateDemand() {
+    const price = parseInt(priceSlider.value);
+    priceOut.textContent = '฿' + price;
+
+    // Demand function: at price 20, demand = 16; at price 120, demand = 0
+    const maxDemand = 16;
+    const demanded = Math.max(0, Math.round(maxDemand - (price - 20) * 0.16));
+
+    bars.forEach((bar, i) => {
+      // Each bar represents demand level — fill in from left
+      const filled = i < Math.min(demanded, numBars);
+      const heightPct = filled ? 100 - (i * 6) : 0;
+      bar.style.height = Math.max(heightPct, filled ? 8 : 0) + '%';
+      // Color: green when low, coral when high
+      const t = price / 120;
+      const r = Math.round(74 + (226 - 74) * t);
+      const g = Math.round(130 + (122 - 130) * t);
+      const b2 = Math.round(96 + (95 - 96) * t);
+      bar.style.background = `rgb(${r}, ${g}, ${b2})`;
+    });
+
+    // Insight text
+    let msg;
+    if (price <= 35) msg = `ราคาถูกมาก! มีคนอยากซื้อถึง <strong>${demanded} คน</strong> 🎉`;
+    else if (price <= 60) msg = `ที่ราคา <strong>฿${price}</strong> มีคนอยากซื้อประมาณ <strong>${demanded} คน</strong> 👥`;
+    else if (price <= 90) msg = `ราคาเริ่มสูงแล้ว เหลือคนซื้อแค่ <strong>${demanded} คน</strong> 🤔`;
+    else msg = `แพงเกินไป! เหลือคนซื้อแค่ <strong>${demanded} คน</strong> 😅`;
+    insight.innerHTML = msg;
+  }
+  priceSlider.addEventListener('input', updateDemand);
+  updateDemand();
+
+  // ===== Quiz =====
+  const quizOpts = document.querySelectorAll('.quiz-opt');
+  const feedback = document.getElementById('feedback');
+  let quizAnswered = false;
+
+  quizOpts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (quizAnswered) return;
+      quizAnswered = true;
+      const isCorrect = opt.dataset.correct === 'true';
+
+      // Mark all options
+      quizOpts.forEach(o => {
+        if (o.dataset.correct === 'true') o.classList.add('correct');
+        else if (o === opt) o.classList.add('wrong');
+      });
+
+      feedback.classList.add('show');
+      if (isCorrect) {
+        feedback.classList.add('success');
+        feedback.innerHTML = '✅ <strong>ถูกต้องค่ะ!</strong> เก่งมาก คนน่าจะซื้อน้อยลงตามกฎอุปสงค์ บางคนอาจเปลี่ยนไปดื่มร้านอื่น หรือชงเองที่บ้านแทน';
+      } else {
+        feedback.classList.add('fail');
+        feedback.innerHTML = '💛 <strong>เกือบแล้วค่ะ!</strong> คำตอบที่ถูกคือ B — เมื่อราคาสูงขึ้น ปริมาณที่ต้องการซื้อจะลดลง นี่คือ "กฎอุปสงค์" ค่ะ';
+      }
+    });
+  });
+
+  // ===== FAQ accordion =====
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
+
+  // ===== Signup button (placeholder, hook to your auth flow) =====
+  // signupBtn handled via inline onclick=goJoin()
+
+</script>
 </body>
 </html>

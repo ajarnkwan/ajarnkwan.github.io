@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6.7 — จากระยะสั้น → สร้างระยะยาว</title>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6.7 — จากระยะสั้น → สร้างระยะยาว · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 .tp{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #e0e7ff;font-family:'Noto Sans Thai',system-ui,sans-serif}.tp-i{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}.bk{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1e1b4b;background:#f3e8ff;padding:8px 14px;border-radius:99px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit}.bk svg{width:14px;height:14px}.bk:hover{background:#7c3aed;color:#fff}.br{flex:1;text-align:right;line-height:1.25}.br-c{font-size:13px;font-weight:700}.br-a{font-size:11px;color:#6b7280;font-weight:500}
@@ -36,9 +36,9 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
   --ajk-primary: #8b5cf6;
   --ajk-primary-soft: #f5f3ff;
   --ajk-primary-dark: #7c3aed;
-  --ajk-ink: #1d1633;
+  --ajk-ink: #2A1F1A;
   --ajk-muted: #6b6480;
-  --ajk-border: #e5e1f3;
+  --ajk-border: #E8DDD0;
   --ajk-surface: #ffffff;
 }
 .ajk-topbar {
@@ -72,6 +72,94 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
   transform: translateX(-2px);
   box-shadow: 0 6px 16px rgba(0,0,0,.12);
 }
+.ajk-home-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.ajk-home-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-home-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(107,74,138,.2);
+}
+@media (max-width: 540px) {
+  .ajk-home-btn span { display: none; }
+  .ajk-home-btn { padding: 9px; }
+  .ajk-home-btn svg { width: 16px; height: 16px; }
+}
+
+.ajk-chapter-nav {
+  max-width: 760px;
+  margin: 56px auto 0;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-chap-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--ajk-surface, #fff);
+  border: 1px solid var(--ajk-border, #E8DDD0);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .2s;
+  min-height: 78px;
+}
+.ajk-chap-btn:hover {
+  border-color: var(--ajk-primary, #6B4A8A);
+  background: var(--ajk-primary-soft, #EFE6F5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107,74,138,.08);
+}
+.ajk-chap-btn.next {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.ajk-chap-btn svg {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  color: var(--ajk-primary, #6B4A8A);
+}
+.ajk-chap-text {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+.ajk-chap-label {
+  font-size: 11.5px;
+  color: var(--ajk-muted, #6b6480);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.ajk-chap-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ajk-ink, #2A1F1A);
+  line-height: 1.4;
+}
+.ajk-chap-empty {
+  visibility: hidden;
+}
+@media (max-width: 540px) {
+  .ajk-chapter-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 40px;
+  }
+}
+
+
 .ajk-brand {
   flex: 1; min-width: 0; text-align: right; line-height: 1.25;
 }
@@ -145,12 +233,13 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       <span>บทที่ 6</span>
     </a>
-    <div class="ajk-brand">
+    <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+<div class="ajk-brand">
       <div class="ajk-brand-course">6.7 — จากระยะสั้น → สร้างระยะยาว</div>
-      <div class="ajk-brand-author">
-        <span class="ajk-brand-author-dot"></span>
-        <span class="ajk-brand-author-at">@</span>ajarn.kwan · เศรษฐศาสตร์ รามคำแหง
-      </div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
 </header>
@@ -217,6 +306,24 @@ document.querySelectorAll('.qz').forEach(q=>{const os=q.querySelectorAll('.o'),r
 </script>
 </div></div>
 <footer class="ft"><div class="ft-n">Ajarn.Kwan</div><div class="ft-s">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div><div class="ft-b"><strong>© 2026 Ajarn.Kwan</strong> · เนื้อหาแจกฟรีเพื่อการศึกษา</div></footer>
+
+<nav class="ajk-chapter-nav ajk-shell-theme">
+  <a class="ajk-chap-btn prev" href="chapter6_6.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทก่อนหน้า</span>
+      <span class="ajk-chap-name">6.6 — LAC & Economies of Scale</span>
+    </div>
+  </a>
+  <a class="ajk-chap-btn next" href="chapter7.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทถัดไป</span>
+      <span class="ajk-chap-name">บทที่ 7 — การกำหนดราคาและผลผลิตในตลาดแข่งขันอย่างสมบูรณ์</span>
+    </div>
+  </a>
+</nav>
+
 <footer class="ajk-footer ajk-shell-theme">
   <div class="ajk-footer-inner">
     <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
@@ -226,6 +333,10 @@ document.querySelectorAll('.qz').forEach(q=>{const os=q.querySelectorAll('.o'),r
       <a class="ajk-footer-btn" href="index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         แผนการเรียน
+      </a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
+        Line OA
       </a>
       <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
