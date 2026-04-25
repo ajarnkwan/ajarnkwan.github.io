@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ศัพท์เศรษฐศาสตร์มหภาค · Ajarn.Kwan</title>
+<meta name="description" content="เรียนรู้ศัพท์ภาษาอังกฤษเศรษฐศาสตร์มหภาค 24 คำ พร้อมรูปภาพใบ้ คำอธิบายภาษาไทย และตัวอย่างใกล้ตัว">
+<meta name="theme-color" content="#2D3047">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bree+Serif&display=swap" rel="stylesheet">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 0; font-family: 'Kanit', 'Plus Jakarta Sans', sans-serif; background: linear-gradient(180deg, #FFF8EA 0%, #FAF5EC 100%); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  button { font-family: inherit; }
+  button:active { transform: scale(0.97); }
+  .loader { display: flex; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; gap: 16px; color: #2D3047; }
+  .spinner { width: 40px; height: 40px; border: 3px solid #E5E5E5; border-top-color: #2D3047; border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="ak-backbar no-print" style="
+    max-width: 1100px;
+    margin: 0 auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px 12px 18px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+    font-family: 'Kanit', sans-serif;
+    border-bottom: 1px solid rgba(45,48,71,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+">
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#2D3047;background:#FFF8EA;padding:8px 14px;border-radius:999px;font-weight:600;font-size:13px;border:1px solid #FFD700;">
+    ← หน้าหลัก
+  </a>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;padding:8px 14px;border-radius:999px;background:rgba(45,48,71,0.06);">
+    📚 คลังศัพท์ทั้งหมด
+  </a>
+  <div style="text-align:right;font-size:12px;line-height:1.3;color:#6B6B6B;">
+    <strong style="color:#2D3047;">Ajarn.Kwan</strong><br>
+    <span style="font-size:11px;">คลังศัพท์เศรษฐศาสตร์</span>
+  </div>
+</div>
+<div id="root">
+  <div class="loader">
+    <div class="spinner"></div>
+    <div>กำลังโหลด...</div>
+  </div>
+</div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useMemo, useEffect } = React;
+
+const CARDS = [
+  // ============ MEASURING THE ECONOMY (วัดเศรษฐกิจ) ============
+  { id: 1, cat: 'measure', term: 'GDP', pronounce: 'จี-ดี-พี', thai: 'ผลิตภัณฑ์มวลรวมในประเทศ', rarity: 1, emoji: '📊',
+    meaning: 'มูลค่ารวมของสินค้าและบริการขั้นสุดท้ายที่ผลิตในประเทศใน 1 ปี',
+    explain: 'GDP ย่อมาจาก Gross Domestic Product เป็นตัวชี้วัดขนาดเศรษฐกิจ คำนวณได้จากสมการ GDP = C + I + G + (X − M) คือ การบริโภค + การลงทุน + รัฐใช้จ่าย + (ส่งออก − นำเข้า) ใช้วัดว่าเศรษฐกิจประเทศโตหรือหด',
+    example: 'GDP ไทยปี 2567 ประมาณ 18 ล้านล้านบาท · ถ้าโต 3% หมายถึงเศรษฐกิจขยายตัว 3% เมื่อเทียบปีก่อน' },
+  { id: 2, cat: 'measure', term: 'Inflation', pronounce: 'อิน-เฟล-เชิ่น', thai: 'เงินเฟ้อ', rarity: 1, emoji: '🎈',
+    meaning: 'ระดับราคาสินค้าโดยรวมเพิ่มขึ้นต่อเนื่อง ทำให้เงินมีค่าน้อยลง',
+    explain: 'เงินเฟ้อพอประมาณ (2-3%) ถือเป็นเรื่องปกติและดีต่อเศรษฐกิจ แต่ถ้าสูงเกินไปจะกระทบคุณภาพชีวิต ของจะแพงขึ้นเรื่อยๆ เงิน 100 ในวันนี้ซื้อของได้น้อยกว่าปีที่แล้ว',
+    example: 'ก๋วยเตี๋ยว 10 ปีก่อน 30 บาท วันนี้ 60 บาท / ข้าวแกง 40 → 80 บาท ราคาขึ้นเพราะเงินเฟ้อสะสม' },
+  { id: 3, cat: 'measure', term: 'Deflation', pronounce: 'ดี-เฟล-เชิ่น', thai: 'ภาวะเงินฝืด', rarity: 3, emoji: '🧊',
+    meaning: 'ระดับราคาสินค้าโดยรวมลดลงต่อเนื่อง ฟังดูดี แต่อันตราย!',
+    explain: 'เมื่อของถูกลงเรื่อยๆ คนจะเลื่อนการซื้อ → ธุรกิจขายไม่ออก → ลดพนักงาน → คนตกงาน → ยิ่งไม่ใช้จ่าย วนลูปกัน เป็นอันตรายต่อเศรษฐกิจมากกว่าเงินเฟ้อ',
+    example: 'ญี่ปุ่นช่วงปี 1990s-2010s "ทศวรรษที่หายไป" ราคาตกตลอด เศรษฐกิจซบเซานาน 30 ปี' },
+  { id: 4, cat: 'measure', term: 'CPI', pronounce: 'ซี-พี-ไอ', thai: 'ดัชนีราคาผู้บริโภค', rarity: 2, emoji: '🛒',
+    meaning: 'ดัชนีวัดราคาสินค้าและบริการที่ครัวเรือนใช้ ใช้คำนวณเงินเฟ้อ',
+    explain: 'CPI ย่อจาก Consumer Price Index ตามตะกร้าสินค้าตัวแทนของคนทั่วไป (อาหาร ค่าเช่า ค่ารถ ฯลฯ) เปรียบเทียบราคาวันนี้กับปีฐาน · ถ้า CPI ขึ้น 3% = เงินเฟ้อ 3%',
+    example: 'CPI ไทยเดือนนี้ขึ้น 3% เทียบปีก่อน = ค่าครองชีพแพงขึ้น 3% โดยเฉลี่ย แต่บางหมวดอาจขึ้นมากกว่า' },
+  { id: 5, cat: 'measure', term: 'Unemployment Rate', pronounce: 'อัน-เอ็ม-พลอย-เม้นท์ เรท', thai: 'อัตราการว่างงาน', rarity: 1, emoji: '💼',
+    meaning: '% ของผู้ที่อยู่ในกำลังแรงงานแต่ไม่มีงานทำและกำลังหางานอยู่',
+    explain: 'ไม่นับคนที่ไม่อยากทำงาน (เช่น นักศึกษา แม่บ้าน เกษียณ) คำนวณเฉพาะ "แรงงานในระบบ" ที่อยากทำงานแต่ยังไม่มี',
+    example: 'ไทยมักต่ำกว่า 1% เพราะรวมแรงงานนอกระบบที่มีงานทำเสมอ (รับจ้าง ขายของ) แต่อาจรายได้ไม่พอ → คนละเรื่องกับ underemployment' },
+  { id: 6, cat: 'measure', term: 'Recession', pronounce: 'รี-เซส-เชิ่น', thai: 'ภาวะเศรษฐกิจถดถอย', rarity: 2, emoji: '📉',
+    meaning: 'GDP ติดลบ 2 ไตรมาสติดต่อกัน หรือเศรษฐกิจหดตัวอย่างมีนัยสำคัญ',
+    explain: 'ช่วง recession ธุรกิจปิดตัว คนตกงาน รายได้ลด การบริโภคลด ทำให้ recession ลึกขึ้น รัฐต้องใช้นโยบายทั้งการเงินและการคลังกระตุ้น',
+    example: 'วิกฤตต้มยำกุ้ง 2540 / โควิด 2563 ที่ GDP ไทยหด -6.1% เป็น recession ครั้งใหญ่ที่สุดในรอบหลายสิบปี' },
+
+  // ============ MONETARY POLICY (นโยบายการเงิน) ============
+  { id: 7, cat: 'monetary', term: 'Monetary Policy', pronounce: 'มัน-นี่-แท-รี่ พอ-ลิ-ซี่', thai: 'นโยบายการเงิน', rarity: 3, emoji: '🏦',
+    meaning: 'การควบคุมปริมาณเงินและอัตราดอกเบี้ยโดยธนาคารกลาง',
+    explain: 'ผ่อนคลาย (expansionary) = ลดดอกเบี้ย กระตุ้นเศรษฐกิจ / เข้มงวด (contractionary) = ขึ้นดอกเบี้ย สู้เงินเฟ้อ ธปท. ใช้เครื่องมือนี้ดูแลเสถียรภาพเศรษฐกิจ',
+    example: 'โควิดระบาด ธปท. ลดดอกเบี้ยเหลือ 0.5% เพื่อให้คนกู้ถูก / พอเงินเฟ้อพุ่ง ขึ้นดอกเบี้ยเป็น 2.5% เพื่อกดราคา' },
+  { id: 8, cat: 'monetary', term: 'Interest Rate', pronounce: 'อิน-เทอ-เรสท์ เรท', thai: 'อัตราดอกเบี้ย', rarity: 1, emoji: '📈',
+    meaning: 'ค่าเช่าของเงิน · ยิ่งสูงคนยิ่งอยากออมและไม่อยากกู้',
+    explain: 'ดอกเบี้ยมีหลายระดับ: ดอกเบี้ยนโยบาย (ธปท. กำหนด) → ดอกเบี้ยกู้บ้าน รถ บัตรเครดิต → ดอกเบี้ยเงินฝาก ทุกอย่างเชื่อมโยงกัน',
+    example: 'ดอกเบี้ยนโยบาย 2.5% ส่งผลต่อดอกเบี้ยกู้บ้าน 5-7% ดอกเบี้ยบัตรเครดิต 16-25% และดอกเบี้ยเงินฝาก 1-2%' },
+  { id: 9, cat: 'monetary', term: 'Money Supply', pronounce: 'มัน-นี่ ซัพ-พลาย', thai: 'ปริมาณเงิน', rarity: 2, emoji: '💵',
+    meaning: 'จำนวนเงินที่หมุนเวียนในระบบเศรษฐกิจ (M1, M2, M3)',
+    explain: 'M1 = เงินสด + เงินฝากกระแสรายวัน (ใช้จ่ายได้ทันที) / M2 = M1 + เงินฝากออมทรัพย์ / M3 = M2 + เงินฝากประจำ ธปท. ดูปริมาณเงินเพื่อตัดสินใจนโยบาย',
+    example: 'ธนาคารกลางพิมพ์เงินเพิ่ม → ปริมาณเงินสูงขึ้น → ระวังเงินเฟ้อตามมา (ตามทฤษฎีปริมาณเงิน MV = PY)' },
+  { id: 10, cat: 'monetary', term: 'Central Bank', pronounce: 'เซน-ทรัล แบงค์', thai: 'ธนาคารกลาง', rarity: 1, emoji: '🏛️',
+    meaning: 'หน่วยงานรัฐที่ดูแลเสถียรภาพการเงินและพิมพ์เงินตรา',
+    explain: 'ธนาคารกลางเป็น "ธนาคารของธนาคาร" ไม่ได้ให้บุคคลทั่วไปฝากเงิน หน้าที่หลัก: คุมเงินเฟ้อ พิมพ์ธนบัตร ดูแลระบบชำระเงิน เก็บทุนสำรองเงินตรา',
+    example: 'ธปท. (ไทย) / Fed (สหรัฐฯ) / ECB (ยุโรป) / BoJ (ญี่ปุ่น) · การตัดสินใจดอกเบี้ยส่งผลทั่วเศรษฐกิจ' },
+  { id: 11, cat: 'monetary', term: 'Quantitative Easing', pronounce: 'ควอน-ทิ-เท-ทีฟ อี-สิ่ง', thai: 'มาตรการ QE / ผ่อนคลายเชิงปริมาณ', rarity: 3, emoji: '💸',
+    meaning: 'ธนาคารกลางซื้อพันธบัตร → อัดเงินเข้าระบบเพื่อกระตุ้นเศรษฐกิจ',
+    explain: 'ใช้เมื่อลดดอกเบี้ยใกล้ 0% แล้วยังไม่พอ ธนาคารกลางจึงพิมพ์เงินซื้อสินทรัพย์ในตลาด → เงินไหลเข้าระบบ → คนกู้ลงทุนมากขึ้น',
+    example: 'Fed ทำ QE หลังวิกฤต 2008 และโควิด 2020 อัดเงินรวมหลายล้านล้านดอลลาร์เข้าระบบ ทำให้ตลาดหุ้นพุ่ง' },
+  { id: 12, cat: 'monetary', term: 'Liquidity', pronounce: 'ลิ-ควิ-ดิ-ตี้', thai: 'สภาพคล่อง', rarity: 2, emoji: '💧',
+    meaning: 'ความง่ายในการเปลี่ยนสินทรัพย์เป็นเงินสด',
+    explain: 'สภาพคล่องสูง = เปลี่ยนเป็นเงินสดได้เร็ว ไม่เสียมูลค่า / สภาพคล่องต่ำ = ใช้เวลานาน หรือต้องลดราคามาก ในวิกฤตการเงินมักเกิดปัญหาสภาพคล่องก่อน',
+    example: 'เงินสด = สภาพคล่องสูงสุด · ที่ดิน = ต่ำ (ขายไม่ได้ทันที) · หุ้น blue-chip = กลาง-สูง · ทองคำ = สูง' },
+
+  // ============ FISCAL & GOVERNMENT (การคลัง-รัฐบาล) ============
+  { id: 13, cat: 'fiscal', term: 'Fiscal Policy', pronounce: 'ฟิส-เคิ่ล พอ-ลิ-ซี่', thai: 'นโยบายการคลัง', rarity: 3, emoji: '💰',
+    meaning: 'การใช้ภาษีและงบประมาณรัฐเพื่อจัดการเศรษฐกิจ',
+    explain: 'ขยายตัว (expansionary) = รัฐใช้จ่ายเพิ่ม/ลดภาษี → กระตุ้นเศรษฐกิจ / หดตัว (contractionary) = รัดเข็มขัด → ชะลอเศรษฐกิจที่ร้อนเกินไป',
+    example: 'คนละครึ่ง / เราเที่ยวด้วยกัน / ดิจิทัลวอลเล็ต 10,000 บาท = นโยบายการคลังกระตุ้น · ขึ้น VAT จาก 7% → 10% = หดตัว' },
+  { id: 14, cat: 'fiscal', term: 'Budget Deficit', pronounce: 'บัด-เจ็ท เด-ฟิ-ซิท', thai: 'การขาดดุลงบประมาณ', rarity: 2, emoji: '📉',
+    meaning: 'รัฐใช้จ่ายมากกว่ารายได้ภาษี ต้องกู้มาชดเชย',
+    explain: 'การขาดดุลในระยะสั้นเพื่อกระตุ้นเศรษฐกิจไม่ใช่เรื่องผิด แต่ถ้าสะสมนาน → หนี้สาธารณะพุ่ง → กระทบความเชื่อมั่น และต้นทุนกู้สูงขึ้น',
+    example: 'งบประมาณไทยขาดดุล 7 แสนล้านบาทต่อปีต่อเนื่องหลายปี → หนี้สาธารณะสะสมเพิ่มขึ้นเรื่อยๆ' },
+  { id: 15, cat: 'fiscal', term: 'Public Debt', pronounce: 'พับ-ลิค เด๊ท', thai: 'หนี้สาธารณะ', rarity: 2, emoji: '⛓️',
+    meaning: 'หนี้ที่รัฐเป็นหนี้ทั้งในและต่างประเทศ',
+    explain: 'หนี้สาธารณะมักวัดเป็น % ของ GDP ประเทศพัฒนาแล้วบางประเทศ (ญี่ปุ่น) สูงกว่า 200% ขณะที่ไทยมีกรอบวินัยการคลังกำหนดเพดาน',
+    example: 'หนี้สาธารณะไทยกว่า 60% ของ GDP · กรอบวินัยการคลังกำหนดเพดานไว้ที่ 70% หากเกินจะกระทบความเชื่อมั่น' },
+  { id: 16, cat: 'fiscal', term: 'Tax', pronounce: 'แท็กซ์', thai: 'ภาษี', rarity: 1, emoji: '🧾',
+    meaning: 'เงินที่รัฐเก็บจากประชาชน-ธุรกิจ ใช้จ่ายเพื่อสาธารณะ',
+    explain: 'ภาษีมี 2 ประเภทหลัก: ภาษีทางตรง (เงินได้บุคคล/นิติบุคคล) เก็บตามรายได้ และภาษีทางอ้อม (VAT, ภาษีบาป) เก็บจากการใช้จ่าย เป็นรายได้หลักของรัฐ',
+    example: 'VAT 7% / ภาษีเงินได้บุคคล 5-35% / ภาษีบาป (สุรา-บุหรี่-น้ำตาล) / ภาษีนิติบุคคล 20%' },
+  { id: 17, cat: 'fiscal', term: 'Subsidy', pronounce: 'ซับ-ซิ-ดี้', thai: 'เงินอุดหนุน', rarity: 2, emoji: '🎁',
+    meaning: 'เงินที่รัฐช่วยเหลือเพื่อลดต้นทุนหรือช่วยกลุ่มเป้าหมาย',
+    explain: 'Subsidy ใช้แก้ปัญหา market failure หรือช่วยกลุ่มเปราะบาง แต่ถ้าให้นานเกินไปอาจสร้างนิสัยพึ่งพิง และเป็นภาระงบประมาณ',
+    example: 'อุดหนุนค่าไฟฟรี 250 บาทช่วงน้ำมันแพง · บัตรสวัสดิการแห่งรัฐ · ประกันราคาข้าวเกษตรกร · ตรึงราคาน้ำมัน' },
+  { id: 18, cat: 'fiscal', term: 'Government Spending', pronounce: 'กอ-เวิร์น-เม้นท์ สเปน-ดิ้ง', thai: 'รายจ่ายรัฐบาล', rarity: 1, emoji: '🏗️',
+    meaning: 'การใช้จ่ายของรัฐทั้งหมด รวมลงทุนโครงสร้างพื้นฐานและเงินเดือนข้าราชการ',
+    explain: 'แบ่งเป็นรายจ่ายประจำ (เงินเดือน สวัสดิการ) และรายจ่ายลงทุน (ถนน รถไฟ โรงเรียน) อยู่ใน "G" ของสมการ GDP = C+I+G+(X−M) เป็นเครื่องมือกระตุ้นเศรษฐกิจ',
+    example: 'โครงการรถไฟฟ้า ทางด่วน โรงเรียน โรงพยาบาล · งบฯ ปี 2568 ของไทย ~3.7 ล้านล้านบาท' },
+
+  // ============ INTERNATIONAL & TRADE (ระหว่างประเทศ) ============
+  { id: 19, cat: 'intl', term: 'Exchange Rate', pronounce: 'เอ็กซ์-เชนจ์ เรท', thai: 'อัตราแลกเปลี่ยน', rarity: 2, emoji: '💱',
+    meaning: 'ราคาเงินสกุลหนึ่งเทียบกับอีกสกุล',
+    explain: 'บาทแข็ง = ใช้บาทน้อยลงในการซื้อเงิน ตปท. → นำเข้าถูก ส่งออกยาก / บาทอ่อน = ตรงข้าม นักท่องเที่ยวมาไทยถูก ส่งออกได้ดี',
+    example: '1 USD = 35 บาท (อ่อน) → เที่ยวญี่ปุ่นแพงขึ้น แต่นักท่องเที่ยวต่างชาติมาไทยถูกลง ของฝากขายดี' },
+  { id: 20, cat: 'intl', term: 'Trade Balance', pronounce: 'เทรด บาล-แลนซ์', thai: 'ดุลการค้า', rarity: 2, emoji: '⚖️',
+    meaning: 'ผลต่างระหว่างมูลค่าส่งออก (X) และนำเข้า (M)',
+    explain: 'เกินดุล (>0) = X > M ส่งออกมากกว่านำเข้า เงินไหลเข้าประเทศ / ขาดดุล (<0) = M > X เงินไหลออก ไทยมักเกินดุลเพราะเป็นประเทศส่งออก',
+    example: 'ไทยส่งออกข้าว ทุเรียน รถยนต์ ชิ้นส่วนอิเล็กทรอนิกส์ มากกว่านำเข้าน้ำมัน เครื่องจักร → เกินดุลการค้า' },
+  { id: 21, cat: 'intl', term: 'Export', pronounce: 'เอ็กซ์-พอร์ท', thai: 'การส่งออก', rarity: 1, emoji: '🚢',
+    meaning: 'การขายสินค้า/บริการให้ต่างประเทศ',
+    explain: 'การส่งออกเป็น "engine" ของการเติบโตเศรษฐกิจไทย คิดเป็นกว่า 60% ของ GDP เป็นส่วน X ในสมการ GDP · ถ้าเศรษฐกิจโลกซบ การส่งออกชะลอตามทันที',
+    example: 'ไทยส่งออกข้าว ทุเรียน รถยนต์ ฮาร์ดดิสก์ ชิ้นส่วนคอมพิวเตอร์ · เป็นแหล่งเงินตราต่างประเทศหลัก' },
+  { id: 22, cat: 'intl', term: 'Import', pronounce: 'อิม-พอร์ท', thai: 'การนำเข้า', rarity: 1, emoji: '🛬',
+    meaning: 'การซื้อสินค้า/บริการจากต่างประเทศ',
+    explain: 'การนำเข้าจำเป็นเมื่อทำเองไม่ได้ หรือทำแล้วต้นทุนสูงกว่าซื้อ เป็นส่วน M ในสมการ GDP · นำเข้ามาก = เงินไหลออก ส่งผลต่ออัตราแลกเปลี่ยน',
+    example: 'ไทยนำเข้าน้ำมันดิบ เครื่องจักร ชิป iPhone เครื่องบิน · ของพวกนี้ทำเองไม่ได้หรือทำแพงกว่า' },
+  { id: 23, cat: 'intl', term: 'Tariff', pronounce: 'แท-ริฟ', thai: 'ภาษีศุลกากร / ภาษีนำเข้า', rarity: 2, emoji: '🚧',
+    meaning: 'ภาษีที่เก็บกับสินค้านำเข้า ทำให้ของนำเข้าแพงขึ้น',
+    explain: 'รัฐใช้ tariff ปกป้องอุตสาหกรรมในประเทศ หรือเก็บรายได้ แต่ถ้าสูงเกินไปจะทำให้ผู้บริโภคในประเทศซื้อของแพง และก่อให้เกิดสงครามการค้า',
+    example: 'สงครามการค้าจีน-สหรัฐฯ ขึ้น tariff หลายรอบ · ไทยเก็บ tariff รถยนต์นำเข้า 80% เพื่อปกป้องอุตสาหกรรมในประเทศ' },
+  { id: 24, cat: 'intl', term: 'FDI', pronounce: 'เอฟ-ดี-ไอ', thai: 'การลงทุนโดยตรงจากต่างประเทศ', rarity: 3, emoji: '🌐',
+    meaning: 'ต่างชาติลงทุนสร้างโรงงานหรือซื้อกิจการในประเทศ',
+    explain: 'FDI ย่อจาก Foreign Direct Investment เป็นการลงทุนระยะยาว (ต่างจาก portfolio investment ที่เก็งกำไรระยะสั้น) ทำให้เกิดการจ้างงาน ถ่ายทอดเทคโนโลยี เพิ่ม GDP',
+    example: 'Toyota สร้างโรงงานในไทยมาหลายสิบปี / Foxconn ตั้งฐานในเวียดนาม / Apple ย้าย supply chain มาอินเดีย-เวียดนาม' },
+];
+
+const CAT_META = {
+  measure:  { color: '#2E5EAA', soft: '#E8F0FA', label: 'Measuring Economy' },
+  monetary: { color: '#E63946', soft: '#FDE8EA', label: 'Monetary Policy' },
+  fiscal:   { color: '#1D7874', soft: '#DBF0ED', label: 'Fiscal & Government' },
+  intl:     { color: '#6A4C93', soft: '#EEE6F7', label: 'International Trade' },
+};
+const CATEGORIES = [
+  { id: 'all', label: 'ทั้งหมด', emoji: '✨', color: '#2D3047' },
+  { id: 'measure', label: 'Measuring', emoji: '📊', color: '#2E5EAA' },
+  { id: 'monetary', label: 'Monetary', emoji: '🏦', color: '#E63946' },
+  { id: 'fiscal', label: 'Fiscal', emoji: '💰', color: '#1D7874' },
+  { id: 'intl', label: 'International', emoji: '🌐', color: '#6A4C93' },
+];
+const RARITY = {
+  1: { label: 'พื้นฐาน', stars: '⭐', color: '#10B981' },
+  2: { label: 'ระดับกลาง', stars: '⭐⭐', color: '#F59E0B' },
+  3: { label: 'ระดับสูง', stars: '⭐⭐⭐', color: '#EF4444' },
+};
+
+function Intro({ onStart }) {
+  const counts = { measure: 0, monetary: 0, fiscal: 0, intl: 0 };
+  CARDS.forEach(c => counts[c.cat]++);
+  return (
+    <div style={{ width: '100%', maxWidth: 560, margin: '0 auto', padding: '20px 16px' }}>
+      <div style={{ textAlign: 'center', marginBottom: 32 }}>
+        <div style={{ display: 'inline-block', padding: '6px 14px', borderRadius: 999, background: '#2D3047', color: '#FFD700', fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', marginBottom: 16 }}>
+          AJARN KWAN · ECONOMICS DECK
+        </div>
+        <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 44, fontWeight: 800, color: '#2D3047', margin: '0 0 6px 0', lineHeight: 1.1, letterSpacing: '-0.02em' }}>Macroeconomics</h1>
+        <h2 style={{ fontSize: 30, fontWeight: 700, color: '#E63946', margin: 0, lineHeight: 1.2 }}>ศัพท์เศรษฐศาสตร์มหภาค</h2>
+        <p style={{ fontSize: 15, color: '#6B6B6B', marginTop: 16, lineHeight: 1.7, maxWidth: 440, margin: '16px auto 0' }}>
+          เรียนรู้ศัพท์ภาษาอังกฤษที่สำคัญ 24 คำ พร้อมรูปภาพใบ้ คำอธิบายภาษาไทย และตัวอย่างใกล้ตัว
+        </p>
+      </div>
+
+      <div style={{ background: '#FFF', borderRadius: 20, padding: 24, marginBottom: 16, boxShadow: '0 4px 16px rgba(45,48,71,0.08)' }}>
+        <h3 style={{ fontSize: 18, fontWeight: 700, color: '#2D3047', margin: '0 0 18px 0' }}>✋ วิธีใช้</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {[
+            'ดูคำศัพท์และรูปภาพใบ้ ลองเดาความหมายในใจ',
+            'แตะการ์ดเพื่อพลิกดูคำแปล คำอธิบาย และตัวอย่าง',
+            'กดปุ่ม 🔊 เพื่อฟังเสียงการออกเสียงภาษาอังกฤษ',
+            'กด "สุ่ม" เพื่อฝึกจำแบบไม่เรียงลำดับ',
+          ].map((text, i) => (
+            <div key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+              <div style={{ minWidth: 30, height: 30, borderRadius: 8, background: '#FFD700', color: '#2D3047', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 800, flexShrink: 0 }}>{i + 1}</div>
+              <p style={{ fontSize: 15, color: '#2D3047', margin: 0, lineHeight: 1.6, paddingTop: 4 }}>{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: '#FFF', borderRadius: 20, padding: 24, marginBottom: 24, boxShadow: '0 4px 16px rgba(45,48,71,0.08)' }}>
+        <h3 style={{ fontSize: 18, fontWeight: 700, color: '#2D3047', margin: '0 0 18px 0' }}>📚 4 หมวด · 24 คำ</h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {[
+            { id: 'measure', label: 'Measuring Economy · วัดเศรษฐกิจ', emoji: '📊' },
+            { id: 'monetary', label: 'Monetary Policy · นโยบายการเงิน', emoji: '🏦' },
+            { id: 'fiscal', label: 'Fiscal & Government · การคลัง-รัฐบาล', emoji: '💰' },
+            { id: 'intl', label: 'International Trade · ระหว่างประเทศ', emoji: '🌐' },
+          ].map(c => {
+            const m = CAT_META[c.id];
+            return (
+              <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderRadius: 12, background: m.soft }}>
+                <span style={{ fontSize: 22 }}>{c.emoji}</span>
+                <span style={{ flex: 1, fontSize: 14, fontWeight: 600, color: '#2D3047' }}>{c.label}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: m.color, padding: '3px 12px', borderRadius: 999, background: 'rgba(255,255,255,0.7)' }}>{counts[c.id]} คำ</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <button onClick={onStart} style={{ width: '100%', padding: 18, background: '#2D3047', color: '#FFF4D6', border: 'none', borderRadius: 16, cursor: 'pointer', fontSize: 16, fontWeight: 700, boxShadow: '0 6px 20px rgba(45,48,71,0.25)' }}>▶ เริ่มเรียน</button>
+
+      <p style={{ textAlign: 'center', fontSize: 11, color: '#9B9B9B', marginTop: 20 }}>สร้างโดย <span style={{ fontWeight: 700, color: '#2D3047' }}>อาจารย์ขวัญ</span> · Ramkhamhaeng University</p>
+    </div>
+  );
+}
+
+function CardsView({ onHome }) {
+  const [cat, setCat] = useState('all');
+  const [idx, setIdx] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [mode, setMode] = useState('study');
+  const [progress, setProgress] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('econ-progress') || '{}'); } catch { return {}; }
+  });
+  const [order, setOrder] = useState(null);
+
+  useEffect(() => { try { localStorage.setItem('econ-progress', JSON.stringify(progress)); } catch {} }, [progress]);
+
+  const cards = useMemo(() => {
+    const base = cat === 'all' ? CARDS : CARDS.filter(c => c.cat === cat);
+    if (order) return order.map(id => base.find(c => c.id === id)).filter(Boolean);
+    return base;
+  }, [cat, order]);
+  const card = cards[idx] || cards[0];
+  useEffect(() => { setIdx(0); setFlipped(false); }, [cat, mode]);
+  if (!card) return null;
+  const meta = CAT_META[card.cat];
+  const rarity = RARITY[card.rarity];
+  const mastered = Object.values(progress).filter(v => v === 'easy').length;
+  const cardProgress = progress[card.id];
+
+  const next = () => { setFlipped(false); setTimeout(() => setIdx(i => (i + 1) % cards.length), 200); };
+  const prev = () => { setFlipped(false); setTimeout(() => setIdx(i => (i - 1 + cards.length) % cards.length), 200); };
+  const shuffle = () => { const ids = cards.map(c => c.id); for (let i = ids.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [ids[i], ids[j]] = [ids[j], ids[i]]; } setOrder(ids); setIdx(0); setFlipped(false); };
+  const rate = (r) => { setProgress(p => ({ ...p, [card.id]: r })); setTimeout(next, 300); };
+  const reset = () => { setOrder(null); setProgress({}); setIdx(0); setFlipped(false); };
+  const speak = (e) => { e.stopPropagation(); if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(card.term); u.lang = 'en-US'; u.rate = 0.85; window.speechSynthesis.speak(u); } };
+
+  return (
+    <div style={{ width: '100%', maxWidth: 560, margin: '0 auto', padding: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+        <button onClick={onHome} style={{ width: 40, height: 40, borderRadius: 12, background: '#FFF', border: '1.5px solid #E5E5E5', cursor: 'pointer', fontSize: 16 }}>🏠</button>
+        <div style={{ flex: 1, background: '#FFF', borderRadius: 999, padding: 4, display: 'flex', border: '1.5px solid #E5E5E5' }}>
+          <button onClick={() => setMode('study')} style={{ flex: 1, padding: '8px 12px', borderRadius: 999, fontSize: 13, fontWeight: 700, border: 'none', cursor: 'pointer', background: mode === 'study' ? '#2D3047' : 'transparent', color: mode === 'study' ? '#FFF4D6' : '#6B6B6B' }}>📖 เรียนรู้</button>
+          <button onClick={() => setMode('quiz')} style={{ flex: 1, padding: '8px 12px', borderRadius: 999, fontSize: 13, fontWeight: 700, border: 'none', cursor: 'pointer', background: mode === 'quiz' ? '#2D3047' : 'transparent', color: mode === 'quiz' ? '#FFF4D6' : '#6B6B6B' }}>🧠 ทดสอบ</button>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
+        {CATEGORIES.map(c => (
+          <button key={c.id} onClick={() => setCat(c.id)} style={{ padding: '6px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, cursor: 'pointer', background: cat === c.id ? c.color : '#FFF', color: cat === c.id ? '#FFF' : '#6B6B6B', border: cat === c.id ? '1.5px solid transparent' : '1.5px solid #E5E5E5' }}><span style={{ marginRight: 4 }}>{c.emoji}</span>{c.label}</button>
+        ))}
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16, padding: '10px 16px', background: '#FFF', borderRadius: 999, border: '1.5px solid #E5E5E5' }}>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#2D3047' }}>{String(idx + 1).padStart(2, '0')}<span style={{ color: '#B8B8B8' }}> / {String(cards.length).padStart(2, '0')}</span></span>
+        <div style={{ flex: 1, height: 6, borderRadius: 999, background: '#F0F0F0', overflow: 'hidden' }}>
+          <div style={{ height: '100%', borderRadius: 999, transition: 'width 0.5s', width: `${((idx + 1) / cards.length) * 100}%`, background: meta.color }} />
+        </div>
+        <span style={{ fontSize: 13, fontWeight: 700, color: '#2D3047' }}>🏆 {mastered}</span>
+      </div>
+
+      <div style={{ perspective: '2000px', height: 560, position: 'relative' }} key={card.id}>
+        <div style={{ position: 'relative', width: '100%', height: '100%', transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d', transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)', transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
+          <div onClick={() => setFlipped(true)} style={{ position: 'absolute', inset: 0, backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', borderRadius: 24, overflow: 'hidden', cursor: 'pointer', background: '#FFF', boxShadow: '0 8px 32px rgba(45,48,71,0.12)', transform: 'rotateY(0deg)' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 8, background: meta.color }} />
+            <div style={{ position: 'absolute', top: 24, left: 24, right: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: meta.color, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{meta.label}</span>
+              <span style={{ fontSize: 12, fontWeight: 600, color: rarity.color }}>{rarity.stars} {rarity.label}</span>
+            </div>
+            <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 32px' }}>
+              <div style={{ width: 140, height: 140, borderRadius: '50%', background: meta.soft, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 32, position: 'relative', fontSize: 64 }}>
+                <div style={{ position: 'absolute', inset: -8, borderRadius: '50%', border: `2px dashed ${meta.color}33` }} />
+                <span>{card.emoji}</span>
+              </div>
+              <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: card.term.length > 14 ? 36 : card.term.length > 10 ? 46 : 54, fontWeight: 800, color: '#2D3047', textAlign: 'center', lineHeight: 1.05, letterSpacing: '-0.03em', margin: 0 }}>{card.term}</h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 14 }}>
+                <p style={{ fontFamily: "'Bree Serif', serif", fontStyle: 'italic', fontSize: 16, color: '#888', margin: 0 }}>/{card.pronounce}/</p>
+                <button onClick={speak} style={{ width: 36, height: 36, borderRadius: '50%', background: meta.soft, border: 'none', cursor: 'pointer', fontSize: 16 }}>🔊</button>
+              </div>
+            </div>
+            <div style={{ position: 'absolute', bottom: 24, left: 0, right: 0, textAlign: 'center', fontSize: 12, color: '#9B9B9B', fontWeight: 600 }}>↻ ลองเดาความหมาย แล้วแตะเพื่อเฉลย</div>
+          </div>
+
+          <div onClick={() => setFlipped(false)} style={{ position: 'absolute', inset: 0, backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', borderRadius: 24, overflow: 'hidden', cursor: 'pointer', background: '#FFF', boxShadow: '0 8px 32px rgba(45,48,71,0.12)', transform: 'rotateY(180deg)' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 8, background: meta.color }} />
+            <div style={{ height: '100%', display: 'flex', flexDirection: 'column', padding: '28px 26px 24px' }}>
+              <div style={{ marginBottom: 20 }}>
+                <p style={{ fontSize: 12, fontWeight: 700, color: meta.color, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>{meta.label}</p>
+                <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 28, fontWeight: 800, color: '#2D3047', margin: '4px 0 0 0', letterSpacing: '-0.02em', lineHeight: 1.1 }}>{card.term}</h3>
+                <p style={{ fontSize: 14, color: '#888', margin: '4px 0 0 0', fontStyle: 'italic' }}>{card.thai} · /{card.pronounce}/</p>
+              </div>
+              <div style={{ height: 1.5, background: '#F0F0F0', marginBottom: 18 }} />
+              <div style={{ marginBottom: 20 }}>
+                <p style={{ fontSize: 13, fontWeight: 800, color: meta.color, letterSpacing: '0.08em', textTransform: 'uppercase', margin: '0 0 8px 0' }}>ความหมาย</p>
+                <p style={{ fontSize: 17, fontWeight: 600, color: '#2D3047', margin: 0, lineHeight: 1.5 }}>{card.meaning}</p>
+              </div>
+              <div style={{ marginBottom: 20 }}>
+                <p style={{ fontSize: 13, fontWeight: 800, color: meta.color, letterSpacing: '0.08em', textTransform: 'uppercase', margin: '0 0 8px 0' }}>คำอธิบาย</p>
+                <p style={{ fontSize: 15, color: '#3D3D3D', margin: 0, lineHeight: 1.7 }}>{card.explain}</p>
+              </div>
+              <div style={{ padding: '14px 16px', borderRadius: 12, background: meta.soft, marginTop: 'auto' }}>
+                <p style={{ fontSize: 13, fontWeight: 800, color: meta.color, letterSpacing: '0.08em', textTransform: 'uppercase', margin: '0 0 8px 0' }}>✨ ตัวอย่าง</p>
+                <p style={{ fontSize: 14.5, color: '#2D3047', margin: 0, lineHeight: 1.65 }}>{card.example}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {mode === 'quiz' && flipped && (
+        <div style={{ marginTop: 16 }}>
+          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 600, color: '#6B6B6B', marginBottom: 8 }}>จำได้แค่ไหน? แตะเพื่อประเมินตัวเอง</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+            {[{ val: 'hard', label: '😟 ยังไม่เข้าใจ', color: '#EF4444' },{ val: 'medium', label: '😐 พอเข้าใจ', color: '#F59E0B' },{ val: 'easy', label: '😊 จำได้เป๊ะ', color: '#10B981' }].map(({ val, label, color }) => (
+              <button key={val} onClick={() => rate(val)} style={{ padding: '14px 8px', borderRadius: 14, cursor: 'pointer', background: cardProgress === val ? color : '#FFF', color: cardProgress === val ? '#FFF' : '#2D3047', border: cardProgress === val ? '1.5px solid transparent' : '1.5px solid #E5E5E5', fontWeight: 700, fontSize: 12 }}>{label}</button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 16 }}>
+        <button onClick={prev} style={{ width: 48, height: 48, borderRadius: 14, background: '#FFF', border: '1.5px solid #E5E5E5', cursor: 'pointer', fontSize: 18 }}>‹</button>
+        <button onClick={shuffle} style={{ flex: 1, height: 48, borderRadius: 14, background: '#FFD700', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 700, color: '#2D3047', boxShadow: '0 4px 12px rgba(255,215,0,0.3)' }}>🎲 สุ่มการ์ด</button>
+        <button onClick={reset} style={{ width: 48, height: 48, borderRadius: 14, background: '#FFF', border: '1.5px solid #E5E5E5', cursor: 'pointer', fontSize: 16 }}>↻</button>
+        <button onClick={next} style={{ width: 48, height: 48, borderRadius: 14, background: meta.color, border: 'none', cursor: 'pointer', fontSize: 18, color: '#FFF' }}>›</button>
+      </div>
+
+      {mastered > 0 && (
+        <div style={{ marginTop: 14, padding: '10px 16px', borderRadius: 999, background: '#FFF', border: '1.5px solid #F59E0B33', textAlign: 'center', fontSize: 13, fontWeight: 700, color: '#2D3047' }}>🏆 เก่งมาก! จำได้ {mastered} คำแล้ว 🎉</div>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  const [view, setView] = useState('intro');
+  return view === 'intro' ? <Intro onStart={() => setView('cards')} /> : <CardsView onHome={() => setView('intro')} />;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+<footer style="
+    margin-top: 40px;
+    padding: 28px 24px 24px;
+    background: rgba(255,255,255,0.6);
+    border-top: 1px solid rgba(45,48,71,0.08);
+    font-family: 'Kanit', sans-serif;
+">
+  <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+    <div style="font-weight: 700; color: #2D3047; font-size: 16px; margin-bottom: 4px;">Ajarn.Kwan</div>
+    <div style="font-size: 13px; color: #6B6B6B; margin-bottom: 18px;">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;">
+      <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FFF;border:1px solid #E5E1D8;border-radius:999px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;">
+        <span>🏠</span> หน้าหลัก
+      </a>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FFF;border:1px solid #E5E1D8;border-radius:999px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;">
+        <span>📚</span> คลังศัพท์ทั้งหมด
+      </a>
+      <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FFF;border:1px solid #E5E1D8;border-radius:999px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;">
+        <span style="color:#06C755">●</span> Line OA
+      </a>
+      <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FFF;border:1px solid #E5E1D8;border-radius:999px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;">
+        <span>🎵</span> TikTok
+      </a>
+      <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FFF;border:1px solid #E5E1D8;border-radius:999px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;">
+        <span style="color:#1877F2">f</span> Facebook
+      </a>
+    </div>
+    <div style="font-size: 11.5px; color: #888; line-height: 1.6;">
+      <strong style="color:#2D3047">© 2026 · Ajarn.Kwan</strong> · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding · เลือกเวอร์ชัน · Ajarn.Kwan</title>
+<meta name="description" content="คอร์ส Vibe Coding — คิดออก สร้างได้ ไม่ต้องเขียนโค้ด เลือกเวอร์ชันสำหรับทุกคน หรือสำหรับนักเศรษฐศาสตร์ ฟรี 100%">
+<meta name="theme-color" content="#6B4A8A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --plum:#6B4A8A;
+    --plum-soft:#9B7BB8;
+    --plum-bg:#EFE6F5;
+    --plum-deep:#553873;
+    --coral:#E27A5F;
+    --coral-deep:#C85A3D;
+    --coral-bg:#FCEAE2;
+    --cream:#FDF8F2;
+    --cream-deep:#F7EDDC;
+    --paper:#FFFFFF;
+    --ink:#2A1F1A;
+    --ink-soft:#5C4A40;
+    --ink-mute:#8A7A70;
+    --line:#E8DDD0;
+  }
+  body{
+    font-family:'Noto Sans Thai',sans-serif;
+    min-height:100vh;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+
+  /* === Top bar (matches vocab pages) === */
+  .topbar{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:12px;padding:14px 24px;
+    background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(45,33,26,0.08);
+    position:sticky;top:0;z-index:100;
+  }
+  .home-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    text-decoration:none;color:var(--ink);background:var(--plum-bg);
+    padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;
+    border:1px solid transparent;transition:all .18s;
+  }
+  .home-btn:hover{background:var(--plum);color:#fff}
+  .topbar .brand{text-align:right;font-size:12px;line-height:1.3;color:var(--ink-mute)}
+  .topbar .brand strong{color:var(--ink);font-size:14px}
+
+  /* === Top accent stripe === */
+  .top-stripe{height:4px;background:linear-gradient(90deg,var(--plum) 0%,var(--coral) 100%)}
+
+  /* === Header === */
+  .container{max-width:760px;margin:0 auto;padding:0 24px}
+  .header{text-align:center;padding:56px 0 32px}
+  .badge{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;
+    color:var(--plum);background:var(--plum-bg);padding:5px 16px;
+    border-radius:999px;margin-bottom:18px;
+  }
+  .header h1{
+    font-family:'Plus Jakarta Sans','Noto Sans Thai',sans-serif;
+    font-size:clamp(32px,5vw,44px);font-weight:800;
+    letter-spacing:-0.02em;line-height:1.2;color:var(--ink);
+  }
+  .header h1 span{
+    display:block;font-family:'Noto Sans Thai',sans-serif;
+    font-size:clamp(15px,2.5vw,18px);font-weight:500;
+    color:var(--ink-soft);margin-top:6px;
+  }
+  .header p{font-size:15px;color:var(--ink-mute);margin-top:14px;line-height:1.7}
+
+  /* === Cards === */
+  .cards{display:flex;flex-direction:column;gap:16px;padding-bottom:32px}
+  @media (min-width:540px){.cards{flex-direction:row}.card{flex:1}}
+
+  .card{
+    background:var(--paper);border:1.5px solid var(--line);
+    border-radius:18px;padding:28px 24px;cursor:pointer;
+    transition:all .25s;text-decoration:none;color:inherit;
+    display:block;position:relative;overflow:hidden;
+  }
+  .card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(107,74,138,.1)}
+
+  .card-general::before{background:linear-gradient(90deg,var(--plum),var(--plum-soft))}
+  .card-general:hover{border-color:var(--plum)}
+  .card-general h2{color:var(--plum)}
+  .card-general .tag{background:var(--plum-bg);color:var(--plum-deep)}
+  .card-general .cta{background:var(--plum)}
+  .card-general .cta:hover{background:var(--plum-deep)}
+
+  .card-econ::before{background:linear-gradient(90deg,var(--coral),var(--coral-deep))}
+  .card-econ:hover{border-color:var(--coral)}
+  .card-econ h2{color:var(--coral-deep)}
+  .card-econ .tag{background:var(--coral-bg);color:var(--coral-deep)}
+  .card-econ .cta{background:var(--coral)}
+  .card-econ .cta:hover{background:var(--coral-deep)}
+
+  .card-emoji{font-size:38px;margin-bottom:14px;line-height:1}
+  .card h2{
+    font-family:'Plus Jakarta Sans','Noto Sans Thai',sans-serif;
+    font-size:22px;font-weight:800;margin-bottom:6px;
+  }
+  .card .subtitle{
+    font-size:14px;color:var(--ink-soft);margin-bottom:18px;
+    line-height:1.6;min-height:42px;
+  }
+  .card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+  .tag{font-size:11px;font-weight:600;padding:4px 11px;border-radius:999px}
+  .card .meta{
+    display:flex;gap:18px;font-size:12px;
+    color:var(--ink-mute);margin-bottom:18px;
+  }
+  .card .cta{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 0;border-radius:12px;font-size:15px;font-weight:700;
+    color:white;transition:all .2s;
+  }
+
+  /* === Compare table === */
+  .compare{
+    background:var(--paper);border:1px solid var(--line);
+    border-radius:14px;padding:22px;margin-bottom:18px;
+  }
+  .compare h3{
+    font-size:14px;font-weight:700;margin-bottom:14px;
+    text-align:center;color:var(--ink-soft);
+    text-transform:uppercase;letter-spacing:0.05em;
+  }
+  .compare-table{width:100%;font-size:13.5px;border-collapse:collapse}
+  .compare-table th{
+    text-align:left;padding:10px 12px;font-weight:700;
+    color:var(--ink-mute);border-bottom:1.5px solid var(--line);
+    font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+  }
+  .compare-table td{
+    padding:10px 12px;border-bottom:1px solid #F5EFE6;
+    color:var(--ink);line-height:1.5;
+  }
+  .compare-table tr:last-child td{border-bottom:none}
+  .compare-table td:first-child{font-weight:600;color:var(--ink-soft)}
+  .col-gen{color:var(--plum);font-weight:700}
+  .col-econ{color:var(--coral-deep);font-weight:700}
+
+  /* === Same-features box === */
+  .same{
+    background:var(--cream-deep);border:1px solid var(--line);
+    border-radius:14px;padding:18px 20px;margin-bottom:40px;
+  }
+  .same h3{
+    font-size:13px;font-weight:700;color:var(--ink-soft);
+    margin-bottom:12px;display:flex;align-items:center;gap:6px;
+  }
+  .same h3::before{content:'✓';color:var(--plum);font-size:16px}
+  .same-items{display:flex;flex-wrap:wrap;gap:8px}
+  .same-item{
+    font-size:12.5px;font-weight:500;color:var(--ink-soft);
+    background:var(--paper);border:1px solid var(--line);
+    padding:5px 12px;border-radius:8px;
+  }
+
+  /* === Footer === */
+  footer{
+    background:rgba(255,255,255,0.6);
+    padding:32px 24px 28px;border-top:1px solid var(--line);
+  }
+  .footer-inner{
+    max-width:1100px;margin:0 auto;text-align:center;
+  }
+  .footer-name{font-weight:700;color:var(--ink);font-size:16px;margin-bottom:4px}
+  .footer-sub{font-size:13px;color:var(--ink-mute);margin-bottom:18px}
+  .footer-links{
+    display:flex;justify-content:center;gap:10px;
+    flex-wrap:wrap;margin-bottom:18px;
+  }
+  .footer-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 16px;background:var(--paper);
+    border:1px solid var(--line);border-radius:999px;
+    text-decoration:none;color:var(--ink);
+    font-size:13px;font-weight:500;transition:all .15s;
+  }
+  .footer-btn:hover{background:var(--plum-bg);border-color:var(--plum)}
+  .footer-bottom{font-size:11.5px;color:var(--ink-mute);line-height:1.6}
+  .footer-bottom strong{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="top-stripe"></div>
+
+<header class="topbar">
+  <a href="../index.html" class="home-btn">← หน้าหลัก</a>
+  <div class="brand">
+    <strong>Ajarn.Kwan</strong> · Vibe Coding<br>
+    <span style="font-size:11px">คณะเศรษฐศาสตร์ ม.รามคำแหง</span>
+  </div>
+</header>
+
+<div class="container">
+  <div class="header">
+    <div class="badge">SELF-LEARNING COURSE</div>
+    <h1>
+      Vibe Coding
+      <span>คิดออก สร้างได้ ไม่ต้องเขียนโค้ด</span>
+    </h1>
+    <p>เลือกเวอร์ชันที่เหมาะกับคุณ<br>เนื้อหาเหมือนกัน ต่างกันแค่ตัวอย่างที่ใช้</p>
+  </div>
+
+  <div class="cards">
+    <a href="general/" class="card card-general">
+      <div class="card-emoji">🌐</div>
+      <h2>สำหรับทุกคน</h2>
+      <p class="subtitle">ตัวอย่างจากชีวิตจริง — รายจ่าย, Portfolio, ร้านกาแฟ, Quiz สนุก ๆ</p>
+      <div class="tags">
+        <span class="tag">รายรับ-รายจ่าย</span>
+        <span class="tag">Portfolio</span>
+        <span class="tag">แบบสอบถาม</span>
+        <span class="tag">ร้านค้า</span>
+      </div>
+      <div class="meta">
+        <span>⏱ ~4 ชม.</span>
+        <span>📦 5 บท</span>
+        <span>💰 ฟรี</span>
+      </div>
+      <div class="cta">เริ่มเรียน →</div>
+    </a>
+
+    <a href="econ/" class="card card-econ">
+      <div class="card-emoji">📊</div>
+      <h2>สำหรับนักเศรษฐศาสตร์</h2>
+      <p class="subtitle">ตัวอย่างจากงาน Econ จริง — GDP, CPI, Regression, Dashboard เศรษฐกิจ</p>
+      <div class="tags">
+        <span class="tag">GDP / CPI</span>
+        <span class="tag">Regression</span>
+        <span class="tag">Shift-Share</span>
+        <span class="tag">ตลาดแรงงาน</span>
+      </div>
+      <div class="meta">
+        <span>⏱ ~4 ชม.</span>
+        <span>📦 5 บท</span>
+        <span>💰 ฟรี</span>
+      </div>
+      <div class="cta">เริ่มเรียน →</div>
+    </a>
+  </div>
+
+  <div class="compare">
+    <h3>เปรียบเทียบ 2 เวอร์ชัน</h3>
+    <table class="compare-table">
+      <tr>
+        <th></th>
+        <th class="col-gen">🌐 ทุกคน</th>
+        <th class="col-econ">📊 Econ</th>
+      </tr>
+      <tr><td>บท 1: กราฟ</td><td>รายจ่ายส่วนตัว</td><td>GDP growth</td></tr>
+      <tr><td>บท 2: เว็บ</td><td>Portfolio ตัวเอง</td><td>เว็บสอน Econ</td></tr>
+      <tr><td>บท 3: ข้อมูล</td><td>แบบสอบถามร้านกาแฟ</td><td>OLS Regression</td></tr>
+      <tr><td>บท 4: Dashboard</td><td>การเงินส่วนตัว</td><td>Economic Monitor</td></tr>
+      <tr><td>บท 5: ต่อยอด</td><td>Quiz + เครื่องคำนวณ</td><td>S-D Simulator</td></tr>
+    </table>
+  </div>
+
+  <div class="same">
+    <h3>สิ่งที่เหมือนกันทั้ง 2 เวอร์ชัน</h3>
+    <div class="same-items">
+      <span class="same-item">เนื้อหาสอนในตัว</span>
+      <span class="same-item">ฝึก Prompt ได้เลย</span>
+      <span class="same-item">Quiz ท้ายบท</span>
+      <span class="same-item">ใบ Certificate</span>
+      <span class="same-item">Prompt Cheat Sheet</span>
+      <span class="same-item">FAQ</span>
+      <span class="same-item">ไม่ต้องมีพื้นฐานโค้ด</span>
+      <span class="same-item">ฟรี 100%</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Ajarn.Kwan</div>
+    <div class="footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="footer-links">
+      <a href="../index.html" class="footer-btn">🏠 หน้าหลัก</a>
+      <a href="../vocab/" class="footer-btn">📚 คลังศัพท์</a>
+      <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" class="footer-btn">
+        <span style="color:#06C755">●</span> Line OA
+      </a>
+      <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer" class="footer-btn">🎵 TikTok</a>
+      <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer" class="footer-btn"><span style="color:#1877F2">f</span> Facebook</a>
+    </div>
+    <div class="footer-bottom">
+      <strong>© 2026 · Ajarn.Kwan</strong> · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

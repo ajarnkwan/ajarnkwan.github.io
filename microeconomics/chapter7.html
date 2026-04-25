@@ -33,7 +33,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--theme-page-bg);color
 
 /* ═══ Topbar ═══ */
 .ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #e7e0d5}
-.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
 .ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--color-text-primary);background:var(--theme-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:var(--font-sans);cursor:pointer;white-space:nowrap}
 .ajk-back-btn svg{width:14px;height:14px;flex-shrink:0}
 .ajk-back-btn:hover{background:var(--theme-primary);color:#fff;transform:translateX(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
@@ -273,7 +273,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--theme-page-bg);color
 
 /* ═══ Footer ═══ */
 .ajk-footer{margin-top:64px;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--theme-primary-soft) 100%);border-top:1px solid #e7e0d5;padding:48px 16px 28px;font-family:var(--font-sans);color:var(--color-text-primary)}
-.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}
+.ajk-footer-inner{max-width:1100px;margin:0 auto;text-align:center}
 .ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
 .ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--theme-primary);opacity:.35}
 .ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--theme-primary);flex-shrink:0}
@@ -470,6 +470,10 @@ body{margin:0;font-family:var(--font-sans);background:var(--theme-page-bg);color
       <a class="ajk-footer-btn" href="../index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
         หน้าหลัก
+      </a>
+      <a class="ajk-footer-btn ajk-vocab" href="../vocab/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        คลังศัพท์
       </a>
       <a class="ajk-footer-btn" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>แผนการเรียน</a>
       <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">

@@ -198,7 +198,7 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 /* ═══════════ Ajarn.Kwan top bar + footer ═══════════ */
 .ajk-shell-theme { --ajk-primary:#10b981;--ajk-primary-soft:#ecfdf5;--ajk-primary-dark:#059669;--ajk-ink:#1d1633;--ajk-muted:#6b6480;--ajk-border:#e5e1f3;--ajk-surface:#ffffff; }
 .ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--ajk-border);font-family:'Noto Sans Thai',system-ui,-apple-system,sans-serif;color:var(--ajk-ink);margin:-16px -16px 0}
-.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
 .ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:'Noto Sans Thai',system-ui,sans-serif;cursor:pointer;white-space:nowrap}
 .ajk-back-btn svg{width:14px;height:14px;flex-shrink:0}
 .ajk-back-btn:hover{background:var(--ajk-primary);color:#fff;transform:translateX(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
@@ -297,7 +297,7 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 .ajk-brand-author-at{color:var(--ajk-primary);font-weight:700;padding:0 1px}
 @media(max-width:520px){.ajk-back-btn span{display:none}.ajk-back-btn{padding:9px}.ajk-back-btn svg{width:16px;height:16px}.ajk-brand-course{font-size:12.5px}.ajk-brand-author{font-size:10.5px}.ajk-topbar-inner{padding:8px 12px;min-height:52px;gap:10px}}
 .ajk-footer{margin:64px -16px 0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--ajk-primary-soft) 100%);border-top:1px solid var(--ajk-border);padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
-.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}
+.ajk-footer-inner{max-width:1100px;margin:0 auto;text-align:center}
 .ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
 .ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--ajk-primary);opacity:.35}
 .ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--ajk-primary);flex-shrink:0}
@@ -1040,6 +1040,10 @@ function sendPrompt(msg){
       <a class="ajk-footer-btn" href="../index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
         หน้าหลัก
+      </a>
+      <a class="ajk-footer-btn ajk-vocab" href="../vocab/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        คลังศัพท์
       </a>
       <a class="ajk-footer-btn" href="index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>

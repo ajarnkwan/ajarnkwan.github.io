@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>สมุดศัพท์ A6 · เศรษฐศาสตร์มหภาค · Ajarn.Kwan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Kanit', sans-serif;
+    background: #F5F5F5;
+    color: #2D3047;
+    padding: 20px;
+  }
+
+  /* A4 PORTRAIT — gives A6 portrait pages when folded */
+  @page { size: A4 portrait; margin: 0; }
+
+  @media print {
+    body { background: #FFF; padding: 0; }
+    .no-print { display: none !important; }
+    .sheet { box-shadow: none; margin: 0; page-break-after: always; }
+    .sheet:last-child { page-break-after: auto; }
+  }
+
+  /* === CONTROLS (screen only) === */
+  .controls {
+    max-width: 210mm;
+    margin: 0 auto 20px;
+    padding: 18px 22px;
+    background: #FFF;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .controls .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .controls h1 { font-size: 18px; color: #2D3047; }
+  .controls .info { font-size: 13px; color: #6B6B6B; margin-top: 4px; line-height: 1.5; }
+  .btn-print {
+    background: #2D3047; color: #FFD700;
+    border: none; padding: 10px 20px; border-radius: 10px;
+    font-weight: 700; font-size: 14px; cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-print:hover { background: #1F2335; }
+
+  .fold-guide {
+    background: #FFF8EA;
+    border-radius: 10px;
+    padding: 14px 18px;
+    border-left: 4px solid #FFD700;
+  }
+  .fold-guide h2 { font-size: 14px; color: #2D3047; margin-bottom: 10px; }
+  .fold-guide ol {
+    font-size: 13px; color: #3D3D3D;
+    padding-left: 22px; line-height: 1.7;
+  }
+  .fold-guide ol li { margin-bottom: 4px; }
+  .fold-guide strong { color: #E63946; }
+
+  .sheet-label {
+    max-width: 210mm;
+    margin: 16px auto 8px;
+    padding: 10px 16px;
+    background: #2D3047;
+    color: #FFD700;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sheet-label .pages-on-sheet {
+    font-size: 11px;
+    color: #FFF4D6;
+    opacity: 0.85;
+  }
+
+  /* === A4 SHEET (PORTRAIT) === */
+  /* A4 portrait = 210×297mm */
+  /* 2×2 grid → each quadrant = 105×148.5mm = A6 portrait */
+  .sheet {
+    width: 210mm;
+    height: 297mm;
+    background: #FFF;
+    margin: 0 auto;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Fold/cut marks (visible on screen only) */
+  .vertical-fold {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 1pt dashed #999;
+    transform: translateX(-50%);
+    z-index: 5;
+    pointer-events: none;
+  }
+  .horizontal-fold {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-top: 1pt dashed #999;
+    transform: translateY(-50%);
+    z-index: 5;
+    pointer-events: none;
+  }
+  @media print {
+    .vertical-fold { border-left-color: #DDD; }
+    .horizontal-fold { border-top-color: #DDD; }
+  }
+
+  /* === A6 PAGE === */
+  /* Each grid cell = 105×148.5mm = A6 portrait */
+  .a6-page {
+    width: 100%;
+    height: 100%;
+    padding: 7mm 8mm;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Pages on TOP row need to be rotated 180° for the imposition */
+  .a6-page.flipped {
+    transform: rotate(180deg);
+  }
+
+  .page-number {
+    position: absolute;
+    bottom: 4mm;
+    right: 7mm;
+    font-size: 7.5pt;
+    color: #B0B0B0;
+    font-weight: 600;
+  }
+  .page-corner {
+    position: absolute;
+    bottom: 4mm;
+    left: 7mm;
+    font-size: 7pt;
+    color: #B0B0B0;
+    letter-spacing: 0.1em;
+  }
+
+  /* === COVER === */
+  .a6-page.cover {
+    background: #2D3047;
+    color: #FFF4D6;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 12mm 9mm;
+  }
+  .cover .brand-tag {
+    font-size: 8pt;
+    color: #FFD700;
+    letter-spacing: 0.25em;
+    margin-bottom: 6mm;
+  }
+  .cover .title-en {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24pt;
+    font-weight: 800;
+    color: #FFD700;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 3mm;
+  }
+  .cover .title-th {
+    font-size: 13pt;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 6mm;
+  }
+  .cover .badge {
+    background: #FFD700;
+    color: #2D3047;
+    padding: 3mm 7mm;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 10pt;
+    margin-bottom: 6mm;
+  }
+  .cover .desc {
+    font-size: 9pt;
+    line-height: 1.5;
+    opacity: 0.85;
+    max-width: 80mm;
+    margin-bottom: auto;
+  }
+  .cover .qr-mini {
+    margin-top: 6mm;
+    background: #FFF;
+    padding: 2mm;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .cover .qr-mini img {
+    width: 16mm; height: 16mm; display: block;
+  }
+  .cover .qr-mini-label {
+    color: #FFD700;
+    font-size: 6.5pt;
+    margin-top: 1.5mm;
+    letter-spacing: 0.1em;
+  }
+  .cover .author {
+    margin-top: 3mm;
+    font-size: 7.5pt;
+    opacity: 0.65;
+  }
+
+  /* === BACK COVER === */
+  .a6-page.back-cover {
+    background: #FFD700;
+    color: #2D3047;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 12mm 9mm;
+  }
+  .back-cover .big-emoji {
+    font-size: 38pt;
+    line-height: 1;
+    margin-bottom: 4mm;
+  }
+  .back-cover h2 {
+    font-size: 16pt;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 4mm;
+  }
+  .back-cover .subtitle {
+    font-size: 9.5pt;
+    line-height: 1.55;
+    margin-bottom: 5mm;
+  }
+  .back-cover .qr-big {
+    background: #FFF;
+    padding: 3mm;
+    border-radius: 6px;
+    margin: 0 auto;
+  }
+  .back-cover .qr-big img {
+    width: 32mm; height: 32mm; display: block;
+  }
+  .back-cover .url-label {
+    margin-top: 3mm;
+    font-size: 11pt;
+    font-weight: 800;
+    color: #2D3047;
+    letter-spacing: -0.01em;
+  }
+  .back-cover .url-desc {
+    margin-top: 1mm;
+    font-size: 8pt;
+    color: #2D3047;
+    opacity: 0.75;
+  }
+
+  /* === SECTION HEADER (for content pages, TOC, etc) === */
+  .a6-page .page-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14pt;
+    font-weight: 800;
+    color: #2D3047;
+    margin-bottom: 4mm;
+    padding-bottom: 2.5mm;
+    border-bottom: 2pt solid #FFD700;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+  }
+  .a6-page .page-title .pt-suffix {
+    font-size: 9pt;
+    font-weight: 500;
+    color: #888;
+    margin-left: auto;
+  }
+
+  /* === TOC === */
+  .a6-page.toc { background: #FFFCF2; }
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+    flex: 1;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    padding: 2.5mm 3mm;
+    background: #FFF;
+    border-radius: 5px;
+    border-left: 3pt solid;
+  }
+  .toc-item .toc-emoji {
+    font-size: 16pt;
+    line-height: 1;
+  }
+  .toc-item .toc-info { flex: 1; }
+  .toc-item .toc-en {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10pt;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .toc-item .toc-th {
+    font-size: 8pt;
+    color: #777;
+    margin-top: 0.8mm;
+  }
+  .toc-item .toc-pages {
+    font-size: 7.5pt;
+    color: #999;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* === HOW-TO === */
+  .a6-page.howto { background: #FFF8EA; }
+  .howto-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+    flex: 1;
+  }
+  .howto-item {
+    display: flex;
+    gap: 3mm;
+    align-items: flex-start;
+  }
+  .howto-num {
+    background: #FFD700;
+    color: #2D3047;
+    width: 7mm;
+    height: 7mm;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9pt;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .howto-text {
+    font-size: 9pt;
+    line-height: 1.5;
+    color: #2D3047;
+    padding-top: 0.5mm;
+  }
+  .howto-text strong { color: #E63946; }
+  .howto-tip {
+    margin-top: 4mm;
+    padding: 3mm 4mm;
+    background: #FFF;
+    border-radius: 5px;
+    border-left: 3pt solid #2E5EAA;
+    font-size: 8.5pt;
+    line-height: 1.5;
+  }
+  .howto-tip strong { color: #2E5EAA; }
+
+  /* === CONTENT PAGE === */
+  .a6-page.content { background: #FFF; }
+  .a6-page.content .page-title {
+    border-bottom-color: var(--cat-color, #2D3047);
+    color: var(--cat-color, #2D3047);
+  }
+  .cards-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+  }
+  .mini-card {
+    border-left: 3pt solid;
+    padding: 2.5mm 3.5mm;
+    background: #FAFAFA;
+    border-radius: 0 5px 5px 0;
+  }
+  .mini-card .top-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2mm;
+    margin-bottom: 0.8mm;
+  }
+  .mini-card .term {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 12pt;
+    color: #2D3047;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+  }
+  .mini-card .emoji {
+    font-size: 13pt;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .mini-card .thai {
+    font-size: 8pt;
+    color: #888;
+    font-style: italic;
+    margin-bottom: 1.2mm;
+  }
+  .mini-card .meaning {
+    font-size: 9.5pt;
+    color: #2D3047;
+    line-height: 1.4;
+    margin-bottom: 1.2mm;
+    font-weight: 500;
+  }
+  .mini-card .example {
+    font-size: 8pt;
+    color: #555;
+    line-height: 1.45;
+    padding-top: 1.2mm;
+    border-top: 0.5pt dashed #DDD;
+  }
+  .mini-card .example::before { content: '✨ '; }
+
+  /* === TIPS === */
+  .a6-page.tips { background: #F0F9FF; }
+  .tips-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3mm;
+  }
+  .tip-box {
+    background: #FFF;
+    padding: 2.5mm 3.5mm;
+    border-radius: 5px;
+    border-left: 3pt solid;
+  }
+  .tip-box .tip-title {
+    font-size: 9pt;
+    font-weight: 700;
+    margin-bottom: 1mm;
+  }
+  .tip-box .tip-text {
+    font-size: 8pt;
+    color: #2D3047;
+    line-height: 1.5;
+  }
+
+  /* === QUICK REF === */
+  .a6-page.quickref { background: #FFF; }
+  .quickref-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5mm;
+  }
+  .quickref-item {
+    padding: 2.5mm 3mm;
+    border-radius: 5px;
+    font-size: 8pt;
+    line-height: 1.5;
+  }
+  .quickref-item strong {
+    display: block;
+    font-size: 9pt;
+    margin-bottom: 1mm;
+  }
+
+  /* === NOTES === */
+  .a6-page.notes { background: #FFFCF2; }
+  .notes-area {
+    flex: 1;
+    background: repeating-linear-gradient(
+      transparent,
+      transparent 7mm,
+      #DDD 7mm,
+      #DDD 7.2mm
+    );
+    border-radius: 4px;
+    margin-top: 2mm;
+  }
+  .notes-qr-corner {
+    position: absolute;
+    bottom: 4mm;
+    right: 7mm;
+    background: #FFF;
+    padding: 1.5mm;
+    border-radius: 3px;
+    border: 0.5pt solid #DDD;
+  }
+  .notes-qr-corner img {
+    width: 14mm; height: 14mm; display: block;
+  }
+  .notes-qr-corner .nqr-label {
+    font-size: 5.5pt;
+    color: #888;
+    text-align: center;
+    margin-top: 1mm;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+<div class="ak-backbar no-print" style="
+    max-width: 210mm;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 18px;
+    background: #FFF;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-family: 'Kanit', sans-serif;
+">
+  <a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#2D3047;background:#FFF8EA;padding:8px 14px;border-radius:999px;font-weight:600;font-size:13px;">
+    ← หน้าหลัก
+  </a>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;padding:8px 14px;border-radius:999px;background:#F5F5F5;">
+    📚 คลังศัพท์
+  </a>
+  <div style="text-align:right;font-size:12px;line-height:1.3;color:#6B6B6B;">
+    <strong style="color:#2D3047;">Ajarn.Kwan</strong> · สมุดศัพท์ A6<br>
+    <span style="font-size:11px;">คณะเศรษฐศาสตร์ ม.รามคำแหง</span>
+  </div>
+</div>
+
+<div class="controls no-print">
+  <div class="top-row">
+    <div>
+      <h1>📓 สมุด A6 · ศัพท์เศรษฐศาสตร์มหภาค 16 หน้า</h1>
+      <div class="info">
+        <strong>2 แผ่น A4 พิมพ์ duplex</strong> = สมุด A6 (105×148mm) <strong>16 หน้าครบ</strong> · มี QR code ของ ajarnkwan.github.io<br>
+        เซตคู่กับเล่มจุลภาค · เนื้อหาครอบคลุม GDP, เงินเฟ้อ, นโยบายการเงิน-การคลัง, อัตราแลกเปลี่ยน, การค้าระหว่างประเทศ
+      </div>
+    </div>
+    <button class="btn-print" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+  </div>
+  <div class="fold-guide">
+    <h2>📐 วิธีพับ A4 → สมุด A6 (16 หน้า)</h2>
+    <ol>
+      <li>พิมพ์ <strong>A4 แนวตั้ง 2 แผ่น duplex</strong> (Flip on short edge) · เปิด "Background graphics: ON"</li>
+      <li>วางแผ่นที่ 1 ด้านหน้าหงายขึ้น · พับครึ่ง<strong>แนวขวาง</strong> (พับครึ่งจากบนลงล่าง)</li>
+      <li>พับครึ่งอีกครั้ง<strong>แนวตั้ง</strong> (พับครึ่งจากซ้ายไปขวา) → ได้ A6 booklet</li>
+      <li>ทำซ้ำกับแผ่นที่ 2 → ได้ A6 booklet ทั้ง 2 ชุด</li>
+      <li>สอดแผ่นที่ 2 <strong>เข้าไปใน</strong>แผ่นที่ 1 (nested) → ได้สมุด 16 หน้า</li>
+      <li>เย็บกลางสันสมุดด้วยที่เย็บกระดาษ (saddle stitch) หรือใช้คลิปกลาง</li>
+    </ol>
+  </div>
+</div>
+
+<div id="output"></div>
+
+<script>
+const QR_URL = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fajarnkwan.github.io&margin=0';
+
+const CARDS = [
+  // ============ MEASURING THE ECONOMY (วัดเศรษฐกิจ) ============
+  { id: 1, cat: 'measure', term: 'GDP', thai: 'ผลิตภัณฑ์มวลรวมในประเทศ', emoji: '📊',
+    meaning: 'มูลค่ารวมของสินค้าและบริการขั้นสุดท้ายที่ผลิตในประเทศใน 1 ปี',
+    example: 'GDP ไทยปี 2567 ประมาณ 18 ล้านล้านบาท · ใช้วัดว่าเศรษฐกิจประเทศโตหรือหด' },
+  { id: 2, cat: 'measure', term: 'Inflation', thai: 'เงินเฟ้อ', emoji: '🎈',
+    meaning: 'ระดับราคาสินค้าโดยรวมเพิ่มขึ้นต่อเนื่อง เงินมีค่าน้อยลง',
+    example: 'ก๋วยเตี๋ยว 10 ปีก่อน 30 บาท วันนี้ 60 บาท ราคาขึ้นเพราะเงินเฟ้อสะสม' },
+  { id: 3, cat: 'measure', term: 'Deflation', thai: 'ภาวะเงินฝืด', emoji: '🧊',
+    meaning: 'ระดับราคาสินค้าโดยรวมลดลงต่อเนื่อง',
+    example: 'ญี่ปุ่นช่วงปี 1990s-2010s ราคาสินค้าตกตลอด คนชะลอใช้จ่าย เศรษฐกิจซบเซานาน' },
+  { id: 4, cat: 'measure', term: 'CPI', thai: 'ดัชนีราคาผู้บริโภค', emoji: '🛒',
+    meaning: 'ดัชนีวัดราคาสินค้าและบริการที่ครัวเรือนใช้ ใช้คำนวณเงินเฟ้อ',
+    example: 'CPI เดือนนี้ขึ้น 3% เทียบปีก่อน = ค่าครองชีพแพงขึ้น 3% (แต่บางหมวดอาจขึ้นมากกว่า)' },
+  { id: 5, cat: 'measure', term: 'Unemployment Rate', thai: 'อัตราการว่างงาน', emoji: '💼',
+    meaning: '% ของผู้ที่อยู่ในกำลังแรงงานแต่ไม่มีงานทำและกำลังหางานอยู่',
+    example: 'ไทยมักต่ำกว่า 1% เพราะรวมแรงงานนอกระบบ · สหรัฐฯ ปกติ 4-5%' },
+  { id: 6, cat: 'measure', term: 'Recession', thai: 'ภาวะเศรษฐกิจถดถอย', emoji: '📉',
+    meaning: 'GDP ติดลบ 2 ไตรมาสติดต่อกัน หรือเศรษฐกิจหดตัวอย่างมีนัยสำคัญ',
+    example: 'วิกฤตต้มยำกุ้ง 2540 / โควิด 2563 ที่ GDP ไทยหด -6.1% เป็น recession ครั้งใหญ่' },
+
+  // ============ MONETARY POLICY (นโยบายการเงิน) ============
+  { id: 7, cat: 'monetary', term: 'Monetary Policy', thai: 'นโยบายการเงิน', emoji: '🏦',
+    meaning: 'การควบคุมปริมาณเงินและอัตราดอกเบี้ยโดยธนาคารกลาง',
+    example: 'ธปท. ลดดอกเบี้ยช่วงโควิดเพื่อกระตุ้นกู้/ลงทุน · ขึ้นดอกเบี้ยช่วงเงินเฟ้อสูง' },
+  { id: 8, cat: 'monetary', term: 'Interest Rate', thai: 'อัตราดอกเบี้ย', emoji: '📈',
+    meaning: 'ค่าเช่าของเงิน · ยิ่งสูงคนยิ่งอยากออมและไม่อยากกู้',
+    example: 'ดอกเบี้ยนโยบาย 2.5% ส่งผลต่อดอกเบี้ยกู้บ้าน-รถ บัตรเครดิต ทั้งระบบเศรษฐกิจ' },
+  { id: 9, cat: 'monetary', term: 'Money Supply', thai: 'ปริมาณเงิน', emoji: '💵',
+    meaning: 'จำนวนเงินที่หมุนเวียนในระบบเศรษฐกิจ (M1, M2)',
+    example: 'ธนาคารกลางพิมพ์เงินเพิ่ม → ปริมาณเงินสูงขึ้น → ระวังเงินเฟ้อตามมา' },
+  { id: 10, cat: 'monetary', term: 'Central Bank', thai: 'ธนาคารกลาง', emoji: '🏛️',
+    meaning: 'หน่วยงานรัฐที่ดูแลเสถียรภาพการเงินและพิมพ์เงินตรา',
+    example: 'ธปท. (ไทย) / Fed (สหรัฐฯ) / ECB (ยุโรป) · ตัดสินใจดอกเบี้ยและพิมพ์ธนบัตร' },
+  { id: 11, cat: 'monetary', term: 'Quantitative Easing', thai: 'มาตรการ QE', emoji: '💸',
+    meaning: 'ธนาคารกลางซื้อพันธบัตร → อัดเงินเข้าระบบเพื่อกระตุ้นเศรษฐกิจ',
+    example: 'Fed ทำ QE หลังวิกฤต 2008 และโควิด 2020 อัดเงินเป็นล้านล้านดอลลาร์เข้าระบบ' },
+  { id: 12, cat: 'monetary', term: 'Liquidity', thai: 'สภาพคล่อง', emoji: '💧',
+    meaning: 'ความง่ายในการเปลี่ยนสินทรัพย์เป็นเงินสด',
+    example: 'เงินสด = สภาพคล่องสูงสุด · ที่ดิน = ต่ำ (ขายไม่ได้ทันที) · หุ้น = กลาง' },
+
+  // ============ FISCAL & GOVERNMENT (การคลัง-รัฐบาล) ============
+  { id: 13, cat: 'fiscal', term: 'Fiscal Policy', thai: 'นโยบายการคลัง', emoji: '💰',
+    meaning: 'การใช้ภาษีและงบประมาณรัฐเพื่อจัดการเศรษฐกิจ',
+    example: 'คนละครึ่ง / ดิจิทัลวอลเล็ต = นโยบายการคลังกระตุ้น · ขึ้น VAT = แบบหดตัว' },
+  { id: 14, cat: 'fiscal', term: 'Budget Deficit', thai: 'การขาดดุลงบประมาณ', emoji: '📉',
+    meaning: 'รัฐใช้จ่ายมากกว่ารายได้ภาษี ต้องกู้มาชดเชย',
+    example: 'งบขาดดุล 7 แสนล้าน/ปี ของไทยมาหลายปี → หนี้สาธารณะสะสม' },
+  { id: 15, cat: 'fiscal', term: 'Public Debt', thai: 'หนี้สาธารณะ', emoji: '⛓️',
+    meaning: 'หนี้ที่รัฐเป็นหนี้ทั้งในและต่างประเทศ',
+    example: 'หนี้สาธารณะไทยกว่า 60% ของ GDP · กรอบวินัยการคลังกำหนดเพดานไว้ที่ 70%' },
+  { id: 16, cat: 'fiscal', term: 'Tax', thai: 'ภาษี', emoji: '🧾',
+    meaning: 'เงินที่รัฐเก็บจากประชาชน-ธุรกิจ ใช้จ่ายเพื่อสาธารณะ',
+    example: 'VAT 7% / ภาษีเงินได้ / ภาษีบาป (สุรา-บุหรี่) · เป็นรายได้หลักของรัฐ' },
+  { id: 17, cat: 'fiscal', term: 'Subsidy', thai: 'เงินอุดหนุน', emoji: '🎁',
+    meaning: 'เงินที่รัฐช่วยเหลือเพื่อลดต้นทุนหรือช่วยกลุ่มเป้าหมาย',
+    example: 'อุดหนุนค่าไฟ 250 บาทช่วงน้ำมันแพง · บัตรสวัสดิการแห่งรัฐ · ประกันราคาข้าว' },
+  { id: 18, cat: 'fiscal', term: 'Government Spending', thai: 'รายจ่ายรัฐบาล', emoji: '🏗️',
+    meaning: 'การใช้จ่ายของรัฐทั้งหมด เช่น ลงทุนโครงสร้างพื้นฐาน เงินเดือนข้าราชการ',
+    example: 'รถไฟฟ้า ทางด่วน โรงเรียน โรงพยาบาล · รวมในตัว G ของสมการ GDP = C+I+G+(X-M)' },
+
+  // ============ INTERNATIONAL & TRADE (ระหว่างประเทศ) ============
+  { id: 19, cat: 'intl', term: 'Exchange Rate', thai: 'อัตราแลกเปลี่ยน', emoji: '💱',
+    meaning: 'ราคาเงินสกุลหนึ่งเทียบกับอีกสกุล',
+    example: '1 USD = 35 บาท · บาทอ่อน = นำเข้าแพง ส่งออกได้ดี / บาทแข็ง = ตรงข้าม' },
+  { id: 20, cat: 'intl', term: 'Trade Balance', thai: 'ดุลการค้า', emoji: '⚖️',
+    meaning: 'ผลต่างระหว่างมูลค่าส่งออก (X) และนำเข้า (M)',
+    example: 'ไทยมักเกินดุล (X > M) จากการส่งออกทุเรียน รถยนต์ ชิ้นส่วนอิเล็กทรอนิกส์' },
+  { id: 21, cat: 'intl', term: 'Export', thai: 'การส่งออก', emoji: '🚢',
+    meaning: 'การขายสินค้า/บริการให้ต่างประเทศ',
+    example: 'ไทยส่งออกข้าว ทุเรียน รถยนต์ ฮาร์ดดิสก์ · เป็น engine ของ GDP' },
+  { id: 22, cat: 'intl', term: 'Import', thai: 'การนำเข้า', emoji: '🛬',
+    meaning: 'การซื้อสินค้า/บริการจากต่างประเทศ',
+    example: 'ไทยนำเข้าน้ำมันดิบ เครื่องจักร ชิป iPhone · ของพวกนี้ทำเองไม่ได้/ทำแพงกว่า' },
+  { id: 23, cat: 'intl', term: 'Tariff', thai: 'ภาษีศุลกากร', emoji: '🚧',
+    meaning: 'ภาษีที่เก็บกับสินค้านำเข้า ทำให้ของนำเข้าแพงขึ้น',
+    example: 'สงครามการค้าจีน-สหรัฐฯ ขึ้น tariff หลายรอบ · ใช้ปกป้องอุตสาหกรรมในประเทศ' },
+  { id: 24, cat: 'intl', term: 'FDI', thai: 'การลงทุนโดยตรงจากต่างประเทศ', emoji: '🌐',
+    meaning: 'ต่างชาติลงทุนสร้างโรงงานหรือซื้อกิจการในประเทศ',
+    example: 'Toyota สร้างโรงงานในไทย / Foxconn ตั้งฐานในเวียดนาม · ทำให้เกิดการจ้างงาน' },
+];
+
+const CAT_META = {
+  measure:  { color: '#2E5EAA', soft: '#E8F0FA', label: 'Measuring Economy', thai: 'วัดเศรษฐกิจ', emoji: '📊' },
+  monetary: { color: '#E63946', soft: '#FDE8EA', label: 'Monetary Policy', thai: 'นโยบายการเงิน', emoji: '🏦' },
+  fiscal:   { color: '#1D7874', soft: '#DBF0ED', label: 'Fiscal & Government', thai: 'การคลัง-รัฐบาล', emoji: '💰' },
+  intl:     { color: '#6A4C93', soft: '#EEE6F7', label: 'International Trade', thai: 'ระหว่างประเทศ', emoji: '🌐' },
+};
+
+function renderMiniCard(card) {
+  const meta = CAT_META[card.cat];
+  return `
+    <div class="mini-card" style="border-left-color: ${meta.color}">
+      <div class="top-line">
+        <span class="term">${card.term}</span>
+        <span class="emoji">${card.emoji}</span>
+      </div>
+      <div class="thai">${card.thai}</div>
+      <div class="meaning">${card.meaning}</div>
+      <div class="example">${card.example}</div>
+    </div>
+  `;
+}
+
+// ============= 16 PAGES =============
+
+function pageCover() {
+  return `
+    <div class="a6-page cover">
+      <div class="brand-tag">★ AJARN KWAN ★</div>
+      <div class="title-en">Macroeconomics</div>
+      <div class="title-th">ศัพท์เศรษฐศาสตร์<br>มหภาค</div>
+      <div class="badge">24 คำที่ต้องรู้</div>
+      <div class="desc">ศัพท์ภาษาอังกฤษพื้นฐาน พร้อมความหมายและตัวอย่างใกล้ตัวคนไทย</div>
+      <div class="qr-mini">
+        <img src="${QR_URL}" alt="QR ajarnkwan.github.io">
+      </div>
+      <div class="qr-mini-label">SCAN ME</div>
+      <div class="author">© Ramkhamhaeng University · 2025</div>
+    </div>
+  `;
+}
+
+function pageTOC() {
+  const counts = { measure: 6, monetary: 6, fiscal: 6, intl: 6 };
+  const startPages = { measure: 4, monetary: 6, fiscal: 8, intl: 10 };
+  return `
+    <div class="a6-page toc">
+      <div class="page-title">📑 สารบัญ</div>
+      <div class="toc-list">
+        ${Object.entries(CAT_META).map(([key, meta]) => `
+          <div class="toc-item" style="border-left-color: ${meta.color}">
+            <span class="toc-emoji">${meta.emoji}</span>
+            <div class="toc-info">
+              <div class="toc-en" style="color: ${meta.color}">${meta.label}</div>
+              <div class="toc-th">${meta.thai}</div>
+            </div>
+            <div class="toc-pages">
+              ${counts[key]} คำ<br>หน้า ${startPages[key]}
+            </div>
+          </div>
+        `).join('')}
+        <div class="toc-item" style="border-left-color: #2E5EAA; margin-top: 2mm;">
+          <span class="toc-emoji">💡</span>
+          <div class="toc-info">
+            <div class="toc-en" style="color: #2E5EAA">Tips & Quick Ref</div>
+            <div class="toc-th">เคล็ดลับและสรุปคู่ตรงข้าม</div>
+          </div>
+          <div class="toc-pages">หน้า 12-13</div>
+        </div>
+      </div>
+      <div class="page-number">2</div>
+    </div>
+  `;
+}
+
+function pageHowTo() {
+  return `
+    <div class="a6-page howto">
+      <div class="page-title">✋ วิธีใช้</div>
+      <div class="howto-list">
+        ${[
+          '<strong>ดูคำศัพท์</strong> และ emoji ลองเดาความหมายในใจ',
+          '<strong>อ่านความหมาย</strong> เปรียบเทียบกับที่เดา',
+          '<strong>ดูตัวอย่าง</strong> ใกล้ตัวคนไทย เห็นภาพ จำง่าย',
+          '<strong>ทบทวน 5 นาที/วัน</strong> ทุกวัน รับรองจำได้',
+        ].map((text, i) => `
+          <div class="howto-item">
+            <div class="howto-num">${i+1}</div>
+            <div class="howto-text">${text}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="howto-tip">
+        <strong>💡 ดิจิทัลเวอร์ชัน</strong><br>
+        เข้า ajarnkwan.github.io เพื่อใช้แอป flashcard แบบ interactive ฟังเสียงอ่าน + ทดสอบความจำ
+      </div>
+      <div class="page-number">3</div>
+    </div>
+  `;
+}
+
+function pageContent(catKey, startIdx, endIdx, pageNum) {
+  const cards = CARDS.filter(c => c.cat === catKey).slice(startIdx, endIdx);
+  const meta = CAT_META[catKey];
+  return `
+    <div class="a6-page content" style="--cat-color: ${meta.color}">
+      <div class="page-title">
+        ${meta.emoji} ${meta.label}
+        <span class="pt-suffix">${startIdx+1}–${endIdx}</span>
+      </div>
+      <div class="cards-list">
+        ${cards.map(renderMiniCard).join('')}
+      </div>
+      <div class="page-corner">${meta.thai}</div>
+      <div class="page-number">${pageNum}</div>
+    </div>
+  `;
+}
+
+function pageTips() {
+  return `
+    <div class="a6-page tips">
+      <div class="page-title">💡 เคล็ดลับการจำ</div>
+      <div class="tips-content">
+        <div class="tip-box" style="border-left-color: #E63946">
+          <div class="tip-title" style="color: #E63946">📐 จำสมการ GDP</div>
+          <div class="tip-text">GDP = C + I + G + (X − M) · บริโภค + ลงทุน + รัฐใช้จ่าย + ส่งออกสุทธิ</div>
+        </div>
+        <div class="tip-box" style="border-left-color: #1D7874">
+          <div class="tip-title" style="color: #1D7874">⚖️ 2 ขาของเศรษฐกิจ</div>
+          <div class="tip-text">นโยบายการเงิน = ธปท. คุมดอกเบี้ย / นโยบายการคลัง = รัฐบาลคุมภาษี-งบประมาณ</div>
+        </div>
+        <div class="tip-box" style="border-left-color: #6A4C93">
+          <div class="tip-title" style="color: #6A4C93">🔗 จำคู่ตรงข้าม</div>
+          <div class="tip-text">เงินเฟ้อ ↔ เงินฝืด · ส่งออก ↔ นำเข้า · เกินดุล ↔ ขาดดุล · บาทแข็ง ↔ บาทอ่อน</div>
+        </div>
+        <div class="tip-box" style="border-left-color: #F59E0B">
+          <div class="tip-title" style="color: #F59E0B">📰 ติดตามข่าว</div>
+          <div class="tip-text">อ่านข่าว ธปท. ปรับดอกเบี้ย / ครม. อนุมัติงบ → จะเห็นศัพท์เหล่านี้ใช้จริง</div>
+        </div>
+      </div>
+      <div class="page-number">12</div>
+    </div>
+  `;
+}
+
+function pageQuickRef() {
+  return `
+    <div class="a6-page quickref">
+      <div class="page-title">📋 Quick Reference</div>
+      <div class="quickref-list">
+        <div class="quickref-item" style="background: #FFF8EA">
+          <strong style="color: #E63946">เงินเฟ้อ vs เงินฝืด</strong>
+          เฟ้อ = ราคาขึ้น เงินมีค่าน้อย<br>
+          ฝืด = ราคาลง เศรษฐกิจซบ
+        </div>
+        <div class="quickref-item" style="background: #E8F0FA">
+          <strong style="color: #2E5EAA">การเงิน vs การคลัง</strong>
+          การเงิน → ธปท. (ดอกเบี้ย)<br>
+          การคลัง → รัฐบาล (ภาษี-งบ)
+        </div>
+        <div class="quickref-item" style="background: #DBF0ED">
+          <strong style="color: #1D7874">บาทแข็ง vs บาทอ่อน</strong>
+          แข็ง → นำเข้าถูก ส่งออกแย่<br>
+          อ่อน → ส่งออก-ท่องเที่ยวรุ่ง
+        </div>
+        <div class="quickref-item" style="background: #EEE6F7">
+          <strong style="color: #6A4C93">เกินดุล vs ขาดดุล</strong>
+          ดุลการค้าเกินดุล = X &gt; M<br>
+          งบประมาณขาดดุล = ใช้ &gt; ภาษี
+        </div>
+        <div class="quickref-item" style="background: #FFE9E9">
+          <strong style="color: #E63946">GDP สูตร</strong>
+          C + I + G + (X − M)<br>
+          บริโภค + ลงทุน + รัฐ + ส่งออกสุทธิ
+        </div>
+      </div>
+      <div class="page-number">13</div>
+    </div>
+  `;
+}
+
+function pageNotes(num) {
+  const isFirst = num === 14;
+  return `
+    <div class="a6-page notes">
+      <div class="page-title">📝 บันทึก</div>
+      <div class="notes-area"></div>
+      ${isFirst ? `
+        <div class="notes-qr-corner">
+          <img src="${QR_URL}" alt="QR">
+          <div class="nqr-label">ajarnkwan</div>
+        </div>
+      ` : ''}
+      <div class="page-number">${num}</div>
+    </div>
+  `;
+}
+
+function pageBackCover() {
+  return `
+    <div class="a6-page back-cover">
+      <div class="big-emoji">📚</div>
+      <h2>เรียนสนุก<br>จำขึ้นใจ</h2>
+      <div class="subtitle">สแกน QR เพื่อใช้แอป<br>flashcard แบบ interactive</div>
+      <div class="qr-big">
+        <img src="${QR_URL}" alt="QR ajarnkwan.github.io">
+      </div>
+      <div class="url-label">ajarnkwan.github.io</div>
+      <div class="url-desc">© Ajarn Kwan · Ramkhamhaeng U.</div>
+    </div>
+  `;
+}
+
+// Build PAGES array (16 pages, 0-indexed)
+const PAGES = [
+  pageCover(),                          // 0 = Page 1 (Cover)
+  pageTOC(),                            // 1 = Page 2 (TOC)
+  pageHowTo(),                          // 2 = Page 3 (How To)
+  pageContent('measure', 0, 3, 4),      // 3 = Page 4 (Measure 1-3)
+  pageContent('measure', 3, 6, 5),      // 4 = Page 5 (Measure 4-6)
+  pageContent('monetary', 0, 3, 6),     // 5 = Page 6 (Monetary 1-3)
+  pageContent('monetary', 3, 6, 7),     // 6 = Page 7 (Monetary 4-6)
+  pageContent('fiscal', 0, 3, 8),       // 7 = Page 8 (Fiscal 1-3)
+  pageContent('fiscal', 3, 6, 9),       // 8 = Page 9 (Fiscal 4-6)
+  pageContent('intl', 0, 3, 10),        // 9 = Page 10 (Intl 1-3)
+  pageContent('intl', 3, 6, 11),        // 10 = Page 11 (Intl 4-6)
+  pageTips(),                           // 11 = Page 12 (Tips)
+  pageQuickRef(),                       // 12 = Page 13 (Quick Ref)
+  pageNotes(14),                        // 13 = Page 14 (Notes - has QR)
+  pageNotes(15),                        // 14 = Page 15 (Notes)
+  pageBackCover(),                      // 15 = Page 16 (Back Cover)
+];
+
+// =============================================
+// IMPOSITION for A6 portrait booklet from A4 portrait
+// =============================================
+//
+// A4 portrait = 210×297mm
+// 2x2 grid of A6 portrait pages (105×148.5mm each)
+//
+// Folding:
+//   1. Fold horizontally (top half down): paper becomes 210×148.5 (A5 landscape)
+//   2. Fold vertically (right over left): paper becomes 105×148.5 (A6 portrait booklet)
+//
+// Standard 8-page saddle-stitch imposition for fold-in-quarters:
+// 
+//   FRONT side of A4 portrait sheet:
+//   ┌─────────┬─────────┐
+//   │   p2 ↺  │   p7 ↺  │  <- top row (rotated 180° because of fold)
+//   ├─────────┼─────────┤
+//   │   p8    │   p1    │  <- bottom row (right side = cover when folded)
+//   └─────────┴─────────┘
+//
+//   BACK side (after duplex flip-on-short-edge):
+//   ┌─────────┬─────────┐
+//   │   p4 ↺  │   p5 ↺  │
+//   ├─────────┼─────────┤
+//   │   p6    │   p3    │
+//   └─────────┴─────────┘
+
+// SHEET 1 covers booklet pages 1-8
+const SHEET1_FRONT = [
+  { content: PAGES[1], rotate: true },   // TL = p2 ↺
+  { content: PAGES[6], rotate: true },   // TR = p7 ↺
+  { content: PAGES[7], rotate: false },  // BL = p8
+  { content: PAGES[0], rotate: false },  // BR = p1 (cover at bottom-right)
+];
+
+const SHEET1_BACK = [
+  { content: PAGES[3], rotate: true },   // TL = p4 ↺
+  { content: PAGES[4], rotate: true },   // TR = p5 ↺
+  { content: PAGES[5], rotate: false },  // BL = p6
+  { content: PAGES[2], rotate: false },  // BR = p3
+];
+
+// SHEET 2 covers booklet pages 9-16 (nested INSIDE sheet 1)
+const SHEET2_FRONT = [
+  { content: PAGES[9],  rotate: true },   // TL = p10 ↺
+  { content: PAGES[14], rotate: true },   // TR = p15 ↺
+  { content: PAGES[15], rotate: false },  // BL = p16 (back cover)
+  { content: PAGES[8],  rotate: false },  // BR = p9
+];
+
+const SHEET2_BACK = [
+  { content: PAGES[11], rotate: true },   // TL = p12 ↺
+  { content: PAGES[12], rotate: true },   // TR = p13 ↺
+  { content: PAGES[13], rotate: false },  // BL = p14
+  { content: PAGES[10], rotate: false },  // BR = p11
+];
+
+function buildSheet(layout, sheetLabel, pageList) {
+  let html = `
+    <div class="sheet-label no-print">
+      <span>${sheetLabel}</span>
+      <span class="pages-on-sheet">${pageList}</span>
+    </div>
+  `;
+  html += '<div class="sheet">';
+  html += '<div class="vertical-fold"></div><div class="horizontal-fold"></div>';
+
+  layout.forEach(({ content, rotate }) => {
+    if (rotate) {
+      // Apply rotation by injecting class .flipped into the .a6-page
+      const rotatedContent = content.replace('class="a6-page', 'class="a6-page flipped');
+      html += rotatedContent;
+    } else {
+      html += content;
+    }
+  });
+
+  html += '</div>';
+  return html;
+}
+
+const output = document.getElementById('output');
+output.innerHTML =
+  buildSheet(SHEET1_FRONT, '📄 แผ่นที่ 1 / 2 · ด้านหน้า', 'หน้า 1, 2, 7, 8') +
+  buildSheet(SHEET1_BACK, '📄 แผ่นที่ 1 / 2 · ด้านหลัง (พิมพ์ duplex)', 'หน้า 3, 4, 5, 6') +
+  buildSheet(SHEET2_FRONT, '📄 แผ่นที่ 2 / 2 · ด้านหน้า', 'หน้า 9, 10, 15, 16') +
+  buildSheet(SHEET2_BACK, '📄 แผ่นที่ 2 / 2 · ด้านหลัง (พิมพ์ duplex)', 'หน้า 11, 12, 13, 14');
+</script>
+</body>
+</html>

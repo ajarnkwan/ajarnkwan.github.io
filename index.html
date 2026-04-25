@@ -1676,6 +1676,216 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 
 
+
+/* ═══════════════════════════════════════════════════════════
+   HUB redesign — wider card + 4 tracks matching homepage
+   ═══════════════════════════════════════════════════════════ */
+#view-hub.card {
+  max-width: 880px;
+}
+
+#view-hub .hub-track-main {
+  background: var(--paper, #fff);
+  border: 1px solid var(--line, #E8DDD0);
+  border-radius: 16px;
+  padding: 1.25rem 1.25rem 1rem;
+  margin-bottom: 1rem;
+}
+
+#view-hub .hub-track-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1rem;
+}
+
+#view-hub .hub-track-emoji {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+#view-hub .hub-track-emoji.plum { background: #EFE6F5; }
+#view-hub .hub-track-emoji.coral { background: #FCEAE2; }
+#view-hub .hub-track-emoji.leaf { background: #E2EEDF; }
+#view-hub .hub-track-emoji.amber { background: #FBEFD3; }
+
+#view-hub .hub-track-text h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2A1F1A;
+  margin: 0 0 2px;
+}
+#view-hub .hub-track-text p {
+  font-size: 13px;
+  color: #6b6480;
+  margin: 0;
+}
+
+#view-hub .hub-courses {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#view-hub .hub-course {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.75rem 0.9rem;
+  background: #fafafa;
+  border: 1px solid #ECE6F2;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #2A1F1A;
+  transition: all 0.18s;
+}
+#view-hub .hub-course:hover {
+  border-color: #6B4A8A;
+  background: #EFE6F5;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(107,74,138,0.1);
+}
+#view-hub .hub-course .hl-icon {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+#view-hub .hub-course .hl-body { flex: 1; min-width: 0; }
+#view-hub .hub-course .hl-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+#view-hub .hub-course .hl-desc {
+  font-size: 12.5px;
+  color: #6b6480;
+  line-height: 1.4;
+}
+#view-hub .hub-course .hl-arr {
+  color: #6B4A8A;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+#view-hub .hub-pill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+#view-hub .hub-pill.free {
+  background: #6B4A8A;
+  color: white;
+}
+#view-hub .hub-pill.new {
+  background: #E27A5F;
+  color: white;
+}
+
+#view-hub .hub-track-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+#view-hub .hub-track-mini {
+  position: relative;
+  background: var(--paper, #fff);
+  border: 1px solid var(--line, #E8DDD0);
+  border-radius: 14px;
+  padding: 1rem 1rem 0.875rem;
+  display: flex; flex-direction: column;
+  gap: 0.4rem;
+  opacity: 0.85;
+}
+#view-hub .hub-track-mini h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2A1F1A;
+  margin: 0;
+}
+#view-hub .hub-track-mini p {
+  font-size: 12px;
+  color: #6b6480;
+  margin: 0;
+  line-height: 1.4;
+}
+#view-hub .hub-track-mini .soon-pill {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #F1EEE6;
+  color: #8A7A70;
+  letter-spacing: 0.04em;
+  margin-top: 0.25rem;
+}
+
+/* Updated connect-row for new design (3 cards with title+desc) */
+#view-hub .connect-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+#view-hub .conn-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.75rem 0.875rem;
+  background: var(--paper, #fff);
+  border: 1px solid var(--line, #E8DDD0);
+  border-radius: 12px;
+  text-decoration: none;
+  color: #2A1F1A;
+  transition: all 0.18s;
+}
+#view-hub .conn-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+#view-hub .conn-btn.line:hover { border-color: #06C755; }
+#view-hub .conn-btn.tiktok:hover { border-color: #2A1F1A; }
+#view-hub .conn-btn.facebook:hover { border-color: #1877F2; }
+#view-hub .conn-btn .conn-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #F7EDDC;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+#view-hub .conn-btn.line .conn-icon { background: #E1F8E8; color: #06C755; }
+#view-hub .conn-btn.tiktok .conn-icon { background: #F1EFE8; color: #2A1F1A; }
+#view-hub .conn-btn.facebook .conn-icon { background: #E6F1FB; color: #1877F2; }
+#view-hub .conn-btn .conn-text { flex: 1; min-width: 0; }
+#view-hub .conn-btn .conn-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2A1F1A;
+  margin-bottom: 1px;
+}
+#view-hub .conn-btn .conn-desc {
+  font-size: 11.5px;
+  color: #6b6480;
+  line-height: 1.3;
+}
+
+@media (max-width: 640px) {
+  #view-hub .hub-track-row { grid-template-columns: 1fr; }
+  #view-hub .connect-row { grid-template-columns: 1fr; }
+}
+
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1855,7 +2065,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     <article class="lesson-card">
       <div class="lesson-meta">
         <span class="lesson-pill">บทที่ 1</span>
-        <span>Microeconomics · จุลภาค</span>
+        <span>Microeconomics Theory</span>
         <span>· อ่าน 3 นาที</span>
       </div>
       <h3 class="lesson-title">ทำไมราคาขึ้นแล้วคนซื้อน้อยลง?</h3>
@@ -1945,10 +2155,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
         <h3>เข้าใจเศรษฐกิจ</h3>
         <p class="track-desc">เศรษฐศาสตร์จุลภาค · มหภาค · เศรษฐมิติ</p>
         <ul class="track-list">
-          <li>Microeconomics · บทที่ 1-3 พร้อม</li>
-          <li>ปูพื้นฐานเศรษฐมิติ · 6 บท <span class="track-pill">NEW</span></li>
-          <li>Math &amp; Stats for Econ · 13 modules</li>
-        </ul>
+      <li>Microeconomics Theory · บทที่ 1-7 พร้อม</li>
+      <li>Math &amp; Stats for Econ · 13 modules</li>
+      <li>Introduction to Econometrics · 6 บท</li>
+    </ul>
         <span class="track-link">เริ่มเรียน →</span>
       </a>
 
@@ -1964,28 +2174,30 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
         <span class="track-link">ติดตามทางช่องทางของเรา →</span>
       </a>
 
-      <a href="#community" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth',block:'start'});event.preventDefault()" class="track-card leaf">
+      <a href="vibe-coding/" class="track-card leaf">
         <span class="track-emoji">🤖</span>
         <h3>AI ในชีวิตจริง</h3>
         <p class="track-desc">ใช้ AI ทำงาน · เขียนโค้ด · เรียนรู้ · ทุ่นแรง</p>
         <ul class="track-list">
-          <li>Vibe Coding · เขียนโค้ดด้วย AI <span class="track-pill">มาแล้ว</span></li>
-          <li>AI ช่วยได้ · prompt library <span class="track-pill soon">เร็ว ๆ นี้</span></li>
-          <li>AI สำหรับงานเศรษฐศาสตร์ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
-        </ul>
-        <span class="track-link">ดูช่องทางอัปเดต →</span>
+      <li>Vibe Coding · เขียนโค้ดด้วย AI</li>
+      <li>2 เวอร์ชัน · ทุกคน + นักเศรษฐศาสตร์</li>
+      <li>AI ช่วยได้ · prompt library <span class="track-pill soon">เร็วๆ นี้</span></li>
+      <li>AI สำหรับงานวิจัย <span class="track-pill soon">เร็วๆ นี้</span></li>
+    </ul>
+        <span class="track-link">เปิดคอร์ส →</span>
       </a>
 
-      <a href="#community" onclick="document.getElementById('community').scrollIntoView({behavior:'smooth',block:'start'});event.preventDefault()" class="track-card amber">
+      <a href="vocab/" class="track-card amber">
         <span class="track-emoji">🔤</span>
         <h3>อังกฤษเศรษฐกิจ</h3>
         <p class="track-desc">ศัพท์พื้นฐาน · อ่านข่าว · อ่าน paper ได้</p>
         <ul class="track-list">
-          <li>50 คำพื้นฐาน · ที่ต้องรู้ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
-          <li>Word of the Week · ทุกวันจันทร์ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
-          <li>อ่านข่าวเศรษฐกิจภาษาอังกฤษ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
-        </ul>
-        <span class="track-link">ดูช่องทางอัปเดต →</span>
+      <li>คลังศัพท์เศรษฐศาสตร์ จุลภาค + มหภาค</li>
+      <li>เล่นแบบ flip card หรือพิมพ์สมุดพับ A6</li>
+      <li>50 คำพื้นฐาน · ที่ต้องรู้ <span class="track-pill soon">เร็วๆ นี้</span></li>
+      <li>Word of the Week ทาง Line OA</li>
+    </ul>
+        <span class="track-link">เปิดคลังศัพท์ →</span>
       </a>
     </div>
   </div>
@@ -2393,26 +2605,113 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <div class="preview-banner-text"></div>
       <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
     </div>
-    <div class="hub-sec">Learn</div>
-    <a href="econ-math-readiness/" class="hub-link featured">
-      <div class="hl-icon" style="background:#ede9fe;border:1.5px solid #c4b5fd">📐</div>
-      <div class="hl-body"><div class="hl-title">Basic Math &amp; Stats for Econ</div><div class="hl-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 Modules</div></div>
+
+    <div class="hub-sec">คอร์สเรียน</div>
+
+    <div class="hub-track-main">
+      <div class="hub-track-head">
+        <span class="hub-track-emoji plum">📊</span>
+        <div class="hub-track-text">
+          <h3>เข้าใจเศรษฐกิจ</h3>
+          <p>เริ่มจากศูนย์ · จุลภาค · เศรษฐมิติ</p>
+        </div>
+      </div>
+      <div class="hub-courses">
+        <a href="econ-math-readiness/" class="hub-course">
+          <div class="hl-icon" style="background:#EFE6F5;border:1.5px solid #C9B8DD">📐</div>
+          <div class="hl-body">
+            <div class="hl-title">Basic Math &amp; Stats for Econ</div>
+            <div class="hl-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 modules</div>
+          </div>
+          <div class="hl-arr">→</div>
+        </a>
+        <a href="microeconomics/" class="hub-course">
+          <div class="hl-icon" style="background:#EFE6F5;border:1.5px solid #C9B8DD">📘</div>
+          <div class="hl-body">
+            <div class="hl-title">Microeconomics Theory</div>
+            <div class="hl-desc">ทฤษฎีเศรษฐศาสตร์จุลภาค · บทที่ 1-7 พร้อมเรียน</div>
+          </div>
+          <div class="hl-arr">→</div>
+        </a>
+        <a href="econometrics/?full=1" class="hub-course">
+          <div class="hl-icon" style="background:#EFE6F5;border:1.5px solid #C9B8DD">📉</div>
+          <div class="hl-body">
+            <div class="hl-title">Introduction to Econometrics</div>
+            <div class="hl-desc">สำหรับคนเริ่มจากศูนย์ ไม่ต้องกลัวเลข · 6 บทเรียน</div>
+          </div>
+          <div class="hl-arr">→</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hub-track-main">
+      <div class="hub-track-head">
+        <span class="hub-track-emoji leaf">🤖</span>
+        <div class="hub-track-text">
+          <h3>AI ในชีวิตจริง</h3>
+          <p>ใช้ AI ทำงาน · เขียนโค้ด · เรียนรู้</p>
+        </div>
+      </div>
+      <div class="hub-courses">
+        <a href="vibe-coding/" class="hub-course">
+          <div class="hl-icon" style="background:#E2EEDF;border:1.5px solid #B5D4AC">⚡</div>
+          <div class="hl-body">
+            <div class="hl-title">Vibe Coding · เขียนโค้ดด้วย AI</div>
+            <div class="hl-desc">~4 ชม. · 5 บท · 2 เวอร์ชัน (ทุกคน / นักเศรษฐศาสตร์) · ใบ Certificate</div>
+          </div>
+          <div class="hl-arr">→</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hub-track-main">
+      <div class="hub-track-head">
+        <span class="hub-track-emoji amber">🔤</span>
+        <div class="hub-track-text">
+          <h3>อังกฤษเศรษฐกิจ</h3>
+          <p>ศัพท์ภาษาอังกฤษ · อ่านข่าว paper ได้</p>
+        </div>
+      </div>
+      <div class="hub-courses">
+        <a href="vocab/micro.html" class="hub-course">
+          <div class="hl-icon" style="background:#FBEFD3;border:1.5px solid #F0D896">🔬</div>
+          <div class="hl-body">
+            <div class="hl-title">ศัพท์เศรษฐศาสตร์จุลภาค</div>
+            <div class="hl-desc">24 คำ · flip card · Eng + Thai + ตัวอย่างใกล้ตัว</div>
+          </div>
+          <div class="hl-arr">→</div>
+        </a>
+        <a href="vocab/macro.html" class="hub-course">
+          <div class="hl-icon" style="background:#FBEFD3;border:1.5px solid #F0D896">🌐</div>
+          <div class="hl-body">
+            <div class="hl-title">ศัพท์เศรษฐศาสตร์มหภาค</div>
+            <div class="hl-desc">30 คำ · flip card · GDP, Inflation, Policy</div>
+          </div>
+          <div class="hl-arr">→</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="hub-track-row">
+      <div class="hub-track-mini coral">
+        <span class="hub-track-emoji coral">💰</span>
+        <h4>การเงินส่วนตัว</h4>
+        <p>การออม · ลงทุน · ดอกเบี้ย</p>
+        <span class="soon-pill">เร็วๆ นี้</span>
+      </div>
+    </div>
+
+    <div class="hub-sec">ของฟรี · ฉบับพกพา</div>
+    <a href="vocab/booklet-micro.html" class="hub-link" target="_blank">
+      <div class="hl-icon" style="background:#FFF8EA;border:1.5px solid #FFD700">📓</div>
+      <div class="hl-body"><div class="hl-title">สมุดศัพท์ A6 · จุลภาค</div><div class="hl-desc">2 แผ่น A4 พับเป็นสมุด 16 หน้า · มี QR ลิงก์กลับเว็บ</div></div>
       <div class="hl-arr">→</div>
     </a>
-
-    <a href="microeconomics/" class="hub-link">
-      <div class="hl-icon" style="background:#eff6ff;border:1.5px solid #93c5fd">📘</div>
-      <div class="hl-body"><div class="hl-title">Microeconomics</div><div class="hl-desc">ทฤษฎีเศรษฐศาสตร์จุลภาค · บทที่ 1-3 พร้อมเรียน</div></div>
+    <a href="vocab/booklet-macro.html" class="hub-link" target="_blank">
+      <div class="hl-icon" style="background:#FFF8EA;border:1.5px solid #FFD700">📕</div>
+      <div class="hl-body"><div class="hl-title">สมุดศัพท์ A6 · มหภาค</div><div class="hl-desc">2 แผ่น A4 พับเป็นสมุด 16 หน้า · พิมพ์ฟรี</div></div>
       <div class="hl-arr">→</div>
     </a>
-
-    <a href="econometrics/?full=1" class="hub-link">
-      <div class="hl-icon" style="background:#fef2e8;border:1.5px solid #f9c89b">📉</div>
-      <div class="hl-body"><div class="hl-title">ปูพื้นฐานเศรษฐมิติ</div><div class="hl-desc">สำหรับคนเริ่มจากศูนย์ ไม่ต้องกลัวเลข · 6 บทเรียน</div></div>
-      <div class="hl-arr">→</div>
-    </a>
-
-    <div class="hub-sec">Freebies</div>
     <a href="econometrics/cheatsheet.html" class="hub-link" target="_blank">
       <div class="hl-icon" style="background:#fef2e8;border:1.5px solid #f9c89b">📄</div>
       <div class="hl-body"><div class="hl-title">สรุปเศรษฐมิติ 1 หน้า</div><div class="hl-desc">Cheat sheet พิมพ์ได้ · สูตร + คำศัพท์ครบ</div></div>
@@ -2424,11 +2723,29 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <div class="hl-arr">→</div>
     </div>
 
-    <div class="hub-sec">Connect</div>
+    <div class="hub-sec">ติดต่อและติดตาม</div>
     <div class="connect-row">
-      <div class="conn-btn disabled" title="LINE OA ยังไม่ได้เชื่อมลิงก์"><div class="conn-icon">📣</div><span>LINE OA · เร็วๆ นี้</span></div>
-      <a href="https://www.tiktok.com/@ajarn.kwan" class="conn-btn" target="_blank" rel="noopener noreferrer"><div class="conn-icon">🎵</div><span>TikTok</span></a>
-      <a href="https://www.facebook.com/ajarnkwan" class="conn-btn" target="_blank" rel="noopener noreferrer"><div class="conn-icon">📘</div><span>Facebook</span></a>
+      <a href="https://line.me/R/ti/p/%40287votth" class="conn-btn line" target="_blank" rel="noopener noreferrer">
+        <div class="conn-icon">💬</div>
+        <div class="conn-text">
+          <div class="conn-title">Line OA</div>
+          <div class="conn-desc">ถามคำถาม · Word of Week</div>
+        </div>
+      </a>
+      <a href="https://www.tiktok.com/@ajarn.kwan" class="conn-btn tiktok" target="_blank" rel="noopener noreferrer">
+        <div class="conn-icon">🎵</div>
+        <div class="conn-text">
+          <div class="conn-title">TikTok</div>
+          <div class="conn-desc">@ajarn.kwan · คลิปสั้น</div>
+        </div>
+      </a>
+      <a href="https://www.facebook.com/ajarnkwan" class="conn-btn facebook" target="_blank" rel="noopener noreferrer">
+        <div class="conn-icon">📘</div>
+        <div class="conn-text">
+          <div class="conn-title">Facebook</div>
+          <div class="conn-desc">โพสต์ยาว · บทความ</div>
+        </div>
+      </a>
     </div>
   </div>
 

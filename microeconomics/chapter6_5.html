@@ -4,7 +4,7 @@
 <style>
 .ajk-shell-theme{--ajk-primary:#8b5cf6;--ajk-primary-soft:#f5f3ff;--ajk-ink:#1e1b4b;--ajk-muted:#6b7280;--ajk-border:#e0e7ff;--ajk-surface:#fff}
 .ajk-topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--ajk-border);font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
-.ajk-topbar-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
+.ajk-topbar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:58px}
 .ajk-back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:var(--ajk-primary-soft);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent;transition:all .18s;flex-shrink:0;font-family:inherit;cursor:pointer;white-space:nowrap}
 .ajk-back-btn svg{width:14px;height:14px}.ajk-back-btn:hover{background:var(--ajk-primary);color:#fff;transform:translateX(-2px)}
 .ajk-home-btn {
@@ -98,7 +98,7 @@
 .ajk-brand{flex:1;min-width:0;text-align:right;line-height:1.25}.ajk-brand-course{font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ajk-brand-author{font-size:11px;color:var(--ajk-muted);font-weight:500;display:inline-flex;align-items:center;gap:5px;margin-top:2px}.ajk-brand-author-dot{width:5px;height:5px;border-radius:50%;background:var(--ajk-primary)}.ajk-brand-author-at{color:var(--ajk-primary);font-weight:700}
 @media(max-width:520px){.ajk-back-btn span{display:none}.ajk-back-btn{padding:9px}.ajk-brand-course{font-size:12.5px}.ajk-topbar-inner{padding:8px 12px;min-height:52px;gap:10px}}
 .ajk-footer{margin-top:64px;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,var(--ajk-primary-soft) 100%);border-top:1px solid var(--ajk-border);padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;color:var(--ajk-ink)}
-.ajk-footer-inner{max-width:720px;margin:0 auto;text-align:center}.ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}.ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--ajk-primary);opacity:.35}.ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--ajk-primary)}.ajk-footer-name{font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;margin:0 0 4px}.ajk-footer-sub{font-size:12.5px;color:var(--ajk-muted);margin-bottom:26px}
+.ajk-footer-inner{max-width:1100px;margin:0 auto;text-align:center}.ajk-footer-mark{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}.ajk-footer-mark::before,.ajk-footer-mark::after{content:'';width:28px;height:1px;background:var(--ajk-primary);opacity:.35}.ajk-footer-mark-dot{width:10px;height:10px;border-radius:50%;background:var(--ajk-primary)}.ajk-footer-name{font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;margin:0 0 4px}.ajk-footer-sub{font-size:12.5px;color:var(--ajk-muted);margin-bottom:26px}
 .ajk-footer-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}.ajk-footer-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ajk-ink);background:#fff;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--ajk-border);transition:all .18s}.ajk-footer-btn svg{width:15px;height:15px}.ajk-footer-btn:hover{background:var(--ajk-primary);color:#fff;border-color:var(--ajk-primary);transform:translateY(-2px)}.ajk-footer-bottom{font-size:11px;color:var(--ajk-muted);line-height:1.6}
 </style>
 <style>
@@ -442,6 +442,10 @@ if(window.matchMedia('(prefers-color-scheme:dark)').matches){
       <a class="ajk-footer-btn" href="../index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
         หน้าหลัก
+      </a>
+      <a class="ajk-footer-btn ajk-vocab" href="../vocab/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        คลังศัพท์
       </a>
     <a class="ajk-footer-btn" href="chapter6.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 6</a>
       <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">

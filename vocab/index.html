@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คลังศัพท์เศรษฐศาสตร์ · Ajarn.Kwan</title>
+<meta name="description" content="คลังศัพท์ภาษาอังกฤษเศรษฐศาสตร์ จุลภาค + มหภาค พร้อมคำแปลไทย ตัวอย่างใกล้ตัว และสมุดพับ A6 พิมพ์ได้ฟรี">
+<meta name="theme-color" content="#2D3047">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Kanit',sans-serif;background:linear-gradient(180deg,#FFF8EA 0%,#FAF5EC 100%);min-height:100vh;color:#2D3047;-webkit-font-smoothing:antialiased}
+
+  .topbar{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:12px;padding:14px 24px;
+    background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(45,48,71,0.08);
+    position:sticky;top:0;z-index:100;
+  }
+  .home-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    text-decoration:none;color:#2D3047;background:#FFF8EA;
+    padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;
+    border:1px solid #FFD700;
+  }
+  .home-btn:hover{background:#FFD700;color:#2D3047}
+  .topbar .brand{text-align:right;font-size:12px;line-height:1.3;color:#6B6B6B}
+  .topbar .brand strong{color:#2D3047;font-size:14px}
+
+  .hero{
+    max-width:920px;margin:0 auto;padding:60px 24px 24px;text-align:center;
+  }
+  .hero h1{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:clamp(36px,6vw,52px);font-weight:800;
+    color:#2D3047;letter-spacing:-0.02em;margin-bottom:10px;line-height:1.1;
+  }
+  .hero h2{
+    font-size:clamp(20px,3vw,26px);font-weight:600;color:#E63946;margin-bottom:18px;
+  }
+  .hero p{font-size:16px;color:#5C5C5C;line-height:1.7;max-width:620px;margin:0 auto}
+  .hero .stats{
+    display:flex;justify-content:center;gap:28px;margin-top:28px;
+    font-size:14px;color:#6B6B6B;flex-wrap:wrap;
+  }
+  .hero .stats strong{color:#2D3047;font-size:22px;display:block;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif}
+
+  .container{max-width:1100px;margin:0 auto;padding:30px 24px 60px}
+
+  .section-title{
+    font-size:22px;font-weight:700;color:#2D3047;margin:32px 0 16px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .section-title .dot{width:8px;height:8px;border-radius:50%;background:#FFD700}
+
+  /* === Online card grid (browse online) === */
+  .grid-online{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media (max-width:740px){.grid-online{grid-template-columns:1fr}}
+
+  .res-card{
+    background:#FFF;border-radius:18px;padding:24px 24px 22px;
+    border:2px solid transparent;transition:all .25s;
+    text-decoration:none;color:inherit;display:block;
+    position:relative;overflow:hidden;
+  }
+  .res-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(45,48,71,0.12)}
+  .res-card.micro{border-color:#E63946}
+  .res-card.macro{border-color:#2A9D8F}
+
+  .res-icon{
+    font-size:34px;width:62px;height:62px;border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:12px;
+  }
+  .res-card.micro .res-icon{background:#FCE5E8;color:#E63946}
+  .res-card.macro .res-icon{background:#DEF1ED;color:#2A9D8F}
+
+  .res-eng{
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:24px;font-weight:800;color:#2D3047;letter-spacing:-0.01em;line-height:1.1;
+    margin-bottom:2px;
+  }
+  .res-thai{font-size:18px;font-weight:600;color:#444;margin-bottom:10px}
+  .res-desc{font-size:13.5px;color:#6B6B6B;line-height:1.6;margin-bottom:14px}
+  .res-meta{
+    display:flex;gap:10px;flex-wrap:wrap;font-size:12px;
+    margin-bottom:16px;
+  }
+  .res-meta span{
+    background:#F5F1E8;padding:4px 10px;border-radius:999px;color:#6B5E3C;font-weight:500;
+  }
+  .res-card.micro .res-meta span{background:#FCE5E8;color:#9F2A35}
+  .res-card.macro .res-meta span{background:#DEF1ED;color:#196B61}
+  .res-cta{
+    display:inline-flex;align-items:center;gap:6px;
+    background:#2D3047;color:#FFD700;padding:10px 18px;
+    border-radius:999px;font-weight:600;font-size:13.5px;
+  }
+  .res-card:hover .res-cta{background:#1F2335}
+
+  /* === Booklet section (print/download) === */
+  .grid-print{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+  @media (max-width:740px){.grid-print{grid-template-columns:1fr}}
+
+  .pr-card{
+    background:#FFF;border:1.5px solid #E5E1D8;border-radius:14px;
+    padding:18px 20px;text-decoration:none;color:inherit;display:flex;
+    align-items:center;gap:14px;transition:all .2s;
+  }
+  .pr-card:hover{border-color:#FFD700;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+  .pr-icon{
+    width:48px;height:48px;border-radius:12px;background:#FFF8EA;
+    display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;
+  }
+  .pr-body{flex:1;min-width:0}
+  .pr-title{font-size:15.5px;font-weight:700;color:#2D3047;line-height:1.3;margin-bottom:3px}
+  .pr-desc{font-size:12.5px;color:#6B6B6B;line-height:1.4}
+  .pr-arr{color:#9C8A4F;font-size:18px;flex-shrink:0}
+
+  .info-box{
+    background:rgba(255,216,0,0.12);border-left:4px solid #FFD700;
+    padding:14px 18px;border-radius:8px;margin:20px 0 0;
+    font-size:13.5px;color:#5C4F1F;line-height:1.6;
+  }
+  .info-box strong{color:#2D3047}
+
+  footer{
+    text-align:center;padding:30px 24px;font-size:12.5px;
+    color:#888;border-top:1px solid rgba(45,48,71,0.08);margin-top:40px;
+  }
+  footer strong{color:#2D3047;font-weight:700}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="../index.html" class="home-btn">← หน้าหลัก</a>
+  <div class="brand">
+    <strong>Ajarn.Kwan</strong> · คลังศัพท์เศรษฐศาสตร์<br>
+    <span style="font-size:11px">คณะเศรษฐศาสตร์ ม.รามคำแหง</span>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Vocabulary Library</h1>
+  <h2>📚 คลังศัพท์เศรษฐศาสตร์ ภาษาอังกฤษ</h2>
+  <p>รวบรวมคำศัพท์เศรษฐศาสตร์ที่ต้องรู้ ทั้งจุลภาค (Microeconomics) และมหภาค (Macroeconomics) พร้อมคำแปลไทย ตัวอย่างจากชีวิตจริง และเล่นได้แบบ flip card หรือพิมพ์เป็นสมุดพับ A6 ก็ได้ค่ะ</p>
+  <div class="stats">
+    <div><strong>54+</strong>คำศัพท์</div>
+    <div><strong>4</strong>รูปแบบเรียน</div>
+    <div><strong>100%</strong>ฟรี</div>
+  </div>
+</section>
+
+<main class="container">
+
+  <h3 class="section-title"><span class="dot"></span>เรียนแบบออนไลน์ — กดดูทีละการ์ด</h3>
+  <div class="grid-online">
+
+    <a href="micro.html" class="res-card micro">
+      <div class="res-icon">🔬</div>
+      <div class="res-eng">Microeconomics</div>
+      <div class="res-thai">เศรษฐศาสตร์จุลภาค</div>
+      <div class="res-desc">พฤติกรรมของผู้บริโภคและผู้ผลิตในตลาดแต่ละแห่ง · อุปสงค์ · อุปทาน · ดุลยภาพ · ต้นทุน</div>
+      <div class="res-meta"><span>24 คำศัพท์</span><span>flip card</span><span>มีตัวอย่างใกล้ตัว</span></div>
+      <span class="res-cta">เริ่มเรียน →</span>
+    </a>
+
+    <a href="macro.html" class="res-card macro">
+      <div class="res-icon">🌐</div>
+      <div class="res-eng">Macroeconomics</div>
+      <div class="res-thai">เศรษฐศาสตร์มหภาค</div>
+      <div class="res-desc">ภาพรวมเศรษฐกิจประเทศ · GDP · เงินเฟ้อ · ดอกเบี้ย · นโยบายการเงินการคลัง · อัตราการว่างงาน</div>
+      <div class="res-meta"><span>30 คำศัพท์</span><span>flip card</span><span>เห็นภาพระดับประเทศ</span></div>
+      <span class="res-cta">เริ่มเรียน →</span>
+    </a>
+
+  </div>
+
+  <h3 class="section-title"><span class="dot"></span>พิมพ์เป็นสมุดพับ A6 — พกติดตัวอ่านได้</h3>
+  <div class="grid-print">
+
+    <a href="booklet-micro.html" class="pr-card">
+      <div class="pr-icon">📓</div>
+      <div class="pr-body">
+        <div class="pr-title">สมุดศัพท์เศรษฐศาสตร์จุลภาค A6</div>
+        <div class="pr-desc">2 แผ่น A4 พับเป็น 16 หน้า · พิมพ์ได้ทันที</div>
+      </div>
+      <span class="pr-arr">→</span>
+    </a>
+
+    <a href="booklet-macro.html" class="pr-card">
+      <div class="pr-icon">📕</div>
+      <div class="pr-body">
+        <div class="pr-title">สมุดศัพท์เศรษฐศาสตร์มหภาค A6</div>
+        <div class="pr-desc">2 แผ่น A4 พับเป็น 16 หน้า · พิมพ์ได้ทันที</div>
+      </div>
+      <span class="pr-arr">→</span>
+    </a>
+
+  </div>
+
+  <div class="info-box">
+    <strong>💡 ทิป:</strong> สมุดพับ A6 พิมพ์ฟรีบนกระดาษ A4 2 แผ่น เลือก "duplex (Flip on short edge)" เปิด background graphics ON · พับครึ่งแนวขวาง แล้วพับครึ่งแนวตั้ง → สอดเข้ากันได้สมุด 16 หน้า มี QR code ลิงก์กลับเว็บด้วย เหมาะอ่านในเวลาว่าง บนรถไฟฟ้า ในแถวรอ ฯลฯ ค่ะ
+  </div>
+
+</main>
+
+<footer>
+  <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+    <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FFF;border:1px solid #E5E1D8;border-radius:999px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;">
+      <span style="color:#06C755">●</span> Line OA
+    </a>
+    <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FFF;border:1px solid #E5E1D8;border-radius:999px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;">
+      <span>🎵</span> TikTok
+    </a>
+    <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#FFF;border:1px solid #E5E1D8;border-radius:999px;text-decoration:none;color:#2D3047;font-size:13px;font-weight:500;">
+      <span style="color:#1877F2">f</span> Facebook
+    </a>
+  </div>
+  <strong>Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ ม.รามคำแหง<br>
+  <span style="font-size:11px">© 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ</span>
+</footer>
+
+</body>
+</html>
