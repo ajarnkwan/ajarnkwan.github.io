@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เข้าใจเศรษฐกิจ · Ajarn.Kwan</title>
+<meta name="description" content="คอร์สเรียนเศรษฐศาสตร์ — Microeconomics Theory, Math & Stats for Econ, Introduction to Econometrics เริ่มจากศูนย์ ฟรีทุกบท">
+<meta name="theme-color" content="#6B4A8A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --plum:#6B4A8A;
+    --plum-soft:#9B7BB8;
+    --plum-bg:#EFE6F5;
+    --plum-deep:#553873;
+    --coral:#E27A5F;
+    --cream:#FDF8F2;
+    --cream-deep:#F7EDDC;
+    --paper:#FFFFFF;
+    --ink:#2A1F1A;
+    --ink-soft:#5C4A40;
+    --ink-mute:#8A7A70;
+    --line:#E8DDD0;
+  }
+  body{
+    font-family:'Noto Sans Thai',sans-serif;
+    min-height:100vh;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+
+  .topbar{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:12px;padding:14px 24px;
+    background:rgba(255,255,255,0.7);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(45,33,26,0.08);
+    position:sticky;top:0;z-index:100;
+  }
+  .home-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    text-decoration:none;color:var(--ink);background:var(--plum-bg);
+    padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;
+    border:1px solid transparent;transition:all .18s;
+  }
+  .home-btn:hover{background:var(--plum);color:#fff}
+  .topbar .brand{text-align:right;font-size:12px;line-height:1.3;color:var(--ink-mute)}
+  .topbar .brand strong{color:var(--ink);font-size:14px}
+
+  .top-stripe{height:4px;background:linear-gradient(90deg,var(--plum) 0%,var(--coral) 100%)}
+
+  .container{max-width:920px;margin:0 auto;padding:0 24px}
+  .header{text-align:center;padding:56px 0 32px}
+  .badge{
+    display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;
+    color:var(--plum);background:var(--plum-bg);padding:5px 16px;
+    border-radius:999px;margin-bottom:18px;
+  }
+  .header h1{
+    font-family:'Plus Jakarta Sans','Noto Sans Thai',sans-serif;
+    font-size:clamp(36px,6vw,52px);font-weight:800;
+    letter-spacing:-0.02em;line-height:1.15;color:var(--ink);
+    margin-bottom:8px;
+  }
+  .header h2{
+    font-size:clamp(16px,2.5vw,20px);font-weight:500;
+    color:var(--plum);margin-bottom:16px;
+  }
+  .header p{font-size:15px;color:var(--ink-mute);margin:0 auto;line-height:1.7;max-width:620px}
+
+  .stats{
+    display:flex;justify-content:center;gap:36px;margin-top:28px;
+    font-size:14px;color:var(--ink-mute);flex-wrap:wrap;
+  }
+  .stats strong{
+    color:var(--ink);font-size:24px;display:block;font-weight:800;
+    font-family:'Plus Jakarta Sans',sans-serif;
+  }
+
+  /* Section header */
+  .section-title{
+    font-size:13px;font-weight:700;color:var(--ink-mute);
+    margin:36px 0 16px;text-transform:uppercase;letter-spacing:0.08em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .section-title::before{
+    content:'';width:6px;height:6px;border-radius:50%;background:var(--plum);
+  }
+
+  /* Course cards */
+  .courses{display:grid;grid-template-columns:1fr;gap:14px;padding-bottom:8px}
+
+  .course-card{
+    background:var(--paper);border:1.5px solid var(--line);
+    border-radius:18px;padding:22px 24px;
+    text-decoration:none;color:inherit;
+    display:flex;align-items:center;gap:18px;
+    transition:all .25s;position:relative;overflow:hidden;
+  }
+  .course-card::before{
+    content:'';position:absolute;left:0;top:0;bottom:0;width:5px;
+    background:var(--plum);
+  }
+  .course-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(107,74,138,.12);
+    border-color:var(--plum);
+  }
+  .course-card.coming{
+    opacity:0.7;cursor:default;
+  }
+  .course-card.coming::before{background:var(--ink-mute)}
+  .course-card.coming:hover{transform:none;box-shadow:none;border-color:var(--line)}
+
+  .course-icon{
+    width:64px;height:64px;border-radius:16px;
+    background:var(--plum-bg);
+    display:flex;align-items:center;justify-content:center;
+    font-size:30px;flex-shrink:0;
+  }
+  .course-card.coming .course-icon{background:var(--cream-deep)}
+
+  .course-body{flex:1;min-width:0}
+  .course-name{
+    font-family:'Plus Jakarta Sans','Noto Sans Thai',sans-serif;
+    font-size:19px;font-weight:800;color:var(--ink);
+    line-height:1.25;margin-bottom:3px;
+  }
+  .course-thai{
+    font-size:14px;color:var(--ink-soft);font-weight:500;margin-bottom:8px;
+  }
+  .course-meta{
+    display:flex;gap:14px;flex-wrap:wrap;
+    font-size:12.5px;color:var(--ink-mute);
+  }
+  .course-meta span{display:inline-flex;align-items:center;gap:4px}
+  .course-arr{
+    color:var(--plum);font-size:24px;flex-shrink:0;
+    transition:transform .18s;
+  }
+  .course-card:hover .course-arr{transform:translateX(4px)}
+  .soon-pill{
+    display:inline-block;font-size:11px;font-weight:700;
+    background:var(--cream-deep);color:var(--ink-mute);
+    padding:3px 12px;border-radius:999px;letter-spacing:0.04em;
+  }
+
+  /* Recommended path */
+  .path-box{
+    background:var(--plum-bg);border:1px solid #C9B8DD;
+    border-radius:14px;padding:20px 24px;margin:32px 0 0;
+  }
+  .path-box h3{
+    font-size:14px;font-weight:800;color:var(--plum-deep);
+    margin-bottom:10px;display:flex;align-items:center;gap:8px;
+  }
+  .path-box h3::before{content:'💡';font-size:18px}
+  .path-box p{font-size:14px;color:var(--ink);line-height:1.7;margin:0}
+  .path-box strong{color:var(--plum-deep)}
+
+  footer{
+    background:rgba(255,255,255,0.6);
+    padding:36px 24px 28px;border-top:1px solid var(--line);margin-top:56px;
+  }
+  .footer-inner{max-width:1100px;margin:0 auto;text-align:center}
+  .footer-name{font-weight:700;color:var(--ink);font-size:16px;margin-bottom:4px}
+  .footer-sub{font-size:13px;color:var(--ink-mute);margin-bottom:18px}
+  .footer-links{
+    display:flex;justify-content:center;gap:10px;
+    flex-wrap:wrap;margin-bottom:18px;
+  }
+  .footer-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 16px;background:var(--paper);
+    border:1px solid var(--line);border-radius:999px;
+    text-decoration:none;color:var(--ink);
+    font-size:13px;font-weight:500;transition:all .15s;
+  }
+  .footer-btn:hover{background:var(--plum-bg);border-color:var(--plum)}
+  .footer-bottom{font-size:11.5px;color:var(--ink-mute);line-height:1.6}
+  .footer-bottom strong{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="top-stripe"></div>
+
+<header class="topbar">
+  <a href="../index.html" class="home-btn">← หน้าหลัก</a>
+  <div class="brand">
+    <strong>Ajarn.Kwan</strong> · เข้าใจเศรษฐกิจ<br>
+    <span style="font-size:11px">คณะเศรษฐศาสตร์ ม.รามคำแหง</span>
+  </div>
+</header>
+
+<div class="container">
+  <div class="header">
+    <div class="badge">SELF-LEARNING TRACK</div>
+    <h1>เข้าใจเศรษฐกิจ</h1>
+    <h2>📊 Economics Foundation</h2>
+    <p>คอร์สเรียนเศรษฐศาสตร์ตั้งแต่ศูนย์ — ปูพื้นฐานคณิตศาสตร์ก่อน เข้าใจทฤษฎีจุลภาค แล้วต่อยอดสู่เศรษฐมิติ ทุกคอร์สสอนเป็นภาษาไทย ไม่ต้องกลัวภาษาอังกฤษ ไม่ต้องเก่งเลข</p>
+    <div class="stats">
+      <div><strong>3</strong>คอร์สหลัก</div>
+      <div><strong>27+</strong>บทเรียน</div>
+      <div><strong>100%</strong>ฟรี</div>
+    </div>
+  </div>
+
+  <h3 class="section-title">เริ่มต้นที่นี่</h3>
+  <div class="courses">
+
+    <a href="../econ-math-readiness/" class="course-card">
+      <div class="course-icon">📐</div>
+      <div class="course-body">
+        <div class="course-name">Math &amp; Stats for Econ</div>
+        <div class="course-thai">คณิตศาสตร์และสถิติพื้นฐานสำหรับเศรษฐศาสตร์</div>
+        <div class="course-meta">
+          <span>📦 13 modules</span>
+          <span>⏱ ~6 ชม.</span>
+          <span>🎯 ระดับเริ่มต้น</span>
+        </div>
+      </div>
+      <div class="course-arr">→</div>
+    </a>
+
+    <a href="../microeconomics/" class="course-card">
+      <div class="course-icon">📘</div>
+      <div class="course-body">
+        <div class="course-name">Microeconomics Theory</div>
+        <div class="course-thai">ทฤษฎีเศรษฐศาสตร์จุลภาค</div>
+        <div class="course-meta">
+          <span>📦 8 บท + 35 บทย่อย</span>
+          <span>📖 บทที่ 1-7 พร้อมเรียน</span>
+          <span>🎯 ระดับกลาง</span>
+        </div>
+      </div>
+      <div class="course-arr">→</div>
+    </a>
+
+    <a href="../econometrics/?full=1" class="course-card">
+      <div class="course-icon">📉</div>
+      <div class="course-body">
+        <div class="course-name">Introduction to Econometrics</div>
+        <div class="course-thai">ปูพื้นฐานเศรษฐมิติ · สำหรับคนเริ่มจากศูนย์ ไม่ต้องกลัวเลข</div>
+        <div class="course-meta">
+          <span>📦 6 บท</span>
+          <span>📄 มี cheat sheet</span>
+          <span>🎯 ระดับต่อยอด</span>
+        </div>
+      </div>
+      <div class="course-arr">→</div>
+    </a>
+
+  </div>
+
+  <h3 class="section-title">เร็วๆ นี้</h3>
+  <div class="courses">
+    <div class="course-card coming">
+      <div class="course-icon">🌐</div>
+      <div class="course-body">
+        <div class="course-name">Macroeconomics Theory</div>
+        <div class="course-thai">ทฤษฎีเศรษฐศาสตร์มหภาค · GDP, ดอกเบี้ย, นโยบายเศรษฐกิจ</div>
+        <div class="course-meta">
+          <span class="soon-pill">เร็วๆ นี้</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="path-box">
+    <h3>เส้นทางที่แนะนำ</h3>
+    <p>
+      ถ้าเริ่มจากศูนย์ — เริ่มที่ <strong>Math &amp; Stats</strong> ก่อน เพื่อปูพื้นเลขให้พร้อม
+      จากนั้นไป <strong>Microeconomics Theory</strong> เพื่อเข้าใจหลักการพื้นฐาน
+      และต่อยอดที่ <strong>Introduction to Econometrics</strong> เพื่อวิเคราะห์ข้อมูลเศรษฐกิจจริง
+      ส่วนคนที่มีพื้นแล้วก็สามารถข้ามไปคอร์สที่สนใจได้เลยค่ะ
+    </p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Ajarn.Kwan</div>
+    <div class="footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="footer-links">
+      <a href="../index.html" class="footer-btn">🏠 หน้าหลัก</a>
+      <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" class="footer-btn">
+        <span style="color:#06C755">●</span> Line OA
+      </a>
+      <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer" class="footer-btn">🎵 TikTok</a>
+      <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer" class="footer-btn"><span style="color:#1877F2">f</span> Facebook</a>
+    </div>
+    <div class="footer-bottom">
+      <strong>© 2026 · Ajarn.Kwan</strong> · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -165,6 +165,9 @@ function renderMemberRow(m, index) {
   const interestsText = Array.isArray(m.interests)
     ? m.interests.join(', ')
     : String(m.interests || m.interestsText || '');
+  const referralsText = Array.isArray(m.referrals)
+    ? m.referrals.join(', ')
+    : String(m.referrals || m.referralsText || '');
 
   return `
     <tr>
@@ -174,6 +177,7 @@ function renderMemberRow(m, index) {
       <td>${escapeHtml(m.education || '-')}</td>
       <td>${escapeHtml(m.occupation || '-')}</td>
       <td>${escapeHtml(interestsText || '-')}</td>
+      <td>${escapeHtml(referralsText || '-')}</td>
       <td>${escapeHtml(formatJoinedAt(m.joinedAt, true))}</td>
     </tr>
   `;
@@ -257,7 +261,7 @@ window.signupEmail = async () => {
 
 // ── REGISTER (profile form) ──
 let curStep = 0;
-const regAns = { name:'', edu:'', occ:'', occOther:'', interests:[], intOther:'' };
+const regAns = { name:'', edu:'', occ:'', occOther:'', interests:[], intOther:'', referrals:[], refOther:'' };
 
 function resetRegistrationForm() {
   regAns.name = '';
@@ -291,16 +295,17 @@ window.goStep = (n) => {
     if (curStep===0 && !regAns.name) return;
     if (curStep===1 && !regAns.edu) return;
     if (curStep===2 && !regAns.occ) return;
+    // step 3 (interests) is multi-select, no required validation
   }
   document.getElementById('rstep-'+curStep).classList.remove('active');
   curStep = n;
   document.getElementById('rstep-'+n).classList.add('active');
   const em = document.querySelector('#rstep-'+n+' .step-emoji');
   if (em) { em.style.animation='none'; em.offsetHeight; em.style.animation='bop .5s ease'; }
-  for (let i=0;i<4;i++) {
+  for (let i=0;i<5;i++) {
     document.getElementById('rdot-'+i).className = 'step-dot'+(i===curStep?' active':i<curStep?' done':'');
   }
-  document.getElementById('rprog').textContent = 'ขั้นที่ '+(curStep+1)+' / 4';
+  document.getElementById('rprog').textContent = 'ขั้นที่ '+(curStep+1)+' / 5';
 };
 
 window.pickEdu = (btn) => {
@@ -327,10 +332,19 @@ window.toggleInt = (btn, isOther) => {
     if (btn.classList.contains('selected')) ow.classList.add('show');
     else { ow.classList.remove('show'); document.getElementById('int-other').value=''; }
   }
+}
+
+window.toggleRef = (btn, isOther) => {
+  btn.classList.toggle('selected');
+  if (isOther) {
+    const ow = document.getElementById('ref-other-wrap');
+    if (btn.classList.contains('selected')) ow.classList.add('show');
+    else { ow.classList.remove('show'); document.getElementById('ref-other').value=''; }
+  }
 };
 
 window.submitReg = async (user) => {
-  const btn = document.getElementById('rbtn-3');
+  const btn = document.getElementById('rbtn-4');
 
   if (window._previewMode === 'register') {
     window.backToAdmin();
@@ -344,6 +358,12 @@ window.submitReg = async (user) => {
     const selectedInterests = [...document.querySelectorAll('#int-list .multi-btn.selected')]
       .map(b => b.textContent.trim())
       .filter(t => !t.includes('อื่น'));
+
+    const selectedReferrals = [...document.querySelectorAll('#ref-list .multi-btn.selected')]
+      .map(b => b.textContent.trim())
+      .filter(t => !t.includes('อื่น'));
+    const referralOtherText = document.getElementById('ref-other').value.trim();
+    const allReferrals = referralOtherText ? [...selectedReferrals, referralOtherText] : selectedReferrals;
 
     const validation = validateProfileInput({
       name: document.getElementById('reg-name').value,
@@ -378,6 +398,8 @@ window.submitReg = async (user) => {
       occupation: validation.data.occupation,
       interests: validation.data.interests,
       interestsText: validation.data.interests.join(', '),
+      referrals: allReferrals,
+      referralsText: allReferrals.join(', '),
       memberNum,
       joinedAt: nowIso,
       updatedAt: nowIso,
@@ -434,7 +456,7 @@ window.loadMembers = async (reset = true) => {
     if (reset) {
       window._lastMemberDoc = null;
       window._loadedMembers = 0;
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>';
       loadMoreBtn.style.display = 'none';
     }
 
@@ -451,12 +473,21 @@ window.loadMembers = async (reset = true) => {
     const members = snap.docs.map(d => d.data());
 
     if (reset && countSnap) {
-      document.getElementById('admin-count').textContent = `${countSnap.data().count} คน`;
+      const totalCount = countSnap.data().count;
+      document.getElementById('admin-stat-total').textContent = totalCount;
+      // count members joined this month + today (computed from loaded batch)
+      const now = new Date();
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+      const monthCount = members.filter(m => (m.joinedAt || '') >= monthStart).length;
+      const todayCount = members.filter(m => (m.joinedAt || '') >= todayStart).length;
+      document.getElementById('admin-stat-month').textContent = monthCount;
+      document.getElementById('admin-stat-today').textContent = todayCount;
       tbody.innerHTML = '';
     }
 
     if (members.length === 0 && reset) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">ยังไม่มีสมาชิกค่ะ</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">ยังไม่มีสมาชิกค่ะ</td></tr>';
       statusEl.textContent = 'แสดง 0 รายการ';
       loadMoreBtn.style.display = 'none';
       return;
@@ -1886,6 +1917,156 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   #view-hub .connect-row { grid-template-columns: 1fr; }
 }
 
+
+/* Hub section group with English label + Thai */
+#view-hub .hub-sec-group {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ECE6F2;
+}
+#view-hub .hub-sec-group:first-of-type { margin-top: 8px; }
+#view-hub .hub-sec-en {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #6B4A8A;
+  text-transform: uppercase;
+}
+#view-hub .hub-sec-th {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2A1F1A;
+  flex: 1;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN dashboard refinements
+   ═══════════════════════════════════════════════════════════ */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+.admin-stat-card {
+  background: linear-gradient(135deg, #6B4A8A 0%, #553873 100%);
+  color: #FFD700;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.admin-stat-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  background: rgba(255,215,0,0.08);
+  border-radius: 50%;
+}
+.admin-stat-card .ast-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255,215,0,0.85);
+  margin-bottom: 6px;
+}
+.admin-stat-card .ast-num {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.admin-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: #f7f3ec;
+  border: 1px solid #e8dccb;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 1.25rem;
+}
+.admin-action-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+.admin-action-group:last-child {
+  border-left: 1px solid #e8dccb;
+  padding-left: 16px;
+  flex: 0 0 auto;
+}
+.admin-action-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #8A7A70;
+  margin-right: 4px;
+}
+
+.admin-table-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.admin-table-head h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2A1F1A;
+  margin: 0;
+}
+.admin-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid #ECE6F2;
+}
+.members-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+.members-table th {
+  background: #f7f3ec;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #5C4A40;
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e8dccb;
+}
+.members-table td {
+  padding: 10px;
+  font-size: 13px;
+  border-bottom: 1px solid #f3eee5;
+  color: #2A1F1A;
+  vertical-align: top;
+}
+.members-table tr:last-child td { border-bottom: none; }
+.members-table tr:hover td { background: #fcfaf4; }
+
+@media (max-width: 720px) {
+  .admin-stats { grid-template-columns: 1fr; }
+  .admin-action-group:last-child { border-left: none; padding-left: 0; }
+}
+
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2150,7 +2331,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     </div>
 
     <div class="tracks-grid">
-      <a href="https://ajarnkwan.github.io/econometrics/" class="track-card purple">
+      <a href="economics/" class="track-card purple">
         <span class="track-emoji">📊</span>
         <h3>เข้าใจเศรษฐกิจ</h3>
         <p class="track-desc">เศรษฐศาสตร์จุลภาค · มหภาค · เศรษฐมิติ</p>
@@ -2498,8 +2679,9 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <div class="step-dot" id="rdot-1"></div>
       <div class="step-dot" id="rdot-2"></div>
       <div class="step-dot" id="rdot-3"></div>
+      <div class="step-dot" id="rdot-4"></div>
     </div>
-    <div class="prog-txt" id="rprog">ขั้นที่ 1 / 4</div>
+    <div class="prog-txt" id="rprog">ขั้นที่ 1 / 5</div>
     <div class="reg-email-note">เข้าสู่ระบบในฐานะ: <strong id="reg-email-display"></strong></div>
     <div class="preview-banner" id="register-preview-banner">
       <div class="preview-banner-text"></div>
@@ -2579,9 +2761,33 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
         <input class="other-in" type="text" id="int-other" placeholder="บอกได้เลยนะคะ..." maxlength="120">
       </div>
     </div>
-    <div class="err-msg" id="reg-err"></div>
-    <button class="next-btn" id="rbtn-3" onclick="submitReg(window._regUser)">เข้าร่วมได้เลยค่ะ 🎉</button>
+    <button class="next-btn" id="rbtn-3" onclick="goStep(4)">ถัดไป →</button>
     <button class="back-btn" onclick="goStep(2)">← กลับ</button>
+  </div>
+
+  <!-- Step 5: How did you find us? -->
+  <div class="step-panel" id="rstep-4">
+    <span class="step-emoji">💛</span>
+    <div class="step-q">รู้จัก community นี้ได้อย่างไรคะ?</div>
+    <div class="step-sub">เลือกที่ตรงกับตัวเองมากที่สุด เลือกได้มากกว่า 1 ข้อนะคะ</div>
+    <div class="scroll-list">
+      <div class="multi-list" id="ref-list">
+        <button class="multi-btn" onclick="toggleRef(this)"><div class="chk"></div>TikTok · @ajarn.kwan</button>
+        <button class="multi-btn" onclick="toggleRef(this)"><div class="chk"></div>Facebook · ajarnkwan</button>
+        <button class="multi-btn" onclick="toggleRef(this)"><div class="chk"></div>Line OA · @287votth</button>
+        <button class="multi-btn" onclick="toggleRef(this)"><div class="chk"></div>เพื่อน / คนรู้จักแนะนำ</button>
+        <button class="multi-btn" onclick="toggleRef(this)"><div class="chk"></div>เป็นนักศึกษา ม.รามคำแหง</button>
+        <button class="multi-btn" onclick="toggleRef(this)"><div class="chk"></div>ค้นหาใน Google</button>
+        <button class="multi-btn" onclick="toggleRef(this)"><div class="chk"></div>ลิงก์จากเว็บอื่น</button>
+        <button class="multi-btn" onclick="toggleRef(this,true)"><div class="chk"></div>อื่น ๆ โปรดระบุ</button>
+      </div>
+      <div class="other-wrap" id="ref-other-wrap">
+        <input class="other-in" type="text" id="ref-other" placeholder="บอกได้เลยนะคะ..." maxlength="120">
+      </div>
+    </div>
+    <div class="err-msg" id="reg-err"></div>
+    <button class="next-btn" id="rbtn-4" onclick="submitReg(window._regUser)">เข้าร่วมได้เลยค่ะ 🎉</button>
+    <button class="back-btn" onclick="goStep(3)">← กลับ</button>
   </div>
 </div>
 
@@ -2606,7 +2812,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
     </div>
 
-    <div class="hub-sec">คอร์สเรียน</div>
+    <div class="hub-sec-group">
+      <span class="hub-sec-en">LEARN</span>
+      <span class="hub-sec-th">คอร์สเรียน</span>
+    </div>
 
     <div class="hub-track-main">
       <div class="hub-track-head">
@@ -2701,7 +2910,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       </div>
     </div>
 
-    <div class="hub-sec">ของฟรี · ฉบับพกพา</div>
+    <div class="hub-sec-group">
+      <span class="hub-sec-en">FREEBIES</span>
+      <span class="hub-sec-th">ของฟรี · ฉบับพกพา</span>
+    </div>
     <a href="vocab/booklet-micro.html" class="hub-link" target="_blank">
       <div class="hl-icon" style="background:#FFF8EA;border:1.5px solid #FFD700">📓</div>
       <div class="hl-body"><div class="hl-title">สมุดศัพท์ A6 · จุลภาค</div><div class="hl-desc">2 แผ่น A4 พับเป็นสมุด 16 หน้า · มี QR ลิงก์กลับเว็บ</div></div>
@@ -2723,7 +2935,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <div class="hl-arr">→</div>
     </div>
 
-    <div class="hub-sec">ติดต่อและติดตาม</div>
+    <div class="hub-sec-group">
+      <span class="hub-sec-en">CONTACT</span>
+      <span class="hub-sec-th">ติดต่อและติดตาม</span>
+    </div>
     <div class="connect-row">
       <a href="https://line.me/R/ti/p/%40287votth" class="conn-btn line" target="_blank" rel="noopener noreferrer">
         <div class="conn-icon">💬</div>
@@ -2765,28 +2980,65 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     <div class="admin-sub">ล็อกอินในฐานะ: <span id="admin-email"></span></div>
   </div>
   <div class="admin-body">
-    <div class="admin-bar">
-      <div>สมาชิกทั้งหมด: <span class="admin-count-badge" id="admin-count">กำลังโหลด...</span></div>
-      <div class="admin-actions">
-        <button class="btn-admin-alt" onclick="previewLanding()">🏠 ดูหน้าแรก</button>
-        <button class="btn-admin-alt" id="admin-preview-hub-btn" onclick="previewMemberHub()">👀 ดูหน้า Member Hub</button>
-        <button class="btn-admin-alt" id="admin-preview-register-btn" onclick="previewRegisterFlow()">🧭 ดู flow สมัครสมาชิก</button>
+
+    <!-- Stat cards row -->
+    <div class="admin-stats">
+      <div class="admin-stat-card">
+        <div class="ast-label">TOTAL · สมาชิกทั้งหมด</div>
+        <div class="ast-num" id="admin-stat-total">—</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="ast-label">THIS MONTH · เดือนนี้</div>
+        <div class="ast-num" id="admin-stat-month">—</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="ast-label">TODAY · วันนี้</div>
+        <div class="ast-num" id="admin-stat-today">—</div>
+      </div>
+    </div>
+
+    <!-- Action buttons grouped -->
+    <div class="admin-action-row">
+      <div class="admin-action-group">
+        <span class="admin-action-label">PREVIEW</span>
+        <button class="btn-admin-alt" onclick="previewLanding()">🏠 หน้าแรก</button>
+        <button class="btn-admin-alt" id="admin-preview-hub-btn" onclick="previewMemberHub()">👀 Member Hub</button>
+        <button class="btn-admin-alt" id="admin-preview-register-btn" onclick="previewRegisterFlow()">🧭 Register Flow</button>
+      </div>
+      <div class="admin-action-group">
+        <span class="admin-action-label">ACTIONS</span>
         <button class="btn-refresh" onclick="loadMembers(true)">🔄 Refresh</button>
         <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
       </div>
     </div>
+
     <div class="err-msg" id="admin-err" style="margin-bottom:1rem"></div>
-    <div class="admin-meta" id="admin-status">กำลังโหลดข้อมูล...</div>
-    <table class="members-table">
-      <thead>
-        <tr>
-          <th>#</th><th>หมายเลขสมาชิก</th><th>ชื่อ</th><th>การศึกษา</th><th>อาชีพ</th><th>ความสนใจ</th><th>วัน-เวลาสมัคร</th>
-        </tr>
-      </thead>
-      <tbody id="admin-tbody">
-        <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>
-      </tbody>
-    </table>
+
+    <!-- Members table header -->
+    <div class="admin-table-head">
+      <h3>📋 รายชื่อสมาชิก</h3>
+      <div class="admin-meta" id="admin-status">กำลังโหลดข้อมูล...</div>
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="members-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>หมายเลขสมาชิก</th>
+            <th>ชื่อ</th>
+            <th>การศึกษา</th>
+            <th>อาชีพ</th>
+            <th>ความสนใจ</th>
+            <th>ที่มา</th>
+            <th>วัน-เวลาสมัคร</th>
+          </tr>
+        </thead>
+        <tbody id="admin-tbody">
+          <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>
+        </tbody>
+      </table>
+    </div>
     <button class="btn-secondary" id="admin-load-more" onclick="loadMoreMembers()">โหลดเพิ่ม</button>
   </div>
 </div>
