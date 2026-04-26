@@ -18,6 +18,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <!-- Firebase -->
+<!-- Early stubs: ensure button handlers exist immediately,
+     before the async Firebase module finishes loading.
+     The real module overwrites these via window.* assignments. -->
+<script>
+(function() {
+  // Helper: show signup view immediately even before module loads
+  function showViewBasic(id) {
+    ['view-landing','view-login','view-signup','view-register','view-hub','view-admin'].forEach(v => {
+      const el = document.getElementById(v);
+      if (el) el.style.display = (v === id ? 'block' : 'none');
+    });
+    window.scrollTo(0, 0);
+  }
+  // Stub goJoin / goSignup / goLogin / goLoginFromLanding
+  if (!window.goJoin) window.goJoin = function() { showViewBasic('view-signup'); };
+  if (!window.goSignup) window.goSignup = function() { showViewBasic('view-signup'); };
+  if (!window.goLogin) window.goLogin = function() { showViewBasic('view-login'); };
+  if (!window.goLoginFromLanding) window.goLoginFromLanding = function() { showViewBasic('view-login'); };
+  // For trackCardClick (used by track cards): if module not loaded, behave as if not-logged-in (go to signup)
+  if (!window.trackCardClick) {
+    window.trackCardClick = function(targetUrl) {
+      try { sessionStorage.setItem('_postRegisterUrl', targetUrl); } catch(e) {}
+      showViewBasic('view-signup');
+    };
+  }
+  if (!window.showView) window.showView = showViewBasic;
+})();
+</script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import { getAuth, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
@@ -221,8 +250,6 @@ onAuthStateChanged(auth, async (user) => {
         showHub(user, memberDoc.data());
       } else {
         // Logged in but profile incomplete — send to register flow
-        showRegister(user);
-      } else {
         showRegister(user);
       }
     } else {
