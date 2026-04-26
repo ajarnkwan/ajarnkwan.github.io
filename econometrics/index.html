@@ -1173,6 +1173,19 @@ body::after {
   --ajk-surface: #ffffff;
 }
 </style>
+
+<script>
+  // Remember current URL before navigating to signup/login
+  // so that auth flow can return user to this exact page
+  window.rememberCurrentPage = function() {
+    try {
+      sessionStorage.setItem(
+        '_postRegisterUrl',
+        location.pathname + location.search + location.hash
+      );
+    } catch (e) {}
+  };
+</script>
 </head>
 <body>
 
@@ -1473,8 +1486,8 @@ body::after {
       <span class="signup-gate-emoji">🔓</span>
       <h3>ชอบบทเรียนไหมคะ?</h3>
       <p>เรียนจบ 2 บทแรกแล้ว! อีก 4 บทที่เหลือรวมถึง กราฟ interactive, R², และ Cheat Sheet สรุป 1 หน้า ลงทะเบียนฟรีเพื่อเรียนต่อค่ะ</p>
-      <a class="signup-gate-btn" href="../#signup">ลงทะเบียนฟรี เรียนต่อทั้ง 6 บท →</a>
-      <span class="signup-gate-sub">มีบัญชีแล้ว? <a href="../#login">เข้าสู่ระบบ</a></span>
+      <a class="signup-gate-btn" href="../#signup" onclick="rememberCurrentPage()">ลงทะเบียนฟรี เรียนต่อทั้ง 6 บท →</a>
+      <span class="signup-gate-sub">มีบัญชีแล้ว? <a href="../#login" onclick="rememberCurrentPage()">เข้าสู่ระบบ</a></span>
     </div>
 
     <!-- ===== Module 3 ===== -->
@@ -2027,7 +2040,31 @@ body::after {
 let completed = JSON.parse(localStorage.getItem('ecm-completed') || '[]');
 let quizChecked = {}; // track which quizzes have been checked
 let selectedOptions = {};
-const isFullAccess = new URLSearchParams(window.location.search).has('full');
+// Member-only check via Firebase (replaces old ?full=1 backdoor)
+    // Page starts in locked state; unlocks if member is verified.
+    let isFullAccess = false;
+    // Note: actual unlock happens via checkMembership() async below
+window.addEventListener('memberCheck', (e) => {
+  if (e.detail.unlocked) {
+    isFullAccess = true;
+    // Unlock module cards (econometrics uses .module-card.locked)
+    document.querySelectorAll('.module-card.locked').forEach(card => {
+      card.classList.remove('locked');
+      const badge = card.querySelector('.module-badge');
+      if (badge) badge.textContent = 'พร้อมเรียน';
+    });
+    // Hide signup gate
+    const gate = document.getElementById('signup-gate');
+    if (gate) gate.classList.remove('show');
+    // Refresh progress display if function exists
+    if (typeof updateProgress === 'function') updateProgress();
+    // Old generic locked-section class too (just in case)
+    document.querySelectorAll('.locked-section').forEach(el => el.classList.remove('locked-section'));
+  } else {
+    isFullAccess = false;
+  }
+});
+
 const FREE_MODULES = 2; // modules 1-2 are free
 
 function init() {
@@ -2379,6 +2416,64 @@ init();
 </script>
 
 
+
+<style>
+.ajk-recommend-box {
+  max-width: 1100px;
+  margin: 32px auto 24px;
+  padding: 22px 26px;
+  background: var(--ajk-cream-deep, #F7EDDC);
+  border: 1px solid var(--ajk-line, #E8DDD0);
+  border-radius: 14px;
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+.ajk-recommend-box h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ajk-ink, #2A1F1A);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ajk-recommend-box h3::before { content: '🧭'; font-size: 18px; }
+.ajk-rec-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+.ajk-rec-item {
+  background: #fff;
+  border: 1px solid var(--ajk-line, #E8DDD0);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: var(--ajk-ink, #2A1F1A);
+  transition: all .18s;
+  display: block;
+}
+.ajk-rec-item:hover {
+  border-color: var(--ajk-plum, #6B4A8A);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(107,74,138,0.08);
+}
+.ajk-rec-cond {
+  font-size: 12px;
+  color: var(--ajk-ink-mute, #8A7A70);
+  margin-bottom: 4px;
+}
+.ajk-rec-target {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ajk-plum, #6B4A8A);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.ajk-rec-target::after { content: '→'; color: var(--ajk-plum, #6B4A8A); }
+</style>
+<div class="ajk-recommend-box"><h3>เรียนต่ออะไรดี?</h3><div class="ajk-rec-list"><a href="../econ-math-readiness/" class="ajk-rec-item"><div class="ajk-rec-cond">ถ้ายังไม่มั่นใจ mean / variance</div><div class="ajk-rec-target"><span>Math & Stats for Econ</span></div></a><a href="../vocab/macro.html" class="ajk-rec-item"><div class="ajk-rec-cond">ถ้าอยากจำศัพท์ regression</div><div class="ajk-rec-target"><span>ศัพท์เศรษฐศาสตร์มหภาค</span></div></a><a href="cheatsheet.html" class="ajk-rec-item"><div class="ajk-rec-cond">ถ้าอยากดูสรุป 1 หน้า</div><div class="ajk-rec-target"><span>Cheat Sheet · Econometrics</span></div></a></div></div>
 <footer class="ajk-footer ajk-shell-theme">
   <div class="ajk-footer-inner">
     <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
@@ -2409,5 +2504,7 @@ init();
   </div>
 </footer>
 
+
+<script type="module" src="../member-guard.js" data-guard="soft"></script>
 </body>
 </html>

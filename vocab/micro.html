@@ -245,11 +245,11 @@ function CardsView({ onHome }) {
   const [flipped, setFlipped] = useState(false);
   const [mode, setMode] = useState('study');
   const [progress, setProgress] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('econ-progress') || '{}'); } catch { return {}; }
+    try { return JSON.parse(localStorage.getItem('vocab-micro-progress') || '{}'); } catch { return {}; }
   });
   const [order, setOrder] = useState(null);
 
-  useEffect(() => { try { localStorage.setItem('econ-progress', JSON.stringify(progress)); } catch {} }, [progress]);
+  useEffect(() => { try { localStorage.setItem('vocab-micro-progress', JSON.stringify(progress)); } catch {} }, [progress]);
 
   const cards = useMemo(() => {
     const base = cat === 'all' ? CARDS : CARDS.filter(c => c.cat === cat);
@@ -408,5 +408,6 @@ root.render(<App />);
     </div>
   </div>
 </footer>
+  <script type="module" src="../member-guard.js"></script>
 </body>
 </html>

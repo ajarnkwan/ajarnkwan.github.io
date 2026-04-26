@@ -19,9 +19,9 @@
 
 <!-- Firebase -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit, startAfter, runTransaction, getCountFromServer } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getAuth, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit, startAfter, runTransaction, getCountFromServer } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAaETnNaEuZjc6qZxQCSajFs5eXDHIsnbg",
@@ -35,6 +35,7 @@ const firebaseConfig = {
 
 const app   = initializeApp(firebaseConfig);
 const auth  = getAuth(app);
+  window.auth = auth;
 const db    = getFirestore(app);
 const gProvider = new GoogleAuthProvider();
 
@@ -184,6 +185,21 @@ function renderMemberRow(m, index) {
 }
 
 // ── Auth state listener ──
+
+// Helper: redirect to URL stored when user came from a course gate
+function redirectToPendingDestination() {
+  try {
+    const dest = sessionStorage.getItem('_postRegisterUrl');
+    if (!dest) return false;
+    sessionStorage.removeItem('_postRegisterUrl');
+    if (dest.includes('://')) return false; // safety: only relative URLs
+    location.href = dest;
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 onAuthStateChanged(auth, async (user) => {
   try {
     if (user) {
@@ -199,8 +215,13 @@ onAuthStateChanged(auth, async (user) => {
 
       if (adminProfile) {
         showAdmin(user, adminProfile);
-      } else if (memberDoc.exists()) {
+      } else if (memberDoc.exists() && memberDoc.data().profileComplete === true) {
+        window._currentMemberData = memberDoc.data();
+        if (redirectToPendingDestination()) return;
         showHub(user, memberDoc.data());
+      } else {
+        // Logged in but profile incomplete — send to register flow
+        showRegister(user);
       } else {
         showRegister(user);
       }
@@ -223,7 +244,7 @@ window.loginGoogle = async () => {
   try {
     setLoading('login', true);
     await signInWithPopup(auth, gProvider);
-  } catch(e) { showError('login-err', e.code); setLoading('login', false); }
+  } catch(e) { showError('login-err', friendlyAuthError(e.code)); setLoading('login', false); }
 };
 
 window.loginEmail = async () => {
@@ -234,7 +255,7 @@ window.loginEmail = async () => {
     setLoading('login', true);
     await signInWithEmailAndPassword(auth, email, pass);
   } catch(e) {
-    showError('login-err', e.code === 'auth/invalid-credential' ? 'Email หรือรหัสผ่านไม่ถูกต้องค่ะ' : e.code);
+    showError('login-err', friendlyAuthError(e.code));
     setLoading('login', false);
   }
 };
@@ -254,7 +275,7 @@ window.signupEmail = async () => {
     setLoading('signup', true);
     await createUserWithEmailAndPassword(auth, email, pass);
   } catch(e) {
-    showError('su-err', e.code === 'auth/email-already-in-use' ? 'Email นี้มีบัญชีแล้วค่ะ กรุณา login' : e.code);
+    showError('su-err', friendlyAuthError(e.code));
     setLoading('signup', false);
   }
 };
@@ -270,22 +291,29 @@ function resetRegistrationForm() {
   regAns.occOther = '';
   regAns.interests = [];
   regAns.intOther = '';
+  regAns.referrals = [];
+  regAns.refOther = '';
 
   const nameInput = document.getElementById('reg-name');
   const occOther = document.getElementById('occ-other');
   const intOther = document.getElementById('int-other');
+  const refOther = document.getElementById('ref-other');
   if (nameInput) nameInput.value = '';
   if (occOther) occOther.value = '';
   if (intOther) intOther.value = '';
+  if (refOther) refOther.value = '';
 
-  document.querySelectorAll('#edu-list .choice-btn, #occ-list .choice-btn, #int-list .multi-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('#edu-list .choice-btn, #occ-list .choice-btn, #int-list .multi-btn, #ref-list .multi-btn').forEach(b => b.classList.remove('selected'));
   document.getElementById('occ-other-wrap')?.classList.remove('show');
   document.getElementById('int-other-wrap')?.classList.remove('show');
+  document.getElementById('ref-other-wrap')?.classList.remove('show');
   document.getElementById('rbtn-0').disabled = true;
   document.getElementById('rbtn-1').disabled = true;
   document.getElementById('rbtn-2').disabled = true;
-  document.getElementById('rbtn-3').disabled = false;
-  document.getElementById('rbtn-3').textContent = 'เข้าร่วมได้เลยค่ะ 🎉';
+  document.getElementById('rbtn-3').disabled = true;  // require ≥1 interest
+  document.getElementById('rbtn-3').textContent = 'ถัดไป →';
+  document.getElementById('rbtn-4').disabled = false;
+  document.getElementById('rbtn-4').textContent = 'เข้าร่วมได้เลยค่ะ 🎉';
   const err = document.getElementById('reg-err');
   if (err) err.style.display = 'none';
 }
@@ -306,6 +334,51 @@ window.goStep = (n) => {
     document.getElementById('rdot-'+i).className = 'step-dot'+(i===curStep?' active':i<curStep?' done':'');
   }
   document.getElementById('rprog').textContent = 'ขั้นที่ '+(curStep+1)+' / 5';
+}
+
+window.trackCardClick = (targetUrl) => {
+  // Allow access if: (a) member with completed profile, OR (b) admin previewing
+  const isRegisteredMember =
+    window._currentMemberData &&
+    window._currentMemberData.profileComplete === true;
+  const isAdmin = !!window._adminProfile;
+
+  if (isRegisteredMember || isAdmin) {
+    location.href = targetUrl;
+    return;
+  }
+  // Otherwise: store the intended destination and trigger signup
+  try { sessionStorage.setItem('_postRegisterUrl', targetUrl); } catch(e) {}
+  goJoin();
+}
+
+window.exitToLanding = async () => {
+  // Confirm if user has entered any data
+  if (regAns.name || regAns.edu || regAns.occ ||
+      (regAns.interests && regAns.interests.length > 0)) {
+    if (!confirm('ออกจากการลงทะเบียนแล้วข้อมูลที่กรอกไว้จะหายนะคะ — แน่ใจไหมคะ?')) {
+      return;
+    }
+  }
+  // Sign out the temp signup user if they're not registered yet
+  try {
+    // Sign out the temp signup user if they haven't completed registration
+    if (window._regUser && !window._currentMemberData) {
+      await signOut(auth);
+    }
+  } catch(e) { console.warn('signOut failed:', e); }
+  // Clear all reg state
+  window._regUser = null;
+  regAns.name = ''; regAns.edu = ''; regAns.occ = '';
+  regAns.occOther = ''; regAns.interests = []; regAns.intOther = '';
+  regAns.referrals = []; regAns.refOther = '';
+  curStep = 0;
+  // Reset form UI to step 1
+  resetRegistrationForm();
+  // Go back to landing
+  location.hash = '';
+  showView('view-landing');
+  window.scrollTo(0, 0);
 };
 
 window.pickEdu = (btn) => {
@@ -318,11 +391,20 @@ window.pickEdu = (btn) => {
 window.pickOcc = (btn, isOther) => {
   document.getElementById('occ-list').querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));
   btn.classList.add('selected');
-  regAns.occ = isOther ? 'อื่นๆ' : btn.textContent.trim();
-  document.getElementById('rbtn-2').disabled = false;
+  regAns.occ = isOther?'อื่นๆ':btn.textContent.trim();
   const ow = document.getElementById('occ-other-wrap');
-  if (isOther) { ow.classList.add('show'); setTimeout(()=>document.getElementById('occ-other').focus(),100); }
-  else ow.classList.remove('show');
+  const occOtherInput = document.getElementById('occ-other');
+  const nextBtn = document.getElementById('rbtn-2');
+  if (isOther) {
+    ow.classList.add('show');
+    setTimeout(()=>occOtherInput.focus(),100);
+    // Disable next until user fills the "อื่น ๆ" text
+    nextBtn.disabled = !occOtherInput.value.trim();
+  } else {
+    ow.classList.remove('show');
+    occOtherInput.value='';
+    nextBtn.disabled = false;
+  }
 };
 
 window.toggleInt = (btn, isOther) => {
@@ -332,7 +414,37 @@ window.toggleInt = (btn, isOther) => {
     if (btn.classList.contains('selected')) ow.classList.add('show');
     else { ow.classList.remove('show'); document.getElementById('int-other').value=''; }
   }
+  // Enable rbtn-3 (next button) only if at least 1 interest selected OR "อื่น ๆ" with text
+  const anySelected = document.querySelectorAll('#int-list .multi-btn.selected').length > 0;
+  const otherText = (document.getElementById('int-other')?.value || '').trim();
+  const btn3 = document.getElementById('rbtn-3');
+  if (btn3) btn3.disabled = !(anySelected || otherText);
 }
+
+
+// Wire up text input listeners for "อื่น ๆ" fields to update next-button states
+document.addEventListener('DOMContentLoaded', () => {
+  const intOther = document.getElementById('int-other');
+  if (intOther) {
+    intOther.addEventListener('input', () => {
+      const anySelected = document.querySelectorAll('#int-list .multi-btn.selected').length > 0;
+      const otherText = intOther.value.trim();
+      const btn3 = document.getElementById('rbtn-3');
+      if (btn3) btn3.disabled = !(anySelected || otherText);
+    });
+  }
+
+  // 3.1: When "อื่น ๆ" is selected in occupation, require text input
+  const occOther = document.getElementById('occ-other');
+  if (occOther) {
+    occOther.addEventListener('input', () => {
+      if (regAns.occ === 'อื่นๆ') {
+        const btn2 = document.getElementById('rbtn-2');
+        if (btn2) btn2.disabled = !occOther.value.trim();
+      }
+    });
+  }
+});
 
 window.toggleRef = (btn, isOther) => {
   btn.classList.toggle('selected');
@@ -410,8 +522,18 @@ window.submitReg = async (user) => {
     await setDoc(doc(db, MEMBERS_COLLECTION, user.uid), data);
     window._currentMemberData = data;
 
-    const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
-    if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+    // Honor pending track-click destination if any
+    try {
+      const dest = sessionStorage.getItem('_postRegisterUrl');
+      if (dest) {
+        sessionStorage.removeItem('_postRegisterUrl');
+        // Brief pause so the user sees success, then redirect
+        setTimeout(() => { location.href = dest; }, 600);
+      }
+    } catch(e) {}
+
+    const SCRIPT_URL = ''; // Set to your Google Apps Script URL to enable Sheets sync
+    if (SCRIPT_URL) {
       try {
         const p = new URLSearchParams({
           name: data.name,
@@ -420,11 +542,13 @@ window.submitReg = async (user) => {
           interests: data.interestsText,
           memberNum,
         });
-        await fetch(SCRIPT_URL + '?' + p.toString());
+        if (SCRIPT_URL) await fetch(SCRIPT_URL + '?' + p.toString());
       } catch(e) {
         console.warn('Google Sheets sync failed', e);
       }
     }
+
+    if (redirectToPendingDestination()) return;
 
     showHub(user, data);
   } catch (e) {
@@ -604,15 +728,15 @@ function showRegister(user, options = {}) {
   window._regUser = user;
   document.getElementById('reg-email-display').textContent = user.email;
   curStep = 0;
-  for (let i=0;i<4;i++) {
+  for (let i=0;i<5;i++) {
     const d = document.getElementById('rdot-'+i);
     if (d) d.className = 'step-dot'+(i===0?' active':'');
     const s = document.getElementById('rstep-'+i);
     if (s) { s.classList.remove('active'); if(i===0) s.classList.add('active'); }
   }
-  document.getElementById('rprog').textContent = 'ขั้นที่ 1 / 4';
+  document.getElementById('rprog').textContent = 'ขั้นที่ 1 / 5';
   setPreviewBanner('register', options.previewMessage || '');
-  const finalBtn = document.getElementById('rbtn-3');
+  const finalBtn = document.getElementById('rbtn-4');
   if (window._previewMode === 'register') {
     finalBtn.textContent = 'จบการพรีวิวและกลับหน้า Admin';
   } else {
@@ -660,8 +784,68 @@ function setLoading(section, on) {
 
 function showError(id, msg) {
   const el = document.getElementById(id);
-  if (el) { el.textContent = msg; el.style.display='block'; setTimeout(()=>el.style.display='none', 4000); }
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+  // Don't auto-hide — keep visible until user takes action
+  // (Listeners on related inputs will hide it when they start typing)
 }
+
+// 3.2: Clear error messages when user starts typing/clicking
+function attachErrorClearers() {
+  const pairs = [
+    // Signup view (id: su-*)
+    { input: 'su-email', error: 'su-err' },
+    { input: 'su-pass',  error: 'su-err' },
+    { input: 'su-pass2', error: 'su-err' },
+    // Login view
+    { input: 'login-email', error: 'login-err' },
+    { input: 'login-pass',  error: 'login-err' },
+    // Register view
+    { input: 'reg-name',  error: 'reg-err' },
+    { input: 'occ-other', error: 'reg-err' },
+    { input: 'int-other', error: 'reg-err' },
+    { input: 'ref-other', error: 'reg-err' },
+  ];
+  for (const { input, error } of pairs) {
+    const inp = document.getElementById(input);
+    const err = document.getElementById(error);
+    if (inp && err) {
+      inp.addEventListener('input', () => {
+        err.textContent = '';
+        err.style.display = 'none';
+      });
+    }
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', attachErrorClearers);
+} else {
+  attachErrorClearers();
+}
+
+// 3.3: Map Firebase auth error codes to friendly Thai messages
+function friendlyAuthError(code) {
+  const map = {
+    'auth/popup-closed-by-user':   'ปิดหน้าต่างเข้าสู่ระบบไปแล้วค่ะ ลองกดอีกครั้งนะคะ',
+    'auth/cancelled-popup-request':'ยกเลิกการเข้าสู่ระบบแล้วค่ะ ลองอีกครั้งนะคะ',
+    'auth/popup-blocked':          'browser ปิดกั้น popup ค่ะ ลองอนุญาต popup แล้วลองใหม่',
+    'auth/invalid-credential':     'อีเมลหรือรหัสผ่านไม่ถูกต้องค่ะ',
+    'auth/wrong-password':         'รหัสผ่านไม่ถูกต้องค่ะ',
+    'auth/user-not-found':         'ไม่พบบัญชีนี้ค่ะ ลองสมัครสมาชิกใหม่ได้นะคะ',
+    'auth/email-already-in-use':   'อีเมลนี้มีบัญชีแล้วค่ะ กรุณาเข้าสู่ระบบ',
+    'auth/invalid-email':          'รูปแบบอีเมลไม่ถูกต้องค่ะ',
+    'auth/weak-password':          'รหัสผ่านควรมีอย่างน้อย 6 ตัวอักษรค่ะ',
+    'auth/network-request-failed': 'อินเทอร์เน็ตมีปัญหาค่ะ ลองใหม่อีกครั้งนะคะ',
+    'auth/too-many-requests':      'พยายามเข้าสู่ระบบหลายครั้งเกินไปค่ะ รอสักครู่แล้วลองใหม่นะคะ',
+    'auth/user-disabled':          'บัญชีนี้ถูกระงับการใช้งาน ติดต่ออาจารย์ที่ Line OA ได้ค่ะ',
+  };
+  return map[code] || ('เกิดปัญหาบางอย่างค่ะ กรุณาลองใหม่ ('+code+')');
+}
+
+
+
+
 
 // Name input handler
 document.addEventListener('DOMContentLoaded', () => {
@@ -1699,7 +1883,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     #view-landing .footer-grid{ grid-template-columns: 1fr; gap: 30px; }
     #view-landing section{ padding: 60px 0; }
     #view-landing .lesson-card{ padding: 28px 22px; }
-    #view-landing .nav-actions .btn-ghost{ display: none; }
+    #view-landing .nav-actions 
     #view-landing .brand-tag{ display: none; }
     #view-landing .hero-meta{ flex-wrap: wrap; gap: 12px 16px; }
     #view-landing{ font-size: 16px; }
@@ -2067,6 +2251,93 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   .admin-action-group:last-child { border-left: none; padding-left: 0; }
 }
 
+
+/* Register page exit-to-landing link */
+.reg-bottom-exit {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ECE6F2;
+}
+.reg-bottom-exit a {
+  font-size: 13px;
+  color: var(--muted, #8A7A70);
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color .15s;
+}
+.reg-bottom-exit a:hover {
+  color: var(--plum, #6B4A8A);
+}
+
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.link-button:hover { opacity: 0.85; }
+
+
+/* Pathfinder — "ไม่รู้จะเริ่มตรงไหน" in Hub */
+.hub-pathfinder {
+  background: linear-gradient(135deg, #FBEFD3 0%, #F7EDDC 100%);
+  border: 1px solid #F0D896;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin: 12px 0 20px;
+}
+.hp-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #553873;
+  margin-bottom: 12px;
+}
+.hp-em { font-size: 18px; }
+.hp-options {
+  display: grid;
+  gap: 8px;
+}
+.hp-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #FFFFFF;
+  border: 1px solid #ECE0C5;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all .15s;
+}
+.hp-opt:hover {
+  border-color: #6B4A8A;
+  transform: translateX(2px);
+  box-shadow: 0 4px 10px rgba(107, 74, 138, 0.08);
+}
+.hp-cond {
+  font-size: 13.5px;
+  color: #2A1F1A;
+  font-weight: 500;
+}
+.hp-target {
+  font-size: 13px;
+  color: #6B4A8A;
+  font-weight: 600;
+}
+@media (max-width: 540px) {
+  .hp-opt { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .hp-target { font-size: 12.5px; }
+}
+
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2083,7 +2354,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 <!-- ============ Top Nav ============ -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="brand" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
+    <a href="./" class="brand" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
       <span class="brand-mark">👩‍🏫</span>
       <span class="brand-text-wrap">
         <span class="brand-text">Ajarn.Kwan</span>
@@ -2331,13 +2602,13 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     </div>
 
     <div class="tracks-grid">
-      <a href="economics/" class="track-card purple">
+      <a href="economics/" onclick="trackCardClick('economics/'); event.preventDefault();" class="track-card purple">
         <span class="track-emoji">📊</span>
         <h3>เข้าใจเศรษฐกิจ</h3>
         <p class="track-desc">เศรษฐศาสตร์จุลภาค · มหภาค · เศรษฐมิติ</p>
         <ul class="track-list">
       <li>Microeconomics Theory · บทที่ 1-7 พร้อม</li>
-      <li>Math &amp; Stats for Econ · 13 modules</li>
+      <li>Math &amp; Stats for Econ · 13 modules + แบบประเมินก่อนเรียน</li>
       <li>Introduction to Econometrics · 6 บท</li>
     </ul>
         <span class="track-link">เริ่มเรียน →</span>
@@ -2355,27 +2626,27 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
         <span class="track-link">ติดตามทางช่องทางของเรา →</span>
       </a>
 
-      <a href="vibe-coding/" class="track-card leaf">
+      <a href="vibe-coding/" onclick="trackCardClick('vibe-coding/'); event.preventDefault();" class="track-card leaf">
         <span class="track-emoji">🤖</span>
         <h3>AI ในชีวิตจริง</h3>
         <p class="track-desc">ใช้ AI ทำงาน · เขียนโค้ด · เรียนรู้ · ทุ่นแรง</p>
         <ul class="track-list">
       <li>Vibe Coding · เขียนโค้ดด้วย AI</li>
       <li>2 เวอร์ชัน · ทุกคน + นักเศรษฐศาสตร์</li>
-      <li>AI ช่วยได้ · prompt library <span class="track-pill soon">เร็วๆ นี้</span></li>
-      <li>AI สำหรับงานวิจัย <span class="track-pill soon">เร็วๆ นี้</span></li>
+      <li>AI ช่วยได้ · prompt library <span class="track-pill soon">เร็ว ๆ นี้</span></li>
+      <li>AI สำหรับงานวิจัย <span class="track-pill soon">เร็ว ๆ นี้</span></li>
     </ul>
         <span class="track-link">เปิดคอร์ส →</span>
       </a>
 
-      <a href="vocab/" class="track-card amber">
+      <a href="vocab/" onclick="trackCardClick('vocab/'); event.preventDefault();" class="track-card amber">
         <span class="track-emoji">🔤</span>
         <h3>อังกฤษเศรษฐกิจ</h3>
         <p class="track-desc">ศัพท์พื้นฐาน · อ่านข่าว · อ่าน paper ได้</p>
         <ul class="track-list">
       <li>คลังศัพท์เศรษฐศาสตร์ จุลภาค + มหภาค</li>
       <li>เล่นแบบ flip card หรือพิมพ์สมุดพับ A6</li>
-      <li>50 คำพื้นฐาน · ที่ต้องรู้ <span class="track-pill soon">เร็วๆ นี้</span></li>
+      <li>50 คำพื้นฐาน · ที่ต้องรู้ <span class="track-pill soon">เร็ว ๆ นี้</span></li>
       <li>Word of the Week ทาง Line OA</li>
     </ul>
         <span class="track-link">เปิดคลังศัพท์ →</span>
@@ -2529,7 +2800,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q">ฟรีจริงเหรอคะ? มีค่าใช้จ่ายแอบแฝงมั้ย?</button>
-        <div class="faq-a">ฟรีจริง 100% ค่ะ ไม่มีค่าใช้จ่ายใด ๆ ทั้งสิ้น เนื้อหาทั้งหมดทำขึ้นเพื่อการศึกษา และเปิดให้ทุกคนเข้าถึงได้ค่ะ</div>
+        <div class="faq-a">ฟรีจริง 100% ค่ะ ไม่มีค่าใช้จ่ายใด ๆ ทั้งสิ้น หน้าหลักมีบทเรียนตัวอย่างให้ลองเล่นก่อนสมัคร เมื่ออยากเรียนเนื้อหาเต็มทุกคอร์ส ก็สมัครสมาชิกฟรี (ใช้เวลา 30 วินาที) เพื่อบันทึกความก้าวหน้าและอยู่ในคอมมูนิตี้ของผู้เรียนด้วยกันค่ะ</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">ต้องมีพื้นฐานคณิตศาสตร์หรือเศรษฐศาสตร์มาก่อนมั้ย?</button>
@@ -2556,7 +2827,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   <div class="container">
     <div class="final-cta-inner">
       <h2>พร้อมเริ่มแล้วใช่ไหมคะ?</h2>
-      <p>ใช้เวลาสมัครแค่ 30 วินาที สมัครด้วย Email ได้เลย<br>— แล้วมาเริ่มต้นการเรียนรู้ไปด้วยกันค่ะ ✨</p>
+      <p>ใช้เวลาสมัครแค่ 30 วินาที สมัครด้วยอีเมล (Email) ได้เลย<br>— แล้วมาเริ่มต้นการเรียนรู้ไปด้วยกันค่ะ ✨</p>
       <button class="btn btn-primary" onclick="goJoin()">สมัครสมาชิกฟรี →</button>
       <div class="final-cta-reassure">
         <span>✓ ไม่มีค่าใช้จ่าย</span>
@@ -2580,7 +2851,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
           <span style="opacity: 0.6;">Asst. Prof. Dr. Kwan Phetsawang<br>Faculty of Economics, Ramkhamhaeng University</span>
         </p>
         <div class="footer-social">
-          <a href="#" id="footerLine" aria-label="Line OA" title="Line OA">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" id="footerLine" aria-label="Line OA" title="Line OA">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
               <path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/>
             </svg>
@@ -2604,10 +2875,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <div>
         <h4>คอมมูนิตี้</h4>
         <p>
-          <a href="#" onclick="event.preventDefault();goJoin()">สมัครสมาชิกฟรี</a><br>
-          <a href="#" onclick="event.preventDefault();goLoginFromLanding()">เข้าสู่ระบบ</a><br>
+          <button type="button" class="link-button" onclick="goJoin()">สมัครสมาชิกฟรี</button><br>
+          <button type="button" class="link-button" onclick="goLoginFromLanding()">เข้าสู่ระบบ</button><br>
           <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer" id="footerLineLink">เพิ่มเพื่อน Line OA</a><br>
-          <a href="#" onclick="event.preventDefault();goLoginFromLanding()">Member Hub</a>
+          <button type="button" class="link-button" onclick="goLoginFromLanding()">Member Hub</button>
         </p>
       </div>
     </div>
@@ -2745,7 +3016,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   <div class="step-panel" id="rstep-3">
     <span class="step-emoji">⭐</span>
     <div class="step-q">สนใจเรื่องอะไรบ้างคะ?</div>
-    <div class="step-sub">เลือกได้มากกว่า 1 ข้อเลยนะคะ</div>
+    <div class="step-sub">เลือกอย่างน้อย 1 ข้อค่ะ และเลือกได้มากกว่า 1 ข้อด้วยนะคะ</div>
     <div class="scroll-list">
       <div class="multi-list" id="int-list">
         <button class="multi-btn" onclick="toggleInt(this)"><div class="chk"></div>เศรษฐศาสตร์และการเงิน</button>
@@ -2768,8 +3039,8 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   <!-- Step 5: How did you find us? -->
   <div class="step-panel" id="rstep-4">
     <span class="step-emoji">💛</span>
-    <div class="step-q">รู้จัก community นี้ได้อย่างไรคะ?</div>
-    <div class="step-sub">เลือกที่ตรงกับตัวเองมากที่สุด เลือกได้มากกว่า 1 ข้อนะคะ</div>
+    <div class="step-q">รู้จักคอมมูนิตี้นี้ได้อย่างไรคะ?</div>
+    <div class="step-sub">ถ้าสะดวก บอกอาจารย์หน่อยนะคะว่ารู้จักคอมมูนิตี้นี้จากช่องทางไหน (เลือกได้มากกว่า 1 หรือข้ามได้ค่ะ)</div>
     <div class="scroll-list">
       <div class="multi-list" id="ref-list">
         <button class="multi-btn" onclick="toggleRef(this)"><div class="chk"></div>TikTok · @ajarn.kwan</button>
@@ -2788,6 +3059,11 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     <div class="err-msg" id="reg-err"></div>
     <button class="next-btn" id="rbtn-4" onclick="submitReg(window._regUser)">เข้าร่วมได้เลยค่ะ 🎉</button>
     <button class="back-btn" onclick="goStep(3)">← กลับ</button>
+  </div>
+
+  <!-- Exit-to-home link at the very bottom -->
+  <div class="reg-bottom-exit">
+    <button type="button" class="link-button" onclick="exitToLanding();">← กลับหน้าแรก</button>
   </div>
 </div>
 
@@ -2817,6 +3093,36 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <span class="hub-sec-th">คอร์สเรียน</span>
     </div>
 
+    <!-- Pathfinder: help users decide where to start -->
+    <div class="hub-pathfinder">
+      <div class="hp-title">
+        <span class="hp-em">🧭</span>
+        <span>ไม่รู้จะเริ่มตรงไหนดีคะ?</span>
+      </div>
+      <div class="hp-options">
+        <a href="econ-math-readiness/" class="hp-opt">
+          <span class="hp-cond">ฉันกลัวเลข</span>
+          <span class="hp-target">→ Math &amp; Stats for Econ</span>
+        </a>
+        <a href="microeconomics/" class="hp-opt">
+          <span class="hp-cond">อยากเข้าใจตลาด</span>
+          <span class="hp-target">→ Microeconomics Theory</span>
+        </a>
+        <a href="econometrics/" class="hp-opt">
+          <span class="hp-cond">อยากวิเคราะห์ข้อมูล</span>
+          <span class="hp-target">→ Introduction to Econometrics</span>
+        </a>
+        <a href="vocab/" class="hp-opt">
+          <span class="hp-cond">อยากจำศัพท์</span>
+          <span class="hp-target">→ คลังศัพท์เศรษฐศาสตร์</span>
+        </a>
+        <a href="vibe-coding/" class="hp-opt">
+          <span class="hp-cond">อยากใช้ AI ทำงาน</span>
+          <span class="hp-target">→ Vibe Coding (เร็ว ๆ นี้)</span>
+        </a>
+      </div>
+    </div>
+
     <div class="hub-track-main">
       <div class="hub-track-head">
         <span class="hub-track-emoji plum">📊</span>
@@ -2830,7 +3136,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
           <div class="hl-icon" style="background:#EFE6F5;border:1.5px solid #C9B8DD">📐</div>
           <div class="hl-body">
             <div class="hl-title">Basic Math &amp; Stats for Econ</div>
-            <div class="hl-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 modules</div>
+            <div class="hl-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 modules + แบบประเมิน</div>
           </div>
           <div class="hl-arr">→</div>
         </a>
@@ -2842,7 +3148,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
           </div>
           <div class="hl-arr">→</div>
         </a>
-        <a href="econometrics/?full=1" class="hub-course">
+        <a href="econometrics/" class="hub-course">
           <div class="hl-icon" style="background:#EFE6F5;border:1.5px solid #C9B8DD">📉</div>
           <div class="hl-body">
             <div class="hl-title">Introduction to Econometrics</div>
@@ -2866,7 +3172,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
           <div class="hl-icon" style="background:#E2EEDF;border:1.5px solid #B5D4AC">⚡</div>
           <div class="hl-body">
             <div class="hl-title">Vibe Coding · เขียนโค้ดด้วย AI</div>
-            <div class="hl-desc">~4 ชม. · 5 บท · 2 เวอร์ชัน (ทุกคน / นักเศรษฐศาสตร์) · ใบ Certificate</div>
+            <div class="hl-desc">2 เวอร์ชัน (ทุกคน / นักเศรษฐศาสตร์) · กำลังเตรียมเนื้อหา · เปิดให้ติดตามเร็ว ๆ นี้</div>
           </div>
           <div class="hl-arr">→</div>
         </a>
@@ -2906,7 +3212,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
         <span class="hub-track-emoji coral">💰</span>
         <h4>การเงินส่วนตัว</h4>
         <p>การออม · ลงทุน · ดอกเบี้ย</p>
-        <span class="soon-pill">เร็วๆ นี้</span>
+        <span class="soon-pill">เร็ว ๆ นี้</span>
       </div>
     </div>
 
@@ -2931,7 +3237,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     </a>
     <div class="hub-link soon">
       <div class="hl-icon" style="background:#fffbeb;border:1.5px solid #fde68a">📊</div>
-      <div class="hl-body"><div class="hl-title">Worksheet ฝึกทำ — เร็วๆ นี้</div><div class="hl-desc">แบบฝึกหัดพร้อมเฉลย</div></div>
+      <div class="hl-body"><div class="hl-title">Worksheet ฝึกทำ — เร็ว ๆ นี้</div><div class="hl-desc">แบบฝึกหัดพร้อมเฉลย</div></div>
       <div class="hl-arr">→</div>
     </div>
 
