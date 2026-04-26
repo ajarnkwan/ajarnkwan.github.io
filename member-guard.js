@@ -195,15 +195,24 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
   try {
-    const memDoc = await getDoc(doc(db, 'members', user.uid));
-    if (memDoc.exists() && memDoc.data().profileComplete === true) {
-      // Verified member
+    // Check both: admin profile + member doc (in parallel)
+    const [memDoc, adminDoc] = await Promise.all([
+      getDoc(doc(db, 'members', user.uid)),
+      getDoc(doc(db, 'admins', user.uid)),
+    ]);
+
+    const isAdmin = adminDoc.exists();
+    const isMember = memDoc.exists() && memDoc.data().profileComplete === true;
+
+    if (isAdmin || isMember) {
+      // Allow access — admin OR verified member
       window._currentUser = user;
-      window._currentMemberData = memDoc.data();
-      window.dispatchEvent(new CustomEvent('memberCheck', { detail: { unlocked: true } }));
+      window._currentMemberData = isMember ? memDoc.data() : null;
+      window._adminProfile = isAdmin ? adminDoc.data() : null;
+      window.dispatchEvent(new CustomEvent('memberCheck', { detail: { unlocked: true, isAdmin } }));
       if (GUARD_MODE === 'hard') ensureUI(hideGate);
     } else {
-      // Logged in but profile not complete
+      // Logged in but neither admin nor verified member
       window.dispatchEvent(new CustomEvent('memberCheck', { detail: { unlocked: false } }));
       if (GUARD_MODE === 'hard') ensureUI(showGate);
     }
