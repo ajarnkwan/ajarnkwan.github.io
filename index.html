@@ -302,7 +302,26 @@ window.signupEmail = async () => {
     setLoading('signup', true);
     await createUserWithEmailAndPassword(auth, email, pass);
   } catch(e) {
-    showError('su-err', friendlyAuthError(e.code));
+    // Special handling: if email already exists, offer one-click switch to login
+    if (e.code === 'auth/email-already-in-use' ||
+        e.code === 'auth/credential-already-in-use' ||
+        e.code === 'auth/account-exists-with-different-credential') {
+      // Show error + helper link to switch to login (with email pre-filled)
+      const errEl = document.getElementById('su-err');
+      if (errEl) {
+        errEl.innerHTML =
+          'อีเมลนี้มีบัญชีแล้วค่ะ ' +
+          '<button type="button" class="link-button" ' +
+            'onclick="document.getElementById(\'login-email\').value=\''+
+            email.replace(/'/g, "\\'") +
+            '\';goLogin();" ' +
+            'style="color:#6B4A8A;font-weight:700;text-decoration:underline;">' +
+          'เข้าสู่ระบบเลย →</button>';
+        errEl.style.display = 'block';
+      }
+    } else {
+      showError('su-err', friendlyAuthError(e.code));
+    }
     setLoading('signup', false);
   }
 };
@@ -579,8 +598,15 @@ window.submitReg = async (user) => {
 
     showHub(user, data);
   } catch (e) {
-    console.error(e);
-    showError('reg-err', 'บันทึกข้อมูลไม่สำเร็จค่ะ กรุณาลองใหม่อีกครั้ง');
+    console.error('submitReg error:', e);
+    let msg = 'บันทึกข้อมูลไม่สำเร็จค่ะ กรุณาลองใหม่อีกครั้ง';
+    // Specific messages for common Firestore errors
+    if (e.code === 'permission-denied') {
+      msg = 'ระบบยังตั้งค่าไม่เสร็จค่ะ กรุณาแจ้งอาจารย์ผ่าน Line OA';
+    } else if (e.code === 'unavailable' || e.code === 'failed-precondition') {
+      msg = 'อินเทอร์เน็ตมีปัญหาค่ะ ลองใหม่อีกครั้งนะคะ';
+    }
+    showError('reg-err', msg);
     btn.textContent = 'เข้าร่วมได้เลยค่ะ 🎉';
     btn.disabled = false;
   }
@@ -865,7 +891,10 @@ function friendlyAuthError(code) {
     'auth/weak-password':          'รหัสผ่านควรมีอย่างน้อย 6 ตัวอักษรค่ะ',
     'auth/network-request-failed': 'อินเทอร์เน็ตมีปัญหาค่ะ ลองใหม่อีกครั้งนะคะ',
     'auth/too-many-requests':      'พยายามเข้าสู่ระบบหลายครั้งเกินไปค่ะ รอสักครู่แล้วลองใหม่นะคะ',
-    'auth/user-disabled':          'บัญชีนี้ถูกระงับการใช้งาน ติดต่ออาจารย์ที่ Line OA ได้ค่ะ',
+    'auth/user-disabled':                       'บัญชีนี้ถูกระงับการใช้งาน ติดต่ออาจารย์ที่ Line OA ได้ค่ะ',
+    'auth/account-exists-with-different-credential':
+                                                'อีเมลนี้เคยสมัครด้วยวิธีอื่นแล้วค่ะ ลองเข้าสู่ระบบด้วย Google หรือรหัสผ่านที่เคยตั้งไว้นะคะ',
+    'auth/credential-already-in-use':           'อีเมลนี้เคยสมัครแล้วค่ะ ลองเข้าสู่ระบบนะคะ',
   };
   return map[code] || ('เกิดปัญหาบางอย่างค่ะ กรุณาลองใหม่ ('+code+')');
 }
