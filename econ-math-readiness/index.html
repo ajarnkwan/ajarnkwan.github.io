@@ -391,7 +391,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 13px; font-weight: 600;
+  font-size: 14px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -410,7 +410,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 13px; font-weight: 600;
+  font-size: 14px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -432,12 +432,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   line-height: 1.25;
 }
 .ajk-brand-course {
-  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  font-size: 14.5px; font-weight: 700; color: var(--ajk-ink);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   letter-spacing: -.01em;
 }
 .ajk-brand-author {
-  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  font-size: 12.5px; color: var(--ajk-muted); font-weight: 500;
   display: inline-flex; align-items: center; gap: 5px;
   margin-top: 2px;
 }
@@ -452,8 +452,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   .ajk-back-btn span { display: none; }
   .ajk-back-btn { padding: 9px; }
   .ajk-back-btn svg { width: 16px; height: 16px; }
-  .ajk-brand-course { font-size: 12.5px; }
-  .ajk-brand-author { font-size: 10.5px; }
+  .ajk-brand-course { font-size: 13.5px; }
+  .ajk-brand-author { font-size: 12px; }
   .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
 }
 
@@ -490,7 +490,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   letter-spacing: -.01em;
 }
 .ajk-footer-sub {
-  font-size: 12.5px; color: var(--ajk-muted);
+  font-size: 13.5px; color: var(--ajk-muted);
   letter-spacing: .02em;
   margin-bottom: 26px;
 }
@@ -504,7 +504,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   background: var(--ajk-surface);
   border: 1px solid var(--ajk-border);
   padding: 9px 16px; border-radius: 999px;
-  font-size: 13px; font-weight: 500;
+  font-size: 14px; font-weight: 500;
   transition: all .18s;
   cursor: pointer;
   font-family: 'Noto Sans Thai', system-ui, sans-serif;
@@ -517,7 +517,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   box-shadow: 0 8px 20px rgba(0,0,0,.08);
 }
 .ajk-footer-bottom {
-  font-size: 11.5px; color: var(--ajk-muted);
+  font-size: 12.5px; color: var(--ajk-muted);
   letter-spacing: .02em;
   padding-top: 22px;
   border-top: 1px solid var(--ajk-border);
@@ -531,12 +531,43 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);lin
   .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
   .ajk-footer-name { font-size: 21px; }
   .ajk-footer-links { gap: 6px; }
-  .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+  .ajk-footer-btn { padding: 8px 13px; font-size: 13px; }
 }
 
 </style>
+  <link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
 </head>
-<body>
+<body class="ak-theme-econ-math-readiness" style="--ak-bg: #faf9f6; --ak-content-width: 1100px;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><span>Math Readiness · คณิตเตรียมพร้อม</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#join" class="ak-btn ak-btn-ghost">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
 <header class="ajk-topbar ajk-shell-theme">
   <div class="ajk-topbar-inner">
     <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
@@ -2058,7 +2089,7 @@ updateProgress();
   box-shadow: 0 4px 12px rgba(107,74,138,0.08);
 }
 .ajk-rec-cond {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ajk-ink-mute, #8A7A70);
   margin-bottom: 4px;
 }
@@ -2105,5 +2136,73 @@ updateProgress();
 </footer>
 
   <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

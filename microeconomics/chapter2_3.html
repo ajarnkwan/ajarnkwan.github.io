@@ -11,13 +11,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 @media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
 .app{max-width:780px;margin:0 auto}
 .topnav{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;background:#ede9ff;color:#3d2f9e}
+.badge{font-size:12.5px;font-weight:700;padding:3px 12px;border-radius:99px;background:#ede9ff;color:#3d2f9e}
 @media(prefers-color-scheme:dark){.badge{background:#2d2060;color:#b8adff}}
 .pg{display:flex;gap:3px;margin-bottom:18px}
 .pd{flex:1;height:5px;border-radius:3px;background:#eee}
 @media(prefers-color-scheme:dark){.pd{background:#333}}
 .pd.dn{background:#534ab7}.pd.ac{background:#8b5cf6}
-.sl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.sl{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
 .bq{font-size:17px;font-weight:700;line-height:1.5;margin-bottom:14px}
 .sb{background:#f5f5f5;border-radius:12px;padding:14px 18px;margin-bottom:12px;border-left:4px solid #534ab7}
 @media(prefers-color-scheme:dark){.sb{background:#1e1a30}}
@@ -27,7 +27,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 /* canvas: CSS size via JS, actual buffer via DPR */
 canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;border:1px solid #ddd}
 @media(prefers-color-scheme:dark){canvas{border-color:#333}}
-.fb{font-size:13.5px;padding:10px 16px;border-radius:10px;margin:8px 0;display:none;line-height:1.6}
+.fb{font-size:14.5px;padding:10px 16px;border-radius:10px;margin:8px 0;display:none;line-height:1.6}
 .fb.on{display:block}
 .fb.ok{background:#e1f5ee;color:#0f6e56;border:1px solid #1d9e75}
 @media(prefers-color-scheme:dark){.fb.ok{background:#0d3d28;color:#5fe4a8;border-color:#1d9e75}}
@@ -52,9 +52,9 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
 .qopt.no{background:#fcebeb;border-color:#e24b4a;color:#a32d2d}
 .sc{width:80px;height:80px;border-radius:50%;border:3px solid #534ab7;display:flex;align-items:center;justify-content:center;margin:14px auto;font-size:24px;font-weight:700;color:#3d2f9e}
 .trow{display:flex;gap:8px;margin-bottom:14px}
-.tgb{flex:1;padding:10px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:13.5px;cursor:pointer;color:#666;text-align:center}
+.tgb{flex:1;padding:10px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14.5px;cursor:pointer;color:#666;text-align:center}
 @media(prefers-color-scheme:dark){.tgb{border-color:#444;color:#aaa}}
-.note{font-size:12.5px;color:#666;background:#f5f5f5;border-radius:8px;padding:8px 12px;margin-bottom:10px;line-height:1.6}
+.note{font-size:13.5px;color:#666;background:#f5f5f5;border-radius:8px;padding:8px 12px;margin-bottom:10px;line-height:1.6}
 @media(prefers-color-scheme:dark){.note{color:#aaa;background:#222}}
 .rvb{width:100%;padding:10px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14px;cursor:pointer;margin-bottom:10px;text-align:left;color:inherit}
 @media(prefers-color-scheme:dark){.rvb{border-color:#444}}
@@ -63,12 +63,12 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
 .rvbox{background:#fff;border:1px solid #ddd;border-radius:12px;padding:14px 18px;margin-bottom:12px;display:none}
 @media(prefers-color-scheme:dark){.rvbox{background:#1a1a1a;border-color:#333}}
 .rvbox.on{display:block}
-.rvbox h3{font-size:10px;font-weight:700;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.rvbox h3{font-size:12px;font-weight:700;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
 .rvbox p{font-size:14px;line-height:1.7;margin-bottom:5px}
 .compare{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
-.cc{background:#f5f5f5;border-radius:10px;padding:12px;font-size:13px;line-height:1.6}
+.cc{background:#f5f5f5;border-radius:10px;padding:12px;font-size:14px;line-height:1.6}
 @media(prefers-color-scheme:dark){.cc{background:#222}}
-.cc strong{display:block;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.cc strong{display:block;font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
 .cc.hi{border:2px solid #534ab7}
 .section{display:none}.section.active{display:block}
 </style>
@@ -103,7 +103,7 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 13px; font-weight: 600;
+  font-size: 14px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -122,7 +122,7 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 13px; font-weight: 600;
+  font-size: 14px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -182,7 +182,7 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   gap: 3px;
 }
 .ajk-chap-label {
-  font-size: 11.5px;
+  font-size: 12.5px;
   color: var(--ajk-muted, #6b6480);
   font-weight: 500;
   letter-spacing: .04em;
@@ -210,12 +210,12 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   line-height: 1.25;
 }
 .ajk-brand-course {
-  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  font-size: 14.5px; font-weight: 700; color: var(--ajk-ink);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   letter-spacing: -.01em;
 }
 .ajk-brand-author {
-  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  font-size: 12.5px; color: var(--ajk-muted); font-weight: 500;
   display: inline-flex; align-items: center; gap: 5px;
   margin-top: 2px;
 }
@@ -230,8 +230,8 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   .ajk-back-btn span { display: none; }
   .ajk-back-btn { padding: 9px; }
   .ajk-back-btn svg { width: 16px; height: 16px; }
-  .ajk-brand-course { font-size: 12.5px; }
-  .ajk-brand-author { font-size: 10.5px; }
+  .ajk-brand-course { font-size: 13.5px; }
+  .ajk-brand-author { font-size: 12px; }
   .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
 }
 
@@ -268,7 +268,7 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   letter-spacing: -.01em;
 }
 .ajk-footer-sub {
-  font-size: 12.5px; color: var(--ajk-muted);
+  font-size: 13.5px; color: var(--ajk-muted);
   letter-spacing: .02em;
   margin-bottom: 26px;
 }
@@ -282,7 +282,7 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   background: var(--ajk-surface);
   border: 1px solid var(--ajk-border);
   padding: 9px 16px; border-radius: 999px;
-  font-size: 13px; font-weight: 500;
+  font-size: 14px; font-weight: 500;
   transition: all .18s;
   cursor: pointer;
   font-family: 'Noto Sans Thai', system-ui, sans-serif;
@@ -295,7 +295,7 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   box-shadow: 0 8px 20px rgba(0,0,0,.08);
 }
 .ajk-footer-bottom {
-  font-size: 11.5px; color: var(--ajk-muted);
+  font-size: 12.5px; color: var(--ajk-muted);
   letter-spacing: .02em;
   padding-top: 22px;
   border-top: 1px solid var(--ajk-border);
@@ -309,7 +309,7 @@ canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto 10px;bor
   .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
   .ajk-footer-name { font-size: 21px; }
   .ajk-footer-links { gap: 6px; }
-  .ajk-footer-btn { padding: 8px 13px; font-size: 12px; }
+  .ajk-footer-btn { padding: 8px 13px; font-size: 13px; }
 }
 
 </style>
@@ -353,8 +353,39 @@ body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!i
 .ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
 </style>
 
+  <link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
 </head>
-<body>
+<body class="ak-theme-microeconomics" style="--ak-bg: #f5f9ff; --ak-content-width: 760px;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 2.3</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#join" class="ak-btn ak-btn-ghost">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
 <header class="ajk-topbar ajk-shell-theme">
   <div class="ajk-topbar-inner">
     <a class="ajk-back-btn" href="chapter2.html" aria-label="กลับบทที่ 2">
@@ -1027,5 +1058,73 @@ bpg();upg(0);
 </footer>
 
   <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

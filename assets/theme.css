@@ -1,0 +1,337 @@
+/* ═══════════════════════════════════════════════════════════
+   AJARN.KWAN · SELF-LEARNING CENTRE
+   theme.css — Shared design tokens + components
+   
+   ใช้กับทุกหน้าของเว็บไซต์ ajarnkwan.github.io
+   เพื่อให้ขอบบน-ขอบล่าง + sense of brand เป็นเดียวกัน
+   เนื้อหาตรงกลางแต่ละหน้า customize สีของตัวเองได้
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── FONTS ──────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bai+Jamjuree:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* ─── DESIGN TOKENS ──────────────────────────────────────── */
+:root {
+  /* Brand palette */
+  --ak-bg: #F2EBDD;
+  --ak-bg-soft: #EDE5D3;
+  --ak-ink: #0E0D0B;
+  --ak-ink-mute: #5C544A;
+  --ak-ink-soft: #8A8074;
+  --ak-accent: #C2A878;
+  --ak-accent-soft: #DECDA9;
+  --ak-line-soft: rgba(14,13,11,0.12);
+
+  /* Course accent palette (use sparingly per page) */
+  --ak-c1: #4759AA;   /* Economics — deep blue */
+  --ak-c2: #D9CAA8;   /* Econ English — sand beige */
+  --ak-c3: #5E8A66;   /* Personal Finance — sage green */
+  --ak-c4: #E8C75A;   /* AI Literacy — warm gold */
+
+  /* Type scale */
+  --ak-font-display: 'Archivo Black', sans-serif;
+  --ak-font-th-display: 'Bai Jamjuree', sans-serif;
+  --ak-font-body: 'Noto Sans Thai', system-ui, sans-serif;
+  --ak-font-mono: 'Space Mono', monospace;
+
+  /* Spacing */
+  --ak-radius: 12px;
+  --ak-radius-lg: 18px;
+}
+
+/* ─── BASE (use sparingly — page-specific styles override) ─ */
+.ak-themed {
+  background: var(--ak-bg);
+  color: var(--ak-ink);
+  font-family: var(--ak-font-body);
+  -webkit-font-smoothing: antialiased;
+}
+.ak-themed ::selection { background: var(--ak-ink); color: var(--ak-bg); }
+
+/* ─── TOP BAR (shared header) ────────────────────────────── */
+.ak-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ak-bg);
+  padding: 16px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s, box-shadow .3s;
+}
+.ak-topbar.scrolled {
+  border-bottom-color: var(--ak-line-soft);
+  box-shadow: 0 2px 12px -8px rgba(0,0,0,0.06);
+}
+.ak-topbar-inner {
+  max-width: var(--ak-content-width, 1100px);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ak-brand {
+  font-family: var(--ak-font-display);
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--ak-ink);
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.ak-brand .ak-brand-dot {
+  color: var(--ak-accent);
+  font-size: 28px;
+  line-height: 0;
+}
+.ak-brand:hover { opacity: 0.85; }
+
+.ak-breadcrumb {
+  font-family: var(--ak-font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
+  color: var(--ak-ink-soft);
+  text-transform: uppercase;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  justify-content: center;
+}
+.ak-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .2s;
+}
+.ak-breadcrumb a:hover { color: var(--ak-ink); }
+.ak-breadcrumb .sep { opacity: 0.4; }
+
+.ak-topbar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
+.ak-btn {
+  font-family: var(--ak-font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform .2s, background .2s, color .2s, border-color .2s;
+  white-space: nowrap;
+}
+.ak-btn:hover { transform: translateY(-1px); }
+
+.ak-btn-primary {
+  background: var(--ak-ink);
+  color: var(--ak-bg);
+  border-color: var(--ak-ink);
+}
+.ak-btn-ghost {
+  background: transparent;
+  color: var(--ak-ink);
+  border-color: var(--ak-ink);
+}
+.ak-btn-ghost:hover { background: var(--ak-ink); color: var(--ak-bg); }
+.ak-btn-soft {
+  background: white;
+  color: var(--ak-ink);
+  border-color: var(--ak-line-soft);
+}
+.ak-btn-soft:hover { border-color: var(--ak-ink); }
+
+/* ─── FOOTER (shared) ────────────────────────────────────── */
+.ak-footer {
+  padding: 60px 0 40px;
+  background: var(--ak-bg);
+  border-top: 1px solid var(--ak-line-soft);
+  margin-top: 80px;
+}
+.ak-footer-inner {
+  max-width: var(--ak-content-width, 1100px);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.ak-footer-mark {
+  font-family: var(--ak-font-display);
+  font-size: clamp(36px, 5.5vw, 72px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--ak-ink);
+  margin-bottom: 28px;
+}
+.ak-footer-mark .dim { color: var(--ak-accent); }
+
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--ak-line-soft);
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-family: var(--ak-font-display);
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
+  color: var(--ak-ink);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.ak-footer-group a {
+  color: var(--ak-ink-mute);
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color .2s;
+}
+.ak-footer-group a:hover { color: var(--ak-ink); }
+.ak-footer-group-brand { max-width: 280px; }
+.ak-footer-group-brand p {
+  font-size: 14px;
+  color: var(--ak-ink-mute);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.ak-footer-social { display: flex; gap: 8px; margin-top: 4px; }
+.ak-footer-social a {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid var(--ak-line-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ak-ink);
+  transition: all .2s;
+  text-decoration: none;
+}
+.ak-footer-social a:hover {
+  background: var(--ak-ink);
+  color: var(--ak-bg);
+  border-color: var(--ak-ink);
+  transform: translateY(-2px);
+}
+.ak-footer-social a.fs-yt:hover {
+  background: #FF0000;
+  border-color: #FF0000;
+}
+
+.ak-footer-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--ak-ink-mute);
+  line-height: 1.6;
+}
+.ak-footer-meta strong { color: var(--ak-ink); display: block; font-weight: 600; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-family: var(--ak-font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.15em;
+  color: var(--ak-ink-soft);
+  text-transform: uppercase;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .ak-breadcrumb { display: none; }
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; }
+  .ak-footer-group-brand { grid-column: 1 / -1; max-width: 100%; }
+}
+@media (max-width: 540px) {
+  .ak-topbar-inner { padding: 0 16px; gap: 8px; }
+  .ak-btn { padding: 8px 14px; font-size: 14px; }
+  .ak-footer-inner { padding: 0 20px; }
+  .ak-footer-groups { grid-template-columns: 1fr; gap: 24px; }
+  .ak-footer-meta { flex-direction: column; align-items: flex-start; }
+}
+
+
+/* ─── CONTENT WIDTH OVERRIDE ─────────────────────────────── */
+/* Force content containers to match topbar/footer width
+   ทำให้เนื้อหาภายในกว้างเท่ากับขอบบน-ล่างเสมอ ไม่มี seam */
+body[style*="--ak-content-width"] > .container,
+body[style*="--ak-content-width"] .container,
+body[style*="--ak-content-width"] .page,
+body[style*="--ak-content-width"] .topbar,
+body[style*="--ak-content-width"] header.topbar,
+body[style*="--ak-content-width"] .land-bar,
+body[style*="--ak-content-width"] header.ajk-topbar,
+body[style*="--ak-content-width"] .ajk-topbar-inner,
+body[style*="--ak-content-width"] .ajk-footer-inner,
+body[style*="--ak-content-width"] main,
+body[style*="--ak-content-width"] > footer:not(.ak-footer) {
+  max-width: var(--ak-content-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ─── THEME VARIANTS ─────────────────────────────────────── */
+/* Each section has its own bg + content-width. 
+   Inline style on <body> can further override per-page (สำคัญสำหรับ microeconomics ที่ chapters มีสีหลากหลาย) */
+
+.ak-theme-economics {
+  --ak-bg: #FDF8F2;
+  --ak-content-width: 920px;
+}
+.ak-theme-economics .ak-topbar { background: var(--ak-bg, #FDF8F2); }
+.ak-theme-economics .ak-footer { background: var(--ak-bg, #FDF8F2); }
+
+.ak-theme-econometrics {
+  --ak-bg: #FFF8F0;
+  --ak-content-width: 1100px;
+}
+.ak-theme-econometrics .ak-topbar { background: var(--ak-bg, #FFF8F0); }
+.ak-theme-econometrics .ak-footer { background: var(--ak-bg, #FFF8F0); }
+
+.ak-theme-econ-math-readiness {
+  --ak-bg: #FAF9F6;
+  --ak-content-width: 1100px;
+}
+.ak-theme-econ-math-readiness .ak-topbar { background: var(--ak-bg, #FAF9F6); }
+.ak-theme-econ-math-readiness .ak-footer { background: var(--ak-bg, #FAF9F6); }
+
+.ak-theme-microeconomics {
+  --ak-bg: #F6F7FF;
+  --ak-content-width: 780px;
+}
+.ak-theme-microeconomics .ak-topbar { background: var(--ak-bg, #F6F7FF); }
+.ak-theme-microeconomics .ak-footer { background: var(--ak-bg, #F6F7FF); }
+
+.ak-theme-vibe-coding {
+  --ak-bg: #FDF8F2;
+  --ak-content-width: 760px;
+}
+.ak-theme-vibe-coding .ak-topbar { background: var(--ak-bg, #FDF8F2); }
+.ak-theme-vibe-coding .ak-footer { background: var(--ak-bg, #FDF8F2); }
+
+.ak-theme-vocab {
+  --ak-bg: #FFF8EA;
+  --ak-content-width: 1100px;
+}
+.ak-theme-vocab .ak-topbar { background: var(--ak-bg, #FFF8EA); }
+.ak-theme-vocab .ak-footer { background: var(--ak-bg, #FFF8EA); }

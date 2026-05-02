@@ -21,8 +21,39 @@
   .spinner { width: 40px; height: 40px; border: 3px solid #E5E5E5; border-top-color: #2D3047; border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 </style>
+  <link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
 </head>
-<body>
+<body class="ak-theme-vocab" style="--ak-bg: #FFF8EA; --ak-content-width: 1100px;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../vocab/">Econ English</a><span class="sep">/</span><span>Micro · จุลภาค</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#join" class="ak-btn ak-btn-ghost">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
 <div class="ak-backbar no-print" style="
     max-width: 1100px;
     margin: 0 auto 0;
@@ -409,5 +440,73 @@ root.render(<App />);
   </div>
 </footer>
   <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

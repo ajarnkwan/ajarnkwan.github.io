@@ -52,7 +52,7 @@
     border:1px solid transparent;transition:all .18s;
   }
   .home-btn:hover{background:var(--plum);color:#fff}
-  .topbar .brand{text-align:right;font-size:12px;line-height:1.3;color:var(--ink-mute)}
+  .topbar .brand{text-align:right;font-size:13px;line-height:1.3;color:var(--ink-mute)}
   .topbar .brand strong{color:var(--ink);font-size:14px}
 
   /* === Top accent stripe === */
@@ -62,7 +62,7 @@
   .container{max-width:760px;margin:0 auto;padding:0 24px}
   .header{text-align:center;padding:56px 0 32px}
   .badge{
-    display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;
+    display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.08em;
     color:var(--plum);background:var(--plum-bg);padding:5px 16px;
     border-radius:999px;margin-bottom:18px;
   }
@@ -117,9 +117,9 @@
     line-height:1.6;min-height:42px;
   }
   .card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
-  .tag{font-size:11px;font-weight:600;padding:4px 11px;border-radius:999px}
+  .tag{font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px}
   .card .meta{
-    display:flex;gap:18px;font-size:12px;
+    display:flex;gap:18px;font-size:13px;
     color:var(--ink-mute);margin-bottom:18px;
   }
   .card .cta{
@@ -138,11 +138,11 @@
     text-align:center;color:var(--ink-soft);
     text-transform:uppercase;letter-spacing:0.05em;
   }
-  .compare-table{width:100%;font-size:13.5px;border-collapse:collapse}
+  .compare-table{width:100%;font-size:14.5px;border-collapse:collapse}
   .compare-table th{
     text-align:left;padding:10px 12px;font-weight:700;
     color:var(--ink-mute);border-bottom:1.5px solid var(--line);
-    font-size:11px;text-transform:uppercase;letter-spacing:0.05em;
+    font-size:12.5px;text-transform:uppercase;letter-spacing:0.05em;
   }
   .compare-table td{
     padding:10px 12px;border-bottom:1px solid #F5EFE6;
@@ -159,13 +159,13 @@
     border-radius:14px;padding:18px 20px;margin-bottom:40px;
   }
   .same h3{
-    font-size:13px;font-weight:700;color:var(--ink-soft);
+    font-size:14px;font-weight:700;color:var(--ink-soft);
     margin-bottom:12px;display:flex;align-items:center;gap:6px;
   }
   .same h3::before{content:'✓';color:var(--plum);font-size:16px}
   .same-items{display:flex;flex-wrap:wrap;gap:8px}
   .same-item{
-    font-size:12.5px;font-weight:500;color:var(--ink-soft);
+    font-size:13.5px;font-weight:500;color:var(--ink-soft);
     background:var(--paper);border:1px solid var(--line);
     padding:5px 12px;border-radius:8px;
   }
@@ -179,7 +179,7 @@
     max-width:1100px;margin:0 auto;text-align:center;
   }
   .footer-name{font-weight:700;color:var(--ink);font-size:16px;margin-bottom:4px}
-  .footer-sub{font-size:13px;color:var(--ink-mute);margin-bottom:18px}
+  .footer-sub{font-size:14px;color:var(--ink-mute);margin-bottom:18px}
   .footer-links{
     display:flex;justify-content:center;gap:10px;
     flex-wrap:wrap;margin-bottom:18px;
@@ -189,14 +189,45 @@
     padding:8px 16px;background:var(--paper);
     border:1px solid var(--line);border-radius:999px;
     text-decoration:none;color:var(--ink);
-    font-size:13px;font-weight:500;transition:all .15s;
+    font-size:14px;font-weight:500;transition:all .15s;
   }
   .footer-btn:hover{background:var(--plum-bg);border-color:var(--plum)}
-  .footer-bottom{font-size:11.5px;color:var(--ink-mute);line-height:1.6}
+  .footer-bottom{font-size:12.5px;color:var(--ink-mute);line-height:1.6}
   .footer-bottom strong{color:var(--ink)}
 </style>
+  <link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
 </head>
-<body>
+<body class="ak-theme-vibe-coding" style="--ak-bg: #FDF8F2; --ak-content-width: 1100px;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><span>Vibe Coding · AI ในชีวิตจริง</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#join" class="ak-btn ak-btn-ghost">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
 
 <div class="top-stripe"></div>
 
@@ -305,5 +336,73 @@
 </footer>
 
   <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

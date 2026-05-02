@@ -2,34 +2,34 @@
 <html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6.7 — จากระยะสั้น → สร้างระยะยาว · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
-.tp{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #e0e7ff;font-family:'Noto Sans Thai',system-ui,sans-serif}.tp-i{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}.bk{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1e1b4b;background:#f3e8ff;padding:8px 14px;border-radius:99px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit}.bk svg{width:14px;height:14px}.bk:hover{background:#7c3aed;color:#fff}.br{flex:1;text-align:right;line-height:1.25}.br-c{font-size:13px;font-weight:700}.br-a{font-size:11px;color:#6b7280;font-weight:500}
-@media(max-width:520px){.bk span{display:none}.bk{padding:9px}.br-c{font-size:12px}}
+.tp{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid #e0e7ff;font-family:'Noto Sans Thai',system-ui,sans-serif}.tp-i{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}.bk{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#1e1b4b;background:#f3e8ff;padding:8px 14px;border-radius:99px;font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit}.bk svg{width:14px;height:14px}.bk:hover{background:#7c3aed;color:#fff}.br{flex:1;text-align:right;line-height:1.25}.br-c{font-size:14px;font-weight:700}.br-a{font-size:12.5px;color:#6b7280;font-weight:500}
+@media(max-width:520px){.bk span{display:none}.bk{padding:9px}.br-c{font-size:13px}}
 *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}
 @media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
 .app{max-width:780px;margin:0 auto}
-.hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:18px}.hero .ey{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px}.hero h1{font-size:22px;font-weight:800;line-height:1.35;margin-bottom:8px}.hero p{font-size:14px;line-height:1.7;opacity:.92}
+.hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:18px}.hero .ey{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px}.hero h1{font-size:22px;font-weight:800;line-height:1.35;margin-bottom:8px}.hero p{font-size:14px;line-height:1.7;opacity:.92}
 h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
 .qz{background:#fff;border:1.5px solid #e0e0e0;border-radius:14px;padding:16px 18px;margin-bottom:14px}
 @media(prefers-color-scheme:dark){.qz{background:#1c1c1c;border-color:#333}}
-.qz .qt{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7b1fa2;font-weight:700;margin-bottom:6px}.qz .qq{font-size:15px;font-weight:700;line-height:1.55;margin-bottom:12px}
+.qz .qt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#7b1fa2;font-weight:700;margin-bottom:6px}.qz .qq{font-size:15px;font-weight:700;line-height:1.55;margin-bottom:12px}
 .qz .os{display:flex;flex-direction:column;gap:8px}.qz .o{padding:12px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14px;cursor:pointer;text-align:left;font-family:inherit;color:inherit;line-height:1.5;transition:all .15s;display:flex;gap:10px;align-items:flex-start}
 .qz .o .l{font-weight:800;color:#999;flex-shrink:0;width:20px}.qz .o:hover{border-color:#7b1fa2;background:#f9f5ff}
 .qz .o.ok{border-color:#2e7d32;background:#e8f5e9;color:#1b5e20;font-weight:600}.qz .o.ok .l{color:#2e7d32}
 .qz .o.no{border-color:#c62828;background:#fce4ec;color:#b71c1c}.qz .o.off{pointer-events:none;opacity:.55}
 .rv{display:none;margin-top:14px;background:#f5f0ff;border-left:3px solid #7b1fa2;padding:14px 16px;border-radius:0 10px 10px 0}
 .rv.sh{display:block;animation:si .4s ease}@keyframes si{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.rv .lb{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#4a148c;font-weight:700;margin-bottom:6px}.rv p{font-size:14px;line-height:1.75;margin-bottom:8px}.rv p:last-child{margin-bottom:0}.rv b{color:#4a148c}
+.rv .lb{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#4a148c;font-weight:700;margin-bottom:6px}.rv p{font-size:14px;line-height:1.75;margin-bottom:8px}.rv p:last-child{margin-bottom:0}.rv b{color:#4a148c}
 @media(prefers-color-scheme:dark){.rv{background:#1a0d2a;border-color:#ce93d8}.rv .lb,.rv b{color:#ce93d8}}
 .ah{background:linear-gradient(135deg,#e8f5e9,#f5f0ff);border:1.5px solid #81c784;border-radius:14px;padding:14px 16px;margin:14px 0}
 @media(prefers-color-scheme:dark){.ah{background:linear-gradient(135deg,#0d3d14,#1a0d2a);border-color:#388e3c}}
-.ah .lb{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#2e7d32;font-weight:800;margin-bottom:6px}.ah p{font-size:14.5px;line-height:1.7}.ah b{color:#1b5e20}
+.ah .lb{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#2e7d32;font-weight:800;margin-bottom:6px}.ah p{font-size:14.5px;line-height:1.7}.ah b{color:#1b5e20}
 @media(prefers-color-scheme:dark){.ah .lb,.ah b{color:#81c784}}
 .pa{font-size:14.5px;line-height:1.75;margin-bottom:10px}.pa b{color:#4a148c;font-weight:700}
 @media(prefers-color-scheme:dark){.pa b{color:#ce93d8}}
 .gr{background:#fff;border:1px solid #eee;border-radius:14px;padding:16px 14px 8px;margin:12px 0;text-align:center}
 @media(prefers-color-scheme:dark){.gr{background:#0f0f0f;border-color:#333}}
 #rb:hover{background:#7b1fa2!important;color:#fff!important}
-.ft{margin-top:64px;background:linear-gradient(180deg,rgba(255,255,255,0),#f3e8ff);border-top:1px solid #e0e7ff;padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;text-align:center}.ft-n{font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;margin:14px 0 4px}.ft-s{font-size:12.5px;color:#6b7280;margin-bottom:20px}.ft-b{font-size:11px;color:#6b7280}
+.ft{margin-top:64px;background:linear-gradient(180deg,rgba(255,255,255,0),#f3e8ff);border-top:1px solid #e0e7ff;padding:48px 16px 28px;font-family:'Noto Sans Thai',system-ui,sans-serif;text-align:center}.ft-n{font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;margin:14px 0 4px}.ft-s{font-size:13.5px;color:#6b7280;margin-bottom:20px}.ft-b{font-size:12.5px;color:#6b7280}
 
 /* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
 .ajk-shell-theme {
@@ -60,7 +60,7 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 13px; font-weight: 600;
+  font-size: 14px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s; flex-shrink: 0;
   font-family: 'Noto Sans Thai', system-ui, sans-serif;
@@ -77,7 +77,7 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 13px; font-weight: 600;
+  font-size: 14px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -137,7 +137,7 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
   gap: 3px;
 }
 .ajk-chap-label {
-  font-size: 11.5px;
+  font-size: 12.5px;
   color: var(--ajk-muted, #6b6480);
   font-weight: 500;
   letter-spacing: .04em;
@@ -164,11 +164,11 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
   flex: 1; min-width: 0; text-align: right; line-height: 1.25;
 }
 .ajk-brand-course {
-  font-size: 13.5px; font-weight: 700; color: var(--ajk-ink);
+  font-size: 14.5px; font-weight: 700; color: var(--ajk-ink);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .ajk-brand-author {
-  font-size: 11px; color: var(--ajk-muted); font-weight: 500;
+  font-size: 12.5px; color: var(--ajk-muted); font-weight: 500;
   display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
 }
 .ajk-brand-author-dot {
@@ -206,14 +206,14 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
   font-family: 'Noto Serif Thai', serif;
   font-size: 24px; font-weight: 700; margin: 0 0 4px;
 }
-.ajk-footer-sub { font-size: 12.5px; color: var(--ajk-muted); margin-bottom: 26px; }
+.ajk-footer-sub { font-size: 13.5px; color: var(--ajk-muted); margin-bottom: 26px; }
 .ajk-footer-links {
   display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
 }
 .ajk-footer-btn {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 9px 16px; border-radius: 999px;
-  font-size: 12.5px; font-weight: 600;
+  font-size: 13.5px; font-weight: 600;
   border: 1px solid var(--ajk-border);
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-surface); transition: all .18s;
@@ -224,9 +224,40 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin:20px 0 12px}
   border-color: var(--ajk-primary)!important;
   transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12);
 }
-.ajk-footer-bottom { font-size: 11px; color: var(--ajk-muted); line-height: 1.7; }
+.ajk-footer-bottom { font-size: 12.5px; color: var(--ajk-muted); line-height: 1.7; }
 
-</style></head><body>
+</style>  <link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
+</head><body class="ak-theme-microeconomics" style="--ak-bg: #fff; --ak-content-width: 760px;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 6.7</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#join" class="ak-btn ak-btn-ghost">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
 <header class="ajk-topbar ajk-shell-theme">
   <div class="ajk-topbar-inner">
     <a class="ajk-back-btn" href="chapter6.html" aria-label="กลับบทที่ 6">
@@ -354,4 +385,72 @@ document.querySelectorAll('.qz').forEach(q=>{const os=q.querySelectorAll('.o'),r
   </div>
 </footer>
   <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
 </body></html>
