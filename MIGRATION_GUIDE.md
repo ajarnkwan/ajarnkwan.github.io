@@ -1,68 +1,32 @@
-# AjarnKwan Self-Learning Centre — Redesign v9
+# AjarnKwan Self-Learning Centre — Redesign v11 (Hub render fix)
 
-## ✅ การเปลี่ยนแปลงรอบนี้ (v9)
+## ✅ Hot fix รอบที่ 2 (v10 → v11)
 
-### Member Hub (view-hub) Redesign
-หน้าหลัง login เปลี่ยนจาก purple gradient → editorial style เดียวกับหน้าแรก
+### 1. สี 4 หลักสูตรอ่านไม่ออก — แก้แล้ว
+**สาเหตุ:** Selector `#view-hub :root { --c1: #4759AA; ... }` เป็น **invalid** เพราะ `:root` คือ `<html>` (ไม่ใช่ child ของ #view-hub) → CSS variables ไม่ active → tracks ไม่มี bg → text ขาวบนพื้นโปร่ง = อ่านไม่ออก
 
-#### ใหม่ทั้งหมด:
-- **Hero** — "สวัสดีค่ะ, [name]!" Bai Jamjuree ตัวใหญ่ + ID Card lanyard เอียง (เหมือน About หน้าแรก)
-- **Top bar** — AJARN.KWAN logo ซ้าย + ปุ่มออกจากระบบขวา
-- **Pathfinder** — กล่อง white minimal + 5 options
-- **4 Course Tracks** — สี c1-c4 เหมือน Courses หน้าแรก:
-  - Track 1 น้ำเงิน · Economics (3 courses)
-  - Track 2 เบจ · Econ English (2 courses)
-  - Track 3 เขียว · Personal Finance (เร็วๆ นี้)
-  - Track 4 ทอง · AI Literacy / Vibe Coding (2 versions)
-- **Freebies** — 4 cards เรียงเป็น grid
-- **Contact** — 3 cards แนวนอน Line/TikTok/Facebook
-- **Footer** — AJARN.KWAN big mark + credit
+**แก้:** เปลี่ยน `#view-hub :root` → `#view-hub` → variables active
 
-### Firebase Integration คงเดิม
-- `id="hub-greeting"` — Firebase update ชื่อทักทาย
-- `id="hub-member-name"` — สมาชิก ID card name
-- `id="hub-member-num"` — member number
-- `id="hub-avatar"` — รูปโปรไฟล์ (Google login)
-- `id="hub-preview-banner"` — admin preview mode
-- `onclick="doLogout()"` × 2 (topbar + redundant)
-- `onclick="backToAdmin()"` — admin preview button
-- ลิงก์คอร์สทั้งหมดยังชี้ไป folder จริง
+ตอนนี้ 4 tracks มีสีถูกต้อง:
+- Track 1 Economics → **#4759AA** (น้ำเงินเข้ม) text ขาว ✓
+- Track 2 Econ English → **#D9CAA8** (sand) text ดำ ✓
+- Track 3 Personal Finance → **#5E8A66** (sage) text ขาว ✓
+- Track 4 AI Literacy → **#E8C75A** (gold) text ดำ ✓
 
-## โครงสร้างไฟล์ครบ (สรุป)
-
-ในที่นี้รวมทุกการเปลี่ยนแปลงตั้งแต่ v1-v9:
-
-```
-site/
-├── index.html                     ← landing v4 + member hub v2
-├── profile.jpg                    ← รูปอาจารย์ optimize
-├── assets/theme.css               ← shared design system
-├── economics/                     ← migrated (1100px wide)
-├── econometrics/                  ← migrated (1100px wide)
-├── econ-math-readiness/           ← migrated (1100px wide)
-├── microeconomics/                ← migrated (44 ไฟล์ · 760px reading)
-├── vibe-coding/                   ← migrated (3 ไฟล์ · 1100px wide)
-├── vocab/                         ← migrated (3 หน้า + 2 booklets ปรินท์)
-└── econometrics/cheatsheet.html   ← printable (no topbar/footer)
-```
+### 2. การ์ดเลขสมาชิกตัวเล็ก — แก้แล้ว
+ขยายทั้ง card + ตัวอักษร:
+- Card width: 280px → **340px**
+- Avatar: 56px → **68px**
+- Emoji: 26px → **32px**
+- ชื่อสมาชิก: 16px → **19px** ✓
+- Member ID label: 11px → **13px** ✓
+- Member number: 11px → **13.5px** ✓
 
 ## วิธี Deploy
 
 ```bash
-unzip ajarnkwan-redesign-v9.zip
+unzip ajarnkwan-redesign-v11.zip
 cp -r site/* /path/to/ajarnkwan.github.io/
-git add -A && git commit -m "Redesign v9 · Member Hub editorial style"
+git add -A && git commit -m "v11 · Fix CSS scope + ID card size"
 git push
 ```
-
-## Testing checklist หลัง deploy
-
-- [ ] เปิด `/` → หน้าแรก design ใหม่
-- [ ] กด "สมัครฟรี" → ไป view-signup
-- [ ] Login สำเร็จ → ไป view-hub design ใหม่
-  - [ ] ทักทายชื่อถูก
-  - [ ] Member ID card แสดงชื่อ + เลขถูก
-  - [ ] รูป Google profile (ถ้ามี) แสดงในกล่อง avatar
-  - [ ] กดปุ่ม "ออกจากระบบ" บน topbar → กลับ landing
-- [ ] เปิด course pages — ขอบ + content aligned (760 หรือ 1100)
-- [ ] เปิด /econometrics/cheatsheet.html → printable, no topbar/footer

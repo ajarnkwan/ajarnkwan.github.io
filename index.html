@@ -720,13 +720,7 @@ setTimeout(checkHash, 500);
 function setPreviewBanner(target, message = '', backLabel = '← กลับหน้า Admin') {
   const wrap = document.getElementById(`${target}-preview-banner`);
   if (!wrap) return;
-  const msg = wrap.querySelector('.preview-banner-text');
-  const btn = wrap.querySelector('.preview-banner-btn');
-  if (message) {
-    wrap.style.display = 'flex';
-    if (msg) msg.textContent = message;
-    if (btn) btn.textContent = backLabel;
-  } else {
+  const msg = wrap.querySelector(' else {
     wrap.style.display = 'none';
     if (msg) msg.textContent = '';
   }
@@ -800,9 +794,9 @@ function showRegister(user, options = {}) {
 function showHub(user, data, options = {}) {
   showView('view-hub');
   const first = (data.name||'คุณผู้เรียน').split(' ')[0];
-  document.getElementById('hub-greeting').textContent = 'สวัสดีค่ะ, '+first+'!';
+  document.getElementById('hub-greeting').textContent = first;
   document.getElementById('hub-member-name').textContent = data.name||'';
-  document.getElementById('hub-member-num').textContent  = 'สมาชิกหมายเลข: '+(data.memberNum||'—');
+  document.getElementById('hub-member-num').textContent  = 'No. '+(data.memberNum||'—');
   const av = document.getElementById('hub-avatar');
   if (av) {
     if (data.photoURL) {
@@ -1001,10 +995,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .prog-txt{text-align:center;font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.08em;margin-bottom:1.5rem}
 .reg-email-note{text-align:center;font-size:.78rem;color:var(--muted);margin-bottom:1.25rem}
 .reg-email-note strong{color:var(--lav)}
-.preview-banner{display:none;align-items:center;justify-content:space-between;gap:.75rem;padding:.75rem .95rem;border-radius:.9rem;border:1px solid var(--lav-border);background:var(--lav-soft);color:var(--lav);margin-bottom:1rem;flex-wrap:wrap}
-.preview-banner-text{font-size:.82rem;line-height:1.5;flex:1;min-width:220px}
-.preview-banner-btn{border:none;background:white;color:var(--lav);border:1px solid var(--lav-border);border-radius:999px;padding:.45rem .8rem;font-size:.78rem;font-family:'Noto Sans Thai',sans-serif;font-weight:600;cursor:pointer}
-.preview-banner-btn:hover{background:#fff;box-shadow:0 2px 10px rgba(124,58,237,.12)}
+
+
+
+
 
 .step-panel{display:none;padding:0 2rem 2rem}
 .step-panel.active{display:block;animation:sIn .28s ease}
@@ -1050,43 +1044,43 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .back-btn:hover{color:var(--lav)}
 
 /* ── HUB ── */
-.hub-hero{background:linear-gradient(135deg,var(--lav) 0%,#6d28d9 60%,#4c1d95 100%);padding:2.25rem 2rem 2rem;position:relative;overflow:hidden}
-.hub-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.07)}
-.h-emoji{font-size:1.4rem;margin-bottom:.65rem;letter-spacing:.1em}
-.h-title{font-family:'Noto Serif Thai',serif;font-size:1.5rem;font-weight:700;color:white;line-height:1.25;margin-bottom:.45rem}
-.h-title em{font-style:italic;opacity:.9}
-.member-badge{display:inline-flex;align-items:center;gap:.7rem;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:1rem;padding:.7rem 1rem;margin-top:.5rem}
-.mb-av-wrap{position:relative}
-.mb-av{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem;border:1.5px solid rgba(255,255,255,.3);overflow:hidden}
-.mb-av img{width:100%;height:100%;object-fit:cover;display:none}
-.mb-name{font-size:.9rem;font-weight:700;color:white;line-height:1.2}
-.mb-num{font-family:'Space Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.55);letter-spacing:.05em}
 
-.hub-body{padding:1.5rem 2rem 1.75rem}
+
+
+
+
+
+
+
+
+
+
+
+
 .hub-sec{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem;margin-top:1.35rem}
 .hub-sec::after{content:'';flex:1;height:1px;background:var(--border)}
 
-.hub-link{display:flex;align-items:center;gap:.9rem;padding:.88rem 1.05rem;background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;text-decoration:none;color:var(--ink);transition:all .18s;margin-bottom:.48rem;position:relative}
-.hub-link:hover{border-color:var(--lav-border);background:var(--lav-soft);transform:translateY(-1px);box-shadow:0 3px 12px var(--shadow)}
-.hub-link.featured{background:var(--lav-soft);border-color:var(--lav-border);border-width:2px}
-.hub-link.featured::after{content:'ฟรี';position:absolute;top:.65rem;right:.75rem;font-size:.62rem;font-weight:700;background:var(--lav);color:white;padding:.12rem .5rem;border-radius:999px;font-family:'Space Mono',monospace}
-.hub-link.soon{opacity:.4;pointer-events:none}
-.hl-icon{width:40px;height:40px;border-radius:.625rem;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.15rem}
-.hl-body{flex:1}
-.hl-title{font-size:.9rem;font-weight:600;margin-bottom:.1rem;line-height:1.3}
-.hl-desc{font-size:.75rem;color:var(--muted);line-height:1.35}
-.hl-arr{color:var(--muted);font-size:.88rem;transition:all .18s}
-.hub-link:hover .hl-arr{color:var(--lav);transform:translateX(3px)}
 
-.connect-row{display:flex;gap:.45rem}
-.conn-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;padding:.8rem .4rem;background:var(--bg);border:1.5px solid var(--border);border-radius:.875rem;text-decoration:none;color:var(--mid);font-size:.75rem;font-weight:600;transition:all .18s}
-.conn-btn:hover{color:var(--lav);border-color:var(--lav-border);background:var(--lav-soft);transform:translateY(-1px)}
-.conn-btn.disabled{opacity:.55;pointer-events:none;cursor:not-allowed}
-.conn-icon{font-size:1.4rem}
 
-.hub-foot{text-align:center;border-top:1px solid var(--border);padding:1rem 2rem 1.4rem;font-size:.7rem;color:var(--muted);line-height:1.85}
-.logout-btn{background:none;border:none;cursor:pointer;font-size:.7rem;color:var(--muted);font-family:'Noto Sans Thai',sans-serif;text-decoration:underline}
-.logout-btn:hover{color:var(--rose)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ── ADMIN ── */
 .admin-hero{background:linear-gradient(135deg,#1e1b4b,#312e81);padding:1.75rem 2rem;color:white}
@@ -1110,10 +1104,10 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .members-table tr:last-child td{border-bottom:none}
 
 @media(max-width:480px){
-  .view-body,.step-panel,.hub-body{padding-left:1.25rem;padding-right:1.25rem}
+  .view-body,.step-panel,
   .reg-top{padding:1.75rem 1.25rem 0}
-  .hub-hero{padding:1.75rem 1.25rem 1.5rem}
-  .hub-foot{padding:1rem 1.25rem}
+  
+  
   .admin-body{padding:1.25rem}
 }
 
@@ -2798,242 +2792,6 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 
 
 /* ═══════════════════════════════════════════════════════════
-   HUB redesign — wider card + 4 tracks matching homepage
-   ═══════════════════════════════════════════════════════════ */
-#view-hub.card {
-  max-width: 880px;
-}
-
-#view-hub .hub-track-main {
-  background: var(--paper, #fff);
-  border: 1px solid var(--line, #E8DDD0);
-  border-radius: 16px;
-  padding: 1.25rem 1.25rem 1rem;
-  margin-bottom: 1rem;
-}
-
-#view-hub .hub-track-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 1rem;
-}
-
-#view-hub .hub-track-emoji {
-  width: 48px; height: 48px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
-  flex-shrink: 0;
-}
-#view-hub .hub-track-emoji.plum { background: #EFE6F5; }
-#view-hub .hub-track-emoji.coral { background: #FCEAE2; }
-#view-hub .hub-track-emoji.leaf { background: #E2EEDF; }
-#view-hub .hub-track-emoji.amber { background: #FBEFD3; }
-
-#view-hub .hub-track-text h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #2A1F1A;
-  margin: 0 0 2px;
-}
-#view-hub .hub-track-text p {
-  font-size: 14px;
-  color: #6b6480;
-  margin: 0;
-}
-
-#view-hub .hub-courses {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-#view-hub .hub-course {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.75rem 0.9rem;
-  background: #fafafa;
-  border: 1px solid #ECE6F2;
-  border-radius: 12px;
-  text-decoration: none;
-  color: #2A1F1A;
-  transition: all 0.18s;
-}
-#view-hub .hub-course:hover {
-  border-color: #6B4A8A;
-  background: #EFE6F5;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 12px rgba(107,74,138,0.1);
-}
-#view-hub .hub-course .hl-icon {
-  width: 40px; height: 40px;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-#view-hub .hub-course .hl-body { flex: 1; min-width: 0; }
-#view-hub .hub-course .hl-title {
-  font-size: 14.5px;
-  font-weight: 600;
-  margin-bottom: 2px;
-  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-}
-#view-hub .hub-course .hl-desc {
-  font-size: 13.5px;
-  color: #6b6480;
-  line-height: 1.4;
-}
-#view-hub .hub-course .hl-arr {
-  color: #6B4A8A;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-#view-hub .hub-pill {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 999px;
-  letter-spacing: 0.04em;
-}
-#view-hub .hub-pill.free {
-  background: #6B4A8A;
-  color: white;
-}
-#view-hub .hub-pill.new {
-  background: #E27A5F;
-  color: white;
-}
-
-#view-hub .hub-track-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 1rem;
-}
-
-#view-hub .hub-track-mini {
-  position: relative;
-  background: var(--paper, #fff);
-  border: 1px solid var(--line, #E8DDD0);
-  border-radius: 14px;
-  padding: 1rem 1rem 0.875rem;
-  display: flex; flex-direction: column;
-  gap: 0.4rem;
-  opacity: 0.85;
-}
-#view-hub .hub-track-mini h4 {
-  font-size: 15px;
-  font-weight: 700;
-  color: #2A1F1A;
-  margin: 0;
-}
-#view-hub .hub-track-mini p {
-  font-size: 13px;
-  color: #6b6480;
-  margin: 0;
-  line-height: 1.4;
-}
-#view-hub .hub-track-mini .soon-pill {
-  display: inline-block;
-  align-self: flex-start;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #F1EEE6;
-  color: #8A7A70;
-  letter-spacing: 0.04em;
-  margin-top: 0.25rem;
-}
-
-/* Updated connect-row for new design (3 cards with title+desc) */
-#view-hub .connect-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 0.5rem;
-}
-#view-hub .conn-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0.75rem 0.875rem;
-  background: var(--paper, #fff);
-  border: 1px solid var(--line, #E8DDD0);
-  border-radius: 12px;
-  text-decoration: none;
-  color: #2A1F1A;
-  transition: all 0.18s;
-}
-#view-hub .conn-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-}
-#view-hub .conn-btn.line:hover { border-color: #06C755; }
-#view-hub .conn-btn.tiktok:hover { border-color: #2A1F1A; }
-#view-hub .conn-btn.facebook:hover { border-color: #1877F2; }
-#view-hub .conn-btn .conn-icon {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: #F7EDDC;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-#view-hub .conn-btn.line .conn-icon { background: #E1F8E8; color: #06C755; }
-#view-hub .conn-btn.tiktok .conn-icon { background: #F1EFE8; color: #2A1F1A; }
-#view-hub .conn-btn.facebook .conn-icon { background: #E6F1FB; color: #1877F2; }
-#view-hub .conn-btn .conn-text { flex: 1; min-width: 0; }
-#view-hub .conn-btn .conn-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #2A1F1A;
-  margin-bottom: 1px;
-}
-#view-hub .conn-btn .conn-desc {
-  font-size: 12.5px;
-  color: #6b6480;
-  line-height: 1.3;
-}
-
-@media (max-width: 640px) {
-  #view-hub .hub-track-row { grid-template-columns: 1fr; }
-  #view-hub .connect-row { grid-template-columns: 1fr; }
-}
-
-
-/* Hub section group with English label + Thai */
-#view-hub .hub-sec-group {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin: 28px 0 14px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #ECE6F2;
-}
-#view-hub .hub-sec-group:first-of-type { margin-top: 8px; }
-#view-hub .hub-sec-en {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12.5px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  color: #6B4A8A;
-  text-transform: uppercase;
-}
-#view-hub .hub-sec-th {
-  font-size: 14px;
-  font-weight: 700;
-  color: #2A1F1A;
-  flex: 1;
-}
-
-
-/* ═══════════════════════════════════════════════════════════
    ADMIN dashboard refinements
    ═══════════════════════════════════════════════════════════ */
 .admin-stats {
@@ -3259,7 +3017,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub.card > div:first-child:not(.topbar):not(.hub-hero) { display: block; }
 
 
-#view-hub :root {
+#view-hub {
   --bg: #F2EBDD;
   --bg-soft: #EDE5D3;
   --ink: #0E0D0B;
@@ -3359,7 +3117,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-hub .hub-hero-grid {
   display: grid;
-  grid-template-columns: 1fr 280px;
+  grid-template-columns: 1fr 340px;
   gap: 60px;
   align-items: center;
 }
@@ -3410,13 +3168,13 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 
 #view-hub .mc-tag {
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.18em;
   color: var(--ink-soft);
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
   border-bottom: 1px dashed rgba(0,0,0,0.18);
 }
 #view-hub .mc-row {
@@ -3425,8 +3183,8 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   gap: 12px;
 }
 #view-hub .mc-avatar {
-  width: 56px; height: 56px;
-  border-radius: 12px;
+  width: 68px; height: 68px;
+  border-radius: 14px;
   background: linear-gradient(135deg, var(--accent) 0%, #8A7556 100%);
   display: flex;
   align-items: center;
@@ -3446,52 +3204,28 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   display: none;
 }
 #view-hub .mc-avatar .emoji-fallback {
-  font-size: 26px;
+  font-size: 32px;
 }
 #view-hub .mc-info { flex: 1; }
 #view-hub .mc-name {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 19px;
   color: var(--ink);
   line-height: 1.3;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 #view-hub .mc-num {
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
+  font-size: 13.5px;
   color: var(--ink-soft);
   letter-spacing: 0.05em;
 }
 
 /* Preview banner (admin mode) */
-#view-hub .preview-banner {
-  background: var(--bg-soft);
-  border: 1.5px dashed var(--accent);
-  border-radius: 12px;
-  padding: 14px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin: 0 0 32px;
-  flex-wrap: wrap;
-}
-#view-hub .preview-banner-text {
-  font-size: 13px;
-  color: var(--ink-mute);
-}
-#view-hub .preview-banner-btn {
-  background: white;
-  color: var(--ink);
-  padding: 8px 16px;
-  border-radius: 999px;
-  border: 1px solid var(--ink);
-  cursor: pointer;
-  font-size: 13px;
-  font-family: inherit;
-  font-weight: 500;
-}
+#view-hub 
+#view-hub 
+#view-hub 
 
 /* ─── SECTION HEADERS ─── */
 #view-hub .section-title {
