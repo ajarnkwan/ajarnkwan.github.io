@@ -720,7 +720,13 @@ setTimeout(checkHash, 500);
 function setPreviewBanner(target, message = '', backLabel = '← กลับหน้า Admin') {
   const wrap = document.getElementById(`${target}-preview-banner`);
   if (!wrap) return;
-  const msg = wrap.querySelector(' else {
+  const msg = wrap.querySelector('.preview-banner-text');
+  const btn = wrap.querySelector('.preview-banner-btn');
+  if (message) {
+    wrap.style.display = 'flex';
+    if (msg) msg.textContent = message;
+    if (btn) btn.textContent = backLabel;
+  } else {
     wrap.style.display = 'none';
     if (msg) msg.textContent = '';
   }

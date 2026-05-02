@@ -1,32 +1,37 @@
-# AjarnKwan Self-Learning Centre — Redesign v11 (Hub render fix)
+# AjarnKwan Self-Learning Centre — Redesign v12 (Critical fix)
 
-## ✅ Hot fix รอบที่ 2 (v10 → v11)
+## 🚨 Critical Bug Fix — Login ไม่ทำงาน
 
-### 1. สี 4 หลักสูตรอ่านไม่ออก — แก้แล้ว
-**สาเหตุ:** Selector `#view-hub :root { --c1: #4759AA; ... }` เป็น **invalid** เพราะ `:root` คือ `<html>` (ไม่ใช่ child ของ #view-hub) → CSS variables ไม่ active → tracks ไม่มี bg → text ขาวบนพื้นโปร่ง = อ่านไม่ออก
+### สาเหตุ
+ตอน v10 ผมรันสคริปต์ลบ CSS เก่าโดยใช้ regex:
+```python
+re.sub(r'\.preview-banner[^{]*\{[^}]+\}', '', content)
+```
 
-**แก้:** เปลี่ยน `#view-hub :root` → `#view-hub` → variables active
+regex นี้**ตั้งใจลบ CSS** `.preview-banner { ... }` แต่บังเอิญไป **กิน JavaScript code** ของ function `setPreviewBanner()` เพราะ:
+- `.preview-banner` ก็ปรากฏใน JS: `wrap.querySelector('.preview-banner-text')`
+- regex `[^{]*\{[^}]+\}` กิน text ตั้งแต่นั้นยาวไปจนเจอ `{...}` ตัวแรก
+- ผลลัพธ์: function setPreviewBanner เหลือเป็น
+  ```js
+  const msg = wrap.querySelector(' else {
+    ...
+  ```
+  
+→ **JavaScript syntax error** → Firebase module ทั้งหมดไม่ load → `window.loginEmail`, `window.loginGoogle` ไม่ได้ register → **ปุ่มกดไม่ได้**
 
-ตอนนี้ 4 tracks มีสีถูกต้อง:
-- Track 1 Economics → **#4759AA** (น้ำเงินเข้ม) text ขาว ✓
-- Track 2 Econ English → **#D9CAA8** (sand) text ดำ ✓
-- Track 3 Personal Finance → **#5E8A66** (sage) text ขาว ✓
-- Track 4 AI Literacy → **#E8C75A** (gold) text ดำ ✓
-
-### 2. การ์ดเลขสมาชิกตัวเล็ก — แก้แล้ว
-ขยายทั้ง card + ตัวอักษร:
-- Card width: 280px → **340px**
-- Avatar: 56px → **68px**
-- Emoji: 26px → **32px**
-- ชื่อสมาชิก: 16px → **19px** ✓
-- Member ID label: 11px → **13px** ✓
-- Member number: 11px → **13.5px** ✓
+### แก้
+Restore function `setPreviewBanner` จากต้นฉบับ ตอนนี้ทุก script syntax-valid:
+- Script 1 (stub): ✓
+- Script 2 (Firebase module): ✓
+- Script 3 (interactive): ✓
 
 ## วิธี Deploy
 
 ```bash
-unzip ajarnkwan-redesign-v11.zip
+unzip ajarnkwan-redesign-v12.zip
 cp -r site/* /path/to/ajarnkwan.github.io/
-git add -A && git commit -m "v11 · Fix CSS scope + ID card size"
+git add -A && git commit -m "v12 · CRITICAL fix · restore setPreviewBanner function"
 git push
 ```
+
+ขอโทษอย่างจริงจังที่บั๊กนี้หลุดผ่านมาค่ะ — ผมไม่ได้ตรวจ JS syntax หลัง regex run
