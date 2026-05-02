@@ -3243,6 +3243,624 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   .hp-target { font-size: 13.5px; }
 }
 
+
+
+/* ═══════════════════════════════════════════════════════════
+   HUB v2 redesign — scoped to #view-hub  (matches landing v4 style)
+   ═══════════════════════════════════════════════════════════ */
+#view-hub.card {
+  /* Override prior #view-hub.card constraints from old hub redesign */
+  max-width: none !important;
+  padding: 0 !important;
+  background: var(--ak-bg, #F2EBDD) !important;
+  border-radius: 0 !important;
+}
+#view-hub .stripe { display: none !important; }
+#view-hub.card > div:first-child:not(.topbar):not(.hub-hero) { display: block; }
+
+
+#view-hub :root {
+  --bg: #F2EBDD;
+  --bg-soft: #EDE5D3;
+  --ink: #0E0D0B;
+  --ink-mute: #5C544A;
+  --ink-soft: #8A8074;
+  --accent: #C2A878;
+  --accent-soft: #DECDA9;
+  --line-soft: rgba(14,13,11,0.12);
+
+  --c1: #4759AA;  /* Economics */
+  --c2: #D9CAA8;  /* Econ English */
+  --c3: #5E8A66;  /* Personal Finance */
+  --c4: #E8C75A;  /* AI Literacy */
+}
+
+
+
+#view-hub {
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Paper grain */
+#view-hub::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.04 0 0 0 0 0.03 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#view-hub ::selection { background: var(--ink); color: var(--bg); }
+
+#view-hub .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 2; }
+
+/* ─── TOP BAR ─── */
+#view-hub .topbar {
+  padding: 24px 0;
+  position: sticky; top: 0;
+  background: var(--bg);
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s;
+}
+#view-hub .topbar.scrolled { border-bottom-color: var(--line-soft); }
+#view-hub .topbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#view-hub .brand {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex; align-items: baseline; gap: 4px;
+}
+#view-hub .brand .dot { color: var(--accent); font-size: 30px; line-height: 0; }
+#view-hub .logout-btn {
+  background: transparent;
+  color: var(--ink);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1.5px solid var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .2s;
+}
+#view-hub .logout-btn:hover { background: var(--ink); color: var(--bg); }
+
+/* ─── HUB HERO ─── */
+#view-hub .hub-hero {
+  padding: 60px 0 50px;
+}
+#view-hub .hub-hero-byline {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+#view-hub .hub-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 60px;
+  align-items: center;
+}
+#view-hub .hub-greeting {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+#view-hub .hub-greeting .accent-name {
+  color: var(--accent);
+  font-style: italic;
+}
+#view-hub .hub-hero-sub {
+  font-size: 15px;
+  color: var(--ink-mute);
+  line-height: 1.7;
+  max-width: 540px;
+}
+
+/* Member ID card */
+#view-hub .member-card {
+  background: white;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 16px 40px -20px rgba(14,13,11,0.32),
+    0 4px 10px -4px rgba(14,13,11,0.14);
+  position: relative;
+  transform: rotate(-1.5deg);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+#view-hub .member-card:hover { transform: rotate(0); }
+#view-hub .member-card::before {
+  content: "";
+  position: absolute;
+  top: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 36px; height: 14px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 6px 6px 3px 3px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+#view-hub .mc-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(0,0,0,0.18);
+}
+#view-hub .mc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#view-hub .mc-avatar {
+  width: 56px; height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent) 0%, #8A7556 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+#view-hub .mc-avatar img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 2;
+}
+#view-hub .mc-avatar img:not([src]),
+#view-hub .mc-avatar img[src=""] {
+  display: none;
+}
+#view-hub .mc-avatar .emoji-fallback {
+  font-size: 26px;
+}
+#view-hub .mc-info { flex: 1; }
+#view-hub .mc-name {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+#view-hub .mc-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+}
+
+/* Preview banner (admin mode) */
+#view-hub .preview-banner {
+  background: var(--bg-soft);
+  border: 1.5px dashed var(--accent);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 32px;
+  flex-wrap: wrap;
+}
+#view-hub .preview-banner-text {
+  font-size: 13px;
+  color: var(--ink-mute);
+}
+#view-hub .preview-banner-btn {
+  background: white;
+  color: var(--ink);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+/* ─── SECTION HEADERS ─── */
+#view-hub .section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+  border-bottom: 1.5px solid var(--ink);
+}
+#view-hub .section-title-en {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+#view-hub .section-title-th {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-mute);
+}
+
+/* ─── PATHFINDER ─── */
+#view-hub .pathfinder {
+  background: white;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 48px;
+}
+#view-hub .pf-title {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#view-hub .pf-title .pf-em {
+  font-size: 22px;
+}
+#view-hub .pf-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#view-hub .pf-opt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .2s;
+  gap: 12px;
+}
+#view-hub .pf-opt:hover {
+  border-color: var(--ink);
+  transform: translateX(2px);
+}
+#view-hub .pf-cond {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+#view-hub .pf-target {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* ─── LEARN — 4 COURSE TRACKS ─── */
+#view-hub .tracks {
+  margin-bottom: 60px;
+}
+#view-hub .track-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+#view-hub .track {
+  position: relative;
+  border-radius: 14px;
+  padding: 26px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+#view-hub .track-1 { background: var(--c1); color: white; }
+#view-hub .track-2 { background: var(--c2); color: var(--ink); }
+#view-hub .track-3 { background: var(--c3); color: white; }
+#view-hub .track-4 { background: var(--c4); color: var(--ink); }
+
+#view-hub .track-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+#view-hub .track-2 .track-head, #view-hub .track-4 .track-head { border-bottom-color: rgba(0,0,0,0.18); }
+
+#view-hub .track-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 56px;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  flex-shrink: 0;
+}
+#view-hub .track-meta h3 {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+#view-hub .track-meta .track-th {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.85;
+  margin-bottom: 6px;
+}
+#view-hub .track-meta .track-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+#view-hub .track-courses {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#view-hub .track-course {
+  background: rgba(255,255,255,0.18);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: background .2s, transform .2s;
+}
+#view-hub .track-2 .track-course, #view-hub .track-4 .track-course { background: rgba(0,0,0,0.06); }
+#view-hub .track-course:hover {
+  background: rgba(255,255,255,0.32);
+  transform: translateX(3px);
+}
+#view-hub .track-2 .track-course:hover, #view-hub .track-4 .track-course:hover { background: rgba(0,0,0,0.12); }
+
+#view-hub .tc-info { flex: 1; min-width: 0; }
+#view-hub .tc-title {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+#view-hub .tc-desc {
+  font-size: 12.5px;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+#view-hub .tc-arr {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 18px;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+#view-hub .track-course.soon { opacity: 0.7; pointer-events: none; }
+#view-hub .track-course.soon .tc-arr { opacity: 0.4; }
+#view-hub .tc-soon-pill {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  background: rgba(255,255,255,0.3);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+#view-hub .track-2 .tc-soon-pill, #view-hub .track-4 .tc-soon-pill { background: rgba(0,0,0,0.15); }
+
+/* ─── FREEBIES ─── */
+#view-hub .freebies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 60px;
+}
+#view-hub .freebie {
+  background: white;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 22px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform .25s, box-shadow .25s;
+}
+#view-hub .freebie:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px -14px rgba(14,13,11,0.16);
+}
+#view-hub .freebie.disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+#view-hub .fb-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+#view-hub .fb-type {
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+#view-hub .fb-title {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.35;
+}
+#view-hub .fb-desc {
+  font-size: 12.5px;
+  color: var(--ink-mute);
+  line-height: 1.55;
+  flex: 1;
+}
+#view-hub .fb-link {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--accent);
+  align-self: flex-start;
+  padding-bottom: 1px;
+}
+
+/* ─── CONTACT ROW ─── */
+#view-hub .contacts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 60px;
+}
+#view-hub .contact-item {
+  background: white;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .25s, border-color .25s;
+}
+#view-hub .contact-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--ink);
+}
+#view-hub .ct-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+#view-hub .ct-line { background: #06C755; }
+#view-hub .ct-tt { background: #000; }
+#view-hub .ct-fb { background: #1877F2; }
+#view-hub .ct-info { flex: 1; }
+#view-hub .ct-title {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+#view-hub .ct-desc {
+  font-size: 12.5px;
+  color: var(--ink-mute);
+}
+
+/* ─── FOOTER ─── */
+#view-hub .hub-foot {
+  padding: 60px 0 40px;
+  border-top: 1px solid var(--line-soft);
+  margin-top: 40px;
+  text-align: center;
+}
+#view-hub .foot-mark {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+#view-hub .foot-mark .dim { color: var(--accent); }
+#view-hub .foot-credit {
+  font-size: 13px;
+  color: var(--ink-mute);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+#view-hub .foot-credit strong {
+  color: var(--ink);
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Responsive */
+@media (max-width: 800px){
+  #view-hub .hub-hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  #view-hub .member-card { max-width: 320px; margin: 0 auto; }
+  #view-hub .track-grid { grid-template-columns: 1fr; }
+  #view-hub .freebies-grid { grid-template-columns: 1fr 1fr; }
+  #view-hub .contacts { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px){
+  #view-hub .container { padding: 0 20px; }
+  #view-hub .topbar-inner { padding: 0 20px; }
+  #view-hub .freebies-grid { grid-template-columns: 1fr; }
+}
+
+@keyframes riseUp{
+  from{ opacity: 0; transform: translateY(20px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+#view-hub .hub-hero-byline, #view-hub .hub-greeting, #view-hub .hub-hero-sub, #view-hub .member-card {
+  animation: riseUp .8s cubic-bezier(.2,.8,.2,1) both;
+}
+#view-hub .hub-greeting { animation-delay: .1s; }
+#view-hub .hub-hero-sub { animation-delay: .2s; }
+#view-hub .member-card { animation-delay: .3s; }
+
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -4127,215 +4745,288 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   </div>
 </div>
 
-<!-- ══ HUB ══ -->
+<!-- ══ HUB (v2 redesign) ══ -->
 <div class="card" id="view-hub">
-  <div class="stripe"></div>
-  <div class="hub-hero">
-    <div class="h-emoji">🎉 ✨ 💜 ⭐</div>
-    <div class="h-title" id="hub-greeting">สวัสดีค่ะ!</div>
-    <div class="member-badge">
-      <div class="mb-av"><img id="hub-avatar" src="" alt=""><span>😊</span></div>
-      <div>
-        <div class="mb-name" id="hub-member-name"></div>
-        <div class="mb-num" id="hub-member-num">สมาชิกหมายเลข: —</div>
+  <nav class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="brand">AJARN<span class="dot">.</span>KWAN</a>
+    <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
+  </div>
+</nav>
+  <!-- HUB HERO -->
+  <section class="hub-hero">
+    <div class="container">
+      <div class="hub-hero-byline">MEMBER HUB · ห้องเรียนของคุณ</div>
+      <div class="hub-hero-grid">
+        <div>
+          <h1 class="hub-greeting">สวัสดีค่ะ,<br><span class="accent-name" id="hub-greeting">ajarn.kwan</span>!</h1>
+          <p class="hub-hero-sub">
+            ยินดีต้อนรับเข้าสู่ Self-Learning Centre อยากเริ่มเรียนตรงไหน เลือกได้เลย หรือถ้าไม่แน่ใจ ลองดู Pathfinder ด้านล่างนะคะ
+          </p>
+        </div>
+        <div class="member-card">
+          <div class="mc-tag">MEMBER ID · บัตรสมาชิก</div>
+          <div class="mc-row">
+            <div class="mc-avatar">
+              <img id="hub-avatar" src="" alt="">
+              <span class="emoji-fallback">😊</span>
+            </div>
+            <div class="mc-info">
+              <div class="mc-name" id="hub-member-name">ajarn.kwan</div>
+              <div class="mc-num" id="hub-member-num">No. PREVIEW</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="hub-body">
+  <div class="container">
+    <!-- Preview banner (admin) -->
     <div class="preview-banner" id="hub-preview-banner">
-      <div class="preview-banner-text"></div>
+      <div class="preview-banner-text">โหมดพรีวิวสำหรับผู้ดูแล: กำลังดูหน้าฝั่งสมาชิกด้วยข้อมูลตัวอย่าง</div>
       <button class="preview-banner-btn" type="button" onclick="backToAdmin()">← กลับหน้า Admin</button>
     </div>
 
-    <div class="hub-sec-group">
-      <span class="hub-sec-en">LEARN</span>
-      <span class="hub-sec-th">คอร์สเรียน</span>
+    <!-- LEARN section -->
+    <div class="section-title">
+      <span class="section-title-en">LEARN</span>
+      <span class="section-title-th">คอร์สเรียน</span>
     </div>
 
-    <!-- Pathfinder: help users decide where to start -->
-    <div class="hub-pathfinder">
-      <div class="hp-title">
-        <span class="hp-em">🧭</span>
+    <!-- Pathfinder -->
+    <div class="pathfinder">
+      <div class="pf-title">
+        <span class="pf-em">🧭</span>
         <span>ไม่รู้จะเริ่มตรงไหนดีคะ?</span>
       </div>
-      <div class="hp-options">
-        <a href="econ-math-readiness/" class="hp-opt">
-          <span class="hp-cond">ฉันกลัวเลข</span>
-          <span class="hp-target">→ Math &amp; Stats for Econ</span>
+      <div class="pf-options">
+        <a href="econ-math-readiness/" class="pf-opt">
+          <span class="pf-cond">ฉันกลัวเลข</span>
+          <span class="pf-target">→ Math &amp; Stats for Econ</span>
         </a>
-        <a href="microeconomics/" class="hp-opt">
-          <span class="hp-cond">อยากเข้าใจตลาด</span>
-          <span class="hp-target">→ Microeconomics Theory</span>
+        <a href="microeconomics/" class="pf-opt">
+          <span class="pf-cond">อยากเข้าใจตลาด</span>
+          <span class="pf-target">→ Microeconomics Theory</span>
         </a>
-        <a href="econometrics/" class="hp-opt">
-          <span class="hp-cond">อยากวิเคราะห์ข้อมูล</span>
-          <span class="hp-target">→ Introduction to Econometrics</span>
+        <a href="econometrics/" class="pf-opt">
+          <span class="pf-cond">อยากวิเคราะห์ข้อมูล</span>
+          <span class="pf-target">→ Intro to Econometrics</span>
         </a>
-        <a href="vocab/" class="hp-opt">
-          <span class="hp-cond">อยากจำศัพท์</span>
-          <span class="hp-target">→ คลังศัพท์เศรษฐศาสตร์</span>
+        <a href="vocab/" class="pf-opt">
+          <span class="pf-cond">อยากจำศัพท์</span>
+          <span class="pf-target">→ คลังศัพท์เศรษฐศาสตร์</span>
         </a>
-        <a href="vibe-coding/" class="hp-opt">
-          <span class="hp-cond">อยากใช้ AI ทำงาน</span>
-          <span class="hp-target">→ Vibe Coding (เร็ว ๆ นี้)</span>
+        <a href="vibe-coding/" class="pf-opt">
+          <span class="pf-cond">อยากใช้ AI ทำงาน</span>
+          <span class="pf-target">→ Vibe Coding</span>
         </a>
       </div>
     </div>
 
-    <div class="hub-track-main">
-      <div class="hub-track-head">
-        <span class="hub-track-emoji plum">📊</span>
-        <div class="hub-track-text">
-          <h3>เข้าใจเศรษฐกิจ</h3>
-          <p>เริ่มจากศูนย์ · จุลภาค · เศรษฐมิติ</p>
+    <!-- 4 TRACKS -->
+    <div class="tracks">
+      <div class="track-grid">
+
+        <!-- Track 1: Economics -->
+        <div class="track track-1">
+          <div class="track-head">
+            <div class="track-num">1</div>
+            <div class="track-meta">
+              <h3>Economics</h3>
+              <div class="track-th">เข้าใจเศรษฐกิจ</div>
+              <div class="track-tag">3 หลักสูตร · เริ่มต้น</div>
+            </div>
+          </div>
+          <div class="track-courses">
+            <a href="econ-math-readiness/" class="track-course">
+              <div class="tc-info">
+                <div class="tc-title">Basic Math &amp; Stats</div>
+                <div class="tc-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 modules</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </a>
+            <a href="microeconomics/" class="track-course">
+              <div class="tc-info">
+                <div class="tc-title">Microeconomics Theory</div>
+                <div class="tc-desc">ทฤษฎีจุลภาค · บทที่ 1-7 พร้อมเรียน</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </a>
+            <a href="econometrics/" class="track-course">
+              <div class="tc-info">
+                <div class="tc-title">Intro to Econometrics</div>
+                <div class="tc-desc">สำหรับคนเริ่มจากศูนย์ · 6 บทเรียน</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="hub-courses">
-        <a href="econ-math-readiness/" class="hub-course">
-          <div class="hl-icon" style="background:#EFE6F5;border:1.5px solid #C9B8DD">📐</div>
-          <div class="hl-body">
-            <div class="hl-title">Basic Math &amp; Stats for Econ</div>
-            <div class="hl-desc">คณิตศาสตร์และสถิติพื้นฐาน · 13 modules + แบบประเมิน</div>
-          </div>
-          <div class="hl-arr">→</div>
-        </a>
-        <a href="microeconomics/" class="hub-course">
-          <div class="hl-icon" style="background:#EFE6F5;border:1.5px solid #C9B8DD">📘</div>
-          <div class="hl-body">
-            <div class="hl-title">Microeconomics Theory</div>
-            <div class="hl-desc">ทฤษฎีเศรษฐศาสตร์จุลภาค · บทที่ 1-7 พร้อมเรียน</div>
-          </div>
-          <div class="hl-arr">→</div>
-        </a>
-        <a href="econometrics/" class="hub-course">
-          <div class="hl-icon" style="background:#EFE6F5;border:1.5px solid #C9B8DD">📉</div>
-          <div class="hl-body">
-            <div class="hl-title">Introduction to Econometrics</div>
-            <div class="hl-desc">สำหรับคนเริ่มจากศูนย์ ไม่ต้องกลัวเลข · 6 บทเรียน</div>
-          </div>
-          <div class="hl-arr">→</div>
-        </a>
-      </div>
-    </div>
 
-    <div class="hub-track-main">
-      <div class="hub-track-head">
-        <span class="hub-track-emoji leaf">🤖</span>
-        <div class="hub-track-text">
-          <h3>AI ในชีวิตจริง</h3>
-          <p>ใช้ AI ทำงาน · เขียนโค้ด · เรียนรู้</p>
+        <!-- Track 2: Econ English -->
+        <div class="track track-2">
+          <div class="track-head">
+            <div class="track-num">2</div>
+            <div class="track-meta">
+              <h3>Econ English</h3>
+              <div class="track-th">อังกฤษเศรษฐกิจ</div>
+              <div class="track-tag">100+ คำ · Flashcard</div>
+            </div>
+          </div>
+          <div class="track-courses">
+            <a href="vocab/micro.html" class="track-course">
+              <div class="tc-info">
+                <div class="tc-title">ศัพท์เศรษฐศาสตร์จุลภาค</div>
+                <div class="tc-desc">24 คำ · flip card · Eng + Thai + ตัวอย่าง</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </a>
+            <a href="vocab/macro.html" class="track-course">
+              <div class="tc-info">
+                <div class="tc-title">ศัพท์เศรษฐศาสตร์มหภาค</div>
+                <div class="tc-desc">30 คำ · GDP, Inflation, Policy</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="hub-courses">
-        <a href="vibe-coding/" class="hub-course">
-          <div class="hl-icon" style="background:#E2EEDF;border:1.5px solid #B5D4AC">⚡</div>
-          <div class="hl-body">
-            <div class="hl-title">Vibe Coding · เขียนโค้ดด้วย AI</div>
-            <div class="hl-desc">2 เวอร์ชัน (ทุกคน / นักเศรษฐศาสตร์) · กำลังเตรียมเนื้อหา · เปิดให้ติดตามเร็ว ๆ นี้</div>
-          </div>
-          <div class="hl-arr">→</div>
-        </a>
-      </div>
-    </div>
 
-    <div class="hub-track-main">
-      <div class="hub-track-head">
-        <span class="hub-track-emoji amber">🔤</span>
-        <div class="hub-track-text">
-          <h3>อังกฤษเศรษฐกิจ</h3>
-          <p>ศัพท์ภาษาอังกฤษ · อ่านข่าว paper ได้</p>
+        <!-- Track 3: Personal Finance -->
+        <div class="track track-3">
+          <div class="track-head">
+            <div class="track-num">3</div>
+            <div class="track-meta">
+              <h3>Personal Finance</h3>
+              <div class="track-th">การเงินส่วนตัว</div>
+              <div class="track-tag">4 หัวข้อ · เร็วๆ นี้</div>
+            </div>
+          </div>
+          <div class="track-courses">
+            <div class="track-course soon">
+              <div class="tc-info">
+                <div class="tc-title">งบรายเดือน <span class="tc-soon-pill">SOON</span></div>
+                <div class="tc-desc">วางแผน + ติดตามรายรับ-รายจ่าย</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </div>
+            <div class="track-course soon">
+              <div class="tc-info">
+                <div class="tc-title">กองทุนรวม <span class="tc-soon-pill">SOON</span></div>
+                <div class="tc-desc">เริ่มลงทุนสำหรับมือใหม่</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="hub-courses">
-        <a href="vocab/micro.html" class="hub-course">
-          <div class="hl-icon" style="background:#FBEFD3;border:1.5px solid #F0D896">🔬</div>
-          <div class="hl-body">
-            <div class="hl-title">ศัพท์เศรษฐศาสตร์จุลภาค</div>
-            <div class="hl-desc">24 คำ · flip card · Eng + Thai + ตัวอย่างใกล้ตัว</div>
+
+        <!-- Track 4: AI Literacy -->
+        <div class="track track-4">
+          <div class="track-head">
+            <div class="track-num">4</div>
+            <div class="track-meta">
+              <h3>AI Literacy</h3>
+              <div class="track-th">AI ในชีวิตจริง</div>
+              <div class="track-tag">2 หลักสูตร · มี Cert</div>
+            </div>
           </div>
-          <div class="hl-arr">→</div>
-        </a>
-        <a href="vocab/macro.html" class="hub-course">
-          <div class="hl-icon" style="background:#FBEFD3;border:1.5px solid #F0D896">🌐</div>
-          <div class="hl-body">
-            <div class="hl-title">ศัพท์เศรษฐศาสตร์มหภาค</div>
-            <div class="hl-desc">30 คำ · flip card · GDP, Inflation, Policy</div>
+          <div class="track-courses">
+            <a href="vibe-coding/general/" class="track-course">
+              <div class="tc-info">
+                <div class="tc-title">Vibe Coding for Everyone</div>
+                <div class="tc-desc">เขียนโค้ดด้วย AI สำหรับทุกคน</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </a>
+            <a href="vibe-coding/econ/" class="track-course">
+              <div class="tc-info">
+                <div class="tc-title">Vibe Coding for Economists</div>
+                <div class="tc-desc">เน้นเครื่องมือสำหรับนักเศรษฐศาสตร์</div>
+              </div>
+              <div class="tc-arr">→</div>
+            </a>
           </div>
-          <div class="hl-arr">→</div>
-        </a>
+        </div>
+
       </div>
     </div>
 
-    <div class="hub-track-row">
-      <div class="hub-track-mini coral">
-        <span class="hub-track-emoji coral">💰</span>
-        <h4>การเงินส่วนตัว</h4>
-        <p>การออม · ลงทุน · ดอกเบี้ย</p>
-        <span class="soon-pill">เร็ว ๆ นี้</span>
+    <!-- FREEBIES -->
+    <div class="section-title">
+      <span class="section-title-en">FREEBIES</span>
+      <span class="section-title-th">ของฟรี · ฉบับพกพา</span>
+    </div>
+    <div class="freebies-grid">
+      <a href="vocab/booklet-micro.html" target="_blank" class="freebie">
+        <div class="fb-icon">📓</div>
+        <div class="fb-type">A6 BOOKLET</div>
+        <div class="fb-title">สมุดศัพท์ จุลภาค</div>
+        <div class="fb-desc">2 แผ่น A4 พับเป็นสมุด 16 หน้า · มี QR ลิงก์กลับเว็บ</div>
+        <span class="fb-link">เปิดดู →</span>
+      </a>
+      <a href="vocab/booklet-macro.html" target="_blank" class="freebie">
+        <div class="fb-icon">📕</div>
+        <div class="fb-type">A6 BOOKLET</div>
+        <div class="fb-title">สมุดศัพท์ มหภาค</div>
+        <div class="fb-desc">2 แผ่น A4 พับเป็นสมุด 16 หน้า · พิมพ์ฟรี</div>
+        <span class="fb-link">เปิดดู →</span>
+      </a>
+      <a href="econometrics/cheatsheet.html" target="_blank" class="freebie">
+        <div class="fb-icon">📄</div>
+        <div class="fb-type">CHEAT SHEET</div>
+        <div class="fb-title">สรุปเศรษฐมิติ 1 หน้า</div>
+        <div class="fb-desc">พิมพ์ได้ · สูตร + คำศัพท์ครบ</div>
+        <span class="fb-link">เปิดดู →</span>
+      </a>
+      <div class="freebie disabled">
+        <div class="fb-icon">📊</div>
+        <div class="fb-type">WORKSHEET</div>
+        <div class="fb-title">แบบฝึกหัด</div>
+        <div class="fb-desc">เร็วๆ นี้ · พร้อมเฉลย</div>
+        <span class="fb-link">เร็วๆ นี้</span>
       </div>
     </div>
 
-    <div class="hub-sec-group">
-      <span class="hub-sec-en">FREEBIES</span>
-      <span class="hub-sec-th">ของฟรี · ฉบับพกพา</span>
+    <!-- CONTACT -->
+    <div class="section-title">
+      <span class="section-title-en">CONTACT</span>
+      <span class="section-title-th">ติดต่อและติดตาม</span>
     </div>
-    <a href="vocab/booklet-micro.html" class="hub-link" target="_blank">
-      <div class="hl-icon" style="background:#FFF8EA;border:1.5px solid #FFD700">📓</div>
-      <div class="hl-body"><div class="hl-title">สมุดศัพท์ A6 · จุลภาค</div><div class="hl-desc">2 แผ่น A4 พับเป็นสมุด 16 หน้า · มี QR ลิงก์กลับเว็บ</div></div>
-      <div class="hl-arr">→</div>
-    </a>
-    <a href="vocab/booklet-macro.html" class="hub-link" target="_blank">
-      <div class="hl-icon" style="background:#FFF8EA;border:1.5px solid #FFD700">📕</div>
-      <div class="hl-body"><div class="hl-title">สมุดศัพท์ A6 · มหภาค</div><div class="hl-desc">2 แผ่น A4 พับเป็นสมุด 16 หน้า · พิมพ์ฟรี</div></div>
-      <div class="hl-arr">→</div>
-    </a>
-    <a href="econometrics/cheatsheet.html" class="hub-link" target="_blank">
-      <div class="hl-icon" style="background:#fef2e8;border:1.5px solid #f9c89b">📄</div>
-      <div class="hl-body"><div class="hl-title">สรุปเศรษฐมิติ 1 หน้า</div><div class="hl-desc">Cheat sheet พิมพ์ได้ · สูตร + คำศัพท์ครบ</div></div>
-      <div class="hl-arr">→</div>
-    </a>
-    <div class="hub-link soon">
-      <div class="hl-icon" style="background:#fffbeb;border:1.5px solid #fde68a">📊</div>
-      <div class="hl-body"><div class="hl-title">Worksheet ฝึกทำ — เร็ว ๆ นี้</div><div class="hl-desc">แบบฝึกหัดพร้อมเฉลย</div></div>
-      <div class="hl-arr">→</div>
-    </div>
-
-    <div class="hub-sec-group">
-      <span class="hub-sec-en">CONTACT</span>
-      <span class="hub-sec-th">ติดต่อและติดตาม</span>
-    </div>
-    <div class="connect-row">
-      <a href="https://line.me/R/ti/p/%40287votth" class="conn-btn line" target="_blank" rel="noopener noreferrer">
-        <div class="conn-icon">💬</div>
-        <div class="conn-text">
-          <div class="conn-title">Line OA</div>
-          <div class="conn-desc">ถามคำถาม · Word of Week</div>
+    <div class="contacts">
+      <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" class="contact-item">
+        <div class="ct-icon ct-line">L</div>
+        <div class="ct-info">
+          <div class="ct-title">Line OA</div>
+          <div class="ct-desc">ถามคำถาม · Word of Week</div>
         </div>
       </a>
-      <a href="https://www.tiktok.com/@ajarn.kwan" class="conn-btn tiktok" target="_blank" rel="noopener noreferrer">
-        <div class="conn-icon">🎵</div>
-        <div class="conn-text">
-          <div class="conn-title">TikTok</div>
-          <div class="conn-desc">@ajarn.kwan · คลิปสั้น</div>
+      <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" class="contact-item">
+        <div class="ct-icon ct-tt">T</div>
+        <div class="ct-info">
+          <div class="ct-title">TikTok</div>
+          <div class="ct-desc">@ajarn.kwan · คลิปสั้น</div>
         </div>
       </a>
-      <a href="https://www.facebook.com/ajarnkwan" class="conn-btn facebook" target="_blank" rel="noopener noreferrer">
-        <div class="conn-icon">📘</div>
-        <div class="conn-text">
-          <div class="conn-title">Facebook</div>
-          <div class="conn-desc">โพสต์ยาว · บทความ</div>
+      <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" class="contact-item">
+        <div class="ct-icon ct-fb">f</div>
+        <div class="ct-info">
+          <div class="ct-title">Facebook</div>
+          <div class="ct-desc">โพสต์ยาว · บทความ</div>
         </div>
       </a>
     </div>
   </div>
 
-  <div class="hub-foot">
-    <strong style="color:#4b4540">Ajarn.Kwan (อาจารย์ขวัญ)</strong> · คณะเศรษฐศาสตร์ ม.รามคำแหง<br>
-    <span style="font-size:.6rem">Assistant Professor, Faculty of Economics, Ramkhamhaeng University</span><br>
-    <span style="font-size:.65rem">© 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ</span><br>
-    <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
-  </div>
+  <!-- FOOT -->
+  <footer class="hub-foot">
+    <div class="container">
+      <div class="foot-mark">AJARN<span class="dim">.</span>KWAN</div>
+      <div class="foot-credit">
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+    </div>
+  </footer>
 </div>
 
 <!-- ══ ADMIN ══ -->
