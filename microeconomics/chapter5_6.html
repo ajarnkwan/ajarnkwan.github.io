@@ -479,7 +479,12 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 5.6</span>
     </div>
     <div class="ak-topbar-actions">
-      <a href="../#join" class="ak-btn ak-btn-ghost">เข้าสู่ระบบ</a>
+      <a href="../#hub" class="ak-member-pill" id="ak-member-pill">
+        <span class="ak-pill-avatar" id="ak-pill-avatar">?</span>
+        <span class="ak-pill-label" id="ak-pill-label">ห้องเรียนของฉัน</span>
+        <span class="ak-pill-arrow">→</span>
+      </a>
+      <a href="../#join" class="ak-btn ak-btn-ghost" id="ak-login-btn">เข้าสู่ระบบ</a>
     </div>
   </div>
 </nav>
@@ -1345,5 +1350,41 @@ updateProg(0);
 })();
 </script>
 
+
+<script>
+/* Member status pill — reads login state from localStorage */
+(function(){
+  try {
+    const raw = localStorage.getItem('akMember');
+    if (!raw) return;
+    const m = JSON.parse(raw);
+    if (!m || !m.name) return;
+    // Stale if older than 30 days
+    if (m.ts && (Date.now() - m.ts > 30*24*60*60*1000)) return;
+    
+    const pill = document.getElementById('ak-member-pill');
+    const loginBtn = document.getElementById('ak-login-btn');
+    const avatarEl = document.getElementById('ak-pill-avatar');
+    const labelEl = document.getElementById('ak-pill-label');
+    
+    if (pill && labelEl && avatarEl) {
+      if (m.isAdmin) {
+        // Admin: link to #admin Dashboard, label = "Admin"
+        pill.href = '../#admin';
+        pill.classList.add('is-admin');
+        avatarEl.textContent = 'A';
+        labelEl.textContent = 'Admin · Dashboard';
+      } else {
+        // Regular member: link to #hub
+        pill.href = '../#hub';
+        avatarEl.textContent = (m.name[0] || '?').toUpperCase();
+        labelEl.textContent = m.name;
+      }
+      pill.style.display = 'inline-flex';
+      if (loginBtn) loginBtn.style.display = 'none';
+    }
+  } catch(e) { console.warn('member pill init failed:', e); }
+})();
+</script>
 </body>
 </html>

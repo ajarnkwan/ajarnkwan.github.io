@@ -240,6 +240,8 @@ onAuthStateChanged(auth, async (user) => {
     window._currentUser = null;
     window._currentMemberData = null;
     window._previewMode = null;
+    // Clear login state in localStorage (so course pages know)
+    try { localStorage.removeItem('akMember'); } catch(_) {}
     showLogin();
     return;
   }
@@ -271,6 +273,26 @@ onAuthStateChanged(auth, async (user) => {
   window._adminProfile = adminProfile;
   window._currentMemberData = memberDoc.exists() ? memberDoc.data() : null;
   window._previewMode = null;
+
+  // Save member info to localStorage so course pages can show "logged in" state
+  try {
+    if (memberDoc.exists() && memberDoc.data().profileComplete === true) {
+      const m = memberDoc.data();
+      localStorage.setItem('akMember', JSON.stringify({
+        name: (m.name || '').split(' ')[0] || 'คุณผู้เรียน',
+        memberNum: m.memberNum || '',
+        isAdmin: !!adminProfile,
+        ts: Date.now()
+      }));
+    } else if (adminProfile) {
+      localStorage.setItem('akMember', JSON.stringify({
+        name: 'Admin',
+        memberNum: 'ADMIN',
+        isAdmin: true,
+        ts: Date.now()
+      }));
+    }
+  } catch(_) {}
 
   // ── Route to correct view ───────────────────────────────
   try {
@@ -749,14 +771,62 @@ function showLogin() {
 window.goJoin = () => { showView('view-signup'); };
 window.goLoginFromLanding = () => { showView('view-login'); };
 
-// Handle hash links (e.g. from econometrics signup gate)
+// Handle hash links (e.g. from course pages, signup gates)
+// Supported hashes: #signup, #login, #join, #hub, #admin
 function checkHash() {
   const h = window.location.hash;
-  if (h === '#signup') { showView('view-signup'); window.location.hash = ''; }
-  else if (h === '#login') { showView('view-login'); window.location.hash = ''; }
+  if (!h || h === '#') return;
+  
+  // Only act if user is logged in (for #hub/#admin)
+  const user = window._currentUser;
+  
+  if (h === '#signup' || h === '#join') {
+    // If already logged in, go directly to hub instead
+    if (user && window._currentMemberData?.profileComplete) {
+      showHub(user, window._currentMemberData);
+    } else if (user && window._adminProfile) {
+      showAdmin(user, window._adminProfile);
+    } else {
+      showView('view-signup');
+    }
+    window.location.hash = '';
+  }
+  else if (h === '#login') {
+    if (user && window._currentMemberData?.profileComplete) {
+      showHub(user, window._currentMemberData);
+    } else if (user && window._adminProfile) {
+      showAdmin(user, window._adminProfile);
+    } else {
+      showView('view-login');
+    }
+    window.location.hash = '';
+  }
+  else if (h === '#hub') {
+    // Want to go to Hub
+    if (user && window._currentMemberData?.profileComplete) {
+      showHub(user, window._currentMemberData);
+    } else if (user && window._adminProfile) {
+      // Admin who clicked "ห้องเรียนของฉัน" — show preview hub
+      if (typeof window.previewMemberHub === 'function') window.previewMemberHub();
+      else showAdmin(user, window._adminProfile);
+    } else {
+      // Not logged in → send to login (which will redirect to hub after success)
+      showView('view-login');
+    }
+    window.location.hash = '';
+  }
+  else if (h === '#admin') {
+    if (user && window._adminProfile) {
+      showAdmin(user, window._adminProfile);
+    } else {
+      showView('view-login');
+    }
+    window.location.hash = '';
+  }
 }
 window.addEventListener('hashchange', checkHash);
-setTimeout(checkHash, 500);
+// Run on load — but wait for auth state listener to set window._currentUser first
+setTimeout(checkHash, 1500);
 
 function setPreviewBanner(target, message = '', backLabel = '← กลับหน้า Admin') {
   const wrap = document.getElementById(`${target}-preview-banner`);

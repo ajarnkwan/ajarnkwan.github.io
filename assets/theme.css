@@ -119,6 +119,56 @@
   flex-shrink: 0;
 }
 
+/* Member status pill — shown when logged in (set by JS that reads localStorage) */
+.ak-member-pill {
+  display: none;  /* JS will toggle to inline-flex when logged in */
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 8px;
+  background: white;
+  border: 1px solid var(--ak-line-soft);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--ak-ink);
+  font-size: 13.5px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all .2s;
+}
+.ak-member-pill:hover {
+  border-color: var(--ak-ink);
+  transform: translateY(-1px);
+}
+.ak-member-pill .ak-pill-avatar {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--ak-accent);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Bai Jamjuree', sans-serif;
+  flex-shrink: 0;
+}
+.ak-member-pill .ak-pill-label {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+}
+.ak-member-pill.is-admin .ak-pill-avatar {
+  background: var(--ak-ink);
+}
+.ak-member-pill .ak-pill-arrow {
+  font-family: 'Space Mono', monospace;
+  color: var(--ak-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+@media (max-width: 540px) {
+  .ak-member-pill .ak-pill-label { display: none; }
+}
+
 /* ─── BUTTONS ────────────────────────────────────────────── */
 .ak-btn {
   font-family: var(--ak-font-body);
