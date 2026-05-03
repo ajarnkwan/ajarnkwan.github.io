@@ -201,14 +201,16 @@ function renderMemberRow(m, index) {
 
   return `
     <tr>
-      <td>${index}</td>
-      <td>${escapeHtml(m.memberNum || '-')}</td>
-      <td>${escapeHtml(m.name || '-')}</td>
-      <td>${escapeHtml(m.education || '-')}</td>
-      <td>${escapeHtml(m.occupation || '-')}</td>
-      <td>${escapeHtml(interestsText || '-')}</td>
-      <td>${escapeHtml(referralsText || '-')}</td>
-      <td>${escapeHtml(formatJoinedAt(m.joinedAt, true))}</td>
+      <td class="t-num">${index}</td>
+      <td class="t-id"><span class="t-id-val">${escapeHtml(m.memberNum || '-')}</span></td>
+      <td>
+        <div class="t-name">${escapeHtml(m.name || '-')}</div>
+        <div class="t-sub">${escapeHtml(m.education || '—')}</div>
+      </td>
+      <td class="t-occ">${escapeHtml(m.occupation || '-')}</td>
+      <td class="t-int">${escapeHtml(interestsText || '-')}</td>
+      <td class="t-src">${escapeHtml(referralsText || '-')}</td>
+      <td class="t-date">${escapeHtml(formatJoinedAt(m.joinedAt, true))}</td>
     </tr>
   `;
 }
@@ -672,7 +674,7 @@ window.loadMembers = async (reset = true) => {
     if (reset) {
       window._lastMemberDoc = null;
       window._loadedMembers = 0;
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>';
       loadMoreBtn.style.display = 'none';
     }
 
@@ -703,7 +705,7 @@ window.loadMembers = async (reset = true) => {
     }
 
     if (members.length === 0 && reset) {
-      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">ยังไม่มีสมาชิกค่ะ</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">ยังไม่มีสมาชิกค่ะ</td></tr>';
       statusEl.textContent = 'แสดง 0 รายการ';
       loadMoreBtn.style.display = 'none';
       return;
@@ -842,6 +844,21 @@ function showHub(user, data, options = {}) {
   document.getElementById('hub-greeting').textContent = first;
   document.getElementById('hub-member-name').textContent = data.name||'';
   document.getElementById('hub-member-num').textContent  = 'No. '+(data.memberNum||'—');
+  
+  // Days since joined (real stat)
+  const daysEl = document.getElementById('hub-stat-days');
+  if (daysEl) {
+    if (data.joinedAt) {
+      const joinedDate = new Date(data.joinedAt);
+      const now = new Date();
+      const diffMs = now - joinedDate;
+      const days = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+      daysEl.textContent = days === 0 ? 'วันนี้' : days;
+    } else {
+      daysEl.textContent = '—';
+    }
+  }
+  
   const av = document.getElementById('hub-avatar');
   if (av) {
     if (data.photoURL) {
@@ -852,7 +869,145 @@ function showHub(user, data, options = {}) {
       av.style.display='none';
     }
   }
+  
+  // Render Word of the Week + Quote of the Day (rotation by date)
+  renderDailyContent();
+  
   setPreviewBanner('hub', options.previewMessage || '');
+}
+
+// ─── Word of the Week + Quote of the Day rotation system ──────
+// Rotates automatically by date. No backend needed.
+
+const HUB_WORDS = [
+  { en: 'Inflation', ph: '/ɪnˈfleɪʃn/', th: 'ภาวะเงินเฟ้อ — ราคาสินค้าโดยรวมสูงขึ้น', ex: "Thailand's inflation rate was 2.5% in 2025, lower than the global average." },
+  { en: 'Demand', ph: '/dɪˈmænd/', th: 'อุปสงค์ — ความต้องการซื้อสินค้าที่ราคาต่างๆ', ex: "When prices rise, demand usually falls — that's the law of demand." },
+  { en: 'Supply', ph: '/səˈplaɪ/', th: 'อุปทาน — ปริมาณสินค้าที่ผู้ขายต้องการขาย', ex: "Higher prices encourage producers to increase supply." },
+  { en: 'GDP', ph: '/ˌdʒiːdiːˈpiː/', th: 'ผลิตภัณฑ์มวลรวมในประเทศ — มูลค่าสินค้าและบริการทั้งหมด', ex: "Thailand's GDP grew by 1.9% in 2024, driven by tourism recovery." },
+  { en: 'Unemployment', ph: '/ˌʌnɪmˈplɔɪmənt/', th: 'การว่างงาน — สัดส่วนของแรงงานที่หางานทำไม่ได้', ex: "The unemployment rate fell to 0.9% in Q1 2025." },
+  { en: 'Recession', ph: '/rɪˈseʃn/', th: 'ภาวะเศรษฐกิจถดถอย — GDP ติดลบ 2 ไตรมาสติดต่อกัน', ex: "Economists worried about a possible recession in 2025." },
+  { en: 'Equilibrium', ph: '/ˌiːkwɪˈlɪbriəm/', th: 'จุดดุลยภาพ — จุดที่อุปสงค์เท่ากับอุปทาน', ex: "Market equilibrium is reached when supply meets demand." },
+  { en: 'Elasticity', ph: '/ˌiːlæˈstɪsəti/', th: 'ความยืดหยุ่น — การตอบสนองของอุปสงค์ต่อการเปลี่ยนแปลง', ex: "Luxury goods tend to have high price elasticity of demand." },
+  { en: 'Opportunity Cost', ph: '/ˌɒpəˈtjuːnəti kɒst/', th: 'ต้นทุนค่าเสียโอกาส — สิ่งที่เสียไปเมื่อเลือกอย่างหนึ่ง', ex: "The opportunity cost of college is the income you could have earned." },
+  { en: 'Marginal', ph: '/ˈmɑːdʒɪnl/', th: 'ส่วนเพิ่ม — การเปลี่ยนแปลงทีละหน่วย', ex: "Marginal cost is the cost of producing one more unit." },
+  { en: 'Monopoly', ph: '/məˈnɒpəli/', th: 'การผูกขาด — ตลาดที่มีผู้ขายรายเดียว', ex: "A monopoly can set prices without competition." },
+  { en: 'Externality', ph: '/ˌekstɜːˈnæləti/', th: 'ผลกระทบภายนอก — ผลที่กระทบคนนอกธุรกรรม', ex: "Air pollution is a negative externality of factory production." },
+  { en: 'Subsidy', ph: '/ˈsʌbsədi/', th: 'เงินอุดหนุน — เงินที่รัฐจ่ายเพื่อสนับสนุนกิจกรรม', ex: "The government provides subsidies to farmers during droughts." },
+  { en: 'Tariff', ph: '/ˈtærɪf/', th: 'ภาษีศุลกากร — ภาษีนำเข้าสินค้าจากต่างประเทศ', ex: "Higher tariffs on imports protect domestic industries." },
+  { en: 'Fiscal Policy', ph: '/ˈfɪskl ˈpɒləsi/', th: 'นโยบายการคลัง — การใช้จ่ายและภาษีของรัฐ', ex: "Expansionary fiscal policy aims to boost economic growth." },
+  { en: 'Monetary Policy', ph: '/ˈmʌnɪtri ˈpɒləsi/', th: 'นโยบายการเงิน — การควบคุมปริมาณเงินโดยธนาคารกลาง', ex: "The central bank uses monetary policy to control inflation." },
+  { en: 'Interest Rate', ph: '/ˈɪntrəst reɪt/', th: 'อัตราดอกเบี้ย — ราคาของการกู้ยืมเงิน', ex: "When interest rates rise, borrowing becomes more expensive." },
+  { en: 'Exchange Rate', ph: '/ɪksˈtʃeɪndʒ reɪt/', th: 'อัตราแลกเปลี่ยน — ราคาของเงินสกุลหนึ่งในอีกสกุล', ex: "A weaker baht makes Thai exports cheaper for foreign buyers." },
+  { en: 'Capital', ph: '/ˈkæpɪtl/', th: 'ทุน — ทรัพยากรที่ใช้ผลิตสินค้า', ex: "Investment in human capital boosts long-term growth." },
+  { en: 'Labor', ph: '/ˈleɪbə/', th: 'แรงงาน — การทำงานของมนุษย์ในกระบวนการผลิต', ex: "Thailand's labor productivity has been growing slowly." },
+  { en: 'Productivity', ph: '/ˌprɒdʌkˈtɪvəti/', th: 'ผลิตภาพ — ผลผลิตต่อหน่วยปัจจัยการผลิต', ex: "Higher productivity allows workers to earn more." },
+  { en: 'Trade Deficit', ph: '/treɪd ˈdefɪsɪt/', th: 'การขาดดุลการค้า — นำเข้ามากกว่าส่งออก', ex: "The country has run a trade deficit for three years." },
+  { en: 'Surplus', ph: '/ˈsɜːpləs/', th: 'ส่วนเกิน — เมื่ออุปทานมากกว่าอุปสงค์', ex: "An agricultural surplus pushes prices down." },
+  { en: 'Bubble', ph: '/ˈbʌbl/', th: 'ภาวะฟองสบู่ — ราคาสินทรัพย์สูงเกินมูลค่าจริง', ex: "The housing bubble burst in 2008." },
+  { en: 'Liquidity', ph: '/lɪˈkwɪdəti/', th: 'สภาพคล่อง — ความสามารถในการเปลี่ยนเป็นเงินสด', ex: "Cash has the highest liquidity of all assets." },
+  { en: 'Stagflation', ph: '/stæɡˈfleɪʃn/', th: 'ภาวะเงินเฟ้อขณะเศรษฐกิจซบเซา — ทั้งราคาขึ้น+ว่างงานสูง', ex: "Stagflation in the 1970s puzzled economists for years." },
+  { en: 'Deflation', ph: '/diːˈfleɪʃn/', th: 'ภาวะเงินฝืด — ราคาสินค้าลดลงต่อเนื่อง', ex: "Deflation can be more dangerous than mild inflation." },
+  { en: 'Income Inequality', ph: '/ˈɪnkʌm ˌɪnɪˈkwɒləti/', th: 'ความเหลื่อมล้ำของรายได้ — การกระจายรายได้ไม่เท่ากัน', ex: "Income inequality has risen in many developed countries." },
+  { en: 'Externalities', ph: '/ˌekstɜːˈnælətiz/', th: 'ผลกระทบภายนอก — ทั้งบวกและลบที่กระทบคนอื่น', ex: "Education has positive externalities for society." },
+  { en: 'Public Good', ph: '/ˈpʌblɪk ɡʊd/', th: 'สินค้าสาธารณะ — ใช้ร่วมกันได้ ไม่กีดกันใคร', ex: "National defense is a classic public good." },
+  { en: 'Game Theory', ph: '/ɡeɪm ˈθɪəri/', th: 'ทฤษฎีเกม — การวิเคราะห์การตัดสินใจเชิงกลยุทธ์', ex: "Game theory helps economists analyze auctions." },
+  { en: 'Regression', ph: '/rɪˈɡreʃn/', th: 'การถดถอย — เทคนิคทางสถิติหาความสัมพันธ์', ex: "Linear regression is the foundation of econometrics." },
+  { en: 'Correlation', ph: '/ˌkɒrəˈleɪʃn/', th: 'ความสัมพันธ์ระหว่างตัวแปร — ไม่ใช่สาเหตุเสมอไป', ex: "Correlation does not imply causation." },
+  { en: 'Hypothesis', ph: '/haɪˈpɒθəsɪs/', th: 'สมมุติฐาน — ข้อเสนอที่ต้องทดสอบ', ex: "We tested the hypothesis that minimum wage reduces employment." },
+  { en: 'Sample', ph: '/ˈsɑːmpl/', th: 'ตัวอย่าง — กลุ่มย่อยที่ใช้ศึกษา', ex: "A larger sample size gives more reliable results." },
+  { en: 'Variance', ph: '/ˈveəriəns/', th: 'ความแปรปรวน — การกระจายตัวของข้อมูล', ex: "High variance means the data is spread out widely." },
+  { en: 'Bias', ph: '/ˈbaɪəs/', th: 'อคติ — ความเบี่ยงเบนจากค่าที่แท้จริง', ex: "Selection bias can distort survey results." },
+  { en: 'Confidence Interval', ph: '/ˈkɒnfɪdəns ˈɪntəvl/', th: 'ช่วงความเชื่อมั่น — ช่วงที่คาดว่ามีค่าจริงอยู่', ex: "The 95% confidence interval was 2.1 to 2.9 percent." },
+  { en: 'Comparative Advantage', ph: '/kəmˈpærətɪv ədˈvɑːntɪdʒ/', th: 'ความได้เปรียบเชิงเปรียบเทียบ — ผลิตได้ในต้นทุนต่ำกว่า', ex: "Thailand has a comparative advantage in rice production." },
+  { en: 'Globalization', ph: '/ˌɡləʊbəlaɪˈzeɪʃn/', th: 'โลกาภิวัตน์ — การเชื่อมโยงเศรษฐกิจทั่วโลก', ex: "Globalization has lifted millions out of poverty." },
+  { en: 'Sustainability', ph: '/səˌsteɪnəˈbɪləti/', th: 'ความยั่งยืน — สมดุลของเศรษฐกิจ สังคม สิ่งแวดล้อม', ex: "Sustainability is becoming central to corporate strategy." },
+  { en: 'Gini Coefficient', ph: '/ˈdʒiːni ˌkəʊɪˈfɪʃnt/', th: 'ค่าจินี — ตัววัดความเหลื่อมล้ำของรายได้', ex: "Thailand's Gini coefficient has been gradually declining." },
+  { en: 'Behavioral Economics', ph: '/bɪˈheɪvjərəl ˌekəˈnɒmɪks/', th: 'เศรษฐศาสตร์พฤติกรรม — รวมจิตวิทยากับเศรษฐศาสตร์', ex: "Behavioral economics shows that people aren't always rational." },
+  { en: 'Sunk Cost', ph: '/sʌŋk kɒst/', th: 'ต้นทุนจม — เงินที่จ่ายไปแล้วเรียกคืนไม่ได้', ex: "Don't let sunk costs influence future decisions." },
+  { en: 'Moral Hazard', ph: '/ˈmɒrəl ˈhæzəd/', th: 'พฤติกรรมเสี่ยงเมื่อมีคนรับผิดชอบแทน', ex: "Insurance can create moral hazard if not designed well." },
+  { en: 'Information Asymmetry', ph: '/ˌɪnfəˈmeɪʃn ˌeɪˈsɪmətri/', th: 'ความไม่สมมาตรของข้อมูล — ฝ่ายหนึ่งรู้มากกว่า', ex: "Information asymmetry between buyers and sellers can cause market failure." },
+  { en: 'Network Effect', ph: '/ˈnetwɜːk ɪˈfekt/', th: 'ผลกระทบจากเครือข่าย — ยิ่งใช้มาก ยิ่งมีค่ามาก', ex: "Social media platforms benefit from strong network effects." },
+  { en: 'Market Failure', ph: '/ˈmɑːkɪt ˈfeɪljə/', th: 'ความล้มเหลวของตลาด — ตลาดไม่จัดสรรทรัพยากรอย่างมีประสิทธิภาพ', ex: "Pollution is a classic example of market failure." },
+  { en: 'Welfare', ph: '/ˈwelfeə/', th: 'สวัสดิการ — ความเป็นอยู่ที่ดีของสังคม', ex: "Welfare economics studies how to improve social well-being." },
+  { en: 'Aggregate Demand', ph: '/ˈæɡrɪɡət dɪˈmænd/', th: 'อุปสงค์มวลรวม — ความต้องการสินค้าทั้งระบบเศรษฐกิจ', ex: "A drop in aggregate demand can trigger a recession." },
+  { en: 'Multiplier Effect', ph: '/ˈmʌltɪplaɪə ɪˈfekt/', th: 'ผลทวีคูณ — เงินที่ใช้จ่ายส่งผลต่อเนื่อง', ex: "Government spending creates a multiplier effect on the economy." },
+  { en: 'Yield Curve', ph: '/jiːld kɜːv/', th: 'เส้นผลตอบแทน — ดอกเบี้ยพันธบัตรตามอายุ', ex: "An inverted yield curve often signals a coming recession." },
+];
+
+const HUB_QUOTES = [
+  { text: "Economics is everything that happens between you waking up and going to sleep.", attrib: "Tim Harford", source: "The Undercover Economist" },
+  { text: "The first lesson of economics is scarcity: there is never enough of anything to satisfy all those who want it.", attrib: "Thomas Sowell" },
+  { text: "An economist is an expert who will know tomorrow why the things he predicted yesterday didn't happen today.", attrib: "Laurence J. Peter" },
+  { text: "In the long run, we are all dead.", attrib: "John Maynard Keynes" },
+  { text: "It is not from the benevolence of the butcher, the brewer, or the baker that we expect our dinner, but from their regard to their own interest.", attrib: "Adam Smith", source: "The Wealth of Nations" },
+  { text: "The curious task of economics is to demonstrate to men how little they really know about what they imagine they can design.", attrib: "Friedrich Hayek" },
+  { text: "Inflation is taxation without legislation.", attrib: "Milton Friedman" },
+  { text: "Markets can remain irrational longer than you can remain solvent.", attrib: "John Maynard Keynes" },
+  { text: "Recessions catch what the auditors miss.", attrib: "Anonymous" },
+  { text: "The four most expensive words in the English language are 'this time it's different.'", attrib: "Sir John Templeton" },
+  { text: "An investment in knowledge pays the best interest.", attrib: "Benjamin Franklin" },
+  { text: "Risk comes from not knowing what you're doing.", attrib: "Warren Buffett" },
+  { text: "Capitalism without bankruptcy is like Christianity without hell.", attrib: "Frank Borman" },
+  { text: "The stock market is filled with individuals who know the price of everything, but the value of nothing.", attrib: "Phillip Fisher" },
+  { text: "If you don't know who you are, the stock market is an expensive place to find out.", attrib: "Adam Smith (George Goodman)" },
+  { text: "Compound interest is the eighth wonder of the world. He who understands it, earns it; he who doesn't, pays it.", attrib: "Albert Einstein" },
+  { text: "Price is what you pay. Value is what you get.", attrib: "Warren Buffett" },
+  { text: "The poor stay poor not because they are lazy but because they have no chance to be other than poor.", attrib: "Esther Duflo", source: "Nobel Laureate" },
+  { text: "Economic development is something much more than economic growth.", attrib: "Amartya Sen" },
+  { text: "Hidden in your decision today is your tomorrow.", attrib: "Daniel Kahneman", source: "Thinking, Fast and Slow" },
+  { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", attrib: "Aristotle" },
+  { text: "Behavioral economics is just economics done right.", attrib: "Richard Thaler", source: "Nobel Laureate" },
+  { text: "Money is a terrible master but an excellent servant.", attrib: "P.T. Barnum" },
+  { text: "The best investment you can make is in yourself.", attrib: "Warren Buffett" },
+  { text: "Anyone who has never made a mistake has never tried anything new.", attrib: "Albert Einstein" },
+  { text: "It is hard to make predictions, especially about the future.", attrib: "Niels Bohr" },
+  { text: "Time is more valuable than money. You can get more money, but you cannot get more time.", attrib: "Jim Rohn" },
+  { text: "Don't tell me what you value, show me your budget.", attrib: "Joe Biden" },
+  { text: "A business that makes nothing but money is a poor business.", attrib: "Henry Ford" },
+  { text: "Wealth consists not in having great possessions, but in having few wants.", attrib: "Epictetus" },
+];
+
+function renderDailyContent() {
+  // Day index since epoch (UTC) — same value for all users worldwide on same day
+  const epochMs = Date.UTC(1970, 0, 1);
+  const todayMs = Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate());
+  const daysSinceEpoch = Math.floor((todayMs - epochMs) / (1000 * 60 * 60 * 24));
+  
+  // Word of the WEEK — changes every 7 days
+  const weekIndex = Math.floor(daysSinceEpoch / 7) % HUB_WORDS.length;
+  const word = HUB_WORDS[weekIndex];
+  const weekNum = (Math.floor(daysSinceEpoch / 7) % 53) + 1; // 1-53
+  
+  // Quote of the DAY — changes every day
+  const dayIndex = daysSinceEpoch % HUB_QUOTES.length;
+  const quote = HUB_QUOTES[dayIndex];
+  
+  // Render Word
+  const elWordEn = document.getElementById('daily-word-en');
+  const elWordPh = document.getElementById('daily-word-ph');
+  const elWordTh = document.getElementById('daily-word-th');
+  const elWordEx = document.getElementById('daily-word-ex');
+  const elWeekNum = document.getElementById('daily-week-num');
+  if (elWordEn) elWordEn.textContent = word.en;
+  if (elWordPh) elWordPh.textContent = word.ph;
+  if (elWordTh) elWordTh.textContent = word.th;
+  if (elWordEx) elWordEx.textContent = `"${word.ex}"`;
+  if (elWeekNum) elWeekNum.textContent = `WEEK ${weekNum}`;
+  
+  // Render Quote
+  const elQuote = document.getElementById('daily-quote-text');
+  const elAttrib = document.getElementById('daily-quote-attrib');
+  const elDayNum = document.getElementById('daily-day-num');
+  if (elQuote) elQuote.textContent = `"${quote.text}"`;
+  if (elAttrib) {
+    const sourceTxt = quote.source ? `, ${quote.source}` : '';
+    elAttrib.innerHTML = `— ${escapeHtml(quote.attrib)}${quote.source ? ', <em>' + escapeHtml(quote.source) + '</em>' : ''}`;
+  }
+  if (elDayNum) {
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    elDayNum.textContent = `DAY ${dayOfYear}`;
+  }
 }
 
 function showAdmin(user, adminProfile) {
@@ -3304,6 +3459,207 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--ink-mute);
 }
 
+/* ─── HUB STATS STRIP ─── */
+#view-hub .hub-stats {
+  background: white;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  padding: 22px 32px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+#view-hub .hub-stat { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+#view-hub .hub-stat-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(36px, 5vw, 52px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+#view-hub .hub-stat-num .hub-stat-unit {
+  font-size: 0.55em;
+  color: var(--accent);
+  vertical-align: super;
+  margin-left: 2px;
+}
+#view-hub .hub-stat-label {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 500;
+  font-size: 14.5px;
+  color: var(--ink-mute);
+  letter-spacing: 0.02em;
+}
+#view-hub .hub-stat-divider {
+  width: 1px;
+  height: 50px;
+  background: var(--line-soft);
+}
+@media (max-width: 700px) {
+  #view-hub .hub-stats {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 20px 24px;
+  }
+  #view-hub .hub-stat-divider { display: none; }
+}
+
+/* ─── DAILY (Word + Quote) ─── */
+#view-hub .daily-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 60px;
+}
+#view-hub .daily-card {
+  background: white;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#view-hub .daily-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+#view-hub .daily-tag-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+#view-hub .daily-week-pill {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+#view-hub .daily-word-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+#view-hub .daily-word-en {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1;
+}
+#view-hub .daily-word-ph {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+#view-hub .daily-word-th {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--ink);
+  margin-top: 4px;
+}
+#view-hub .daily-example {
+  background: var(--bg);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--ink-mute);
+  line-height: 1.6;
+}
+#view-hub .daily-example em { font-style: italic; }
+#view-hub .daily-quote {
+  font-family: Georgia, 'Noto Serif Thai', serif;
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+}
+#view-hub .daily-attrib {
+  font-size: 13px;
+  color: var(--ink-mute);
+}
+#view-hub .daily-attrib em { color: var(--ink); font-style: italic; }
+#view-hub .daily-link {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent);
+  align-self: flex-start;
+  padding-bottom: 1px;
+  margin-top: auto;
+  transition: border-color .2s;
+}
+#view-hub .daily-link:hover { border-color: var(--ink); }
+@media (max-width: 700px) {
+  #view-hub .daily-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── PATHFINDER (CARDS GRID) ─── */
+#view-hub .pf-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+#view-hub .pf-card {
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  padding: 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .2s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#view-hub .pf-card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -8px rgba(14,13,11,0.12);
+}
+#view-hub .pf-icon { font-size: 26px; margin-bottom: 6px; }
+#view-hub .pf-card .pf-cond {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+#view-hub .pf-card .pf-target {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+#view-hub .pf-card.pf-soon {
+  opacity: 0.55;
+  pointer-events: none;
+}
+#view-hub .pf-card.pf-soon .pf-target { color: var(--ink-soft); }
+@media (max-width: 700px) {
+  #view-hub .pf-cards { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  #view-hub .pf-cards { grid-template-columns: 1fr; }
+}
+
 /* ─── PATHFINDER ─── */
 #view-hub .pathfinder {
   background: white;
@@ -3648,6 +4004,336 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .hub-greeting { animation-delay: .1s; }
 #view-hub .hub-hero-sub { animation-delay: .2s; }
 #view-hub .member-card { animation-delay: .3s; }
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN v2 redesign — scoped to #view-admin (matches landing v4)
+   ═══════════════════════════════════════════════════════════ */
+#view-admin {
+  --bg: #F2EBDD;
+  --bg-soft: #EDE5D3;
+  --ink: #0E0D0B;
+  --ink-mute: #5C544A;
+  --ink-soft: #8A8074;
+  --accent: #C2A878;
+  --accent-soft: #DECDA9;
+  --line-soft: rgba(14,13,11,0.12);
+
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: none !important;
+}
+#view-admin .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+#view-admin .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  padding: 18px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s;
+}
+#view-admin .topbar.scrolled { border-bottom-color: var(--line-soft); }
+#view-admin .topbar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#view-admin .brand {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex; align-items: baseline; gap: 4px;
+}
+#view-admin .brand .dot { color: var(--accent); font-size: 30px; line-height: 0; }
+#view-admin .logout-btn {
+  background: transparent;
+  color: var(--ink);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1.5px solid var(--ink);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .2s;
+}
+#view-admin .logout-btn:hover { background: var(--ink); color: var(--bg); }
+
+/* HERO */
+#view-admin .adm-hero {
+  padding: 60px 0 30px;
+}
+#view-admin .adm-byline {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+#view-admin .adm-title {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 700;
+  font-size: clamp(48px, 7vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+#view-admin .adm-email {
+  font-size: 15px;
+  color: var(--ink-mute);
+}
+#view-admin .adm-email-val {
+  font-family: 'Space Mono', monospace;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+/* STATS */
+#view-admin .adm-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+#view-admin .adm-stat {
+  background: white;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  padding: 28px 28px 24px;
+}
+#view-admin .adm-stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+#view-admin .adm-stat-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(56px, 8vw, 80px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+#view-admin .adm-stat-num.adm-stat-accent { color: var(--accent); }
+#view-admin .adm-stat-sub {
+  font-size: 13px;
+  color: var(--ink-mute);
+  margin-top: 8px;
+}
+
+/* ACTIONS row */
+#view-admin .adm-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: white;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin-bottom: 36px;
+}
+#view-admin .adm-action-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+#view-admin .adm-action-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-right: 8px;
+  font-weight: 700;
+}
+#view-admin .adm-pill {
+  background: transparent;
+  color: var(--ink);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line-soft);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all .2s;
+}
+#view-admin .adm-pill:hover { border-color: var(--ink); transform: translateY(-1px); }
+#view-admin .adm-btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform .2s;
+}
+#view-admin .adm-btn-primary:hover { transform: translateY(-1px); }
+
+/* ERROR */
+#view-admin .err-msg {
+  font-size: 14px;
+  color: #C24B4B;
+}
+#view-admin .err-msg:empty { display: none; }
+
+/* SECTION TITLE */
+#view-admin .section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1.5px solid var(--ink);
+}
+#view-admin .section-title-en {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+#view-admin .section-title-th {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink-mute);
+}
+
+/* TABLE */
+#view-admin .adm-table-wrap {
+  background: white;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+#view-admin .adm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+#view-admin .adm-table thead th {
+  background: var(--bg);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 14px 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: left;
+}
+#view-admin .adm-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(14,13,11,0.05);
+  vertical-align: top;
+  color: var(--ink);
+}
+#view-admin .adm-table tbody tr:last-child td { border-bottom: none; }
+#view-admin .adm-table tbody tr:hover { background: var(--bg-soft); transition: background .15s; }
+
+#view-admin .adm-table .t-num {
+  font-family: 'Space Mono', monospace;
+  color: var(--ink-soft);
+  width: 36px;
+  font-size: 13px;
+}
+#view-admin .adm-table .t-id { width: 110px; }
+#view-admin .adm-table .t-id-val {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+#view-admin .adm-table .t-name {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+}
+#view-admin .adm-table .t-sub {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+#view-admin .adm-table .t-occ,
+#view-admin .adm-table .t-int,
+#view-admin .adm-table .t-src {
+  font-size: 13px;
+  color: var(--ink-mute);
+}
+#view-admin .adm-table .t-int { max-width: 200px; }
+#view-admin .adm-table .t-src { max-width: 160px; }
+#view-admin .adm-table .t-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  text-align: right;
+}
+
+#view-admin .adm-btn-loadmore {
+  width: 100%;
+  background: transparent;
+  color: var(--ink-mute);
+  padding: 14px;
+  border: 1px dashed var(--line-soft);
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  margin-bottom: 60px;
+  transition: all .2s;
+}
+#view-admin .adm-btn-loadmore:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  border-style: solid;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  #view-admin .adm-stats { grid-template-columns: 1fr; }
+  #view-admin .adm-actions { flex-direction: column; align-items: stretch; }
+  #view-admin .adm-action-group { justify-content: flex-start; }
+  #view-admin .adm-table { font-size: 12px; }
+  #view-admin .adm-table thead th,
+  #view-admin .adm-table tbody td { padding: 10px 8px; }
+}
+@media (max-width: 600px) {
+  #view-admin .adm-table .t-int,
+  #view-admin .adm-table .t-src { display: none; }
+}
 
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -4549,7 +5235,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
         <div>
           <h1 class="hub-greeting">สวัสดีค่ะ,<br><span class="accent-name" id="hub-greeting">ajarn.kwan</span>!</h1>
           <p class="hub-hero-sub">
-            ยินดีต้อนรับเข้าสู่ Self-Learning Centre อยากเริ่มเรียนตรงไหน เลือกได้เลย หรือถ้าไม่แน่ใจ ลองดู Pathfinder ด้านล่างนะคะ
+            วันนี้เรียนอะไรกันดีคะ? เลือกหลักสูตรด้านล่าง หรือถ้าไม่แน่ใจ ลอง <strong>Pathfinder</strong> ด้านล่างเพื่อหาเส้นทางที่ใช่
           </p>
         </div>
         <div class="member-card">
@@ -4570,6 +5256,24 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   </section>
 
   <div class="container">
+    <!-- ─── STATS STRIP (ตัวเลขจริง) ─── -->
+    <div class="hub-stats">
+      <div class="hub-stat">
+        <div class="hub-stat-num" id="hub-stat-days">—</div>
+        <div class="hub-stat-label">วันที่เป็นสมาชิก</div>
+      </div>
+      <div class="hub-stat-divider"></div>
+      <div class="hub-stat">
+        <div class="hub-stat-num">22<span class="hub-stat-unit">+</span></div>
+        <div class="hub-stat-label">บทเรียนรอเรียน</div>
+      </div>
+      <div class="hub-stat-divider"></div>
+      <div class="hub-stat">
+        <div class="hub-stat-num">3</div>
+        <div class="hub-stat-label">ของฟรีพร้อมโหลด</div>
+      </div>
+    </div>
+
     <!-- Preview banner (admin) -->
     <div class="preview-banner" id="hub-preview-banner">
       <div class="preview-banner-text">โหมดพรีวิวสำหรับผู้ดูแล: กำลังดูหน้าฝั่งสมาชิกด้วยข้อมูลตัวอย่าง</div>
@@ -4582,33 +5286,43 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       <span class="section-title-th">คอร์สเรียน</span>
     </div>
 
-    <!-- Pathfinder -->
+    <!-- Pathfinder (Cards 6 ตัวเลือก) -->
     <div class="pathfinder">
       <div class="pf-title">
         <span class="pf-em">🧭</span>
         <span>ไม่รู้จะเริ่มตรงไหนดีคะ?</span>
       </div>
-      <div class="pf-options">
-        <a href="econ-math-readiness/" class="pf-opt">
-          <span class="pf-cond">ฉันกลัวเลข</span>
-          <span class="pf-target">→ Math &amp; Stats for Econ</span>
+      <div class="pf-cards">
+        <a href="econ-math-readiness/" class="pf-card">
+          <div class="pf-icon">🔢</div>
+          <div class="pf-cond">ฉันกลัวเลข</div>
+          <div class="pf-target">→ Math Readiness</div>
         </a>
-        <a href="microeconomics/" class="pf-opt">
-          <span class="pf-cond">อยากเข้าใจตลาด</span>
-          <span class="pf-target">→ Microeconomics Theory</span>
+        <a href="microeconomics/" class="pf-card">
+          <div class="pf-icon">📈</div>
+          <div class="pf-cond">อยากเข้าใจตลาด</div>
+          <div class="pf-target">→ Microeconomics</div>
         </a>
-        <a href="econometrics/" class="pf-opt">
-          <span class="pf-cond">อยากวิเคราะห์ข้อมูล</span>
-          <span class="pf-target">→ Intro to Econometrics</span>
+        <a href="econometrics/" class="pf-card">
+          <div class="pf-icon">📊</div>
+          <div class="pf-cond">อยากวิเคราะห์ข้อมูล</div>
+          <div class="pf-target">→ Econometrics</div>
         </a>
-        <a href="vocab/" class="pf-opt">
-          <span class="pf-cond">อยากจำศัพท์</span>
-          <span class="pf-target">→ คลังศัพท์เศรษฐศาสตร์</span>
+        <a href="vocab/" class="pf-card">
+          <div class="pf-icon">📚</div>
+          <div class="pf-cond">อยากจำศัพท์</div>
+          <div class="pf-target">→ Econ English</div>
         </a>
-        <a href="vibe-coding/" class="pf-opt">
-          <span class="pf-cond">อยากใช้ AI ทำงาน</span>
-          <span class="pf-target">→ Vibe Coding</span>
+        <a href="vibe-coding/" class="pf-card">
+          <div class="pf-icon">🤖</div>
+          <div class="pf-cond">อยากใช้ AI ทำงาน</div>
+          <div class="pf-target">→ Vibe Coding</div>
         </a>
+        <div class="pf-card pf-soon">
+          <div class="pf-icon">💰</div>
+          <div class="pf-cond">วางแผนการเงิน</div>
+          <div class="pf-target">เร็วๆ นี้</div>
+        </div>
       </div>
     </div>
 
@@ -4738,6 +5452,39 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       </div>
     </div>
 
+    <!-- ─── DAILY · Word + Quote ─── -->
+    <div class="section-title">
+      <span class="section-title-en">DAILY</span>
+      <span class="section-title-th">วันนี้มีอะไรใหม่</span>
+    </div>
+    <div class="daily-grid">
+      <article class="daily-card">
+        <div class="daily-tag-row">
+          <span class="daily-tag">WORD OF THE WEEK · ศัพท์ประจำสัปดาห์</span>
+          <span class="daily-week-pill" id="daily-week-num">WEEK —</span>
+        </div>
+        <div class="daily-word-row">
+          <div class="daily-word-en" id="daily-word-en">—</div>
+          <div class="daily-word-ph" id="daily-word-ph">—</div>
+        </div>
+        <div class="daily-word-th" id="daily-word-th">—</div>
+        <div class="daily-example">
+          <em id="daily-word-ex">—</em>
+        </div>
+        <a href="vocab/" class="daily-link">ดูศัพท์ทั้งหมด →</a>
+      </article>
+
+      <article class="daily-card">
+        <div class="daily-tag-row">
+          <span class="daily-tag">QUOTE OF THE DAY · คำคมวันนี้</span>
+          <span class="daily-week-pill" id="daily-day-num">DAY —</span>
+        </div>
+        <blockquote class="daily-quote" id="daily-quote-text">—</blockquote>
+        <div class="daily-attrib" id="daily-quote-attrib">—</div>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" class="daily-link">รับ Quote ใหม่ทุกวันทาง Line OA →</a>
+      </article>
+    </div>
+
     <!-- FREEBIES -->
     <div class="section-title">
       <span class="section-title-en">FREEBIES</span>
@@ -4817,74 +5564,83 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   </footer>
 </div>
 
-<!-- ══ ADMIN ══ -->
-<div class="admin-card" id="view-admin">
-  <div class="stripe"></div>
-  <div class="admin-hero">
-    <div class="admin-title">👩‍🏫 Admin Dashboard</div>
-    <div class="admin-sub">ล็อกอินในฐานะ: <span id="admin-email"></span></div>
-  </div>
-  <div class="admin-body">
+<!-- ══ ADMIN (v2 redesign) ══ -->
+<div class="card" id="view-admin">
+  <nav class="topbar" id="admin-topbar">
+    <div class="topbar-inner">
+      <a href="#" class="brand">AJARN<span class="dot">.</span>KWAN</a>
+      <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
+    </div>
+  </nav>
 
+  <section class="adm-hero">
+    <div class="container">
+      <div class="adm-byline">ADMIN PANEL · ผู้ดูแลระบบ</div>
+      <h1 class="adm-title">Dashboard</h1>
+      <div class="adm-email">เข้าระบบในฐานะ <span id="admin-email" class="adm-email-val">—</span></div>
+    </div>
+  </section>
+
+  <div class="container">
     <!-- Stat cards row -->
-    <div class="admin-stats">
-      <div class="admin-stat-card">
-        <div class="ast-label">TOTAL · สมาชิกทั้งหมด</div>
-        <div class="ast-num" id="admin-stat-total">—</div>
+    <div class="adm-stats">
+      <div class="adm-stat">
+        <div class="adm-stat-label">TOTAL · ทั้งหมด</div>
+        <div class="adm-stat-num" id="admin-stat-total">—</div>
+        <div class="adm-stat-sub">สมาชิก</div>
       </div>
-      <div class="admin-stat-card">
-        <div class="ast-label">THIS MONTH · เดือนนี้</div>
-        <div class="ast-num" id="admin-stat-month">—</div>
+      <div class="adm-stat">
+        <div class="adm-stat-label">THIS MONTH · เดือนนี้</div>
+        <div class="adm-stat-num adm-stat-accent" id="admin-stat-month">—</div>
+        <div class="adm-stat-sub">สมัครใหม่ในเดือนนี้</div>
       </div>
-      <div class="admin-stat-card">
-        <div class="ast-label">TODAY · วันนี้</div>
-        <div class="ast-num" id="admin-stat-today">—</div>
-      </div>
-    </div>
-
-    <!-- Action buttons grouped -->
-    <div class="admin-action-row">
-      <div class="admin-action-group">
-        <span class="admin-action-label">PREVIEW</span>
-        <button class="btn-admin-alt" onclick="previewLanding()">🏠 หน้าแรก</button>
-        <button class="btn-admin-alt" id="admin-preview-hub-btn" onclick="previewMemberHub()">👀 Member Hub</button>
-        <button class="btn-admin-alt" id="admin-preview-register-btn" onclick="previewRegisterFlow()">🧭 Register Flow</button>
-      </div>
-      <div class="admin-action-group">
-        <span class="admin-action-label">ACTIONS</span>
-        <button class="btn-refresh" onclick="loadMembers(true)">🔄 Refresh</button>
-        <button class="logout-btn" onclick="doLogout()">ออกจากระบบ</button>
+      <div class="adm-stat">
+        <div class="adm-stat-label">TODAY · วันนี้</div>
+        <div class="adm-stat-num" id="admin-stat-today">—</div>
+        <div class="adm-stat-sub">สมาชิกใหม่ของวัน</div>
       </div>
     </div>
 
-    <div class="err-msg" id="admin-err" style="margin-bottom:1rem"></div>
-
-    <!-- Members table header -->
-    <div class="admin-table-head">
-      <h3>📋 รายชื่อสมาชิก</h3>
-      <div class="admin-meta" id="admin-status">กำลังโหลดข้อมูล...</div>
+    <!-- Actions row -->
+    <div class="adm-actions">
+      <div class="adm-action-group">
+        <span class="adm-action-label">Preview as</span>
+        <button class="adm-pill" onclick="previewLanding()">หน้าแรก</button>
+        <button class="adm-pill" id="admin-preview-hub-btn" onclick="previewMemberHub()">Member Hub</button>
+        <button class="adm-pill" id="admin-preview-register-btn" onclick="previewRegisterFlow()">Register Flow</button>
+      </div>
+      <div class="adm-action-group">
+        <button class="adm-btn-primary" onclick="loadMembers(true)">↻ Refresh</button>
+      </div>
     </div>
 
-    <div class="admin-table-wrap">
-      <table class="members-table">
+    <div class="err-msg" id="admin-err" style="margin: 0 0 1rem"></div>
+
+    <!-- Members section -->
+    <div class="section-title">
+      <span class="section-title-en">MEMBERS</span>
+      <span class="section-title-th" id="admin-status">กำลังโหลด...</span>
+    </div>
+
+    <div class="adm-table-wrap">
+      <table class="adm-table">
         <thead>
           <tr>
-            <th>#</th>
-            <th>หมายเลขสมาชิก</th>
-            <th>ชื่อ</th>
-            <th>การศึกษา</th>
-            <th>อาชีพ</th>
-            <th>ความสนใจ</th>
-            <th>ที่มา</th>
-            <th>วัน-เวลาสมัคร</th>
+            <th class="t-num">#</th>
+            <th class="t-id">หมายเลข</th>
+            <th>ชื่อ · การศึกษา</th>
+            <th class="t-occ">อาชีพ</th>
+            <th class="t-int">ความสนใจ</th>
+            <th class="t-src">ที่มา</th>
+            <th class="t-date">วันสมัคร</th>
           </tr>
         </thead>
         <tbody id="admin-tbody">
-          <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted)">กำลังโหลดข้อมูล...</td></tr>
+          <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--ink-soft)">กำลังโหลดข้อมูล...</td></tr>
         </tbody>
       </table>
     </div>
-    <button class="btn-secondary" id="admin-load-more" onclick="loadMoreMembers()">โหลดเพิ่ม</button>
+    <button class="adm-btn-loadmore" id="admin-load-more" onclick="loadMoreMembers()">⌄ โหลดเพิ่มเติม</button>
   </div>
 </div>
 
@@ -4904,6 +5660,15 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
       else nav.classList.remove('scrolled');
     });
   }
+  
+  // Sticky topbar shadow for hub + admin
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 20;
+    const hubBar = document.querySelector('#view-hub .topbar');
+    const admBar = document.querySelector('#view-admin .topbar');
+    if (hubBar) hubBar.classList.toggle('scrolled', scrolled);
+    if (admBar) admBar.classList.toggle('scrolled', scrolled);
+  });
 
   // TRY-A-LESSON: Demand curve
   const priceSlider = document.getElementById('price');
