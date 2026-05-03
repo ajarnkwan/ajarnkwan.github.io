@@ -73,7 +73,7 @@
 }
 .ak-brand {
   font-family: var(--ak-font-display);
-  font-size: 20px;
+  font-size: 22px;
   letter-spacing: -0.02em;
   color: var(--ak-ink);
   text-decoration: none;
@@ -91,7 +91,7 @@
 
 .ak-breadcrumb {
   font-family: var(--ak-font-mono);
-  font-size: 12.5px;
+  font-size: 14.5px;
   letter-spacing: 0.12em;
   color: var(--ak-ink-soft);
   text-transform: uppercase;
@@ -122,7 +122,7 @@
 /* ─── BUTTONS ────────────────────────────────────────────── */
 .ak-btn {
   font-family: var(--ak-font-body);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 999px;
@@ -189,7 +189,7 @@
 .ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
 .ak-footer-group-title {
   font-family: var(--ak-font-display);
-  font-size: 12.5px;
+  font-size: 14.5px;
   letter-spacing: 0.18em;
   color: var(--ak-ink);
   text-transform: uppercase;
@@ -198,16 +198,16 @@
 .ak-footer-group a {
   color: var(--ak-ink-mute);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: color .2s;
 }
 .ak-footer-group a:hover { color: var(--ak-ink); }
 .ak-footer-group-brand { max-width: 280px; }
 .ak-footer-group-brand p {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--ak-ink-mute);
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 10px;
 }
 
@@ -221,7 +221,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--ak-ink);
   transition: all .2s;
   text-decoration: none;
@@ -243,14 +243,14 @@
   align-items: end;
   flex-wrap: wrap;
   gap: 16px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ak-ink-mute);
   line-height: 1.6;
 }
 .ak-footer-meta strong { color: var(--ak-ink); display: block; font-weight: 600; margin-bottom: 4px; }
 .ak-footer-meta-tag {
   font-family: var(--ak-font-mono);
-  font-size: 12.5px;
+  font-size: 14.5px;
   letter-spacing: 0.15em;
   color: var(--ak-ink-soft);
   text-transform: uppercase;
@@ -264,7 +264,7 @@
 }
 @media (max-width: 540px) {
   .ak-topbar-inner { padding: 0 16px; gap: 8px; }
-  .ak-btn { padding: 8px 14px; font-size: 14px; }
+  .ak-btn { padding: 8px 14px; font-size: 16px; }
   .ak-footer-inner { padding: 0 20px; }
   .ak-footer-groups { grid-template-columns: 1fr; gap: 24px; }
   .ak-footer-meta { flex-direction: column; align-items: flex-start; }

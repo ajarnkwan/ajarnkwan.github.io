@@ -10,18 +10,18 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
 .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
-.backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--accent);font-size:14px;font-weight:600;margin:0 0 14px}
+.backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--accent);font-size:16px;font-weight:600;margin:0 0 14px}
 .hero{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
-.hero p{font-size:14px;line-height:1.75;margin:0;opacity:.92;max-width:720px}
+.hero p{font-size:16px;line-height:1.75;margin:0;opacity:.92;max-width:720px}
 .hero h1{font-family:var(--font-serif);font-size:30px;line-height:1.25;margin:0 0 8px}
-.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
+.eyebrow{font-size:15px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
-.badge{display:inline-block;background:var(--warn-bg);color:var(--warn);border:1px solid #fdba74;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700;margin-bottom:14px}
-.note{background:var(--soft);border:1px solid #d8d2ef;border-radius:18px;padding:16px 18px;font-size:14px;line-height:1.8;color:var(--muted);margin-bottom:16px}
+.badge{display:inline-block;background:var(--warn-bg);color:var(--warn);border:1px solid #fdba74;border-radius:999px;padding:4px 12px;font-size:15px;font-weight:700;margin-bottom:14px}
+.note{background:var(--soft);border:1px solid #d8d2ef;border-radius:18px;padding:16px 18px;font-size:16px;line-height:1.8;color:var(--muted);margin-bottom:16px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:12px;text-decoration:none;font-size:14px;font-weight:600;border:1px solid #d8d2ef;color:var(--ink);background:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:12px;text-decoration:none;font-size:16px;font-weight:600;border:1px solid #d8d2ef;color:var(--ink);background:#fff}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.panel ul{color:var(--muted);font-size:14px;margin:6px 0 0}
+.panel ul{color:var(--muted);font-size:16px;margin:6px 0 0}
 
 </style>
 
@@ -55,7 +55,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 14px; font-weight: 600;
+  font-size: 16px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -74,7 +74,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 14px; font-weight: 600;
+  font-size: 16px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -134,16 +134,16 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   gap: 3px;
 }
 .ajk-chap-label {
-  font-size: 12.5px;
+  font-size: 14.5px;
   color: var(--ajk-muted, #6b6480);
   font-weight: 500;
   letter-spacing: .04em;
 }
 .ajk-chap-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--ajk-ink, #2A1F1A);
-  line-height: 1.4;
+  line-height: 1.55;
 }
 .ajk-chap-empty {
   visibility: hidden;
@@ -162,12 +162,12 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   line-height: 1.25;
 }
 .ajk-brand-course {
-  font-size: 14.5px; font-weight: 700; color: var(--ajk-ink);
+  font-size: 16.5px; font-weight: 700; color: var(--ajk-ink);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   letter-spacing: -.01em;
 }
 .ajk-brand-author {
-  font-size: 12.5px; color: var(--ajk-muted); font-weight: 500;
+  font-size: 14.5px; color: var(--ajk-muted); font-weight: 500;
   display: inline-flex; align-items: center; gap: 5px;
   margin-top: 2px;
 }
@@ -182,8 +182,8 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   .ajk-back-btn span { display: none; }
   .ajk-back-btn { padding: 9px; }
   .ajk-back-btn svg { width: 16px; height: 16px; }
-  .ajk-brand-course { font-size: 13.5px; }
-  .ajk-brand-author { font-size: 12px; }
+  .ajk-brand-course { font-size: 15.5px; }
+  .ajk-brand-author { font-size: 14px; }
   .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
 }
 
@@ -215,12 +215,12 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
 }
 .ajk-footer-name {
   font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
-  font-size: 24px; font-weight: 700;
+  font-size: 26px; font-weight: 700;
   color: var(--ajk-ink); margin: 0 0 4px;
   letter-spacing: -.01em;
 }
 .ajk-footer-sub {
-  font-size: 13.5px; color: var(--ajk-muted);
+  font-size: 15.5px; color: var(--ajk-muted);
   letter-spacing: .02em;
   margin-bottom: 26px;
 }
@@ -234,7 +234,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   background: var(--ajk-surface);
   border: 1px solid var(--ajk-border);
   padding: 9px 16px; border-radius: 999px;
-  font-size: 14px; font-weight: 500;
+  font-size: 16px; font-weight: 500;
   transition: all .18s;
   cursor: pointer;
   font-family: 'Noto Sans Thai', system-ui, sans-serif;
@@ -247,7 +247,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
   box-shadow: 0 8px 20px rgba(0,0,0,.08);
 }
 .ajk-footer-bottom {
-  font-size: 12.5px; color: var(--ajk-muted);
+  font-size: 14.5px; color: var(--ajk-muted);
   letter-spacing: .02em;
   padding-top: 22px;
   border-top: 1px solid var(--ajk-border);
@@ -259,9 +259,9 @@ body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)
 
 @media (max-width: 520px) {
   .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
-  .ajk-footer-name { font-size: 21px; }
+  .ajk-footer-name { font-size: 23px; }
   .ajk-footer-links { gap: 6px; }
-  .ajk-footer-btn { padding: 8px 13px; font-size: 13px; }
+  .ajk-footer-btn { padding: 8px 13px; font-size: 15px; }
 }
 
 </style>
@@ -364,7 +364,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
   </div>
   <div class="panel">
     <div class="badge">เร็ว ๆ นี้</div>
-    <h2 style="font-family:var(--font-serif);font-size:20px;margin:6px 0 10px;color:var(--ink)">บทนี้กำลังเตรียมอยู่นะคะ</h2>
+    <h2 style="font-family:var(--font-serif);font-size:22px;margin:6px 0 10px;color:var(--ink)">บทนี้กำลังเตรียมอยู่นะคะ</h2>
     <div class="note" style="color:var(--ink)">
       ขอบคุณที่สนใจนะคะ ตอนนี้ครูกำลังเตรียมเนื้อหาของบทนี้อยู่ ยังไม่พร้อมให้เข้ามาเรียนในตอนนี้<br><br>
       ระหว่างที่รอ ลองย้อนไปทบทวนบทก่อนหน้าให้แม่น ๆ ก่อนนะคะ เพราะพื้นฐานจากบทก่อน ๆ จะทำให้เข้าใจบทนี้ได้ง่ายขึ้นเยอะเลยค่ะ

@@ -230,39 +230,62 @@ function redirectToPendingDestination() {
 }
 
 onAuthStateChanged(auth, async (user) => {
+  // Reset loading buttons in case they were stuck
+  try { setLoading('login', false); setLoading('signup', false); } catch(_) {}
+
+  if (!user) {
+    window._adminProfile = null;
+    window._currentUser = null;
+    window._currentMemberData = null;
+    window._previewMode = null;
+    showLogin();
+    return;
+  }
+
+  window._currentUser = user;
+
+  // ── Read member doc ─────────────────────────────────────
+  // Critical: this must succeed for users to use the site
+  let memberDoc = null;
   try {
-    if (user) {
-      const [memberDoc, adminProfile] = await Promise.all([
-        getDoc(doc(db, MEMBERS_COLLECTION, user.uid)),
-        getAdminProfile(user.uid),
-      ]);
+    memberDoc = await getDoc(doc(db, MEMBERS_COLLECTION, user.uid));
+  } catch (e) {
+    console.error('Read member failed:', e);
+    showLogin();
+    showError('login-err', 'เข้าสู่ระบบสำเร็จแล้ว แต่โหลดข้อมูลสมาชิกไม่ได้ค่ะ — โปรด refresh หน้าหรือลองใหม่');
+    return;
+  }
 
-      window._adminProfile = adminProfile;
-      window._currentUser = user;
-      window._currentMemberData = memberDoc.exists() ? memberDoc.data() : null;
-      window._previewMode = null;
+  // ── Read admin profile (optional — non-admins can't read this doc) ──
+  // If this fails, treat as "not an admin" and continue normally
+  let adminProfile = null;
+  try {
+    adminProfile = await getAdminProfile(user.uid);
+  } catch (e) {
+    console.warn('Admin profile read skipped (likely non-admin user):', e?.code || e?.message);
+    adminProfile = null;
+  }
 
-      if (adminProfile) {
-        showAdmin(user, adminProfile);
-      } else if (memberDoc.exists() && memberDoc.data().profileComplete === true) {
-        window._currentMemberData = memberDoc.data();
-        if (redirectToPendingDestination()) return;
-        showHub(user, memberDoc.data());
-      } else {
-        // Logged in but profile incomplete — send to register flow
-        showRegister(user);
-      }
+  window._adminProfile = adminProfile;
+  window._currentMemberData = memberDoc.exists() ? memberDoc.data() : null;
+  window._previewMode = null;
+
+  // ── Route to correct view ───────────────────────────────
+  try {
+    if (adminProfile) {
+      showAdmin(user, adminProfile);
+    } else if (memberDoc.exists() && memberDoc.data().profileComplete === true) {
+      window._currentMemberData = memberDoc.data();
+      if (redirectToPendingDestination()) return;
+      showHub(user, memberDoc.data());
     } else {
-      window._adminProfile = null;
-      window._currentUser = null;
-      window._currentMemberData = null;
-      window._previewMode = null;
-      showLogin();
+      // Logged in but profile incomplete — send to register flow
+      showRegister(user);
     }
   } catch (e) {
-    console.error(e);
+    console.error('View routing failed:', e);
     showLogin();
-    showError('login-err', 'เกิดปัญหาในการตรวจสอบสิทธิ์ค่ะ กรุณาลองใหม่อีกครั้ง');
+    showError('login-err', 'เกิดปัญหาในการแสดงหน้าค่ะ — โปรดลองใหม่');
   }
 });
 
@@ -271,6 +294,13 @@ window.loginGoogle = async () => {
   try {
     setLoading('login', true);
     await signInWithPopup(auth, gProvider);
+    setTimeout(() => {
+      const loginView = document.getElementById('view-login');
+      if (loginView && loginView.style.display !== 'none') {
+        setLoading('login', false);
+        showError('login-err', 'โหลดข้อมูลช้า กรุณา refresh หน้าค่ะ');
+      }
+    }, 8000);
   } catch(e) { showError('login-err', friendlyAuthError(e.code)); setLoading('login', false); }
 };
 
@@ -281,6 +311,15 @@ window.loginEmail = async () => {
   try {
     setLoading('login', true);
     await signInWithEmailAndPassword(auth, email, pass);
+
+    // Safety net: if login succeeds but post-auth flow hangs, unlock the button
+    setTimeout(() => {
+      const loginView = document.getElementById('view-login');
+      if (loginView && loginView.style.display !== 'none') {
+        setLoading('login', false);
+        showError('login-err', 'เข้าสู่ระบบสำเร็จแล้ว แต่โหลดข้อมูลช้า กรุณา refresh หน้าหรือลองใหม่ค่ะ');
+      }
+    }, 8000);
   } catch(e) {
     showError('login-err', friendlyAuthError(e.code));
     setLoading('login', false);
@@ -929,7 +968,7 @@ document.addEventListener('DOMContentLoaded', () => {
   --ink:#1c1412;--mid:#4b4540;--muted:#a09890;--border:#ede8e0;
   --shadow:rgba(28,20,18,.07);
 }
-html{font-size:17px;-webkit-font-smoothing:antialiased}
+html{font-size:19px;-webkit-font-smoothing:antialiased}
 body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
 
 /* Desktop: card center */
@@ -951,7 +990,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 /* ── AUTH FORMS ── */
 .auth-emoji{font-size:2.5rem;margin-bottom:.75rem;display:block}
 .auth-title{font-family:'Noto Serif Thai',serif;font-size:1.55rem;font-weight:700;margin-bottom:.3rem}
-.auth-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.5}
+.auth-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.75rem;line-height:1.6}
 .field{margin-bottom:1rem}
 .field label{display:block;font-size:.82rem;font-weight:600;color:var(--mid);margin-bottom:.4rem}
 .field input{
@@ -1012,7 +1051,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 .step-emoji{font-size:2.75rem;margin-bottom:.7rem;display:block;animation:bop .5s ease}
 @keyframes bop{0%{transform:scale(.65)}65%{transform:scale(1.1)}100%{transform:scale(1)}}
 .step-q{font-family:'Noto Serif Thai',serif;font-size:1.4rem;font-weight:700;line-height:1.3;margin-bottom:.3rem}
-.step-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.35rem;line-height:1.5}
+.step-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.35rem;line-height:1.6}
 
 .name-input{width:100%;padding:.87rem 1.1rem;font-size:1.05rem;font-family:'Noto Sans Thai',sans-serif;font-weight:500;background:var(--bg);border:2px solid var(--border);border-radius:.875rem;color:var(--ink);outline:none;transition:all .2s}
 .name-input:focus{border-color:var(--lav);background:var(--lav-soft);box-shadow:0 0 0 4px rgba(124,58,237,.08)}
@@ -1304,7 +1343,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-landing .brand-mark {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   letter-spacing: -0.02em;
   color: var(--ink);
   text-decoration: none;
@@ -1316,7 +1355,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .nav-links a {
   color: var(--ink-mute);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
   transition: color .2s;
 }
@@ -1327,7 +1366,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--ink);
   padding: 10px 18px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
   border: 1.5px solid var(--ink);
   cursor: pointer;
@@ -1340,7 +1379,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--bg);
   padding: 10px 22px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
   border: 1.5px solid var(--ink);
   cursor: pointer;
@@ -1415,7 +1454,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--bg);
   padding: 14px 28px;
   border-radius: 999px;
-  font-size: 15px;
+  font-size: 18.5px;
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -1426,7 +1465,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .hero-btn-ghost {
   color: var(--ink);
   text-decoration: none;
-  font-size: 15px;
+  font-size: 18.5px;
   font-weight: 600;
   padding: 14px 8px;
   border-bottom: 1.5px solid var(--accent);
@@ -1469,14 +1508,14 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .stat-label {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink);
-  line-height: 1.4;
+  line-height: 1.55;
 }
 #view-landing .stat-label span {
   display: block;
   font-family: 'Space Mono', monospace;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 400;
   letter-spacing: 0.1em;
   color: var(--ink-soft);
@@ -1554,12 +1593,12 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .id-name {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 18.5px;
   color: var(--ink);
 }
 #view-landing .id-role {
   font-family: 'Space Mono', monospace;
-  font-size: 12.5px;
+  font-size: 15.5px;
   letter-spacing: 0.15em;
   color: var(--ink-mute);
   text-transform: uppercase;
@@ -1570,7 +1609,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   padding-top: 8px;
   border-top: 1px dashed rgba(0,0,0,0.15);
   font-family: 'Space Mono', monospace;
-  font-size: 13px;
+  font-size: 16px;
   color: var(--ink-soft);
   letter-spacing: 0.05em;
 }
@@ -1589,7 +1628,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   font-style: italic;
 }
 #view-landing .about-content > p {
-  font-size: 16px;
+  font-size: 19.5px;
   line-height: 1.75;
   color: var(--ink-mute);
   max-width: 640px;
@@ -1604,7 +1643,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-landing .exp-col h3 {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   letter-spacing: 0.18em;
   color: var(--ink);
   text-transform: uppercase;
@@ -1621,14 +1660,14 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .exp-title {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 18.5px;
   color: var(--ink);
   margin-bottom: 4px;
   line-height: 1.35;
 }
 #view-landing .exp-meta {
   font-family: 'Space Mono', monospace;
-  font-size: 13px;
+  font-size: 16px;
   color: var(--ink-soft);
   letter-spacing: 0.05em;
 }
@@ -1636,7 +1675,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 /* CONNECT 2 cols (replaces toolbox) */
 #view-landing .connect-block h3 {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   letter-spacing: 0.18em;
   color: var(--ink);
   text-transform: uppercase;
@@ -1653,7 +1692,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .contact-item {
   display: flex; align-items: center; gap: 10px;
   margin-bottom: 12px;
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
   text-decoration: none;
   transition: color .2s;
@@ -1664,14 +1703,14 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   width: 28px; height: 28px;
   border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
   flex-shrink: 0;
 }
 #view-landing .ci-line { background: #06C755; color: white; }
 #view-landing .ci-fb { background: #1877F2; color: white; }
 #view-landing .ci-tt { background: #000; color: white; }
-#view-landing .ci-yt { background: #FF0000; color: white; font-size: 13.5px; }
+#view-landing .ci-yt { background: #FF0000; color: white; font-size: 17px; }
 #view-landing .ci-gh { background: #181717; color: white; }
 #view-landing .ci-mail { background: var(--accent); color: white; }
 #view-landing .ci-web { background: var(--c3); color: white; }
@@ -1694,7 +1733,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .section-tag {
   display: inline-block;
   font-family: 'Archivo Black', sans-serif;
-  font-size: 13.5px;
+  font-size: 17px;
   letter-spacing: 0.25em;
   color: var(--accent);
   text-transform: uppercase;
@@ -1714,7 +1753,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--accent);
 }
 #view-landing .try-head p {
-  font-size: 15px;
+  font-size: 18.5px;
   color: var(--ink-mute);
   line-height: 1.65;
 }
@@ -1731,7 +1770,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   display: flex; gap: 10px;
   align-items: center;
   font-family: 'Space Mono', monospace;
-  font-size: 13.5px;
+  font-size: 17px;
   color: var(--ink-soft);
   letter-spacing: 0.08em;
   margin-bottom: 14px;
@@ -1747,7 +1786,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-landing .try-title {
   font-family: 'Bai Jamjuree', sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--ink);
   margin-bottom: 16px;
@@ -1757,7 +1796,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--ink-mute);
   line-height: 1.75;
   margin-bottom: 14px;
-  font-size: 14.5px;
+  font-size: 18px;
 }
 #view-landing .try-body strong { color: var(--ink); font-weight: 700; }
 
@@ -1771,7 +1810,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .interactive-label {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink);
   margin-bottom: 14px;
 }
@@ -1782,7 +1821,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   margin-bottom: 16px;
 }
 #view-landing .slider-row label {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
   white-space: nowrap;
   min-width: 100px;
@@ -1816,7 +1855,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-landing .price-readout {
   font-family: 'Space Mono', monospace;
-  font-size: 16px;
+  font-size: 19.5px;
   font-weight: 700;
   color: var(--ink);
   min-width: 60px;
@@ -1837,7 +1876,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   min-height: 0;
 }
 #view-landing .insight {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
   text-align: center;
   padding: 10px;
@@ -1855,7 +1894,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .quiz-q {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 18.5px;
   color: var(--ink);
   margin-bottom: 14px;
   line-height: 1.45;
@@ -1865,7 +1904,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   background: var(--accent);
   color: white;
   font-family: 'Space Mono', monospace;
-  font-size: 13.5px;
+  font-size: 17px;
   padding: 2px 8px;
   border-radius: 4px;
   margin-right: 8px;
@@ -1883,7 +1922,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   padding: 12px 14px;
   text-align: left;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink);
   cursor: pointer;
   transition: all .2s;
@@ -1894,7 +1933,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .quiz-opt:hover:not(.locked) { border-color: var(--ink); transform: translateX(2px); }
 #view-landing .quiz-opt .opt-letter {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   background: var(--bg-soft);
   width: 22px; height: 22px;
   border-radius: 5px;
@@ -1910,7 +1949,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   margin-top: 14px;
   padding: 14px 16px;
   border-radius: 10px;
-  font-size: 14.5px;
+  font-size: 18px;
   line-height: 1.6;
   display: none;
 }
@@ -1930,14 +1969,14 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   gap: 12px;
 }
 #view-landing .try-foot-text {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
 }
 #view-landing .try-foot-link {
   color: var(--ink);
   font-weight: 600;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 17px;
   border-bottom: 1.5px solid var(--accent);
   padding-bottom: 2px;
 }
@@ -1967,7 +2006,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--accent);
 }
 #view-landing .word-head p {
-  font-size: 15px;
+  font-size: 18.5px;
   color: var(--ink-mute);
   line-height: 1.65;
 }
@@ -1987,7 +2026,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   justify-content: space-between;
   align-items: center;
   font-family: 'Space Mono', monospace;
-  font-size: 13.5px;
+  font-size: 17px;
   color: var(--ink-soft);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2023,7 +2062,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-landing .word-phonetic {
   font-family: 'Space Mono', monospace;
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-soft);
   letter-spacing: 0.05em;
 }
@@ -2041,7 +2080,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   margin-bottom: 6px;
 }
 #view-landing .word-th-sub {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
 }
 #view-landing .word-card-body {
@@ -2053,14 +2092,14 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .word-section-label {
   display: inline-block;
   font-family: 'Archivo Black', sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.2em;
   color: var(--accent);
   text-transform: uppercase;
   margin-bottom: 6px;
 }
 #view-landing .word-section p {
-  font-size: 14.5px;
+  font-size: 18px;
   line-height: 1.7;
   color: var(--ink-mute);
 }
@@ -2074,7 +2113,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   font-style: italic;
   color: var(--ink);
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.6;
 }
 #view-landing .word-example-en em {
@@ -2083,7 +2122,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--c1);
 }
 #view-landing .word-example-th {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
   line-height: 1.6;
 }
@@ -2093,7 +2132,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   padding: 14px 16px;
   background: rgba(194,168,120,0.12);
   border-radius: 10px;
-  font-size: 14.5px;
+  font-size: 18px;
   line-height: 1.65;
   color: var(--ink);
 }
@@ -2109,7 +2148,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
   flex-wrap: wrap;
   gap: 10px;
@@ -2221,13 +2260,13 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .cc-title {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 21.5px;
   margin-bottom: 4px;
   letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 #view-landing .cc-thai {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
   opacity: 0.85;
   margin-bottom: 14px;
@@ -2238,7 +2277,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   flex-wrap: wrap;
   align-items: center;
   font-family: 'Space Mono', monospace;
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   opacity: 0.85;
@@ -2256,9 +2295,9 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .cc-2 .cc-sublist, #view-landing .cc-4 .cc-sublist { border-top-color: rgba(0,0,0,0.18); }
 #view-landing .cc-sublist li {
   font-family: 'Bai Jamjuree', sans-serif;
-  font-size: 14.5px;
+  font-size: 18px;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.6;
   padding: 6px 0;
   display: flex;
   align-items: flex-start;
@@ -2275,7 +2314,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .cc-soon {
   display: inline-block;
   font-family: 'Space Mono', monospace;
-  font-size: 12.5px;
+  font-size: 15.5px;
   letter-spacing: 0.1em;
   background: rgba(255,255,255,0.25);
   padding: 2px 8px;
@@ -2326,7 +2365,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   opacity: 0.5;
 }
 #view-landing .freebies-head p {
-  font-size: 14.5px;
+  font-size: 18px;
   color: var(--ink-mute);
   line-height: 1.7;
 }
@@ -2353,17 +2392,26 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   transform: translateY(-4px);
   box-shadow: 0 16px 32px -16px rgba(14,13,11,0.18);
 }
+#view-landing .freebie-card.freebie-soon {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
+}
+#view-landing .freebie-card.freebie-soon:hover {
+  transform: none;
+  box-shadow: none;
+}
 #view-landing .freebie-icon {
   width: 38px; height: 38px;
   border-radius: 10px;
   background: var(--accent-soft);
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
+  font-size: 21.5px;
   margin-bottom: 6px;
 }
 #view-landing .freebie-type {
   font-family: 'Space Mono', monospace;
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.12em;
   color: var(--ink-soft);
   text-transform: uppercase;
@@ -2371,18 +2419,18 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .freebie-title {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 18.5px;
   color: var(--ink);
   line-height: 1.35;
 }
 #view-landing .freebie-desc {
-  font-size: 14.5px;
+  font-size: 18px;
   color: var(--ink-mute);
   line-height: 1.55;
   flex: 1;
 }
 #view-landing .freebie-link {
-  font-size: 14.5px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--ink);
   margin-top: 6px;
@@ -2406,13 +2454,13 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .unlock-more-text strong {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 21.5px;
   color: var(--ink);
   display: block;
   margin-bottom: 4px;
 }
 #view-landing .unlock-more-text span {
-  font-size: 14.5px;
+  font-size: 18px;
   color: var(--ink-mute);
 }
 #view-landing .unlock-more-btn {
@@ -2420,7 +2468,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--bg);
   padding: 12px 24px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -2443,7 +2491,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .manifesto-tag {
   display: inline-block;
   font-family: 'Archivo Black', sans-serif;
-  font-size: 13.5px;
+  font-size: 17px;
   letter-spacing: 0.25em;
   color: var(--accent);
   text-transform: uppercase;
@@ -2472,7 +2520,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .manifesto-sig {
   margin-top: 36px;
   font-family: 'Space Mono', monospace;
-  font-size: 13.5px;
+  font-size: 17px;
   letter-spacing: 0.2em;
   color: var(--ink-soft);
   text-transform: uppercase;
@@ -2503,7 +2551,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   margin-bottom: 16px;
 }
 #view-landing .faq-head p {
-  font-size: 14.5px;
+  font-size: 18px;
   color: var(--ink-mute);
   line-height: 1.7;
 }
@@ -2520,7 +2568,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   text-align: left;
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 19.5px;
   color: var(--ink);
   cursor: pointer;
   display: flex;
@@ -2532,7 +2580,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .faq-q:hover { color: var(--accent); }
 #view-landing .faq-q .faq-icon {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   color: var(--accent);
   transition: transform .3s;
   flex-shrink: 0;
@@ -2543,7 +2591,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   max-height: 0;
   overflow: hidden;
   transition: max-height .35s ease;
-  font-size: 14.5px;
+  font-size: 18px;
   line-height: 1.75;
   color: var(--ink-mute);
 }
@@ -2565,7 +2613,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   top: 30px;
   left: 0; right: 0;
   font-family: 'Archivo Black', sans-serif;
-  font-size: 16px;
+  font-size: 19.5px;
   letter-spacing: 0.4em;
   color: rgba(255,255,255,0.08);
   white-space: nowrap;
@@ -2583,7 +2631,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-landing .cta-title .accent { color: var(--accent); font-style: italic; }
 #view-landing .cta-sub {
-  font-size: 15px;
+  font-size: 18.5px;
   color: rgba(242,235,221,0.7);
   margin-bottom: 32px;
   max-width: 600px;
@@ -2602,7 +2650,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   padding: 14px 30px;
   border-radius: 999px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 18.5px;
   border: none;
   cursor: pointer;
   font-family: inherit;
@@ -2617,7 +2665,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   padding: 14px 30px;
   border-radius: 999px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 18.5px;
   border: 1.5px solid var(--bg);
   cursor: pointer;
   font-family: inherit;
@@ -2633,7 +2681,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   gap: 24px;
   justify-content: center;
   flex-wrap: wrap;
-  font-size: 14px;
+  font-size: 17px;
   color: rgba(242,235,221,0.6);
   font-family: 'Space Mono', monospace;
   letter-spacing: 0.05em;
@@ -2672,7 +2720,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-landing .footer-group-title {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 13.5px;
+  font-size: 17px;
   letter-spacing: 0.18em;
   color: var(--ink);
   text-transform: uppercase;
@@ -2681,17 +2729,17 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-landing .footer-group a {
   color: var(--ink-mute);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 17px;
   transition: color .2s;
   cursor: pointer;
 }
 #view-landing .footer-group a:hover { color: var(--ink); }
 #view-landing .footer-group-brand { max-width: 280px; }
 #view-landing .footer-group-text {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
   margin-bottom: 12px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 #view-landing .footer-social {
   display: flex;
@@ -2707,7 +2755,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink);
   transition: all .2s;
 }
@@ -2731,14 +2779,14 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   border-top: 1px solid var(--line-soft);
 }
 #view-landing .footer-credit {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--ink-mute);
   line-height: 1.7;
 }
 #view-landing .footer-credit strong { color: var(--ink); display: block; margin-bottom: 4px; font-weight: 600;}
 #view-landing .footer-tag {
   font-family: 'Space Mono', monospace;
-  font-size: 13.5px;
+  font-size: 17px;
   letter-spacing: 0.15em;
   color: var(--ink-soft);
   text-transform: uppercase;
@@ -2773,8 +2821,8 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 @media (max-width: 540px){
   #view-landing .container { padding: 0 20px; }
   #view-landing .nav-inner { padding: 0 20px; gap: 8px; }
-  #view-landing .nav-login { padding: 8px 14px; font-size: 14px; }
-  #view-landing .nav-cta { padding: 8px 14px; font-size: 14px; }
+  #view-landing .nav-login { padding: 8px 14px; font-size: 17px; }
+  #view-landing .nav-cta { padding: 8px 14px; font-size: 17px; }
   #view-landing .hero-title { font-size: clamp(60px, 22vw, 120px); }
   #view-landing .course-grid { grid-template-columns: 1fr; }
   #view-landing .freebies-grid { grid-template-columns: 1fr; }
@@ -2825,7 +2873,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   border-radius: 50%;
 }
 .admin-stat-card .ast-label {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: rgba(255,215,0,0.85);
@@ -2863,7 +2911,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   flex: 0 0 auto;
 }
 .admin-action-label {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: #8A7A70;
@@ -2879,7 +2927,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   gap: 8px;
 }
 .admin-table-head h3 {
-  font-size: 16px;
+  font-size: 19.5px;
   font-weight: 700;
   color: #2A1F1A;
   margin: 0;
@@ -2896,7 +2944,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 .members-table th {
   background: #f7f3ec;
-  font-size: 12.5px;
+  font-size: 15.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -2907,7 +2955,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 .members-table td {
   padding: 10px;
-  font-size: 14px;
+  font-size: 17px;
   border-bottom: 1px solid #f3eee5;
   color: #2A1F1A;
   vertical-align: top;
@@ -2929,7 +2977,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   border-top: 1px solid #ECE6F2;
 }
 .reg-bottom-exit a {
-  font-size: 14px;
+  font-size: 17px;
   color: var(--muted, #8A7A70);
   text-decoration: none;
   cursor: pointer;
@@ -2965,12 +3013,12 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
   color: #553873;
   margin-bottom: 12px;
 }
-.hp-em { font-size: 18px; }
+.hp-em { font-size: 21.5px; }
 .hp-options {
   display: grid;
   gap: 8px;
@@ -2993,18 +3041,18 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   box-shadow: 0 4px 10px rgba(107, 74, 138, 0.08);
 }
 .hp-cond {
-  font-size: 14.5px;
+  font-size: 18px;
   color: #2A1F1A;
   font-weight: 500;
 }
 .hp-target {
-  font-size: 14px;
+  font-size: 17px;
   color: #6B4A8A;
   font-weight: 600;
 }
 @media (max-width: 540px) {
   .hp-opt { flex-direction: column; align-items: flex-start; gap: 4px; }
-  .hp-target { font-size: 13.5px; }
+  .hp-target { font-size: 17px; }
 }
 
 
@@ -3087,7 +3135,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-hub .brand {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   letter-spacing: -0.02em;
   color: var(--ink);
   text-decoration: none;
@@ -3099,7 +3147,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   color: var(--ink);
   padding: 10px 20px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   border: 1.5px solid var(--ink);
   cursor: pointer;
@@ -3115,7 +3163,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .hub-hero-byline {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 17px;
   letter-spacing: 0.18em;
   color: var(--accent);
   text-transform: uppercase;
@@ -3141,7 +3189,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   font-style: italic;
 }
 #view-hub .hub-hero-sub {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--ink-mute);
   line-height: 1.7;
   max-width: 540px;
@@ -3174,7 +3222,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 
 #view-hub .mc-tag {
   font-family: 'Space Mono', monospace;
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.18em;
   color: var(--ink-soft);
   text-transform: uppercase;
@@ -3216,14 +3264,14 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .mc-name {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 700;
-  font-size: 19px;
+  font-size: 21px;
   color: var(--ink);
   line-height: 1.3;
   margin-bottom: 4px;
 }
 #view-hub .mc-num {
   font-family: 'Space Mono', monospace;
-  font-size: 13.5px;
+  font-size: 15.5px;
   color: var(--ink-soft);
   letter-spacing: 0.05em;
 }
@@ -3244,14 +3292,14 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-hub .section-title-en {
   font-family: 'Archivo Black', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   letter-spacing: 0.04em;
   color: var(--ink);
   text-transform: uppercase;
 }
 #view-hub .section-title-th {
   font-family: 'Bai Jamjuree', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--ink-mute);
 }
@@ -3267,7 +3315,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .pf-title {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 22px;
   color: var(--ink);
   margin-bottom: 18px;
   display: flex;
@@ -3275,7 +3323,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   gap: 8px;
 }
 #view-hub .pf-title .pf-em {
-  font-size: 22px;
+  font-size: 24px;
 }
 #view-hub .pf-options {
   display: flex;
@@ -3301,12 +3349,12 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-hub .pf-cond {
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: 16.5px;
   color: var(--ink);
 }
 #view-hub .pf-target {
   font-family: 'Space Mono', monospace;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--accent);
   font-weight: 700;
   text-align: right;
@@ -3354,20 +3402,20 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .track-meta h3 {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 0.01em;
   margin-bottom: 4px;
   text-transform: uppercase;
 }
 #view-hub .track-meta .track-th {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   opacity: 0.85;
   margin-bottom: 6px;
 }
 #view-hub .track-meta .track-tag {
   font-family: 'Space Mono', monospace;
-  font-size: 10.5px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.75;
@@ -3401,19 +3449,19 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .tc-title {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: 16.5px;
   margin-bottom: 2px;
   line-height: 1.3;
 }
 #view-hub .tc-desc {
-  font-size: 12.5px;
+  font-size: 14.5px;
   opacity: 0.85;
-  line-height: 1.4;
+  line-height: 1.55;
 }
 #view-hub .tc-arr {
   font-family: 'Space Mono', monospace;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   opacity: 0.7;
   flex-shrink: 0;
 }
@@ -3422,7 +3470,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .tc-soon-pill {
   display: inline-block;
   font-family: 'Space Mono', monospace;
-  font-size: 9.5px;
+  font-size: 12.5px;
   letter-spacing: 0.1em;
   background: rgba(255,255,255,0.3);
   padding: 2px 8px;
@@ -3466,11 +3514,11 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 22px;
 }
 #view-hub .fb-type {
   font-family: 'Space Mono', monospace;
-  font-size: 10.5px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   color: var(--ink-soft);
   text-transform: uppercase;
@@ -3478,18 +3526,18 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .fb-title {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 17px;
   color: var(--ink);
   line-height: 1.35;
 }
 #view-hub .fb-desc {
-  font-size: 12.5px;
+  font-size: 14.5px;
   color: var(--ink-mute);
   line-height: 1.55;
   flex: 1;
 }
 #view-hub .fb-link {
-  font-size: 12.5px;
+  font-size: 14.5px;
   font-weight: 600;
   color: var(--ink);
   border-bottom: 1.5px solid var(--accent);
@@ -3526,7 +3574,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: white;
   flex-shrink: 0;
@@ -3538,12 +3586,12 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 #view-hub .ct-title {
   font-family: 'Bai Jamjuree', sans-serif;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 17px;
   color: var(--ink);
   margin-bottom: 2px;
 }
 #view-hub .ct-desc {
-  font-size: 12.5px;
+  font-size: 14.5px;
   color: var(--ink-mute);
 }
 
@@ -3564,7 +3612,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
 }
 #view-hub .foot-mark .dim { color: var(--accent); }
 #view-hub .foot-credit {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--ink-mute);
   line-height: 1.7;
   margin-bottom: 24px;
@@ -4139,37 +4187,37 @@ body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--in
     </div>
 
     <div class="freebies-grid">
-      <a class="freebie-card" href="#" onclick="downloadFreebie('econometrics-cheatsheet'); event.preventDefault();">
+      <a class="freebie-card" href="econometrics/cheatsheet.html" target="_blank" rel="noopener">
         <div class="freebie-icon">📄</div>
-        <div class="freebie-type">PDF · A4</div>
+        <div class="freebie-type">CHEAT SHEET · A4</div>
         <div class="freebie-title">Econometrics Cheat Sheet</div>
-        <div class="freebie-desc">สูตรหลักของ OLS, MLE, Hypothesis Testing — สรุปครบใน 1 หน้า</div>
-        <span class="freebie-link">ดาวน์โหลด →</span>
+        <div class="freebie-desc">สูตรหลักของ OLS, สมมุติฐาน, t-test, F-test — สรุปครบใน 1 หน้า พิมพ์ได้ทันที</div>
+        <span class="freebie-link">เปิดดู →</span>
       </a>
 
-      <a class="freebie-card" href="#" onclick="downloadFreebie('vocab-pocket'); event.preventDefault();">
+      <a class="freebie-card" href="vocab/booklet-micro.html" target="_blank" rel="noopener">
         <div class="freebie-icon">📓</div>
-        <div class="freebie-type">PDF · A6 POCKET</div>
-        <div class="freebie-title">50 ศัพท์เศรษฐศาสตร์</div>
-        <div class="freebie-desc">สมุดพับพกพา ใช้ทบทวนได้ระหว่างวัน พิมพ์ออกเองได้</div>
-        <span class="freebie-link">ดาวน์โหลด →</span>
+        <div class="freebie-type">A6 BOOKLET</div>
+        <div class="freebie-title">สมุดศัพท์ · จุลภาค</div>
+        <div class="freebie-desc">24 คำสำคัญ พับเป็นสมุด 16 หน้า · พกพาได้ · มี QR กลับมาเว็บ</div>
+        <span class="freebie-link">เปิดดู →</span>
       </a>
 
-      <a class="freebie-card" href="#" onclick="downloadFreebie('ai-prompts'); event.preventDefault();">
-        <div class="freebie-icon">🤖</div>
-        <div class="freebie-type">TEMPLATE</div>
-        <div class="freebie-title">AI Prompt Templates</div>
-        <div class="freebie-desc">154 prompt ตัวอย่าง สำหรับใช้กับ ChatGPT, Claude, Gemini</div>
-        <span class="freebie-link">ดาวน์โหลด →</span>
+      <a class="freebie-card" href="vocab/booklet-macro.html" target="_blank" rel="noopener">
+        <div class="freebie-icon">📕</div>
+        <div class="freebie-type">A6 BOOKLET</div>
+        <div class="freebie-title">สมุดศัพท์ · มหภาค</div>
+        <div class="freebie-desc">30 คำ — GDP, Inflation, Policy · พิมพ์ฟรี ใช้เป็น flashcard ได้</div>
+        <span class="freebie-link">เปิดดู →</span>
       </a>
 
-      <a class="freebie-card" href="#" onclick="downloadFreebie('micro-summary'); event.preventDefault();">
+      <div class="freebie-card freebie-soon">
         <div class="freebie-icon">📊</div>
-        <div class="freebie-type">PDF · A4</div>
+        <div class="freebie-type">เร็วๆ นี้</div>
         <div class="freebie-title">Microeconomics Summary</div>
         <div class="freebie-desc">สรุปกราฟอุปสงค์-อุปทาน, ต้นทุน, ตลาด พร้อมตัวอย่าง</div>
-        <span class="freebie-link">ดาวน์โหลด →</span>
-      </a>
+        <span class="freebie-link">SOON</span>
+      </div>
     </div>
 
     <!-- Unlock more banner -->

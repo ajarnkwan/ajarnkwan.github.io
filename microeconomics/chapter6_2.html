@@ -31,7 +31,7 @@
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 14px; font-weight: 600;
+  font-size: 16px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -50,7 +50,7 @@
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 14px; font-weight: 600;
+  font-size: 16px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -110,16 +110,16 @@
   gap: 3px;
 }
 .ajk-chap-label {
-  font-size: 12.5px;
+  font-size: 14.5px;
   color: var(--ajk-muted, #6b6480);
   font-weight: 500;
   letter-spacing: .04em;
 }
 .ajk-chap-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--ajk-ink, #2A1F1A);
-  line-height: 1.4;
+  line-height: 1.55;
 }
 .ajk-chap-empty {
   visibility: hidden;
@@ -138,12 +138,12 @@
   line-height: 1.25;
 }
 .ajk-brand-course {
-  font-size: 14.5px; font-weight: 700; color: var(--ajk-ink);
+  font-size: 16.5px; font-weight: 700; color: var(--ajk-ink);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   letter-spacing: -.01em;
 }
 .ajk-brand-author {
-  font-size: 12.5px; color: var(--ajk-muted); font-weight: 500;
+  font-size: 14.5px; color: var(--ajk-muted); font-weight: 500;
   display: inline-flex; align-items: center; gap: 5px;
   margin-top: 2px;
 }
@@ -158,8 +158,8 @@
   .ajk-back-btn span { display: none; }
   .ajk-back-btn { padding: 9px; }
   .ajk-back-btn svg { width: 16px; height: 16px; }
-  .ajk-brand-course { font-size: 13.5px; }
-  .ajk-brand-author { font-size: 12px; }
+  .ajk-brand-course { font-size: 15.5px; }
+  .ajk-brand-author { font-size: 14px; }
   .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
 }
 
@@ -176,18 +176,18 @@
 .ajk-footer-mark { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px; }
 .ajk-footer-mark::before, .ajk-footer-mark::after { content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35; }
 .ajk-footer-mark-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ajk-primary); flex-shrink: 0; }
-.ajk-footer-name { font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif; font-size: 24px; font-weight: 700; color: var(--ajk-ink); margin: 0 0 4px; letter-spacing: -.01em; }
-.ajk-footer-sub { font-size: 13.5px; color: var(--ajk-muted); letter-spacing: .02em; margin-bottom: 26px; }
+.ajk-footer-name { font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif; font-size: 26px; font-weight: 700; color: var(--ajk-ink); margin: 0 0 4px; letter-spacing: -.01em; }
+.ajk-footer-sub { font-size: 15.5px; color: var(--ajk-muted); letter-spacing: .02em; margin-bottom: 26px; }
 .ajk-footer-links { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-.ajk-footer-btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--ajk-ink); background: var(--ajk-surface); padding: 8px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; border: 1px solid var(--ajk-border); transition: all .18s; }
+.ajk-footer-btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: var(--ajk-ink); background: var(--ajk-surface); padding: 8px 12px; border-radius: 999px; font-size: 15px; font-weight: 600; border: 1px solid var(--ajk-border); transition: all .18s; }
 .ajk-footer-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 .ajk-footer-btn:hover { background: var(--ajk-primary); color: #fff; border-color: var(--ajk-primary); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.12); }
-.ajk-footer-bottom { font-size: 12.5px; color: var(--ajk-muted); line-height: 1.6; }
+.ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.6; }
 
 @media (max-width: 520px) {
-  .ajk-footer-btn { font-size: 12.5px; padding: 7px 10px; }
+  .ajk-footer-btn { font-size: 14.5px; padding: 7px 10px; }
   .ajk-footer-btn svg { width: 13px; height: 13px; }
-  .ajk-footer-name { font-size: 20px; }
+  .ajk-footer-name { font-size: 22px; }
   .ajk-footer { padding: 36px 12px 24px; margin-top: 48px; }
 }
 
@@ -199,38 +199,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .app{max-width:780px;margin:0 auto}
 
 .hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:18px}
-.hero .ey{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px}
-.hero h1{font-size:22px;font-weight:800;line-height:1.35;margin-bottom:8px}
-.hero p{font-size:14px;line-height:1.7;opacity:.92}
+.hero .ey{font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px}
+.hero h1{font-size:24px;font-weight:800;line-height:1.35;margin-bottom:8px}
+.hero p{font-size:16px;line-height:1.7;opacity:.92}
 
 .scenario{background:#fff8e1;border:1.5px solid #ffd54f;border-radius:16px;padding:18px 20px;margin-bottom:18px}
 @media(prefers-color-scheme:dark){.scenario{background:#2a2100;border-color:#5a4a00}}
-.scenario .tt{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#b37400;font-weight:700;margin-bottom:8px}
+.scenario .tt{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:#b37400;font-weight:700;margin-bottom:8px}
 @media(prefers-color-scheme:dark){.scenario .tt{color:#ffd54f}}
-.scenario h2{font-size:17px;font-weight:800;margin-bottom:10px;line-height:1.4}
-.scenario p{font-size:14.5px;line-height:1.7;margin-bottom:8px}
+.scenario h2{font-size:19px;font-weight:800;margin-bottom:10px;line-height:1.55}
+.scenario p{font-size:16.5px;line-height:1.7;margin-bottom:8px}
 .scenario p:last-child{margin-bottom:0}
 
 .step{margin:26px 0 14px;display:flex;align-items:center;gap:10px}
-.step .nm{font-size:12.5px;font-weight:700;color:#7b1fa2;background:#f5f0ff;padding:4px 10px;border-radius:99px;letter-spacing:.05em}
+.step .nm{font-size:14.5px;font-weight:700;color:#7b1fa2;background:#f5f0ff;padding:4px 10px;border-radius:99px;letter-spacing:.05em}
 @media(prefers-color-scheme:dark){.step .nm{color:#ce93d8;background:#1a0d2a}}
 .step .ln{flex:1;height:1px;background:#eee}
 @media(prefers-color-scheme:dark){.step .ln{background:#333}}
 
-h2.q{font-size:18px;font-weight:800;line-height:1.4;margin-bottom:12px}
+h2.q{font-size:20px;font-weight:800;line-height:1.55;margin-bottom:12px}
 
-.think{background:#fff9c4;border:1px dashed #ffd54f;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px;line-height:1.65;color:#6d4c00}
+.think{background:#fff9c4;border:1px dashed #ffd54f;border-radius:10px;padding:12px 16px;margin:12px 0;font-size:16px;line-height:1.65;color:#6d4c00}
 @media(prefers-color-scheme:dark){.think{background:#2a2400;color:#ffd54f;border-color:#5a4a00}}
 .think b{color:#b37400}
 @media(prefers-color-scheme:dark){.think b{color:#ffd54f}}
 
 .quiz{background:#fff;border:1.5px solid #e0e0e0;border-radius:14px;padding:16px 18px;margin-bottom:14px}
 @media(prefers-color-scheme:dark){.quiz{background:#1c1c1c;border-color:#333}}
-.quiz .qtag{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#7b1fa2;font-weight:700;margin-bottom:6px}
+.quiz .qtag{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#7b1fa2;font-weight:700;margin-bottom:6px}
 @media(prefers-color-scheme:dark){.quiz .qtag{color:#ce93d8}}
-.quiz .q{font-size:15px;font-weight:700;line-height:1.55;margin-bottom:12px}
+.quiz .q{font-size:17px;font-weight:700;line-height:1.55;margin-bottom:12px}
 .quiz .opts{display:flex;flex-direction:column;gap:8px}
-.quiz .opt{padding:12px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:14px;cursor:pointer;text-align:left;font-family:inherit;color:inherit;line-height:1.5;transition:all .15s;display:flex;gap:10px;align-items:flex-start}
+.quiz .opt{padding:12px 14px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:16px;cursor:pointer;text-align:left;font-family:inherit;color:inherit;line-height:1.6;transition:all .15s;display:flex;gap:10px;align-items:flex-start}
 @media(prefers-color-scheme:dark){.quiz .opt{border-color:#3a3a3a}}
 .quiz .opt .lt{font-weight:800;color:#999;flex-shrink:0;width:20px}
 .quiz .opt:hover{border-color:#7b1fa2;background:#f9f5ff}
@@ -246,15 +246,15 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin-bottom:12px}
 @media(prefers-color-scheme:dark){.reveal{background:#1a0d2a;border-color:#ce93d8}}
 .reveal.show{display:block;animation:slideIn .4s ease}
 @keyframes slideIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.reveal .lb{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#4a148c;font-weight:700;margin-bottom:6px}
+.reveal .lb{font-size:14.5px;letter-spacing:.1em;text-transform:uppercase;color:#4a148c;font-weight:700;margin-bottom:6px}
 @media(prefers-color-scheme:dark){.reveal .lb{color:#ce93d8}}
-.reveal p{font-size:14px;line-height:1.75;margin-bottom:8px}
+.reveal p{font-size:16px;line-height:1.75;margin-bottom:8px}
 .reveal p:last-child{margin-bottom:0}
 .reveal b{color:#4a148c}
 @media(prefers-color-scheme:dark){.reveal b{color:#ce93d8}}
 
-.opttable{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0;border-radius:12px;overflow:hidden}
-.opttable th{background:#7b1fa2;color:#fff;padding:10px;font-weight:700;text-align:center;font-size:13.5px}
+.opttable{border-collapse:collapse;width:100%;font-size:16px;margin:10px 0;border-radius:12px;overflow:hidden}
+.opttable th{background:#7b1fa2;color:#fff;padding:10px;font-weight:700;text-align:center;font-size:15.5px}
 .opttable td{padding:12px 8px;text-align:center;border:1px solid #eee;background:#fff}
 @media(prefers-color-scheme:dark){.opttable td{background:#1c1c1c;border-color:#333}}
 .opttable tr:hover td{background:#f9f5ff}
@@ -269,35 +269,35 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin-bottom:12px}
 .graph{background:#fff;border:1px solid #eee;border-radius:14px;padding:14px;margin:12px 0;text-align:center;position:relative}
 @media(prefers-color-scheme:dark){.graph{background:#0f0f0f;border-color:#333}}
 .graph svg{max-width:100%;height:auto}
-.graph .cap{font-size:13px;color:#888;font-style:italic;margin-top:6px}
+.graph .cap{font-size:15px;color:#888;font-style:italic;margin-top:6px}
 
 .aha{background:linear-gradient(135deg,#e8f5e9,#f5f0ff);border:1.5px solid #81c784;border-radius:14px;padding:14px 16px;margin:14px 0}
 @media(prefers-color-scheme:dark){.aha{background:linear-gradient(135deg,#0d3d14,#1a0d2a);border-color:#388e3c}}
-.aha .lb{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#2e7d32;font-weight:800;margin-bottom:6px}
+.aha .lb{font-size:14.5px;letter-spacing:.1em;text-transform:uppercase;color:#2e7d32;font-weight:800;margin-bottom:6px}
 @media(prefers-color-scheme:dark){.aha .lb{color:#81c784}}
-.aha p{font-size:14.5px;line-height:1.7}
+.aha p{font-size:16.5px;line-height:1.7}
 .aha b{color:#1b5e20}
 @media(prefers-color-scheme:dark){.aha b{color:#81c784}}
 
 .formula{background:#f5f0ff;border:1.5px solid #d1c4e9;border-radius:14px;padding:16px 20px;margin:14px 0;text-align:center}
 @media(prefers-color-scheme:dark){.formula{background:#1a0d2a;border-color:#4a148c}}
-.formula .main{font-size:20px;font-weight:800;color:#4a148c;font-family:Georgia,serif;margin-bottom:6px}
+.formula .main{font-size:22px;font-weight:800;color:#4a148c;font-family:Georgia,serif;margin-bottom:6px}
 @media(prefers-color-scheme:dark){.formula .main{color:#ce93d8}}
-.formula .desc{font-size:14px;color:#666;line-height:1.6}
+.formula .desc{font-size:16px;color:#666;line-height:1.6}
 @media(prefers-color-scheme:dark){.formula .desc{color:#aaa}}
 
 .next{background:#fce4ec;border:1px solid #f8bbd0;border-radius:14px;padding:14px 16px;margin:14px 0}
 @media(prefers-color-scheme:dark){.next{background:#3d1020;border-color:#7b1942}}
-.next .lb{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#c62828;font-weight:700;margin-bottom:4px}
+.next .lb{font-size:14.5px;letter-spacing:.1em;text-transform:uppercase;color:#c62828;font-weight:700;margin-bottom:4px}
 @media(prefers-color-scheme:dark){.next .lb{color:#ef9a9a}}
-.next p{font-size:14px;line-height:1.65}
+.next p{font-size:16px;line-height:1.65}
 
-.para{font-size:14.5px;line-height:1.75;margin-bottom:10px}
+.para{font-size:16.5px;line-height:1.75;margin-bottom:10px}
 .para b{color:#4a148c;font-weight:700}
 @media(prefers-color-scheme:dark){.para b{color:#ce93d8}}
 
 /* Interactive graph buttons */
-.gbtn{font-size:13px;padding:6px 14px;border-radius:99px;border:1.5px solid #7b1fa2;background:#f5f0ff;color:#7b1fa2;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.gbtn{font-size:15px;padding:6px 14px;border-radius:99px;border:1.5px solid #7b1fa2;background:#f5f0ff;color:#7b1fa2;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .gbtn:hover{background:#7b1fa2;color:#fff;transform:scale(1.03)}
 .gbtn:active{transform:scale(.97)}
 @media(prefers-color-scheme:dark){.gbtn{background:#1a0d2a;color:#ce93d8;border-color:#ce93d8}.gbtn:hover{background:#7b1fa2;color:#fff}}
@@ -307,15 +307,15 @@ h2.q{font-size:18px;font-weight:800;line-height:1.4;margin-bottom:12px}
 @media(max-width:520px){.case-grid{grid-template-columns:1fr}}
 .case-card{border-radius:14px;padding:16px;border:1.5px solid #e0e0e0}
 @media(prefers-color-scheme:dark){.case-card{border-color:#333;background:#1c1c1c}}
-.case-card h3{font-size:14px;font-weight:800;margin-bottom:6px}
-.case-card p{font-size:14px;line-height:1.6;margin-bottom:6px}
+.case-card h3{font-size:16px;font-weight:800;margin-bottom:6px}
+.case-card p{font-size:16px;line-height:1.6;margin-bottom:6px}
 .case-card p:last-child{margin-bottom:0}
-.case-card .tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;letter-spacing:.05em}
+.case-card .tag{display:inline-block;font-size:14px;font-weight:700;padding:2px 8px;border-radius:99px;letter-spacing:.05em}
 
 .slider-row{display:flex;align-items:center;gap:12px;margin:10px 0;padding:0 4px}
-.slider-row label{font-size:14px;font-weight:600;min-width:60px}
+.slider-row label{font-size:16px;font-weight:600;min-width:60px}
 .slider-row input[type=range]{flex:1;accent-color:#7b1fa2}
-.slider-row .val{font-size:15px;font-weight:800;color:#7b1fa2;min-width:30px;text-align:center}
+.slider-row .val{font-size:17px;font-weight:800;color:#7b1fa2;min-width:30px;text-align:center}
 @media(prefers-color-scheme:dark){.slider-row .val{color:#ce93d8}}
 </style>
   <link rel="stylesheet" href="../assets/theme.css">
@@ -391,7 +391,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     <tr><td class="team">C → D</td><td>+1</td><td class="hl">−2</td><td class="hl">2</td></tr>
     <tr><td class="team">D → E</td><td>+1</td><td class="hl">−1</td><td class="hl">1</td></tr>
   </table>
-  <p style="font-size:13px;color:#888">ตัวเลข 6, 4, 2, 1 คือ "อัตราทดแทน" ของคน→เตา ตอนนี้เราจะตั้งชื่อให้มัน!</p>
+  <p style="font-size:15px;color:#888">ตัวเลข 6, 4, 2, 1 คือ "อัตราทดแทน" ของคน→เตา ตอนนี้เราจะตั้งชื่อให้มัน!</p>
 </div>
 
 <!-- ═══ STEP 1: MRTS DEFINITION ═══ -->
@@ -432,7 +432,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
 
 <div class="graph" id="mrtsGraph" style="padding:16px 14px 8px">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 4px">
-    <span style="font-size:12px;font-weight:700;color:#7b1fa2;letter-spacing:.05em">MRTS บน ISOQUANT</span>
+    <span style="font-size:14px;font-weight:700;color:#7b1fa2;letter-spacing:.05em">MRTS บน ISOQUANT</span>
   </div>
   <div class="slider-row">
     <label>ช่วง:</label>
@@ -517,7 +517,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     </g>
   </svg>
 
-  <div id="mrtsInfo" style="text-align:center;font-size:13px;color:#888;margin-top:6px;min-height:22px">
+  <div id="mrtsInfo" style="text-align:center;font-size:15px;color:#888;margin-top:6px;min-height:22px">
     ลากแถบเพื่อดู MRTS แต่ละช่วง — สังเกตว่าค่าลดลงเรื่อย ๆ
   </div>
   <div class="cap">เพิ่มคนทีละ 1 (ΔL = +1) แต่เตาที่ลดได้ (ΔK) น้อยลงทุกที</div>
@@ -542,7 +542,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     <div class="lb">✓ นี่คือ "กฎ Diminishing MRTS"</div>
     <p>ยิ่งใช้ปัจจัยใดมากขึ้นเรื่อย ๆ การเพิ่มอีก 1 หน่วยจะทดแทนปัจจัยอีกชนิดได้ <b>น้อยลง</b></p>
     <p>กฎนี้ทำให้เส้น Isoquant <b>โค้งเว้าเข้าหาจุดกำเนิด</b> (convex to origin)</p>
-    <p style="font-size:13px;color:#888;margin-top:6px">ถ้า MRTS คงที่ → เส้นจะเป็นเส้นตรง (กรณีพิเศษ)</p>
+    <p style="font-size:15px;color:#888;margin-top:6px">ถ้า MRTS คงที่ → เส้นจะเป็นเส้นตรง (กรณีพิเศษ)</p>
   </div>
 </div>
 
@@ -592,7 +592,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     <h3 style="color:#1976d2">🔄 Perfect Substitutes</h3>
     <p class="tag" style="background:#e3f2fd;color:#1565c0">ทดแทนกันสมบูรณ์</p>
     <p style="margin-top:8px">MRTS <b>คงที่</b> → เส้นเป็น <b>เส้นตรง</b></p>
-    <p style="font-size:12.5px;color:#888">เช่น น้ำมัน 2 ยี่ห้อ ใช้แทนกันได้ 1:1</p>
+    <p style="font-size:14.5px;color:#888">เช่น น้ำมัน 2 ยี่ห้อ ใช้แทนกันได้ 1:1</p>
     <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" style="margin-top:8px">
       <line x1="30" y1="100" x2="140" y2="100" stroke="currentColor" stroke-width="1"/>
       <line x1="30" y1="100" x2="30" y2="15" stroke="currentColor" stroke-width="1"/>
@@ -608,7 +608,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     <h3 style="color:#e65100">🔧 Perfect Complements</h3>
     <p class="tag" style="background:#fff3e0;color:#e65100">ใช้ประกอบกันสมบูรณ์</p>
     <p style="margin-top:8px">MRTS = <b>0</b> → เส้นเป็น <b>รูปตัว L</b></p>
-    <p style="font-size:12.5px;color:#888">เช่น รถ 1 คัน + ยาง 4 เส้น ขาดไม่ได้</p>
+    <p style="font-size:14.5px;color:#888">เช่น รถ 1 คัน + ยาง 4 เส้น ขาดไม่ได้</p>
     <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" style="margin-top:8px">
       <line x1="30" y1="100" x2="140" y2="100" stroke="currentColor" stroke-width="1"/>
       <line x1="30" y1="100" x2="30" y2="15" stroke="currentColor" stroke-width="1"/>
@@ -693,7 +693,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
   <p>① <b>MRTS<sub>L.K</sub> = −ΔK/ΔL</b> (จากตาราง)</p>
   <p>② <b>MRTS<sub>L.K</sub> = Slope ของ Isoquant</b> (จากกราฟ)</p>
   <p>③ <b>MRTS<sub>L.K</sub> = MP<sub>L</sub>/MP<sub>K</sub></b> (จากผลผลิตเพิ่ม)</p>
-  <p style="margin-top:8px;font-size:13px;color:#666">ทั้ง 3 สูตรให้ค่าเท่ากัน — เลือกใช้ตัวไหนก็ได้ตามข้อมูลที่มี</p>
+  <p style="margin-top:8px;font-size:15px;color:#666">ทั้ง 3 สูตรให้ค่าเท่ากัน — เลือกใช้ตัวไหนก็ได้ตามข้อมูลที่มี</p>
 </div>
 
 <div class="next">

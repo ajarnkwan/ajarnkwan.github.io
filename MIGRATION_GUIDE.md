@@ -1,37 +1,37 @@
-# AjarnKwan Self-Learning Centre — Redesign v12 (Critical fix)
+# AjarnKwan Self-Learning Centre — Redesign v16
 
-## 🚨 Critical Bug Fix — Login ไม่ทำงาน
+## ✅ การเปลี่ยนแปลงรอบนี้ (v15 → v16)
 
-### สาเหตุ
-ตอน v10 ผมรันสคริปต์ลบ CSS เก่าโดยใช้ regex:
-```python
-re.sub(r'\.preview-banner[^{]*\{[^}]+\}', '', content)
-```
+### Freebies ที่หน้าแรก — ลิงก์ไฟล์จริงแล้ว
 
-regex นี้**ตั้งใจลบ CSS** `.preview-banner { ... }` แต่บังเอิญไป **กิน JavaScript code** ของ function `setPreviewBanner()` เพราะ:
-- `.preview-banner` ก็ปรากฏใน JS: `wrap.querySelector('.preview-banner-text')`
-- regex `[^{]*\{[^}]+\}` กิน text ตั้งแต่นั้นยาวไปจนเจอ `{...}` ตัวแรก
-- ผลลัพธ์: function setPreviewBanner เหลือเป็น
-  ```js
-  const msg = wrap.querySelector(' else {
-    ...
-  ```
-  
-→ **JavaScript syntax error** → Firebase module ทั้งหมดไม่ load → `window.loginEmail`, `window.loginGoogle` ไม่ได้ register → **ปุ่มกดไม่ได้**
+| Card | สถานะ | ลิงก์ |
+|---|---|---|
+| 1. Econometrics Cheat Sheet | ✓ จริง | `econometrics/cheatsheet.html` |
+| 2. สมุดศัพท์ จุลภาค (A6 booklet) | ✓ จริง | `vocab/booklet-micro.html` |
+| 3. สมุดศัพท์ มหภาค (A6 booklet) | ✓ จริง | `vocab/booklet-macro.html` |
+| 4. Microeconomics Summary | 🔒 SOON | (เร็วๆ นี้, opacity 55%, click ไม่ได้) |
 
-### แก้
-Restore function `setPreviewBanner` จากต้นฉบับ ตอนนี้ทุก script syntax-valid:
-- Script 1 (stub): ✓
-- Script 2 (Firebase module): ✓
-- Script 3 (interactive): ✓
+ทั้ง 3 cards แรก:
+- คลิกเปิดในแท็บใหม่ (`target="_blank"`)
+- มี `rel="noopener"` (security)
+- Card ที่ 4 มี class `freebie-soon` → opacity ลด, pointer-events: none
+
+### ใน Hub view ก็ลิงก์ไฟล์จริงด้วย
+(แก้ไว้ตั้งแต่ v9 แล้ว — Cheatsheet, สมุดศัพท์ x2, ช่อง 4 ว่างไว้)
+
+## ✅ Login fix ของ v13 ยังอยู่ครบ
+
+ตรวจสอบใน v16:
+- ✓ Split member/admin reads
+- ✓ Try-catch แยก
+- ✓ Safety net 8s timeout
+- ✓ "Read member failed" error message
 
 ## วิธี Deploy
 
 ```bash
-unzip ajarnkwan-redesign-v12.zip
+unzip ajarnkwan-redesign-v16.zip
 cp -r site/* /path/to/ajarnkwan.github.io/
-git add -A && git commit -m "v12 · CRITICAL fix · restore setPreviewBanner function"
+git add -A && git commit -m "v16 · Freebies link real files"
 git push
 ```
-
-ขอโทษอย่างจริงจังที่บั๊กนี้หลุดผ่านมาค่ะ — ผมไม่ได้ตรวจ JS syntax หลัง regex run

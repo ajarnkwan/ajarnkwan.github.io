@@ -23,7 +23,7 @@
   *{box-sizing:border-box}
   body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
   .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
-  .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:14px;font-weight:600;margin:0 0 14px}
+  .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:16px;font-weight:600;margin:0 0 14px}
   .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
   .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
@@ -56,7 +56,7 @@
     text-decoration: none; color: var(--ajk-ink);
     background: var(--ajk-primary-soft);
     padding: 8px 14px; border-radius: 999px;
-    font-size: 14px; font-weight: 600;
+    font-size: 16px; font-weight: 600;
     border: 1px solid transparent;
     transition: all .18s;
     flex-shrink: 0;
@@ -75,7 +75,7 @@
   text-decoration: none; color: var(--ajk-ink);
   background: var(--ajk-primary-soft);
   padding: 8px 14px; border-radius: 999px;
-  font-size: 14px; font-weight: 600;
+  font-size: 16px; font-weight: 600;
   border: 1px solid transparent;
   transition: all .18s;
   flex-shrink: 0;
@@ -135,16 +135,16 @@
   gap: 3px;
 }
 .ajk-chap-label {
-  font-size: 12.5px;
+  font-size: 14.5px;
   color: var(--ajk-muted, #6b6480);
   font-weight: 500;
   letter-spacing: .04em;
 }
 .ajk-chap-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--ajk-ink, #2A1F1A);
-  line-height: 1.4;
+  line-height: 1.55;
 }
 .ajk-chap-empty {
   visibility: hidden;
@@ -163,12 +163,12 @@
     line-height: 1.25;
   }
   .ajk-brand-course {
-    font-size: 14.5px; font-weight: 700; color: var(--ajk-ink);
+    font-size: 16.5px; font-weight: 700; color: var(--ajk-ink);
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     letter-spacing: -.01em;
   }
   .ajk-brand-author {
-    font-size: 12.5px; color: var(--ajk-muted); font-weight: 500;
+    font-size: 14.5px; color: var(--ajk-muted); font-weight: 500;
     display: inline-flex; align-items: center; gap: 5px;
     margin-top: 2px;
   }
@@ -183,8 +183,8 @@
     .ajk-back-btn span { display: none; }
     .ajk-back-btn { padding: 9px; }
     .ajk-back-btn svg { width: 16px; height: 16px; }
-    .ajk-brand-course { font-size: 13.5px; }
-    .ajk-brand-author { font-size: 12px; }
+    .ajk-brand-course { font-size: 15.5px; }
+    .ajk-brand-author { font-size: 14px; }
     .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; gap: 10px; }
   }
 
@@ -216,12 +216,12 @@
   }
   .ajk-footer-name {
     font-family: 'Noto Serif Thai', 'Noto Sans Thai', serif;
-    font-size: 24px; font-weight: 700;
+    font-size: 26px; font-weight: 700;
     color: var(--ajk-ink); margin: 0 0 4px;
     letter-spacing: -.01em;
   }
   .ajk-footer-sub {
-    font-size: 13.5px; color: var(--ajk-muted);
+    font-size: 15.5px; color: var(--ajk-muted);
     letter-spacing: .02em;
     margin-bottom: 26px;
   }
@@ -235,7 +235,7 @@
     background: var(--ajk-surface);
     border: 1px solid var(--ajk-border);
     padding: 9px 16px; border-radius: 999px;
-    font-size: 14px; font-weight: 500;
+    font-size: 16px; font-weight: 500;
     transition: all .18s;
     cursor: pointer;
     font-family: 'Noto Sans Thai', system-ui, sans-serif;
@@ -248,7 +248,7 @@
     box-shadow: 0 8px 20px rgba(0,0,0,.08);
   }
   .ajk-footer-bottom {
-    font-size: 12.5px; color: var(--ajk-muted);
+    font-size: 14.5px; color: var(--ajk-muted);
     letter-spacing: .02em;
     padding-top: 22px;
     border-top: 1px solid var(--ajk-border);
@@ -260,9 +260,9 @@
 
   @media (max-width: 520px) {
     .ajk-footer { padding: 36px 14px 22px; margin-top: 48px; }
-    .ajk-footer-name { font-size: 21px; }
+    .ajk-footer-name { font-size: 23px; }
     .ajk-footer-links { gap: 6px; }
-    .ajk-footer-btn { padding: 8px 13px; font-size: 13px; }
+    .ajk-footer-btn { padding: 8px 13px; font-size: 15px; }
   }
 
   /* ── Section body ── */
@@ -271,59 +271,59 @@
   .step-dot{flex:1;height:4px;border-radius:2px;background:var(--color-background-secondary);transition:background .3s}
   .step-dot.done{background:#1D9E75}
   .step-dot.active{background:#4338ca}
-  .section-label{font-size:12.5px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;font-weight:600}
+  .section-label{font-size:14.5px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;font-weight:600}
   .section-label .chip{background:#ede9fe;color:#3730a3;padding:2px 8px;border-radius:999px;margin-right:8px;font-weight:700}
-  .big-q{font-family:var(--font-serif);font-size:20px;font-weight:700;color:var(--color-text-primary);line-height:1.45;margin:0 0 1rem}
-  .lead{font-size:14.5px;line-height:1.85;color:var(--color-text-primary);margin:0 0 1rem}
+  .big-q{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--color-text-primary);line-height:1.45;margin:0 0 1rem}
+  .lead{font-size:16.5px;line-height:1.85;color:var(--color-text-primary);margin:0 0 1rem}
   .lead strong{color:#3730a3;font-weight:700}
   .nav-row{display:flex;gap:8px;margin-top:1.5rem}
-  .nav-btn{flex:1;padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:14.5px;cursor:pointer;transition:background .15s;font-family:inherit;font-weight:500}
+  .nav-btn{flex:1;padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:16.5px;cursor:pointer;transition:background .15s;font-family:inherit;font-weight:500}
   .nav-btn:hover{background:var(--color-background-secondary)}
   .nav-btn.primary{background:#4338ca;border-color:#4338ca;color:#fff}
   .nav-btn.primary:hover{background:#3730a3}
   .section{display:none}
   .section.active{display:block}
 
-  .reveal-btn{width:100%;padding:11px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:14.5px;font-weight:500;cursor:pointer;margin-bottom:8px;transition:background .15s;font-family:inherit}
+  .reveal-btn{width:100%;padding:11px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:16.5px;font-weight:500;cursor:pointer;margin-bottom:8px;transition:background .15s;font-family:inherit}
   .reveal-btn:hover{background:var(--color-background-secondary)}
   .reveal-box{background:#fff;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;display:none}
   .reveal-box.shown{display:block}
-  .reveal-box p{margin:0 0 10px;font-size:14px;line-height:1.8;color:var(--color-text-primary)}
+  .reveal-box p{margin:0 0 10px;font-size:16px;line-height:1.8;color:var(--color-text-primary)}
   .reveal-box p:last-child{margin-bottom:0}
 
-  .quiz-opt{display:block;width:100%;text-align:left;padding:11px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:14.5px;cursor:pointer;margin-bottom:6px;transition:all .15s;font-family:inherit;line-height:1.6}
+  .quiz-opt{display:block;width:100%;text-align:left;padding:11px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:16.5px;cursor:pointer;margin-bottom:6px;transition:all .15s;font-family:inherit;line-height:1.6}
   .quiz-opt:hover:not(:disabled){background:var(--color-background-secondary)}
   .quiz-opt.correct{background:#E1F5EE;border-color:#1D9E75;color:#0F6E56}
   .quiz-opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
   .quiz-opt:disabled{cursor:default}
-  .feedback{font-size:14.5px;padding:10px 14px;border-radius:var(--border-radius-md);margin-top:6px;display:none;line-height:1.7}
+  .feedback{font-size:16.5px;padding:10px 14px;border-radius:var(--border-radius-md);margin-top:6px;display:none;line-height:1.7}
   .feedback.show{display:block}
   .feedback.ok{background:#E1F5EE;color:#0F6E56}
   .feedback.bad{background:#FCEBEB;color:#A32D2D}
-  .score-circle{width:80px;height:80px;border-radius:50%;border:3px solid #4338ca;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:24px;font-weight:700;color:#3730a3;font-family:var(--font-serif)}
+  .score-circle{width:80px;height:80px;border-radius:50%;border:3px solid #4338ca;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:26px;font-weight:700;color:#3730a3;font-family:var(--font-serif)}
 
   /* ═══════════ Custom components ═══════════ */
 
   /* Slider */
   .ctrl{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:14px 16px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
-  .ctrl label{font-size:14.5px;color:var(--color-text-primary);font-weight:600;flex-shrink:0}
+  .ctrl label{font-size:16.5px;color:var(--color-text-primary);font-weight:600;flex-shrink:0}
   .ctrl input[type="range"]{flex:1;accent-color:#4338ca;height:4px}
-  .ctrl .val{background:#4338ca;color:#fff;font-family:var(--font-serif);font-size:17px;font-weight:700;min-width:42px;text-align:center;padding:6px 12px;border-radius:999px}
+  .ctrl .val{background:#4338ca;color:#fff;font-family:var(--font-serif);font-size:19px;font-weight:700;min-width:42px;text-align:center;padding:6px 12px;border-radius:999px}
 
   /* Question card */
   .q-card{background:linear-gradient(135deg, #ede9fe, #fef3c7);border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;text-align:center}
   .q-card .q-mark{font-family:var(--font-serif);font-size:38px;font-weight:700;color:#4338ca;line-height:1;margin-bottom:10px}
-  .q-card p{margin:0;font-size:15px;line-height:1.75;color:var(--color-text-primary)}
+  .q-card p{margin:0;font-size:17px;line-height:1.75;color:var(--color-text-primary)}
   .q-card p strong{color:#3730a3}
 
   /* Takeaway */
-  .takeaway{background:#3730a3;color:#fff;border-radius:var(--border-radius-lg);padding:1.1rem 1.35rem;margin:1rem 0;font-size:14.5px;line-height:1.8}
-  .takeaway .tag{display:inline-block;background:rgba(255,255,255,.2);padding:3px 11px;border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+  .takeaway{background:#3730a3;color:#fff;border-radius:var(--border-radius-lg);padding:1.1rem 1.35rem;margin:1rem 0;font-size:16.5px;line-height:1.8}
+  .takeaway .tag{display:inline-block;background:rgba(255,255,255,.2);padding:3px 11px;border-radius:999px;font-size:14.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
   .takeaway p{margin:0}
   .takeaway strong{color:#fef3c7}
 
   /* Story box */
-  .story{background:#fef7e0;border-left:4px solid #f59e0b;border-radius:var(--border-radius-md);padding:14px 18px;margin-bottom:1rem;font-size:14.5px;line-height:1.75;color:#92400e;min-height:60px;transition:all .25s}
+  .story{background:#fef7e0;border-left:4px solid #f59e0b;border-radius:var(--border-radius-md);padding:14px 18px;margin-bottom:1rem;font-size:16.5px;line-height:1.75;color:#92400e;min-height:60px;transition:all .25s}
   .story.good{background:#dcfaed;border-left-color:#10b981;color:#065f46}
   .story.bad{background:#fee2e2;border-left-color:#ef4444;color:#991b1b}
   .story.peak{background:#fef3c7;border-left-color:#f59e0b;color:#92400e}
@@ -331,7 +331,7 @@
 
   /* ── Stage strip (sec 1-3) ── */
   .stage-strip{display:flex;border-radius:var(--border-radius-md);overflow:hidden;margin-bottom:10px;height:50px;border:1px solid var(--color-border-tertiary)}
-  .stage-seg{position:relative;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;transition:all .3s;cursor:pointer}
+  .stage-seg{position:relative;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;transition:all .3s;cursor:pointer}
   .stage-seg.s1{background:#dcfaed;color:#065f46}
   .stage-seg.s2{background:#fef3c7;color:#92400e}
   .stage-seg.s3{background:#fee2e2;color:#991b1b}
@@ -344,26 +344,26 @@
   .stage-marker::before{content:'';position:absolute;top:-6px;left:-6px;width:14px;height:14px;background:#1d1633;border-radius:50%}
 
   .stage-labels{display:flex;margin-bottom:8px}
-  .stage-label-seg{text-align:center;font-size:12px;color:#6b6480;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+  .stage-label-seg{text-align:center;font-size:14px;color:#6b6480;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 
   /* Current stage info card */
   .current-stage{padding:14px 18px;border-radius:var(--border-radius-md);margin-bottom:12px;transition:all .3s}
   .current-stage.s1{background:#dcfaed;border-left:4px solid #10b981}
   .current-stage.s2{background:#fef3c7;border-left:4px solid #f59e0b}
   .current-stage.s3{background:#fee2e2;border-left:4px solid #ef4444}
-  .current-stage .cs-num{display:inline-block;font-family:var(--font-serif);font-size:15px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:6px;color:#fff}
+  .current-stage .cs-num{display:inline-block;font-family:var(--font-serif);font-size:17px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:6px;color:#fff}
   .current-stage.s1 .cs-num{background:#10b981}
   .current-stage.s2 .cs-num{background:#f59e0b}
   .current-stage.s3 .cs-num{background:#ef4444}
-  .current-stage .cs-title{font-weight:700;font-size:15px;margin:0 0 6px;color:var(--color-text-primary)}
-  .current-stage .cs-desc{font-size:14.5px;line-height:1.7;margin:0;color:var(--color-text-primary)}
+  .current-stage .cs-title{font-weight:700;font-size:17px;margin:0 0 6px;color:var(--color-text-primary)}
+  .current-stage .cs-desc{font-size:16.5px;line-height:1.7;margin:0;color:var(--color-text-primary)}
   .current-stage .cs-desc strong{color:var(--color-text-primary)}
 
   /* Metric grid */
   .metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
   .metric-card{background:#fff;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;text-align:center}
-  .metric-card .m-label{font-size:12px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:3px}
-  .metric-card .m-val{font-family:var(--font-serif);font-size:20px;font-weight:700;line-height:1}
+  .metric-card .m-label{font-size:14px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:3px}
+  .metric-card .m-val{font-family:var(--font-serif);font-size:22px;font-weight:700;line-height:1}
   .metric-card.tp .m-val{color:#4338ca}
   .metric-card.ap .m-val{color:#0F6E56}
   .metric-card.mp .m-val{color:#B45309}
@@ -376,42 +376,42 @@
   .cmp-header.s1{background:#10b981}
   .cmp-header.s2{background:#f59e0b}
   .cmp-header.s3{background:#ef4444}
-  .cmp-header .cmp-num{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:14px;flex-shrink:0}
-  .cmp-header .cmp-title{flex:1;font-size:14.5px}
-  .cmp-header .cmp-verdict{font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.25)}
+  .cmp-header .cmp-num{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:16px;flex-shrink:0}
+  .cmp-header .cmp-title{flex:1;font-size:16.5px}
+  .cmp-header .cmp-verdict{font-size:15px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.25)}
   .cmp-body{padding:12px 16px;background:#fff}
-  .cmp-row{display:flex;gap:10px;font-size:14px;padding:5px 0;line-height:1.55}
-  .cmp-row .cmp-icon{flex-shrink:0;font-size:14px;margin-top:2px}
+  .cmp-row{display:flex;gap:10px;font-size:16px;padding:5px 0;line-height:1.55}
+  .cmp-row .cmp-icon{flex-shrink:0;font-size:16px;margin-top:2px}
   .cmp-row.pro .cmp-icon{color:#10b981}
   .cmp-row.con .cmp-icon{color:#ef4444}
 
   /* Decision zone (sec 3) */
   .decision-box{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem}
-  .decision-scenario{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:14px;font-size:14.5px;line-height:1.7}
+  .decision-scenario{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:14px;font-size:16.5px;line-height:1.7}
   .decision-scenario strong{color:#3730a3}
-  .decision-prompt{font-size:14px;font-weight:600;color:var(--color-text-primary);margin:0 0 10px;line-height:1.6}
+  .decision-prompt{font-size:16px;font-weight:600;color:var(--color-text-primary);margin:0 0 10px;line-height:1.6}
   .decision-choices{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
   .decision-btn{padding:12px 10px;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:#fff;cursor:pointer;text-align:center;transition:all .18s;font-family:inherit}
   .decision-btn:hover:not(:disabled){border-color:#4338ca;background:#fafafe}
-  .decision-btn .db-n{font-family:var(--font-serif);font-size:22px;font-weight:700;color:#4338ca;line-height:1;margin-bottom:3px}
-  .decision-btn .db-desc{font-size:12.5px;color:#6b6480;line-height:1.4}
+  .decision-btn .db-n{font-family:var(--font-serif);font-size:24px;font-weight:700;color:#4338ca;line-height:1;margin-bottom:3px}
+  .decision-btn .db-desc{font-size:14.5px;color:#6b6480;line-height:1.55}
   .decision-btn.correct{background:#dcfaed;border-color:#10b981}
   .decision-btn.correct .db-n{color:#065f46}
   .decision-btn.wrong{background:#fee2e2;border-color:#ef4444}
   .decision-btn.wrong .db-n{color:#991b1b}
   .decision-btn:disabled{cursor:default}
 
-  .decision-fb{font-size:14.5px;padding:12px 14px;border-radius:var(--border-radius-md);line-height:1.7;display:none}
+  .decision-fb{font-size:16.5px;padding:12px 14px;border-radius:var(--border-radius-md);line-height:1.7;display:none}
   .decision-fb.show{display:block}
   .decision-fb.ok{background:#dcfaed;color:#065f46;border-left:3px solid #10b981}
   .decision-fb.bad{background:#fee2e2;color:#991b1b;border-left:3px solid #ef4444}
 
   @media (max-width:520px){
-    .big-q{font-size:17.5px}
+    .big-q{font-size:19.5px}
     .panel{padding:18px}
     .metrics{grid-template-columns:1fr 1fr 1fr;gap:6px}
     .metric-card{padding:8px 6px}
-    .metric-card .m-val{font-size:17px}
+    .metric-card .m-val{font-size:19px}
     .decision-choices{gap:6px}
     .decision-btn{padding:10px 6px}
   }
@@ -520,14 +520,14 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
 
     <!-- Stage strip visualization -->
     <div style="background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:12px">
-      <div style="font-size:11.5px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:10px;text-align:center">ตำแหน่งของคุณบนเส้น 3 ขั้น</div>
+      <div style="font-size:13.5px;color:#6b6480;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:10px;text-align:center">ตำแหน่งของคุณบนเส้น 3 ขั้น</div>
       <div class="stage-strip" id="s1-strip">
         <!-- built by JS -->
       </div>
       <div class="stage-marker-row" id="s1-marker-row">
         <div class="stage-marker" id="s1-marker" style="left:0%"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:10.5px;color:#6b6480;font-weight:600">
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:#6b6480;font-weight:600">
         <span>1 คน</span>
         <span style="color:#f59e0b">AP สูงสุด (X=4)</span>
         <span style="color:#ef4444">TP สูงสุด (X=6)</span>
@@ -726,19 +726,19 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     <!-- ── STEP 2: Define MPF ── -->
     <div class="q-card" style="margin-top:1.5rem">
       <div class="q-mark" style="font-size:28px;margin-bottom:6px">MP𝒻 คืออะไร?</div>
-      <p style="font-size:14.5px"><strong>MP𝒻 (MP ของเครื่อง)</strong> = "ผลผลิตที่เพิ่มขึ้น<br>ถ้าเราเพิ่ม<u>เครื่อง</u> 1 เครื่อง (ในจินตนาการ)"</p>
+      <p style="font-size:16.5px"><strong>MP𝒻 (MP ของเครื่อง)</strong> = "ผลผลิตที่เพิ่มขึ้น<br>ถ้าเราเพิ่ม<u>เครื่อง</u> 1 เครื่อง (ในจินตนาการ)"</p>
     </div>
 
     <p class="lead">ในระยะสั้น เครื่องเพิ่มไม่ได้จริง — แต่เรา<strong>ลองคิด</strong>ว่า "ถ้าเพิ่มได้ มันจะช่วยไหม?" การตอบคำถามนี้จะบอก MP𝒻 ให้เรา</p>
 
     <!-- ── STEP 3: Mini-analogy — bathroom at party ── -->
     <div style="background:linear-gradient(135deg,#fef3c7,#ffedd5);border-radius:var(--border-radius-lg);padding:16px 18px;margin:1rem 0">
-      <div style="font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:#92400e;margin-bottom:10px">🚽 ลอง analogy ที่เห็นภาพ</div>
-      <p style="font-size:14px;line-height:1.75;margin:0 0 10px;color:#1d1633">งานปาร์ตี้บ้านคุณ มี<strong>ห้องน้ำ 2 ห้อง</strong> ลองถามตัวเองว่า <em>"ถ้าเพิ่มห้องน้ำ 1 ห้อง จะช่วยไหม?"</em></p>
-      <p style="margin:0 0 6px;font-size:13.5px;color:#1d1633">👥 <strong>แขก 2 คน</strong> → เพิ่มห้องน้ำอีก? <span style="color:#991b1b;font-weight:700">ไม่ช่วย!</span> มีเหลือเฟืออยู่แล้ว</p>
-      <p style="margin:0 0 6px;font-size:13.5px;color:#1d1633">👥 <strong>แขก 20 คน</strong> → เพิ่มห้องน้ำอีก? <span style="color:#065f46;font-weight:700">ช่วยมาก!</span> ลดคิว</p>
-      <p style="margin:0;font-size:13.5px;color:#1d1633">👥 <strong>แขก 100 คน</strong> → เพิ่มห้องน้ำอีก? <span style="color:#065f46;font-weight:700">ช่วยเยอะเลย!</span> ลดคิวยาว</p>
-      <p style="margin:10px 0 0;padding-top:10px;border-top:1px solid #fed7aa;font-size:13px;color:#92400e"><strong>👉 "มีคนใช้เยอะไหม?" คือกุญแจตอบว่า MP𝒻 บวกหรือลบ</strong></p>
+      <div style="font-size:13.5px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:#92400e;margin-bottom:10px">🚽 ลอง analogy ที่เห็นภาพ</div>
+      <p style="font-size:16px;line-height:1.75;margin:0 0 10px;color:#1d1633">งานปาร์ตี้บ้านคุณ มี<strong>ห้องน้ำ 2 ห้อง</strong> ลองถามตัวเองว่า <em>"ถ้าเพิ่มห้องน้ำ 1 ห้อง จะช่วยไหม?"</em></p>
+      <p style="margin:0 0 6px;font-size:15.5px;color:#1d1633">👥 <strong>แขก 2 คน</strong> → เพิ่มห้องน้ำอีก? <span style="color:#991b1b;font-weight:700">ไม่ช่วย!</span> มีเหลือเฟืออยู่แล้ว</p>
+      <p style="margin:0 0 6px;font-size:15.5px;color:#1d1633">👥 <strong>แขก 20 คน</strong> → เพิ่มห้องน้ำอีก? <span style="color:#065f46;font-weight:700">ช่วยมาก!</span> ลดคิว</p>
+      <p style="margin:0;font-size:15.5px;color:#1d1633">👥 <strong>แขก 100 คน</strong> → เพิ่มห้องน้ำอีก? <span style="color:#065f46;font-weight:700">ช่วยเยอะเลย!</span> ลดคิวยาว</p>
+      <p style="margin:10px 0 0;padding-top:10px;border-top:1px solid #fed7aa;font-size:15px;color:#92400e"><strong>👉 "มีคนใช้เยอะไหม?" คือกุญแจตอบว่า MP𝒻 บวกหรือลบ</strong></p>
     </div>
 
     <!-- ── STEP 4: The 3-stages reveal ── -->
@@ -748,31 +748,31 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <!-- Stage I example -->
       <div style="background:#fff;border:1px solid var(--color-border-tertiary);border-left:4px solid #ef4444;border-radius:var(--border-radius-lg);padding:14px 16px">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700">Stage I · คนน้อย</span>
+          <span style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:999px;font-size:13.5px;font-weight:700">Stage I · คนน้อย</span>
         </div>
-        <p style="margin:0 0 6px;font-size:13.5px;line-height:1.7;color:#1d1633"><strong>บาริสต้า 2 คน + เครื่องชง 2 เครื่อง</strong> → 1 คน = 1 เครื่อง (เหลือเฟือ)</p>
-        <p style="margin:0 0 6px;font-size:13px;line-height:1.7;color:#6b6480"><em>"ถ้าเพิ่มเครื่องชงอีก 1 เครื่อง จะช่วยไหม?"</em></p>
-        <p style="margin:0;font-size:13px;color:#991b1b"><strong>👉 ไม่ช่วยเลย — ไม่มีใครใช้ → MP𝒻 ติดลบ</strong></p>
+        <p style="margin:0 0 6px;font-size:15.5px;line-height:1.7;color:#1d1633"><strong>บาริสต้า 2 คน + เครื่องชง 2 เครื่อง</strong> → 1 คน = 1 เครื่อง (เหลือเฟือ)</p>
+        <p style="margin:0 0 6px;font-size:15px;line-height:1.7;color:#6b6480"><em>"ถ้าเพิ่มเครื่องชงอีก 1 เครื่อง จะช่วยไหม?"</em></p>
+        <p style="margin:0;font-size:15px;color:#991b1b"><strong>👉 ไม่ช่วยเลย — ไม่มีใครใช้ → MP𝒻 ติดลบ</strong></p>
       </div>
 
       <!-- Stage II example -->
       <div style="background:#fff;border:1px solid var(--color-border-tertiary);border-left:4px solid #10b981;border-radius:var(--border-radius-lg);padding:14px 16px">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <span style="background:#dcfaed;color:#065f46;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700">Stage II · พอดี ✨</span>
+          <span style="background:#dcfaed;color:#065f46;padding:3px 10px;border-radius:999px;font-size:13.5px;font-weight:700">Stage II · พอดี ✨</span>
         </div>
-        <p style="margin:0 0 6px;font-size:13.5px;line-height:1.7;color:#1d1633"><strong>บาริสต้า 5-6 คน + เครื่องชง 2 เครื่อง</strong> → คนต่อคิวใช้เครื่องสั้น ๆ</p>
-        <p style="margin:0 0 6px;font-size:13px;line-height:1.7;color:#6b6480"><em>"ถ้าเพิ่มเครื่องชงอีก 1 เครื่อง จะช่วยไหม?"</em></p>
-        <p style="margin:0;font-size:13px;color:#065f46"><strong>👉 ช่วยได้ — ลดคิว → MP𝒻 บวก</strong></p>
+        <p style="margin:0 0 6px;font-size:15.5px;line-height:1.7;color:#1d1633"><strong>บาริสต้า 5-6 คน + เครื่องชง 2 เครื่อง</strong> → คนต่อคิวใช้เครื่องสั้น ๆ</p>
+        <p style="margin:0 0 6px;font-size:15px;line-height:1.7;color:#6b6480"><em>"ถ้าเพิ่มเครื่องชงอีก 1 เครื่อง จะช่วยไหม?"</em></p>
+        <p style="margin:0;font-size:15px;color:#065f46"><strong>👉 ช่วยได้ — ลดคิว → MP𝒻 บวก</strong></p>
       </div>
 
       <!-- Stage III example -->
       <div style="background:#fff;border:1px solid var(--color-border-tertiary);border-left:4px solid #10b981;border-radius:var(--border-radius-lg);padding:14px 16px">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <span style="background:#dcfaed;color:#065f46;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700">Stage III · คนล้น</span>
+          <span style="background:#dcfaed;color:#065f46;padding:3px 10px;border-radius:999px;font-size:13.5px;font-weight:700">Stage III · คนล้น</span>
         </div>
-        <p style="margin:0 0 6px;font-size:13.5px;line-height:1.7;color:#1d1633"><strong>บาริสต้า 8 คน + เครื่องชง 2 เครื่อง</strong> → คนยืนต่อคิวยาว</p>
-        <p style="margin:0 0 6px;font-size:13px;line-height:1.7;color:#6b6480"><em>"ถ้าเพิ่มเครื่องชงอีก 1 เครื่อง จะช่วยไหม?"</em></p>
-        <p style="margin:0;font-size:13px;color:#065f46"><strong>👉 ช่วยมาก — คิวยาวมาก → MP𝒻 บวก</strong></p>
+        <p style="margin:0 0 6px;font-size:15.5px;line-height:1.7;color:#1d1633"><strong>บาริสต้า 8 คน + เครื่องชง 2 เครื่อง</strong> → คนยืนต่อคิวยาว</p>
+        <p style="margin:0 0 6px;font-size:15px;line-height:1.7;color:#6b6480"><em>"ถ้าเพิ่มเครื่องชงอีก 1 เครื่อง จะช่วยไหม?"</em></p>
+        <p style="margin:0;font-size:15px;color:#065f46"><strong>👉 ช่วยมาก — คิวยาวมาก → MP𝒻 บวก</strong></p>
       </div>
     </div>
 
@@ -780,29 +780,29 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     <p class="lead"><strong>สรุปภาพรวม</strong> — ดูทั้ง MPₓ และ MP𝒻 ของทั้ง 3 ช่วงพร้อมกัน:</p>
 
     <div style="background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;margin-bottom:1rem">
-      <table style="width:100%;border-collapse:collapse;font-size:13.5px">
+      <table style="width:100%;border-collapse:collapse;font-size:15.5px">
         <thead>
           <tr style="background:var(--color-background-secondary)">
-            <th style="padding:10px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#6b6480;font-weight:600">ช่วง</th>
-            <th style="padding:10px 8px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#6b6480;font-weight:600">👤 MPₓ</th>
-            <th style="padding:10px 8px;text-align:center;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#6b6480;font-weight:600">⚙️ MP𝒻</th>
+            <th style="padding:10px 12px;text-align:left;font-size:13.5px;text-transform:uppercase;letter-spacing:.05em;color:#6b6480;font-weight:600">ช่วง</th>
+            <th style="padding:10px 8px;text-align:center;font-size:13.5px;text-transform:uppercase;letter-spacing:.05em;color:#6b6480;font-weight:600">👤 MPₓ</th>
+            <th style="padding:10px 8px;text-align:center;font-size:13.5px;text-transform:uppercase;letter-spacing:.05em;color:#6b6480;font-weight:600">⚙️ MP𝒻</th>
           </tr>
         </thead>
         <tbody>
           <tr style="border-top:1px solid var(--color-border-tertiary)">
-            <td style="padding:12px;"><strong style="color:#991b1b">Stage I</strong><br><span style="font-size:12px;color:#6b6480">คนน้อยเกิน</span></td>
-            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#dcfaed;color:#065f46;border-radius:999px;font-weight:700;font-size:13px">+ บวก</span></td>
-            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#fee2e2;color:#991b1b;border-radius:999px;font-weight:700;font-size:13px">− ติดลบ</span></td>
+            <td style="padding:12px;"><strong style="color:#991b1b">Stage I</strong><br><span style="font-size:14px;color:#6b6480">คนน้อยเกิน</span></td>
+            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#dcfaed;color:#065f46;border-radius:999px;font-weight:700;font-size:15px">+ บวก</span></td>
+            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#fee2e2;color:#991b1b;border-radius:999px;font-weight:700;font-size:15px">− ติดลบ</span></td>
           </tr>
           <tr style="border-top:1px solid var(--color-border-tertiary);background:#f0fdf4">
-            <td style="padding:12px;"><strong style="color:#065f46">Stage II</strong><br><span style="font-size:12px;color:#065f46">✨ พอดี</span></td>
-            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#dcfaed;color:#065f46;border-radius:999px;font-weight:700;font-size:13px">+ บวก</span></td>
-            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#dcfaed;color:#065f46;border-radius:999px;font-weight:700;font-size:13px">+ บวก</span></td>
+            <td style="padding:12px;"><strong style="color:#065f46">Stage II</strong><br><span style="font-size:14px;color:#065f46">✨ พอดี</span></td>
+            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#dcfaed;color:#065f46;border-radius:999px;font-weight:700;font-size:15px">+ บวก</span></td>
+            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#dcfaed;color:#065f46;border-radius:999px;font-weight:700;font-size:15px">+ บวก</span></td>
           </tr>
           <tr style="border-top:1px solid var(--color-border-tertiary)">
-            <td style="padding:12px;"><strong style="color:#991b1b">Stage III</strong><br><span style="font-size:12px;color:#6b6480">คนล้น</span></td>
-            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#fee2e2;color:#991b1b;border-radius:999px;font-weight:700;font-size:13px">− ติดลบ</span></td>
-            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#dcfaed;color:#065f46;border-radius:999px;font-weight:700;font-size:13px">+ บวก</span></td>
+            <td style="padding:12px;"><strong style="color:#991b1b">Stage III</strong><br><span style="font-size:14px;color:#6b6480">คนล้น</span></td>
+            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#fee2e2;color:#991b1b;border-radius:999px;font-weight:700;font-size:15px">− ติดลบ</span></td>
+            <td style="padding:12px;text-align:center"><span style="display:inline-block;padding:3px 10px;background:#dcfaed;color:#065f46;border-radius:999px;font-weight:700;font-size:15px">+ บวก</span></td>
           </tr>
         </tbody>
       </table>
@@ -822,27 +822,27 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     <div style="background:#fff;border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-bottom:12px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
         <div id="s4-mpx-box" style="padding:14px;border-radius:var(--border-radius-md);border:2px solid #ddd;transition:all .25s">
-          <div style="font-size:11px;color:#6b6480;font-weight:600;margin-bottom:6px">👤 MPₓ (ของคน)</div>
-          <div style="font-family:'Noto Serif Thai',serif;font-size:22px;font-weight:700;line-height:1;margin-bottom:6px" id="s4-mpx-val">+10</div>
-          <div style="font-size:11.5px;font-weight:700" id="s4-mpx-sign">บวก ✓</div>
+          <div style="font-size:13.5px;color:#6b6480;font-weight:600;margin-bottom:6px">👤 MPₓ (ของคน)</div>
+          <div style="font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;line-height:1;margin-bottom:6px" id="s4-mpx-val">+10</div>
+          <div style="font-size:13.5px;font-weight:700" id="s4-mpx-sign">บวก ✓</div>
         </div>
         <div id="s4-mpf-box" style="padding:14px;border-radius:var(--border-radius-md);border:2px solid #ddd;transition:all .25s">
-          <div style="font-size:11px;color:#6b6480;font-weight:600;margin-bottom:6px">⚙️ MP𝒻 (ของเครื่อง)</div>
-          <div style="font-family:'Noto Serif Thai',serif;font-size:22px;font-weight:700;line-height:1;margin-bottom:6px" id="s4-mpf-sign-big">−</div>
-          <div style="font-size:11.5px;font-weight:700" id="s4-mpf-sign">ติดลบ ✗</div>
+          <div style="font-size:13.5px;color:#6b6480;font-weight:600;margin-bottom:6px">⚙️ MP𝒻 (ของเครื่อง)</div>
+          <div style="font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:700;line-height:1;margin-bottom:6px" id="s4-mpf-sign-big">−</div>
+          <div style="font-size:13.5px;font-weight:700" id="s4-mpf-sign">ติดลบ ✗</div>
         </div>
       </div>
-      <div style="padding:10px 12px;border-radius:var(--border-radius-md);font-size:13px;line-height:1.65;text-align:center" id="s4-verdict">—</div>
+      <div style="padding:10px 12px;border-radius:var(--border-radius-md);font-size:15px;line-height:1.65;text-align:center" id="s4-verdict">—</div>
     </div>
 
     <!-- ── STEP 7: Bonus insight (free factor case) ── -->
     <button class="reveal-btn" id="rbtn4" onclick="tog('ans4','rbtn4','🎁 โบนัส — ถ้าปัจจัยใด &quot;ฟรี&quot;')">🎁 โบนัส — ถ้าปัจจัยใด "ฟรี"</button>
     <div class="reveal-box" id="ans4">
-      <p style="font-size:13.5px"><strong>💡 ถ้าคน (แปรผัน) ฟรี — ไม่ต้องจ่ายค่าจ้าง</strong></p>
+      <p style="font-size:15.5px"><strong>💡 ถ้าคน (แปรผัน) ฟรี — ไม่ต้องจ่ายค่าจ้าง</strong></p>
       <p>จ้างคนเพิ่มเรื่อย ๆ จนถึงจุดที่ <strong>MPₓ = 0</strong> → ที่ <strong>X=6, TP=96</strong> (TP สูงสุด)</p>
-      <p style="font-size:13.5px;margin-top:10px"><strong>💡 ถ้าเครื่อง (คงที่) ฟรี — ไม่ต้องจ่ายค่าเช่าเครื่อง</strong></p>
+      <p style="font-size:15.5px;margin-top:10px"><strong>💡 ถ้าเครื่อง (คงที่) ฟรี — ไม่ต้องจ่ายค่าเช่าเครื่อง</strong></p>
       <p>จ้างคนเพิ่มเรื่อย ๆ แต่<strong>หยุดที่ X=4 (AP สูงสุด)</strong> → ตรงนี้ MP𝒻 = 0 พอดี หลังจากนี้ MP𝒻 จะบวก — เพิ่มเครื่อง (ที่ฟรี) จะช่วย</p>
-      <p style="margin-top:12px;padding:10px 12px;background:#fef3c7;border-radius:var(--border-radius-md);color:#92400e;font-size:13px">👉 เหตุผลนี้ก็อธิบายว่าทำไม <strong>Stage II เริ่มที่ AP สูงสุด</strong> และ <strong>สิ้นสุดที่ TP สูงสุด</strong></p>
+      <p style="margin-top:12px;padding:10px 12px;background:#fef3c7;border-radius:var(--border-radius-md);color:#92400e;font-size:15px">👉 เหตุผลนี้ก็อธิบายว่าทำไม <strong>Stage II เริ่มที่ AP สูงสุด</strong> และ <strong>สิ้นสุดที่ TP สูงสุด</strong></p>
     </div>
 
     <div class="takeaway">
@@ -1236,7 +1236,7 @@ function buildQuiz(){
     const optsHtml = q.opts.map((o, oi)=>
       `<button class="quiz-opt" id="qo-${qi}-${oi}" onclick="answerQ(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`
     ).join('');
-    block.innerHTML = `<p style="font-size:14.5px;font-weight:600;margin:0 0 10px;color:var(--color-text-primary);line-height:1.6">${qi+1}. ${q.q}</p>${optsHtml}<div class="feedback" id="qfb-${qi}"></div>`;
+    block.innerHTML = `<p style="font-size:16.5px;font-weight:600;margin:0 0 10px;color:var(--color-text-primary);line-height:1.6">${qi+1}. ${q.q}</p>${optsHtml}<div class="feedback" id="qfb-${qi}"></div>`;
     z.appendChild(block);
   });
 }
@@ -1264,7 +1264,7 @@ function answerQ(qi, oi){
               : 'ย้อนไปดู decision practice ใน section 3 อีกครั้งนะ';
     const summary = document.createElement('div');
     summary.style.cssText = 'text-align:center;padding:1rem 0';
-    summary.innerHTML = `<div class="score-circle">${qScore}/${quizData.length}</div><p style="font-size:14px;color:var(--color-text-secondary);margin:0;line-height:1.6">${msg}</p>`;
+    summary.innerHTML = `<div class="score-circle">${qScore}/${quizData.length}</div><p style="font-size:16px;color:var(--color-text-secondary);margin:0;line-height:1.6">${msg}</p>`;
     document.getElementById('quiz-zone').appendChild(summary);
     document.getElementById('quiz-nav').style.display = 'flex';
   }
