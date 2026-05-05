@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>7.6 เส้นอุปทานระยะยาว · Ajarn.Kwan</title>
+<title>บทที่ 7.6 — เส้นอุปทานระยะยาว · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b45309;--pri-soft:#fffbeb;--pri-dark:#92400e;--hero-a:#92400e;--hero-b:#d97706;--bg:#fefbf6;--card:#fff;--bg2:#fffbeb;--bdr:#fcd34d;--bdr-l:#fef3c7;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px}
@@ -11,7 +11,7 @@
 .topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid #ede5d8}.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}
 .back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--pri-soft);padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .18s}.back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}.back-btn svg{width:14px;height:14px}
 .t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700}.t-sub{font-size:14.5px;color:var(--muted)}
-.page{max-width:780px;margin:0 auto;padding:24px 18px 60px}
+.page{max-width:760px;margin:0 auto;padding:24px 18px 60px}
 .step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
@@ -224,7 +224,56 @@
 .ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.7; }
 
 </style>
-  <link rel="stylesheet" href="../assets/theme.css">
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b45309;
+  --theme-primary-soft:#fffbeb;
+  --theme-primary-dark:#92400e;
+  --theme-hero-a:#92400e;
+  --theme-hero-b:#d97706;
+  --theme-page-bg:#fefbf6;
+  --theme-border:#fde68a;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#fffbeb;
+  --color-border-secondary:#fde68a;
+  --color-border-tertiary:#fef3c7;
+  --color-text-primary:#1c1917;
+  --color-text-secondary:#57534e;
+  --color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(146,64,14,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #b45309;
+  --ajk-primary-soft: #fffbeb;
+  --ajk-primary-dark: #92400e;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #f5e6c8;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
   
 <style id="ak-overrides">
 /* Hide legacy topbars/footers that the migration replaces */
@@ -241,8 +290,162 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -273,76 +476,117 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <span>หน้าหลัก</span>
     </a>
 <div class="ajk-brand">
-      <div class="ajk-brand-course">7.6 เส้นอุปทานระยะยาว</div>
+      <div class="ajk-brand-course">บทที่ 7.6 · เส้นอุปทานระยะยาว</div>
       <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
 </header>
 
-<header class="topbar"><div class="topbar-in">
-<button class="back-btn" onclick="location.href='chapter7.html'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>กลับ Hub</span></button>
-<div class="t-right"><div class="t-title">7.6 · เส้นอุปทานระยะยาว</div><div class="t-sub">Ajarn.Kwan · เศรษฐศาสตร์ รามคำแหง</div></div>
-</div></header>
+
 <div class="page">
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><div id="dots" style="display:flex;gap:5px"></div><span id="plbl" style="font-size:14px;color:var(--muted)"></span></div>
 <div id="sc"></div>
 </div>
-<div class="foot"><strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง · เนื้อหาแจกฟรีเพื่อการศึกษา</div>
 <script>
 /* ═══ Static graph builder for 3 cases ═══ */
+
 function mkCase(type){
-var s='<svg viewBox="0 0 400 248" style="width:100%;max-width:420px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">';
-s+='<defs><marker id="a'+type+'" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs>';
-s+='<line x1="40" y1="222" x2="370" y2="222" stroke="#78716c" stroke-width="1.2" marker-end="url(#a'+type+')"/>';
-s+='<line x1="40" y1="222" x2="40" y2="18" stroke="#78716c" stroke-width="1.2" marker-end="url(#a'+type+')"/>';
-s+='<text x="374" y="226" fill="#78716c" font-size="9">Q</text><text x="33" y="18" fill="#78716c" font-size="9" text-anchor="end">P</text>';
-s+='<line x1="70" y1="40" x2="220" y2="220" stroke="#2563eb" stroke-width="2"/><text x="222" y="218" fill="#2563eb" font-size="9" font-weight="700">D1</text>';
-s+='<line x1="130" y1="40" x2="280" y2="220" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5,3"/><text x="282" y="218" fill="#2563eb" font-size="9" font-weight="700">D2</text>';
-s+='<line x1="50" y1="210" x2="200" y2="30" stroke="#dc2626" stroke-width="2"/><text x="202" y="28" fill="#dc2626" font-size="9" font-weight="700">S1</text>';
-s+='<circle cx="131" cy="113" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="119" y="109" fill="#059669" font-size="9" font-weight="700">E1</text>';
-s+='<line x1="37" y1="113" x2="133" y2="113" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="117" fill="#92400e" font-size="9" text-anchor="end">P1</text>';
-s+='<line x1="131" y1="115" x2="131" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="131" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2081Q\u2081</text>';
-s+='<circle cx="161" cy="77" r="3.5" fill="#78716c" stroke="#fff" stroke-width="1.5"/><text x="167" y="73" fill="#78716c" font-size="8">E2</text>';
-if(type==='c'){
-s+='<line x1="110" y1="210" x2="260" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="262" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
-s+='<circle cx="191" cy="113" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="197" y="109" fill="#059669" font-size="9" font-weight="700">E3</text>';
-s+='<line x1="191" y1="115" x2="191" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="191" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2082Q\u2081</text>';
-s+='<line x1="131" y1="113" x2="191" y2="113" stroke="#b45309" stroke-width="3.5" stroke-linecap="round"/><text x="161" y="106" fill="#b45309" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
-s+='<rect x="215" y="100" width="148" height="30" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width=".5"/><text x="289" y="114" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle">LS \u0e41\u0e19\u0e27\u0e19\u0e2d\u0e19 (slope = 0)</text><text x="289" y="126" fill="#92400e" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19</text>';
-}else if(type==='i'){
-s+='<line x1="90" y1="210" x2="240" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="242" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
-s+='<circle cx="181" cy="101" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="187" y="97" fill="#059669" font-size="9" font-weight="700">E4</text>';
-s+='<line x1="37" y1="101" x2="183" y2="101" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="105" fill="#92400e" font-size="9" text-anchor="end">P4</text>';
-s+='<line x1="181" y1="103" x2="181" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="181" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2084Q\u2084</text>';
-s+='<line x1="131" y1="113" x2="181" y2="101" stroke="#b45309" stroke-width="3.5" stroke-linecap="round"/><text x="156" y="100" fill="#b45309" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
-s+='<rect x="215" y="88" width="148" height="30" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width=".5"/><text x="289" y="102" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle">LS \u0e17\u0e2d\u0e14\u0e02\u0e36\u0e49\u0e19 (slope > 0)</text><text x="289" y="114" fill="#92400e" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u2191 \u0e15\u0e49\u0e19\u0e17\u0e38\u0e19\u2191</text>';
-}else{
-s+='<line x1="130" y1="210" x2="280" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="282" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
-s+='<circle cx="201" cy="125" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="207" y="121" fill="#059669" font-size="9" font-weight="700">E5</text>';
-s+='<line x1="37" y1="125" x2="203" y2="125" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="129" fill="#92400e" font-size="9" text-anchor="end">P5</text>';
-s+='<line x1="201" y1="127" x2="201" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="201" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2085Q\u2085</text>';
-s+='<line x1="131" y1="113" x2="201" y2="125" stroke="#b45309" stroke-width="3.5" stroke-linecap="round"/><text x="166" y="126" fill="#b45309" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
-s+='<rect x="215" y="115" width="155" height="30" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width=".5"/><text x="292" y="129" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle">LS \u0e17\u0e2d\u0e14\u0e25\u0e07 (slope < 0)</text><text x="292" y="141" fill="#92400e" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u2193 \u0e15\u0e49\u0e19\u0e17\u0e38\u0e19\u2193</text>';
+  var gid='gs'+type, btnP='gp'+type, btnN='gn'+type, descId='gd'+type, ctrId='gx'+type;
+  var s='<div class="dw"><div id="'+gid+'" style="background:#fff;border-radius:8px;padding:8px"></div>';
+  s+='<div class="gc" style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap">';
+  s+='<button class="gb gp" id="'+btnP+'" onclick="gGo76(\''+type+'\',-1)" style="opacity:.4;pointer-events:none">← ย้อน</button>';
+  s+='<button class="gb gn" id="'+btnN+'" onclick="gGo76(\''+type+'\',1)">เริ่มดูทีละขั้น →</button>';
+  s+='<span class="gx" id="'+ctrId+'" style="margin-left:auto;color:#92400e;font-weight:700">0/4</span>';
+  s+='</div><div class="gd" id="'+descId+'" style="margin-top:8px;padding:10px;background:#fff7ed;border-left:3px solid #d97706;border-radius:6px;font-size:13px;line-height:1.6;color:#7c2d12">กดปุ่มเพื่อดูการปรับตัวทีละขั้น</div></div>';
+  return s;
 }
-return s+'</svg>'}
+
+// Pieces (G_AX always visible, FCURVES from step 1+, GLs cumulative)
+var CH76_AX='<line x1="50" y1="35" x2="50" y2="245" stroke="#1c1917" stroke-width="1.5"/><line x1="45" y1="240" x2="435" y2="240" stroke="#1c1917" stroke-width="1.5"/><text x="28" y="42" font-size="11" fill="#1c1917" font-weight="700">P</text><text x="438" y="244" font-size="11" fill="#1c1917" font-weight="700">Q</text><text x="42" y="253" font-size="10" fill="#78716c">0</text>';
+var CH76_FC='<line x1="50.0" y1="90.0" x2="335.0" y2="225.0" stroke="#2563eb" stroke-width="2"/><rect x="332" y="228" width="22" height="13" fill="#fff" fill-opacity="0.92" rx="2"/><text x="343" y="238" font-size="10" fill="#1e40af" font-weight="800" text-anchor="middle">D₁</text><line x1="50.0" y1="240.0" x2="430.0" y2="60.0" stroke="#dc2626" stroke-width="2"/><rect x="405" y="48" width="22" height="13" fill="#fff" fill-opacity="0.92" rx="2"/><text x="416" y="58" font-size="10" fill="#7f1d1d" font-weight="800" text-anchor="middle">S₁</text><line x1="50" y1="165.0" x2="208.3" y2="165.0" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><line x1="208.3" y1="165.0" x2="208.3" y2="240" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><text x="35" y="169" font-size="11" fill="#92400e" font-weight="800">P₁</text><text x="208" y="253" font-size="10" fill="#92400e" font-weight="700" text-anchor="middle">Q₁</text><circle cx="208.3" cy="165.0" r="4.5" fill="#d97706" stroke="#fff" stroke-width="1.5"/><text x="215" y="160" font-size="11" fill="#92400e" font-weight="800">E₁</text>';
+var CH76_GL={
+  c:['<line x1="102.8" y1="40.0" x2="430.0" y2="195.0" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,2"/><rect x="427" y="198" width="22" height="13" fill="#fff" fill-opacity="0.92" rx="2"/><text x="438" y="208" font-size="10" fill="#1e40af" font-weight="800" text-anchor="middle">D₂</text><line x1="50" y1="127.5" x2="287.5" y2="127.5" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><text x="28" y="132" font-size="10" fill="#dc2626" font-weight="800">P_short</text><circle cx="287.5" cy="127.5" r="4" fill="#dc2626" stroke="#fff" stroke-width="1.5"/><text x="292" y="122" font-size="11" fill="#7f1d1d" font-weight="800">E₂</text>','<line x1="208.3" y1="240.0" x2="430.0" y2="135.0" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,2"/><rect x="405" y="123" width="22" height="13" fill="#fff" fill-opacity="0.92" rx="2"/><text x="416" y="133" font-size="10" fill="#7f1d1d" font-weight="800" text-anchor="middle">S₂</text><line x1="50" y1="165.0" x2="366.7" y2="165.0" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><line x1="366.7" y1="165.0" x2="366.7" y2="240" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><text x="28" y="169" font-size="10" fill="#16a34a" font-weight="800">P₁</text><text x="367" y="253" font-size="10" fill="#16a34a" font-weight="700" text-anchor="middle">Q₃</text><circle cx="366.7" cy="165.0" r="5" fill="#16a34a" stroke="#fff" stroke-width="2"/><text x="374" y="160" font-size="11" fill="#16a34a" font-weight="800">E₃</text>','<line x1="208.3" y1="165.0" x2="366.7" y2="165.0" stroke="#16a34a" stroke-width="3.5" opacity="0.85"/><rect x="272" y="145" width="30" height="14" fill="#fff" fill-opacity="0.95" stroke="#16a34a" stroke-width="0.7" rx="2"/><text x="288" y="156" font-size="11" fill="#16a34a" font-weight="800" text-anchor="middle">LS</text><rect x="60" y="50" width="320" height="32" rx="6" fill="#fffbeb" stroke="#16a34a" stroke-width="1"/><text x="220" y="68" text-anchor="middle" font-size="10" fill="#7f1d1d" font-weight="700">LS แนวนอน — Constant Cost Industry</text><text x="220" y="78" text-anchor="middle" font-size="9" fill="#92400e" font-weight="600">ราคาปัจจัยไม่เปลี่ยน → LAC คงเดิม → P คืนเท่าเดิม</text>'],
+  i:['<line x1="102.8" y1="40.0" x2="430.0" y2="195.0" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,2"/><rect x="427" y="198" width="22" height="13" fill="#fff" fill-opacity="0.92" rx="2"/><text x="438" y="208" font-size="10" fill="#1e40af" font-weight="800" text-anchor="middle">D₂</text><line x1="50" y1="127.5" x2="287.5" y2="127.5" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><text x="28" y="132" font-size="10" fill="#dc2626" font-weight="800">P_short</text><circle cx="287.5" cy="127.5" r="4" fill="#dc2626" stroke="#fff" stroke-width="1.5"/><text x="292" y="122" font-size="11" fill="#7f1d1d" font-weight="800">E₂</text>','<line x1="102.8" y1="240.0" x2="430.0" y2="85.0" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,2"/><rect x="405" y="73" width="22" height="13" fill="#fff" fill-opacity="0.92" rx="2"/><text x="416" y="83" font-size="10" fill="#7f1d1d" font-weight="800" text-anchor="middle">S₂</text><line x1="50" y1="140.0" x2="313.9" y2="140.0" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><line x1="313.9" y1="140.0" x2="313.9" y2="240" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><text x="28" y="144" font-size="10" fill="#dc2626" font-weight="800">P₄</text><text x="314" y="253" font-size="10" fill="#dc2626" font-weight="700" text-anchor="middle">Q₄</text><circle cx="313.9" cy="140.0" r="5" fill="#dc2626" stroke="#fff" stroke-width="2"/><text x="321" y="135" font-size="11" fill="#dc2626" font-weight="800">E₄</text>','<line x1="208.3" y1="165.0" x2="313.9" y2="140.0" stroke="#dc2626" stroke-width="3.5" opacity="0.85"/><rect x="246" y="132" width="30" height="14" fill="#fff" fill-opacity="0.95" stroke="#dc2626" stroke-width="0.7" rx="2"/><text x="261" y="144" font-size="11" fill="#dc2626" font-weight="800" text-anchor="middle">LS</text><rect x="60" y="50" width="320" height="32" rx="6" fill="#fffbeb" stroke="#dc2626" stroke-width="1"/><text x="220" y="68" text-anchor="middle" font-size="10" fill="#7f1d1d" font-weight="700">LS ทอดขึ้น — Increasing Cost Industry</text><text x="220" y="78" text-anchor="middle" font-size="9" fill="#92400e" font-weight="600">อุตสาหกรรมขยาย → ราคาปัจจัย↑ → LAC↑ → P สูงกว่าเดิม</text>'],
+  d:['<line x1="102.8" y1="40.0" x2="430.0" y2="195.0" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,2"/><rect x="427" y="198" width="22" height="13" fill="#fff" fill-opacity="0.92" rx="2"/><text x="438" y="208" font-size="10" fill="#1e40af" font-weight="800" text-anchor="middle">D₂</text><line x1="50" y1="127.5" x2="287.5" y2="127.5" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><text x="28" y="132" font-size="10" fill="#dc2626" font-weight="800">P_short</text><circle cx="287.5" cy="127.5" r="4" fill="#dc2626" stroke="#fff" stroke-width="1.5"/><text x="292" y="122" font-size="11" fill="#7f1d1d" font-weight="800">E₂</text>','<line x1="313.9" y1="240.0" x2="430.0" y2="185.0" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,2"/><rect x="405" y="173" width="22" height="13" fill="#fff" fill-opacity="0.92" rx="2"/><text x="416" y="183" font-size="10" fill="#7f1d1d" font-weight="800" text-anchor="middle">S₂</text><line x1="50" y1="190.0" x2="419.4" y2="190.0" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><line x1="419.4" y1="190.0" x2="419.4" y2="240" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><text x="28" y="194" font-size="10" fill="#0891b2" font-weight="800">P₅</text><text x="419" y="253" font-size="10" fill="#0891b2" font-weight="700" text-anchor="middle">Q₅</text><circle cx="419.4" cy="190.0" r="5" fill="#0891b2" stroke="#fff" stroke-width="2"/><text x="426" y="185" font-size="11" fill="#0891b2" font-weight="800">E₅</text>','<line x1="208.3" y1="165.0" x2="419.4" y2="190.0" stroke="#0891b2" stroke-width="3.5" opacity="0.85"/><rect x="299" y="158" width="30" height="14" fill="#fff" fill-opacity="0.95" stroke="#0891b2" stroke-width="0.7" rx="2"/><text x="314" y="168" font-size="11" fill="#0891b2" font-weight="800" text-anchor="middle">LS</text><rect x="60" y="50" width="320" height="32" rx="6" fill="#fffbeb" stroke="#0891b2" stroke-width="1"/><text x="220" y="68" text-anchor="middle" font-size="10" fill="#7f1d1d" font-weight="700">LS ทอดลง — Decreasing Cost Industry</text><text x="220" y="78" text-anchor="middle" font-size="9" fill="#92400e" font-weight="600">External Economies → LAC↓ → P ต่ำกว่าเดิม</text>']
+};
+var CH76_DESC={
+  c:[
+    'กดปุ่ม "เริ่มดูทีละขั้น →" เพื่อดูการปรับตัว',
+    '① ดุลยภาพเดิมที่ <strong>E₁</strong> (P₁, Q₁) — S₁ ∩ D₁',
+    '② D เพิ่มเป็น D₂ → ราคาขึ้นเป็น P_short ที่ <strong>E₂</strong> (S₁ ∩ D₂) → กำไรเกินปกติ',
+    '③ บริษัทใหม่เข้า → S₁ → S₂ (เลื่อนขนาน) → ราคาลดกลับ → ดุลยภาพใหม่ <strong>E₃</strong> (P₁ เดิม, Q₃)',
+    '④ <strong>เส้น LS = นอน</strong> เพราะ Constant Cost Industry ราคาปัจจัยไม่เปลี่ยน → LAC คงเดิม → P คืนเท่าเดิม'
+  ],
+  i:[
+    'กดปุ่ม "เริ่มดูทีละขั้น →" เพื่อดูการปรับตัว',
+    '① ดุลยภาพเดิมที่ <strong>E₁</strong> (P₁, Q₁)',
+    '② D เพิ่มเป็น D₂ → ราคาขึ้นเป็น P_short ที่ <strong>E₂</strong>',
+    '③ บริษัทใหม่เข้า → S₁ → S₂ (เลื่อนขนาน) — แต่ราคาปัจจัย↑ ทำให้ S เลื่อนน้อยกว่า → ดุลยภาพใหม่ <strong>E₄</strong> (P₄ > P₁)',
+    '④ <strong>เส้น LS ทอดขึ้น</strong> — Increasing Cost Industry ราคาปัจจัย↑ → LAC↑ → ดุลยภาพใหม่ที่ P สูงกว่าเดิม'
+  ],
+  d:[
+    'กดปุ่ม "เริ่มดูทีละขั้น →" เพื่อดูการปรับตัว',
+    '① ดุลยภาพเดิมที่ <strong>E₁</strong> (P₁, Q₁)',
+    '② D เพิ่มเป็น D₂ → ราคาขึ้นเป็น P_short ที่ <strong>E₂</strong>',
+    '③ บริษัทใหม่เข้ามาก → External Economies (โครงสร้างพื้นฐานดีขึ้น) ทำให้ S เลื่อนขวามากกว่าปกติ → ดุลยภาพใหม่ <strong>E₅</strong> (P₅ < P₁)',
+    '④ <strong>เส้น LS ทอดลง</strong> — Decreasing Cost Industry มี External Economies → LAC↓ → P ต่ำกว่าเดิม'
+  ]
+};
+var CH76_STATE={c:0,i:0,d:0};
+
+function buildSVG76(type, gS){
+  var W=480, H=280;
+  var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">';
+  s+=CH76_AX;
+  if(gS>=1) s+=CH76_FC;
+  for(var i=0;i<3;i++){
+    var op=(i+2<=gS)?'1':'0';
+    s+='<g style="opacity:'+op+';transition:opacity 0.5s ease">'+CH76_GL[type][i]+'</g>';
+  }
+  s+='</svg>';
+  return s;
+}
+
+function gGo76(type, dir){
+  CH76_STATE[type]=Math.max(0,Math.min(4,CH76_STATE[type]+dir));
+  var gS=CH76_STATE[type];
+  var gsEl=document.getElementById('gs'+type);
+  if(gsEl) gsEl.innerHTML=buildSVG76(type, gS);
+  var dEl=document.getElementById('gd'+type);
+  if(dEl) dEl.innerHTML=CH76_DESC[type][gS];
+  var xEl=document.getElementById('gx'+type);
+  if(xEl) xEl.textContent=gS+'/4';
+  var pBtn=document.getElementById('gp'+type);
+  if(pBtn){ if(gS===0){pBtn.style.opacity='.4';pBtn.style.pointerEvents='none';} else {pBtn.style.opacity='1';pBtn.style.pointerEvents='auto';} }
+  var nBtn=document.getElementById('gn'+type);
+  if(nBtn){ if(gS>=4){nBtn.style.opacity='.4';nBtn.style.pointerEvents='none';nBtn.textContent='✓ ครบแล้ว';} else {nBtn.style.opacity='1';nBtn.style.pointerEvents='auto';nBtn.textContent=gS===0?'เริ่มดูทีละขั้น →':'ถัดไป →';} }
+}
+
+// Initialize each case's graph after step renders
+function initCh76Graphs(){
+  ['c','i','d'].forEach(function(t){
+    var gsEl=document.getElementById('gs'+t);
+    if(gsEl && !gsEl.innerHTML) gsEl.innerHTML=buildSVG76(t, 0);
+  });
+}
 
 /* ═══ Steps ═══ */
 var S=[
 {tag:"เริ่มต้น · ทบทวน",title:"จาก 7.5 → ถ้า Demand เปลี่ยน ตลาดจะปรับอย่างไร?",
 body:'<div class="scenario"><p style="font-size:28px;margin-bottom:8px">🤔</p><p>ใน 7.5 เราเห็นว่าดุลยภาพระยะยาว: P = LAC min</p><p>คำถาม: ถ้า <strong>Demand เพิ่มขึ้น</strong> → ราคาขึ้น → กำไรเกินปกติ → บริษัทใหม่เข้า → S เพิ่ม → ราคาลดกลับมา... แต่จะลดกลับมาที่ราคาเดิมหรือไม่?</p><p>คำตอบ: <strong>ขึ้นอยู่กับว่าราคาปัจจัยเปลี่ยนไหม</strong> เมื่ออุตสาหกรรมขยายตัว!</p></div>',
-quiz:{q:"เมื่อบริษัทใหม่เข้ามามากขึ้น ราคาปัจจัยจะเปลี่ยนไหม?",opts:["ไม่เปลี่ยนเสมอ","อาจคงที่ เพิ่ม หรือลดก็ได้ ขึ้นกับประเภทอุตสาหกรรม","เพิ่มเสมอ"],ans:1,explain:"ขึ้นอยู่กับประเภทอุตสาหกรรม: <strong>Constant Cost</strong> (ราคาปัจจัยคงที่), <strong>Increasing Cost</strong> (ราคาปัจจัย↑), <strong>Decreasing Cost</strong> (ราคาปัจจัย↓)"}},
+quiz:{q:"เมื่อบริษัทใหม่เข้ามามากขึ้น ราคาปัจจัยจะเปลี่ยนไหม?",opts:["ไม่เปลี่ยนเสมอ","อาจคงที่ เพิ่ม หรือลดก็ได้ ขึ้นกับประเภทอุตสาหกรรม","เพิ่มเสมอ","ลดเสมอ เพราะมีการประหยัดต่อขนาด"],ans:1,explain:"ขึ้นอยู่กับประเภทอุตสาหกรรม: <strong>Constant Cost</strong> (ราคาปัจจัยคงที่), <strong>Increasing Cost</strong> (ราคาปัจจัย↑), <strong>Decreasing Cost</strong> (ราคาปัจจัย↓)"}},
 
 {tag:"กรณีที่ 1 · ต้นทุนคงที่",title:"Constant Cost Industry → LS แนวนอน",
 body:'<div class="prose"><p>เมื่อบริษัทใหม่เข้ามา <strong>ราคาปัจจัยไม่เปลี่ยน</strong> → LAC คงเดิม → ราคาลดกลับมาที่ P₁ เดิม → LS เป็นเส้นนอน</p></div><div class="dw">'+mkCase('c')+'</div><div class="insight"><div class="insight-label">✦ กระบวนการ</div><p class="insight-text">① ดุลยภาพเดิมที่ E1 (P₁)\n② D เพิ่ม → ราคาขึ้น → กำไรเกินปกติ (E2)\n③ บริษัทใหม่เข้า → S เลื่อนขวาเป็น S2\n④ ราคาลดกลับมาที่ P₁ เดิม! (E3)\n⑤ เส้น LS = เชื่อม E1 กับ E3 = เส้นนอน</p></div>',
-quiz:{q:"ทำไมราคาลดกลับมาเท่าเดิมในกรณี Constant Cost?",opts:["เพราะรัฐบาลควบคุมราคา","เพราะราคาปัจจัยไม่เปลี่ยน → LAC คงเดิม → ดุลยภาพใหม่ต้องกลับมาที่ LAC min เดิม","เพราะ Demand ลดกลับ"],ans:1,explain:"ราคาปัจจัยคงที่ → LAC ไม่ขยับ → LAC min เท่าเดิม → ดุลยภาพระยะยาวใหม่ต้องกลับมาที่ <strong>P₁ = LAC min เดิม</strong>"}},
+quiz:{q:"ทำไมราคาลดกลับมาเท่าเดิมในกรณี Constant Cost?",opts:["เพราะรัฐบาลควบคุมราคา","เพราะ Demand ลดกลับ","เพราะราคาปัจจัยไม่เปลี่ยน → LAC คงเดิม → ดุลยภาพใหม่ต้องกลับมาที่ LAC min เดิม","เพราะตลาดอิ่มตัวจึงไม่มีบริษัทใหม่เข้ามา"],ans:2,explain:"ราคาปัจจัยคงที่ → LAC ไม่ขยับ → LAC min เท่าเดิม → ดุลยภาพระยะยาวใหม่ต้องกลับมาที่ <strong>P₁ = LAC min เดิม</strong>"}},
 
 {tag:"กรณีที่ 2 · ต้นทุนเพิ่ม",title:"Increasing Cost Industry → LS ทอดขึ้น",
 body:'<div class="prose"><p>เมื่อบริษัทใหม่เข้ามา <strong>ราคาปัจจัยเพิ่ม</strong> → LAC เลื่อนขึ้น → ดุลยภาพใหม่ที่ P₄ > P₁ → LS ทอดขึ้น</p></div><div class="dw">'+mkCase('i')+'</div><div class="insight"><div class="insight-label">✦ กระบวนการ</div><p class="insight-text">① ดุลยภาพเดิมที่ E1 (P₁)\n② D เพิ่ม → ราคาขึ้น → กำไรเกินปกติ\n③ บริษัทใหม่เข้า → ต้องการปัจจัยมาก → ราคาปัจจัย↑ → LAC เลื่อนขึ้น\n④ S เพิ่ม แต่ LAC ก็เพิ่ม → ดุลยภาพใหม่ที่ E4 (P₄ > P₁)\n⑤ เส้น LS = เชื่อม E1 กับ E4 = ทอดขึ้น (slope > 0)</p></div>',
-quiz:{q:"ทำไม P₄ สูงกว่า P₁ ในกรณี Increasing Cost?",opts:["เพราะ Demand เพิ่มขึ้น","เพราะเมื่ออุตสาหกรรมขยาย ราคาปัจจัย↑ → LAC เลื่อนขึ้น → LAC min ใหม่สูงกว่าเดิม","เพราะผู้ผลิตขึ้นราคาตามใจ"],ans:1,explain:"อุตสาหกรรมขยาย → ต้องการปัจจัยมาก → <strong>ราคาปัจจัย↑</strong> → LAC ทั้งเส้นเลื่อนขึ้น → LAC min ใหม่สูงกว่าเดิม → P₄ > P₁"}},
+quiz:{q:"ทำไม P₄ สูงกว่า P₁ ในกรณี Increasing Cost?",opts:["เพราะเมื่ออุตสาหกรรมขยาย ราคาปัจจัย↑ → LAC เลื่อนขึ้น → LAC min ใหม่สูงกว่าเดิม","เพราะ Demand เพิ่มขึ้น","เพราะผู้ผลิตขึ้นราคาตามใจ","เพราะการเข้ามาของบริษัทใหม่ทำให้ S เลื่อนน้อยกว่าที่ควร"],ans:0,explain:"อุตสาหกรรมขยาย → ต้องการปัจจัยมาก → <strong>ราคาปัจจัย↑</strong> → LAC ทั้งเส้นเลื่อนขึ้น → LAC min ใหม่สูงกว่าเดิม → P₄ > P₁"}},
 
 {tag:"กรณีที่ 3 · ต้นทุนลด",title:"Decreasing Cost Industry → LS ทอดลง",
 body:'<div class="prose"><p>เมื่ออุตสาหกรรมขยายตัว เกิด <strong>การประหยัดภายนอก (External Economies)</strong> → ราคาปัจจัยลด → LAC เลื่อนลง → ดุลยภาพใหม่ที่ P₅ < P₁ → LS ทอดลง</p></div><div class="dw">'+mkCase('d')+'</div><div class="insight"><div class="insight-label">✦ ตัวอย่างการประหยัดภายนอก</div><p class="insight-text">อุตสาหกรรมขยายตัว → รัฐบาลสร้างถนน ไฟฟ้า ประปา → ต้นทุนของทุกบริษัทลดลง\nหรือ เหมืองแร่ขยาย → ทุกเหมืองปั๊มน้ำออก → น้ำรั่วเข้าแต่ละเหมืองลดลง → ต้นทุนลด\n\nเส้น LS ทอดลง (slope < 0) แต่ไม่ได้หมายความว่า Demand เพิ่มแล้วราคาลด มันหมายความว่าดุลยภาพระยะยาวใหม่อยู่ที่ราคาต่ำกว่าเดิม</p></div>',
-quiz:{q:"Decreasing Cost Industry เกิดจากอะไร?",opts:["จากการที่ผู้ผลิตลดราคาเอง","จากการประหยัดภายนอก (External Economies) เช่น โครงสร้างพื้นฐานดีขึ้นเมื่ออุตสาหกรรมขยาย","จากการที่รัฐบาลอุดหนุนราคา"],ans:1,explain:"<strong>External Economies</strong>: อุตสาหกรรมขยาย → โครงสร้างพื้นฐานดีขึ้น ขนส่งถูกลง → ต้นทุนของทุกบริษัทลดลง → LAC เลื่อนลง"}},
+quiz:{q:"Decreasing Cost Industry เกิดจากอะไร?",opts:["จากการที่ผู้ผลิตลดราคาเอง","จากการประหยัดภายนอก (External Economies) เช่น โครงสร้างพื้นฐานดีขึ้นเมื่ออุตสาหกรรมขยาย","จากการที่รัฐบาลอุดหนุนราคา","จากการที่ผู้ผลิตเดิมประหยัดภายในจากการเรียนรู้"],ans:1,explain:"<strong>External Economies</strong>: อุตสาหกรรมขยาย → โครงสร้างพื้นฐานดีขึ้น ขนส่งถูกลง → ต้นทุนของทุกบริษัทลดลง → LAC เลื่อนลง"}},
 
 {tag:"สรุป · เปรียบเทียบ",title:"สรุป 3 กรณี + เชื่อมไป 7.7",
 body:'<table class="cmp"><thead><tr><th>ประเภท</th><th>ราคาปัจจัย</th><th>LAC</th><th>เส้น LS</th></tr></thead><tbody><tr><td style="color:#059669;font-weight:700">Constant Cost</td><td>คงที่</td><td>คงเดิม</td><td>แนวนอน (slope = 0)</td></tr><tr><td style="color:#d97706;font-weight:700">Increasing Cost</td><td>เพิ่มขึ้น</td><td>เลื่อนขึ้น</td><td>ทอดขึ้น (slope > 0)</td></tr><tr><td style="color:#6366f1;font-weight:700">Decreasing Cost</td><td>ลดลง</td><td>เลื่อนลง</td><td>ทอดลง (slope < 0)</td></tr></tbody></table><div class="scenario"><p style="font-size:28px;margin-bottom:8px">🔗</p><p><strong>เชื่อมไป 7.7:</strong> ในตลาดจริง การปรับตัวไม่ได้เกิดขึ้นทันที → มี<strong>ระยะตลาด (Market Period)</strong> ที่ปริมาณคงที่ ไม่สามารถปรับได้ → เส้น Supply เป็นเส้นตั้ง</p></div>'}
@@ -350,7 +594,7 @@ body:'<table class="cmp"><thead><tr><th>ประเภท</th><th>ราคา�
 var cur=0,total=S.length,ans={};
 function init(){renderDots();renderStep()}
 function renderDots(){var d=document.getElementById('dots'),h='';for(var i=0;i<total;i++)h+='<div style="width:'+(i===cur?'48':'32')+'px;height:5px;border-radius:99px;background:'+(i<=cur?'var(--pri)':'#ede5d8')+';transition:all .35s;cursor:pointer" onclick="goTo('+i+')"></div>';d.innerHTML=h;document.getElementById('plbl').textContent=(cur+1)+' / '+total}
-function renderStep(){var s=S[cur],c=document.getElementById('sc');var h='<div class="step active"><div class="step-tag">'+s.tag+'</div><h2 class="step-title">'+s.title+'</h2>';if(s.body)h+=s.body;if(s.quiz){var qid='q-'+cur;h+='<div class="quiz" id="'+qid+'"><p class="quiz-q">'+s.quiz.q+'</p><div class="quiz-opts">';for(var i=0;i<s.quiz.opts.length;i++)h+='<button class="quiz-opt" onclick="answer('+cur+','+i+','+s.quiz.ans+')"><span class="letter">'+String.fromCharCode(65+i)+'.</span>'+s.quiz.opts[i]+'</button>';h+='</div><div class="quiz-explain" id="'+qid+'-e">'+s.quiz.explain+'</div></div>'}var isLast=cur>=total-1,nQ=!!s.quiz,done=ans[cur],vis=(!nQ||done)?'':'hidden';h+='<button class="next-btn '+vis+'" id="nb" onclick="'+(isLast?'complete()':'next()')+'">'+(isLast?'✓ จบ Section 7.6':'ถัดไป →')+'</button></div>';c.innerHTML=h;renderDots()}
+function renderStep(){var s=S[cur],c=document.getElementById('sc');var h='<div class="step active"><div class="step-tag">'+s.tag+'</div><h2 class="step-title">'+s.title+'</h2>';if(s.body)h+=s.body;if(s.quiz){var qid='q-'+cur;h+='<div class="quiz" id="'+qid+'"><p class="quiz-q">'+s.quiz.q+'</p><div class="quiz-opts">';for(var i=0;i<s.quiz.opts.length;i++)h+='<button class="quiz-opt" onclick="answer('+cur+','+i+','+s.quiz.ans+')"><span class="letter">'+String.fromCharCode(65+i)+'.</span>'+s.quiz.opts[i]+'</button>';h+='</div><div class="quiz-explain" id="'+qid+'-e">'+s.quiz.explain+'</div></div>'}var isLast=cur>=total-1,nQ=!!s.quiz,done=ans[cur],vis=(!nQ||done)?'':'hidden';h+='<button class="next-btn '+vis+'" id="nb" onclick="'+(isLast?'complete()':'next()')+'">'+(isLast?'✓ จบ Section 7.6':'ถัดไป →')+'</button></div>';c.innerHTML=h;renderDots();if(typeof initCh76Graphs==='function')setTimeout(initCh76Graphs,30)}
 function answer(step,chosen,correct){if(ans[step])return;ans[step]=true;var card=document.getElementById('q-'+step),btns=card.querySelectorAll('.quiz-opt');for(var i=0;i<btns.length;i++){btns[i].classList.add('locked');if(i===correct)btns[i].classList.add('correct');else if(i===chosen&&chosen!==correct)btns[i].classList.add('wrong')}document.getElementById('q-'+step+'-e').classList.add('show',chosen===correct?'ok':'no');setTimeout(function(){document.getElementById('nb').classList.remove('hidden')},500)}
 function next(){cur++;renderStep();window.scrollTo({top:0,behavior:'smooth'})}
 function goTo(i){if(i<=cur){cur=i;renderStep();window.scrollTo({top:0,behavior:'smooth'})}}
@@ -363,14 +607,14 @@ init();
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">7.5 ดุลยภาพระยะยาว</span>
+      <span class="ajk-chap-name">บทที่ 7.5 — ดุลยภาพระยะยาว</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter7_7.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">7.7 ระยะตลาด</span>
+      <span class="ajk-chap-name">บทที่ 7.7 — ระยะตลาด</span>
     </div>
   </a>
 </nav>
@@ -381,22 +625,11 @@ init();
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-<a class="ajk-footer-btn" href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        แผนการเรียน
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter7.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 7</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>

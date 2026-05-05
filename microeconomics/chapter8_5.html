@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 8.5 — Monopoly vs PC + Deadweight Loss · Ajarn.Kwan</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b91c1c;--pri-soft:#fef2f2;--pri-dark:#7f1d1d;--hero-a:#7f1d1d;--hero-b:#dc2626;--bg:#fff5f5;--card:#fff;--bg2:#fef2f2;--bdr:#fca5a5;--bdr-l:#fee2e2;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid #ede5d8}.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--pri-soft);padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .18s}.back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}.back-btn svg{width:14px;height:14px}
+.t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700}.t-sub{font-size:14.5px;color:var(--muted)}
+.page{max-width:760px;margin:0 auto;padding:24px 18px 60px}
+.step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
+.step-title{font-family:var(--font-serif);font-size:24px;font-weight:700;margin:0 0 16px;line-height:1.55}
+.prose{font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:16px}.prose p{margin:0 0 10px}.prose strong{color:var(--ink)}
+.scenario{background:var(--bg2);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;position:relative;overflow:hidden;border:.5px solid var(--bdr-l)}.scenario::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#dc2626,#059669)}.scenario p{font-size:16px;line-height:1.75;color:var(--ink);margin:0 0 6px}.scenario p:last-child{margin:0}
+.insight{background:var(--pri-soft);border-left:3px solid var(--pri);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;margin-bottom:18px}.insight-label{font-size:14.5px;font-weight:700;color:var(--pri);margin-bottom:4px}.insight-text{font-size:16.5px;color:var(--ink);line-height:1.75;white-space:pre-line;margin:0}
+.cmp{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:18px;background:var(--card);border-radius:var(--r);overflow:hidden;border:.5px solid var(--bdr-l)}.cmp th{font-weight:600;font-size:14px;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:.5px solid var(--bdr-l);text-transform:uppercase;background:var(--bg2)}.cmp td{padding:8px 12px;border-bottom:.5px solid var(--bdr-l);color:var(--ink);font-size:15.5px;line-height:1.6}.cmp tr:last-child td{border:none}
+.quiz{background:var(--card);border:.5px solid var(--bdr);border-radius:var(--rl);padding:18px 20px;margin-bottom:16px}.quiz-q{font-size:16px;font-weight:500;margin:0 0 12px;line-height:1.65}.quiz-opts{display:flex;flex-direction:column;gap:7px}.quiz-opt{text-align:left;font-size:16px;padding:11px 15px;border-radius:var(--r);border:.5px solid var(--bdr-l);background:var(--card);color:var(--ink);cursor:pointer;transition:all .12s;font-family:var(--font-sans);line-height:1.55}.quiz-opt:hover:not(.locked){background:var(--bg2);border-color:var(--bdr)}.quiz-opt.correct{background:#ecfdf5;border-color:#86efac;color:#047857}.quiz-opt.wrong{background:#fef2f2;border-color:#fca5a5;color:#b91c1c}.quiz-opt.locked{cursor:default}.quiz-opt .letter{font-weight:700;color:var(--faint);margin-right:8px;font-size:14.5px}.quiz-explain{display:none;margin-top:12px;padding:12px 16px;border-radius:var(--r);font-size:16px;line-height:1.7}.quiz-explain.show{display:block;animation:fadeUp .35s ease}.quiz-explain.ok{background:#fefce8;border:.5px solid #fecaca}.quiz-explain.no{background:#fff7ed;border:.5px solid #fdba74}.quiz-explain strong{color:var(--pri-dark)}
+.next-btn{width:100%;padding:14px;border-radius:var(--r);background:linear-gradient(135deg,var(--hero-a),var(--hero-b));border:none;color:#fff;font-size:17px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s;margin-top:8px}.next-btn:hover{box-shadow:0 10px 28px rgba(185,28,28,.18);transform:translateY(-1px)}.next-btn.hidden{opacity:0;pointer-events:none}
+.dw{background:var(--card);border:.5px solid var(--bdr-l);border-radius:var(--rl);padding:16px;margin-bottom:16px}
+.gc{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.gb{padding:7px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-sans);border:none;transition:all .15s}.gp{background:var(--card);border:.5px solid var(--bdr);color:var(--muted)}.gn{background:linear-gradient(135deg,var(--hero-a),var(--hero-b));color:#fff}.gd{margin-top:10px;font-size:16px;line-height:1.75;color:var(--ink);padding:12px 14px;background:var(--bg2);border-radius:10px;border:.5px solid var(--bdr-l);min-height:50px}.gx{font-size:14.5px;color:var(--faint);margin-left:auto}
+.completion{text-align:center;padding:2.5rem 1rem}.completion h2{font-family:var(--font-serif);font-size:24px;margin:0 0 8px}.completion p{font-size:16px;color:var(--muted);line-height:1.7;margin:0 0 10px;max-width:480px;margin-left:auto;margin-right:auto}.completion-link{display:inline-block;background:var(--pri-soft);border:.5px solid var(--pri);border-radius:var(--r);padding:10px 16px;font-size:16px;color:var(--pri-dark);font-weight:600;margin-bottom:20px;line-height:1.65;text-align:left;max-width:500px}
+.foot{margin-top:56px;text-align:center;padding:24px 16px;border-top:1px solid #ede5d8;font-size:14.5px;color:var(--faint);line-height:1.7}.foot strong{color:var(--muted)}
+@media(max-width:520px){.step-title{font-size:21px}.topbar-in{padding:8px 12px}.back-btn span{display:none}.back-btn{padding:9px}}
+
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #f97316;
+  --ajk-primary-soft: #fff7ed;
+  --ajk-primary-dark: #ea580c;
+  --ajk-ink: #2A1F1A;
+  --ajk-muted: #6b6480;
+  --ajk-border: #E8DDD0;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s; flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer; white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-home-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.ajk-home-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-home-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(107,74,138,.2);
+}
+@media (max-width: 540px) {
+  .ajk-home-btn span { display: none; }
+  .ajk-home-btn { padding: 9px; }
+  .ajk-home-btn svg { width: 16px; height: 16px; }
+}
+
+.ajk-chapter-nav {
+  max-width: 760px;
+  margin: 56px auto 0;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-chap-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--ajk-surface, #fff);
+  border: 1px solid var(--ajk-border, #E8DDD0);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .2s;
+  min-height: 78px;
+}
+.ajk-chap-btn:hover {
+  border-color: var(--ajk-primary, #6B4A8A);
+  background: var(--ajk-primary-soft, #EFE6F5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107,74,138,.08);
+}
+.ajk-chap-btn.next {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.ajk-chap-btn svg {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  color: var(--ajk-primary, #6B4A8A);
+}
+.ajk-chap-text {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+.ajk-chap-label {
+  font-size: 14.5px;
+  color: var(--ajk-muted, #6b6480);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.ajk-chap-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ajk-ink, #2A1F1A);
+  line-height: 1.55;
+}
+.ajk-chap-empty {
+  visibility: hidden;
+}
+@media (max-width: 540px) {
+  .ajk-chapter-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 40px;
+  }
+}
+
+
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right; line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 16.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ajk-brand-author {
+  font-size: 14.5px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; }
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; }
+}
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 1100px; margin: 0 auto; text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 26px; font-weight: 700; margin: 0 0 4px;
+}
+.ajk-footer-sub { font-size: 15.5px; color: var(--ajk-muted); margin-bottom: 26px; }
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 15.5px; font-weight: 600;
+  border: 1px solid var(--ajk-border);
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface); transition: all .18s;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.ajk-footer-btn:hover {
+  color: #fff!important; background: var(--ajk-primary)!important;
+  border-color: var(--ajk-primary)!important;
+  transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.7; }
+
+</style>
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b91c1c;--theme-primary-soft:#fef2f2;--theme-primary-dark:#7f1d1d;
+  --theme-hero-a:#7f1d1d;--theme-hero-b:#dc2626;
+  --theme-page-bg:#fff5f5;--theme-border:#fca5a5;
+  --color-background-primary:#ffffff;--color-background-secondary:#fef2f2;
+  --color-border-secondary:#fca5a5;--color-border-tertiary:#fecaca;
+  --color-text-primary:#1c1917;--color-text-secondary:#57534e;--color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(185,28,28,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary:#b91c1c;--ajk-primary-soft:#fef2f2;--ajk-primary-dark:#7f1d1d;
+  --ajk-ink:var(--color-text-primary);--ajk-muted:var(--color-text-secondary);
+  --ajk-border:#fcd1d1;--ajk-surface:#ffffff;
+}
+body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!important;font-family:var(--font-sans)!important;}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
+
+<style id="ak-shared-fallback">
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="ak-theme-microeconomics" style="--ak-bg: #fff5f5;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 8.5</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#hub" class="ak-member-pill" id="ak-member-pill">
+        <span class="ak-pill-avatar" id="ak-pill-avatar">?</span>
+        <span class="ak-pill-label" id="ak-pill-label">ห้องเรียนของฉัน</span>
+        <span class="ak-pill-arrow">→</span>
+      </a>
+      <a href="../#join" class="ak-btn ak-btn-ghost" id="ak-login-btn">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter8.html" aria-label="กลับบทที่ 8">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 8</span>
+    </a>
+    <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+<div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 8.5 · Monopoly vs PC + Deadweight Loss</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+
+<div class="page">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><div id="dots" style="display:flex;gap:5px"></div><span id="plbl" style="font-size:14px;color:var(--muted)"></span></div>
+<div id="sc"></div>
+</div>
+<script>
+/* ═══ Static graph builder for 3 cases ═══ */
+function mkCase(type){
+var s='<svg viewBox="0 0 400 248" style="width:100%;max-width:420px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">';
+s+='<defs><marker id="a'+type+'" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs>';
+s+='<line x1="40" y1="222" x2="370" y2="222" stroke="#78716c" stroke-width="1.2" marker-end="url(#a'+type+')"/>';
+s+='<line x1="40" y1="222" x2="40" y2="18" stroke="#78716c" stroke-width="1.2" marker-end="url(#a'+type+')"/>';
+s+='<text x="374" y="226" fill="#78716c" font-size="9">Q</text><text x="33" y="18" fill="#78716c" font-size="9" text-anchor="end">P</text>';
+s+='<line x1="70" y1="40" x2="220" y2="220" stroke="#2563eb" stroke-width="2"/><text x="222" y="218" fill="#2563eb" font-size="9" font-weight="700">D1</text>';
+s+='<line x1="130" y1="40" x2="280" y2="220" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5,3"/><text x="282" y="218" fill="#2563eb" font-size="9" font-weight="700">D2</text>';
+s+='<line x1="50" y1="210" x2="200" y2="30" stroke="#dc2626" stroke-width="2"/><text x="202" y="28" fill="#dc2626" font-size="9" font-weight="700">S1</text>';
+s+='<circle cx="131" cy="113" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="119" y="109" fill="#059669" font-size="9" font-weight="700">E1</text>';
+s+='<line x1="37" y1="113" x2="133" y2="113" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="117" fill="#7f1d1d" font-size="9" text-anchor="end">P1</text>';
+s+='<line x1="131" y1="115" x2="131" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="131" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2081Q\u2081</text>';
+s+='<circle cx="161" cy="77" r="3.5" fill="#78716c" stroke="#fff" stroke-width="1.5"/><text x="167" y="73" fill="#78716c" font-size="8">E2</text>';
+if(type==='c'){
+s+='<line x1="110" y1="210" x2="260" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="262" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
+s+='<circle cx="191" cy="113" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="197" y="109" fill="#059669" font-size="9" font-weight="700">E3</text>';
+s+='<line x1="191" y1="115" x2="191" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="191" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2082Q\u2081</text>';
+s+='<line x1="131" y1="113" x2="191" y2="113" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><text x="161" y="106" fill="#b91c1c" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
+s+='<rect x="215" y="100" width="148" height="30" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="289" y="114" fill="#7f1d1d" font-size="9" font-weight="700" text-anchor="middle">LS \u0e41\u0e19\u0e27\u0e19\u0e2d\u0e19 (slope = 0)</text><text x="289" y="126" fill="#7f1d1d" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19</text>';
+}else if(type==='i'){
+s+='<line x1="90" y1="210" x2="240" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="242" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
+s+='<circle cx="181" cy="101" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="187" y="97" fill="#059669" font-size="9" font-weight="700">E4</text>';
+s+='<line x1="37" y1="101" x2="183" y2="101" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="105" fill="#7f1d1d" font-size="9" text-anchor="end">P4</text>';
+s+='<line x1="181" y1="103" x2="181" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="181" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2084Q\u2084</text>';
+s+='<line x1="131" y1="113" x2="181" y2="101" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><text x="156" y="100" fill="#b91c1c" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
+s+='<rect x="215" y="88" width="148" height="30" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="289" y="102" fill="#7f1d1d" font-size="9" font-weight="700" text-anchor="middle">LS \u0e17\u0e2d\u0e14\u0e02\u0e36\u0e49\u0e19 (slope > 0)</text><text x="289" y="114" fill="#7f1d1d" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u2191 \u0e15\u0e49\u0e19\u0e17\u0e38\u0e19\u2191</text>';
+}else{
+s+='<line x1="130" y1="210" x2="280" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="282" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
+s+='<circle cx="201" cy="125" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="207" y="121" fill="#059669" font-size="9" font-weight="700">E5</text>';
+s+='<line x1="37" y1="125" x2="203" y2="125" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="129" fill="#7f1d1d" font-size="9" text-anchor="end">P5</text>';
+s+='<line x1="201" y1="127" x2="201" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="201" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2085Q\u2085</text>';
+s+='<line x1="131" y1="113" x2="201" y2="125" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><text x="166" y="126" fill="#b91c1c" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
+s+='<rect x="215" y="115" width="155" height="30" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="292" y="129" fill="#7f1d1d" font-size="9" font-weight="700" text-anchor="middle">LS \u0e17\u0e2d\u0e14\u0e25\u0e07 (slope < 0)</text><text x="292" y="141" fill="#7f1d1d" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u2193 \u0e15\u0e49\u0e19\u0e17\u0e38\u0e19\u2193</text>';
+}
+return s+'</svg>'}
+
+/* ═══ Steps ═══ */
+var S=[
+
+// ─── 0: Hook ───
+{
+  tag:"เริ่มต้น · ลองคิด",
+  title:"ใครได้ ใครเสีย เมื่อมีผู้ผูกขาด?",
+  body:`<div class="scenario"><div class="scenario-icon">⚖️</div>
+<p>ลองนึก: ถ้ารัฐแปรรูปการประปาให้เอกชน 1 บริษัทผูกขาด — เกิดอะไรขึ้น?</p>
+<p>① ราคาน้ำจะเปลี่ยนยังไง?</p>
+<p>② ปริมาณน้ำที่ขายให้ผู้บริโภคจะเท่าเดิมไหม?</p>
+<p>③ ใครเสียประโยชน์จากการเปลี่ยนแปลงนี้?</p>
+</div>`,
+  quiz:{
+    q:"เปรียบเทียบกับตลาดแข่งขันสมบูรณ์ ผู้ผูกขาดที่มี<strong>ต้นทุนเดียวกัน</strong>จะ:",
+    opts:[
+      "ขายในราคาต่ำกว่า เพราะไม่ต้องแข่ง",
+      "ผลิตน้อยกว่า + ขายราคาสูงกว่า — เพราะเลือก Q ที่ MR=MC แทน P=MC",
+      "ได้กำไรเท่ากัน",
+      "ผลิตมากกว่าเพราะมีอำนาจตลาด"
+    ],
+    ans:1,
+    explain:"ผู้ผูกขาดเลือก Q ที่ MR=MC ซึ่งให้ Q น้อยกว่า PC (เพราะ MR < P) → P ที่อ่านจาก D สูงกว่า P_C ดังนั้น <strong>Q_M < Q_C</strong> และ <strong>P_M > P_C</strong> เสมอ"
+  }
+},
+
+// ─── 1: Setup the comparison ───
+{
+  tag:"ตั้งสมมุติฐาน · เปรียบเทียบ",
+  title:"สมมุติฐานสำคัญ: ต้นทุนเหมือนกัน, Demand เหมือนกัน",
+  body:`<div class="prose">
+<p>เพื่อเปรียบเทียบ <strong>Monopoly vs Perfect Competition (PC)</strong> อย่างยุติธรรม สมมุติว่า:</p>
+</div>
+<div class="features">
+<div class="feature"><div class="feature-num">①</div><div class="feature-body"><h4>ต้นทุนเหมือนกัน</h4><div class="en">Same cost</div><p>LAC, LMC ของบริษัทผูกขาด = ของอุตสาหกรรมแข่งขันสมบูรณ์ (ใช้เทคโนโลยีเดียวกัน)</p></div></div>
+<div class="feature"><div class="feature-num">②</div><div class="feature-body"><h4>Demand เหมือนกัน</h4><div class="en">Same demand</div><p>เส้น D ของตลาดที่ผู้ซื้อทั้งหมดเผชิญ — เหมือนกันทั้งสองโครงสร้างตลาด</p></div></div>
+<div class="feature"><div class="feature-num">③</div><div class="feature-body"><h4>Constant returns to scale</h4><div class="en">Constant cost industry</div><p>LAC = LMC = <strong>เส้นแนวนอน</strong> (ราคาปัจจัยคงที่ — ไม่มี economies of scale)</p></div></div>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ทำไมต้องสมมุติแบบนี้</div>
+<p class="insight-text">เพื่อแยก<strong>ผลของอำนาจตลาด</strong>ออกจากปัจจัยอื่น — ถ้าต้นทุนต่างกัน เราจะไม่รู้ว่าราคาที่สูงกว่าเป็นเพราะ "ผูกขาดแย่" หรือ "ต้นทุนสูง"
+  
+ที่นี่ต้นทุนเดียวกัน → ความต่างของ P, Q ที่เห็น = ผลของอำนาจผูกขาด<strong>ล้วนๆ</strong></p>
+</div>`,
+  quiz:{
+    q:"เหตุใดจึงสมมุติว่า LAC = LMC = เส้นแนวนอน ในการเปรียบเทียบนี้?",
+    opts:[
+      "เพื่อให้คำนวณง่าย",
+      "เพราะอุตสาหกรรมต้นทุนคงที่ (constant cost) → ไม่มี scale effects → ผลที่เห็นเป็นเพราะอำนาจตลาดล้วนๆ",
+      "เพราะกฎหมายกำหนด",
+      "เพื่อให้ MR ตัดได้พอดี"
+    ],
+    ans:1,
+    explain:"การให้ LAC=LMC คงที่ทำให้ผลกระทบจาก<strong>อำนาจตลาด</strong>แยกออกจากผลของ economies of scale ได้ชัดเจน — ความแตกต่าง P, Q ที่พบล้วนเกิดจาก Monopoly ที่เลือก MR=MC vs PC ที่ P=MC"
+  }
+},
+
+// ─── 2: PC outcome ───
+{
+  tag:"ผลของ PC · ดุลยภาพ",
+  title:"ผลของตลาดแข่งขันสมบูรณ์ (PC)",
+  body:`<div class="prose">
+<p>ในตลาดแข่งขันสมบูรณ์ระยะยาว: ผู้ผลิตทุกรายเป็น Price Taker → P = LMC (ตามที่เรียนใน Ch.7)</p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ดุลยภาพ PC</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">เงื่อนไข: P = LMC = LAC ที่ LAC ต่ำสุด
+ปริมาณ: <strong>Q_C</strong> (จุดที่ D ตัด LMC)
+ราคา: <strong>P_C = LMC</strong>
+กำไร: <strong>0</strong> (กำไรปกติเท่านั้น)</p>
+</div>
+<div class="prose">
+<p>ผู้บริโภคได้ <strong>Consumer Surplus (CS)</strong> = สามเหลี่ยมระหว่างเส้น D กับเส้น P_C จาก 0 ถึง Q_C — เป็น<strong>พื้นที่ใหญ่ที่สุด</strong>ที่ผู้บริโภคจะได้รับ</p>
+</div>`,
+  quiz:{
+    q:"ในตลาดแข่งขันสมบูรณ์ระยะยาว กำไรของผู้ผลิตเท่ากับเท่าใด?",
+    opts:[
+      "กำไรเกินปกติเสมอ",
+      "ครึ่งหนึ่งของกำไรผูกขาด",
+      "0 (กำไรปกติเท่านั้น) เพราะ free entry ทำให้กำไรเกินปกติหายไป",
+      "ติดลบ"
+    ],
+    ans:2,
+    explain:"PC ระยะยาว: free entry → ถ้ามีกำไรเกินปกติ บริษัทใหม่เข้ามา → S เพิ่ม → P ลด → กำไรเกินปกติ<strong>หายไป</strong> เหลือแค่<strong>กำไรปกติ</strong> (ค่าตอบแทนต้นทุนรวมค่าโอกาส)"
+  }
+},
+
+// ─── 3: Monopoly outcome ───
+{
+  tag:"ผลของ Monopoly · ดุลยภาพ",
+  title:"ผลของตลาดผูกขาด — Q น้อยกว่า, P สูงกว่า",
+  body:`<div class="prose">
+<p>ผู้ผูกขาดเลือก <strong>MR = MC</strong> (ไม่ใช่ P = MC) → ได้ Q น้อยกว่า PC</p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ดุลยภาพ Monopoly</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">เงื่อนไข: MR = LMC
+ปริมาณ: <strong>Q_M = Q_C / 2</strong> (เพราะ MR slope = 2× D slope)
+ราคา: <strong>P_M = (a + P_C) / 2 &gt; P_C</strong>
+กำไร: <strong>π_M = (P_M − P_C) × Q_M &gt; 0</strong></p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+<div class="insight-label">✦ สรุป 3 ข้อ</div>
+<p class="insight-text"><strong>① Q_M &lt; Q_C</strong> (ผลิตน้อยกว่า)
+<strong>② P_M &gt; P_C</strong> (ราคาสูงกว่า)
+<strong>③ π_M &gt; 0 = π_C</strong> (กำไรเกินปกติ vs กำไรปกติ)</p>
+</div>`,
+  quiz:{
+    q:"ทำไม Q_M = Q_C / 2 ในตัวอย่างนี้ (เมื่อ LMC คงที่และ D เป็นเส้นตรง)?",
+    opts:[
+      "บังเอิญ ไม่มีเหตุผล",
+      "เพราะ Demand เป็นเส้นตรง",
+      "เพราะรัฐกำหนดเช่นนั้น",
+      "เพราะ MR slope = 2× D slope → MR ตัด LMC ที่ Q ครึ่งของจุดที่ D ตัด LMC"
+    ],
+    ans:3,
+    explain:"จาก D = a-bQ → MR = a-2bQ (ชัน 2 เท่า) ตั้ง MR = LMC = P_C: a-2bQ_M = P_C → Q_M = (a-P_C)/(2b) ในขณะที่ Q_C = (a-P_C)/b → <strong>Q_M = Q_C/2</strong> (กึ่งหนึ่งของ PC พอดี)"
+  }
+},
+
+// ─── 4: Deadweight Loss intro ───
+{
+  tag:"แนวคิด · Deadweight Loss",
+  title:"Deadweight Loss คืออะไร? — ดูจากกราฟ step-by-step",
+  body:`<div class="prose">
+<p>กราฟด้านล่างจะแสดง<strong>การโอนสวัสดิการ</strong>เมื่อเปลี่ยนจาก PC → Monopoly</p>
+<p>ลองกดปุ่ม "ขั้นตอนถัดไป" ทีละขั้น เพื่อดูว่า Consumer Surplus ของ PC ถูกแบ่งเป็น 3 ส่วน:</p>
+<ul>
+<li><strong>① CS ที่ผู้บริโภคยังได้</strong> (สามเหลี่ยมเล็กลง)</li>
+<li><strong>② π กำไรเกินปกติของผู้ผูกขาด</strong> (สี่เหลี่ยม) — โอนจากผู้บริโภค</li>
+<li><strong>③ DWL ความสูญเสียของสังคม</strong> (สามเหลี่ยม) — <strong>ไม่มีใครได้</strong>!</li>
+</ul>
+</div>
+<div class="graph-widget-ch85" id="gw-85" style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+  <svg viewBox="0 0 480 340" id="svg-85" style="width:100%;max-width:480px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <!-- Axes -->
+  <line x1="70" y1="20" x2="70" y2="295" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="70" y1="290" x2="445" y2="290" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="50" y="22" font-size="11" fill="#7f1d1d" font-weight="700">฿/Q</text>
+  <text x="436" y="308" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  <text x="60" y="305" font-size="10" fill="#7f1d1d">0</text>
+  
+  <!-- Step 1: Demand + LAC=LMC -->
+  <g class="g-step" data-step="1" opacity="0">
+    <line x1="70.0" y1="73.3" x2="391.4" y2="290.0" stroke="#dc2626" stroke-width="2.8"/>
+    <rect x="361" y="268" width="50" height="16" fill="#fff" stroke="#dc2626" stroke-width="0.8" rx="3"/>
+    <text x="386" y="280" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">D = AR</text>
+    <line x1="70.0" y1="246.7" x2="412.0" y2="246.7" stroke="#a855f7" stroke-width="2.5"/>
+    <rect x="380" y="225" width="60" height="16" fill="#fff" stroke="#a855f7" stroke-width="0.8" rx="3"/>
+    <text x="410" y="237" font-size="12" fill="#a855f7" font-weight="700" text-anchor="middle">LAC=LMC</text>
+  </g>
+  
+  <!-- Step 2: PC equilibrium L, Q_C, P_C -->
+  <g class="g-step" data-step="2" opacity="0">
+    <line x1="327.1" y1="246.7" x2="327.1" y2="290" stroke="#999" stroke-width="0.8" stroke-dasharray="2,2"/>
+    <text x="327" y="305" font-size="11" fill="#7f1d1d" font-weight="700" text-anchor="middle">Q_C</text>
+    <line x1="70" y1="246.7" x2="327.1" y2="246.7" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="44" y="251" font-size="12" fill="#10b981" font-weight="800">P_C</text>
+    <circle cx="327.1" cy="246.7" r="5" fill="#10b981" stroke="#fff" stroke-width="1.5"/>
+    <text x="335" y="252" font-size="12" fill="#10b981" font-weight="700">L</text>
+  </g>
+  
+  <!-- Step 3: PC consumer surplus (large triangle) -->
+  <g class="g-step" data-step="3" opacity="0">
+    <path d="M 70.0 73.3 L 70.0 246.7 L 327.1 246.7 Z" fill="#10b981" fill-opacity="0.22" stroke="#10b981" stroke-width="1.5"/>
+    <text x="171" y="189" font-size="11" fill="#047857" font-weight="800" text-anchor="middle">CS (PC)</text>
+  </g>
+  
+  <!-- Step 4: MR -->
+  <g class="g-step" data-step="4" opacity="0">
+    <line x1="70.0" y1="73.3" x2="230.7" y2="290.0" stroke="#ec4899" stroke-width="2.5" stroke-dasharray="6,3"/>
+    <rect x="135" y="160" width="30" height="16" fill="#fff" stroke="#ec4899" stroke-width="0.8" rx="3"/>
+    <text x="150" y="172" font-size="12" fill="#ec4899" font-weight="700" text-anchor="middle">MR</text>
+  </g>
+  
+  <!-- Step 5: Q_M from MR=MC at point J -->
+  <g class="g-step" data-step="5" opacity="0">
+    <line x1="198.6" y1="160.0" x2="198.6" y2="290" stroke="#999" stroke-width="0.8" stroke-dasharray="2,2"/>
+    <text x="199" y="305" font-size="11" fill="#7f1d1d" font-weight="700" text-anchor="middle">Q_M</text>
+    <circle cx="198.6" cy="246.7" r="5" fill="#7f1d1d" stroke="#fff" stroke-width="1.5"/>
+    <text x="207" y="252" font-size="12" fill="#7f1d1d" font-weight="700">J</text>
+  </g>
+  
+  <!-- Step 6: P_M from D at Q_M, point K -->
+  <g class="g-step" data-step="6" opacity="0">
+    <line x1="70" y1="160.0" x2="198.6" y2="160.0" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="42" y="164" font-size="12" fill="#dc2626" font-weight="800">P_M</text>
+    <circle cx="198.6" cy="160.0" r="5" fill="#dc2626" stroke="#fff" stroke-width="1.5"/>
+    <text x="207" y="165" font-size="12" fill="#dc2626" font-weight="700">K</text>
+  </g>
+  
+  <!-- Step 7: Smaller CS (Monopoly) + Profit rectangle -->
+  <g class="g-step" data-step="7" opacity="0">
+    <!-- Hide PC's CS by overlaying smaller CS in dimmer green -->
+    <path d="M 70.0 73.3 L 70.0 160.0 L 198.6 160.0 Z" fill="#10b981" fill-opacity="0.35" stroke="#047857" stroke-width="1.5"/>
+    <text x="121" y="131" font-size="11" fill="#047857" font-weight="800" text-anchor="middle">CS (Mono)</text>
+    
+    <path d="M 70.0 246.7 L 70.0 160.0 L 198.6 160.0 L 198.6 246.7 Z" fill="#dc2626" fill-opacity="0.25" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="139" y="208" font-size="11" fill="#7f1d1d" font-weight="800" text-anchor="middle">π_M</text>
+  </g>
+  
+  <!-- Step 8: DWL triangle JKL -->
+  <g class="g-step" data-step="8" opacity="0">
+    <path d="M 198.6 246.7 L 198.6 160.0 L 327.1 246.7 Z" fill="#fbbf24" fill-opacity="0.55" stroke="#92400e" stroke-width="2"/>
+    <text x="246" y="221" font-size="11" fill="#7f1d1d" font-weight="800" text-anchor="middle">DWL</text>
+  </g>
+  
+  <!-- Step 9: Conclusion -->
+  <g class="g-step" data-step="9" opacity="0">
+    <rect x="80" y="35" width="320" height="32" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="240" y="52" font-size="12" fill="#7f1d1d" font-weight="800" text-anchor="middle">Q_M &lt; Q_C, P_M &gt; P_C</text>
+    <text x="240" y="65" font-size="11" fill="#92400e" font-weight="700" text-anchor="middle">DWL = ความสูญเสียของสังคม</text>
+  </g>
+</svg>
+  <div id="step-msg-85" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin:10px 0;min-height:48px;font-size:14.5px;line-height:1.6;color:#7f1d1d">
+    👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <button onclick="gw85Step(-1)" id="btn-prev-85" style="padding:8px 14px;background:#fff;color:#7f1d1d;border:1.5px solid #fca5a5;border-radius:10px;font-weight:600;cursor:pointer;font-size:14.5px">← ก่อนหน้า</button>
+    <span id="step-count-85" style="font-size:14px;color:#7f1d1d;font-weight:600;min-width:80px;text-align:center">0 / 9</span>
+    <button onclick="gw85Step(1)" id="btn-next-85" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14.5px">ขั้นตอนถัดไป →</button>
+    <button onclick="gw85Reset()" style="padding:8px 12px;background:transparent;color:#7f1d1d;border:1px solid #fca5a5;border-radius:10px;font-weight:500;cursor:pointer;font-size:13px">↻ รีเซ็ต</button>
+  </div>
+</div>`,
+  quiz:{
+    q:"จากกราฟ — Deadweight Loss คือพื้นที่ใด?",
+    opts:[
+      "พื้นที่สี่เหลี่ยมกำไรของผู้ผูกขาด",
+      "พื้นที่ใต้เส้น D ทั้งหมด",
+      "พื้นที่สามเหลี่ยม JKL — ระหว่าง Q_M กับ Q_C ใต้เส้น D เหนือเส้น MC — ไม่มีใครได้",
+      "พื้นที่บนเส้น MR"
+    ],
+    ans:2,
+    explain:"DWL = สามเหลี่ยม JKL → เกิดจากที่ผู้ผูกขาด<strong>ไม่ผลิต</strong>ในช่วง Q_M ถึง Q_C ทั้งที่ผู้บริโภคยินดีจ่ายราคาสูงกว่า MC → สูญเสียประโยชน์ที่<strong>ไม่มีใครได้รับ</strong> (ไม่ใช่ผู้บริโภค ไม่ใช่ผู้ผูกขาด)"
+  }
+},
+
+// ─── 5: 3 components of welfare ───
+{
+  tag:"แบ่งส่วน · CS เดิมแบ่งเป็น 3",
+  title:"CS ของ PC แบ่งออกเป็น 3 ส่วน",
+  body:`<div class="prose">
+<p>เมื่อเปลี่ยนจาก PC → Monopoly สวัสดิการของสังคมเปลี่ยนยังไง?</p>
+<p>เริ่มจาก <strong>CS ทั้งหมดในกรณี PC</strong> (สามเหลี่ยมใหญ่) → แบ่งเป็น 3 ส่วน:</p>
+</div>
+<div class="features">
+<div class="feature"><div class="feature-num">①</div><div class="feature-body"><h4>CS เหลืออยู่</h4><div class="en">Consumer Surplus (Monopoly)</div><p>สามเหลี่ยมเล็กกว่าเดิม — เหนือ P_M ใต้ D จาก 0 ถึง Q_M ผู้บริโภคยังได้บางส่วน แต่<strong>น้อยลง</strong></p></div></div>
+<div class="feature"><div class="feature-num">②</div><div class="feature-body"><h4>กำไรผูกขาด</h4><div class="en">Monopoly Profit (π_M)</div><p>สี่เหลี่ยมระหว่าง P_C กับ P_M — เป็น<strong>การโอนความมั่งคั่ง</strong>จากผู้บริโภคไปยังผู้ผูกขาด</p></div></div>
+<div class="feature"><div class="feature-num">③</div><div class="feature-body"><h4>ความสูญเสียของสังคม</h4><div class="en">Deadweight Loss (DWL)</div><p>สามเหลี่ยม JKL — <strong>ไม่มีใครได้</strong>! ผู้บริโภคก็ไม่ได้ ผู้ผูกขาดก็ไม่ได้ → สังคมเสียประโยชน์สุทธิ</p></div></div>
+</div>
+<div class="insight">
+<div class="insight-label">✦ คำนวณตัวอย่าง (จากกราฟ)</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">ตัวอย่าง: D = 200-8Q, LMC=40
+PC: Q_C=20, P_C=40 → CS_PC = ½ × 20 × 160 = 1,600
+Monopoly: Q_M=10, P_M=120
+  CS_M = ½ × 10 × 80 = 400  (ลดลง 1,200!)
+  π_M  = 80 × 10 = 800       (โอนจาก CS)
+  DWL  = ½ × 10 × 80 = 400   (สูญเสีย!)
+ตรวจ: 400 + 800 + 400 = 1,600 ✓</p>
+</div>`,
+  quiz:{
+    q:"ส่วน 'กำไรผูกขาด' (สี่เหลี่ยม PCPMKJ) เกิดจากอะไร?",
+    opts:[
+      "การโอนสวัสดิการจาก Consumer Surplus เดิมไปยังผู้ผูกขาด — ไม่ใช่มูลค่าใหม่",
+      "การสร้างสรรค์มูลค่าใหม่",
+      "การลดต้นทุนจาก Monopoly",
+      "เงินอุดหนุนจากรัฐ"
+    ],
+    ans:0,
+    explain:"กำไรผูกขาด = พื้นที่ที่<strong>โอนมาจาก CS เดิม</strong> (เคยเป็นของผู้บริโภค) → ไม่ใช่การสร้างมูลค่าใหม่ เป็นแค่<strong>การกระจายซ้ำ</strong> (redistribution) ผู้บริโภคเสีย ผู้ผูกขาดได้"
+  }
+},
+
+// ─── 6: Why DWL exists ───
+{
+  tag:"ทำไม · DWL เกิดขึ้น",
+  title:"ทำไม Deadweight Loss จึงเกิดขึ้น?",
+  body:`<div class="prose">
+<p>ที่ Q_M < Q_C — ใน<strong>ช่วงที่ขาดหายไป</strong> (Q_M ถึง Q_C):</p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ความผิดปกติทางเศรษฐศาสตร์</div>
+<p class="insight-text">• <strong>เส้น D</strong> ที่ Q ในช่วง [Q_M, Q_C] = ราคาสูงสุดที่ผู้บริโภคยินดีจ่าย
+• <strong>เส้น MC</strong> ที่ Q ในช่วงเดียวกัน = ต้นทุนเพิ่ม
+• <strong>D &gt; MC</strong> ในช่วงนี้ → ผลิตเพิ่มก็มี<strong>มูลค่าทางสังคม</strong> (ลูกค้าจ่ายมากกว่าต้นทุน)
+  
+แต่ผู้ผูกขาด<strong>ไม่ผลิต</strong>ในช่วงนี้ เพราะการขายเพิ่ม<strong>ทำให้ลดราคาทุกหน่วย</strong> → MR &lt; P → MR &lt; MC ในช่วงนี้
+  
+ผลคือ: สินค้าที่ "<strong>ควร</strong>ผลิต" (D > MC) แต่<strong>ไม่ถูกผลิต</strong> = DWL</p>
+</div>
+<div class="prose">
+<p>📌 <strong>ในชีวิตจริง:</strong> ยา Patent ที่ราคาแพงเกินไป → ผู้ป่วยที่เข้าถึงไม่ได้แม้จะได้ประโยชน์มากกว่าต้นทุนผลิต = DWL ที่เกิดจากการผูกขาด</p>
+</div>`,
+  quiz:{
+    q:"ในช่วง Q_M < Q < Q_C ทำไมผู้ผูกขาดจึงไม่ยอมผลิต ทั้งที่ D > MC?",
+    opts:[
+      "เพราะรัฐห้าม",
+      "เพราะต้นทุนสูงเกินไป",
+      "เพราะลูกค้าไม่ต้องการ",
+      "เพราะการขายเพิ่มต้องลดราคาทุกหน่วย → MR < P, ในช่วงนี้ MR < MC → ขายเพิ่มขาดทุน"
+    ],
+    ans:3,
+    explain:"ผู้ผูกขาดเทียบ <strong>MR กับ MC</strong> ไม่ใช่ P กับ MC ในช่วง Q_M ถึง Q_C: D > MC (ผู้บริโภคยินดีจ่ายมากกว่าต้นทุน) แต่ MR < MC (เพราะลดราคาแล้วเสียรายรับสุทธิ) → ผู้ผูกขาดเลิกผลิต → DWL เกิดขึ้น"
+  }
+},
+
+// ─── 7: Bridge ───
+{
+  tag:"สรุป · เชื่อมโยง",
+  title:"สรุป Section 8.5 — และสิ่งที่จะเรียนต่อไป",
+  body:`<div class="insight">
+<div class="insight-label">✦ สิ่งที่ได้เรียนรู้</div>
+<p class="insight-text">① <strong>Q_M &lt; Q_C</strong> (ผลิตน้อยกว่า)
+② <strong>P_M &gt; P_C</strong> (ราคาสูงกว่า)
+③ <strong>π_M &gt; 0</strong> ขณะ π_C = 0
+④ <strong>CS ลดลง</strong> — แบ่งเป็น 3 ส่วน
+⑤ <strong>DWL = สูญเสียสุทธิของสังคม</strong> ที่ไม่มีใครได้</p>
+</div>
+<div class="scenario">
+<div class="scenario-icon">🔗</div>
+<p><strong>เชื่อมไป Section 8.6:</strong> เมื่อรู้ว่า Monopoly สร้างความเสียหายต่อสังคม → คำถามต่อไป: <strong>รัฐบาลควบคุมการผูกขาดยังไง?</strong></p>
+<p>2 เครื่องมือหลัก: <strong>กำหนดราคาขั้นสูง</strong> + <strong>เก็บภาษี 4 ประเภท</strong>!</p>
+</div>`
+}
+
+];
+var cur=0,total=S.length,ans={};
+function init(){renderDots();renderStep()}
+function renderDots(){var d=document.getElementById('dots'),h='';for(var i=0;i<total;i++)h+='<div style="width:'+(i===cur?'48':'32')+'px;height:5px;border-radius:99px;background:'+(i<=cur?'var(--pri)':'#ede5d8')+';transition:all .35s;cursor:pointer" onclick="goTo('+i+')"></div>';d.innerHTML=h;document.getElementById('plbl').textContent=(cur+1)+' / '+total}
+function renderStep(){var s=S[cur],c=document.getElementById('sc');var h='<div class="step active"><div class="step-tag">'+s.tag+'</div><h2 class="step-title">'+s.title+'</h2>';if(s.body)h+=s.body;if(s.quiz){var qid='q-'+cur;h+='<div class="quiz" id="'+qid+'"><p class="quiz-q">'+s.quiz.q+'</p><div class="quiz-opts">';for(var i=0;i<s.quiz.opts.length;i++)h+='<button class="quiz-opt" onclick="answer('+cur+','+i+','+s.quiz.ans+')"><span class="letter">'+String.fromCharCode(65+i)+'.</span>'+s.quiz.opts[i]+'</button>';h+='</div><div class="quiz-explain" id="'+qid+'-e">'+s.quiz.explain+'</div></div>'}var isLast=cur>=total-1,nQ=!!s.quiz,done=ans[cur],vis=(!nQ||done)?'':'hidden';h+='<button class="next-btn '+vis+'" id="nb" onclick="'+(isLast?'complete()':'next()')+'">'+(isLast?'✓ จบ Section 8.5':'ถัดไป →')+'</button></div>';c.innerHTML=h;renderDots()}
+function answer(step,chosen,correct){if(ans[step])return;ans[step]=true;var card=document.getElementById('q-'+step),btns=card.querySelectorAll('.quiz-opt');for(var i=0;i<btns.length;i++){btns[i].classList.add('locked');if(i===correct)btns[i].classList.add('correct');else if(i===chosen&&chosen!==correct)btns[i].classList.add('wrong')}document.getElementById('q-'+step+'-e').classList.add('show',chosen===correct?'ok':'no');setTimeout(function(){document.getElementById('nb').classList.remove('hidden')},500)}
+function next(){cur++;renderStep();window.scrollTo({top:0,behavior:'smooth'})}
+function goTo(i){if(i<=cur){cur=i;renderStep();window.scrollTo({top:0,behavior:'smooth'})}}
+function complete(){document.getElementById('sc').innerHTML='<div class="step active"><div class="completion"><div style="font-size:52px;margin-bottom:14px">🎉</div><h2>จบ Section 8.5!</h2><p>คุณเข้าใจการเปรียบเทียบ Monopoly vs PC + Deadweight Loss แล้ว!</p><div class="completion-link">💡 <strong>เชื่อมไป Section 8.6:</strong> รู้แล้วว่า Monopoly สร้างความเสียหาย → ต่อไปดูวิธี<strong>ควบคุม</strong>: ราคาขั้นสูง + 4 ประเภทภาษี!</div><br><button class="next-btn" onclick="location.href=\'chapter8.html\'" style="max-width:300px;margin:0 auto">← กลับบทที่ 8</button></div></div>';document.getElementById('dots').innerHTML='';document.getElementById('plbl').textContent='เสร็จสิ้น ✓';window.scrollTo({top:0,behavior:'smooth'})}
+init();
+</script>
+
+<nav class="ajk-chapter-nav ajk-shell-theme">
+  <a class="ajk-chap-btn prev" href="chapter8_4.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทก่อนหน้า</span>
+      <span class="ajk-chap-name">บทที่ 8.4 — ดุลยภาพระยะยาว + ไม่มีเส้นอุปทาน</span>
+    </div>
+  </a>
+  <a class="ajk-chap-btn next" href="chapter8_6.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทถัดไป</span>
+      <span class="ajk-chap-name">บทที่ 8.6 — การควบคุมการผูกขาด</span>
+    </div>
+  </a>
+</nav>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter8.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 8</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+  <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* Member status pill — reads login state from localStorage */
+(function(){
+  try {
+    const raw = localStorage.getItem('akMember');
+    if (!raw) return;
+    const m = JSON.parse(raw);
+    if (!m || !m.name) return;
+    // Stale if older than 30 days
+    if (m.ts && (Date.now() - m.ts > 30*24*60*60*1000)) return;
+    
+    const pill = document.getElementById('ak-member-pill');
+    const loginBtn = document.getElementById('ak-login-btn');
+    const avatarEl = document.getElementById('ak-pill-avatar');
+    const labelEl = document.getElementById('ak-pill-label');
+    
+    if (pill && labelEl && avatarEl) {
+      if (m.isAdmin) {
+        // Admin: link to #admin Dashboard, label = "Admin"
+        pill.href = '../#admin';
+        pill.classList.add('is-admin');
+        avatarEl.textContent = 'A';
+        labelEl.textContent = 'Admin · Dashboard';
+      } else {
+        // Regular member: link to #hub
+        pill.href = '../#hub';
+        avatarEl.textContent = (m.name[0] || '?').toUpperCase();
+        labelEl.textContent = m.name;
+      }
+      pill.style.display = 'inline-flex';
+      if (loginBtn) loginBtn.style.display = 'none';
+    }
+  } catch(e) { console.warn('member pill init failed:', e); }
+})();
+</script>
+
+<script id="gw-ch85-js">
+(function(){
+  var STEPS = [
+    "เริ่มต้น: เส้น <b style=\'color:#dc2626\'>D = AR</b> และเส้นต้นทุน <b style=\'color:#a855f7\'>LAC = LMC</b> (แนวนอน เพราะ constant cost)",
+    "หาดุลยภาพ <b style=\'color:#10b981\'>PC</b> ที่ D ตัด LMC → จุด <b>L</b> ได้ปริมาณ <b>Q_C</b> ราคา <b>P_C</b>",
+    "<b style=\'color:#047857\'>Consumer Surplus (CS)</b> ของ PC = สามเหลี่ยมใหญ่ ระหว่าง D กับ P_C ผู้บริโภคได้ประโยชน์เต็มที่",
+    "ตอนนี้สมมุติเป็น Monopoly → วาด <b style=\'color:#ec4899\'>MR</b> (ชัน 2 เท่าของ D)",
+    "Monopoly เลือก Q ที่ MR=MC → ได้ <b>Q_M</b> = ครึ่งของ Q_C จุด <b>J</b> บนเส้น MC",
+    "ขึ้นไปแตะ D ที่ Q_M → ได้ <b style=\'color:#dc2626\'>P_M</b> ที่จุด <b>K</b> ราคาสูงกว่า P_C",
+    "<b style=\'color:#047857\'>CS ใหม่</b>เล็กลง + <b style=\'color:#7f1d1d\'>กำไรผูกขาด π_M</b> = สี่เหลี่ยม โอนจาก CS เดิม",
+    "<b style=\'color:#92400e\'>Deadweight Loss (DWL)</b> = สามเหลี่ยม JKL — ความสูญเสียของสังคมที่<b>ไม่มีใครได้</b>!"
+  ];
+  var FINAL_MSG = "🎯 <b style=\'color:#7f1d1d\'>Q_M &lt; Q_C, P_M &gt; P_C, DWL = ความเสียหายต่อสังคมที่ไม่มีใครได้</b>";
+  var TOTAL = 9;
+  
+  window.gw85State = 0;
+  
+  window.gw85Step = function(dir) {
+    var cur = window.gw85State + dir;
+    cur = Math.max(0, Math.min(TOTAL, cur));
+    window.gw85State = cur;
+    
+    var svg = document.getElementById('svg-85');
+    if (!svg) return;
+    
+    var groups = svg.querySelectorAll('.g-step');
+    groups.forEach(function(g){
+      var s = parseInt(g.getAttribute('data-step'));
+      g.style.opacity = (s <= cur) ? '1' : '0';
+      g.style.transition = 'opacity 0.45s ease';
+    });
+    
+    var msg = document.getElementById('step-msg-85');
+    if (msg) {
+      if (cur === 0) {
+        msg.innerHTML = '👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น';
+      } else if (cur >= TOTAL) {
+        msg.innerHTML = FINAL_MSG;
+      } else {
+        msg.innerHTML = '<b>ขั้นที่ ' + cur + '/' + TOTAL + ':</b> ' + STEPS[cur - 1];
+      }
+    }
+    
+    var cnt = document.getElementById('step-count-85');
+    if (cnt) cnt.textContent = cur + ' / ' + TOTAL;
+    
+    var btnPrev = document.getElementById('btn-prev-85');
+    var btnNext = document.getElementById('btn-next-85');
+    if (btnPrev) btnPrev.style.opacity = (cur === 0) ? '0.4' : '1';
+    if (btnNext) {
+      btnNext.style.opacity = (cur >= TOTAL) ? '0.4' : '1';
+      btnNext.textContent = (cur >= TOTAL) ? '✓ เสร็จ' : 'ขั้นตอนถัดไป →';
+    }
+  };
+  
+  window.gw85Reset = function() {
+    window.gw85State = 0;
+    window.gw85Step(0);
+  };
+  
+  function init() {
+    var svg = document.getElementById('svg-85');
+    if (svg) { window.gw85State = 0; window.gw85Step(0); }
+  }
+  
+  function wrapRender() {
+    if (typeof window.renderStep !== 'function') {
+      setTimeout(wrapRender, 50);
+      return;
+    }
+    var orig = window.renderStep;
+    window.renderStep = function() {
+      orig.apply(this, arguments);
+      setTimeout(init, 30);
+    };
+    init();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wrapRender);
+  } else {
+    wrapRender();
+  }
+})();
+</script>
+
+</body>
+</html>

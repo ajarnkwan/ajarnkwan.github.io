@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 8.2 — AR, MR และการหากำไรสูงสุด · Ajarn.Kwan</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b91c1c;--pri-soft:#fef2f2;--pri-dark:#7f1d1d;--hero-a:#7f1d1d;--hero-b:#dc2626;--bg:#fff5f5;--card:#fff;--bg2:#fef2f2;--bdr:#fca5a5;--bdr-l:#fee2e2;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px;--shadow:0 14px 34px rgba(185,28,28,.06)}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #ede5d8}
+.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--pri-soft);padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .18s}
+.back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}
+.back-btn svg{width:14px;height:14px}
+.t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700;color:var(--ink)}.t-sub{font-size:14.5px;color:var(--muted);font-weight:500}
+.page{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+.progress{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.progress-dots{display:flex;gap:5px}
+.pdot{width:32px;height:5px;border-radius:99px;background:#ede5d8;transition:all .35s;cursor:pointer}.pdot.done{background:var(--pri)}.pdot.active{background:var(--pri);width:48px}@media(max-width:480px){.pdot{width:22px}.pdot.active{width:32px}}
+.progress-label{font-size:15px;color:var(--muted);font-weight:500}
+.step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
+.step-title{font-family:var(--font-serif);font-size:24px;font-weight:700;color:var(--ink);margin:0 0 16px;line-height:1.55}
+.prose{font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:16px}.prose p{margin:0 0 10px}.prose strong{color:var(--ink);font-weight:600}
+.scenario{background:var(--bg2);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;position:relative;overflow:hidden;border:.5px solid var(--bdr-l)}
+.scenario::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#dc2626,#dc2626)}
+.scenario-icon{font-size:28px;margin-bottom:8px}
+.scenario p{font-size:16px;line-height:1.75;color:var(--ink);margin:0 0 6px}.scenario p:last-child{margin:0}
+.insight{background:var(--pri-soft);border-left:3px solid var(--pri);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;margin-bottom:18px}
+.insight-label{font-size:14.5px;font-weight:700;color:var(--pri);margin-bottom:4px;letter-spacing:.03em}
+.insight-text{font-size:16.5px;color:var(--ink);line-height:1.75;white-space:pre-line;margin:0}
+.formula{background:#fffdf7;border:1px solid #fecaca;border-radius:var(--r);padding:16px 20px;margin-bottom:18px;text-align:center}
+.formula-line{font-size:17px;font-weight:700;color:var(--pri-dark);margin-bottom:5px}.formula-line:last-child{margin:0}
+.formula-note{font-size:15px;color:var(--muted);margin-top:8px;font-weight:400}
+.formula-sm{font-size:16px;font-weight:600}
+.diagram-wrap{background:var(--card);border:.5px solid var(--bdr-l);border-radius:var(--rl);padding:20px;margin-bottom:18px;overflow-x:auto}
+.diagram-title{font-size:15px;font-weight:600;color:var(--muted);margin-bottom:12px;text-align:center}
+.cmp{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:18px;background:var(--card);border-radius:var(--r);overflow:hidden;border:.5px solid var(--bdr-l)}
+.cmp th{font-weight:600;font-size:14px;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:.5px solid var(--bdr-l);text-transform:uppercase;letter-spacing:.04em;background:var(--bg2)}
+.cmp td{padding:8px 12px;border-bottom:.5px solid var(--bdr-l);color:var(--ink);vertical-align:top;font-size:15.5px;line-height:1.6}.cmp tr:last-child td{border:none}.cmp td:first-child{font-weight:500;color:var(--muted);white-space:nowrap}
+.quiz{background:var(--card);border:.5px solid var(--bdr);border-radius:var(--rl);padding:18px 20px;margin-bottom:16px}
+.quiz-q{font-size:16px;font-weight:500;color:var(--ink);margin:0 0 12px;line-height:1.65}
+.quiz-opts{display:flex;flex-direction:column;gap:7px}
+.quiz-opt{text-align:left;font-size:16px;padding:11px 15px;border-radius:var(--r);border:.5px solid var(--bdr-l);background:var(--card);color:var(--ink);cursor:pointer;transition:all .12s;font-family:var(--font-sans);line-height:1.55}
+.quiz-opt:hover:not(.locked){background:var(--bg2);border-color:var(--bdr)}
+.quiz-opt.correct{background:#ecfdf5;border-color:#86efac;color:#047857}.quiz-opt.wrong{background:#fef2f2;border-color:#fca5a5;color:#b91c1c}.quiz-opt.locked{cursor:default}
+.quiz-opt .letter{font-weight:700;color:var(--faint);margin-right:8px;font-size:14.5px}
+.quiz-explain{display:none;margin-top:12px;padding:12px 16px;border-radius:var(--r);font-size:16px;line-height:1.7;color:var(--ink)}
+.quiz-explain.show{display:block;animation:fadeUp .35s ease}
+.quiz-explain.ok{background:#fefce8;border:.5px solid #fecaca}.quiz-explain.no{background:#fff7ed;border:.5px solid #fdba74}
+.quiz-explain strong{color:var(--pri-dark)}
+.next-btn{width:100%;padding:14px;border-radius:var(--r);background:linear-gradient(135deg,var(--hero-a),var(--hero-b));border:none;color:#fff;font-size:17px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s;margin-top:8px}
+.next-btn:hover{box-shadow:0 10px 28px rgba(185,28,28,.18);transform:translateY(-1px)}
+.next-btn.hidden{opacity:0;pointer-events:none;transform:translateY(6px)}
+.calc-steps{background:var(--bg2);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;border:.5px solid var(--bdr-l)}
+.calc-steps h4{font-size:16px;font-weight:700;color:var(--pri-dark);margin:0 0 10px}
+.calc-row{font-size:16px;line-height:1.7;color:var(--ink);margin-bottom:6px;padding-left:12px;border-left:2px solid var(--bdr)}
+.calc-row:last-child{margin:0}
+.calc-row .hl{color:var(--pri);font-weight:700}
+.completion{text-align:center;padding:2.5rem 1rem}
+.completion-emoji{font-size:52px;margin-bottom:14px}
+.completion h2{font-family:var(--font-serif);font-size:24px;margin:0 0 8px;color:var(--ink)}
+.completion p{font-size:16px;color:var(--muted);line-height:1.7;margin:0 0 10px;max-width:480px;margin-left:auto;margin-right:auto}
+.completion-link{display:inline-block;background:var(--pri-soft);border:.5px solid var(--pri);border-radius:var(--r);padding:10px 16px;font-size:16px;color:var(--pri-dark);font-weight:600;margin-bottom:20px;line-height:1.65;text-align:left;max-width:500px}
+.foot{margin-top:56px;text-align:center;padding:24px 16px;border-top:1px solid #ede5d8;font-size:14.5px;color:var(--faint);line-height:1.7}.foot strong{color:var(--muted)}
+@media(max-width:520px){.step-title{font-size:21px}.topbar-in{padding:8px 12px}.back-btn span{display:none}.back-btn{padding:9px}}
+
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #f97316;
+  --ajk-primary-soft: #fff7ed;
+  --ajk-primary-dark: #ea580c;
+  --ajk-ink: #2A1F1A;
+  --ajk-muted: #6b6480;
+  --ajk-border: #E8DDD0;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s; flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer; white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-home-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.ajk-home-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-home-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(107,74,138,.2);
+}
+@media (max-width: 540px) {
+  .ajk-home-btn span { display: none; }
+  .ajk-home-btn { padding: 9px; }
+  .ajk-home-btn svg { width: 16px; height: 16px; }
+}
+
+.ajk-chapter-nav {
+  max-width: 760px;
+  margin: 56px auto 0;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-chap-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--ajk-surface, #fff);
+  border: 1px solid var(--ajk-border, #E8DDD0);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .2s;
+  min-height: 78px;
+}
+.ajk-chap-btn:hover {
+  border-color: var(--ajk-primary, #6B4A8A);
+  background: var(--ajk-primary-soft, #EFE6F5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107,74,138,.08);
+}
+.ajk-chap-btn.next {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.ajk-chap-btn svg {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  color: var(--ajk-primary, #6B4A8A);
+}
+.ajk-chap-text {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+.ajk-chap-label {
+  font-size: 14.5px;
+  color: var(--ajk-muted, #6b6480);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.ajk-chap-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ajk-ink, #2A1F1A);
+  line-height: 1.55;
+}
+.ajk-chap-empty {
+  visibility: hidden;
+}
+@media (max-width: 540px) {
+  .ajk-chapter-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 40px;
+  }
+}
+
+
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right; line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 16.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ajk-brand-author {
+  font-size: 14.5px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; }
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; }
+}
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 1100px; margin: 0 auto; text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 26px; font-weight: 700; margin: 0 0 4px;
+}
+.ajk-footer-sub { font-size: 15.5px; color: var(--ajk-muted); margin-bottom: 26px; }
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 15.5px; font-weight: 600;
+  border: 1px solid var(--ajk-border);
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface); transition: all .18s;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.ajk-footer-btn:hover {
+  color: #fff!important; background: var(--ajk-primary)!important;
+  border-color: var(--ajk-primary)!important;
+  transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.7; }
+
+</style>
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b91c1c;
+  --theme-primary-soft:#fef2f2;
+  --theme-primary-dark:#7f1d1d;
+  --theme-hero-a:#7f1d1d;
+  --theme-hero-b:#dc2626;
+  --theme-page-bg:#fff5f5;
+  --theme-border:#fca5a5;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#fef2f2;
+  --color-border-secondary:#fca5a5;
+  --color-border-tertiary:#fecaca;
+  --color-text-primary:#1c1917;
+  --color-text-secondary:#57534e;
+  --color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(185,28,28,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #b91c1c;
+  --ajk-primary-soft: #fef2f2;
+  --ajk-primary-dark: #7f1d1d;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #fcd1d1;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
+
+<style id="ak-shared-fallback">
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="ak-theme-microeconomics" style="--ak-bg: #fff5f5;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 8.2</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#hub" class="ak-member-pill" id="ak-member-pill">
+        <span class="ak-pill-avatar" id="ak-pill-avatar">?</span>
+        <span class="ak-pill-label" id="ak-pill-label">ห้องเรียนของฉัน</span>
+        <span class="ak-pill-arrow">→</span>
+      </a>
+      <a href="../#join" class="ak-btn ak-btn-ghost" id="ak-login-btn">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter8.html" aria-label="กลับบทที่ 8">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 8</span>
+    </a>
+    <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+<div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 8.2 · AR, MR และการหากำไรสูงสุด</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+
+
+
+<div class="page">
+  <div class="progress"><div class="progress-dots" id="dots"></div><span class="progress-label" id="plbl"></span></div>
+  <div id="sc"></div>
+</div>
+
+<script>
+const S=[
+
+// ─── 0: Hook ───
+{
+  tag:"เริ่มต้น · ลองคิดก่อน",
+  title:"สมมุติคุณเป็นบริษัทยาที่ได้สิทธิบัตร",
+  body:`<div class="scenario"><div class="scenario-icon">💊</div>
+<p>คุณเป็นเจ้าของบริษัทยาที่มีสิทธิบัตร — เป็นผู้ผลิตเพียงรายเดียวในตลาด (ผูกขาด)</p>
+<p>ตอนนี้ขายได้ที่ราคาเม็ดละ 100 บาท ขายได้ 50 เม็ดต่อวัน → คุณอยากขายให้มากขึ้น</p>
+<p>คำถาม: ถ้าอยากขายเป็น 60 เม็ดต่อวัน ราคาจะต้องเปลี่ยนยังไง?</p></div>`,
+  quiz:{
+    q:"ในฐานะผู้ผูกขาด ถ้าอยากขายปริมาณมากขึ้นจาก 50 → 60 เม็ด คุณต้องทำอะไร?",
+    opts:[
+      "ขายในราคาเดิม 100 บาท เพราะคุณเป็น Price Maker",
+      "ลดราคาลง เช่น เหลือ 95 บาท ทุกเม็ด เพื่อจูงใจลูกค้าให้ซื้อมากขึ้น",
+      "ขึ้นราคาเป็น 110 บาท เพื่อกำไรมากขึ้น",
+      "ผลิตเพิ่มก่อน แล้วค่อยตัดสินใจราคาทีหลัง"
+    ],
+    ans:1,
+    explain:"แม้จะเป็น Price Maker แต่ผู้ผูกขาดยังต้องเจอ <strong>เส้น Demand ทอดลง</strong> ของตลาด → ขายเพิ่มต้องลดราคา และต้องลด<strong>ทุกเม็ด</strong> ไม่ใช่แค่เม็ดใหม่ (เพราะลูกค้าจะรู้ราคาตลาดเดียวกัน) นี่คือต้นเหตุที่ทำให้ MR ≠ P ในตลาดผูกขาด"
+  }
+},
+
+// ─── 1: AR คืออะไร? ───
+{
+  tag:"พื้นฐาน · AR ของผู้ผูกขาด",
+  title:"AR คืออะไร? — และมันคือเส้นเดียวกับ Demand",
+  body:`<div class="prose">
+<p><strong>AR (Average Revenue)</strong> = รายรับเฉลี่ยต่อหน่วย = TR / Q</p>
+<p>เนื่องจาก TR = P × Q ดังนั้น <strong>AR = P × Q / Q = P</strong> เสมอ (ทั้ง PC และ Monopoly)</p>
+<p>ใน Monopoly ราคา P เปลี่ยนตามจำนวนที่ขาย (ตามเส้น Demand) → ดังนั้น <strong>AR = Demand</strong></p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ข้อสรุป</div>
+<p class="insight-text">เส้น <strong>D = AR</strong> ของผู้ผูกขาดเป็น<strong>เส้นเดียวกัน</strong>และทอดลงจากซ้ายไปขวา
+  
+ที่จุดใด ๆ บนเส้นนี้ → ค่า AR = P = Demand ที่ปริมาณนั้น
+  
+นี่ต่างจากตลาดแข่งขันสมบูรณ์ที่ AR = เส้นราบ (เพราะ P คงที่)</p>
+</div>`,
+  quiz:{
+    q:"ถ้าผู้ผูกขาดขาย 50 เม็ดในราคา 100 บาท แล้วลดเหลือ 95 บาทเพื่อขาย 60 เม็ด — ที่ Q=60 หน่วย ค่า AR เท่ากับเท่าใด?",
+    opts:[
+      "100 บาท (ราคาเดิม)",
+      "97.5 บาท (เฉลี่ยระหว่างราคาเก่าและใหม่)",
+      "95 บาท (= ราคาขายปัจจุบัน = P)",
+      "ต้องคำนวณจาก TR / Q เท่านั้น"
+    ],
+    ans:2,
+    explain:"AR = P เสมอ → ที่ Q=60 ราคาขาย P=95 → AR = 95 บาท เพราะ <strong>AR = P × Q / Q = P</strong> ค่าเฉลี่ยรายรับต่อหน่วย<strong>ที่ปริมาณนั้น</strong>คือราคาขาย ณ ปริมาณนั้นเอง — ดังนั้นเส้น AR คือเส้น Demand"
+  }
+},
+
+// ─── 2: MR คืออะไร? ทำไมต่ำกว่า AR? ───
+{
+  tag:"พื้นฐาน · MR ของผู้ผูกขาด",
+  title:"MR ทำไม < AR? — 2 effects ของการขายเพิ่ม",
+  body:`<div class="prose">
+<p>เมื่อผู้ผูกขาด<strong>ขายเพิ่ม 1 หน่วย</strong> เกิด 2 ผลพร้อมกัน:</p>
+</div>
+<div class="features">
+  <div class="feature"><div class="feature-num">+</div><div class="feature-body"><h4>Quantity Effect (บวก)</h4><div class="en">+P</div><p>หน่วยใหม่ขายได้ราคา P → รายรับเพิ่ม +P บาท</p></div></div>
+  <div class="feature"><div class="feature-num">−</div><div class="feature-body"><h4>Price Effect (ลบ)</h4><div class="en">−ΔP × Q<sub>old</sub></div><p>เพื่อขายเพิ่ม ต้องลดราคา ΔP บาท และต้องลด<strong>ทุกหน่วย</strong>ที่ขาย → เสียรายรับ ΔP×Q<sub>เก่า</sub></p></div></div>
+</div>
+<div class="insight">
+<div class="insight-label">✦ สรุป</div>
+<p class="insight-text"><strong>MR = +P − ΔP×Q<sub>old</sub></strong>
+  
+เพราะ Price Effect (ลบ) → MR <strong>ต่ำกว่า P เสมอ</strong> = ต่ำกว่า AR เสมอ → MR < AR ตลอดเส้น
+  
+ตัวอย่าง: ขาย 50 เม็ดที่ 100 บาท (TR = 5,000) → ลด 95 บาทขายได้ 60 เม็ด (TR = 5,700)
+ΔTR = 700, ΔQ = 10 → MR = 700/10 = 70 บาท
+ในขณะที่ AR (ที่ Q=60) = 95 บาท → MR (70) < AR (95) ✓</p>
+</div>`,
+  quiz:{
+    q:"จากตัวอย่าง: ขาย 50 เม็ด @ 100 บาท → ลดเหลือ 95 ขายได้ 60 เม็ด — เหตุใด MR ของหน่วยเพิ่มจึงเหลือแค่ 70 บาท ไม่ใช่ 95?",
+    opts:[
+      "เพราะต้องลดราคา 5 บาททุกเม็ดที่ขาย รวม 50 เม็ดเดิม คิดเป็น −250 บาทจาก Quantity Effect 950 บาท → 950−250=700 → 700/10=70",
+      "เพราะต้นทุนการผลิตเพิ่มขึ้น 25 บาท",
+      "เพราะมีภาษี 25%",
+      "เพราะลูกค้าซื้อน้อยกว่าที่คาดไว้"
+    ],
+    ans:0,
+    explain:"ขายเพิ่ม 10 เม็ด @ 95 บาท = +950 (Quantity Effect) แต่ต้องลดราคา 5 บาทบนหน่วยเดิม 50 เม็ด = −250 (Price Effect) → ΔTR = 950 − 250 = 700 → MR per unit = 700/10 = <strong>70 บาท</strong> < ราคา 95 ตามทฤษฎี MR < AR"
+  }
+},
+
+// ─── 3: MR slope = 2× AR slope ───
+{
+  tag:"หลักการสำคัญ · MR slope = 2× AR slope",
+  title:"ทำไม MR ชันเป็น 2 เท่าของ AR?",
+  body:`<div class="prose">
+<p>ถ้าเส้น Demand เป็น<strong>เส้นตรง</strong> P = a − bQ (โดย a, b > 0):</p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ พิสูจน์ทางคณิตศาสตร์</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">P = a − bQ           (Demand = AR)
+TR = P × Q = aQ − bQ²
+MR = dTR/dQ = a − 2bQ
+
+ดังนั้น:
+  AR slope = −b
+  MR slope = −2b ← ชันเป็น 2 เท่า!</p>
+</div>
+<div style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+<svg viewBox="0 0 420 270" style="width:100%;max-width:420px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <line x1="50" y1="20" x2="50" y2="230" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="50" y1="230" x2="400" y2="230" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="35" y="25" font-size="11" fill="#7f1d1d" font-weight="700">P</text>
+  <text x="385" y="248" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  <text x="35" y="245" font-size="10" fill="#7f1d1d">0</text>
+  <line x1="50" y1="40" x2="350" y2="220" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="345" y="232" font-size="12" fill="#dc2626" font-weight="700">D = AR</text>
+  <line x1="50" y1="40" x2="200" y2="230" stroke="#7f1d1d" stroke-width="2.5"/>
+  <text x="180" y="220" font-size="12" fill="#7f1d1d" font-weight="700">MR</text>
+  <line x1="200" y1="60" x2="200" y2="230" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="195" y="245" font-size="10" fill="#666">a/2b</text>
+  <line x1="350" y1="60" x2="350" y2="230" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="345" y="245" font-size="10" fill="#666">a/b</text>
+  <text x="35" y="46" font-size="10" fill="#666">a</text>
+  <text x="100" y="22" font-size="11" fill="#7f1d1d" font-weight="600">MR ตัดแกน Q ที่ Q = a/(2b) = ครึ่งของจุดตัด D</text>
+</svg>
+<p style="text-align:center;font-size:14px;color:#7f1d1d;font-style:italic;margin:6px 0 0">📖 MR ตัดแกน Q ที่ <strong>กึ่งกลาง</strong>ระหว่างจุดเริ่มต้นกับจุดที่ D ตัดแกน Q</p>
+</div>`,
+  quiz:{
+    q:"ถ้าเส้น Demand ของผู้ผูกขาดคือ P = 200 − 4Q เส้น MR เท่ากับเท่าใด?",
+    opts:[
+      "MR = 200 − 4Q (เหมือน Demand)",
+      "MR = 200 − 2Q (ชันครึ่งหนึ่ง)",
+      "MR = 100 − 4Q (จุดตัดครึ่งหนึ่ง)",
+      "MR = 200 − 8Q (ความชัน 2 เท่า)"
+    ],
+    ans:3,
+    explain:"จาก P = 200 − 4Q (a=200, b=4): TR = 200Q − 4Q² → MR = dTR/dQ = <strong>200 − 8Q</strong> → เริ่มต้นเท่ากัน (a=200) แต่ความชันเป็น 2 เท่า (−8 vs −4) → MR ตัดแกน Q ที่ Q = 200/8 = 25 (ครึ่งของ Demand ที่ Q=50)"
+  }
+},
+
+// ─── 4: TR-TC Approach ───
+{
+  tag:"หากำไร · วิธีที่ 1 — Total Approach",
+  title:"TR-TC Approach: หาช่องว่างที่กว้างที่สุด",
+  body:`<div class="prose">
+<p>กำไร π = TR − TC → จุดผลิตที่ดีที่สุด = จุดที่ <strong>TR สูงกว่า TC มากที่สุด</strong></p>
+<p><strong>ข้อสำคัญ:</strong> ใน Monopoly เส้น TR เป็น <strong>parabola</strong> (ไม่ใช่เส้นตรงเหมือน PC) เพราะ:</p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ทำไม TR เป็น parabola</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">P = a − bQ
+TR = P × Q = aQ − bQ²    ← พหุนาม กำลัง 2
+
+ดังนั้น TR:
+  • เริ่มต้นจาก 0 ที่ Q=0
+  • เพิ่มขึ้นช่วงต้น (เมื่อ MR > 0)
+  • ถึงจุดสูงสุด เมื่อ MR = 0
+  • ลดลงช่วงปลาย (เมื่อ MR < 0)</p>
+</div>
+<div style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+<div class="graph-widget-ch82" id="gw-trtc" style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+  <svg viewBox="0 0 460 320" id="svg-trtc" style="width:100%;max-width:460px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <line x1="60" y1="20" x2="60" y2="285" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="60" y1="280" x2="430" y2="280" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="42" y="22" font-size="11" fill="#7f1d1d" font-weight="700">฿</text>
+  <text x="418" y="298" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  <text x="50" y="295" font-size="10" fill="#7f1d1d">0</text>
+  
+  <!-- Step 1: TC line -->
+  <g class="g-step" data-step="1" opacity="0">
+    <path d="M 60.0 276.7 L 64.5 271.7 L 69.0 267.0 L 73.5 262.7 L 78.0 258.8 L 82.5 255.1 L 87.0 251.8 L 91.5 248.7 L 96.0 245.9 L 100.5 243.4 L 105.0 241.1 L 109.5 238.9 L 114.0 237.0 L 118.5 235.3 L 123.0 233.7 L 127.5 232.2 L 132.0 230.8 L 136.5 229.6 L 141.0 228.4 L 145.5 227.3 L 150.0 226.2 L 154.5 225.2 L 159.0 224.1 L 163.5 223.1 L 168.0 222.0 L 172.5 220.8 L 177.0 219.6 L 181.5 218.4 L 186.0 217.0 L 190.5 215.5 L 195.0 213.8 L 199.5 212.0 L 204.0 210.0 L 208.5 207.8 L 213.0 205.4 L 217.5 202.8 L 222.0 199.9 L 226.5 196.8 L 231.0 193.3 L 235.5 189.6 L 240.0 185.5 L 244.5 181.1 L 249.0 176.3 L 253.5 171.2 L 258.0 165.7 L 262.5 159.7 L 267.0 153.3 L 271.5 146.5 L 276.0 139.2 L 280.5 131.4 L 285.0 123.1 L 289.5 114.2 L 294.0 104.9 L 298.5 94.9 L 303.0 84.4 L 307.5 73.3 L 312.0 61.6 L 316.5 49.2" fill="none" stroke="#2563eb" stroke-width="2.8"/>
+    <rect x="244" y="148" width="26" height="16" fill="#fff" stroke="#2563eb" stroke-width="0.8" rx="3"/>
+    <text x="257" y="160" font-size="12" fill="#2563eb" font-weight="700" text-anchor="middle">TC</text>
+  </g>
+  
+  <!-- Step 2: TR parabola -->
+  <g class="g-step" data-step="2" opacity="0">
+    <path d="M 60.0 280.0 L 64.5 269.7 L 69.0 259.7 L 73.5 249.9 L 78.0 240.4 L 82.5 231.2 L 87.0 222.2 L 91.5 213.5 L 96.0 205.0 L 100.5 196.8 L 105.0 188.9 L 109.5 181.2 L 114.0 173.8 L 118.5 166.6 L 123.0 159.7 L 127.5 153.0 L 132.0 146.7 L 136.5 140.5 L 141.0 134.7 L 145.5 129.1 L 150.0 123.8 L 154.5 118.7 L 159.0 113.9 L 163.5 109.3 L 168.0 105.0 L 172.5 101.0 L 177.0 97.2 L 181.5 93.7 L 186.0 90.4 L 190.5 87.4 L 195.0 84.7 L 199.5 82.2 L 204.0 80.0 L 208.5 78.0 L 213.0 76.4 L 217.5 74.9 L 222.0 73.8 L 226.5 72.8 L 231.0 72.2 L 235.5 71.8 L 240.0 71.7 L 244.5 71.8 L 249.0 72.2 L 253.5 72.8 L 258.0 73.8 L 262.5 74.9 L 267.0 76.4 L 271.5 78.0 L 276.0 80.0 L 280.5 82.2 L 285.0 84.7 L 289.5 87.4 L 294.0 90.4 L 298.5 93.7 L 303.0 97.2 L 307.5 101.0 L 312.0 105.0 L 316.5 109.3 L 321.0 113.9 L 325.5 118.7 L 330.0 123.8 L 334.5 129.1 L 339.0 134.7 L 343.5 140.5 L 348.0 146.7 L 352.5 153.0 L 357.0 159.7 L 361.5 166.6 L 366.0 173.8 L 370.5 181.2 L 375.0 188.9 L 379.5 196.8 L 384.0 205.0 L 388.5 213.5 L 393.0 222.2 L 397.5 231.2 L 402.0 240.4 L 406.5 249.9 L 411.0 259.7 L 415.5 269.7 L 420.0 280.0" fill="none" stroke="#dc2626" stroke-width="2.8"/>
+    <rect x="338" y="152" width="26" height="16" fill="#fff" stroke="#dc2626" stroke-width="0.8" rx="3"/>
+    <text x="351" y="164" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">TR</text>
+  </g>
+  
+  <!-- Step 3: Show small profit at Q=10 -->
+  <g class="g-step" data-step="3" opacity="0">
+    <line x1="132.0" y1="146.7" x2="132.0" y2="230.8" stroke="#10b981" stroke-width="3"/>
+    <text x="132" y="189" font-size="11" fill="#047857" font-weight="700" text-anchor="middle" dx="-15">π=505</text>
+    <text x="132" y="295" font-size="10" fill="#7f1d1d" text-anchor="middle">Q=10</text>
+  </g>
+  
+  <!-- Step 4: Show MAX profit at Q*=20 -->
+  <g class="g-step" data-step="4" opacity="0">
+    <line x1="204.0" y1="80.0" x2="204.0" y2="210.0" stroke="#059669" stroke-width="5"/>
+    <line x1="204.0" y1="210.0" x2="204.0" y2="280" stroke="#999" stroke-width="0.8" stroke-dasharray="2,2"/>
+    <text x="226" y="150" font-size="13" fill="#047857" font-weight="800">π*=780</text>
+    <text x="204" y="295" font-size="11" fill="#7f1d1d" font-weight="700" text-anchor="middle">Q*=20</text>
+    <circle cx="204.0" cy="80.0" r="4" fill="#dc2626" stroke="#fff" stroke-width="1.5"/>
+    <circle cx="204.0" cy="210.0" r="4" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Step 5: Show smaller profit at Q=30 -->
+  <g class="g-step" data-step="5" opacity="0">
+    <line x1="276.0" y1="80.0" x2="276.0" y2="139.2" stroke="#10b981" stroke-width="3"/>
+    <text x="276" y="110" font-size="11" fill="#047857" font-weight="700" text-anchor="middle" dx="20">π=355</text>
+    <text x="276" y="295" font-size="10" fill="#7f1d1d" text-anchor="middle">Q=30</text>
+  </g>
+  
+  <!-- Step 6: conclusion -->
+  <g class="g-step" data-step="6" opacity="0">
+    <rect x="100" y="35" width="280" height="30" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="240" y="55" font-size="12" fill="#7f1d1d" font-weight="800" text-anchor="middle">π สูงสุดที่ Q*=20 (ระยะตั้งฉาก TR–TC ห่างที่สุด)</text>
+  </g>
+</svg>
+  <div id="step-msg-trtc" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin:10px 0;min-height:48px;font-size:14.5px;line-height:1.6;color:#7f1d1d">
+    👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <button onclick="gw82Step('trtc',-1)" id="btn-prev-trtc" style="padding:8px 14px;background:#fff;color:#7f1d1d;border:1.5px solid #fca5a5;border-radius:10px;font-weight:600;cursor:pointer;font-size:14.5px">← ก่อนหน้า</button>
+    <span id="step-count-trtc" style="font-size:14px;color:#7f1d1d;font-weight:600;min-width:80px;text-align:center">0 / N</span>
+    <button onclick="gw82Step('trtc',1)" id="btn-next-trtc" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14.5px">ขั้นตอนถัดไป →</button>
+    <button onclick="gw82Reset('trtc')" style="padding:8px 12px;background:transparent;color:#7f1d1d;border:1px solid #fca5a5;border-radius:10px;font-weight:500;cursor:pointer;font-size:13px">↻ รีเซ็ต</button>
+  </div>
+</div>
+<p style="text-align:center;font-size:14px;color:#7f1d1d;font-style:italic;margin:6px 0 0">📖 จุด Q* = ที่ช่องว่าง (TR − TC) กว้างที่สุด</p>
+</div>`,
+  quiz:{
+    q:"ที่จุด TR สูงที่สุด (ยอดของ parabola) ค่า MR เท่ากับเท่าใด?",
+    opts:[
+      "MR = TR (เพราะ TR ที่สูงสุด)",
+      "MR = MC",
+      "MR = 0 — เพราะ slope ของ TR = 0 ที่ยอด parabola",
+      "MR ติดลบ"
+    ],
+    ans:2,
+    explain:"MR = dTR/dQ = ความชันของ TR ที่ยอด parabola → slope = 0 → <strong>MR = 0</strong> หลังจุดนี้ TR เริ่มลดลง (ขายเพิ่มทำให้ TR ลด เพราะต้องลดราคามากเกินไป) → MR ติดลบ"
+  }
+},
+
+// ─── 5: MR=MC Approach ───
+{
+  tag:"หากำไร · วิธีที่ 2 — Marginal Approach",
+  title:"MR=MC Approach: 2 เงื่อนไขที่ต้องครบ",
+  body:`<div class="prose">
+<p>วิธี Marginal เป็นวิธีที่นิยมที่สุด เพราะ<strong>คำตอบเร็วและตรง</strong> เพียงเปรียบเทียบ MR กับ MC ทีละหน่วย</p>
+</div>
+<table class="cmp">
+<thead><tr><th>สถานการณ์</th><th>ความหมาย</th><th>ควรทำ</th></tr></thead>
+<tbody>
+<tr><td><strong>MR > MC</strong></td><td>รายรับเพิ่ม > ต้นทุนเพิ่ม</td><td>🟢 ผลิตเพิ่ม</td></tr>
+<tr><td><strong>MR < MC</strong></td><td>รายรับเพิ่ม < ต้นทุนเพิ่ม</td><td>🔴 ลดผลิต</td></tr>
+<tr><td><strong>MR = MC</strong></td><td>เท่ากัน</td><td>⚖️ จุดดุลยภาพ</td></tr>
+</tbody></table>
+<div class="insight">
+<div class="insight-label">✦ 2 เงื่อนไขสำหรับกำไรสูงสุด</div>
+<p class="insight-text"><strong>(1) Necessary condition:</strong> MR = MC
+<strong>(2) Sufficient condition:</strong> ที่จุดนั้น MC ลาดขึ้น<strong>เร็วกว่า</strong> MR (slope MC > slope MR)
+  
+ทั้งสองข้อเป็น<strong>คณิตศาสตร์เดียวกับ second-order condition</strong>: d²π/dQ² < 0
+  
+ถ้าเงื่อนไข (1) ครบแต่ (2) ไม่ครบ → จุดนั้นเป็น<strong>กำไรน้อยที่สุด</strong> ไม่ใช่กำไรสูงสุด!</p>
+</div>
+<div class="graph-widget-ch82" id="gw-mrmc" style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+  <svg viewBox="0 0 460 320" id="svg-mrmc" style="width:100%;max-width:460px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <line x1="60" y1="20" x2="60" y2="285" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="60" y1="280" x2="430" y2="280" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="42" y="22" font-size="11" fill="#7f1d1d" font-weight="700">฿/Q</text>
+  <text x="418" y="298" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  <text x="50" y="295" font-size="10" fill="#7f1d1d">0</text>
+  
+  <!-- Step 1: D = AR -->
+  <g class="g-step" data-step="1" opacity="0">
+    <path d="M 60.0 52.7 L 65.0 55.6 L 70.0 58.4 L 75.0 61.2 L 80.0 64.1 L 85.0 66.9 L 90.0 69.8 L 95.0 72.6 L 100.0 75.5 L 105.0 78.3 L 110.0 81.1 L 115.0 84.0 L 120.0 86.8 L 125.0 89.7 L 130.0 92.5 L 135.0 95.3 L 140.0 98.2 L 145.0 101.0 L 150.0 103.9 L 155.0 106.7 L 160.0 109.5 L 165.0 112.4 L 170.0 115.2 L 175.0 118.1 L 180.0 120.9 L 185.0 123.8 L 190.0 126.6 L 195.0 129.4 L 200.0 132.3 L 205.0 135.1 L 210.0 138.0 L 215.0 140.8 L 220.0 143.6 L 225.0 146.5 L 230.0 149.3 L 235.0 152.2 L 240.0 155.0 L 245.0 157.8 L 250.0 160.7 L 255.0 163.5 L 260.0 166.4 L 265.0 169.2 L 270.0 172.0 L 275.0 174.9 L 280.0 177.7 L 285.0 180.6 L 290.0 183.4 L 295.0 186.2 L 300.0 189.1 L 305.0 191.9 L 310.0 194.8 L 315.0 197.6 L 320.0 200.5 L 325.0 203.3 L 330.0 206.1 L 335.0 209.0 L 340.0 211.8 L 345.0 214.7 L 350.0 217.5 L 355.0 220.3 L 360.0 223.2 L 365.0 226.0 L 370.0 228.9 L 375.0 231.7 L 380.0 234.5 L 385.0 237.4 L 390.0 240.2 L 395.0 243.1 L 400.0 245.9 L 405.0 248.8 L 410.0 251.6 L 415.0 254.4 L 420.0 257.3 L 425.0 260.1 L 430.0 263.0 L 435.0 265.8 L 440.0 268.6 L 445.0 271.5 L 450.0 274.3 L 455.0 277.2 L 460.0 280.0" fill="none" stroke="#dc2626" stroke-width="2.8"/>
+    <rect x="374" y="222" width="46" height="16" fill="#fff" stroke="#dc2626" stroke-width="0.8" rx="3"/>
+    <text x="396" y="234" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">D=AR</text>
+  </g>
+  
+  <!-- Step 2: MR (dashed pink) -->
+  <g class="g-step" data-step="2" opacity="0">
+    <path d="M 60.0 52.7 L 62.5 55.6 L 65.0 58.4 L 67.5 61.2 L 70.0 64.1 L 72.5 66.9 L 75.0 69.8 L 77.5 72.6 L 80.0 75.5 L 82.5 78.3 L 85.0 81.1 L 87.5 84.0 L 90.0 86.8 L 92.5 89.7 L 95.0 92.5 L 97.5 95.3 L 100.0 98.2 L 102.5 101.0 L 105.0 103.9 L 107.5 106.7 L 110.0 109.5 L 112.5 112.4 L 115.0 115.2 L 117.5 118.1 L 120.0 120.9 L 122.5 123.8 L 125.0 126.6 L 127.5 129.4 L 130.0 132.3 L 132.5 135.1 L 135.0 138.0 L 137.5 140.8 L 140.0 143.6 L 142.5 146.5 L 145.0 149.3 L 147.5 152.2 L 150.0 155.0 L 152.5 157.8 L 155.0 160.7 L 157.5 163.5 L 160.0 166.4 L 162.5 169.2 L 165.0 172.0 L 167.5 174.9 L 170.0 177.7 L 172.5 180.6 L 175.0 183.4 L 177.5 186.2 L 180.0 189.1 L 182.5 191.9 L 185.0 194.8 L 187.5 197.6 L 190.0 200.5 L 192.5 203.3 L 195.0 206.1 L 197.5 209.0 L 200.0 211.8 L 202.5 214.7 L 205.0 217.5 L 207.5 220.3 L 210.0 223.2 L 212.5 226.0 L 215.0 228.9 L 217.5 231.7 L 220.0 234.5 L 222.5 237.4 L 225.0 240.2 L 227.5 243.1 L 230.0 245.9 L 232.5 248.8 L 235.0 251.6 L 237.5 254.4 L 240.0 257.3 L 242.5 260.1 L 245.0 263.0 L 247.5 265.8 L 250.0 268.6 L 252.5 271.5 L 255.0 274.3 L 257.5 277.2 L 260.0 280.0" fill="none" stroke="#ec4899" stroke-width="2.5" stroke-dasharray="6,3"/>
+    <rect x="133" y="131" width="30" height="16" fill="#fff" stroke="#ec4899" stroke-width="0.8" rx="3"/>
+    <text x="148" y="143" font-size="12" fill="#ec4899" font-weight="700" text-anchor="middle">MR</text>
+  </g>
+  
+  <!-- Step 3: MC (U-shape) -->
+  <g class="g-step" data-step="3" opacity="0">
+    <path d="M 64.0 173.1 L 68.5 180.2 L 72.9 187.0 L 77.3 193.5 L 81.8 199.7 L 86.2 205.6 L 90.7 211.2 L 95.2 216.4 L 99.6 221.3 L 104.0 225.9 L 108.5 230.2 L 113.0 234.2 L 117.4 237.9 L 121.9 241.2 L 126.3 244.3 L 130.8 247.0 L 135.2 249.4 L 139.7 251.4 L 144.1 253.2 L 148.6 254.7 L 153.0 255.8 L 157.4 256.6 L 161.9 257.1 L 166.3 257.3 L 170.8 257.1 L 175.2 256.7 L 179.7 255.9 L 184.2 254.8 L 188.6 253.4 L 193.1 251.7 L 197.5 249.7 L 201.9 247.3 L 206.4 244.7 L 210.8 241.7 L 215.3 238.4 L 219.8 234.8 L 224.2 230.8 L 228.7 226.6 L 233.1 222.0 L 237.6 217.1 L 242.0 211.9 L 246.4 206.4 L 250.9 200.6 L 255.3 194.4 L 259.8 188.0 L 264.2 181.2 L 268.7 174.1 L 273.1 166.7 L 277.6 158.9 L 282.1 150.9 L 286.5 142.5 L 290.9 133.9 L 295.4 124.9 L 299.9 115.5 L 304.3 105.9 L 308.8 96.0 L 313.2 85.7 L 317.6 75.1 L 322.1 64.2 L 326.6 53.0 L 331.0 41.5" fill="none" stroke="#a855f7" stroke-width="2.8"/>
+    <rect x="264" y="140" width="26" height="16" fill="#fff" stroke="#a855f7" stroke-width="0.8" rx="3"/>
+    <text x="276" y="152" font-size="12" fill="#a855f7" font-weight="700" text-anchor="middle">MC</text>
+  </g>
+  
+  <!-- Step 4: AC (also U-shape) -->
+  <g class="g-step" data-step="4" opacity="0">
+    <path d="M 72.0 145.9 L 76.3 157.3 L 80.7 165.3 L 85.0 171.5 L 89.4 176.7 L 93.8 181.3 L 98.1 185.4 L 102.5 189.2 L 106.8 192.6 L 111.2 195.9 L 115.5 198.9 L 119.8 201.8 L 124.2 204.4 L 128.6 207.0 L 132.9 209.4 L 137.2 211.6 L 141.6 213.7 L 145.9 215.7 L 150.3 217.6 L 154.7 219.3 L 159.0 221.0 L 163.3 222.5 L 167.7 223.9 L 172.0 225.2 L 176.4 226.4 L 180.8 227.4 L 185.1 228.4 L 189.4 229.3 L 193.8 230.0 L 198.2 230.6 L 202.5 231.2 L 206.8 231.6 L 211.2 231.9 L 215.6 232.2 L 219.9 232.3 L 224.2 232.3 L 228.6 232.2 L 232.9 232.0 L 237.3 231.7 L 241.7 231.3 L 246.0 230.8 L 250.3 230.2 L 254.7 229.5 L 259.1 228.7 L 263.4 227.7 L 267.8 226.7 L 272.1 225.6 L 276.4 224.4 L 280.8 223.1 L 285.2 221.6 L 289.5 220.1 L 293.9 218.5 L 298.2 216.7 L 302.6 214.9 L 306.9 213.0 L 311.2 210.9 L 315.6 208.8 L 319.9 206.5 L 324.3 204.2 L 328.6 201.8 L 333.0 199.2 L 337.4 196.6 L 341.7 193.8 L 346.1 191.0 L 350.4 188.0 L 354.8 185.0 L 359.1 181.8 L 363.4 178.5 L 367.8 175.2 L 372.1 171.7 L 376.5 168.2 L 380.9 164.5 L 385.2 160.7 L 389.6 156.9 L 393.9 152.9 L 398.2 148.8 L 402.6 144.7 L 406.9 140.4 L 411.3 136.0 L 415.6 131.6 L 420.0 127.0" fill="none" stroke="#6366f1" stroke-width="2.6"/>
+    <rect x="368" y="170" width="26" height="16" fill="#fff" stroke="#6366f1" stroke-width="0.8" rx="3"/>
+    <text x="380" y="182" font-size="12" fill="#6366f1" font-weight="700" text-anchor="middle">AC</text>
+  </g>
+  
+  <!-- Step 5: E (MR=MC), Q* — circle slightly above intersection for clarity -->
+  <g class="g-step" data-step="5" opacity="0">
+    <line x1="220.0" y1="234.5" x2="220.0" y2="280" stroke="#999" stroke-width="0.8" stroke-dasharray="2,2"/>
+    <text x="220" y="295" font-size="11" fill="#7f1d1d" font-weight="700" text-anchor="middle">Q*=20</text>
+    <circle cx="220.0" cy="234.5" r="6" fill="#7f1d1d" stroke="#fff" stroke-width="2"/>
+    <text x="230" y="250" font-size="13" fill="#7f1d1d" font-weight="800">E</text>
+  </g>
+  
+  <!-- Step 6: P* (read up from Q* to D) -->
+  <g class="g-step" data-step="6" opacity="0">
+    <line x1="220.0" y1="234.5" x2="220.0" y2="143.6" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <line x1="60" y1="143.6" x2="220.0" y2="143.6" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="36" y="148" font-size="13" fill="#dc2626" font-weight="800">P*=60</text>
+    <circle cx="220.0" cy="143.6" r="6" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+    <text x="230" y="138" font-size="13" fill="#dc2626" font-weight="800">A</text>
+  </g>
+  
+  <!-- Step 7: AC at Q*, point B + Profit rectangle -->
+  <g class="g-step" data-step="7" opacity="0">
+    <line x1="60" y1="232.3" x2="220.0" y2="232.3" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="36" y="236" font-size="11" fill="#6366f1" font-weight="800">AC*=21</text>
+    <circle cx="220.0" cy="232.3" r="6" fill="#6366f1" stroke="#fff" stroke-width="2"/>
+    <text x="208" y="227" font-size="13" fill="#6366f1" font-weight="800">B</text>
+    <path d="M 60 143.6 L 220.0 143.6 L 220.0 232.3 L 60 232.3 Z" fill="#10b981" fill-opacity="0.22" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="140" y="193" font-size="13" fill="#047857" font-weight="800" text-anchor="middle">π=(60-21)×20=780</text>
+  </g>
+  
+  <!-- Step 8: conclusion -->
+  <g class="g-step" data-step="8" opacity="0">
+    <rect x="80" y="35" width="320" height="32" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="240" y="52" font-size="12" fill="#7f1d1d" font-weight="800" text-anchor="middle">MR=MC ที่ Q*=20 → P*=60 (อ่านจาก D)</text>
+    <text x="240" y="65" font-size="11" fill="#7f1d1d" font-weight="700" text-anchor="middle">π = (P-AC)×Q = (60-21)×20 = 780</text>
+  </g>
+</svg>
+  <div id="step-msg-mrmc" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin:10px 0;min-height:48px;font-size:14.5px;line-height:1.6;color:#7f1d1d">
+    👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <button onclick="gw82Step('mrmc',-1)" id="btn-prev-mrmc" style="padding:8px 14px;background:#fff;color:#7f1d1d;border:1.5px solid #fca5a5;border-radius:10px;font-weight:600;cursor:pointer;font-size:14.5px">← ก่อนหน้า</button>
+    <span id="step-count-mrmc" style="font-size:14px;color:#7f1d1d;font-weight:600;min-width:80px;text-align:center">0 / N</span>
+    <button onclick="gw82Step('mrmc',1)" id="btn-next-mrmc" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14.5px">ขั้นตอนถัดไป →</button>
+    <button onclick="gw82Reset('mrmc')" style="padding:8px 12px;background:transparent;color:#7f1d1d;border:1px solid #fca5a5;border-radius:10px;font-weight:500;cursor:pointer;font-size:13px">↻ รีเซ็ต</button>
+  </div>
+</div>`,
+  quiz:{
+    q:"ที่จุดใดจุดหนึ่ง MR = MC แต่เส้น MC<strong>ลาดลง</strong> (slope MC < 0) ขณะที่ MR ลาดลง (slope MR < 0) — จุดนี้เป็นจุดอะไร?",
+    opts:[
+      "กำไรสูงสุด — เพราะ MR = MC แล้ว",
+      "ขาดทุนสูงสุด",
+      "จุด breakeven (TC = TR)",
+      "กำไรน้อยที่สุด — Sufficient condition ไม่ครบ (ต้อง slope MC > slope MR)"
+    ],
+    ans:3,
+    explain:"แม้ MR = MC (Necessary condition ครบ) แต่ Sufficient condition คือ MC ต้องลาดขึ้น<strong>เร็วกว่า</strong> MR ลาดลง — ถ้า MC ลาดลง<strong>ช้ากว่า</strong> MR → จุดนั้นเป็น<strong>กำไรต่ำสุด</strong> ตามคณิตศาสตร์ d²π/dQ² > 0"
+  }
+},
+
+// ─── 6: Worked Example ───
+{
+  tag:"ตัวอย่าง · คำนวณกำไรสูงสุด",
+  title:"ตัวอย่าง: บริษัทยา (ผู้ผูกขาด)",
+  body:`<div class="prose">
+<p><strong>โจทย์:</strong> บริษัทยาผูกขาดเผชิญกับ Demand: P = 100 − 2Q · TC = 20 + 20Q</p>
+<p>หา Q*, P*, π*</p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+<div class="insight-label">✦ Step 1: หา MR</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">P = 100 − 2Q
+TR = P × Q = 100Q − 2Q²
+MR = dTR/dQ = 100 − 4Q   ← ชัน 2 เท่าของ AR</p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+<div class="insight-label">✦ Step 2: หา MC</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">TC = 20 + 20Q
+MC = dTC/dQ = 20</p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+<div class="insight-label">✦ Step 3: ตั้ง MR = MC</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">100 − 4Q = 20
+4Q = 80
+Q* = 20 หน่วย ✓</p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+<div class="insight-label">✦ Step 4: หา P* และ π*</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">P* = 100 − 2(20) = 60 บาท ✓
+TR = 60 × 20 = 1,200
+TC = 20 + 20(20) = 420
+π* = 1,200 − 420 = 780 บาท ✓</p>
+</div>`,
+  quiz:{
+    q:"จากโจทย์ ถ้า TC เปลี่ยนเป็น TC = 20 + 40Q (MC = 40) → Q* และ P* ใหม่เป็นเท่าใด?",
+    opts:[
+      "Q* = 15, P* = 70 — จาก 100−4Q=40 → Q=15, P=100−2(15)=70",
+      "Q* = 30, P* = 40",
+      "Q* = 20, P* = 60 (เหมือนเดิม)",
+      "Q* = 10, P* = 80"
+    ],
+    ans:0,
+    explain:"MR = MC: 100 − 4Q = 40 → 4Q = 60 → <strong>Q* = 15</strong> → P* = 100 − 2(15) = <strong>70 บาท</strong> เห็นได้ว่าเมื่อ MC สูงขึ้น Q ลด P สูง (ผู้ผูกขาดลดผลิตและขึ้นราคา)"
+  }
+},
+
+// ─── 7: Bridge ───
+{
+  tag:"สรุป · เชื่อมโยง",
+  title:"สรุป Section 8.2 — และสิ่งที่จะเรียนต่อไป",
+  body:`<div class="insight">
+<div class="insight-label">✦ สิ่งที่ได้เรียนรู้</div>
+<p class="insight-text">① <strong>AR = P</strong> (เส้น Demand) → ทอดลงสำหรับ Monopoly
+② <strong>MR < AR เสมอ</strong> เพราะ Price Effect (ลดราคาทุกหน่วย)
+③ ถ้า P = a−bQ → <strong>MR = a−2bQ</strong> ชันเป็น 2 เท่าของ AR
+④ TR เป็น <strong>parabola</strong> (ไม่ใช่เส้นตรง)
+⑤ <strong>MR = MC + slope MC > slope MR</strong> = กำไรสูงสุด</p>
+</div>
+<div class="scenario">
+<div class="scenario-icon">🔗</div>
+<p><strong>เชื่อมไป Section 8.3:</strong> รู้ Q* และ P* แล้ว → คำถามถัดไปคือ ที่จุดดุลยภาพนี้ ผู้ผูกขาดได้กำไรเกินปกติ คุ้มทุน หรือขาดทุน?</p>
+<p>คำตอบ: ขึ้นอยู่กับเส้น <strong>ATC</strong> (ต้นทุนเฉลี่ย) ที่ Q* — ดุลยภาพระยะสั้น 3 สถานการณ์ + 2 ความเข้าใจผิด!</p>
+</div>`
+}
+
+];
+
+let cur=0;const total=S.length;const ans={};
+function init(){renderDots();renderStep()}
+function renderDots(){let d=document.getElementById('dots'),h='';for(let i=0;i<total;i++){const c=i<cur?'pdot done':i===cur?'pdot active':'pdot';h+=`<div class="${c}" onclick="goTo(${i})"></div>`}d.innerHTML=h;document.getElementById('plbl').textContent=`${cur+1} / ${total}`}
+function renderStep(){const s=S[cur],c=document.getElementById('sc');let h=`<div class="step active"><div class="step-tag">${s.tag}</div><h2 class="step-title">${s.title}</h2>`;if(s.body)h+=s.body;if(s.quiz){const qid=`q-${cur}`;h+=`<div class="quiz" id="${qid}"><p class="quiz-q">${s.quiz.q}</p><div class="quiz-opts">`;s.quiz.opts.forEach((o,i)=>{h+=`<button class="quiz-opt" onclick="answer(${cur},${i},${s.quiz.ans})"><span class="letter">${String.fromCharCode(65+i)}.</span>${o}</button>`});h+=`</div><div class="quiz-explain" id="${qid}-e">${s.quiz.explain}</div></div>`}const isLast=cur>=total-1,needsQ=!!s.quiz,done=ans[cur],vis=(!needsQ||done)?'':'hidden';if(isLast)h+=`<button class="next-btn ${vis}" id="nb" onclick="complete()">✓ จบ Section 8.2</button>`;else h+=`<button class="next-btn ${vis}" id="nb" onclick="next()">ถัดไป →</button>`;h+=`</div>`;c.innerHTML=h;renderDots()}
+function answer(step,chosen,correct){if(ans[step])return;ans[step]=true;const qid=`q-${step}`,card=document.getElementById(qid),btns=card.querySelectorAll('.quiz-opt');btns.forEach((b,i)=>{b.classList.add('locked');if(i===correct)b.classList.add('correct');else if(i===chosen&&chosen!==correct)b.classList.add('wrong')});const exp=document.getElementById(qid+'-e');exp.classList.add('show',chosen===correct?'ok':'no');setTimeout(()=>{document.getElementById('nb').classList.remove('hidden')},500)}
+function next(){cur++;renderStep();window.scrollTo({top:0,behavior:'smooth'})}
+function goTo(i){if(i<=cur){cur=i;renderStep();window.scrollTo({top:0,behavior:'smooth'})}}
+function complete(){const c=document.getElementById('sc');c.innerHTML=`<div class="step active"><div class="completion"><div class="completion-emoji">🎉</div><h2>จบ Section 8.2!</h2><p>คุณเข้าใจ AR/MR ของผู้ผูกขาด ทำไม MR slope = 2× AR และวิธีหากำไรสูงสุดทั้ง 2 แนวทางแล้ว!</p><div class="completion-link">💡 <strong>เชื่อมไป Section 8.3:</strong> รู้ Q* และ P* แล้ว → ที่จุดดุลยภาพ ผู้ผูกขาดจะได้กำไรเกินปกติ คุ้มทุน หรือขาดทุน? พร้อมเข้าใจ 2 ความเข้าใจผิดยอดฮิต!</div><br><button class="next-btn" onclick="location.href='chapter8.html'" style="max-width:300px;margin:0 auto">← กลับบทที่ 8</button></div></div>`;document.getElementById('dots').innerHTML='';document.getElementById('plbl').textContent='เสร็จสิ้น ✓';window.scrollTo({top:0,behavior:'smooth'})}
+var trtcStep=0;
+var trtcDescs=[
+"กดปุ่มเพื่อเริ่ม",
+"<strong>① เส้น TR</strong> — เส้นตรงจากจุดกำเนิด เพราะ TR = P × Q และ P คงที่ (Price Taker) Slope ของเส้น TR = P",
+"<strong>② เส้น TC</strong> — เริ่มจาก TFC บนแกนตั้ง (ต้นทุนคงที่ที่ต้องจ่ายแม้ Q=0) รูปร่าง S-shape: ช่วงแรกเพิ่มช้า (MC กำลังลด) → ช่วงหลังเพิ่มเร็วขึ้นเรื่อย ๆ (MC กำลังเพิ่ม)",
+"<strong>③ ก่อน Q₂ → ขาดทุน</strong> — เส้น TC อยู่<em>เหนือ</em> TR → ต้นทุน > รายรับ → ขาดทุน จุด Q₂ คือ Breakeven Point แรก (TR = TC พอดี กำไร = 0)",
+"<strong>④ Q₂ ถึง Q₄ → ได้กำไร!</strong> — เส้น TR อยู่<em>เหนือ</em> TC → กำไรเกินปกติ (พื้นที่สีเขียว) ยิ่ง TR ห่างจาก TC มาก = ยิ่งกำไรมาก จุด Q₄ คือ Breakeven Point ที่ 2",
+"<strong>⑤ ที่ Q₃ → กำไรสูงสุด!</strong> — ระยะ<em>ตั้งฉาก</em>ระหว่าง TR กับ TC ห่างกันมากที่สุด → π = TR − TC สูงสุด (เส้นสีเขียว = ขนาดกำไร π*)",
+"<strong>⑥ ที่ Q₃ เส้น TR ขนานกับเส้นสัมผัส TC</strong> — Slope TR (= MR) เท่ากับ Slope TC (= MC) → <em>MR = MC</em> ← นี่คือที่มาของ Marginal Approach! ทั้ง 2 วิธีชี้ไปที่จุดเดียวกัน"
+];
+function trtcGo(dir){
+  trtcStep=Math.max(0,Math.min(6,trtcStep+dir));
+  for(var i=1;i<=6;i++){var el=document.getElementById('tL'+i);if(el)el.style.opacity=i<=trtcStep?'1':'0';}
+  document.getElementById('trtc-desc').innerHTML=trtcDescs[trtcStep];
+  document.getElementById('trtc-counter').textContent=trtcStep+' / 6';
+  var p=document.getElementById('trtc-prev');p.style.opacity=trtcStep>0?'1':'.4';p.style.pointerEvents=trtcStep>0?'auto':'none';
+  var n=document.getElementById('trtc-next');
+  if(trtcStep>=6){n.textContent='ครบแล้ว ✓';n.style.opacity='.5';n.style.pointerEvents='none';}
+  else{n.textContent='ถัดไป →';n.style.opacity='1';n.style.pointerEvents='auto';}
+}
+init();
+</script>
+
+<nav class="ajk-chapter-nav ajk-shell-theme">
+  <a class="ajk-chap-btn prev" href="chapter8_1.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทก่อนหน้า</span>
+      <span class="ajk-chap-name">บทที่ 8.1 — ลักษณะของตลาดผูกขาดสมบูรณ์</span>
+    </div>
+  </a>
+  <a class="ajk-chap-btn next" href="chapter8_3.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทถัดไป</span>
+      <span class="ajk-chap-name">บทที่ 8.3 — ดุลยภาพระยะสั้นของผู้ผูกขาด</span>
+    </div>
+  </a>
+</nav>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter8.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 8</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+  <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* Member status pill — reads login state from localStorage */
+(function(){
+  try {
+    const raw = localStorage.getItem('akMember');
+    if (!raw) return;
+    const m = JSON.parse(raw);
+    if (!m || !m.name) return;
+    // Stale if older than 30 days
+    if (m.ts && (Date.now() - m.ts > 30*24*60*60*1000)) return;
+    
+    const pill = document.getElementById('ak-member-pill');
+    const loginBtn = document.getElementById('ak-login-btn');
+    const avatarEl = document.getElementById('ak-pill-avatar');
+    const labelEl = document.getElementById('ak-pill-label');
+    
+    if (pill && labelEl && avatarEl) {
+      if (m.isAdmin) {
+        // Admin: link to #admin Dashboard, label = "Admin"
+        pill.href = '../#admin';
+        pill.classList.add('is-admin');
+        avatarEl.textContent = 'A';
+        labelEl.textContent = 'Admin · Dashboard';
+      } else {
+        // Regular member: link to #hub
+        pill.href = '../#hub';
+        avatarEl.textContent = (m.name[0] || '?').toUpperCase();
+        labelEl.textContent = m.name;
+      }
+      pill.style.display = 'inline-flex';
+      if (loginBtn) loginBtn.style.display = 'none';
+    }
+  } catch(e) { console.warn('member pill init failed:', e); }
+})();
+</script>
+
+<script id="gw-ch82-js">
+(function(){
+  var WIDGETS = {
+    trtc: {
+      svgId: 'svg-trtc',
+      total: 6,
+      steps: ["เริ่มต้น: เส้น <b style=\"color:#2563eb\">TC</b> (ต้นทุนทั้งหมด) เป็นเส้นโค้ง — เริ่มชันน้อย แล้วชันขึ้น", "วาด <b style=\"color:#dc2626\">TR</b> = P×Q เป็น <b>parabola</b> (เพราะ P ลดเมื่อ Q เพิ่ม)", "ที่ Q=10: ระยะห่าง TR-TC = 505 (กำไรน้อย)", "ที่ <b>Q*=20</b>: ระยะห่าง TR-TC <b>กว้างที่สุด</b> = 780 → กำไรสูงสุด!", "ที่ Q=30: กำไรลดเหลือ 355 (ผลิตเกินไป)"],
+      finalMsg: "🎯 <b>วิธี TR-TC:</b> Q* คือจุดที่<b>ระยะตั้งฉากระหว่าง TR กับ TC ห่างกันมากที่สุด</b>"
+    },
+    mrmc: {
+      svgId: 'svg-mrmc',
+      total: 8,
+      steps: ["วาด <b style=\"color:#dc2626\">D = AR</b> ทอดลง (เส้น Demand ของผู้ผูกขาด)", "วาด <b style=\"color:#ec4899\">MR</b> เส้นประชมพู (ชัน 2 เท่าของ AR)", "วาด <b style=\"color:#a855f7\">MC</b> รูป <b>U</b> (ลดลงแล้วเพิ่มขึ้น — realistic)", "วาด <b style=\"color:#6366f1\">AC</b> รูป U อยู่เหนือ MC (เพราะ AC = AVC + AFC)", "หาจุด <b>E</b> ที่ MR ตัด MC → ได้ <b>Q*=20</b>", "ขึ้นจาก Q* ไปแตะเส้น D → ได้ <b style=\"color:#dc2626\">P*=60</b> (จุด A)", "ขึ้นไปแตะ AC → AC*=21 (จุด B) → พื้นที่ <b style=\"color:#047857\">π=(P-AC)×Q</b> = 780"],
+      finalMsg: "🎯 <b>วิธี MR=MC:</b> Q*=20, P*=60, AC*=21 → π=780 (ตรงกับ TR-TC ✓)"
+    }
+  };
+  
+  window.gw82State = {trtc: 0, mrmc: 0};
+  
+  window.gw82Step = function(id, dir) {
+    var w = WIDGETS[id];
+    if (!w) return;
+    var cur = (window.gw82State[id] || 0) + dir;
+    cur = Math.max(0, Math.min(w.total, cur));
+    window.gw82State[id] = cur;
+    
+    var svg = document.getElementById(w.svgId);
+    if (!svg) return;
+    
+    var groups = svg.querySelectorAll('.g-step');
+    groups.forEach(function(g){
+      var s = parseInt(g.getAttribute('data-step'));
+      g.style.opacity = (s <= cur) ? '1' : '0';
+      g.style.transition = 'opacity 0.45s ease';
+    });
+    
+    var msg = document.getElementById('step-msg-' + id);
+    if (msg) {
+      if (cur === 0) {
+        msg.innerHTML = '👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น';
+      } else if (cur >= w.total) {
+        msg.innerHTML = w.finalMsg;
+      } else {
+        msg.innerHTML = '<b>ขั้นที่ ' + cur + '/' + w.total + ':</b> ' + w.steps[cur - 1];
+      }
+    }
+    
+    var cnt = document.getElementById('step-count-' + id);
+    if (cnt) cnt.textContent = cur + ' / ' + w.total;
+    
+    var btnPrev = document.getElementById('btn-prev-' + id);
+    var btnNext = document.getElementById('btn-next-' + id);
+    if (btnPrev) btnPrev.style.opacity = (cur === 0) ? '0.4' : '1';
+    if (btnNext) {
+      btnNext.style.opacity = (cur >= w.total) ? '0.4' : '1';
+      btnNext.textContent = (cur >= w.total) ? '✓ เสร็จ' : 'ขั้นตอนถัดไป →';
+    }
+  };
+  
+  window.gw82Reset = function(id) {
+    window.gw82State[id] = 0;
+    window.gw82Step(id, 0);
+  };
+  
+  function init() {
+    Object.keys(WIDGETS).forEach(function(id){
+      var w = WIDGETS[id];
+      var svg = document.getElementById(w.svgId);
+      if (svg) {
+        window.gw82State[id] = 0;
+        window.gw82Step(id, 0);
+      }
+    });
+  }
+  
+  function wrapRender() {
+    if (typeof window.renderStep !== 'function') {
+      setTimeout(wrapRender, 50);
+      return;
+    }
+    var orig = window.renderStep;
+    window.renderStep = function() {
+      orig.apply(this, arguments);
+      setTimeout(init, 30);
+    };
+    init();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wrapRender);
+  } else {
+    wrapRender();
+  }
+})();
+</script>
+
+</body>
+</html>

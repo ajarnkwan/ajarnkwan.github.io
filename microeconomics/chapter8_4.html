@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 8.4 — ดุลยภาพระยะยาว + ไม่มีเส้นอุปทาน · Ajarn.Kwan</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b91c1c;--pri-soft:#fef2f2;--pri-dark:#7f1d1d;--hero-a:#7f1d1d;--hero-b:#dc2626;--bg:#fff5f5;--card:#fff;--bg2:#fef2f2;--bdr:#fca5a5;--bdr-l:#fee2e2;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid #ede5d8}.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--pri-soft);padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .18s}.back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}.back-btn svg{width:14px;height:14px}
+.t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700}.t-sub{font-size:14.5px;color:var(--muted)}
+.page{max-width:760px;margin:0 auto;padding:24px 18px 60px}
+.step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
+.step-title{font-family:var(--font-serif);font-size:24px;font-weight:700;margin:0 0 16px;line-height:1.55}
+.prose{font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:16px}.prose p{margin:0 0 10px}.prose strong{color:var(--ink)}
+.scenario{background:var(--bg2);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;position:relative;overflow:hidden;border:.5px solid var(--bdr-l)}.scenario::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#dc2626,#059669)}.scenario p{font-size:16px;line-height:1.75;color:var(--ink);margin:0 0 6px}.scenario p:last-child{margin:0}
+.insight{background:var(--pri-soft);border-left:3px solid var(--pri);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;margin-bottom:18px}.insight-label{font-size:14.5px;font-weight:700;color:var(--pri);margin-bottom:4px}.insight-text{font-size:16.5px;color:var(--ink);line-height:1.75;white-space:pre-line;margin:0}
+.cmp{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:18px;background:var(--card);border-radius:var(--r);overflow:hidden;border:.5px solid var(--bdr-l)}.cmp th{font-weight:600;font-size:14px;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:.5px solid var(--bdr-l);text-transform:uppercase;background:var(--bg2)}.cmp td{padding:8px 12px;border-bottom:.5px solid var(--bdr-l);color:var(--ink);font-size:15.5px;line-height:1.6}.cmp tr:last-child td{border:none}
+.quiz{background:var(--card);border:.5px solid var(--bdr);border-radius:var(--rl);padding:18px 20px;margin-bottom:16px}.quiz-q{font-size:16px;font-weight:500;margin:0 0 12px;line-height:1.65}.quiz-opts{display:flex;flex-direction:column;gap:7px}.quiz-opt{text-align:left;font-size:16px;padding:11px 15px;border-radius:var(--r);border:.5px solid var(--bdr-l);background:var(--card);color:var(--ink);cursor:pointer;transition:all .12s;font-family:var(--font-sans);line-height:1.55}.quiz-opt:hover:not(.locked){background:var(--bg2);border-color:var(--bdr)}.quiz-opt.correct{background:#ecfdf5;border-color:#86efac;color:#047857}.quiz-opt.wrong{background:#fef2f2;border-color:#fca5a5;color:#b91c1c}.quiz-opt.locked{cursor:default}.quiz-opt .letter{font-weight:700;color:var(--faint);margin-right:8px;font-size:14.5px}.quiz-explain{display:none;margin-top:12px;padding:12px 16px;border-radius:var(--r);font-size:16px;line-height:1.7}.quiz-explain.show{display:block;animation:fadeUp .35s ease}.quiz-explain.ok{background:#fefce8;border:.5px solid #fecaca}.quiz-explain.no{background:#fff7ed;border:.5px solid #fdba74}.quiz-explain strong{color:var(--pri-dark)}
+.next-btn{width:100%;padding:14px;border-radius:var(--r);background:linear-gradient(135deg,var(--hero-a),var(--hero-b));border:none;color:#fff;font-size:17px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s;margin-top:8px}.next-btn:hover{box-shadow:0 10px 28px rgba(185,28,28,.18);transform:translateY(-1px)}.next-btn.hidden{opacity:0;pointer-events:none}
+.dw{background:var(--card);border:.5px solid var(--bdr-l);border-radius:var(--rl);padding:16px;margin-bottom:16px}
+.gc{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.gb{padding:7px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-sans);border:none;transition:all .15s}.gp{background:var(--card);border:.5px solid var(--bdr);color:var(--muted)}.gn{background:linear-gradient(135deg,var(--hero-a),var(--hero-b));color:#fff}.gd{margin-top:10px;font-size:16px;line-height:1.75;color:var(--ink);padding:12px 14px;background:var(--bg2);border-radius:10px;border:.5px solid var(--bdr-l);min-height:50px}.gx{font-size:14.5px;color:var(--faint);margin-left:auto}
+.completion{text-align:center;padding:2.5rem 1rem}.completion h2{font-family:var(--font-serif);font-size:24px;margin:0 0 8px}.completion p{font-size:16px;color:var(--muted);line-height:1.7;margin:0 0 10px;max-width:480px;margin-left:auto;margin-right:auto}.completion-link{display:inline-block;background:var(--pri-soft);border:.5px solid var(--pri);border-radius:var(--r);padding:10px 16px;font-size:16px;color:var(--pri-dark);font-weight:600;margin-bottom:20px;line-height:1.65;text-align:left;max-width:500px}
+.foot{margin-top:56px;text-align:center;padding:24px 16px;border-top:1px solid #ede5d8;font-size:14.5px;color:var(--faint);line-height:1.7}.foot strong{color:var(--muted)}
+@media(max-width:520px){.step-title{font-size:21px}.topbar-in{padding:8px 12px}.back-btn span{display:none}.back-btn{padding:9px}}
+
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #f97316;
+  --ajk-primary-soft: #fff7ed;
+  --ajk-primary-dark: #ea580c;
+  --ajk-ink: #2A1F1A;
+  --ajk-muted: #6b6480;
+  --ajk-border: #E8DDD0;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s; flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer; white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-home-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.ajk-home-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-home-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(107,74,138,.2);
+}
+@media (max-width: 540px) {
+  .ajk-home-btn span { display: none; }
+  .ajk-home-btn { padding: 9px; }
+  .ajk-home-btn svg { width: 16px; height: 16px; }
+}
+
+.ajk-chapter-nav {
+  max-width: 760px;
+  margin: 56px auto 0;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-chap-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--ajk-surface, #fff);
+  border: 1px solid var(--ajk-border, #E8DDD0);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .2s;
+  min-height: 78px;
+}
+.ajk-chap-btn:hover {
+  border-color: var(--ajk-primary, #6B4A8A);
+  background: var(--ajk-primary-soft, #EFE6F5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107,74,138,.08);
+}
+.ajk-chap-btn.next {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.ajk-chap-btn svg {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  color: var(--ajk-primary, #6B4A8A);
+}
+.ajk-chap-text {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+.ajk-chap-label {
+  font-size: 14.5px;
+  color: var(--ajk-muted, #6b6480);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.ajk-chap-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ajk-ink, #2A1F1A);
+  line-height: 1.55;
+}
+.ajk-chap-empty {
+  visibility: hidden;
+}
+@media (max-width: 540px) {
+  .ajk-chapter-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 40px;
+  }
+}
+
+
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right; line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 16.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ajk-brand-author {
+  font-size: 14.5px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; }
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; }
+}
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 1100px; margin: 0 auto; text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 26px; font-weight: 700; margin: 0 0 4px;
+}
+.ajk-footer-sub { font-size: 15.5px; color: var(--ajk-muted); margin-bottom: 26px; }
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 15.5px; font-weight: 600;
+  border: 1px solid var(--ajk-border);
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface); transition: all .18s;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.ajk-footer-btn:hover {
+  color: #fff!important; background: var(--ajk-primary)!important;
+  border-color: var(--ajk-primary)!important;
+  transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.7; }
+
+</style>
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b91c1c;--theme-primary-soft:#fef2f2;--theme-primary-dark:#7f1d1d;
+  --theme-hero-a:#7f1d1d;--theme-hero-b:#dc2626;
+  --theme-page-bg:#fff5f5;--theme-border:#fca5a5;
+  --color-background-primary:#ffffff;--color-background-secondary:#fef2f2;
+  --color-border-secondary:#fca5a5;--color-border-tertiary:#fecaca;
+  --color-text-primary:#1c1917;--color-text-secondary:#57534e;--color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(185,28,28,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary:#b91c1c;--ajk-primary-soft:#fef2f2;--ajk-primary-dark:#7f1d1d;
+  --ajk-ink:var(--color-text-primary);--ajk-muted:var(--color-text-secondary);
+  --ajk-border:#fcd1d1;--ajk-surface:#ffffff;
+}
+body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!important;font-family:var(--font-sans)!important;}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
+
+<style id="ak-shared-fallback">
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="ak-theme-microeconomics" style="--ak-bg: #fff5f5;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 8.4</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#hub" class="ak-member-pill" id="ak-member-pill">
+        <span class="ak-pill-avatar" id="ak-pill-avatar">?</span>
+        <span class="ak-pill-label" id="ak-pill-label">ห้องเรียนของฉัน</span>
+        <span class="ak-pill-arrow">→</span>
+      </a>
+      <a href="../#join" class="ak-btn ak-btn-ghost" id="ak-login-btn">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter8.html" aria-label="กลับบทที่ 8">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 8</span>
+    </a>
+    <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+<div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 8.4 · ดุลยภาพระยะยาว + ไม่มีเส้นอุปทาน</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+
+<div class="page">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><div id="dots" style="display:flex;gap:5px"></div><span id="plbl" style="font-size:14px;color:var(--muted)"></span></div>
+<div id="sc"></div>
+</div>
+<script>
+var G_AX='<defs><marker id="ax" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs><rect x="12" y="18" width="215" height="255" rx="10" fill="#ecfdf5" fill-opacity=".3" stroke="#86efac" stroke-width=".5"/><text x="120" y="14" fill="#047857" font-size="10" font-weight="700" text-anchor="middle">(ก) ตลาด</text><line x1="35" y1="258" x2="220" y2="258" stroke="#78716c" stroke-width="1.2" marker-end="url(#ax)"/><line x1="35" y1="258" x2="35" y2="28" stroke="#78716c" stroke-width="1.2" marker-end="url(#ax)"/><text x="224" y="258" fill="#78716c" font-size="9">Q</text><text x="28" y="28" fill="#78716c" font-size="9" text-anchor="end">P</text><rect x="247" y="18" width="225" height="255" rx="10" fill="#fef2f2" fill-opacity=".3" stroke="#fca5a5" stroke-width=".5"/><text x="360" y="14" fill="#7f1d1d" font-size="10" font-weight="700" text-anchor="middle">(ข) Firm (ตัวแทน)</text><line x1="270" y1="258" x2="462" y2="258" stroke="#78716c" stroke-width="1.2" marker-end="url(#ax)"/><line x1="270" y1="258" x2="270" y2="28" stroke="#78716c" stroke-width="1.2" marker-end="url(#ax)"/><text x="466" y="258" fill="#78716c" font-size="9">Q</text><text x="263" y="28" fill="#78716c" font-size="9" text-anchor="end">P</text>';
+var FCURVES=''
++'<path d="M290,65 C315,105 355,155 380,175 C405,180 430,172 458,158" fill="none" stroke="#6366f1" stroke-width="2.2"/><text x="460" y="156" fill="#4f46e5" font-size="10" font-weight="700">LAC</text>'
++'<path d="M320,225 C340,210 362,192 380,175 C398,158 420,125 445,82 C455,62 462,45 465,35" fill="none" stroke="#059669" stroke-width="2"/><text x="467" y="33" fill="#047857" font-size="10" font-weight="700">LMC</text>'
++'<path d="M335,110 C348,130 365,158 380,175 C395,192 418,182 442,148" fill="none" stroke="#8b5cf6" stroke-width="1.8" stroke-dasharray="5,3"/><text x="444" y="146" fill="#7c3aed" font-size="9">SAC</text>'
++'<path d="M350,215 C360,205 372,190 380,175 C388,160 402,132 418,100 C428,78 435,62 440,50" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,2"/><text x="442" y="48" fill="#059669" font-size="8">SMC</text>';
+/* D curve: through (115,100), (135,175), (150,210) as endpoints */
+var D_CURVE='<path d="M55,35 C68,48 92,72 115,100 C125,115 130,148 135,175 C140,192 145,202 150,210 C158,228 168,248 180,258" fill="none" stroke="#2563eb" stroke-width="2"/><text x="182" y="256" fill="#2563eb" font-size="9" font-weight="700">D</text>';
+var GL=[null,
+/* 1: S crosses D at (115,100) → high P → profit */
+D_CURVE
++'<path d="M55,225 C65,202 80,168 95,142 C105,125 110,112 115,100 C120,88 135,68 155,48 C170,35 185,28 200,22" fill="none" stroke="#dc2626" stroke-width="2.2"/><text x="202" y="20" fill="#dc2626" font-size="9" font-weight="700">S</text>'
++'<circle cx="115" cy="100" r="5" fill="#78716c" stroke="#fff" stroke-width="2"/><text x="122" y="96" fill="#78716c" font-size="9" font-weight="700">E</text>'
++'<line x1="32" y1="100" x2="464" y2="100" stroke="#dc2626" stroke-width="1.8"/>'
++'<text x="28" y="104" fill="#7f1d1d" font-size="10" font-weight="600" text-anchor="end">P</text>'
++'<text x="466" y="98" fill="#7f1d1d" font-size="8" font-weight="700">D=AR=MR=P</text>'
++'<rect x="272" y="100" width="108" height="75" fill="#059669" fill-opacity=".12" stroke="#059669" stroke-width=".7" stroke-dasharray="4,2"/>'
++'<text x="326" y="142" fill="#047857" font-size="10" font-weight="700" text-anchor="middle">กำไรเกินปกติ</text>',
+/* 2: S₂ crosses D at (150,210) → low P → loss */
+D_CURVE
++'<path d="M55,225 C65,202 80,168 95,142 C105,125 110,112 115,100 C120,88 135,68 155,48 C170,35 185,28 200,22" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,2" opacity=".35"/>'
++'<path d="M80,258 C95,248 120,235 150,210 C168,192 185,160 200,120 C210,92 215,65 218,42" fill="none" stroke="#dc2626" stroke-width="2.2"/><text x="220" y="40" fill="#dc2626" font-size="9" font-weight="700">S2</text>'
++'<text x="88" y="242" fill="#dc2626" font-size="8" font-weight="600">บริษัทใหม่เข้า S เพิ่ม</text>'
++'<circle cx="150" cy="210" r="4.5" fill="#78716c" stroke="#fff" stroke-width="1.5"/>'
++'<line x1="32" y1="210" x2="464" y2="210" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3"/>'
++'<text x="28" y="214" fill="#ef4444" font-size="10" font-weight="600" text-anchor="end">P2</text>'
++'<text x="466" y="208" fill="#ef4444" font-size="8" font-weight="700">D2=P2</text>'
++'<text x="360" y="230" fill="#b91c1c" font-size="9" font-weight="600" text-anchor="middle">P2 < LAC min → ขาดทุน!</text>',
+/* 3: S₁ crosses D at (135,175) → P = LAC min */
+D_CURVE
++'<path d="M80,258 C95,248 120,235 150,210 C168,192 185,160 200,120 C210,92 215,65 218,42" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,2" opacity=".3"/>'
++'<path d="M68,255 C80,242 100,218 120,198 C128,190 132,182 135,175 C140,165 158,132 175,98 C188,70 198,48 208,32" fill="none" stroke="#dc2626" stroke-width="2.5"/><text x="210" y="30" fill="#dc2626" font-size="9" font-weight="700">S1</text>'
++'<text x="85" y="225" fill="#059669" font-size="8" font-weight="600">บางบริษัทออก S ลด</text>'
++'<circle cx="135" cy="175" r="5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="143" y="172" fill="#059669" font-size="8" font-weight="700">E1</text>'
++'<line x1="32" y1="175" x2="464" y2="175" stroke="#dc2626" stroke-width="1.8"/>'
++'<text x="28" y="179" fill="#7f1d1d" font-size="10" font-weight="600" text-anchor="end">P1</text>'
++'<text x="466" y="173" fill="#7f1d1d" font-size="8" font-weight="700">D1=P1</text>',
+/* 4: Final equilibrium P1=175=LAC min */
+D_CURVE
++'<path d="M68,255 C80,242 100,218 120,198 C128,190 132,182 135,175 C140,165 158,132 175,98 C188,70 198,48 208,32" fill="none" stroke="#dc2626" stroke-width="2.5"/><text x="210" y="30" fill="#dc2626" font-size="9" font-weight="700">S1</text>'
++'<circle cx="135" cy="175" r="4" fill="#059669" stroke="#fff" stroke-width="1.5"/>'
++'<line x1="32" y1="175" x2="464" y2="175" stroke="#dc2626" stroke-width="2"/>'
++'<text x="28" y="179" fill="#7f1d1d" font-size="10" font-weight="600" text-anchor="end">P1</text>'
++'<text x="466" y="173" fill="#7f1d1d" font-size="8" font-weight="700">D1=AR1=MR1=P1</text>'
++'<circle cx="380" cy="175" r="6" fill="#dc2626" stroke="#fff" stroke-width="2"/><text x="390" y="171" fill="#047857" font-size="9" font-weight="700">E</text>'
++'<line x1="380" y1="177" x2="380" y2="258" stroke="#059669" stroke-width="1" stroke-dasharray="4,2"/><text x="380" y="270" fill="#059669" font-size="9" text-anchor="middle">Q1</text>'
++'<rect x="310" y="192" width="140" height="45" rx="8" fill="#ecfdf5" stroke="#86efac" stroke-width=".5"/>'
++'<text x="380" y="208" fill="#047857" font-size="10" font-weight="700" text-anchor="middle">ดุลยภาพระยะยาว</text>'
++'<text x="380" y="222" fill="#047857" font-size="8.5" text-anchor="middle">P = LAC min = LMC</text>'
++'<text x="380" y="234" fill="#047857" font-size="8" text-anchor="middle">กำไรเกินปกติ = 0</text>'
+];
+var gD=["กดปุ่มเพื่อดูการปรับตัวทีละขั้น","<strong>① เริ่มต้น: P สูงกว่า LAC → กำไรเกินปกติ!</strong> — ตลาดกำหนดราคา P สูงกว่า LAC ทุกบริษัทได้<strong>กำไรเกินปกติ</strong> (พื้นที่สีเขียว) กำไรนี้ดึงดูดบริษัทใหม่เข้ามา!","<strong>② บริษัทใหม่เข้า → S เพิ่ม → P ลด!</strong> — บริษัทใหม่เข้ามาแข่งขัน S เลื่อนขวา ราคาลดเป็น P2 ซึ่งต่ำกว่า LAC ทุกบริษัท<strong>ขาดทุน!</strong> บางบริษัทจึงต้องออกไป","<strong>③ บางบริษัทออก → S ลด → P เพิ่ม!</strong> — S เลื่อนกลับซ้ายเป็น S1 ราคาเพิ่มเป็น P1 การเข้า-ออกจะดำเนินไปจนกว่า P จะปรับไปที่ <strong>LAC min</strong> พอดี","<strong>④ ดุลยภาพระยะยาว!</strong> — P1 = LAC min = LMC ที่จุด E ทุกบริษัทได้แค่<strong>กำไรปกติ (Normal Profit)</strong> ไม่มีแรงจูงใจให้เข้า/ออกอีก ผู้ผลิตใช้โรงงานขนาดเหมาะสมที่สุด (Optimum Scale)"];
+var gS=0,gT=gD.length;
+function gBG(){var s='<svg viewBox="0 0 480 280" style="width:100%;max-width:500px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">'+G_AX;if(gS>=1)s+=FCURVES;for(var i=1;i<gT;i++)s+='<g style="opacity:'+(gS===i?'1':'0')+';transition:opacity .5s">'+GL[i]+'</g>';return s+'</svg>'}
+function gGo(d){gS=Math.max(0,Math.min(gT-1,gS+d));document.getElementById('gs').innerHTML=gBG();document.getElementById('gdd').innerHTML=gD[gS];document.getElementById('gxx').textContent=gS+'/'+(gT-1);var p=document.getElementById('gpp');p.style.opacity=gS>0?'1':'.4';p.style.pointerEvents=gS>0?'auto':'none';var n=document.getElementById('gnn');if(gS>=gT-1){n.textContent='ครบแล้ว ✓';n.style.opacity='.5';n.style.pointerEvents='none'}else{n.textContent='ถัดไป →';n.style.opacity='1';n.style.pointerEvents='auto'}}
+var S=[
+
+// ─── 0: Hook ───
+{
+  tag:"เริ่มต้น · ลองคิด",
+  title:"ในระยะยาว ผู้ผูกขาดยังคงผูกขาดได้ไหม?",
+  body:`<div class="scenario"><div class="scenario-icon">⏳</div>
+<p>ในตลาดแข่งขันสมบูรณ์ระยะยาว ถ้ามีกำไรเกินปกติ → บริษัทใหม่จะเข้ามาแข่ง → กำไรเกินปกติหายไป</p>
+<p>แล้วในตลาดผูกขาดล่ะ? ถ้าผู้ผูกขาดได้กำไรเกินปกติในระยะสั้น... ในระยะยาวจะเกิดอะไรขึ้น?</p>
+</div>`,
+  quiz:{
+    q:"ผู้ผูกขาดที่ได้กำไรเกินปกติในระยะสั้น — ในระยะยาวจะเป็นอย่างไร?",
+    opts:[
+      "ยังคงได้กำไรเกินปกติ — เพราะอุปสรรคการเข้าตลาดยังคงอยู่ บล็อกบริษัทใหม่",
+      "บริษัทใหม่เข้ามาแข่ง → กำไรหายไป (เหมือน Perfect Competition)",
+      "รัฐบาลจะเข้ามาแบ่งตลาดเสมอ",
+      "กำไรเปลี่ยนเป็น 0 ตามทฤษฎีตลาดแข่งขัน"
+    ],
+    ans:0,
+    explain:"ผู้ผูกขาดกีดกันคู่แข่งใหม่ได้ผ่านอุปสรรคต่างๆ (สัมปทาน, สิทธิบัตร, ทรัพยากร, Natural Monopoly) → <strong>กำไรเกินปกติยังคงอยู่ในระยะยาว</strong> ต่างจาก PC ที่ free entry ทำให้ profit หายไป"
+  }
+},
+
+// ─── 1: Plant Size Adjustment ───
+{
+  tag:"ทฤษฎี · ปรับขนาดโรงงาน",
+  title:"ระยะยาว = ผู้ผูกขาดเลือกขนาดโรงงานได้อิสระ",
+  body:`<div class="prose">
+<p>ในระยะยาว ผู้ผูกขาดสามารถปรับ<strong>ขนาดโรงงาน (plant size)</strong> ได้ตามที่ต้องการ → เลือกขนาดที่ทำให้กำไรสูงสุด</p>
+<p>ขนาดโรงงานที่เลือกขึ้นอยู่กับ<strong>ขนาดของตลาด</strong> (เส้น Demand)</p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ขนาดโรงงานที่ "เหมาะสมสำหรับผู้ผูกขาด"</div>
+<p class="insight-text">ขนาดเหมาะสม = ขนาดที่ให้<strong>กำไรสูงสุด</strong>
+  
+ไม่ใช่ขนาดที่ทำให้<strong>ต้นทุนต่อหน่วยต่ำสุด</strong> (LAC ต่ำสุด) เสมอไป!
+  
+ขนาดโรงงานเหมาะสมของ Monopoly ≠ ขนาดที่มีประสิทธิภาพสูงสุด (optimum scale)</p>
+</div>
+<div class="prose">
+<p>3 กรณีของขนาดโรงงานที่เลือก ขึ้นอยู่กับขนาดตลาด:</p>
+<ul>
+<li><strong>(ก)</strong> ตลาดเล็ก → โรงงาน <strong>เล็กกว่า</strong> optimum (less than optimum)</li>
+<li><strong>(ข)</strong> ตลาดเหมาะสม → โรงงาน optimum (LAC ต่ำสุด)</li>
+<li><strong>(ค)</strong> ตลาดใหญ่ → โรงงาน <strong>ใหญ่กว่า</strong> optimum (greater than optimum)</li>
+</ul>
+</div>`,
+  quiz:{
+    q:"ขนาดโรงงานเหมาะสมของผู้ผูกขาดในระยะยาว ขึ้นอยู่กับอะไร?",
+    opts:[
+      "ขนาดที่ทำให้ LAC ต่ำสุดเสมอ",
+      "ขนาดของตลาด (เส้น Demand) — ที่ทำให้กำไรสูงสุด",
+      "นโยบายรัฐบาล",
+      "ขนาดที่ MR สูงสุด"
+    ],
+    ans:1,
+    explain:"ผู้ผูกขาดเลือกขนาดที่ทำให้<strong>กำไรสูงสุด</strong> ซึ่งขึ้นอยู่กับ<strong>ขนาดตลาด</strong> (Demand) — ตลาดเล็ก → โรงงานเล็ก, ตลาดใหญ่ → โรงงานใหญ่ ไม่จำเป็นต้องอยู่ที่จุด LAC ต่ำสุด!"
+  }
+},
+
+// ─── 2: Long-run Equilibrium Condition ───
+{
+  tag:"ทฤษฎี · เงื่อนไขดุลยภาพ",
+  title:"เงื่อนไขดุลยภาพระยะยาว: LMC = SMC = MR",
+  body:`<div class="prose">
+<p>ในระยะยาวที่กำไรสูงสุด ผู้ผูกขาดต้อง<strong>ปรับโรงงาน (SAC)</strong> ให้สัมผัสเส้น LAC ที่ปริมาณ Q*</p>
+<p>ที่จุดสัมผัสของ SAC กับ LAC → SMC = LMC พอดี</p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ เงื่อนไขกำไรสูงสุดระยะยาว</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px"><strong>LMC = MR</strong>     (จุดดุลยภาพ Q*)
+<strong>SMC = LMC</strong>     (โรงงานที่เลือกเข้ากับ Q* พอดี)
+∴ <strong>LMC = SMC = MR</strong> ที่ Q*
+
+P* อ่านจาก D ที่ Q* (ราคาที่ลูกค้ายอมจ่าย)</p>
+</div>
+<div class="prose">
+<p>กรณีพิเศษ <strong>(ข)</strong> โรงงาน optimum → จุดดุลยภาพอยู่ที่ <strong>LAC ต่ำสุด</strong>:</p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+<div class="insight-label">✦ ที่จุด LAC ต่ำสุด</div>
+<p class="insight-text" style="font-family:monospace;font-size:14.5px">LAC = SAC = LMC = SMC
+
+→ ดุลยภาพรวม: <strong>LMC = SMC = MR = SAC = LAC</strong>
+
+(ทุกเส้นพบกันที่จุด LAC ต่ำสุด — น้อยมากในความเป็นจริงเพราะตลาดต้องเหมาะสมพอดี)</p>
+</div>`,
+  quiz:{
+    q:"เงื่อนไขดุลยภาพระยะยาวของผู้ผูกขาดที่ครบสมบูรณ์ คือ?",
+    opts:[
+      "MR = AC",
+      "P = LMC",
+      "SAC = LAC",
+      "LMC = SMC = MR"
+    ],
+    ans:3,
+    explain:"ดุลยภาพระยะยาว: <strong>LMC = MR</strong> (กำไรสูงสุด) + <strong>SMC = LMC</strong> (โรงงานเหมาะกับ Q*) → รวมเป็น <strong>LMC = SMC = MR</strong> โดย P* อ่านจากเส้น Demand ไม่ใช่ MC หรือ AC"
+  }
+},
+
+// ─── 3: 3 Cases — Plant Size ───
+{
+  tag:"3 กรณี · ขนาดโรงงาน",
+  title:"3 กรณีของขนาดโรงงานในระยะยาว",
+  body:`<div class="prose">
+<p>ขึ้นอยู่กับขนาดตลาด (Demand) ผู้ผูกขาดอาจเลือกขนาดโรงงานแบบใดแบบหนึ่ง:</p>
+</div>
+<div class="features">
+<div class="feature"><div class="feature-num">ก</div><div class="feature-body"><h4>โรงงานเล็กกว่า optimum</h4><div class="en">Less than optimum scale</div><p><strong>ตลาดเล็ก</strong> → MR ตัด LMC <strong>ทางซ้าย</strong>ของจุด LAC ต่ำสุด → Q* น้อย ผลิตที่จุด<strong>ก่อนถึง</strong> LAC ต่ำสุด</p></div></div>
+<div class="feature"><div class="feature-num">ข</div><div class="feature-body"><h4>โรงงาน optimum</h4><div class="en">Optimum scale</div><p><strong>ตลาดเหมาะสม</strong> → MR ตัด LMC <strong>ที่จุด LAC ต่ำสุด</strong>พอดี → Q* ที่ประสิทธิภาพสูงสุด, ต้นทุนเฉลี่ยต่ำสุด</p></div></div>
+<div class="feature"><div class="feature-num">ค</div><div class="feature-body"><h4>โรงงานใหญ่กว่า optimum</h4><div class="en">Greater than optimum scale</div><p><strong>ตลาดใหญ่</strong> → MR ตัด LMC <strong>ทางขวา</strong>ของจุด LAC ต่ำสุด → Q* มาก ผลิตที่จุด<strong>หลังจาก</strong> LAC ต่ำสุด (LAC สูงขึ้นแล้ว)</p></div></div>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ทุก 3 กรณี ผู้ผูกขาดได้กำไรเกินปกติ</div>
+<p class="insight-text">เพราะอุปสรรคการเข้าตลาด → ไม่มีคู่แข่งใหม่ → กำไรเกินปกติคงอยู่ตลอด
+  
+สี่เหลี่ยมกำไรขึ้นอยู่กับว่า P* − SAC* (= LAC* ที่ Q*) มากน้อยแค่ไหน</p>
+</div>`,
+  quiz:{
+    q:"ในกรณี (ก) ตลาดเล็ก โรงงานเล็กกว่า optimum — Q* อยู่ที่ใดเทียบกับจุด LAC ต่ำสุด?",
+    opts:[
+      "ที่จุด LAC ต่ำสุดพอดี",
+      "ทางซ้ายของ LAC ต่ำสุด (Q น้อยกว่าจุด LAC ต่ำสุด)",
+      "ทางขวาของ LAC ต่ำสุด",
+      "ที่จุด LMC ตัดเส้น Demand"
+    ],
+    ans:1,
+    explain:"กรณี (ก) ตลาดเล็ก → MR ตัด LMC <strong>ก่อนถึง</strong> LAC ต่ำสุด → ผลิตที่ Q น้อย, อยู่<strong>ทางซ้าย</strong>ของจุด LAC ต่ำสุด (อยู่บน LAC ที่ยังลดลงอยู่)"
+  }
+},
+
+// ─── 4: No Supply Curve — Concept ───
+{
+  tag:"แนวคิด · ไม่มีเส้นอุปทาน",
+  title:"ผู้ผูกขาดไม่มีเส้นอุปทาน — ทำไม?",
+  body:`<div class="prose">
+<p>"เส้นอุปทาน (Supply Curve)" ในตลาดแข่งขันสมบูรณ์ = ความสัมพันธ์<strong>หนึ่งต่อหนึ่ง</strong>ระหว่างราคา P และปริมาณที่ผลิต Q</p>
+<p>แต่ผู้ผูกขาด<strong>ไม่มี</strong>ความสัมพันธ์นี้!</p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+<div class="insight-label">✦ เหตุผล</div>
+<p class="insight-text">① ผู้ผูกขาดเลือก Q* ที่ MR = MC
+② P* อ่านจาก<strong>เส้น Demand</strong> ที่ Q*
+③ ถ้า Demand <strong>เปลี่ยน</strong> (ความชัน หรือตำแหน่ง) → P และ Q เปลี่ยนแบบไม่มีรูปแบบที่แน่นอน
+  
+∴ ราคาเดียว → อาจเข้ากับ Q หลายค่า  
+∴ Q เดียว → อาจเข้ากับ P หลายค่า  
+→ <strong>ไม่มี 1:1 → ไม่มีเส้นอุปทาน</strong></p>
+</div>`,
+  quiz:{
+    q:"ทำไมเราจึงพูดว่า 'ผู้ผูกขาดไม่มีเส้นอุปทาน'?",
+    opts:[
+      "เพราะผู้ผูกขาดไม่ผลิตสินค้า",
+      "เพราะรัฐบาลห้ามขาย",
+      "เพราะไม่มีความสัมพันธ์หนึ่งต่อหนึ่งระหว่าง P และ Q (P ขึ้นกับ D ที่ Q*)",
+      "เพราะต้นทุนคงที่เท่านั้น"
+    ],
+    ans:2,
+    explain:"เส้นอุปทาน ต้องมีความสัมพันธ์<strong>หนึ่งต่อหนึ่ง</strong>ระหว่าง P และ Q (เช่น P=10 → Q=100, P=20 → Q=200) แต่ผู้ผูกขาดเลือก Q จาก MR=MC แล้ว<strong>อ่าน P จาก Demand</strong> → ถ้า Demand เปลี่ยน → ความสัมพันธ์ P-Q เปลี่ยน → ไม่มี 1:1"
+  }
+},
+
+// ─── 5: Case 1 — Same P, Different Q ───
+{
+  tag:"กรณี A · P เดียว Q ต่าง",
+  title:"กรณี A: ราคาเดียว → ปริมาณต่างกัน",
+  body:`<div class="prose">
+<p>สมมุติเส้น Demand เปลี่ยนจาก D₁ เป็น D₂ (D₂ ชันน้อยกว่า D₁ แต่ผ่านจุดเดียวกันที่ราคา OP)</p>
+<p>เส้น MR ที่สอดคล้องคือ MR₁ และ MR₂</p>
+</div>
+<div style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+<div class="graph-widget-ch84" id="gw-A" style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+  <svg viewBox="0 0 460 320" id="svg-A" style="width:100%;max-width:460px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <line x1="60" y1="20" x2="60" y2="275" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="60" y1="270" x2="430" y2="270" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="42" y="22" font-size="11" fill="#7f1d1d" font-weight="700">฿/Q</text>
+  <text x="418" y="288" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  
+  <!-- Step 1: D1 (blue solid) -->
+  <g class="g-step" data-step="1" opacity="0">
+    <line x1="60.0" y1="132.5" x2="364.0" y2="263.1" stroke="#2563eb" stroke-width="2.8"/>
+    <rect x="347" y="235" width="30" height="16" fill="#fff" stroke="#2563eb" stroke-width="0.8" rx="3"/>
+    <text x="362" y="248" font-size="13" fill="#2563eb" font-weight="800" text-anchor="middle">D₁</text>
+  </g>
+  
+  <!-- Step 2: MR1 (blue dashed) -->
+  <g class="g-step" data-step="2" opacity="0">
+    <line x1="60.0" y1="132.5" x2="220.0" y2="270.0" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="6,4"/>
+    <rect x="227" y="252" width="36" height="16" fill="#fff" stroke="#2563eb" stroke-width="0.8" rx="3"/>
+    <text x="245" y="265" font-size="12" fill="#2563eb" font-weight="800" text-anchor="middle">MR₁</text>
+  </g>
+  
+  <!-- Step 3: MC (purple) -->
+  <g class="g-step" data-step="3" opacity="0">
+    <path d="M 64.4 243.1 L 74.9 238.6 L 85.4 234.1 L 95.9 229.6 L 106.4 225.0 L 117.0 220.5 L 127.5 216.0 L 138.0 211.5 L 148.5 207.0 L 159.1 202.4 L 169.6 197.9 L 180.1 193.4 L 190.6 188.9 L 201.1 184.4 L 211.7 179.8 L 222.2 175.3 L 232.7 170.8 L 243.2 166.3 L 253.7 161.8 L 264.3 157.2 L 274.8 152.7 L 285.3 148.2 L 295.8 143.7 L 306.4 139.1 L 316.9 134.6 L 327.4 130.1 L 337.9 125.6 L 348.4 121.1 L 359.0 116.5 L 369.5 112.0 L 380.0 107.5" fill="none" stroke="#a855f7" stroke-width="2.8"/>
+    <rect x="365" y="86" width="30" height="16" fill="#fff" stroke="#a855f7" stroke-width="0.8" rx="3"/>
+    <text x="380" y="98" font-size="12" fill="#a855f7" font-weight="800" text-anchor="middle">MC</text>
+  </g>
+  
+  <!-- Step 4: E1 + Q1 -->
+  <g class="g-step" data-step="4" opacity="0">
+    <line x1="147.3" y1="207.5" x2="147.3" y2="270" stroke="#999" stroke-width="0.8" stroke-dasharray="2,2"/>
+    <text x="147" y="285" font-size="11" fill="#7f1d1d" font-weight="800" text-anchor="middle">Q₁</text>
+    <circle cx="147.3" cy="207.5" r="5" fill="#7f1d1d" stroke="#fff" stroke-width="1.5"/>
+    <text x="155" y="212" font-size="12" fill="#7f1d1d" font-weight="800">E₁</text>
+  </g>
+  
+  <!-- Step 5: P at Q1 (read up to D1) -->
+  <g class="g-step" data-step="5" opacity="0">
+    <line x1="60" y1="170.0" x2="147.3" y2="170.0" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="147.3" y1="207.5" x2="147.3" y2="170.0" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="42" y="174" font-size="13" fill="#10b981" font-weight="800">P</text>
+    <circle cx="147.3" cy="170.0" r="4" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Step 6: D2 (orange solid) -->
+  <g class="g-step" data-step="6" opacity="0">
+    <line x1="60.0" y1="157.5" x2="364.0" y2="183.6" stroke="#ea580c" stroke-width="2.8"/>
+    <rect x="347" y="156" width="30" height="16" fill="#fff" stroke="#ea580c" stroke-width="0.8" rx="3"/>
+    <text x="362" y="169" font-size="13" fill="#ea580c" font-weight="800" text-anchor="middle">D₂</text>
+  </g>
+  
+  <!-- Step 7: MR2 (orange dashed) -->
+  <g class="g-step" data-step="7" opacity="0">
+    <line x1="60.0" y1="157.5" x2="364.0" y2="209.8" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="6,4"/>
+    <rect x="344" y="215" width="36" height="16" fill="#fff" stroke="#ea580c" stroke-width="0.8" rx="3"/>
+    <text x="362" y="228" font-size="12" fill="#ea580c" font-weight="800" text-anchor="middle">MR₂</text>
+  </g>
+  
+  <!-- Step 8: E2 + Q2 + A2 (P at Q2) -->
+  <g class="g-step" data-step="8" opacity="0">
+    <line x1="205.5" y1="182.5" x2="205.5" y2="270" stroke="#999" stroke-width="0.8" stroke-dasharray="2,2"/>
+    <text x="205" y="285" font-size="11" fill="#ea580c" font-weight="800" text-anchor="middle">Q₂</text>
+    <circle cx="205.5" cy="182.5" r="5" fill="#ea580c" stroke="#fff" stroke-width="1.5"/>
+    <text x="213" y="188" font-size="12" fill="#ea580c" font-weight="800">E₂</text>
+    <circle cx="205.5" cy="170.0" r="4" fill="#ea580c" stroke="#fff" stroke-width="1.5"/>
+  </g>
+  
+  <!-- Step 9: Conclusion -->
+  <g class="g-step" data-step="9" opacity="0">
+    <rect x="80" y="40" width="320" height="28" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="240" y="59" font-size="13" fill="#7f1d1d" font-weight="800" text-anchor="middle">P เดียว → Q₁ ≠ Q₂ → ไม่มี 1:1</text>
+  </g>
+</svg>
+  <div id="step-msg-A" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin:10px 0;min-height:48px;font-size:14.5px;line-height:1.6;color:#7f1d1d">
+    👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <button onclick="gw84Step('A',-1)" id="btn-prev-A" style="padding:8px 14px;background:#fff;color:#7f1d1d;border:1.5px solid #fca5a5;border-radius:10px;font-weight:600;cursor:pointer;font-size:14.5px">← ก่อนหน้า</button>
+    <span id="step-count-A" style="font-size:14px;color:#7f1d1d;font-weight:600;min-width:80px;text-align:center">0 / 9</span>
+    <button onclick="gw84Step('A',1)" id="btn-next-A" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14.5px">ขั้นตอนถัดไป →</button>
+    <button onclick="gw84Reset('A')" style="padding:8px 12px;background:transparent;color:#7f1d1d;border:1px solid #fca5a5;border-radius:10px;font-weight:500;cursor:pointer;font-size:13px">↻ รีเซ็ต</button>
+  </div>
+</div>
+<p style="text-align:center;font-size:13.5px;color:#7f1d1d;font-style:italic;margin:6px 0 0">📖 รูปที่ 8-9: ราคา P เท่ากันแต่ Q ต่าง — ไม่มี 1:1</p>
+</div>`,
+  quiz:{
+    q:"จากรูป — ราคา P เท่าเดิม แต่เมื่อ Demand เปลี่ยน ปริมาณ Q เปลี่ยนจาก Q₁ → Q₂ — สรุปได้อะไร?",
+    opts:[
+      "ผู้ผูกขาดมีเส้นอุปทาน 2 เส้น",
+      "ผู้ผูกขาดไม่ผลิตเลย",
+      "Demand ใหม่ทำให้ MC เปลี่ยน",
+      "P เดียวกัน → Q ต่างกัน → ไม่มี 1:1 → ไม่มีเส้นอุปทาน"
+    ],
+    ans:3,
+    explain:"P คงที่ (OP) → Q เปลี่ยน (Q₁ ≠ Q₂) → <strong>ไม่มีความสัมพันธ์ 1:1 ระหว่าง P และ Q</strong> → ไม่มีเส้นอุปทาน เส้นอุปทานต้องบอกได้ว่า ราคา P → ปริมาณ Q เป็นหนึ่งเดียว"
+  }
+},
+
+// ─── 6: Case 2 — Same Q, Different P ───
+{
+  tag:"กรณี B · Q เดียว P ต่าง",
+  title:"กรณี B: ปริมาณเดียว → ราคาต่างกัน",
+  body:`<div class="prose">
+<p>กรณีกลับกัน: Q เท่าเดิม แต่ราคา P ต่างกัน — ก็เกิดได้!</p>
+<p>เมื่อเส้น Demand เปลี่ยน แต่ผ่านจุด Q เดียวกัน (โดยมี slope ต่างกัน) → MR ที่สอดคล้องตัด MC ที่ Q เดียวกัน</p>
+</div>
+<div style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+<div class="graph-widget-ch84" id="gw-B" style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+  <svg viewBox="0 0 460 320" id="svg-B" style="width:100%;max-width:460px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <line x1="60" y1="20" x2="60" y2="275" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="60" y1="270" x2="430" y2="270" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="42" y="22" font-size="11" fill="#7f1d1d" font-weight="700">฿/Q</text>
+  <text x="418" y="288" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  
+  <!-- Step 1: D1 (blue solid) -->
+  <g class="g-step" data-step="1" opacity="0">
+    <line x1="60.0" y1="54.1" x2="364.0" y2="205.2" stroke="#2563eb" stroke-width="2.8"/>
+    <rect x="347" y="177" width="30" height="16" fill="#fff" stroke="#2563eb" stroke-width="0.8" rx="3"/>
+    <text x="362" y="190" font-size="13" fill="#2563eb" font-weight="800" text-anchor="middle">D₁</text>
+  </g>
+  
+  <!-- Step 2: MR1 (blue dashed) -->
+  <g class="g-step" data-step="2" opacity="0">
+    <line x1="60.0" y1="54.1" x2="277.1" y2="270.0" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="6,4"/>
+    <rect x="284" y="252" width="36" height="16" fill="#fff" stroke="#2563eb" stroke-width="0.8" rx="3"/>
+    <text x="302" y="265" font-size="12" fill="#2563eb" font-weight="800" text-anchor="middle">MR₁</text>
+  </g>
+  
+  <!-- Step 3: MC -->
+  <g class="g-step" data-step="3" opacity="0">
+    <path d="M 66.9 258.6 L 77.3 258.4 L 87.7 258.1 L 98.2 257.6 L 108.6 257.0 L 119.0 256.3 L 129.5 255.4 L 139.9 254.3 L 150.4 253.1 L 160.8 251.7 L 171.2 250.2 L 181.7 248.6 L 192.1 246.8 L 202.6 244.8 L 213.0 242.7 L 223.4 240.5 L 233.9 238.1 L 244.3 235.5 L 254.7 232.9 L 265.2 230.0 L 275.6 227.0 L 286.1 223.9 L 296.5 220.6 L 306.9 217.2 L 317.4 213.6 L 327.8 209.9 L 338.2 206.0 L 348.7 202.0 L 359.1 197.8 L 369.6 193.5 L 380.0 189.0" fill="none" stroke="#a855f7" stroke-width="2.8"/>
+    <rect x="365" y="167" width="30" height="16" fill="#fff" stroke="#a855f7" stroke-width="0.8" rx="3"/>
+    <text x="380" y="179" font-size="12" fill="#a855f7" font-weight="800" text-anchor="middle">MC</text>
+  </g>
+  
+  <!-- Step 4: E + Q -->
+  <g class="g-step" data-step="4" opacity="0">
+    <line x1="242.9" y1="235.9" x2="242.9" y2="270" stroke="#999" stroke-width="0.8" stroke-dasharray="2,2"/>
+    <text x="243" y="285" font-size="12" fill="#7f1d1d" font-weight="800" text-anchor="middle">Q</text>
+    <circle cx="242.9" cy="235.9" r="5" fill="#7f1d1d" stroke="#fff" stroke-width="1.5"/>
+    <text x="251" y="241" font-size="12" fill="#7f1d1d" font-weight="800">E</text>
+  </g>
+  
+  <!-- Step 5: P1 (on D1) -->
+  <g class="g-step" data-step="5" opacity="0">
+    <line x1="60" y1="145.0" x2="242.9" y2="145.0" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <circle cx="242.9" cy="145.0" r="4" fill="#2563eb" stroke="#fff" stroke-width="1.5"/>
+    <text x="42" y="149" font-size="12" fill="#2563eb" font-weight="800">P₁</text>
+  </g>
+  
+  <!-- Step 6: D2 (orange solid) -->
+  <g class="g-step" data-step="6" opacity="0">
+    <line x1="60.0" y1="163.2" x2="364.0" y2="223.6" stroke="#ea580c" stroke-width="2.8"/>
+    <rect x="347" y="196" width="30" height="16" fill="#fff" stroke="#ea580c" stroke-width="0.8" rx="3"/>
+    <text x="362" y="209" font-size="13" fill="#ea580c" font-weight="800" text-anchor="middle">D₂</text>
+  </g>
+  
+  <!-- Step 7: MR2 (orange dashed) -->
+  <g class="g-step" data-step="7" opacity="0">
+    <line x1="60.0" y1="163.2" x2="328.6" y2="270.0" stroke="#ea580c" stroke-width="2.5" stroke-dasharray="6,4"/>
+    <rect x="336" y="252" width="36" height="16" fill="#fff" stroke="#ea580c" stroke-width="0.8" rx="3"/>
+    <text x="354" y="265" font-size="12" fill="#ea580c" font-weight="800" text-anchor="middle">MR₂</text>
+  </g>
+  
+  <!-- Step 8: P2 (on D2) -->
+  <g class="g-step" data-step="8" opacity="0">
+    <line x1="60" y1="199.5" x2="242.9" y2="199.5" stroke="#ea580c" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <circle cx="242.9" cy="199.5" r="4" fill="#ea580c" stroke="#fff" stroke-width="1.5"/>
+    <text x="42" y="204" font-size="12" fill="#ea580c" font-weight="800">P₂</text>
+  </g>
+  
+  <!-- Step 9: Conclusion -->
+  <g class="g-step" data-step="9" opacity="0">
+    <rect x="80" y="40" width="320" height="28" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="240" y="59" font-size="13" fill="#7f1d1d" font-weight="800" text-anchor="middle">Q เดียว → P₁ ≠ P₂ → ไม่มี 1:1</text>
+  </g>
+</svg>
+  <div id="step-msg-B" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin:10px 0;min-height:48px;font-size:14.5px;line-height:1.6;color:#7f1d1d">
+    👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <button onclick="gw84Step('B',-1)" id="btn-prev-B" style="padding:8px 14px;background:#fff;color:#7f1d1d;border:1.5px solid #fca5a5;border-radius:10px;font-weight:600;cursor:pointer;font-size:14.5px">← ก่อนหน้า</button>
+    <span id="step-count-B" style="font-size:14px;color:#7f1d1d;font-weight:600;min-width:80px;text-align:center">0 / 9</span>
+    <button onclick="gw84Step('B',1)" id="btn-next-B" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14.5px">ขั้นตอนถัดไป →</button>
+    <button onclick="gw84Reset('B')" style="padding:8px 12px;background:transparent;color:#7f1d1d;border:1px solid #fca5a5;border-radius:10px;font-weight:500;cursor:pointer;font-size:13px">↻ รีเซ็ต</button>
+  </div>
+</div>
+<p style="text-align:center;font-size:13.5px;color:#7f1d1d;font-style:italic;margin:6px 0 0">📖 รูปที่ 8-10: ปริมาณ Q เท่ากัน แต่ราคาต่างกัน — ไม่มี 1:1</p>
+</div>
+<div class="insight">
+<div class="insight-label">✦ ข้อสรุปทั้ง 2 กรณี</div>
+<p class="insight-text"><strong>กรณี A:</strong> P เดียว → Q ต่างกัน
+<strong>กรณี B:</strong> Q เดียว → P ต่างกัน
+  
+ทั้งสองกรณี<strong>ขัดแย้งกับนิยามของเส้นอุปทาน</strong> (1:1 P-Q)
+→ ผู้ผูกขาด<strong>ไม่มีเส้นอุปทาน</strong></p>
+</div>`,
+  quiz:{
+    q:"การที่ Q เท่าเดิมแต่ P ต่างกันได้ในตลาดผูกขาด — เกิดจากอะไร?",
+    opts:[
+      "Demand เปลี่ยนความชัน → MR เปลี่ยน → ตัด MC ที่ Q เดียวกัน → P อ่านจาก D ต่างกัน",
+      "MC เปลี่ยน",
+      "ผู้ผูกขาดเปลี่ยนใจ",
+      "ราคาตลาดเปลี่ยน"
+    ],
+    ans:0,
+    explain:"เมื่อ Demand เปลี่ยนความชัน (เช่น D₁ ชันกว่า D₂) แต่ Q* (MR=MC) เท่าเดิม → P อ่านจาก D ต่างกัน → P₁ ≠ P₂ ที่ Q เดียวกัน นี่คือเหตุที่<strong>ไม่มี 1:1 P-Q</strong>"
+  }
+},
+
+// ─── 7: Bridge ───
+{
+  tag:"สรุป · เชื่อมโยง",
+  title:"สรุป Section 8.4 — และสิ่งที่จะเรียนต่อไป",
+  body:`<div class="insight">
+<div class="insight-label">✦ สิ่งที่ได้เรียนรู้</div>
+<p class="insight-text">① ระยะยาว ผู้ผูกขาดยังคงได้กำไรเกินปกติ (อุปสรรคบล็อกคู่แข่ง)
+② ปรับขนาดโรงงานได้ — เลือกขนาดที่ทำให้กำไรสูงสุด ไม่จำเป็นต้องที่ LAC ต่ำสุด
+③ <strong>3 กรณี:</strong> โรงงานเล็ก / optimum / ใหญ่ ขึ้นอยู่กับขนาดตลาด
+④ <strong>เงื่อนไข:</strong> LMC = SMC = MR ที่ Q*
+⑤ <strong>ไม่มีเส้นอุปทาน</strong> — เพราะไม่มี 1:1 P-Q (P ขึ้นกับ Demand)</p>
+</div>
+<div class="scenario">
+<div class="scenario-icon">🔗</div>
+<p><strong>เชื่อมไป Section 8.5:</strong> ตอนนี้เราเข้าใจดุลยภาพ Monopoly แล้ว → คำถามต่อไปคือ <strong>เปรียบเทียบกับ Perfect Competition</strong> → ผูกขาดสร้างความสูญเสียต่อสังคมยังไง? (Deadweight Loss)</p>
+</div>`
+}
+
+];
+var cur=0,total=S.length,ans={};
+function init(){renderDots();renderStep()}
+function renderDots(){var d=document.getElementById('dots'),h='';for(var i=0;i<total;i++)h+='<div style="width:'+(i===cur?'48':'32')+'px;height:5px;border-radius:99px;background:'+(i<=cur?'var(--pri)':'#ede5d8')+';transition:all .35s;cursor:pointer" onclick="goTo('+i+')"></div>';d.innerHTML=h;document.getElementById('plbl').textContent=(cur+1)+' / '+total}
+function renderStep(){var s=S[cur],c=document.getElementById('sc');var h='<div class="step active"><div class="step-tag">'+s.tag+'</div><h2 class="step-title">'+s.title+'</h2>';if(s.body)h+=s.body;if(s.quiz){var qid='q-'+cur;h+='<div class="quiz" id="'+qid+'"><p class="quiz-q">'+s.quiz.q+'</p><div class="quiz-opts">';for(var i=0;i<s.quiz.opts.length;i++)h+='<button class="quiz-opt" onclick="answer('+cur+','+i+','+s.quiz.ans+')"><span class="letter">'+String.fromCharCode(65+i)+'.</span>'+s.quiz.opts[i]+'</button>';h+='</div><div class="quiz-explain" id="'+qid+'-e">'+s.quiz.explain+'</div></div>'}var isLast=cur>=total-1,nQ=!!s.quiz,done=ans[cur],vis=(!nQ||done)?'':'hidden';h+='<button class="next-btn '+vis+'" id="nb" onclick="'+(isLast?'complete()':'next()')+'">'+(isLast?'✓ จบ Section 8.4':'ถัดไป →')+'</button></div>';c.innerHTML=h;renderDots()}
+function answer(step,chosen,correct){if(ans[step])return;ans[step]=true;var card=document.getElementById('q-'+step),btns=card.querySelectorAll('.quiz-opt');for(var i=0;i<btns.length;i++){btns[i].classList.add('locked');if(i===correct)btns[i].classList.add('correct');else if(i===chosen&&chosen!==correct)btns[i].classList.add('wrong')}document.getElementById('q-'+step+'-e').classList.add('show',chosen===correct?'ok':'no');setTimeout(function(){document.getElementById('nb').classList.remove('hidden')},500)}
+function next(){cur++;gS=0;renderStep();window.scrollTo({top:0,behavior:'smooth'})}
+function goTo(i){if(i<=cur){cur=i;gS=0;renderStep();window.scrollTo({top:0,behavior:'smooth'})}}
+function complete(){document.getElementById('sc').innerHTML='<div class="step active"><div class="completion"><div style="font-size:52px;margin-bottom:14px">🎉</div><h2>จบ Section 8.4!</h2><p>คุณเข้าใจดุลยภาพระยะยาวของผู้ผูกขาด 3 กรณีของขนาดโรงงาน + เหตุผลที่ไม่มีเส้นอุปทานแล้ว!</p><div class="completion-link">💡 <strong>เชื่อมไป Section 8.5:</strong> เข้าใจดุลยภาพ Monopoly แล้ว → ต่อไปจะ<strong>เปรียบเทียบกับ Perfect Competition</strong> และดู Deadweight Loss!</div><br><button class="next-btn" onclick="location.href=\'chapter8.html\'" style="max-width:300px;margin:0 auto">← กลับบทที่ 8</button></div></div>';document.getElementById('dots').innerHTML='';document.getElementById('plbl').textContent='เสร็จสิ้น ✓';window.scrollTo({top:0,behavior:'smooth'})}
+init();
+</script>
+
+<nav class="ajk-chapter-nav ajk-shell-theme">
+  <a class="ajk-chap-btn prev" href="chapter8_3.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทก่อนหน้า</span>
+      <span class="ajk-chap-name">บทที่ 8.3 — ดุลยภาพระยะสั้นของผู้ผูกขาด</span>
+    </div>
+  </a>
+  <a class="ajk-chap-btn next" href="chapter8_5.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทถัดไป</span>
+      <span class="ajk-chap-name">บทที่ 8.5 — Monopoly vs PC + Deadweight Loss</span>
+    </div>
+  </a>
+</nav>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter8.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 8</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+  <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* Member status pill — reads login state from localStorage */
+(function(){
+  try {
+    const raw = localStorage.getItem('akMember');
+    if (!raw) return;
+    const m = JSON.parse(raw);
+    if (!m || !m.name) return;
+    // Stale if older than 30 days
+    if (m.ts && (Date.now() - m.ts > 30*24*60*60*1000)) return;
+    
+    const pill = document.getElementById('ak-member-pill');
+    const loginBtn = document.getElementById('ak-login-btn');
+    const avatarEl = document.getElementById('ak-pill-avatar');
+    const labelEl = document.getElementById('ak-pill-label');
+    
+    if (pill && labelEl && avatarEl) {
+      if (m.isAdmin) {
+        // Admin: link to #admin Dashboard, label = "Admin"
+        pill.href = '../#admin';
+        pill.classList.add('is-admin');
+        avatarEl.textContent = 'A';
+        labelEl.textContent = 'Admin · Dashboard';
+      } else {
+        // Regular member: link to #hub
+        pill.href = '../#hub';
+        avatarEl.textContent = (m.name[0] || '?').toUpperCase();
+        labelEl.textContent = m.name;
+      }
+      pill.style.display = 'inline-flex';
+      if (loginBtn) loginBtn.style.display = 'none';
+    }
+  } catch(e) { console.warn('member pill init failed:', e); }
+})();
+</script>
+
+<script id="gw-ch84-js">
+(function(){
+  var STEPS_A = ["เริ่มจากเส้น <b style='color:#2563eb'>D₁</b> (ความต้องการที่ 1) — เส้นทึบสีน้ำเงิน", "วาด <b style='color:#2563eb'>MR₁</b> (เส้นประสีน้ำเงิน) — ชันเป็น 2 เท่าของ D₁", "วาด <b style='color:#a855f7'>MC</b> (เส้นต้นทุนเพิ่ม) สีม่วง", "หาจุด <b>E₁</b> ที่ MR₁ ตัด MC → ได้ปริมาณ <b>Q₁</b>", "ขึ้นจาก Q₁ ไปแตะ D₁ → ได้ราคา <b style='color:#10b981'>P</b>", "Demand เปลี่ยนเป็น <b style='color:#ea580c'>D₂</b> (เส้นทึบสีส้ม) — ชันน้อยกว่า D₁", "วาด <b style='color:#ea580c'>MR₂</b> (เส้นประสีส้ม) — ชัน 2 เท่าของ D₂", "ที่ MR₂ ตัด MC → ได้ <b>Q₂</b> ใหม่ — แต่ราคาที่อ่านจาก D₂ <b>เท่ากับ P เดิม</b>!"];
+  var STEPS_B = ["เริ่มจาก <b style='color:#2563eb'>D₁</b> (เส้นทึบสีน้ำเงิน) ทอดลงชัน", "วาด <b style='color:#2563eb'>MR₁</b> (เส้นประสีน้ำเงิน) — ชัน 2 เท่าของ D₁", "วาด <b style='color:#a855f7'>MC</b> สีม่วง", "หาจุด <b>E</b> ที่ MR₁ ตัด MC → ได้ปริมาณ <b>Q</b>", "ขึ้นจาก Q ไปแตะ D₁ → ได้ราคา <b style='color:#2563eb'>P₁</b>", "Demand เปลี่ยนเป็น <b style='color:#ea580c'>D₂</b> (เส้นทึบสีส้ม) — ชันน้อยกว่า", "วาด <b style='color:#ea580c'>MR₂</b> (เส้นประสีส้ม) — บังเอิญตัด MC ที่ <b>Q เดียวกัน</b>!", "ขึ้นจาก Q ไปแตะ D₂ → ได้ราคา <b style='color:#ea580c'>P₂</b> ที่ต่างจาก P₁"];
+  var FINAL_A = "🎯 <b style='color:#7f1d1d'>ราคา P เดียวกัน</b> แต่ Q ต่างกัน (Q₁ ≠ Q₂) — ไม่มี 1:1 → ไม่มีเส้นอุปทาน";
+  var FINAL_B = "🎯 <b style='color:#7f1d1d'>ปริมาณ Q เดียวกัน</b> แต่ P ต่างกัน (P₁ ≠ P₂) — ไม่มี 1:1 → ไม่มีเส้นอุปทาน";
+  var TOTAL = 9;
+  
+  window.gw84State = {A: 0, B: 0};
+  
+  window.gw84Step = function(caseId, dir) {
+    var cur = (window.gw84State[caseId] || 0) + dir;
+    cur = Math.max(0, Math.min(TOTAL, cur));
+    window.gw84State[caseId] = cur;
+    
+    var svg = document.getElementById('svg-' + caseId);
+    if (!svg) return;
+    
+    var groups = svg.querySelectorAll('.g-step');
+    groups.forEach(function(g){
+      var s = parseInt(g.getAttribute('data-step'));
+      g.style.opacity = (s <= cur) ? '1' : '0';
+      g.style.transition = 'opacity 0.45s ease';
+    });
+    
+    var msg = document.getElementById('step-msg-' + caseId);
+    var stepArr = caseId === 'A' ? STEPS_A : STEPS_B;
+    var finalMsg = caseId === 'A' ? FINAL_A : FINAL_B;
+    if (msg) {
+      if (cur === 0) {
+        msg.innerHTML = '👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น';
+      } else if (cur >= TOTAL) {
+        msg.innerHTML = finalMsg;
+      } else {
+        msg.innerHTML = '<b>ขั้นที่ ' + cur + '/' + TOTAL + ':</b> ' + stepArr[cur - 1];
+      }
+    }
+    
+    var cnt = document.getElementById('step-count-' + caseId);
+    if (cnt) cnt.textContent = cur + ' / ' + TOTAL;
+    
+    var btnPrev = document.getElementById('btn-prev-' + caseId);
+    var btnNext = document.getElementById('btn-next-' + caseId);
+    if (btnPrev) btnPrev.style.opacity = (cur === 0) ? '0.4' : '1';
+    if (btnNext) {
+      btnNext.style.opacity = (cur >= TOTAL) ? '0.4' : '1';
+      btnNext.textContent = (cur >= TOTAL) ? '✓ เสร็จ' : 'ขั้นตอนถัดไป →';
+    }
+  };
+  
+  window.gw84Reset = function(caseId) {
+    window.gw84State[caseId] = 0;
+    window.gw84Step(caseId, 0);
+  };
+  
+  function initWidgets() {
+    ['A', 'B'].forEach(function(id){
+      var svg = document.getElementById('svg-' + id);
+      if (svg) {
+        window.gw84State[id] = 0;
+        window.gw84Step(id, 0);
+      }
+    });
+  }
+  
+  // Hook into renderStep
+  function wrapRender() {
+    if (typeof window.renderStep !== 'function') {
+      setTimeout(wrapRender, 50);
+      return;
+    }
+    var orig = window.renderStep;
+    window.renderStep = function() {
+      orig.apply(this, arguments);
+      setTimeout(initWidgets, 30);
+    };
+    initWidgets();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wrapRender);
+  } else {
+    wrapRender();
+  }
+})();
+</script>
+
+</body>
+</html>

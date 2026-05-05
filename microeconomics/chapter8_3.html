@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 8.3 — ดุลยภาพระยะสั้นของผู้ผูกขาด · Ajarn.Kwan</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b91c1c;--pri-soft:#fef2f2;--pri-dark:#7f1d1d;--hero-a:#7f1d1d;--hero-b:#dc2626;--bg:#fff5f5;--card:#fff;--bg2:#fef2f2;--bdr:#fca5a5;--bdr-l:#fee2e2;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid #ede5d8}
+.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--pri-soft);padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .18s}
+.back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}
+.back-btn svg{width:14px;height:14px}
+.t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700}.t-sub{font-size:14.5px;color:var(--muted)}
+.page{max-width:760px;margin:0 auto;padding:24px 18px 60px}
+.step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
+.step-title{font-family:var(--font-serif);font-size:24px;font-weight:700;margin:0 0 16px;line-height:1.55}
+.prose{font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:16px}.prose p{margin:0 0 10px}.prose strong{color:var(--ink)}
+.scenario{background:var(--bg2);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;position:relative;overflow:hidden;border:.5px solid var(--bdr-l)}
+.scenario::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#dc2626,#dc2626)}
+.scenario p{font-size:16px;line-height:1.75;color:var(--ink);margin:0 0 6px}.scenario p:last-child{margin:0}
+.insight{background:var(--pri-soft);border-left:3px solid var(--pri);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;margin-bottom:18px}
+.insight-label{font-size:14.5px;font-weight:700;color:var(--pri);margin-bottom:4px}.insight-text{font-size:16.5px;color:var(--ink);line-height:1.75;white-space:pre-line;margin:0}
+.cmp{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:18px;background:var(--card);border-radius:var(--r);overflow:hidden;border:.5px solid var(--bdr-l)}
+.cmp th{font-weight:600;font-size:14px;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:.5px solid var(--bdr-l);text-transform:uppercase;background:var(--bg2)}
+.cmp td{padding:8px 12px;border-bottom:.5px solid var(--bdr-l);color:var(--ink);vertical-align:top;font-size:15.5px;line-height:1.6}.cmp tr:last-child td{border:none}.cmp td:first-child{font-weight:500;color:var(--muted)}
+.quiz{background:var(--card);border:.5px solid var(--bdr);border-radius:var(--rl);padding:18px 20px;margin-bottom:16px}
+.quiz-q{font-size:16px;font-weight:500;margin:0 0 12px;line-height:1.65}
+.quiz-opts{display:flex;flex-direction:column;gap:7px}
+.quiz-opt{text-align:left;font-size:16px;padding:11px 15px;border-radius:var(--r);border:.5px solid var(--bdr-l);background:var(--card);color:var(--ink);cursor:pointer;transition:all .12s;font-family:var(--font-sans);line-height:1.55}
+.quiz-opt:hover:not(.locked){background:var(--bg2);border-color:var(--bdr)}.quiz-opt.correct{background:#ecfdf5;border-color:#86efac;color:#047857}.quiz-opt.wrong{background:#fef2f2;border-color:#fca5a5;color:#b91c1c}.quiz-opt.locked{cursor:default}
+.quiz-opt .letter{font-weight:700;color:var(--faint);margin-right:8px;font-size:14.5px}
+.quiz-explain{display:none;margin-top:12px;padding:12px 16px;border-radius:var(--r);font-size:16px;line-height:1.7}.quiz-explain.show{display:block;animation:fadeUp .35s ease}.quiz-explain.ok{background:#fefce8;border:.5px solid #fecaca}.quiz-explain.no{background:#fff7ed;border:.5px solid #fdba74}.quiz-explain strong{color:var(--pri-dark)}
+.next-btn{width:100%;padding:14px;border-radius:var(--r);background:linear-gradient(135deg,var(--hero-a),var(--hero-b));border:none;color:#fff;font-size:17px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s;margin-top:8px}
+.next-btn:hover{box-shadow:0 10px 28px rgba(185,28,28,.18);transform:translateY(-1px)}.next-btn.hidden{opacity:0;pointer-events:none;transform:translateY(6px)}
+.dw{background:var(--card);border:.5px solid var(--bdr-l);border-radius:var(--rl);padding:16px;margin-bottom:16px}
+.gc{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.gb{padding:7px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-sans);border:none;transition:all .15s}
+.gp{background:var(--card);border:.5px solid var(--bdr);color:var(--muted)}.gp:hover{color:var(--pri);border-color:var(--pri)}
+.gn{background:linear-gradient(135deg,var(--hero-a),var(--hero-b));color:#fff}.gn:hover{transform:translateY(-1px)}
+.gd{margin-top:10px;font-size:16px;line-height:1.75;color:var(--ink);padding:12px 14px;background:var(--bg2);border-radius:10px;border:.5px solid var(--bdr-l);min-height:50px}
+.gx{font-size:14.5px;color:var(--faint);margin-left:auto}
+.completion{text-align:center;padding:2.5rem 1rem}.completion h2{font-family:var(--font-serif);font-size:24px;margin:0 0 8px}.completion p{font-size:16px;color:var(--muted);line-height:1.7;margin:0 0 10px;max-width:480px;margin-left:auto;margin-right:auto}
+.completion-link{display:inline-block;background:var(--pri-soft);border:.5px solid var(--pri);border-radius:var(--r);padding:10px 16px;font-size:16px;color:var(--pri-dark);font-weight:600;margin-bottom:20px;line-height:1.65;text-align:left;max-width:500px}
+.foot{margin-top:56px;text-align:center;padding:24px 16px;border-top:1px solid #ede5d8;font-size:14.5px;color:var(--faint);line-height:1.7}.foot strong{color:var(--muted)}
+@media(max-width:520px){.step-title{font-size:21px}.topbar-in{padding:8px 12px}.back-btn span{display:none}.back-btn{padding:9px}}
+
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #f97316;
+  --ajk-primary-soft: #fff7ed;
+  --ajk-primary-dark: #ea580c;
+  --ajk-ink: #2A1F1A;
+  --ajk-muted: #6b6480;
+  --ajk-border: #E8DDD0;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s; flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer; white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-home-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.ajk-home-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-home-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(107,74,138,.2);
+}
+@media (max-width: 540px) {
+  .ajk-home-btn span { display: none; }
+  .ajk-home-btn { padding: 9px; }
+  .ajk-home-btn svg { width: 16px; height: 16px; }
+}
+
+.ajk-chapter-nav {
+  max-width: 760px;
+  margin: 56px auto 0;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-chap-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--ajk-surface, #fff);
+  border: 1px solid var(--ajk-border, #E8DDD0);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .2s;
+  min-height: 78px;
+}
+.ajk-chap-btn:hover {
+  border-color: var(--ajk-primary, #6B4A8A);
+  background: var(--ajk-primary-soft, #EFE6F5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107,74,138,.08);
+}
+.ajk-chap-btn.next {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.ajk-chap-btn svg {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  color: var(--ajk-primary, #6B4A8A);
+}
+.ajk-chap-text {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+.ajk-chap-label {
+  font-size: 14.5px;
+  color: var(--ajk-muted, #6b6480);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.ajk-chap-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ajk-ink, #2A1F1A);
+  line-height: 1.55;
+}
+.ajk-chap-empty {
+  visibility: hidden;
+}
+@media (max-width: 540px) {
+  .ajk-chapter-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 40px;
+  }
+}
+
+
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right; line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 16.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ajk-brand-author {
+  font-size: 14.5px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; }
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; }
+}
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 1100px; margin: 0 auto; text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 26px; font-weight: 700; margin: 0 0 4px;
+}
+.ajk-footer-sub { font-size: 15.5px; color: var(--ajk-muted); margin-bottom: 26px; }
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 15.5px; font-weight: 600;
+  border: 1px solid var(--ajk-border);
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface); transition: all .18s;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.ajk-footer-btn:hover {
+  color: #fff!important; background: var(--ajk-primary)!important;
+  border-color: var(--ajk-primary)!important;
+  transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.7; }
+
+</style>
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b91c1c;--theme-primary-soft:#fef2f2;--theme-primary-dark:#7f1d1d;
+  --theme-hero-a:#7f1d1d;--theme-hero-b:#dc2626;
+  --theme-page-bg:#fff5f5;--theme-border:#fca5a5;
+  --color-background-primary:#ffffff;--color-background-secondary:#fef2f2;
+  --color-border-secondary:#fca5a5;--color-border-tertiary:#fecaca;
+  --color-text-primary:#1c1917;--color-text-secondary:#57534e;--color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(185,28,28,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary:#b91c1c;--ajk-primary-soft:#fef2f2;--ajk-primary-dark:#7f1d1d;
+  --ajk-ink:var(--color-text-primary);--ajk-muted:var(--color-text-secondary);
+  --ajk-border:#fcd1d1;--ajk-surface:#ffffff;
+}
+body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!important;font-family:var(--font-sans)!important;}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
+
+<style id="ak-shared-fallback">
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="ak-theme-microeconomics" style="--ak-bg: #fff5f5;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 8.3</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#hub" class="ak-member-pill" id="ak-member-pill">
+        <span class="ak-pill-avatar" id="ak-pill-avatar">?</span>
+        <span class="ak-pill-label" id="ak-pill-label">ห้องเรียนของฉัน</span>
+        <span class="ak-pill-arrow">→</span>
+      </a>
+      <a href="../#join" class="ak-btn ak-btn-ghost" id="ak-login-btn">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter8.html" aria-label="กลับบทที่ 8">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 8</span>
+    </a>
+    <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+<div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 8.3 · ดุลยภาพระยะสั้นของผู้ผูกขาด</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+
+<div class="page">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><div id="dots" style="display:flex;gap:5px"></div><span id="plbl" style="font-size:14px;color:var(--muted)"></span></div>
+<div id="sc"></div>
+</div>
+<script>
+/* ═══ Graph layers ═══ */
+var SVG='<svg viewBox="0 0 440 300" style="width:100%;max-width:480px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">';
+var AX='<defs><marker id="ax" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs><line x1="55" y1="270" x2="410" y2="270" stroke="#78716c" stroke-width="1.5" marker-end="url(#ax)"/><line x1="55" y1="270" x2="55" y2="12" stroke="#78716c" stroke-width="1.5" marker-end="url(#ax)"/><text x="416" y="274" fill="#78716c" font-size="11">Q</text><text x="46" y="11" fill="#78716c" font-size="10" text-anchor="end">฿/หน่วย</text>';
+
+var LL=[null,
+/* 1 AVC — U-shape, min at (200,218), horizontal tangent at min */
+'<path d="M75,148 C118,182 178,218 200,218 C222,218 320,180 395,148" fill="none" stroke="#8b5cf6" stroke-width="2.5"/>'
++'<text x="398" y="146" fill="#7c3aed" font-size="11" font-weight="700">AVC</text>'
++'<circle cx="200" cy="218" r="4" fill="#8b5cf6" stroke="#fff" stroke-width="1.5"/>'
++'<text x="200" y="234" fill="#7c3aed" font-size="9" text-anchor="middle" font-weight="600">AVC min</text>',
+
+/* 2 AC — U-shape, min at (260,165), horizontal tangent at min */
+'<path d="M75,50 C115,102 185,150 230,162 C250,165 270,165 290,164 C330,162 365,154 395,146" fill="none" stroke="#6366f1" stroke-width="2.5"/>'
++'<text x="398" y="144" fill="#4f46e5" font-size="11" font-weight="700">AC</text>'
++'<circle cx="260" cy="165" r="4" fill="#6366f1" stroke="#fff" stroke-width="1.5"/>'
++'<text x="260" y="158" fill="#4f46e5" font-size="9" text-anchor="middle" font-weight="600">AC min</text>'
++'<line x1="150" y1="120" x2="150" y2="200" stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="3,2"/><text x="132" y="150" fill="#7c3aed" font-size="8" font-weight="600">AFC</text><path d="M147,122 L150,120 L153,122" fill="none" stroke="#a78bfa" stroke-width="1"/><path d="M147,198 L150,200 L153,198" fill="none" stroke="#a78bfa" stroke-width="1"/>',
+
+/* 3 MC — smooth U-shape, 3 segments, crosses AVC@(200,218), AC@(260,165) */
+'<path d="M75,180 C105,235 158,258 200,218 C228,192 248,173 260,165 C280,152 320,105 355,60 C375,35 390,20 398,12" fill="none" stroke="#059669" stroke-width="2.8"/>'
++'<text x="398" y="12" fill="#047857" font-size="11" font-weight="700">MC</text>'
++'<circle cx="200" cy="218" r="5.5" fill="#059669" stroke="#fff" stroke-width="2"/>'
++'<circle cx="260" cy="165" r="5.5" fill="#059669" stroke="#fff" stroke-width="2"/>'
++'<text x="186" y="232" fill="#047857" font-size="8" font-weight="600">MC=AVC</text>'
++'<text x="272" y="178" fill="#047857" font-size="8" font-weight="600">MC=AC</text>',
+
+/* 4 P1>AC: profit */
+'<line x1="55" y1="125" x2="395" y2="125" stroke="#dc2626" stroke-width="2.2"/><text x="398" y="130" fill="#7f1d1d" font-size="9" font-weight="700">D₁=AR₁=MR₁=P₁</text><text x="47" y="129" fill="#7f1d1d" font-size="10" font-weight="600" text-anchor="end">P₁</text>'
++'<line x1="286" y1="125" x2="286" y2="270" stroke="#059669" stroke-width="1" stroke-dasharray="5,3"/><text x="286" y="284" fill="#059669" font-size="10" font-weight="600" text-anchor="middle">Q₁</text>'
++'<circle cx="286" cy="125" r="5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="296" y="121" fill="#047857" font-size="8" font-weight="700">MR=MC</text>'
++'<rect x="57" y="125" width="229" height="39" fill="#059669" fill-opacity=".12" stroke="#059669" stroke-width=".8" stroke-dasharray="4,2"/>'
++'<line x1="286" y1="125" x2="286" y2="164" stroke="#059669" stroke-width="3.5" stroke-linecap="round"/><text x="278" y="148" fill="#047857" font-size="9" font-weight="700" text-anchor="end">กำไร</text>'
++'<text x="170" y="148" fill="#047857" font-size="10" font-weight="700" text-anchor="middle">กำไรเกินปกติ = (P₁\u2212AC)\u00d7Q₁</text>'
++'<circle cx="286" cy="164" r="3.5" fill="#6366f1" stroke="#fff" stroke-width="1"/><text x="294" y="170" fill="#6366f1" font-size="8">AC</text>',
+
+/* 5 P2=AC min: breakeven */
+'<line x1="55" y1="165" x2="395" y2="165" stroke="#dc2626" stroke-width="2.2"/><text x="398" y="170" fill="#7f1d1d" font-size="9" font-weight="700">D₂=AR₂=MR₂=P₂</text><text x="47" y="169" fill="#7f1d1d" font-size="10" font-weight="600" text-anchor="end">P₂</text>'
++'<line x1="260" y1="165" x2="260" y2="270" stroke="#78716c" stroke-width="1" stroke-dasharray="5,3"/><text x="260" y="284" fill="#78716c" font-size="10" font-weight="600" text-anchor="middle">Q₂</text>'
++'<circle cx="260" cy="165" r="6" fill="#dc2626" stroke="#fff" stroke-width="2"/><text x="246" y="160" fill="#047857" font-size="8" font-weight="700" text-anchor="end">MR=MC=AC</text>'
++'<rect x="135" y="140" width="118" height="20" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="194" y="154" fill="#7f1d1d" font-size="10" font-weight="700" text-anchor="middle">Breakeven \u2192 \u03c0 = 0</text>',
+
+/* 6 P3: AVC<P<AC loss continue */
+'<line x1="55" y1="195" x2="395" y2="195" stroke="#dc2626" stroke-width="2.2"/><text x="398" y="200" fill="#7f1d1d" font-size="9" font-weight="700">D₃=AR₃=MR₃=P₃</text><text x="47" y="199" fill="#7f1d1d" font-size="10" font-weight="600" text-anchor="end">P₃</text>'
++'<line x1="220" y1="195" x2="220" y2="270" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,3"/><text x="220" y="284" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">Q₃</text>'
++'<circle cx="220" cy="195" r="5" fill="#dc2626" stroke="#fff" stroke-width="2"/><text x="230" y="191" fill="#047857" font-size="8" font-weight="700">MR=MC</text>'
++'<rect x="57" y="159" width="163" height="36" fill="#ef4444" fill-opacity=".1" stroke="#ef4444" stroke-width=".8" stroke-dasharray="4,2"/>'
++'<line x1="220" y1="159" x2="220" y2="195" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/><text x="212" y="180" fill="#b91c1c" font-size="9" font-weight="700" text-anchor="end">ขาดทุน</text>'
++'<text x="138" y="181" fill="#b91c1c" font-size="9.5" font-weight="600" text-anchor="middle">ขาดทุน = (AC\u2212P₃)\u00d7Q₃</text>'
++'<circle cx="220" cy="159" r="3.5" fill="#6366f1" stroke="#fff" stroke-width="1"/><text x="228" y="156" fill="#6366f1" font-size="8">AC</text>'
++'<circle cx="220" cy="218" r="3.5" fill="#8b5cf6" stroke="#fff" stroke-width="1"/><text x="228" y="222" fill="#8b5cf6" font-size="8">AVC</text>'
++'<line x1="228" y1="195" x2="237" y2="195" stroke="#059669" stroke-width="1.5"/><line x1="228" y1="218" x2="237" y2="218" stroke="#059669" stroke-width="1.5"/><line x1="237" y1="195" x2="237" y2="218" stroke="#059669" stroke-width="1.5"/>'
++'<text x="242" y="205" fill="#059669" font-size="8">P คุ้ม TVC</text><text x="242" y="215" fill="#059669" font-size="8">+TFC บางส่วน</text>',
+
+/* 7 P4=AVC min: shutdown */
+'<line x1="55" y1="218" x2="395" y2="218" stroke="#dc2626" stroke-width="2.2"/><text x="398" y="223" fill="#7f1d1d" font-size="9" font-weight="700">D₄=AR₄=MR₄=P₄</text><text x="47" y="222" fill="#7f1d1d" font-size="10" font-weight="600" text-anchor="end">P₄</text>'
++'<line x1="200" y1="218" x2="200" y2="270" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,3"/><text x="200" y="284" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">Q₄</text>'
++'<circle cx="200" cy="218" r="6" fill="#ef4444" stroke="#fff" stroke-width="2"/><text x="212" y="214" fill="#047857" font-size="8" font-weight="700">MR=MC=AVC</text>'
++'<rect x="57" y="151" width="143" height="67" fill="#ef4444" fill-opacity=".06" stroke="#ef4444" stroke-width=".8" stroke-dasharray="4,2"/>'
++'<line x1="200" y1="151" x2="200" y2="218" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/><text x="192" y="188" fill="#b91c1c" font-size="9" font-weight="700" text-anchor="end">ขาดทุน</text><text x="192" y="198" fill="#b91c1c" font-size="8" text-anchor="end">=TFC</text>'
++'<circle cx="200" cy="151" r="3.5" fill="#6366f1" stroke="#fff" stroke-width="1"/><text x="208" y="149" fill="#6366f1" font-size="8">AC</text>'
++'<rect x="218" y="232" width="128" height="28" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="282" y="244" fill="#b91c1c" font-size="9.5" font-weight="700" text-anchor="middle">Shutdown Point \ud83d\udd34</text><text x="282" y="254" fill="#b91c1c" font-size="8.5" text-anchor="middle">P=MC=AVC min</text>',
+
+/* 8 Supply highlight */
+'<path d="M200,218 C228,192 248,173 260,165 C280,152 320,105 355,60 C375,35 390,20 398,12" fill="none" stroke="#dc2626" stroke-width="5" opacity=".35"/>'
++'<rect x="285" y="75" width="110" height="32" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="340" y="89" fill="#b91c1c" font-size="10" font-weight="700" text-anchor="middle">เส้นอุปทานระยะสั้น</text><text x="340" y="102" fill="#b91c1c" font-size="9" text-anchor="middle">= MC เหนือ AVC min</text>'
+];
+var gD=["กดปุ่ม <strong>\"ถัดไป →\"</strong> เพื่อวาดเส้นกราฟทีละเส้น","<strong>① เส้น AVC</strong> — รูปตัว U ชัดเจน: ลดลง → ถึงจุดต่ำสุด (AVC min) → เพิ่มขึ้น จุดต่ำสุดนี้จะกลายเป็น <em>จุดหยุดผลิต (Shutdown Point)</em>","<strong>② เส้น AC</strong> — รูปตัว U เช่นกัน อยู่<em>เหนือ</em> AVC เสมอ (เพราะ AC = AVC + AFC) ช่องว่าง AC−AVC = AFC ซึ่งลดลงเมื่อ Q เพิ่ม จุดต่ำสุดของ AC จะกลายเป็น <em>จุดคุ้มทุน (Breakeven)</em>","<strong>③ เส้น MC</strong> — รูปตัว U สังเกต: <strong>MC ตัดผ่าน AVC ที่จุดต่ำสุดของ AVC</strong> พอดี และ<strong>ตัดผ่าน AC ที่จุดต่ำสุดของ AC</strong> พอดี! (จุดสีเขียว 2 จุด) เพราะ: ถ้า MC < ค่าเฉลี่ย → เฉลี่ยจะลด, ถ้า MC > ค่าเฉลี่ย → เฉลี่ยจะเพิ่ม","<strong>🟢 P₁ > AC → กำไรเกินปกติ!</strong> — ราคาสูงกว่า AC → ผลิตที่ MC=P₁ (จุดเขียว) → กำไรต่อหน่วย = P₁ − AC = พื้นที่เขียว","<strong>🟡 P₂ = AC min → จุดคุ้มทุน</strong> — ราคาเท่ากับจุดต่ำสุด AC พอดี → P = MC = AC → กำไรเกินปกติ = 0 ได้แค่กำไรปกติ (Normal Profit)","<strong>🟠 P₃: AVC < P₃ < AC → ขาดทุน แต่ยังผลิตต่อ!</strong> — ราคาต่ำกว่า AC (ขาดทุน) แต่สูงกว่า AVC → รายรับคุ้ม TVC + ชดเชย TFC บางส่วน → ขาดทุน<em>น้อยกว่า</em>หยุดผลิต","<strong>🔴 P₄ = AVC min → จุดหยุดผลิต (Shutdown)</strong> — ราคาเท่ากับจุดต่ำสุด AVC พอดี → รายรับคุ้มแค่ TVC → ขาดทุน = TFC ทั้งหมด ถ้าราคาต่ำกว่านี้ → <strong>หยุดผลิต!</strong>","<strong>⑧ เส้นอุปทานระยะสั้น</strong> — ผู้ผลิตจะผลิตตามเส้น MC ตั้งแต่ AVC min ขึ้นไป (เส้นแดงหนา) ต่ำกว่าจุดนี้ → ปริมาณเสนอขาย = 0 → นี่คือเส้น Supply ระยะสั้น!"];
+var gS=0,gT=gD.length;
+function bG(){var s=SVG+AX;
+/* Layers 1-3 (curves): cumulative — show all up to current step */
+for(var i=1;i<=3;i++)s+='<g style="opacity:'+(gS>=i?'1':'0')+';transition:opacity .5s">'+LL[i]+'</g>';
+/* Layers 4-8 (scenarios): exclusive — show ONLY the current one */
+for(var i=4;i<=8;i++)s+='<g style="opacity:'+(gS===i?'1':'0')+';transition:opacity .5s">'+LL[i]+'</g>';
+return s+'</svg>'}
+function gGo(d){gS=Math.max(0,Math.min(gT-1,gS+d));document.getElementById('gs').innerHTML=bG();document.getElementById('gd').innerHTML=gD[gS];document.getElementById('gx').textContent=gS+'/'+(gT-1);var p=document.getElementById('gp');p.style.opacity=gS>0?'1':'.4';p.style.pointerEvents=gS>0?'auto':'none';var n=document.getElementById('gn');if(gS>=gT-1){n.textContent='ครบแล้ว ✓';n.style.opacity='.5';n.style.pointerEvents='none'}else{n.textContent='ถัดไป →';n.style.opacity='1';n.style.pointerEvents='auto'}}
+
+/* ═══ Steps ═══ */
+var S=[
+
+// ─── 0: Hook ───
+{
+  tag:"เริ่มต้น · ลองคิดก่อน",
+  title:"ผูกขาดต้องได้กำไรเสมอ จริงหรือ?",
+  body:`<div class="scenario"><div class="scenario-icon">🤔</div>
+<p>เพื่อนของคุณบอกว่า: <em>"การผูกขาดมีแต่ได้ — เพราะตั้งราคาเองได้!"</em></p>
+<p>คุณคิดว่าเขาพูดถูกไหม? ผู้ผูกขาดได้กำไรเกินปกติ<strong>เสมอ</strong>หรือเปล่า?</p>
+<p>ลองคิดถึงร้านขายของชำหมู่บ้านห่างไกลที่เป็นเจ้าเดียว — ได้กำไรมหาศาลจริงไหม?</p>
+</div>`,
+  quiz:{
+    q:"ผู้ผูกขาดในระยะสั้นจะได้กำไรเกินปกติเสมอหรือไม่?",
+    opts:[
+      "ใช่ เพราะตั้งราคาเองได้",
+      "ไม่จำเป็น — ขึ้นอยู่กับเส้น Demand และต้นทุน อาจกำไรปกติ หรือขาดทุนก็ได้",
+      "ใช่ เพราะไม่มีคู่แข่ง",
+      "ใช่ เสมอเพราะปรับ Q ได้"
+    ],
+    ans:1,
+    explain:"ผู้ผูกขาด<strong>อาจได้กำไรเกินปกติ กำไรปกติ หรือขาดทุน</strong>ในระยะสั้นก็ได้ — ขึ้นอยู่กับ<strong>ความสัมพันธ์</strong>ระหว่างเส้น P (Demand) กับเส้น AC ที่ Q* การเป็น price maker ไม่ได้แปลว่ากำไรเสมอ — หากต้นทุนสูงกว่าราคาที่ตลาดยอมจ่ายก็ขาดทุนได้"
+  }
+},
+
+// ─── 1: Profit Max Condition recap ───
+{
+  tag:"ทบทวน · เงื่อนไขกำไรสูงสุด",
+  title:"จุดเริ่ม: เงื่อนไขกำไรสูงสุดของผู้ผูกขาด",
+  body:`<div class="prose">
+<p>จาก Section 8.2 → ผู้ผูกขาดเลือก Q* ที่ทำให้ <strong>กำไรสูงสุด</strong> ตามเงื่อนไข:</p>
+</div>
+<div class="insight">
+  <div class="insight-label">✦ เงื่อนไขกำไรสูงสุด (ระยะสั้น)</div>
+  <p class="insight-text"><strong>(1) Necessary:</strong> MR = SMC
+<strong>(2) Sufficient:</strong> Slope MC > Slope MR
+  
+ที่ Q* นี้ ผู้ผูกขาดจะตั้งราคา P* จาก<strong>เส้น Demand</strong> ที่ Q* — สูงกว่า MC เสมอ
+  
+แล้วได้กำไรหรือขาดทุน? → ดูเส้น <strong>AC</strong> ที่ Q*</p>
+</div>
+<div class="prose">
+<p>3 สถานการณ์ที่เกิดได้:</p>
+<ul>
+<li>ถ้า P > AC → <strong>กำไรเกินปกติ (Excess Profit)</strong></li>
+<li>ถ้า P = AC → <strong>กำไรปกติ (Normal Profit)</strong> — ก่อรายรับเท่ากับต้นทุนทุกอย่าง รวมค่าโอกาส</li>
+<li>ถ้า P < AC → <strong>ขาดทุน</strong> — แต่<strong>ยังผลิต</strong>ถ้า P > AVC</li>
+</ul>
+</div>`,
+  quiz:{
+    q:"ที่จุด Q* ของผู้ผูกขาด ราคา P* ตั้งจากเส้นใด?",
+    opts:[
+      "จากเส้น MR ที่ Q*",
+      "จาก MC ที่ Q*",
+      "จากเส้น Demand (D = AR) ที่ Q*",
+      "จาก AC ที่ Q*"
+    ],
+    ans:2,
+    explain:"P* ตั้งจาก<strong>เส้น Demand</strong> ที่ Q* — ผู้ผูกขาดเลือก Q ที่ MR=MC แล้ว<strong>ขึ้นไปอ่านราคาที่เส้น D</strong> (เพราะ D = AR = P) ตั้งราคาที่ MR หรือ MC จะผิดเพราะลูกค้าจะไม่ซื้อในราคานั้น (D บอกราคาสูงสุดที่ลูกค้ายอมจ่ายต่อ Q)"
+  }
+},
+
+// ─── 2: Case 1 — Excess Profit ───
+{
+  tag:"กรณี 1 · กำไรเกินปกติ",
+  title:"Case 1: P > AC → กำไรเกินปกติ",
+  body:`<div class="prose">
+<p>เมื่อ Q* ที่ MR=MC ทำให้ราคาขาย <strong>P*</strong> สูงกว่าต้นทุนเฉลี่ย <strong>AC</strong> → กำไรเกินปกติ</p>
+</div>
+<div style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+<div class="graph-widget" id="gw-1" style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+  <svg viewBox="0 0 460 320" id="svg-1" style="width:100%;max-width:460px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <!-- Axes (always visible) -->
+  <line x1="60" y1="20" x2="60" y2="275" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="60" y1="270" x2="430" y2="270" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="42" y="22" font-size="11" fill="#7f1d1d" font-weight="700">฿/Q</text>
+  <text x="418" y="288" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  <text x="50" y="284" font-size="10" fill="#7f1d1d">0</text>
+  
+  <!-- Step 1: Demand (D = AR) — label above the line, white background for readability -->
+  <g class="g-step" data-step="1" opacity="0">
+    <path d="M 60.0 50.0 L 64.0 52.7 L 68.0 55.3 L 72.0 58.0 L 76.0 60.7 L 80.0 63.3 L 84.0 66.0 L 88.0 68.7 L 92.0 71.3 L 96.0 74.0 L 100.0 76.7 L 104.0 79.3 L 108.0 82.0 L 112.0 84.7 L 116.0 87.3 L 120.0 90.0 L 124.0 92.7 L 128.0 95.3 L 132.0 98.0 L 136.0 100.7 L 140.0 103.3 L 144.0 106.0 L 148.0 108.7 L 152.0 111.4 L 156.0 114.0 L 160.0 116.7 L 164.0 119.4 L 168.0 122.0 L 172.0 124.7 L 176.0 127.4 L 180.0 130.0 L 184.0 132.7 L 188.0 135.4 L 192.0 138.0 L 196.0 140.7 L 200.0 143.4 L 204.0 146.0 L 208.0 148.7 L 212.0 151.4 L 216.0 154.0 L 220.1 156.7 L 224.1 159.4 L 228.1 162.0 L 232.1 164.7 L 236.1 167.4 L 240.1 170.0 L 244.1 172.7 L 248.1 175.4 L 252.1 178.0 L 256.1 180.7 L 260.1 183.4 L 264.1 186.0 L 268.1 188.7 L 272.1 191.4 L 276.1 194.0 L 280.1 196.7 L 284.1 199.4 L 288.1 202.0 L 292.1 204.7 L 296.1 207.4 L 300.1 210.1 L 304.1 212.7 L 308.1 215.4 L 312.1 218.1 L 316.1 220.7 L 320.1 223.4 L 324.1 226.1 L 328.1 228.7 L 332.1 231.4 L 336.1 234.1 L 340.1 236.7 L 344.1 239.4 L 348.1 242.1 L 352.1 244.7 L 356.1 247.4 L 360.1 250.1 L 364.1 252.7 L 368.1 255.4 L 372.1 258.1 L 376.1 260.7 L 380.1 263.4" fill="none" stroke="#dc2626" stroke-width="2.8"/>
+    <rect x="291" y="200" width="56" height="16" fill="#fff" stroke="#dc2626" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="319" y="212" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">D = AR</text>
+  </g>
+  
+  <!-- Step 2: MR -->
+  <g class="g-step" data-step="2" opacity="0">
+    <path d="M 60.0 50.0 L 62.0 52.7 L 64.1 55.4 L 66.1 58.2 L 68.2 60.9 L 70.2 63.6 L 72.3 66.3 L 74.3 69.1 L 76.3 71.8 L 78.4 74.5 L 80.4 77.2 L 82.5 79.9 L 84.5 82.7 L 86.5 85.4 L 88.6 88.1 L 90.6 90.8 L 92.7 93.6 L 94.7 96.3 L 96.8 99.0 L 98.8 101.7 L 100.8 104.4 L 102.9 107.2 L 104.9 109.9 L 107.0 112.6 L 109.0 115.3 L 111.0 118.1 L 113.1 120.8 L 115.1 123.5 L 117.2 126.2 L 119.2 129.0 L 121.3 131.7 L 123.3 134.4 L 125.3 137.1 L 127.4 139.8 L 129.4 142.6 L 131.5 145.3 L 133.5 148.0 L 135.5 150.7 L 137.6 153.5 L 139.6 156.2 L 141.7 158.9 L 143.7 161.6 L 145.8 164.3 L 147.8 167.1 L 149.8 169.8 L 151.9 172.5 L 153.9 175.2 L 156.0 178.0 L 158.0 180.7 L 160.1 183.4 L 162.1 186.1 L 164.1 188.8 L 166.2 191.6 L 168.2 194.3 L 170.3 197.0 L 172.3 199.7 L 174.3 202.5 L 176.4 205.2 L 178.4 207.9 L 180.5 210.6 L 182.5 213.3 L 184.6 216.1 L 186.6 218.8 L 188.6 221.5 L 190.7 224.2 L 192.7 227.0 L 194.8 229.7 L 196.8 232.4 L 198.8 235.1 L 200.9 237.9 L 202.9 240.6 L 205.0 243.3 L 207.0 246.0 L 209.1 248.7 L 211.1 251.5 L 213.1 254.2 L 215.2 256.9 L 217.2 259.6 L 219.3 262.4 L 221.3 265.1 L 223.4 267.8" fill="none" stroke="#7f1d1d" stroke-width="2.8"/>
+    <rect x="119" y="127" width="30" height="16" fill="#fff" stroke="#7f1d1d" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="134" y="139" font-size="12" fill="#7f1d1d" font-weight="700" text-anchor="middle">MR</text>
+  </g>
+  
+  <!-- Step 3: AVC -->
+  <g class="g-step" data-step="3" opacity="0">
+    <path d="M 66.0 194.4 L 70.4 197.5 L 74.8 200.4 L 79.3 203.3 L 83.7 206.0 L 88.1 208.6 L 92.5 211.1 L 97.0 213.5 L 101.4 215.7 L 105.8 217.8 L 110.2 219.8 L 114.7 221.7 L 119.1 223.4 L 123.5 225.0 L 128.0 226.5 L 132.4 227.9 L 136.8 229.2 L 141.2 230.3 L 145.7 231.3 L 150.1 232.2 L 154.5 233.0 L 158.9 233.6 L 163.4 234.1 L 167.8 234.5 L 172.2 234.8 L 176.6 235.0 L 181.1 235.0 L 185.5 234.9 L 189.9 234.7 L 194.3 234.4 L 198.8 233.9 L 203.2 233.3 L 207.6 232.6 L 212.0 231.8 L 216.4 230.8 L 220.9 229.8 L 225.3 228.6 L 229.7 227.3 L 234.1 225.8 L 238.6 224.3 L 243.0 222.6 L 247.4 220.8 L 251.9 218.9 L 256.3 216.8 L 260.7 214.6 L 265.1 212.4 L 269.5 209.9 L 274.0 207.4 L 278.4 204.7 L 282.8 202.0 L 287.2 199.1 L 291.7 196.0 L 296.1 192.9 L 300.5 189.6 L 304.9 186.2 L 309.4 182.7 L 313.8 179.1 L 318.2 175.3 L 322.7 171.4 L 327.1 167.4 L 331.5 163.3 L 335.9 159.0 L 340.4 154.6 L 344.8 150.2 L 349.2 145.5 L 353.6 140.8 L 358.1 135.9 L 362.5 130.9 L 366.9 125.8 L 371.3 120.6 L 375.8 115.3 L 380.2 109.8 L 384.6 104.2 L 389.0 98.5 L 393.4 92.6 L 397.9 86.7 L 402.3 80.6 L 406.7 74.4 L 411.1 68.0 L 415.6 61.6 L 420.0 55.0" fill="none" stroke="#059669" stroke-width="2.4"/>
+    <rect x="331" y="151" width="34" height="16" fill="#fff" stroke="#059669" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="348" y="163" font-size="12" fill="#059669" font-weight="700" text-anchor="middle">AVC</text>
+  </g>
+  
+  <!-- Step 4: AC -->
+  <g class="g-step" data-step="4" opacity="0">
+    <path d="M 90.0 129.7 L 94.1 141.6 L 98.2 151.4 L 102.4 159.5 L 106.5 166.5 L 110.6 172.6 L 114.8 177.9 L 118.9 182.6 L 123.0 186.8 L 127.1 190.5 L 131.2 193.9 L 135.4 196.9 L 139.5 199.7 L 143.6 202.2 L 147.8 204.4 L 151.9 206.4 L 156.0 208.2 L 160.1 209.8 L 164.2 211.2 L 168.4 212.4 L 172.5 213.5 L 176.6 214.4 L 180.8 215.1 L 184.9 215.7 L 189.0 216.1 L 193.1 216.4 L 197.2 216.6 L 201.4 216.6 L 205.5 216.5 L 209.6 216.2 L 213.8 215.8 L 217.9 215.3 L 222.0 214.7 L 226.1 213.9 L 230.2 213.0 L 234.4 212.0 L 238.5 210.9 L 242.6 209.6 L 246.8 208.2 L 250.9 206.7 L 255.0 205.1 L 259.1 203.4 L 263.2 201.5 L 267.4 199.6 L 271.5 197.5 L 275.6 195.3 L 279.8 193.0 L 283.9 190.6 L 288.0 188.0 L 292.1 185.4 L 296.2 182.6 L 300.4 179.7 L 304.5 176.7 L 308.6 173.6 L 312.8 170.4 L 316.9 167.1 L 321.0 163.7 L 325.1 160.1 L 329.2 156.5 L 333.4 152.7 L 337.5 148.8 L 341.6 144.8 L 345.8 140.7 L 349.9 136.5 L 354.0 132.2 L 358.1 127.8 L 362.2 123.3 L 366.4 118.6 L 370.5 113.9 L 374.6 109.0 L 378.8 104.0 L 382.9 98.9 L 387.0 93.8 L 391.1 88.5 L 395.2 83.1 L 399.4 77.5 L 403.5 71.9 L 407.6 66.2 L 411.8 60.3 L 415.9 54.4 L 420.0 48.3" fill="none" stroke="#6366f1" stroke-width="2.8"/>
+    <rect x="101" y="155" width="26" height="16" fill="#fff" stroke="#6366f1" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="114" y="167" font-size="12" fill="#6366f1" font-weight="700" text-anchor="middle">AC</text>
+  </g>
+  
+  <!-- Step 5: MC -->
+  <g class="g-step" data-step="5" opacity="0">
+    <path d="M 63.6 195.3 L 67.4 200.6 L 71.2 205.6 L 74.9 210.3 L 78.7 214.8 L 82.5 219.0 L 86.3 222.9 L 90.1 226.6 L 93.8 230.0 L 97.6 233.2 L 101.4 236.0 L 105.2 238.6 L 109.0 241.0 L 112.7 243.0 L 116.5 244.8 L 120.3 246.4 L 124.1 247.6 L 127.9 248.6 L 131.6 249.3 L 135.4 249.8 L 139.2 250.0 L 143.0 249.9 L 146.8 249.6 L 150.5 249.0 L 154.3 248.1 L 158.1 246.9 L 161.9 245.5 L 165.7 243.8 L 169.4 241.9 L 173.2 239.7 L 177.0 237.2 L 180.8 234.4 L 184.6 231.4 L 188.3 228.1 L 192.1 224.5 L 195.9 220.7 L 199.7 216.6 L 203.5 212.2 L 207.2 207.6 L 211.0 202.7 L 214.8 197.5 L 218.6 192.1 L 222.4 186.4 L 226.1 180.4 L 229.9 174.2 L 233.7 167.7 L 237.5 160.9 L 241.3 153.9 L 245.0 146.6 L 248.8 139.0 L 252.6 131.1 L 256.4 123.0 L 260.2 114.6 L 263.9 106.0 L 267.7 97.1 L 271.5 87.9 L 275.3 78.4 L 279.1 68.7 L 282.8 58.7 L 286.6 48.5 L 290.4 37.9" fill="none" stroke="#a855f7" stroke-width="2.8"/>
+    <rect x="263" y="55" width="26" height="16" fill="#fff" stroke="#a855f7" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="276" y="67" font-size="12" fill="#a855f7" font-weight="700" text-anchor="middle">MC</text>
+  </g>
+  
+  <!-- Step 6: E point (MR=MC) + Q* -->
+  <g class="g-step" data-step="6" opacity="0">
+    <line x1="191.4" y1="225.2" x2="191.4" y2="270" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="191" y="285" font-size="11" fill="#7f1d1d" font-weight="700" text-anchor="middle">Q*</text>
+    <circle cx="191.4" cy="225.2" r="5" fill="#7f1d1d" stroke="#fff" stroke-width="1.5"/>
+    <text x="201" y="230" font-size="13" fill="#7f1d1d" font-weight="800">E</text>
+  </g>
+  
+  <!-- Step 7: P* (read up from Q* to D) -->
+  <g class="g-step" data-step="7" opacity="0">
+    <line x1="191.4" y1="225.2" x2="191.4" y2="137.6" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="60" y1="137.6" x2="191.4" y2="137.6" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="42" y="142" font-size="13" fill="#dc2626" font-weight="800">P*</text>
+    <circle cx="191.4" cy="137.6" r="5" fill="#dc2626" stroke="#fff" stroke-width="1.5"/>
+    <text x="199" y="134" font-size="13" fill="#dc2626" font-weight="800">A</text>
+  </g>
+  
+  <!-- Step 8: AC* (read up from Q* to AC) -->
+  <g class="g-step" data-step="8" opacity="0">
+    <line x1="60" y1="216.3" x2="191.4" y2="216.3" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="36" y="220" font-size="12" fill="#6366f1" font-weight="800">AC*</text>
+    <circle cx="191.4" cy="216.3" r="5" fill="#6366f1" stroke="#fff" stroke-width="1.5"/>
+    <text x="199" y="221" font-size="13" fill="#6366f1" font-weight="800">B</text>
+  </g>
+  
+  <!-- Step 9: profit/loss rectangle -->
+  <g class="g-step" data-step="9" opacity="0">
+    <rect x="60" y="137.6" width="131.4" height="78.7" 
+          fill="#10b981" fill-opacity="0.22" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="126" y="182" font-size="14" fill="#10b981" font-weight="800" text-anchor="middle">π &gt; 0 (กำไร)</text>
+  </g>
+</svg>
+  <div id="step-msg-1" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin:10px 0;min-height:48px;font-size:14.5px;line-height:1.6;color:#7f1d1d">
+    👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <button id="btn-prev-1" onclick="gwStep(1,-1)" style="padding:8px 14px;background:#fff;color:#7f1d1d;border:1.5px solid #fca5a5;border-radius:10px;font-weight:600;cursor:pointer;font-size:14.5px">← ก่อนหน้า</button>
+    <span id="step-count-1" style="font-size:14px;color:#7f1d1d;font-weight:600;min-width:80px;text-align:center">0 / 9</span>
+    <button id="btn-next-1" onclick="gwStep(1,1)" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14.5px">ขั้นตอนถัดไป →</button>
+    <button onclick="gwReset(1)" style="padding:8px 12px;background:transparent;color:#7f1d1d;border:1px solid #fca5a5;border-radius:10px;font-weight:500;cursor:pointer;font-size:13px">↻ รีเซ็ต</button>
+  </div>
+</div>
+<p style="text-align:center;font-size:13.5px;color:#7f1d1d;font-style:italic;margin:6px 0 0">📖 รูปที่ 8-3: ผู้ผูกขาดได้กำไรเกินปกติ — สี่เหลี่ยม CP₁AB</p>
+</div>
+<div class="insight">
+  <div class="insight-label">✦ การคำนวณกำไร</div>
+  <p class="insight-text"><strong>กำไรต่อหน่วย</strong> = AB = P* − AC*
+<strong>กำไรทั้งหมด</strong> = พื้นที่สี่เหลี่ยม CP₁AB = (P* − AC*) × Q*</p>
+</div>`,
+  quiz:{
+    q:"ในกรณีนี้ MC ตัด MR ที่ Q* และ AC ที่ Q* ต่ำกว่า P* — กำไรทั้งหมดคือ?",
+    opts:[
+      "พื้นที่สามเหลี่ยมใต้ MC",
+      "TR − TFC",
+      "P* × Q*",
+      "(P* − AC*) × Q*  หรือ พื้นที่สี่เหลี่ยมระหว่าง P* และ AC*"
+    ],
+    ans:3,
+    explain:"กำไร = TR − TC = P*Q − AC*Q = (P* − AC*) × Q* → <strong>พื้นที่สี่เหลี่ยมระหว่าง P* และ AC*</strong> ซึ่งกว้างเท่ากับ Q* (ใช้สูตร 'กำไรต่อหน่วย × ปริมาณ')"
+  }
+},
+
+// ─── 3: Case 2 — Normal Profit ───
+{
+  tag:"กรณี 2 · กำไรปกติ",
+  title:"Case 2: P = AC → กำไรปกติ",
+  body:`<div class="prose">
+<p>เมื่อเส้น D <strong>สัมผัส</strong>เส้น AC ที่จุด Q* (ราคาเท่ากับต้นทุนเฉลี่ยพอดี) → ได้แค่ <strong>กำไรปกติ</strong></p>
+<p>"กำไรปกติ" = TR = TC (รวมค่าโอกาส) → ผู้ผูกขาดยังคุ้ม แต่ไม่ได้กำไรเกินปกติ</p>
+</div>
+<div style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+<div class="graph-widget" id="gw-2" style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+  <svg viewBox="0 0 460 320" id="svg-2" style="width:100%;max-width:460px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <!-- Axes (always visible) -->
+  <line x1="60" y1="20" x2="60" y2="275" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="60" y1="270" x2="430" y2="270" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="42" y="22" font-size="11" fill="#7f1d1d" font-weight="700">฿/Q</text>
+  <text x="418" y="288" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  <text x="50" y="284" font-size="10" fill="#7f1d1d">0</text>
+  
+  <!-- Step 1: Demand (D = AR) — label above the line, white background for readability -->
+  <g class="g-step" data-step="1" opacity="0">
+    <path d="M 60.0 168.8 L 63.0 170.0 L 66.0 171.3 L 69.0 172.5 L 72.0 173.7 L 74.9 174.9 L 77.9 176.2 L 80.9 177.4 L 83.9 178.6 L 86.9 179.8 L 89.9 181.1 L 92.9 182.3 L 95.9 183.5 L 98.9 184.8 L 101.9 186.0 L 104.8 187.2 L 107.8 188.4 L 110.8 189.7 L 113.8 190.9 L 116.8 192.1 L 119.8 193.3 L 122.8 194.6 L 125.8 195.8 L 128.8 197.0 L 131.8 198.2 L 134.7 199.5 L 137.7 200.7 L 140.7 201.9 L 143.7 203.2 L 146.7 204.4 L 149.7 205.6 L 152.7 206.8 L 155.7 208.1 L 158.7 209.3 L 161.7 210.5 L 164.6 211.7 L 167.6 213.0 L 170.6 214.2 L 173.6 215.4 L 176.6 216.7 L 179.6 217.9 L 182.6 219.1 L 185.6 220.3 L 188.6 221.6 L 191.5 222.8 L 194.5 224.0 L 197.5 225.2 L 200.5 226.5 L 203.5 227.7 L 206.5 228.9 L 209.5 230.2 L 212.5 231.4 L 215.5 232.6 L 218.5 233.8 L 221.4 235.1 L 224.4 236.3 L 227.4 237.5 L 230.4 238.7 L 233.4 240.0 L 236.4 241.2 L 239.4 242.4 L 242.4 243.7 L 245.4 244.9 L 248.4 246.1 L 251.3 247.3 L 254.3 248.6 L 257.3 249.8 L 260.3 251.0 L 263.3 252.2 L 266.3 253.5 L 269.3 254.7 L 272.3 255.9 L 275.3 257.1 L 278.3 258.4 L 281.2 259.6 L 284.2 260.8 L 287.2 262.1 L 290.2 263.3 L 293.2 264.5 L 296.2 265.7 L 299.2 267.0" fill="none" stroke="#dc2626" stroke-width="2.8"/>
+    <rect x="226" y="226" width="56" height="16" fill="#fff" stroke="#dc2626" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="254" y="238" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">D = AR</text>
+  </g>
+  
+  <!-- Step 2: MR -->
+  <g class="g-step" data-step="2" opacity="0">
+    <path d="M 60.0 168.8 L 61.5 170.1 L 63.1 171.3 L 64.6 172.6 L 66.1 173.8 L 67.6 175.1 L 69.2 176.3 L 70.7 177.6 L 72.2 178.8 L 73.7 180.1 L 75.3 181.3 L 76.8 182.6 L 78.3 183.8 L 79.8 185.1 L 81.4 186.3 L 82.9 187.6 L 84.4 188.8 L 85.9 190.1 L 87.5 191.3 L 89.0 192.6 L 90.5 193.8 L 92.0 195.1 L 93.6 196.4 L 95.1 197.6 L 96.6 198.9 L 98.1 200.1 L 99.7 201.4 L 101.2 202.6 L 102.7 203.9 L 104.2 205.1 L 105.8 206.4 L 107.3 207.6 L 108.8 208.9 L 110.3 210.1 L 111.9 211.4 L 113.4 212.6 L 114.9 213.9 L 116.5 215.1 L 118.0 216.4 L 119.5 217.6 L 121.0 218.9 L 122.6 220.1 L 124.1 221.4 L 125.6 222.7 L 127.1 223.9 L 128.7 225.2 L 130.2 226.4 L 131.7 227.7 L 133.2 228.9 L 134.8 230.2 L 136.3 231.4 L 137.8 232.7 L 139.3 233.9 L 140.9 235.2 L 142.4 236.4 L 143.9 237.7 L 145.4 238.9 L 147.0 240.2 L 148.5 241.4 L 150.0 242.7 L 151.5 243.9 L 153.1 245.2 L 154.6 246.4 L 156.1 247.7 L 157.6 249.0 L 159.2 250.2 L 160.7 251.5 L 162.2 252.7 L 163.7 254.0 L 165.3 255.2 L 166.8 256.5 L 168.3 257.7 L 169.9 259.0 L 171.4 260.2 L 172.9 261.5 L 174.4 262.7 L 176.0 264.0 L 177.5 265.2 L 179.0 266.5 L 180.5 267.7 L 182.1 269.0" fill="none" stroke="#7f1d1d" stroke-width="2.8"/>
+    <rect x="100" y="192" width="30" height="16" fill="#fff" stroke="#7f1d1d" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="115" y="204" font-size="12" fill="#7f1d1d" font-weight="700" text-anchor="middle">MR</text>
+  </g>
+  
+  <!-- Step 3: AVC -->
+  <g class="g-step" data-step="3" opacity="0">
+    <path d="M 66.0 194.4 L 70.4 197.5 L 74.8 200.4 L 79.3 203.3 L 83.7 206.0 L 88.1 208.6 L 92.5 211.1 L 97.0 213.5 L 101.4 215.7 L 105.8 217.8 L 110.2 219.8 L 114.7 221.7 L 119.1 223.4 L 123.5 225.0 L 128.0 226.5 L 132.4 227.9 L 136.8 229.2 L 141.2 230.3 L 145.7 231.3 L 150.1 232.2 L 154.5 233.0 L 158.9 233.6 L 163.4 234.1 L 167.8 234.5 L 172.2 234.8 L 176.6 235.0 L 181.1 235.0 L 185.5 234.9 L 189.9 234.7 L 194.3 234.4 L 198.8 233.9 L 203.2 233.3 L 207.6 232.6 L 212.0 231.8 L 216.4 230.8 L 220.9 229.8 L 225.3 228.6 L 229.7 227.3 L 234.1 225.8 L 238.6 224.3 L 243.0 222.6 L 247.4 220.8 L 251.9 218.9 L 256.3 216.8 L 260.7 214.6 L 265.1 212.4 L 269.5 209.9 L 274.0 207.4 L 278.4 204.7 L 282.8 202.0 L 287.2 199.1 L 291.7 196.0 L 296.1 192.9 L 300.5 189.6 L 304.9 186.2 L 309.4 182.7 L 313.8 179.1 L 318.2 175.3 L 322.7 171.4 L 327.1 167.4 L 331.5 163.3 L 335.9 159.0 L 340.4 154.6 L 344.8 150.2 L 349.2 145.5 L 353.6 140.8 L 358.1 135.9 L 362.5 130.9 L 366.9 125.8 L 371.3 120.6 L 375.8 115.3 L 380.2 109.8 L 384.6 104.2 L 389.0 98.5 L 393.4 92.6 L 397.9 86.7 L 402.3 80.6 L 406.7 74.4 L 411.1 68.0 L 415.6 61.6 L 420.0 55.0" fill="none" stroke="#059669" stroke-width="2.4"/>
+    <rect x="331" y="151" width="34" height="16" fill="#fff" stroke="#059669" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="348" y="163" font-size="12" fill="#059669" font-weight="700" text-anchor="middle">AVC</text>
+  </g>
+  
+  <!-- Step 4: AC -->
+  <g class="g-step" data-step="4" opacity="0">
+    <path d="M 90.0 129.7 L 94.1 141.6 L 98.2 151.4 L 102.4 159.5 L 106.5 166.5 L 110.6 172.6 L 114.8 177.9 L 118.9 182.6 L 123.0 186.8 L 127.1 190.5 L 131.2 193.9 L 135.4 196.9 L 139.5 199.7 L 143.6 202.2 L 147.8 204.4 L 151.9 206.4 L 156.0 208.2 L 160.1 209.8 L 164.2 211.2 L 168.4 212.4 L 172.5 213.5 L 176.6 214.4 L 180.8 215.1 L 184.9 215.7 L 189.0 216.1 L 193.1 216.4 L 197.2 216.6 L 201.4 216.6 L 205.5 216.5 L 209.6 216.2 L 213.8 215.8 L 217.9 215.3 L 222.0 214.7 L 226.1 213.9 L 230.2 213.0 L 234.4 212.0 L 238.5 210.9 L 242.6 209.6 L 246.8 208.2 L 250.9 206.7 L 255.0 205.1 L 259.1 203.4 L 263.2 201.5 L 267.4 199.6 L 271.5 197.5 L 275.6 195.3 L 279.8 193.0 L 283.9 190.6 L 288.0 188.0 L 292.1 185.4 L 296.2 182.6 L 300.4 179.7 L 304.5 176.7 L 308.6 173.6 L 312.8 170.4 L 316.9 167.1 L 321.0 163.7 L 325.1 160.1 L 329.2 156.5 L 333.4 152.7 L 337.5 148.8 L 341.6 144.8 L 345.8 140.7 L 349.9 136.5 L 354.0 132.2 L 358.1 127.8 L 362.2 123.3 L 366.4 118.6 L 370.5 113.9 L 374.6 109.0 L 378.8 104.0 L 382.9 98.9 L 387.0 93.8 L 391.1 88.5 L 395.2 83.1 L 399.4 77.5 L 403.5 71.9 L 407.6 66.2 L 411.8 60.3 L 415.9 54.4 L 420.0 48.3" fill="none" stroke="#6366f1" stroke-width="2.8"/>
+    <rect x="101" y="155" width="26" height="16" fill="#fff" stroke="#6366f1" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="114" y="167" font-size="12" fill="#6366f1" font-weight="700" text-anchor="middle">AC</text>
+  </g>
+  
+  <!-- Step 5: MC -->
+  <g class="g-step" data-step="5" opacity="0">
+    <path d="M 63.6 195.3 L 67.4 200.6 L 71.2 205.6 L 74.9 210.3 L 78.7 214.8 L 82.5 219.0 L 86.3 222.9 L 90.1 226.6 L 93.8 230.0 L 97.6 233.2 L 101.4 236.0 L 105.2 238.6 L 109.0 241.0 L 112.7 243.0 L 116.5 244.8 L 120.3 246.4 L 124.1 247.6 L 127.9 248.6 L 131.6 249.3 L 135.4 249.8 L 139.2 250.0 L 143.0 249.9 L 146.8 249.6 L 150.5 249.0 L 154.3 248.1 L 158.1 246.9 L 161.9 245.5 L 165.7 243.8 L 169.4 241.9 L 173.2 239.7 L 177.0 237.2 L 180.8 234.4 L 184.6 231.4 L 188.3 228.1 L 192.1 224.5 L 195.9 220.7 L 199.7 216.6 L 203.5 212.2 L 207.2 207.6 L 211.0 202.7 L 214.8 197.5 L 218.6 192.1 L 222.4 186.4 L 226.1 180.4 L 229.9 174.2 L 233.7 167.7 L 237.5 160.9 L 241.3 153.9 L 245.0 146.6 L 248.8 139.0 L 252.6 131.1 L 256.4 123.0 L 260.2 114.6 L 263.9 106.0 L 267.7 97.1 L 271.5 87.9 L 275.3 78.4 L 279.1 68.7 L 282.8 58.7 L 286.6 48.5 L 290.4 37.9" fill="none" stroke="#a855f7" stroke-width="2.8"/>
+    <rect x="263" y="55" width="26" height="16" fill="#fff" stroke="#a855f7" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="276" y="67" font-size="12" fill="#a855f7" font-weight="700" text-anchor="middle">MC</text>
+  </g>
+  
+  <!-- Step 6: E point (MR=MC) + Q* -->
+  <g class="g-step" data-step="6" opacity="0">
+    <line x1="156.0" y1="247.6" x2="156.0" y2="270" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="156" y="285" font-size="11" fill="#7f1d1d" font-weight="700" text-anchor="middle">Q*</text>
+    <circle cx="156.0" cy="247.6" r="5" fill="#7f1d1d" stroke="#fff" stroke-width="1.5"/>
+    <text x="166" y="253" font-size="13" fill="#7f1d1d" font-weight="800">E</text>
+  </g>
+  
+  <!-- Step 7: P* (read up from Q* to D) -->
+  <g class="g-step" data-step="7" opacity="0">
+    <line x1="156.0" y1="247.6" x2="156.0" y2="208.2" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="60" y1="208.2" x2="156.0" y2="208.2" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="42" y="212" font-size="13" fill="#dc2626" font-weight="800">P*</text>
+    <circle cx="156.0" cy="208.2" r="5" fill="#dc2626" stroke="#fff" stroke-width="1.5"/>
+    <text x="164" y="204" font-size="13" fill="#dc2626" font-weight="800">A</text>
+  </g>
+  
+  <!-- Step 8: AC* (read up from Q* to AC) -->
+  <g class="g-step" data-step="8" opacity="0">
+    <line x1="60" y1="208.2" x2="156.0" y2="208.2" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="36" y="212" font-size="12" fill="#6366f1" font-weight="800">AC*</text>
+    <circle cx="156.0" cy="208.2" r="5" fill="#6366f1" stroke="#fff" stroke-width="1.5"/>
+    <text x="164" y="213" font-size="13" fill="#6366f1" font-weight="800">B</text>
+  </g>
+  
+  <!-- Step 9: profit/loss rectangle -->
+  <g class="g-step" data-step="9" opacity="0">
+    <rect x="60" y="208.2" width="96.0" height="0.0" 
+          fill="#10b981" fill-opacity="0.22" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="108" y="213" font-size="14" fill="#10b981" font-weight="800" text-anchor="middle">π = 0 (กำไรปกติ)</text>
+  </g>
+</svg>
+  <div id="step-msg-2" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin:10px 0;min-height:48px;font-size:14.5px;line-height:1.6;color:#7f1d1d">
+    👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <button id="btn-prev-2" onclick="gwStep(2,-1)" style="padding:8px 14px;background:#fff;color:#7f1d1d;border:1.5px solid #fca5a5;border-radius:10px;font-weight:600;cursor:pointer;font-size:14.5px">← ก่อนหน้า</button>
+    <span id="step-count-2" style="font-size:14px;color:#7f1d1d;font-weight:600;min-width:80px;text-align:center">0 / 9</span>
+    <button id="btn-next-2" onclick="gwStep(2,1)" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14.5px">ขั้นตอนถัดไป →</button>
+    <button onclick="gwReset(2)" style="padding:8px 12px;background:transparent;color:#7f1d1d;border:1px solid #fca5a5;border-radius:10px;font-weight:500;cursor:pointer;font-size:13px">↻ รีเซ็ต</button>
+  </div>
+</div>
+<p style="text-align:center;font-size:13.5px;color:#7f1d1d;font-style:italic;margin:6px 0 0">📖 รูปที่ 8-4: เส้น D สัมผัสเส้น AC ที่ Q* → กำไรปกติ</p>
+</div>
+<div class="insight">
+  <div class="insight-label">✦ ทำไม Normal Profit ถึงน่าสนใจ</div>
+  <p class="insight-text">แม้ผู้ผูกขาดเป็น price maker ก็ยัง<strong>ไม่ได้กำไรเกินปกติเสมอ</strong>
+  
+ในความเป็นจริง: ร้านสะดวกซื้อหมู่บ้านห่างไกล (ผูกขาด) ก็อาจได้แค่กำไรปกติ — เพราะลูกค้าน้อย</p>
+  </div>`,
+  quiz:{
+    q:"ในกรณีกำไรปกติ ความสัมพันธ์ของ TR กับ TC คือ?",
+    opts:[
+      "TR = TC (รวมค่าโอกาสทั้งหมด)",
+      "TR > TC",
+      "TR < TC",
+      "TR = MC × Q"
+    ],
+    ans:0,
+    explain:"กำไรปกติ = ผู้ผลิตได้รายรับเท่ากับ<strong>ต้นทุนทุกประเภท รวมค่าโอกาส</strong> → TR = TC ในแง่บัญชีเศรษฐศาสตร์ ก็คือ <strong>กำไรทางเศรษฐศาสตร์ = 0</strong> แต่ผู้ผลิตยังพอใจ (ไม่งั้นจะย้ายไปทำธุรกิจอื่น)"
+  }
+},
+
+// ─── 4: Case 3 — Loss ───
+{
+  tag:"กรณี 3 · ขาดทุน",
+  title:"Case 3: P < AC → ขาดทุน",
+  body:`<div class="prose">
+<p>เมื่อ P* < AC* ที่ Q* → <strong>ขาดทุน</strong> แต่ ! ยังควรผลิตหรือไม่ขึ้นอยู่กับ <strong>AVC</strong></p>
+</div>
+<div class="insight">
+  <div class="insight-label">✦ กฎการตัดสินใจ (Shutdown Rule)</div>
+  <p class="insight-text">• ถ้า <strong>P > AVC</strong> ในช่วงผลิต → <strong>ผลิตต่อ</strong> (ขาดทุนน้อยกว่า TFC)
+• ถ้า <strong>P < AVC</strong> ทุกระดับ Q → <strong>หยุดผลิต</strong> (Shutdown) — รับผลขาดทุนเท่ากับ TFC พอ
+• ถ้า <strong>P = AVC</strong> → จุดอนิจกรรม (Shutdown Point)</p>
+</div>
+<div style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+<div class="graph-widget" id="gw-3" style="background:#fff;border:1.5px solid #fca5a5;border-radius:14px;padding:14px;margin:12px 0">
+  <svg viewBox="0 0 460 320" id="svg-3" style="width:100%;max-width:460px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
+  <!-- Axes (always visible) -->
+  <line x1="60" y1="20" x2="60" y2="275" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="60" y1="270" x2="430" y2="270" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="42" y="22" font-size="11" fill="#7f1d1d" font-weight="700">฿/Q</text>
+  <text x="418" y="288" font-size="11" fill="#7f1d1d" font-weight="700">Q</text>
+  <text x="50" y="284" font-size="10" fill="#7f1d1d">0</text>
+  
+  <!-- Step 1: Demand (D = AR) — label above the line, white background for readability -->
+  <g class="g-step" data-step="1" opacity="0">
+    <path d="M 60.0 150.0 L 62.9 151.5 L 65.8 152.9 L 68.7 154.4 L 71.6 155.8 L 74.5 157.3 L 77.5 158.7 L 80.4 160.2 L 83.3 161.6 L 86.2 163.1 L 89.1 164.6 L 92.0 166.0 L 94.9 167.5 L 97.8 168.9 L 100.7 170.4 L 103.7 171.8 L 106.6 173.3 L 109.5 174.7 L 112.4 176.2 L 115.3 177.6 L 118.2 179.1 L 121.1 180.6 L 124.0 182.0 L 126.9 183.5 L 129.8 184.9 L 132.8 186.4 L 135.7 187.8 L 138.6 189.3 L 141.5 190.7 L 144.4 192.2 L 147.3 193.7 L 150.2 195.1 L 153.1 196.6 L 156.0 198.0 L 158.9 199.5 L 161.9 200.9 L 164.8 202.4 L 167.7 203.8 L 170.6 205.3 L 173.5 206.7 L 176.4 208.2 L 179.3 209.7 L 182.2 211.1 L 185.1 212.6 L 188.0 214.0 L 190.9 215.5 L 193.9 216.9 L 196.8 218.4 L 199.7 219.8 L 202.6 221.3 L 205.5 222.8 L 208.4 224.2 L 211.3 225.7 L 214.2 227.1 L 217.1 228.6 L 220.1 230.0 L 223.0 231.5 L 225.9 232.9 L 228.8 234.4 L 231.7 235.8 L 234.6 237.3 L 237.5 238.8 L 240.4 240.2 L 243.3 241.7 L 246.2 243.1 L 249.1 244.6 L 252.1 246.0 L 255.0 247.5 L 257.9 248.9 L 260.8 250.4 L 263.7 251.9 L 266.6 253.3 L 269.5 254.8 L 272.4 256.2 L 275.3 257.7 L 278.2 259.1 L 281.2 260.6 L 284.1 262.0 L 287.0 263.5 L 289.9 264.9 L 292.8 266.4" fill="none" stroke="#dc2626" stroke-width="2.8"/>
+    <rect x="221" y="222" width="56" height="16" fill="#fff" stroke="#dc2626" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="249" y="234" font-size="12" fill="#dc2626" font-weight="700" text-anchor="middle">D = AR</text>
+  </g>
+  
+  <!-- Step 2: MR -->
+  <g class="g-step" data-step="2" opacity="0">
+    <path d="M 60.0 150.0 L 61.5 151.5 L 63.0 153.0 L 64.5 154.5 L 65.9 155.9 L 67.4 157.4 L 68.9 158.9 L 70.4 160.4 L 71.9 161.9 L 73.4 163.4 L 74.8 164.8 L 76.3 166.3 L 77.8 167.8 L 79.3 169.3 L 80.8 170.8 L 82.3 172.3 L 83.8 173.8 L 85.2 175.2 L 86.7 176.7 L 88.2 178.2 L 89.7 179.7 L 91.2 181.2 L 92.7 182.7 L 94.2 184.2 L 95.6 185.6 L 97.1 187.1 L 98.6 188.6 L 100.1 190.1 L 101.6 191.6 L 103.1 193.1 L 104.5 194.6 L 106.0 196.0 L 107.5 197.5 L 109.0 199.0 L 110.5 200.5 L 112.0 202.0 L 113.5 203.5 L 114.9 204.9 L 116.4 206.4 L 117.9 207.9 L 119.4 209.4 L 120.9 210.9 L 122.4 212.4 L 123.9 213.9 L 125.3 215.3 L 126.8 216.8 L 128.3 218.3 L 129.8 219.8 L 131.3 221.3 L 132.8 222.8 L 134.2 224.2 L 135.7 225.7 L 137.2 227.2 L 138.7 228.7 L 140.2 230.2 L 141.7 231.7 L 143.2 233.2 L 144.6 234.6 L 146.1 236.1 L 147.6 237.6 L 149.1 239.1 L 150.6 240.6 L 152.1 242.1 L 153.6 243.6 L 155.0 245.0 L 156.5 246.5 L 158.0 248.0 L 159.5 249.5 L 161.0 251.0 L 162.5 252.5 L 163.9 253.9 L 165.4 255.4 L 166.9 256.9 L 168.4 258.4 L 169.9 259.9 L 171.4 261.4 L 172.9 262.9 L 174.3 264.3 L 175.8 265.8 L 177.3 267.3 L 178.8 268.8" fill="none" stroke="#7f1d1d" stroke-width="2.8"/>
+    <rect x="99" y="182" width="30" height="16" fill="#fff" stroke="#7f1d1d" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="114" y="194" font-size="12" fill="#7f1d1d" font-weight="700" text-anchor="middle">MR</text>
+  </g>
+  
+  <!-- Step 3: AVC -->
+  <g class="g-step" data-step="3" opacity="0">
+    <path d="M 66.0 194.4 L 70.4 197.5 L 74.8 200.4 L 79.3 203.3 L 83.7 206.0 L 88.1 208.6 L 92.5 211.1 L 97.0 213.5 L 101.4 215.7 L 105.8 217.8 L 110.2 219.8 L 114.7 221.7 L 119.1 223.4 L 123.5 225.0 L 128.0 226.5 L 132.4 227.9 L 136.8 229.2 L 141.2 230.3 L 145.7 231.3 L 150.1 232.2 L 154.5 233.0 L 158.9 233.6 L 163.4 234.1 L 167.8 234.5 L 172.2 234.8 L 176.6 235.0 L 181.1 235.0 L 185.5 234.9 L 189.9 234.7 L 194.3 234.4 L 198.8 233.9 L 203.2 233.3 L 207.6 232.6 L 212.0 231.8 L 216.4 230.8 L 220.9 229.8 L 225.3 228.6 L 229.7 227.3 L 234.1 225.8 L 238.6 224.3 L 243.0 222.6 L 247.4 220.8 L 251.9 218.9 L 256.3 216.8 L 260.7 214.6 L 265.1 212.4 L 269.5 209.9 L 274.0 207.4 L 278.4 204.7 L 282.8 202.0 L 287.2 199.1 L 291.7 196.0 L 296.1 192.9 L 300.5 189.6 L 304.9 186.2 L 309.4 182.7 L 313.8 179.1 L 318.2 175.3 L 322.7 171.4 L 327.1 167.4 L 331.5 163.3 L 335.9 159.0 L 340.4 154.6 L 344.8 150.2 L 349.2 145.5 L 353.6 140.8 L 358.1 135.9 L 362.5 130.9 L 366.9 125.8 L 371.3 120.6 L 375.8 115.3 L 380.2 109.8 L 384.6 104.2 L 389.0 98.5 L 393.4 92.6 L 397.9 86.7 L 402.3 80.6 L 406.7 74.4 L 411.1 68.0 L 415.6 61.6 L 420.0 55.0" fill="none" stroke="#059669" stroke-width="2.4"/>
+    <rect x="331" y="151" width="34" height="16" fill="#fff" stroke="#059669" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="348" y="163" font-size="12" fill="#059669" font-weight="700" text-anchor="middle">AVC</text>
+  </g>
+  
+  <!-- Step 4: AC -->
+  <g class="g-step" data-step="4" opacity="0">
+    <path d="M 90.0 49.7 L 94.1 71.3 L 98.2 88.6 L 102.4 102.9 L 106.5 114.9 L 110.6 125.1 L 114.8 134.0 L 118.9 141.8 L 123.0 148.7 L 127.1 154.8 L 131.2 160.2 L 135.4 165.1 L 139.5 169.5 L 143.6 173.5 L 147.8 177.0 L 151.9 180.3 L 156.0 183.2 L 160.1 185.8 L 164.2 188.2 L 168.4 190.3 L 172.5 192.2 L 176.6 193.8 L 180.8 195.2 L 184.9 196.5 L 189.0 197.5 L 193.1 198.4 L 197.2 199.1 L 201.4 199.6 L 205.5 200.0 L 209.6 200.2 L 213.8 200.2 L 217.9 200.1 L 222.0 199.9 L 226.1 199.5 L 230.2 198.9 L 234.4 198.2 L 238.5 197.4 L 242.6 196.5 L 246.8 195.4 L 250.9 194.2 L 255.0 192.8 L 259.1 191.3 L 263.2 189.7 L 267.4 188.0 L 271.5 186.1 L 275.6 184.2 L 279.8 182.1 L 283.9 179.8 L 288.0 177.5 L 292.1 175.0 L 296.2 172.5 L 300.4 169.7 L 304.5 166.9 L 308.6 164.0 L 312.8 160.9 L 316.9 157.8 L 321.0 154.5 L 325.1 151.1 L 329.2 147.6 L 333.4 143.9 L 337.5 140.2 L 341.6 136.3 L 345.8 132.3 L 349.9 128.3 L 354.0 124.1 L 358.1 119.7 L 362.2 115.3 L 366.4 110.8 L 370.5 106.1 L 374.6 101.4 L 378.8 96.5 L 382.9 91.5 L 387.0 86.4 L 391.1 81.2 L 395.2 75.9 L 399.4 70.5 L 403.5 64.9 L 407.6 59.3 L 411.8 53.5 L 415.9 47.6 L 420.0 41.7" fill="none" stroke="#6366f1" stroke-width="2.8"/>
+    <rect x="101" y="110" width="26" height="16" fill="#fff" stroke="#6366f1" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="114" y="122" font-size="12" fill="#6366f1" font-weight="700" text-anchor="middle">AC</text>
+  </g>
+  
+  <!-- Step 5: MC -->
+  <g class="g-step" data-step="5" opacity="0">
+    <path d="M 63.6 195.3 L 67.4 200.6 L 71.2 205.6 L 74.9 210.3 L 78.7 214.8 L 82.5 219.0 L 86.3 222.9 L 90.1 226.6 L 93.8 230.0 L 97.6 233.2 L 101.4 236.0 L 105.2 238.6 L 109.0 241.0 L 112.7 243.0 L 116.5 244.8 L 120.3 246.4 L 124.1 247.6 L 127.9 248.6 L 131.6 249.3 L 135.4 249.8 L 139.2 250.0 L 143.0 249.9 L 146.8 249.6 L 150.5 249.0 L 154.3 248.1 L 158.1 246.9 L 161.9 245.5 L 165.7 243.8 L 169.4 241.9 L 173.2 239.7 L 177.0 237.2 L 180.8 234.4 L 184.6 231.4 L 188.3 228.1 L 192.1 224.5 L 195.9 220.7 L 199.7 216.6 L 203.5 212.2 L 207.2 207.6 L 211.0 202.7 L 214.8 197.5 L 218.6 192.1 L 222.4 186.4 L 226.1 180.4 L 229.9 174.2 L 233.7 167.7 L 237.5 160.9 L 241.3 153.9 L 245.0 146.6 L 248.8 139.0 L 252.6 131.1 L 256.4 123.0 L 260.2 114.6 L 263.9 106.0 L 267.7 97.1 L 271.5 87.9 L 275.3 78.4 L 279.1 68.7 L 282.8 58.7 L 286.6 48.5 L 290.4 37.9" fill="none" stroke="#a855f7" stroke-width="2.8"/>
+    <rect x="263" y="55" width="26" height="16" fill="#fff" stroke="#a855f7" stroke-width="0.6" rx="3" opacity="0.92"/>
+    <text x="276" y="67" font-size="12" fill="#a855f7" font-weight="700" text-anchor="middle">MC</text>
+  </g>
+  
+  <!-- Step 6: E point (MR=MC) + Q* -->
+  <g class="g-step" data-step="6" opacity="0">
+    <line x1="157.2" y1="247.2" x2="157.2" y2="270" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="157" y="285" font-size="11" fill="#7f1d1d" font-weight="700" text-anchor="middle">Q*</text>
+    <circle cx="157.2" cy="247.2" r="5" fill="#7f1d1d" stroke="#fff" stroke-width="1.5"/>
+    <text x="167" y="252" font-size="13" fill="#7f1d1d" font-weight="800">E</text>
+  </g>
+  
+  <!-- Step 7: P* (read up from Q* to D) -->
+  <g class="g-step" data-step="7" opacity="0">
+    <line x1="157.2" y1="247.2" x2="157.2" y2="198.6" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="60" y1="198.6" x2="157.2" y2="198.6" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="42" y="203" font-size="13" fill="#dc2626" font-weight="800">P*</text>
+    <circle cx="157.2" cy="198.6" r="5" fill="#dc2626" stroke="#fff" stroke-width="1.5"/>
+    <text x="165" y="195" font-size="13" fill="#dc2626" font-weight="800">A</text>
+  </g>
+  
+  <!-- Step 8: AC* (read up from Q* to AC) -->
+  <g class="g-step" data-step="8" opacity="0">
+    <line x1="60" y1="184.0" x2="157.2" y2="184.0" stroke="#6366f1" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <text x="36" y="188" font-size="12" fill="#6366f1" font-weight="800">AC*</text>
+    <circle cx="157.2" cy="184.0" r="5" fill="#6366f1" stroke="#fff" stroke-width="1.5"/>
+    <text x="165" y="189" font-size="13" fill="#6366f1" font-weight="800">B</text>
+  </g>
+  
+  <!-- Step 9: profit/loss rectangle -->
+  <g class="g-step" data-step="9" opacity="0">
+    <rect x="60" y="184.0" width="97.2" height="14.6" 
+          fill="#dc2626" fill-opacity="0.22" stroke="#dc2626" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="109" y="196" font-size="14" fill="#dc2626" font-weight="800" text-anchor="middle">ขาดทุน &lt; 0</text>
+  </g>
+</svg>
+  <div id="step-msg-3" style="background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:10px 14px;margin:10px 0;min-height:48px;font-size:14.5px;line-height:1.6;color:#7f1d1d">
+    👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap">
+    <button id="btn-prev-3" onclick="gwStep(3,-1)" style="padding:8px 14px;background:#fff;color:#7f1d1d;border:1.5px solid #fca5a5;border-radius:10px;font-weight:600;cursor:pointer;font-size:14.5px">← ก่อนหน้า</button>
+    <span id="step-count-3" style="font-size:14px;color:#7f1d1d;font-weight:600;min-width:80px;text-align:center">0 / 9</span>
+    <button id="btn-next-3" onclick="gwStep(3,1)" style="padding:8px 14px;background:#dc2626;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14.5px">ขั้นตอนถัดไป →</button>
+    <button onclick="gwReset(3)" style="padding:8px 12px;background:transparent;color:#7f1d1d;border:1px solid #fca5a5;border-radius:10px;font-weight:500;cursor:pointer;font-size:13px">↻ รีเซ็ต</button>
+  </div>
+</div>
+<p style="text-align:center;font-size:13.5px;color:#7f1d1d;font-style:italic;margin:6px 0 0">📖 รูปที่ 8-5: P &lt; AC แต่ P &gt; AVC → ผลิตต่อ ขาดทุนน้อยกว่าหยุดผลิต</p>
+</div>`,
+  quiz:{
+    q:"ผู้ผูกขาดที่ขาดทุน — เมื่อใดควรหยุดผลิตในระยะสั้น?",
+    opts:[
+      "เมื่อใดที่ P < AC → หยุดทันที",
+      "เมื่อ MR < MC",
+      "เมื่อ P < AVC ในทุกระดับ Q → หยุดผลิต (รับผลขาดทุนเท่า TFC)",
+      "เมื่อ TR < TC"
+    ],
+    ans:2,
+    explain:"กฎ Shutdown: ถ้า P > AVC แม้ขาดทุน → ผลิตต่อ (ขาดทุนน้อยกว่าหยุด เพราะ TFC ต้องจ่ายอยู่ดี) → แต่ถ้า P < AVC ทุกระดับ Q → หยุดผลิต รับผลขาดทุน = TFC เท่านั้น (น้อยที่สุดที่ทำได้)"
+  }
+},
+
+// ─── 5: Misconception 1 ───
+{
+  tag:"ความเข้าใจผิด · #1",
+  title:"ความเข้าใจผิด 1: ผูกขาด = กำไรเกินปกติเสมอ",
+  body:`<div class="prose">
+<p>ความเชื่อผิด ๆ ที่พบบ่อย: "ผู้ผูกขาดต้องได้กำไรเกินปกติเสมอเพราะตั้งราคาเองได้"</p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+  <div class="insight-label">✦ ความจริง</div>
+  <p class="insight-text">ผู้ผูกขาดอาจได้<strong>กำไรเกินปกติ กำไรปกติ หรือขาดทุน</strong>ก็ได้ ขึ้นอยู่กับ:
+• <strong>เส้น Demand</strong> ของตลาด — ถ้า D ต่ำมาก (สินค้าไม่ค่อยมีใครต้องการ) → P อาจต่ำกว่า AC
+• <strong>ต้นทุนของบริษัท</strong> — ถ้า AC สูงเกินไป → ขาดทุน
+  
+<strong>การเป็น Price Maker ≠ กำไรอัตโนมัติ</strong> — ตั้งราคาสูงได้ แต่ลูกค้าไม่ซื้อก็เปล่าประโยชน์</p>
+</div>
+<div class="prose">
+<p>📌 <strong>ตัวอย่างจริง:</strong> รถไฟฟ้าสายแรก ๆ ในไทยขาดทุนต่อเนื่องช่วงต้น แม้ผูกขาดเส้นทางนั้น เพราะค่าก่อสร้างสูงและผู้โดยสารยังน้อย</p>
+</div>`,
+  quiz:{
+    q:"ผู้ผูกขาดร้านขายของในหมู่บ้านห่างไกล ลูกค้ามาวันละไม่กี่คน — น่าจะได้กำไรอย่างไร?",
+    opts:[
+      "อาจกำไรปกติหรือขาดทุนเล็กน้อย — ลูกค้าน้อย D ต่ำ ทำให้ P ที่ตั้งได้ต่ำเทียบกับ AC",
+      "ขาดทุนเสมอ เพราะลูกค้าน้อย",
+      "กำไรเกินปกติเสมอ เพราะผูกขาด",
+      "กำไรเป็น 0 เสมอ"
+    ],
+    ans:0,
+    explain:"การเป็นรายเดียวในตลาดเล็ก<strong>ไม่ได้แปลว่ารวย</strong> — ถ้าตลาดเล็ก D ต่ำ → ราคาสูงสุดที่ตั้งได้อาจไม่ครอบคลุม AC → กำไรปกติ หรือขาดทุนน้อยก็เป็นไปได้ ตัวอย่าง: ปั๊มน้ำมันเล็ก ๆ ในชนบท หรือร้านโชว์ห่วยที่อยู่รอด ๆ ไป"
+  }
+},
+
+// ─── 6: Misconception 2 ───
+{
+  tag:"ความเข้าใจผิด · #2",
+  title:"ความเข้าใจผิด 2: ผูกขาดตั้งราคาสูงสุดที่เป็นไปได้",
+  body:`<div class="prose">
+<p>ความเชื่อผิด ๆ อีกอย่าง: "ผู้ผูกขาดจะตั้งราคา<strong>สูงที่สุดเท่าที่ทำได้</strong>"</p>
+</div>
+<div class="insight" style="background:#fef2f2;border-color:#fecaca">
+  <div class="insight-label">✦ ความจริง</div>
+  <p class="insight-text">ผู้ผูกขาดตั้งราคาที่ทำให้ <strong>กำไรสูงสุด</strong> — ไม่ใช่ราคาสูงสุดที่เป็นไปได้
+  
+ราคาสูงไป → Q ต่ำมาก → TR ลด → กำไรลด
+ราคาต่ำไป → Q สูง แต่ AR (= P) ต่ำ → กำไรไม่สูงสุด
+  
+<strong>จุดสมดุล:</strong> Q* ที่ MR = MC → P* (ที่อยู่บนเส้น D) — ไม่ใช่ราคาที่สูงที่สุดบนเส้น D!</p>
+</div>
+<div class="prose">
+<p>📌 <strong>ตัวอย่าง:</strong> Apple ผูกขาด iPhone ของตัวเอง แต่<strong>ไม่ได้</strong>ตั้งราคา 500,000 บาท/เครื่อง — เพราะถึงราคานั้นจะ "เป็นไปได้" แต่ไม่มีใครซื้อ → ตั้งราคาที่ทำให้กำไรรวมสูงสุด</p>
+</div>`,
+  quiz:{
+    q:"ทำไมผู้ผูกขาดไม่ตั้งราคาที่สูงที่สุดที่เป็นไปได้?",
+    opts:[
+      "เพราะรัฐบาลห้าม",
+      "เพราะ MR=MC ที่ Q* ทำให้กำไรสูงสุด ไม่ใช่ราคาสูงสุดบนเส้น D",
+      "เพราะกลัวคู่แข่ง",
+      "เพราะลูกค้าจะประท้วง"
+    ],
+    ans:1,
+    explain:"ผู้ผูกขาดต้องการ<strong>กำไรสูงสุด ไม่ใช่ราคาสูงสุด</strong> — ที่ MR=MC คือจุด optimal เพราะถ้าขึ้นราคาอีก Q จะลดมากจนกำไรรวมลดลง การตั้งราคาที่จุด a/b (สูงสุดบน D) → ขายได้ 0 หน่วย → TR = 0!"
+  }
+},
+
+// ─── 7: Bridge ───
+{
+  tag:"สรุป · เชื่อมโยง",
+  title:"สรุป Section 8.3 — และสิ่งที่จะเรียนต่อไป",
+  body:`<div class="insight">
+  <div class="insight-label">✦ สิ่งที่ได้เรียนรู้</div>
+  <p class="insight-text">① ผู้ผูกขาดเลือก Q* ที่ MR=MC + slope MC > slope MR
+② ตั้ง P* บน<strong>เส้น Demand</strong> ที่ Q*
+③ <strong>3 สถานการณ์:</strong> Excess Profit (P>AC) · Normal Profit (P=AC) · Loss (P&lt;AC)
+④ <strong>Shutdown rule:</strong> หยุดถ้า P&lt;AVC ทุก Q
+⑤ <strong>2 ความเข้าใจผิด:</strong> ผูกขาด≠กำไรเสมอ + ผูกขาด≠ราคาสูงสุด</p>
+</div>
+<div class="scenario">
+<div class="scenario-icon">🔗</div>
+<p><strong>เชื่อมไป Section 8.4:</strong> ในระยะยาว ผู้ผูกขาดจะปรับโรงงานได้ → จะดูที่ Plant Adjustment + เหตุผลที่ผู้ผูกขาด<strong>ไม่มีเส้นอุปทาน</strong>!</p>
+</div>`
+}
+
+];
+
+/* ═══ Engine ═══ */
+var cur=0,total=S.length,ans={};
+function init(){renderDots();renderStep()}
+function renderDots(){var d=document.getElementById('dots'),h='';for(var i=0;i<total;i++)h+='<div style="width:'+(i===cur?'48':'32')+'px;height:5px;border-radius:99px;background:'+(i<=cur?'var(--pri)':'#ede5d8')+';transition:all .35s;cursor:pointer" onclick="goTo('+i+')"></div>';d.innerHTML=h;document.getElementById('plbl').textContent=(cur+1)+' / '+total}
+function renderStep(){var s=S[cur],c=document.getElementById('sc');var h='<div class="step active"><div class="step-tag">'+s.tag+'</div><h2 class="step-title">'+s.title+'</h2>';if(s.body)h+=s.body;if(s.quiz){var qid='q-'+cur;h+='<div class="quiz" id="'+qid+'"><p class="quiz-q">'+s.quiz.q+'</p><div class="quiz-opts">';for(var i=0;i<s.quiz.opts.length;i++)h+='<button class="quiz-opt" onclick="answer('+cur+','+i+','+s.quiz.ans+')"><span class="letter">'+String.fromCharCode(65+i)+'.</span>'+s.quiz.opts[i]+'</button>';h+='</div><div class="quiz-explain" id="'+qid+'-e">'+s.quiz.explain+'</div></div>'}var isLast=cur>=total-1,needsQ=!!s.quiz,done=ans[cur],vis=(!needsQ||done)?'':'hidden';h+='<button class="next-btn '+vis+'" id="nb" onclick="'+(isLast?'complete()':'next()')+'">'+(isLast?'✓ จบ Section 8.3':'ถัดไป →')+'</button></div>';c.innerHTML=h;renderDots()}
+function answer(step,chosen,correct){if(ans[step])return;ans[step]=true;var card=document.getElementById('q-'+step),btns=card.querySelectorAll('.quiz-opt');for(var i=0;i<btns.length;i++){btns[i].classList.add('locked');if(i===correct)btns[i].classList.add('correct');else if(i===chosen&&chosen!==correct)btns[i].classList.add('wrong')}document.getElementById('q-'+step+'-e').classList.add('show',chosen===correct?'ok':'no');setTimeout(function(){document.getElementById('nb').classList.remove('hidden')},500)}
+function next(){cur++;gS=0;renderStep();window.scrollTo({top:0,behavior:'smooth'})}
+function goTo(i){if(i<=cur){cur=i;gS=0;renderStep();window.scrollTo({top:0,behavior:'smooth'})}}
+function complete(){document.getElementById('sc').innerHTML='<div class="step active"><div class="completion"><div style="font-size:52px;margin-bottom:14px">🎉</div><h2>จบ Section 8.3!</h2><p>คุณเข้าใจดุลยภาพระยะสั้นของผู้ผูกขาด 3 สถานการณ์ + Shutdown Rule + 2 ความเข้าใจผิดแล้ว!</p><div class="completion-link">💡 <strong>เชื่อมไป Section 8.4:</strong> ในระยะยาว ผู้ผูกขาดปรับโรงงานได้ → ดู Plant Adjustment + เหตุผลที่<strong>ไม่มีเส้นอุปทาน</strong>!</div><br><button class="next-btn" onclick="location.href=\'chapter8.html\'" style="max-width:300px;margin:0 auto">← กลับบทที่ 8</button></div></div>';document.getElementById('dots').innerHTML='';document.getElementById('plbl').textContent='เสร็จสิ้น ✓';window.scrollTo({top:0,behavior:'smooth'})}
+init();
+</script>
+
+<nav class="ajk-chapter-nav ajk-shell-theme">
+  <a class="ajk-chap-btn prev" href="chapter8_2.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทก่อนหน้า</span>
+      <span class="ajk-chap-name">บทที่ 8.2 — AR, MR และการหากำไรสูงสุด</span>
+    </div>
+  </a>
+  <a class="ajk-chap-btn next" href="chapter8_4.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทถัดไป</span>
+      <span class="ajk-chap-name">บทที่ 8.4 — ดุลยภาพระยะยาว + ไม่มีเส้นอุปทาน</span>
+    </div>
+  </a>
+</nav>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter8.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 8</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+  <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* Member status pill — reads login state from localStorage */
+(function(){
+  try {
+    const raw = localStorage.getItem('akMember');
+    if (!raw) return;
+    const m = JSON.parse(raw);
+    if (!m || !m.name) return;
+    // Stale if older than 30 days
+    if (m.ts && (Date.now() - m.ts > 30*24*60*60*1000)) return;
+    
+    const pill = document.getElementById('ak-member-pill');
+    const loginBtn = document.getElementById('ak-login-btn');
+    const avatarEl = document.getElementById('ak-pill-avatar');
+    const labelEl = document.getElementById('ak-pill-label');
+    
+    if (pill && labelEl && avatarEl) {
+      if (m.isAdmin) {
+        // Admin: link to #admin Dashboard, label = "Admin"
+        pill.href = '../#admin';
+        pill.classList.add('is-admin');
+        avatarEl.textContent = 'A';
+        labelEl.textContent = 'Admin · Dashboard';
+      } else {
+        // Regular member: link to #hub
+        pill.href = '../#hub';
+        avatarEl.textContent = (m.name[0] || '?').toUpperCase();
+        labelEl.textContent = m.name;
+      }
+      pill.style.display = 'inline-flex';
+      if (loginBtn) loginBtn.style.display = 'none';
+    }
+  } catch(e) { console.warn('member pill init failed:', e); }
+})();
+</script>
+
+<script id="graph-widget-js">
+/* Step-by-step graph widget controller (hooks into renderStep) */
+(function(){
+  var stepMsgs = [
+    "เริ่มต้น: เส้น <b style='color:#dc2626'>D = AR</b> ทอดลงจากซ้ายไปขวา (ตลาดผูกขาด → Demand บริษัท = ของตลาด)",
+    "เพิ่ม <b style='color:#7f1d1d'>MR</b> ที่ชันเป็น 2 เท่าของ AR (ตัดแกน Q ที่ครึ่งของ D)",
+    "วาด <b style='color:#059669'>AVC</b> รูป U (ต้นทุนแปรผันเฉลี่ย — ลดลงแล้วเพิ่มขึ้น)",
+    "วาด <b style='color:#6366f1'>AC</b> รูป U (อยู่เหนือ AVC — เพราะรวม AFC = F/Q)",
+    "วาด <b style='color:#a855f7'>MC</b> รูป U (ตัด AVC และ AC ที่จุดต่ำสุดของแต่ละเส้น)",
+    "หาจุด <b style='color:#7f1d1d'>E</b> ที่ MR = MC → ได้ปริมาณผลิต <b>Q*</b>",
+    "ขึ้นจาก Q* ไปแตะเส้น D → ได้ราคา <b style='color:#dc2626'>P*</b> (จุด A)",
+    "ขึ้นจาก Q* ไปแตะเส้น AC → ได้ต้นทุนเฉลี่ย <b style='color:#6366f1'>AC*</b> (จุด B)"
+  ];
+  var finalMsgs = {
+    1: "<b style='color:#047857'>กำไรเกินปกติ</b> = พื้นที่สี่เหลี่ยมระหว่าง P* และ AC* — เพราะ P* &gt; AC*",
+    2: "<b style='color:#047857'>กำไรปกติ</b> — D สัมผัส AC ที่ Q* พอดี → ไม่มีกำไรเกินปกติ แต่คุ้มต้นทุนทุกอย่าง",
+    3: "<b style='color:#7f1d1d'>ขาดทุน</b> — P* &lt; AC* แต่ P* &gt; AVC* → ผลิตต่อ ขาดทุนน้อยกว่าหยุดผลิต"
+  };
+  var totalSteps = 9;
+  
+  // Per-case state — reset whenever the step that contains the widget renders
+  window.gwState = {1: 0, 2: 0, 3: 0};
+  
+  window.gwStep = function(caseId, dir) {
+    var cur = (window.gwState[caseId] || 0) + dir;
+    cur = Math.max(0, Math.min(totalSteps, cur));
+    window.gwState[caseId] = cur;
+    
+    var svg = document.getElementById('svg-' + caseId);
+    if (!svg) return;
+    
+    var groups = svg.querySelectorAll('.g-step');
+    groups.forEach(function(g){
+      var s = parseInt(g.getAttribute('data-step'));
+      g.style.opacity = (s <= cur) ? '1' : '0';
+      g.style.transition = 'opacity 0.45s ease';
+    });
+    
+    var msg = document.getElementById('step-msg-' + caseId);
+    if (msg) {
+      if (cur === 0) {
+        msg.innerHTML = '👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น';
+      } else if (cur >= totalSteps) {
+        msg.innerHTML = '🎯 ' + finalMsgs[caseId];
+      } else {
+        msg.innerHTML = '<b>ขั้นที่ ' + cur + '/' + totalSteps + ':</b> ' + stepMsgs[cur - 1];
+      }
+    }
+    
+    var cnt = document.getElementById('step-count-' + caseId);
+    if (cnt) cnt.textContent = cur + ' / ' + totalSteps;
+    
+    var btnPrev = document.getElementById('btn-prev-' + caseId);
+    var btnNext = document.getElementById('btn-next-' + caseId);
+    if (btnPrev) btnPrev.style.opacity = (cur === 0) ? '0.4' : '1';
+    if (btnNext) {
+      btnNext.style.opacity = (cur >= totalSteps) ? '0.4' : '1';
+      btnNext.textContent = (cur >= totalSteps) ? '✓ เสร็จสมบูรณ์' : 'ขั้นตอนถัดไป →';
+    }
+  };
+  
+  window.gwReset = function(caseId) {
+    window.gwState[caseId] = 0;
+    window.gwStep(caseId, 0);
+  };
+  
+  // Initialize visible widgets after every renderStep
+  function initVisibleWidgets() {
+    [1, 2, 3].forEach(function(id){
+      var svg = document.getElementById('svg-' + id);
+      if (svg) {
+        // Reset state when widget appears (since renderStep recreates DOM)
+        window.gwState[id] = 0;
+        window.gwStep(id, 0);
+      }
+    });
+  }
+  
+  // Wait for renderStep to be defined, then wrap it
+  function wrapRender() {
+    if (typeof window.renderStep !== 'function') {
+      setTimeout(wrapRender, 50);
+      return;
+    }
+    var orig = window.renderStep;
+    window.renderStep = function() {
+      orig.apply(this, arguments);
+      setTimeout(initVisibleWidgets, 30);
+    };
+    // Also initialize current view
+    initVisibleWidgets();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wrapRender);
+  } else {
+    wrapRender();
+  }
+})();
+</script>
+
+</body>
+</html>

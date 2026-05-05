@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6.1 — เส้นผลผลิตเท่ากัน (Isoquant) · Ajarn.Kwan</title>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>บทที่ 6.1 — เส้นผลผลิตเท่ากัน (Isoquant) · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 /* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
@@ -90,7 +90,7 @@
   min-height: 78px;
 }
 .ajk-chap-btn:hover {
-  border-color: var(--ajk-primary, #6B4A8A);
+  border-color: var(--ajk-primary, #7b1fa2);
   background: var(--ajk-primary-soft, #EFE6F5);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(107,74,138,.08);
@@ -102,7 +102,7 @@
 .ajk-chap-btn svg {
   width: 22px; height: 22px;
   flex-shrink: 0;
-  color: var(--ajk-primary, #6B4A8A);
+  color: var(--ajk-primary, #7b1fa2);
 }
 .ajk-chap-text {
   flex: 1; min-width: 0;
@@ -238,7 +238,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}
 @media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
-.app{max-width:780px;margin:0 auto}
+.app{max-width:760px;margin:0 auto}
 
 .hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:18px}
 .hero .ey{font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px}
@@ -332,7 +332,10 @@ h2.q{font-size:20px;font-weight:800;line-height:1.55;margin-bottom:12px}
 .aha b{color:#1b5e20}
 @media(prefers-color-scheme:dark){.aha b{color:#81c784}}
 
-.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}
+.sumgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:12px 0}
+.sumgrid .sumitem:nth-child(1),.sumgrid .sumitem:nth-child(2),.sumgrid .sumitem:nth-child(3){grid-column:span 2}
+.sumgrid .sumitem:nth-child(4),.sumgrid .sumitem:nth-child(5){grid-column:span 3}
+@media(max-width:560px){.sumgrid{grid-template-columns:repeat(2,1fr)}.sumgrid .sumitem{grid-column:span 1!important}.sumgrid .sumitem:nth-child(5){grid-column:1/-1!important}}
 .sumitem{background:#f5f0ff;border:1px solid #d1c4e9;border-radius:10px;padding:12px 14px;font-size:16px;line-height:1.55}
 @media(prefers-color-scheme:dark){.sumitem{background:#1a0d2a;border-color:#4a148c}}
 .sumitem b{color:#4a148c;font-size:15px;display:block;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em}
@@ -358,7 +361,56 @@ h2.q{font-size:20px;font-weight:800;line-height:1.55;margin-bottom:12px}
   #isoPlayBtn:hover, #isoCompBtn:hover{background:#7b1fa2 !important;color:#fff !important}
 }
 </style>
-  <link rel="stylesheet" href="../assets/theme.css">
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#7b1fa2;
+  --theme-primary-soft:#f3e5f5;
+  --theme-primary-dark:#4a148c;
+  --theme-hero-a:#4a148c;
+  --theme-hero-b:#7b1fa2;
+  --theme-page-bg:#faf5ff;
+  --theme-border:#e1bee7;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f5f0fa;
+  --color-border-secondary:#e1bee7;
+  --color-border-tertiary:#ede4f3;
+  --color-text-primary:#1a0a2e;
+  --color-text-secondary:#5e527a;
+  --color-text-tertiary:#9183a8;
+  --shadow:0 14px 34px rgba(74,20,140,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #7b1fa2;
+  --ajk-primary-soft: #f3e5f5;
+  --ajk-primary-dark: #4a148c;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #e8d8ee;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.backlink,.backbtn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
   
 <style id="ak-overrides">
 /* Hide legacy topbars/footers that the migration replaces */
@@ -375,8 +427,162 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #7b1fa2;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #7b1fa2; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #fff; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #fff;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -400,10 +606,6 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
   <div class="ajk-topbar-inner">
     <a class="ajk-back-btn" href="chapter6.html" aria-label="กลับบทที่ 6">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      <span>บทที่ 6</span>
-    </a>
-    <a class="ajk-back-btn" href="chapter6.html" aria-label="กลับบทที่ 6" style="margin-left: 8px; background: #f1f5f9; color: #64748b;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
       <span>บทที่ 6</span>
     </a>
     <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
@@ -443,6 +645,12 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     </div>
   </div>
   <p style="font-size:15px;color:#888">L ย่อจาก Labor (แรงงาน) · K ย่อจาก Capital (ทุน/เครื่องจักร)</p>
+  
+  <div style="background:#f5f1fc;border:1.5px solid #d1c4e9;border-radius:14px;padding:14px 18px;margin-top:14px;font-family:'Noto Serif Thai',serif;text-align:center">
+    <div style="font-size:18px;color:#4527a0;margin-bottom:6px"><b>Q = f(K, L)</b></div>
+    <div style="font-size:14.5px;color:#666;font-family:'Noto Sans Thai',sans-serif">ฟังก์ชันการผลิตที่ใช้ปัจจัยแปรผัน 2 ชนิด — ผลผลิต Q ขึ้นอยู่กับ K และ L</div>
+  </div>
+  <p style="font-size:14.5px;color:#888;margin-top:8px;font-style:italic">📖 ตำราเรียกว่า <b>"พื้นผิวการผลิต" (Production Surface)</b> เพราะถ้าวาด 3 มิติ (K, L, Q) จะได้ภูเขาการผลิต — แต่ในบทนี้เรา <b>ตัด</b> ที่ระดับ Q คงที่ → ได้ <b>Isoquant</b></p>
 </div>
 
 <!-- STEP 1 -->
@@ -618,6 +826,61 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
 <div class="aha">
   <div class="lb">💡 นี่แหละคือ...</div>
   <p><b>เส้นผลผลิตเท่ากัน (Isoquant)</b> = เส้นที่เชื่อม<b>ทุกสูตร</b>ของคน-เตาที่ให้ผลผลิตเท่ากัน</p>
+</div>
+
+<div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:14px;padding:14px 18px;margin:14px 0">
+  <div style="font-weight:700;font-size:16px;color:#854d0e;margin-bottom:10px">🗺️ Isoquant Map (แผนที่เส้นผลผลิตเท่ากัน)</div>
+  <p style="font-size:15.5px;line-height:1.7;color:#713f12;margin:0 0 12px">เส้น Isoquant <b>เส้นเดียวแสดง 1 ระดับผลผลิต</b> — ถ้าวาดหลายระดับพร้อมกันบนกราฟเดียว → ได้ <b>Isoquant Map</b><br>เส้นที่อยู่ <b>ไกลจากจุดกำเนิดมากขึ้น</b> = ผลผลิตมากขึ้น (ใช้ปัจจัยมากกว่าจึงผลิตได้มากกว่า)</p>
+
+  <svg viewBox="0 0 380 290" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;overflow:visible">
+    <defs>
+      <linearGradient id="iqMap50" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#fde68a"/><stop offset="100%" stop-color="#fcd34d"/>
+      </linearGradient>
+      <linearGradient id="iqMap100" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ce93d8"/><stop offset="100%" stop-color="#ba68c8"/>
+      </linearGradient>
+      <linearGradient id="iqMap150" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#9c27b0"/><stop offset="100%" stop-color="#7b1fa2"/>
+      </linearGradient>
+      <linearGradient id="iqMap200" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4a148c"/><stop offset="100%" stop-color="#311b92"/>
+      </linearGradient>
+      <marker id="mapArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+        <polygon points="0 0, 10 3, 0 6" fill="#dc2626"/>
+      </marker>
+    </defs>
+
+    <!-- Axes -->
+    <line x1="50" y1="20" x2="50" y2="245" stroke="#854d0e" stroke-width="2"/>
+    <line x1="50" y1="245" x2="360" y2="245" stroke="#854d0e" stroke-width="2"/>
+    <text x="35" y="25" font-size="13" fill="#713f12" font-weight="600">K</text>
+    <text x="350" y="265" font-size="13" fill="#713f12" font-weight="600">L</text>
+    <text x="38" y="258" font-size="11" fill="#713f12">0</text>
+
+    <!-- Curves: Q = 10·sqrt(L·K), generated by Python (Cobb-Douglas, A=10) -->
+    <!-- Q=50 (innermost) -->
+    <path d="M 58.6 25.0 L 63.6 106.1 L 68.7 143.5 L 73.7 165.0 L 78.7 179.0 L 83.7 188.8 L 88.8 196.1 L 93.8 201.7 L 98.8 206.2 L 103.8 209.8 L 108.8 212.8 L 113.9 215.3 L 118.9 217.5 L 123.9 219.4 L 128.9 221.0 L 134.0 222.4 L 139.0 223.7 L 144.0 224.8 L 149.0 225.9 L 154.1 226.8 L 159.1 227.6 L 164.1 228.4 L 169.1 229.1 L 174.1 229.7 L 179.2 230.3 L 184.2 230.9 L 189.2 231.4 L 194.2 231.9 L 199.3 232.3 L 204.3 232.7 L 209.3 233.1 L 214.3 233.5 L 219.4 233.8 L 224.4 234.1 L 229.4 234.4 L 234.4 234.7 L 239.4 235.0 L 244.5 235.3 L 249.5 235.5 L 254.5 235.7 L 259.5 236.0 L 264.6 236.2 L 269.6 236.4 L 274.6 236.6 L 279.6 236.8 L 284.7 236.9 L 289.7 237.1 L 294.7 237.3 L 299.7 237.4 L 304.7 237.6 L 309.8 237.7 L 314.8 237.8 L 319.8 238.0 L 324.8 238.1 L 329.9 238.2 L 334.9 238.4 L 339.9 238.5 L 344.9 238.6 L 350.0 238.7 L 355.0 238.8 L 360.0 238.9" fill="none" stroke="url(#iqMap50)" stroke-width="3"/>
+    <text x="257" y="231" font-size="12" fill="#854d0e" font-weight="600">Q=50</text>
+
+    <!-- Q=100 -->
+    <path d="M 84.4 25.0 L 89.0 50.9 L 93.6 71.3 L 98.2 87.9 L 102.8 101.5 L 107.4 113.0 L 112.0 122.8 L 116.6 131.2 L 121.2 138.5 L 125.8 145.0 L 130.4 150.7 L 135.0 155.8 L 139.6 160.4 L 144.1 164.5 L 148.7 168.3 L 153.3 171.7 L 157.9 174.8 L 162.5 177.7 L 167.1 180.3 L 171.7 182.7 L 176.3 185.0 L 180.9 187.1 L 185.5 189.1 L 190.1 190.9 L 194.7 192.6 L 199.3 194.2 L 203.9 195.7 L 208.4 197.2 L 213.0 198.5 L 217.6 199.8 L 222.2 201.0 L 226.8 202.1 L 231.4 203.2 L 236.0 204.3 L 240.6 205.2 L 245.2 206.2 L 249.8 207.1 L 254.4 207.9 L 259.0 208.7 L 263.6 209.5 L 268.1 210.3 L 272.7 211.0 L 277.3 211.7 L 281.9 212.3 L 286.5 213.0 L 291.1 213.6 L 295.7 214.2 L 300.3 214.7 L 304.9 215.3 L 309.5 215.8 L 314.1 216.3 L 318.7 216.8 L 323.3 217.3 L 327.9 217.7 L 332.4 218.2 L 337.0 218.6 L 341.6 219.0 L 346.2 219.4 L 350.8 219.8 L 355.4 220.2 L 360.0 220.6" fill="none" stroke="url(#iqMap100)" stroke-width="3"/>
+    <text x="257" y="203" font-size="12" fill="#7b1fa2" font-weight="600">Q=100</text>
+
+    <!-- Q=150 -->
+    <path d="M 127.5 25.0 L 131.4 35.5 L 135.2 45.0 L 139.1 53.7 L 143.0 61.7 L 146.9 69.0 L 150.8 75.8 L 154.6 82.0 L 158.5 87.9 L 162.4 93.3 L 166.2 98.3 L 170.1 103.1 L 174.0 107.5 L 177.9 111.7 L 181.8 115.6 L 185.6 119.3 L 189.5 122.8 L 193.4 126.1 L 197.2 129.2 L 201.1 132.2 L 205.0 135.0 L 208.9 137.7 L 212.8 140.2 L 216.6 142.7 L 220.5 145.0 L 224.4 147.2 L 228.2 149.3 L 232.1 151.4 L 236.0 153.3 L 239.9 155.2 L 243.8 157.0 L 247.6 158.7 L 251.5 160.4 L 255.4 162.0 L 259.2 163.5 L 263.1 165.0 L 267.0 166.4 L 270.9 167.8 L 274.8 169.1 L 278.6 170.4 L 282.5 171.7 L 286.4 172.9 L 290.2 174.0 L 294.1 175.2 L 298.0 176.2 L 301.9 177.3 L 305.8 178.3 L 309.6 179.3 L 313.5 180.3 L 317.4 181.2 L 321.2 182.1 L 325.1 183.0 L 329.0 183.9 L 332.9 184.7 L 336.8 185.5 L 340.6 186.3 L 344.5 187.1 L 348.4 187.9 L 352.2 188.6 L 356.1 189.3 L 360.0 190.0" fill="none" stroke="url(#iqMap150)" stroke-width="3"/>
+    <text x="257" y="158" font-size="12" fill="#7b1fa2" font-weight="700">Q=150</text>
+
+    <!-- Q=200 (outermost) -->
+    <path d="M 187.8 25.0 L 190.6 29.5 L 193.5 33.8 L 196.4 37.9 L 199.3 41.9 L 202.1 45.8 L 205.0 49.4 L 207.9 53.0 L 210.7 56.4 L 213.6 59.7 L 216.5 62.9 L 219.4 66.0 L 222.2 69.0 L 225.1 71.9 L 228.0 74.7 L 230.8 77.4 L 233.7 80.0 L 236.6 82.5 L 239.4 85.0 L 242.3 87.4 L 245.2 89.7 L 248.1 92.0 L 250.9 94.1 L 253.8 96.3 L 256.7 98.3 L 259.5 100.3 L 262.4 102.3 L 265.3 104.2 L 268.1 106.1 L 271.0 107.9 L 273.9 109.6 L 276.8 111.3 L 279.6 113.0 L 282.5 114.6 L 285.4 116.2 L 288.2 117.8 L 291.1 119.3 L 294.0 120.8 L 296.9 122.2 L 299.7 123.6 L 302.6 125.0 L 305.5 126.3 L 308.3 127.7 L 311.2 129.0 L 314.1 130.2 L 316.9 131.5 L 319.8 132.7 L 322.7 133.8 L 325.6 135.0 L 328.4 136.1 L 331.3 137.2 L 334.2 138.3 L 337.0 139.4 L 339.9 140.4 L 342.8 141.5 L 345.6 142.5 L 348.5 143.5 L 351.4 144.4 L 354.3 145.4 L 357.1 146.3 L 360.0 147.2" fill="none" stroke="url(#iqMap200)" stroke-width="3"/>
+    <text x="257" y="93" font-size="12" fill="#4a148c" font-weight="700">Q=200</text>
+
+    <!-- Arrow indicating direction of increasing Q -->
+    <line x1="105" y1="220" x2="200" y2="80" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#mapArrow)"/>
+    <text x="115" y="155" font-size="12" fill="#dc2626" font-weight="700" transform="rotate(-55, 115, 155)">ผลผลิต ↑</text>
+  </svg>
+
+  <p style="font-size:14.5px;color:#713f12;margin:8px 0 0;text-align:center;font-style:italic">📖 ตามรูปที่ 6-8 ในตำรา · คำนวณจาก Cobb-Douglas Q = 10·√(L·K)</p>
 </div>
 
 <div class="para">ต่อไปเราจะ<b>ค้นหา 5 คุณสมบัติ</b>ของเส้นนี้ — ทีละข้อจากการสังเกตตัวอย่างร้านของคุณ</div>
@@ -822,6 +1085,54 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
   <div class="reveal">
     <div class="lb">✓ ขัดแย้งกันเอง</div>
     <p>ใช้ปัจจัยชุดเดียวกัน → ผลผลิตต้องมีค่า<b>เดียว</b> ไม่ใช่ 100 และ 200 พร้อมกัน</p>
+
+    <div style="background:#fef2f2;border:1.5px solid #fca5a5;border-radius:14px;padding:12px 14px;margin:12px 0">
+      <div style="font-weight:700;font-size:15.5px;color:#991b1b;margin-bottom:8px;text-align:center">⛔ ภาพแสดงสิ่งที่ "เป็นไปไม่ได้"</div>
+      <svg viewBox="0 0 380 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;max-width:100%;overflow:visible">
+        <defs>
+          <linearGradient id="crossQ100" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fca5a5"/><stop offset="100%" stop-color="#f87171"/>
+          </linearGradient>
+          <linearGradient id="crossQ200" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#dc2626"/><stop offset="100%" stop-color="#991b1b"/>
+          </linearGradient>
+          <filter id="crossShadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#dc2626" flood-opacity="0.4"/></filter>
+        </defs>
+
+        <!-- Axes -->
+        <line x1="50" y1="20" x2="50" y2="240" stroke="#7f1d1d" stroke-width="2"/>
+        <line x1="50" y1="240" x2="360" y2="240" stroke="#7f1d1d" stroke-width="2"/>
+        <text x="32" y="25" font-size="13" fill="#7f1d1d" font-weight="700">K (เตา)</text>
+        <text x="320" y="262" font-size="13" fill="#7f1d1d" font-weight="700">L (คน)</text>
+        <text x="35" y="252" font-size="11" fill="#7f1d1d">0</text>
+
+        <!-- Q=100 line (curving down from top-left) -->
+        <path d="M 70 70 Q 130 100 195 145 Q 280 200 350 220" fill="none" stroke="url(#crossQ100)" stroke-width="3.5"/>
+        <text x="70" y="60" font-size="13" fill="#dc2626" font-weight="700">Q=100</text>
+
+        <!-- Q=200 line (curving — but crossing Q=100 at center) -->
+        <path d="M 70 220 Q 140 180 195 145 Q 270 100 350 70" fill="none" stroke="url(#crossQ200)" stroke-width="3.5"/>
+        <text x="320" y="60" font-size="13" fill="#991b1b" font-weight="700">Q=200</text>
+
+        <!-- Crossing point -->
+        <circle cx="195" cy="145" r="8" fill="#dc2626" filter="url(#crossShadow)"/>
+        <circle cx="195" cy="145" r="4" fill="#fff"/>
+
+        <!-- Annotation pointing to the crossing point -->
+        <line x1="195" y1="145" x2="270" y2="170" stroke="#7f1d1d" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <rect x="270" y="155" width="100" height="36" rx="6" fill="#fff" stroke="#dc2626" stroke-width="1.5"/>
+        <text x="320" y="170" font-size="12" fill="#991b1b" font-weight="700" text-anchor="middle">จุดเดียวกัน</text>
+        <text x="320" y="184" font-size="11" fill="#7f1d1d" text-anchor="middle">L=3, K=6</text>
+
+        <!-- BIG X overlay -->
+        <text x="190" y="105" font-size="42" fill="#dc2626" font-weight="900" text-anchor="middle" opacity="0.85">✕</text>
+
+        <!-- Bottom message -->
+        <text x="195" y="270" font-size="12.5" fill="#7f1d1d" font-weight="600" text-anchor="middle">ผลิตได้ 100 หรือ 200? — ขัดแย้งกัน!</text>
+      </svg>
+      <p style="font-size:14.5px;color:#7f1d1d;margin:8px 0 0;text-align:center;font-style:italic">📖 ตามรูปที่ 6-9 ในตำรา — เส้น Isoquant 2 เส้นไม่ตัดกันเด็ดขาด</p>
+    </div>
+
     <div class="aha" style="margin-top:10px">
       <div class="lb">🎯 คุณสมบัติที่ 4</div>
       <p><b>Isoquant 2 เส้น ตัดกันหรือสัมผัสกันไม่ได้</b></p>
@@ -1083,14 +1394,14 @@ if (window.matchMedia('(prefers-color-scheme:dark)').matches) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">บทที่ 6 — การผลิตในระยะยาวและต้นทุนในระยะยาว</span>
+      <span class="ajk-chap-name">บทที่ 6 — การผลิตและต้นทุนในระยะยาว</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter6_2.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">6.2 — MRTS อัตราการทดแทนของปัจจัย</span>
+      <span class="ajk-chap-name">บทที่ 6.2 — MRTS อัตราการทดแทนของปัจจัย</span>
     </div>
   </a>
 </nav>
@@ -1101,26 +1412,11 @@ if (window.matchMedia('(prefers-color-scheme:dark)').matches) {
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-      <a class="ajk-footer-btn" href="../index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
-        หน้าหลัก
-      </a>
-      <a class="ajk-footer-btn" href="chapter6.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        บทที่ 6
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter6.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 6</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>

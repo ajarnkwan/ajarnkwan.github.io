@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>6.6 — LAC & Economies of Scale · Ajarn.Kwan</title>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>บทที่ 6.6 — LAC & Economies of Scale · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 .ajk-shell-theme{--ajk-primary:#8b5cf6;--ajk-primary-soft:#f5f3ff;--ajk-ink:#1e1b4b;--ajk-muted:#6b7280;--ajk-border:#e0e7ff;--ajk-surface:#fff}
@@ -52,7 +52,7 @@
   min-height: 78px;
 }
 .ajk-chap-btn:hover {
-  border-color: var(--ajk-primary, #6B4A8A);
+  border-color: var(--ajk-primary, #7b1fa2);
   background: var(--ajk-primary-soft, #EFE6F5);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(107,74,138,.08);
@@ -64,7 +64,7 @@
 .ajk-chap-btn svg {
   width: 22px; height: 22px;
   flex-shrink: 0;
-  color: var(--ajk-primary, #6B4A8A);
+  color: var(--ajk-primary, #7b1fa2);
 }
 .ajk-chap-text {
   flex: 1; min-width: 0;
@@ -104,7 +104,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}
 @media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
-.app{max-width:780px;margin:0 auto}
+.app{max-width:760px;margin:0 auto}
 .hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:18px}.hero .ey{font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin-bottom:4px}.hero h1{font-size:24px;font-weight:800;line-height:1.35;margin-bottom:8px}.hero p{font-size:16px;line-height:1.7;opacity:.92}
 .step{margin:26px 0 14px;display:flex;align-items:center;gap:10px}.step .nm{font-size:14.5px;font-weight:700;color:#7b1fa2;background:#f5f0ff;padding:4px 10px;border-radius:99px;letter-spacing:.05em}.step .ln{flex:1;height:1px;background:#eee}
 @media(prefers-color-scheme:dark){.step .nm{color:#ce93d8;background:#1a0d2a}.step .ln{background:#333}}
@@ -135,7 +135,56 @@ h2.q{font-size:20px;font-weight:800;line-height:1.55;margin-bottom:12px}
 #lacBtn:hover{background:#7b1fa2!important;color:#fff!important;transform:scale(1.03)}
 #lacBtn:active{transform:scale(.97)}
 </style>
-  <link rel="stylesheet" href="../assets/theme.css">
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#7b1fa2;
+  --theme-primary-soft:#f3e5f5;
+  --theme-primary-dark:#4a148c;
+  --theme-hero-a:#4a148c;
+  --theme-hero-b:#7b1fa2;
+  --theme-page-bg:#faf5ff;
+  --theme-border:#e1bee7;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f5f0fa;
+  --color-border-secondary:#e1bee7;
+  --color-border-tertiary:#ede4f3;
+  --color-text-primary:#1a0a2e;
+  --color-text-secondary:#5e527a;
+  --color-text-tertiary:#9183a8;
+  --shadow:0 14px 34px rgba(74,20,140,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #7b1fa2;
+  --ajk-primary-soft: #f3e5f5;
+  --ajk-primary-dark: #4a148c;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #e8d8ee;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.backlink,.backbtn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
   
 <style id="ak-overrides">
 /* Hide legacy topbars/footers that the migration replaces */
@@ -152,8 +201,162 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #7b1fa2;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #7b1fa2; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #fff; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #fff;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -175,7 +378,6 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
 
 <header class="ajk-topbar ajk-shell-theme"><div class="ajk-topbar-inner">
   <a class="ajk-back-btn" href="chapter6.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>บทที่ 6</span></a>
-  <a class="ajk-back-btn" href="chapter6.html" style="margin-left:8px;background:#f1f5f9;color:#64748b;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg><span>บทที่ 6</span></a>
     <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
       <span>หน้าหลัก</span>
@@ -203,6 +405,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
   </div>
 
   <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+    <!-- Curves: generated by Python (envelope theorem: 5 SAC parabolas + LAC = lower envelope) -->
     <line x1="50" y1="240" x2="385" y2="240" stroke="currentColor" stroke-width="1.5"/>
     <line x1="50" y1="240" x2="50" y2="15" stroke="currentColor" stroke-width="1.5"/>
     <text x="370" y="256" font-size="11" fill="currentColor" font-weight="700">Q</text>
@@ -211,57 +414,57 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
 
     <!-- Step 1: SAC₁ -->
     <g id="lac-s1" opacity="0">
-      <path d="M 50 133 L 53 138 L 56 142 L 59 146 L 62 150 L 65 153 L 68 156 L 71 159 L 74 161 L 77 163 L 80 165 L 83 166 L 86 166 L 89 167 L 92 167 L 95 166 L 98 165 L 101 164 L 104 163 L 107 161 L 110 158 L 113 156 L 116 152 L 119 149 L 122 145 L 125 141 L 128 136 L 131 131 L 134 126 L 137 120 L 140 114 L 143 107" fill="none" stroke="#ef9a9a" stroke-width="2"/>
-      <text x="55" y="129" font-size="10" fill="#c62828" font-weight="600">SAC₁</text>
-      <circle cx="78" cy="164" r="4" fill="#c62828"/>
-      <text x="66" y="159" font-size="10" fill="#c62828" font-weight="700">A</text>
-      <line x1="78" y1="164" x2="78" y2="240" stroke="#c62828" stroke-width=".7" stroke-dasharray="3,3"/>
-      <text x="76" y="252" font-size="9" fill="#c62828" text-anchor="middle">Q₁</text>
+      <path d="M 95.0 112.9 L 96.7 116.1 L 98.5 119.1 L 100.2 122.0 L 101.9 124.7 L 103.7 127.2 L 105.4 129.6 L 107.1 131.8 L 108.9 133.9 L 110.6 135.8 L 112.3 137.5 L 114.1 139.1 L 115.8 140.5 L 117.6 141.8 L 119.3 142.9 L 121.0 143.8 L 122.8 144.5 L 124.5 145.1 L 126.2 145.6 L 128.0 145.8 L 129.7 145.9 L 131.4 145.9 L 133.2 145.7 L 134.9 145.3 L 136.6 144.8 L 138.4 144.1 L 140.1 143.2 L 141.8 142.2 L 143.6 141.0 L 145.3 139.6 L 147.0 138.1 L 148.8 136.4 L 150.5 134.6 L 152.2 132.6 L 154.0 130.4 L 155.7 128.1 L 157.4 125.6 L 159.2 123.0 L 160.9 120.1 L 162.7 117.2 L 164.4 114.0 L 166.1 110.7 L 167.9 107.3 L 169.6 103.6 L 171.3 99.8 L 173.1 95.9 L 174.8 91.8 L 176.5 87.5 L 178.3 83.1 L 180.0 78.5" fill="none" stroke="#ef9a9a" stroke-width="2"/>
+      <text x="99" y="109" font-size="10" fill="#c62828" font-weight="600">SAC₁</text>
+      <circle cx="110.0" cy="135.1" r="4" fill="#c62828"/>
+      <text x="116" y="147" font-size="10" fill="#c62828" font-weight="700">A</text>
+      <line x1="110.0" y1="135.1" x2="110.0" y2="240" stroke="#c62828" stroke-width=".7" stroke-dasharray="3,3"/>
+      <text x="110" y="252" font-size="9" fill="#c62828" text-anchor="middle">Q₁</text>
     </g>
 
     <!-- Step 2: SAC₂ -->
     <g id="lac-s2" opacity="0">
-      <path d="M 88 148 L 91 151 L 94 155 L 97 158 L 100 162 L 103 165 L 106 168 L 109 170 L 112 173 L 115 175 L 118 177 L 121 180 L 124 181 L 127 183 L 130 185 L 133 186 L 136 187 L 139 188 L 142 189 L 145 190 L 148 190 L 151 190 L 154 191 L 157 191 L 160 190 L 163 190 L 166 189 L 169 189 L 172 188 L 175 187 L 178 186 L 181 184 L 184 183 L 187 181 L 190 179 L 193 177 L 196 175 L 199 172 L 202 169 L 205 167 L 208 164 L 211 161 L 214 157 L 217 154 L 220 150" fill="none" stroke="#ce93d8" stroke-width="2"/>
-      <text x="92" y="144" font-size="10" fill="#7b1fa2" font-weight="600">SAC₂</text>
-      <circle cx="140" cy="188" r="4" fill="#7b1fa2"/>
-      <text x="128" y="184" font-size="10" fill="#7b1fa2" font-weight="700">B</text>
-      <line x1="140" y1="188" x2="140" y2="240" stroke="#7b1fa2" stroke-width=".7" stroke-dasharray="3,3"/>
-      <text x="138" y="252" font-size="9" fill="#7b1fa2" text-anchor="middle">Q₂</text>
+      <path d="M 130.0 118.9 L 132.0 124.3 L 134.1 129.5 L 136.1 134.5 L 138.2 139.2 L 140.2 143.7 L 142.2 148.0 L 144.3 152.0 L 146.3 155.8 L 148.4 159.4 L 150.4 162.8 L 152.4 166.0 L 154.5 168.9 L 156.5 171.6 L 158.6 174.1 L 160.6 176.3 L 162.7 178.3 L 164.7 180.1 L 166.7 181.7 L 168.8 183.0 L 170.8 184.2 L 172.9 185.1 L 174.9 185.7 L 176.9 186.2 L 179.0 186.4 L 181.0 186.4 L 183.1 186.2 L 185.1 185.7 L 187.1 185.1 L 189.2 184.2 L 191.2 183.0 L 193.3 181.7 L 195.3 180.1 L 197.3 178.3 L 199.4 176.3 L 201.4 174.1 L 203.5 171.6 L 205.5 168.9 L 207.6 166.0 L 209.6 162.8 L 211.6 159.4 L 213.7 155.8 L 215.7 152.0 L 217.8 148.0 L 219.8 143.7 L 221.8 139.2 L 223.9 134.5 L 225.9 129.5 L 228.0 124.3 L 230.0 118.9" fill="none" stroke="#ce93d8" stroke-width="2"/>
+      <text x="134" y="115" font-size="10" fill="#7b1fa2" font-weight="600">SAC₂</text>
+      <circle cx="170.0" cy="183.8" r="4" fill="#7b1fa2"/>
+      <text x="176" y="196" font-size="10" fill="#7b1fa2" font-weight="700">B</text>
+      <line x1="170.0" y1="183.8" x2="170.0" y2="240" stroke="#7b1fa2" stroke-width=".7" stroke-dasharray="3,3"/>
+      <text x="170" y="252" font-size="9" fill="#7b1fa2" text-anchor="middle">Q₂</text>
     </g>
 
     <!-- Step 3: SAC₃ (OPTIMUM) -->
     <g id="lac-s3" opacity="0">
-      <path d="M 150 171 L 153 173 L 156 175 L 159 178 L 162 180 L 165 182 L 168 184 L 171 186 L 174 187 L 177 189 L 180 190 L 183 192 L 186 193 L 189 194 L 192 195 L 195 196 L 198 197 L 201 198 L 204 198 L 207 199 L 210 199 L 213 200 L 216 200 L 219 200 L 222 200 L 225 200 L 228 200 L 231 199 L 234 199 L 237 198 L 240 198 L 243 197 L 246 196 L 249 195 L 252 194 L 255 193 L 258 191 L 261 190 L 264 188 L 267 187 L 270 185 L 273 183 L 276 181 L 279 179 L 282 177 L 285 175 L 288 172" fill="none" stroke="#7b1fa2" stroke-width="2.5"/>
-      <text x="154" y="167" font-size="10" fill="#4a148c" font-weight="700">SAC₃</text>
-      <circle cx="220" cy="200" r="5" fill="#2e7d32"/>
-      <text x="224" y="212" font-size="10" fill="#2e7d32" font-weight="800">D</text>
-      <line x1="220" y1="200" x2="220" y2="240" stroke="#2e7d32" stroke-width=".7" stroke-dasharray="3,3"/>
-      <text x="218" y="252" font-size="9" fill="#2e7d32" text-anchor="middle">Q₄</text>
+      <path d="M 180.0 132.4 L 182.0 137.8 L 184.1 143.0 L 186.1 148.0 L 188.2 152.7 L 190.2 157.2 L 192.2 161.5 L 194.3 165.5 L 196.3 169.3 L 198.4 172.9 L 200.4 176.3 L 202.4 179.5 L 204.5 182.4 L 206.5 185.1 L 208.6 187.6 L 210.6 189.8 L 212.7 191.8 L 214.7 193.6 L 216.7 195.2 L 218.8 196.5 L 220.8 197.7 L 222.9 198.6 L 224.9 199.2 L 226.9 199.7 L 229.0 199.9 L 231.0 199.9 L 233.1 199.7 L 235.1 199.2 L 237.1 198.6 L 239.2 197.7 L 241.2 196.5 L 243.3 195.2 L 245.3 193.6 L 247.3 191.8 L 249.4 189.8 L 251.4 187.6 L 253.5 185.1 L 255.5 182.4 L 257.6 179.5 L 259.6 176.3 L 261.6 172.9 L 263.7 169.3 L 265.7 165.5 L 267.8 161.5 L 269.8 157.2 L 271.8 152.7 L 273.9 148.0 L 275.9 143.0 L 278.0 137.8 L 280.0 132.4" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+      <text x="184" y="128" font-size="10" fill="#4a148c" font-weight="600">SAC₃</text>
+      <circle cx="230.0" cy="199.9" r="5" fill="#2e7d32"/>
+      <text x="236" y="212" font-size="10" fill="#2e7d32" font-weight="800">D ★</text>
+      <line x1="230.0" y1="199.9" x2="230.0" y2="240" stroke="#2e7d32" stroke-width=".7" stroke-dasharray="3,3"/>
+      <text x="230" y="252" font-size="9" fill="#2e7d32" text-anchor="middle">Q₃</text>
     </g>
 
     <!-- Step 4: SAC₄ + SAC₅ -->
     <g id="lac-s4" opacity="0">
-      <path d="M 218 148 L 221 151 L 224 155 L 227 158 L 230 162 L 233 165 L 236 168 L 239 170 L 242 173 L 245 175 L 248 177 L 251 180 L 254 181 L 257 183 L 260 185 L 263 186 L 266 187 L 269 188 L 272 189 L 275 190 L 278 190 L 281 190 L 284 191 L 287 191 L 290 190 L 293 190 L 296 189 L 299 189 L 302 188 L 305 187 L 308 186 L 311 184 L 314 183 L 317 181 L 320 179 L 323 177 L 326 175 L 329 172 L 332 169 L 335 167 L 338 164 L 341 161 L 344 157 L 347 154 L 350 150" fill="none" stroke="#ba68c8" stroke-width="2"/>
-      <text x="343" y="146" font-size="10" fill="#9c27b0" font-weight="600">SAC₄</text>
-      <circle cx="300" cy="188" r="4" fill="#9c27b0"/>
-      <text x="304" y="184" font-size="10" fill="#9c27b0" font-weight="700">E</text>
-      <line x1="300" y1="188" x2="300" y2="240" stroke="#9c27b0" stroke-width=".7" stroke-dasharray="3,3"/>
-      <text x="298" y="252" font-size="9" fill="#9c27b0" text-anchor="middle">Q₅</text>
-
-      <path d="M 284 106 L 287 112 L 290 118 L 293 123 L 296 128 L 299 133 L 302 137 L 305 142 L 308 146 L 311 149 L 314 152 L 317 155 L 320 158 L 323 160 L 326 162 L 329 164 L 332 166 L 335 167 L 338 168 L 341 168 L 344 168 L 347 168 L 350 168 L 353 167 L 356 166 L 359 165 L 362 164 L 365 162 L 368 160 L 371 157 L 374 154" fill="none" stroke="#e0e0e0" stroke-width="2"/>
-      <text x="371" y="150" font-size="10" fill="#bbb" font-weight="600">SAC₅</text>
-      <circle cx="360" cy="165" r="3.5" fill="#bbb"/>
-      <text x="364" y="161" font-size="10" fill="#999" font-weight="700">F</text>
-      <line x1="360" y1="165" x2="360" y2="240" stroke="#bbb" stroke-width=".7" stroke-dasharray="3,3"/>
-      <text x="358" y="252" font-size="9" fill="#999" text-anchor="middle">Q₆</text>
+      <path d="M 230.0 118.9 L 232.0 124.3 L 234.1 129.5 L 236.1 134.5 L 238.2 139.2 L 240.2 143.7 L 242.2 148.0 L 244.3 152.0 L 246.3 155.8 L 248.4 159.4 L 250.4 162.8 L 252.4 166.0 L 254.5 168.9 L 256.5 171.6 L 258.6 174.1 L 260.6 176.3 L 262.7 178.3 L 264.7 180.1 L 266.7 181.7 L 268.8 183.0 L 270.8 184.2 L 272.9 185.1 L 274.9 185.7 L 276.9 186.2 L 279.0 186.4 L 281.0 186.4 L 283.1 186.2 L 285.1 185.7 L 287.1 185.1 L 289.2 184.2 L 291.2 183.0 L 293.3 181.7 L 295.3 180.1 L 297.3 178.3 L 299.4 176.3 L 301.4 174.1 L 303.5 171.6 L 305.5 168.9 L 307.6 166.0 L 309.6 162.8 L 311.6 159.4 L 313.7 155.8 L 315.7 152.0 L 317.8 148.0 L 319.8 143.7 L 321.8 139.2 L 323.9 134.5 L 325.9 129.5 L 328.0 124.3 L 330.0 118.9" fill="none" stroke="#ce93d8" stroke-width="2"/>
+      <text x="234" y="115" font-size="10" fill="#7b1fa2" font-weight="600">SAC₄</text>
+      <circle cx="290.0" cy="183.8" r="4" fill="#7b1fa2"/>
+      <text x="295" y="181" font-size="10" fill="#7b1fa2" font-weight="700">E</text>
+      <line x1="290.0" y1="183.8" x2="290.0" y2="240" stroke="#7b1fa2" stroke-width=".7" stroke-dasharray="3,3"/>
+      <text x="290" y="252" font-size="9" fill="#7b1fa2" text-anchor="middle">Q₅</text>
+      
+      <path d="M 280.0 78.5 L 282.0 83.8 L 284.1 89.0 L 286.1 94.0 L 288.2 98.7 L 290.2 103.2 L 292.2 107.5 L 294.3 111.5 L 296.3 115.3 L 298.4 118.9 L 300.4 122.3 L 302.4 125.5 L 304.5 128.4 L 306.5 131.1 L 308.6 133.6 L 310.6 135.8 L 312.7 137.8 L 314.7 139.6 L 316.7 141.2 L 318.8 142.5 L 320.8 143.7 L 322.9 144.6 L 324.9 145.2 L 326.9 145.7 L 329.0 145.9 L 331.0 145.9 L 333.1 145.7 L 335.1 145.2 L 337.1 144.6 L 339.2 143.7 L 341.2 142.5 L 343.3 141.2 L 345.3 139.6 L 347.3 137.8 L 349.4 135.8 L 351.4 133.6 L 353.5 131.1 L 355.5 128.4 L 357.6 125.5 L 359.6 122.3 L 361.6 118.9 L 363.7 115.3 L 365.7 111.5 L 367.8 107.5 L 369.8 103.2 L 371.8 98.7 L 373.9 94.0 L 375.9 89.0 L 378.0 83.8 L 380.0 78.5" fill="none" stroke="#ef9a9a" stroke-width="2"/>
+      <text x="284" y="74" font-size="10" fill="#c62828" font-weight="600">SAC₅</text>
+      <circle cx="350.0" cy="135.1" r="4" fill="#c62828"/>
+      <text x="355" y="132" font-size="10" fill="#c62828" font-weight="700">F</text>
+      <line x1="350.0" y1="135.1" x2="350.0" y2="240" stroke="#c62828" stroke-width=".7" stroke-dasharray="3,3"/>
+      <text x="350" y="252" font-size="9" fill="#c62828" text-anchor="middle">Q₆</text>
     </g>
 
     <!-- Step 5: LAC passes through A(78,164) B(140,188) D(220,200) E(300,188) F(360,165) -->
     <g id="lac-s5" opacity="0">
-      <path d="M 65 157 L 70 160 L 75 162 L 80 165 L 85 167 L 90 170 L 95 172 L 100 174 L 105 176 L 110 178 L 115 180 L 120 182 L 125 184 L 130 185 L 135 187 L 140 188 L 145 190 L 150 191 L 155 192 L 160 194 L 165 195 L 170 196 L 175 196 L 180 197 L 185 198 L 190 198 L 195 199 L 200 199 L 205 200 L 210 200 L 215 200 L 220 200 L 225 200 L 230 200 L 235 200 L 240 199 L 245 199 L 250 198 L 255 198 L 260 197 L 265 196 L 270 196 L 275 195 L 280 194 L 285 192 L 290 191 L 295 190 L 300 188 L 305 187 L 310 185 L 315 184 L 320 182 L 325 180 L 330 178 L 335 176 L 340 174 L 345 172 L 350 170 L 355 167 L 360 165 L 365 162 L 370 160 L 375 157" fill="none" stroke="#2e7d32" stroke-width="3.5" stroke-linecap="round"/>
-      <text x="372" y="153" font-size="13" fill="#2e7d32" font-weight="800" font-family="Georgia,serif">LAC</text>
-      <line x1="220" y1="200" x2="220" y2="240" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <text x="190" y="230" font-size="8.5" fill="#2e7d32" font-weight="700">Optimum Scale</text>
+      <path d="M 90.0 111.8 L 93.7 116.3 L 97.3 120.8 L 101.0 125.1 L 104.7 129.3 L 108.4 133.4 L 112.0 137.3 L 115.7 141.2 L 119.4 144.9 L 123.0 148.5 L 126.7 151.9 L 130.4 155.3 L 134.1 158.5 L 137.7 161.6 L 141.4 164.6 L 145.1 167.5 L 148.7 170.2 L 152.4 172.9 L 156.1 175.4 L 159.7 177.7 L 163.4 180.0 L 167.1 182.1 L 170.8 184.2 L 174.4 186.1 L 178.1 187.8 L 181.8 189.5 L 185.4 191.0 L 189.1 192.4 L 192.8 193.7 L 196.5 194.9 L 200.1 195.9 L 203.8 196.9 L 207.5 197.7 L 211.1 198.3 L 214.8 198.9 L 218.5 199.4 L 222.2 199.7 L 225.8 199.9 L 229.5 199.9 L 233.2 199.9 L 236.8 199.7 L 240.5 199.5 L 244.2 199.0 L 247.8 198.5 L 251.5 197.9 L 255.2 197.1 L 258.9 196.2 L 262.5 195.2 L 266.2 194.1 L 269.9 192.8 L 273.5 191.4 L 277.2 189.9 L 280.9 188.3 L 284.6 186.6 L 288.2 184.7 L 291.9 182.7 L 295.6 180.6 L 299.2 178.4 L 302.9 176.0 L 306.6 173.6 L 310.3 171.0 L 313.9 168.3 L 317.6 165.4 L 321.3 162.5 L 324.9 159.4 L 328.6 156.2 L 332.3 152.9 L 335.9 149.4 L 339.6 145.9 L 343.3 142.2 L 347.0 138.4 L 350.6 134.5 L 354.3 130.4 L 358.0 126.3 L 361.6 122.0 L 365.3 117.6 L 369.0 113.0 L 372.7 108.4 L 376.3 103.6 L 380.0 98.7" fill="none" stroke="#2e7d32" stroke-width="3.5" stroke-linecap="round"/>
+      <text x="335" y="118" font-size="13" fill="#2e7d32" font-weight="800" font-family="Georgia,serif">LAC</text>
+      <line x1="230" y1="200" x2="230" y2="240" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="200" y="230" font-size="8.5" fill="#2e7d32" font-weight="700">Optimum Scale</text>
     </g>
   </svg>
 
@@ -384,14 +587,14 @@ if(window.matchMedia('(prefers-color-scheme:dark)').matches){
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">6.5 — Expansion Path & LTC</span>
+      <span class="ajk-chap-name">บทที่ 6.5 — Expansion Path & LTC</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter6_7.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">6.7 — จากระยะสั้น → สร้างระยะยาว</span>
+      <span class="ajk-chap-name">บทที่ 6.7 — จากระยะสั้น → สร้างระยะยาว</span>
     </div>
   </a>
 </nav>
@@ -401,18 +604,12 @@ if(window.matchMedia('(prefers-color-scheme:dark)').matches){
   <div class="ajk-footer-name">Ajarn.Kwan</div>
   <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
   <div class="ajk-footer-links">
-      <a class="ajk-footer-btn" href="../index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
-        หน้าหลัก
-      </a>
-    <a class="ajk-footer-btn" href="chapter6.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 6</a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-    <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
-    <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
-  </div>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter6.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 6</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
+    </div>
   <div class="ajk-footer-bottom"><strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ</div>
 </div></footer>
   <script type="module" src="../member-guard.js"></script>

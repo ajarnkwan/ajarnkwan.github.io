@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3.2 ปัจจัยกำหนดอุปสงค์ + TR/AR/MR · Ajarn.Kwan</title>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>บทที่ 3.2 — ปัจจัยกำหนดอุปสงค์ + TR/AR/MR · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}.app{max-width:780px;margin:0 auto}
-.topnav{display:flex;align-items:center;gap:8px;margin-bottom:10px}.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:15px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}.badge{font-size:14.5px;font-weight:700;padding:3px 12px;border-radius:99px;background:#e3f2fd;color:#1565c0}@media(prefers-color-scheme:dark){.badge{background:#0d2744;color:#64b5f6}}
-.pg{display:flex;gap:3px;margin-bottom:16px}.pd{flex:1;height:5px;border-radius:3px;background:#eee}@media(prefers-color-scheme:dark){.pd{background:#333}}.pd.dn{background:#1565c0}.pd.ac{background:#64b5f6}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px;line-height:1.75}@media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}.app{max-width:760px;margin:0 auto}
+.topnav{display:flex;align-items:center;gap:8px;margin-bottom:10px}.backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:15px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}.badge{font-size:14.5px;font-weight:700;padding:3px 12px;border-radius:99px;background:#fff3e0;color:#e65100}@media(prefers-color-scheme:dark){.badge{background:#3d2000;color:#ffb347}}
+.pg{display:flex;gap:3px;margin-bottom:16px}.pd{flex:1;height:5px;border-radius:3px;background:#eee}@media(prefers-color-scheme:dark){.pd{background:#333}}.pd.dn{background:#e65100}.pd.ac{background:#ffb347}
 .section{display:none}
 .sl{font-size:14px;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}.bq{font-size:19px;font-weight:700;line-height:1.6;margin-bottom:12px}p.tx{font-size:16.5px;line-height:1.85;margin-bottom:10px}
-.sb{background:#f0f4f8;border-radius:12px;padding:14px 18px;margin-bottom:12px;border-left:4px solid #1565c0}@media(prefers-color-scheme:dark){.sb{background:#0d1b2a;border-color:#1976d2}}.sb p{font-size:16px;line-height:1.85;margin-bottom:6px}.sb p:last-child{margin:0}
-.def{background:#e3f2fd;border:1px solid #90caf9;border-radius:12px;padding:14px 18px;margin:12px 0}@media(prefers-color-scheme:dark){.def{background:#0d2744;border-color:#1565c0}}.def .dt{font-weight:800;font-size:17px;color:#1565c0;margin-bottom:4px}@media(prefers-color-scheme:dark){.def .dt{color:#64b5f6}}.def p{font-size:16px;line-height:1.8;margin-bottom:4px}
-.think{background:linear-gradient(135deg,#e3f2fd,#e8f0fe);border:2px dashed #64b5f6;border-radius:14px;padding:16px 18px;margin:14px 0;position:relative}@media(prefers-color-scheme:dark){.think{background:linear-gradient(135deg,#0d2744,#0d1b3d);border-color:#1976d2}}.think::before{content:'🤔';font-size:22px;position:absolute;top:-12px;left:14px;background:#fff;border-radius:50%;padding:0 4px}@media(prefers-color-scheme:dark){.think::before{background:#141414}}.think .q{font-size:17px;font-weight:600;margin-bottom:8px;color:#1565c0}@media(prefers-color-scheme:dark){.think .q{color:#64b5f6}}
-.opts{display:flex;flex-direction:column;gap:6px;margin:8px 0}.opt{padding:10px 14px;border:2px solid #c8d6e0;border-radius:10px;background:#fff;cursor:pointer;font-size:16px;transition:all .2s;text-align:left}@media(prefers-color-scheme:dark){.opt{background:#1a1a1a;border-color:#2a3a4a;color:#e0e0e0}}.opt:hover{border-color:#1565c0;background:#e3f2fd}@media(prefers-color-scheme:dark){.opt:hover{border-color:#1976d2;background:#0d2744}}.opt.correct{border-color:#1D9E75;background:#e1f5ee;color:#0f6e56}@media(prefers-color-scheme:dark){.opt.correct{background:#0d3d28;color:#5fe4a8}}.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}@media(prefers-color-scheme:dark){.opt.wrong{background:#3d1010;color:#ff9999}}.opt.disabled{pointer-events:none;opacity:.7}
+.sb{background:#f8f4ef;border-radius:12px;padding:14px 18px;margin-bottom:12px;border-left:4px solid #e65100}@media(prefers-color-scheme:dark){.sb{background:#0d1b2a;border-color:#1976d2}}.sb p{font-size:16px;line-height:1.85;margin-bottom:6px}.sb p:last-child{margin:0}
+.def{background:#fff3e0;border:1px solid #90caf9;border-radius:12px;padding:14px 18px;margin:12px 0}@media(prefers-color-scheme:dark){.def{background:#3d2000;border-color:#e65100}}.def .dt{font-weight:800;font-size:17px;color:#e65100;margin-bottom:4px}@media(prefers-color-scheme:dark){.def .dt{color:#ffb347}}.def p{font-size:16px;line-height:1.8;margin-bottom:4px}
+.think{background:linear-gradient(135deg,#fff3e0,#e8f0fe);border:2px dashed #ffb347;border-radius:14px;padding:16px 18px;margin:14px 0;position:relative}@media(prefers-color-scheme:dark){.think{background:linear-gradient(135deg,#3d2000,#0d1b3d);border-color:#1976d2}}.think::before{content:'🤔';font-size:22px;position:absolute;top:-12px;left:14px;background:#fff;border-radius:50%;padding:0 4px}@media(prefers-color-scheme:dark){.think::before{background:#141414}}.think .q{font-size:17px;font-weight:600;margin-bottom:8px;color:#e65100}@media(prefers-color-scheme:dark){.think .q{color:#ffb347}}
+.opts{display:flex;flex-direction:column;gap:6px;margin:8px 0}.opt{padding:10px 14px;border:2px solid #c8d6e0;border-radius:10px;background:#fff;cursor:pointer;font-size:16px;transition:all .2s;text-align:left}@media(prefers-color-scheme:dark){.opt{background:#1a1a1a;border-color:#2a3a4a;color:#e0e0e0}}.opt:hover{border-color:#e65100;background:#fff3e0}@media(prefers-color-scheme:dark){.opt:hover{border-color:#1976d2;background:#3d2000}}.opt.correct{border-color:#1D9E75;background:#e1f5ee;color:#0f6e56}@media(prefers-color-scheme:dark){.opt.correct{background:#0d3d28;color:#5fe4a8}}.opt.wrong{border-color:#e24b4a;background:#fcebeb;color:#a32d2d}@media(prefers-color-scheme:dark){.opt.wrong{background:#3d1010;color:#ff9999}}.opt.disabled{pointer-events:none;opacity:.7}
 .fb{font-size:16.5px;padding:10px 14px;border-radius:10px;margin:8px 0;display:none;line-height:1.6}.fb.on{display:block}.fb.ok{background:#e1f5ee;color:#0f6e56;border:1px solid #1d9e75}@media(prefers-color-scheme:dark){.fb.ok{background:#0d3d28;color:#5fe4a8}}.fb.no{background:#fcebeb;color:#a32d2d;border:1px solid #e24b4a}@media(prefers-color-scheme:dark){.fb.no{background:#3d1010;color:#ff9999}}.fb.info{background:#e8f0fe;color:#1a56db;border:1px solid #7ba4f0}@media(prefers-color-scheme:dark){.fb.info{background:#0d1b3d;color:#99bbff}}
 canvas{display:block;max-width:100%;border-radius:12px;margin:10px auto;border:1px solid #eee}@media(prefers-color-scheme:dark){canvas{border-color:#333}}
-.nav{display:flex;justify-content:space-between;margin-top:16px;padding-top:10px;border-top:1px solid #eee}@media(prefers-color-scheme:dark){.nav{border-color:#333}}.nb{padding:8px 16px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:16px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.nb{border-color:#444;color:#aaa}}.nb:hover{background:#f5f5f5}@media(prefers-color-scheme:dark){.nb:hover{background:#242424}}.nb.pr{background:#1565c0;color:#fff;border-color:#1565c0}@media(prefers-color-scheme:dark){.nb.pr{background:#1976d2;color:#fff;border-color:#1976d2}}
-.note{font-size:15.5px;color:#888;margin:8px 0;padding:8px 12px;border-left:3px solid #90caf9}@media(prefers-color-scheme:dark){.note{border-color:#1565c0}}.hl{color:#1565c0;font-weight:700}@media(prefers-color-scheme:dark){.hl{color:#64b5f6}}
-.sdots{display:flex;gap:5px;justify-content:center;margin:8px 0}.sdot{width:10px;height:10px;border-radius:50%;background:#ddd;transition:all .2s}@media(prefers-color-scheme:dark){.sdot{background:#444}}.sdot.ac{background:#1565c0;transform:scale(1.2)}@media(prefers-color-scheme:dark){.sdot.ac{background:#64b5f6}}
-.stxt{text-align:center;font-size:16.5px;font-weight:600;margin-bottom:8px;min-height:40px;color:#1565c0;line-height:1.6;padding:0 10px}@media(prefers-color-scheme:dark){.stxt{color:#64b5f6}}
+.nav{display:flex;justify-content:space-between;margin-top:16px;padding-top:10px;border-top:1px solid #eee}@media(prefers-color-scheme:dark){.nav{border-color:#333}}.nb{padding:8px 16px;border:1.5px solid #ddd;border-radius:10px;background:transparent;font-size:16px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.nb{border-color:#444;color:#aaa}}.nb:hover{background:#f5f5f5}@media(prefers-color-scheme:dark){.nb:hover{background:#242424}}.nb.pr{background:#e65100;color:#fff;border-color:#e65100}@media(prefers-color-scheme:dark){.nb.pr{background:#1976d2;color:#fff;border-color:#1976d2}}
+.note{font-size:15.5px;color:#888;margin:8px 0;padding:8px 12px;border-left:3px solid #90caf9}@media(prefers-color-scheme:dark){.note{border-color:#e65100}}.hl{color:#e65100;font-weight:700}@media(prefers-color-scheme:dark){.hl{color:#ffb347}}
+.sdots{display:flex;gap:5px;justify-content:center;margin:8px 0}.sdot{width:10px;height:10px;border-radius:50%;background:#ddd;transition:all .2s}@media(prefers-color-scheme:dark){.sdot{background:#444}}.sdot.ac{background:#e65100;transform:scale(1.2)}@media(prefers-color-scheme:dark){.sdot.ac{background:#ffb347}}
+.stxt{text-align:center;font-size:16.5px;font-weight:600;margin-bottom:8px;min-height:40px;color:#e65100;line-height:1.6;padding:0 10px}@media(prefers-color-scheme:dark){.stxt{color:#ffb347}}
 .snav{display:flex;justify-content:center;gap:8px;margin-bottom:6px}.snb{padding:5px 16px;border:1.5px solid #ddd;border-radius:8px;background:transparent;font-size:16px;cursor:pointer;color:#888}@media(prefers-color-scheme:dark){.snb{border-color:#444;color:#aaa}}.snb:hover{background:#f5f5f5}@media(prefers-color-scheme:dark){.snb:hover{background:#242424}}
 .eqbox{background:#f0f0f0;border-radius:10px;padding:10px 16px;margin:10px 0;font-family:'Courier New',monospace;font-size:16px;text-align:center;letter-spacing:.5px}@media(prefers-color-scheme:dark){.eqbox{background:#222}}
-.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15.5px}.tbl th,.tbl td{border:1px solid #ddd;padding:6px 8px;text-align:center}@media(prefers-color-scheme:dark){.tbl th,.tbl td{border-color:#444}}.tbl th{background:#e3f2fd;font-weight:700;color:#1565c0}@media(prefers-color-scheme:dark){.tbl th{background:#0d2744;color:#64b5f6}}
-.sn{display:inline-block;background:#1565c0;color:#fff;font-size:14.5px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:4px}@media(prefers-color-scheme:dark){.sn{background:#1976d2}}
-.slider-wrap{text-align:center;margin:8px 0}.slider-wrap input[type=range]{width:80%;margin:4px 0}.slider-label{font-size:16px;font-weight:700;color:#1565c0}@media(prefers-color-scheme:dark){.slider-label{color:#64b5f6}}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:15.5px}.tbl th,.tbl td{border:1px solid #ddd;padding:6px 8px;text-align:center}@media(prefers-color-scheme:dark){.tbl th,.tbl td{border-color:#444}}.tbl th{background:#fff3e0;font-weight:700;color:#e65100}@media(prefers-color-scheme:dark){.tbl th{background:#3d2000;color:#ffb347}}
+.sn{display:inline-block;background:#e65100;color:#fff;font-size:14.5px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:4px}@media(prefers-color-scheme:dark){.sn{background:#1976d2}}
+.slider-wrap{text-align:center;margin:8px 0}.slider-wrap input[type=range]{width:80%;margin:4px 0}.slider-label{font-size:16px;font-weight:700;color:#e65100}@media(prefers-color-scheme:dark){.slider-label{color:#ffb347}}
 </style>
 <style id="ajk-theme-overrides">
 :root{
@@ -60,6 +60,12 @@ body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!i
 .available{background:#ecfdf5!important;color:#047857!important;border-color:#86efac!important;}
 .coming{background:#fff7ed!important;color:#b45309!important;border-color:#fdba74!important;}
 .ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+
 </style>
 
 
@@ -333,7 +339,161 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
-</head><body class="ak-theme-microeconomics" style="--ak-bg: #faf7ff; --ak-content-width: 760px;">
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview (theme.css overrides online) */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
+</head><body class="ak-theme-microeconomics" style="--ak-bg: #faf7ff;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -364,7 +524,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <span>หน้าหลัก</span>
     </a>
 <div class="ajk-brand">
-      <div class="ajk-brand-course">3.2 ปัจจัยกำหนดอุปสงค์ + TR/AR/MR</div>
+      <div class="ajk-brand-course">บทที่ 3.2 · ปัจจัยกำหนดอุปสงค์ + TR/AR/MR</div>
       <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
@@ -456,7 +616,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
 <tr><td>2</td><td>8</td><td>16</td><td>8</td><td>7</td><td>6</td></tr>
 <tr><td>3</td><td>7</td><td>21</td><td>7</td><td>5</td><td>4</td></tr>
 <tr><td>4</td><td>6</td><td>24</td><td>6</td><td>3</td><td>2</td></tr>
-<tr style="background:#e3f2fd"><td><strong>5</strong></td><td><strong>5</strong></td><td><strong>25</strong></td><td><strong>5</strong></td><td><strong>1</strong></td><td><strong>0</strong></td></tr>
+<tr style="background:#fff3e0"><td><strong>5</strong></td><td><strong>5</strong></td><td><strong>25</strong></td><td><strong>5</strong></td><td><strong>1</strong></td><td><strong>0</strong></td></tr>
 <tr><td>6</td><td>4</td><td>24</td><td>4</td><td>−1</td><td>−2</td></tr>
 <tr><td>7</td><td>3</td><td>21</td><td>3</td><td>−3</td><td>−4</td></tr>
 <tr><td>8</td><td>2</td><td>16</td><td>2</td><td>−5</td><td>−6</td></tr>
@@ -491,7 +651,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
 <script>
 const NSEC=3;var cur=0;
 const DK=()=>window.matchMedia('(prefers-color-scheme:dark)').matches;
-const TC=()=>DK()?'#d4d4d4':'#1a1a1a';const GC=()=>DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';const AC=()=>DK()?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)';const BC=()=>DK()?'#64b5f6':'#1565c0';const BG=()=>DK()?'#141414':'#fff';
+const TC=()=>DK()?'#d4d4d4':'#1a1a1a';const GC=()=>DK()?'rgba(255,255,255,.08)':'rgba(0,0,0,.06)';const AC=()=>DK()?'rgba(255,255,255,.2)':'rgba(0,0,0,.15)';const BC=()=>DK()?'#ffb347':'#e65100';const BG=()=>DK()?'#141414':'#fff';
 function sendPrompt(t){
   const routes = {
     'กลับหน้าหลักบทที่ 3':'chapter3.html',
@@ -612,7 +772,7 @@ function dDraw(){
 /* ═══ S1: TR/AR/MR GRAPH ═══ */
 var rSt=0;
 const rSS=[
-  {t:'<strong>Step 1:</strong> เส้น <span style="color:#1565c0">D = AR = P = 10 − Q</span><br>เส้นอุปสงค์ก็คือเส้นรายรับเฉลี่ย (AR) นั่นเอง'},
+  {t:'<strong>Step 1:</strong> เส้น <span style="color:#e65100">D = AR = P = 10 − Q</span><br>เส้นอุปสงค์ก็คือเส้นรายรับเฉลี่ย (AR) นั่นเอง'},
   {t:'<strong>Step 2:</strong> เพิ่มเส้น <span style="color:#c62828">MR = 10 − 2Q</span><br>slope ของ MR เป็น 2 เท่าของ AR → MR ตัดแกน Q ที่ Q=5 (กึ่งกลาง!)'},
   {t:'<strong>Step 3:</strong> เส้น <span style="color:#e65100">TR = 10Q − Q²</span> (พาราโบลาคว่ำ)<br>TR เพิ่มขึ้นเรื่อยๆ จนสูงสุดที่ Q=5 (ตรงจุดที่ MR=0)'},
   {t:'<strong>Step 4:</strong> ความสัมพันธ์ครบ: MR>0 → TR↑ | <strong>MR=0 → TR สูงสุด</strong> | MR<0 → TR↓<br>ลากเส้นประเชื่อมจุด Q=5 ระหว่าง 2 กราฟ'},
@@ -752,14 +912,14 @@ buildPg();updPg(0);initS('d',dSS);dDraw();
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">3.1 อุปสงค์ตลาด</span>
+      <span class="ajk-chap-name">บทที่ 3.1 — อุปสงค์ตลาด</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter3_3.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">3.3 ความยืดหยุ่นของอุปสงค์</span>
+      <span class="ajk-chap-name">บทที่ 3.3 — ความยืดหยุ่นของอุปสงค์</span>
     </div>
   </a>
 </nav>
@@ -770,26 +930,11 @@ buildPg();updPg(0);initS('d',dSS);dDraw();
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-      <a class="ajk-footer-btn" href="../index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
-        หน้าหลัก
-      </a>
-      <a class="ajk-footer-btn" href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        แผนการเรียน
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter3.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 3</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>

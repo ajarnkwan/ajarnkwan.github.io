@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>7.7 ระยะตลาด · Ajarn.Kwan</title>
+<title>บทที่ 7.7 — ระยะตลาด · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b45309;--pri-soft:#fffbeb;--pri-dark:#92400e;--hero-a:#92400e;--hero-b:#d97706;--bg:#fefbf6;--card:#fff;--bg2:#fffbeb;--bdr:#fcd34d;--bdr-l:#fef3c7;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px}
@@ -11,7 +11,7 @@
 .topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid #ede5d8}.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}
 .back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--pri-soft);padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .18s}.back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}.back-btn svg{width:14px;height:14px}
 .t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700}.t-sub{font-size:14.5px;color:var(--muted)}
-.page{max-width:780px;margin:0 auto;padding:24px 18px 60px}
+.page{max-width:760px;margin:0 auto;padding:24px 18px 60px}
 .step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
@@ -223,7 +223,56 @@
 .ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.7; }
 
 </style>
-  <link rel="stylesheet" href="../assets/theme.css">
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b45309;
+  --theme-primary-soft:#fffbeb;
+  --theme-primary-dark:#92400e;
+  --theme-hero-a:#92400e;
+  --theme-hero-b:#d97706;
+  --theme-page-bg:#fefbf6;
+  --theme-border:#fde68a;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#fffbeb;
+  --color-border-secondary:#fde68a;
+  --color-border-tertiary:#fef3c7;
+  --color-text-primary:#1c1917;
+  --color-text-secondary:#57534e;
+  --color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(146,64,14,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #b45309;
+  --ajk-primary-soft: #fffbeb;
+  --ajk-primary-dark: #92400e;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #f5e6c8;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
   
 <style id="ak-overrides">
 /* Hide legacy topbars/footers that the migration replaces */
@@ -240,8 +289,162 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -272,64 +475,46 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <span>หน้าหลัก</span>
     </a>
 <div class="ajk-brand">
-      <div class="ajk-brand-course">7.7 ระยะตลาด</div>
+      <div class="ajk-brand-course">บทที่ 7.7 · ระยะตลาด</div>
       <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
 </header>
 
-<header class="topbar"><div class="topbar-in">
-<button class="back-btn" onclick="location.href='chapter7.html'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>กลับ Hub</span></button>
-<div class="t-right"><div class="t-title">7.7 · ระยะตลาด</div><div class="t-sub">Ajarn.Kwan · เศรษฐศาสตร์ รามคำแหง</div></div>
-</div></header>
+
 <div class="page">
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><div id="dots" style="display:flex;gap:5px"></div><span id="plbl" style="font-size:14px;color:var(--muted)"></span></div>
 <div id="sc"></div>
 </div>
-<div class="foot"><strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง · เนื้อหาแจกฟรีเพื่อการศึกษา</div>
 <script>
 /* Static graphs */
-function mkPerish(){return '<svg viewBox="0 0 360 230" style="width:100%;max-width:380px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ap" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs><line x1="40" y1="200" x2="330" y2="200" stroke="#78716c" stroke-width="1.2" marker-end="url(#ap)"/><line x1="40" y1="200" x2="40" y2="18" stroke="#78716c" stroke-width="1.2" marker-end="url(#ap)"/><text x="334" y="204" fill="#78716c" font-size="9">Q</text><text x="33" y="18" fill="#78716c" font-size="9" text-anchor="end">P</text>'
-+'<line x1="180" y1="200" x2="180" y2="30" stroke="#dc2626" stroke-width="2.5"/><text x="185" y="28" fill="#dc2626" font-size="10" font-weight="700">S</text>'
-+'<line x1="60" y1="30" x2="300" y2="190" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5,3"/><text x="302" y="188" fill="#2563eb" font-size="8">D1</text>'
-+'<line x1="60" y1="60" x2="300" y2="200" stroke="#2563eb" stroke-width="2"/><text x="302" y="198" fill="#2563eb" font-size="9" font-weight="700">D</text>'
-+'<line x1="60" y1="100" x2="280" y2="200" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5,3"/><text x="282" y="198" fill="#2563eb" font-size="8">D2</text>'
-+'<circle cx="180" cy="130" r="4" fill="#059669" stroke="#fff" stroke-width="1.5"/><line x1="37" y1="130" x2="182" y2="130" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="134" fill="#92400e" font-size="9" text-anchor="end">P</text>'
-+'<circle cx="180" cy="110" r="4" fill="#059669" stroke="#fff" stroke-width="1.5"/><line x1="37" y1="110" x2="182" y2="110" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="114" fill="#92400e" font-size="9" text-anchor="end">P1</text>'
-+'<circle cx="180" cy="155" r="4" fill="#059669" stroke="#fff" stroke-width="1.5"/><line x1="37" y1="155" x2="182" y2="155" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="159" fill="#92400e" font-size="9" text-anchor="end">P2</text>'
-+'<text x="180" y="214" fill="#78716c" font-size="9" text-anchor="middle">Q (คงที่)</text>'
-+'<rect x="205" y="55" width="130" height="42" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width=".5"/><text x="270" y="70" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle">S เส้นตั้ง (คงที่)</text><text x="270" y="83" fill="#92400e" font-size="8" text-anchor="middle">D เปลี่ยน → P เปลี่ยน</text><text x="270" y="93" fill="#92400e" font-size="8" text-anchor="middle">แต่ Q คงเดิม!</text>'
-+'</svg>'}
+function mkPerish(){return '<svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;margin:0 auto;display:block"><defs><marker id="ap" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs><line x1="50" y1="200" x2="335" y2="200" stroke="#78716c" stroke-width="1.2" marker-end="url(#ap)"/><line x1="50" y1="200" x2="50" y2="20" stroke="#78716c" stroke-width="1.2" marker-end="url(#ap)"/><text x="338" y="204" fill="#78716c" font-size="10">Q</text><text x="40" y="22" fill="#78716c" font-size="10" text-anchor="end">P</text><line x1="218" y1="47" x2="218" y2="200" stroke="#dc2626" stroke-width="2.5"/><text x="223" y="44" fill="#dc2626" font-size="11" font-weight="700">S</text><line x1="50" y1="30" x2="302" y2="152" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="5,3"/><text x="305" y="162" fill="#2563eb" font-size="10" font-weight="700">D₁</text><line x1="50" y1="64" x2="302" y2="186" stroke="#2563eb" stroke-width="2"/><text x="305" y="196" fill="#1e40af" font-size="11" font-weight="800">D</text><line x1="50" y1="98" x2="260" y2="200" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="5,3"/><text x="263" y="210" fill="#2563eb" font-size="10" font-weight="700">D₂</text><circle cx="218" cy="112" r="4.5" fill="#059669" stroke="#fff" stroke-width="1.5"/><line x1="47" y1="112" x2="218" y2="112" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="43" y="116" fill="#92400e" font-size="10" font-weight="700" text-anchor="end">P₁</text><text x="224" y="108" fill="#059669" font-size="10" font-weight="700">E₁</text><circle cx="218" cy="146" r="5" fill="#d97706" stroke="#fff" stroke-width="2"/><line x1="47" y1="146" x2="218" y2="146" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="43" y="150" fill="#92400e" font-size="11" font-weight="800" text-anchor="end">P</text><text x="224" y="141" fill="#d97706" font-size="12" font-weight="800">E</text><circle cx="218" cy="180" r="4.5" fill="#059669" stroke="#fff" stroke-width="1.5"/><line x1="47" y1="180" x2="218" y2="180" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="43" y="184" fill="#92400e" font-size="10" font-weight="700" text-anchor="end">P₂</text><text x="224" y="192" fill="#059669" font-size="10" font-weight="700">E₂</text><text x="218" y="215" fill="#78716c" font-size="9" text-anchor="middle">Q (คงที่)</text><rect x="200" y="35" width="135" height="50" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="0.6"/><text x="267" y="50" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle">S เส้นตั้ง (Q คงที่)</text><text x="267" y="63" fill="#92400e" font-size="8" text-anchor="middle">D shift parallel</text><text x="267" y="76" fill="#92400e" font-size="8" text-anchor="middle">→ P เปลี่ยน, Q ไม่เปลี่ยน</text></svg>'}
 
-function mkStore(){return '<svg viewBox="0 0 360 230" style="width:100%;max-width:380px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg"><defs><marker id="as" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs><line x1="40" y1="200" x2="330" y2="200" stroke="#78716c" stroke-width="1.2" marker-end="url(#as)"/><line x1="40" y1="200" x2="40" y2="18" stroke="#78716c" stroke-width="1.2" marker-end="url(#as)"/><text x="334" y="204" fill="#78716c" font-size="9">Q</text><text x="33" y="18" fill="#78716c" font-size="9" text-anchor="end">P</text>'
-+'<line x1="60" y1="185" x2="200" y2="68" stroke="#dc2626" stroke-width="2.5"/>'
-+'<line x1="200" y1="68" x2="200" y2="30" stroke="#dc2626" stroke-width="2.5"/>'
-+'<text x="205" y="28" fill="#dc2626" font-size="10" font-weight="700">S</text>'
-+'<line x1="60" y1="50" x2="300" y2="195" stroke="#2563eb" stroke-width="2"/><text x="302" y="193" fill="#2563eb" font-size="9" font-weight="700">D</text>'
-+'<circle cx="150" cy="105" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="156" y="101" fill="#059669" font-size="9" font-weight="700">E</text>'
-+'<line x1="37" y1="105" x2="152" y2="105" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="109" fill="#92400e" font-size="9" text-anchor="end">P</text>'
-+'<line x1="150" y1="107" x2="150" y2="200" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="150" y="212" fill="#059669" font-size="8" text-anchor="middle">Q</text>'
-+'<text x="200" y="212" fill="#dc2626" font-size="8" text-anchor="middle">Stock</text>'
-+'<rect x="210" y="58" width="125" height="55" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width=".5"/><text x="272" y="73" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle">S ทอดขึ้นแล้วตั้ง</text><text x="272" y="86" fill="#92400e" font-size="8" text-anchor="middle">P สูง → ขายมาก</text><text x="272" y="98" fill="#92400e" font-size="8" text-anchor="middle">P ต่ำ → กักตุนรอ</text><text x="272" y="110" fill="#92400e" font-size="8" text-anchor="middle">ถึง Stock max → S เส้นตั้ง</text>'
-+'</svg>'}
-
-/* Steps */
+function mkStore(){return '<svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;margin:0 auto;display:block"><defs><marker id="as" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs><line x1="50" y1="200" x2="335" y2="200" stroke="#78716c" stroke-width="1.2" marker-end="url(#as)"/><line x1="50" y1="200" x2="50" y2="20" stroke="#78716c" stroke-width="1.2" marker-end="url(#as)"/><text x="338" y="204" fill="#78716c" font-size="10">Q</text><text x="40" y="22" fill="#78716c" font-size="10" text-anchor="end">P</text><line x1="50.0" y1="200.0" x2="260.0" y2="72.5" stroke="#dc2626" stroke-width="2.5"/><line x1="260.0" y1="72.5" x2="260.0" y2="38.5" stroke="#dc2626" stroke-width="2.5"/><text x="265" y="36" fill="#dc2626" font-size="11" font-weight="700">S</text><circle cx="260.0" cy="72.5" r="3" fill="#dc2626" stroke="#fff" stroke-width="1"/><text x="264" y="68" fill="#dc2626" font-size="9" font-weight="700">J</text><line x1="50.0" y1="81.0" x2="302.0" y2="200.0" stroke="#2563eb" stroke-width="2"/><text x="305" y="210" fill="#1e40af" font-size="11" font-weight="800">D</text><circle cx="160.2" cy="133.1" r="5" fill="#d97706" stroke="#fff" stroke-width="2"/><text x="166" y="128" fill="#d97706" font-size="12" font-weight="800">E</text><line x1="47" y1="133.1" x2="160.2" y2="133.1" stroke="#d97706" stroke-width="1" stroke-dasharray="4,2"/><text x="43" y="137" fill="#92400e" font-size="10" font-weight="800" text-anchor="end">P</text><line x1="160.2" y1="133.1" x2="160.2" y2="200" stroke="#999" stroke-width="0.7" stroke-dasharray="3,2"/><text x="160" y="213" fill="#059669" font-size="9" font-weight="700" text-anchor="middle">Q</text><text x="260" y="213" fill="#dc2626" font-size="9" font-weight="700" text-anchor="middle">Stock</text><rect x="55" y="35" width="125" height="55" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="0.6"/><text x="117" y="50" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle">S ทอดขึ้นแล้วตั้ง</text><text x="117" y="63" fill="#92400e" font-size="8" text-anchor="middle">P สูง → ขายมาก</text><text x="117" y="75" fill="#92400e" font-size="8" text-anchor="middle">P ต่ำ → กักตุนรอ</text><text x="117" y="87" fill="#92400e" font-size="8" text-anchor="middle">Stock max → S เส้นตั้ง</text></svg>'}/* Steps */
 var S=[
 {tag:"เริ่มต้น · ลองคิด",title:"ถ้าสินค้ามีจำกัด ผลิตเพิ่มไม่ได้เลย?",
 body:'<div class="scenario"><p style="font-size:28px;margin-bottom:8px">🐟</p><p>สมมุติชาวประมงจับปลาได้วันนี้ <strong>100 กิโลกรัม</strong> ผลิตเพิ่มไม่ได้ เก็บรักษาไม่ได้ (ปลาเน่า)</p><p>ถ้าวันนี้คนมาซื้อมากกว่าปกติ → จะเกิดอะไรขึ้น?</p></div>',
-quiz:{q:"ถ้าอุปทาน (ปลา) คงที่ 100 กก. แต่อุปสงค์เพิ่มขึ้น → อะไรจะเปลี่ยน?",opts:["ปริมาณขายเพิ่มขึ้น","ราคาสูงขึ้น แต่ปริมาณขายคงเดิม 100 กก.","ราคาและปริมาณไม่เปลี่ยน"],ans:1,explain:"อุปทานคงที่ (เส้น S เป็นเส้นตั้ง) → เมื่อ D เพิ่ม → <strong>ราคาเพิ่ม</strong>แต่ Q ยังเท่าเดิม! เพราะผลิตเพิ่มไม่ได้"}},
+quiz:{q:"ถ้าอุปทาน (ปลา) คงที่ 100 กก. แต่อุปสงค์เพิ่มขึ้น → อะไรจะเปลี่ยน?",opts:["ราคาสูงขึ้น แต่ปริมาณขายคงเดิม 100 กก.","ปริมาณขายเพิ่มขึ้น","ราคาและปริมาณไม่เปลี่ยน","ราคาลด เพราะมีคู่แข่งเพิ่ม"],ans:0,explain:"อุปทานคงที่ (เส้น S เป็นเส้นตั้ง) → เมื่อ D เพิ่ม → <strong>ราคาเพิ่ม</strong>แต่ Q ยังเท่าเดิม! เพราะผลิตเพิ่มไม่ได้"}},
 
 {tag:"กราฟ · สินค้าเน่าเสียง่าย",title:"Perishable Goods — เส้น S เป็นเส้นตั้ง",
 body:'<div class="prose"><p>สินค้าเน่าเสียง่าย (ปลาสด ผัก ดอกไม้) → ผลิตเพิ่มไม่ได้ + เก็บไม่ได้ → ต้องขายหมดในวันนี้ → <strong>เส้น S เป็นเส้นตั้ง</strong> (Perfectly Inelastic)</p></div><div class="dw">'+mkPerish()+'</div><div class="insight"><div class="insight-label">✦ สังเกต</div><p class="insight-text">เส้น S เป็นเส้นตั้ง → ปริมาณ Q คงที่ไม่ว่าราคาจะเป็นเท่าไหร่\nD เพิ่ม (D→D1) → ราคาเพิ่ม P→P1 แต่ Q คงเดิม\nD ลด (D→D2) → ราคาลด P→P2 แต่ Q คงเดิม\n\nราคาถูกกำหนดโดย Demand ฝ่ายเดียว!</p></div>',
-quiz:{q:"ทำไมเส้นอุปทานในระยะตลาดของสินค้าเน่าเสียง่ายเป็นเส้นตั้ง?",opts:["เพราะผู้ผลิตไม่ยอมขาย","เพราะปริมาณสินค้าคงที่ ผลิตเพิ่มไม่ได้ + เก็บไม่ได้ → ต้องขายทั้งหมดที่ราคาตลาดกำหนด","เพราะรัฐบาลควบคุมปริมาณ"],ans:1,explain:"ระยะตลาด: สินค้ามีเท่าที่มี ผลิตเพิ่มไม่ทัน + เน่าเสียง่ายเก็บไม่ได้ → <strong>ขายหมดทั้ง Stock</strong> → เส้น S ตั้งฉากกับแกน Q"}},
+quiz:{q:"ทำไมเส้นอุปทานในระยะตลาดของสินค้าเน่าเสียง่ายเป็นเส้นตั้ง?",opts:["เพราะผู้ผลิตไม่ยอมขาย","เพราะรัฐบาลควบคุมปริมาณ","เพราะปริมาณสินค้าคงที่ ผลิตเพิ่มไม่ได้ + เก็บไม่ได้ → ต้องขายทั้งหมดที่ราคาตลาดกำหนด","เพราะตลาดอิ่มตัวจึงไม่มีผู้ผลิตเพิ่มเข้ามา"],ans:2,explain:"ระยะตลาด: สินค้ามีเท่าที่มี ผลิตเพิ่มไม่ทัน + เน่าเสียง่ายเก็บไม่ได้ → <strong>ขายหมดทั้ง Stock</strong> → เส้น S ตั้งฉากกับแกน Q"}},
+
+{tag:"กราฟ · 3 ทัศนะ",title:"3 ทัศนะ ของระยะตลาด — ตลาด / ผู้ซื้อ / ผู้ขาย",
+body:'<div class="prose"><p>ตำราเศรษฐศาสตร์ EC 211 (รูปที่ 7-15, 7-16, 7-17) แยกพิจารณาระยะตลาดของสินค้าเน่าเสียง่ายเป็น <strong>3 ทัศนะ</strong>:</p></div><div class="dw"><svg viewBox="0 0 480 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto"><rect x="25" y="15" width="430" height="170" rx="8" fill="#dbeafe" fill-opacity="0.3" stroke="#2563eb" stroke-width="0.7"/><text x="240" y="28" text-anchor="middle" font-size="11" font-weight="800" fill="#7c2d12">(1) ทัศนะของตลาดทั้งหมด — Fig 7-15</text><line x1="60" y1="35" x2="60" y2="168" stroke="#1c1917" stroke-width="1.3"/><line x1="57" y1="165" x2="440" y2="165" stroke="#1c1917" stroke-width="1.3"/><text x="47" y="43" font-size="10" fill="#1c1917" font-weight="700">P</text><text x="445" y="176" font-size="10" fill="#1c1917" font-weight="700">Q</text><text x="52" y="176" font-size="10" fill="#78716c">0</text><line x1="247.5" y1="48.0" x2="247.5" y2="165.0" stroke="#dc2626" stroke-width="2.2"/><text x="252" y="45" font-size="10" fill="#7f1d1d" font-weight="800">S</text><line x1="60.0" y1="35.0" x2="397.5" y2="128.6" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="4,2"/><text x="400" y="138" font-size="10" fill="#1e40af" font-weight="800">D₁</text><line x1="60.0" y1="61.0" x2="397.5" y2="154.6" stroke="#2563eb" stroke-width="2"/><text x="400" y="158" font-size="10" fill="#1e40af" font-weight="800">D</text><line x1="60.0" y1="87.0" x2="341.2" y2="165.0" stroke="#2563eb" stroke-width="1.6" stroke-dasharray="4,2"/><text x="344" y="165" font-size="10" fill="#1e40af" font-weight="800">D₂</text><circle cx="247.5" cy="113.0" r="3.5" fill="#d97706" stroke="#fff" stroke-width="1.5"/><circle cx="247.5" cy="87.0" r="3.5" fill="#16a34a" stroke="#fff" stroke-width="1.5"/><circle cx="247.5" cy="139.0" r="3.5" fill="#dc2626" stroke="#fff" stroke-width="1.5"/><line x1="60" y1="113.0" x2="247.5" y2="113.0" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="45" y="116" font-size="9" fill="#92400e" font-weight="800">P</text><line x1="60" y1="87.0" x2="247.5" y2="87.0" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="45" y="90" font-size="9" fill="#15803d" font-weight="800">P₁</text><line x1="60" y1="139.0" x2="247.5" y2="139.0" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="45" y="142" font-size="9" fill="#7f1d1d" font-weight="800">P₂</text><line x1="247.5" y1="113.0" x2="247.5" y2="165" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="248" y="176" font-size="9" fill="#92400e" font-weight="700" text-anchor="middle">Q</text><text x="65" y="45" font-size="9" fill="#7c2d12" font-weight="700">D shift parallel → P เปลี่ยน, Q คงที่</text><rect x="25" y="195" width="430" height="170" rx="8" fill="#d1fae5" fill-opacity="0.3" stroke="#10b981" stroke-width="0.7"/><text x="240" y="208" text-anchor="middle" font-size="11" font-weight="800" fill="#7c2d12">(2) ทัศนะของผู้ซื้อคนหนึ่ง — Fig 7-16</text><line x1="60" y1="215" x2="60" y2="348" stroke="#1c1917" stroke-width="1.3"/><line x1="57" y1="345" x2="440" y2="345" stroke="#1c1917" stroke-width="1.3"/><text x="47" y="223" font-size="10" fill="#1c1917" font-weight="700">P</text><text x="445" y="356" font-size="10" fill="#1c1917" font-weight="700">Q</text><text x="52" y="356" font-size="10" fill="#78716c">0</text><line x1="78.8" y1="247.5" x2="341.2" y2="338.5" stroke="#2563eb" stroke-width="2"/><text x="344" y="338" font-size="10" fill="#1e40af" font-weight="800">d</text><line x1="60.0" y1="280.0" x2="397.5" y2="280.0" stroke="#dc2626" stroke-width="2"/><text x="400" y="283" font-size="10" fill="#7f1d1d" font-weight="800">s</text><circle cx="172.5" cy="280.0" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5"/><line x1="60" y1="280.0" x2="172.5" y2="280.0" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="45" y="283" font-size="9" fill="#92400e" font-weight="800">P</text><line x1="172.5" y1="280.0" x2="172.5" y2="345" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="172" y="356" font-size="9" fill="#92400e" font-weight="700" text-anchor="middle">q</text><text x="65" y="225" font-size="9" fill="#7c2d12" font-weight="700">ผู้ซื้อเห็น s = เส้นนอน (ซื้อเท่าไรก็ได้)</text><rect x="25" y="375" width="430" height="170" rx="8" fill="#fef3c7" fill-opacity="0.3" stroke="#d97706" stroke-width="0.7"/><text x="240" y="388" text-anchor="middle" font-size="11" font-weight="800" fill="#7c2d12">(3) ทัศนะของผู้ขายคนหนึ่ง — Fig 7-17</text><line x1="60" y1="395" x2="60" y2="528" stroke="#1c1917" stroke-width="1.3"/><line x1="57" y1="525" x2="440" y2="525" stroke="#1c1917" stroke-width="1.3"/><text x="47" y="403" font-size="10" fill="#1c1917" font-weight="700">P</text><text x="445" y="536" font-size="10" fill="#1c1917" font-weight="700">Q</text><text x="52" y="536" font-size="10" fill="#78716c">0</text><line x1="228.8" y1="408.0" x2="228.8" y2="525.0" stroke="#dc2626" stroke-width="2.2"/><text x="233" y="405" font-size="10" fill="#7f1d1d" font-weight="800">s</text><line x1="60.0" y1="460.0" x2="397.5" y2="460.0" stroke="#2563eb" stroke-width="2"/><text x="400" y="463" font-size="10" fill="#1e40af" font-weight="800">d</text><circle cx="228.8" cy="460.0" r="4" fill="#d97706" stroke="#fff" stroke-width="1.5"/><line x1="60" y1="460.0" x2="228.8" y2="460.0" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="45" y="463" font-size="9" fill="#92400e" font-weight="800">P</text><text x="229" y="536" font-size="9" fill="#92400e" font-weight="700" text-anchor="middle">q</text><text x="65" y="405" font-size="9" fill="#7c2d12" font-weight="700">ผู้ขายเห็น d = เส้นนอน (ขายราคาตลาด)</text></svg></div><div class="insight"><div class="insight-label">✦ ความเข้าใจสำคัญ</div><p class="insight-text">(1) <strong>ทัศนะตลาดทั้งหมด:</strong> S เป็นเส้นตั้ง → D เปลี่ยน → P เปลี่ยน, Q คงที่ (ตลาดควบคุมราคาผ่าน Demand เท่านั้น)\n\n(2) <strong>ทัศนะผู้ซื้อคนหนึ่ง:</strong> ผู้ซื้อรายเล็กเห็น s = เส้นนอน เพราะซื้อเท่าไรก็ได้ที่ราคาตลาด\n\n(3) <strong>ทัศนะผู้ขายคนหนึ่ง:</strong> ผู้ขายรายเล็กเห็น d = เส้นนอน เพราะขายเท่าไรก็ได้ที่ราคาตลาด (สต๊อคของเขาน้อยเทียบกับตลาด)</p></div>',
+quiz:{q:"ในทัศนะของผู้ซื้อคนเดียว เส้นอุปทานที่เขาเห็นเป็นแบบไหน?",opts:["เส้นตั้ง เพราะอุปทานคงที่","เส้นนอน เพราะเขาซื้อเท่าไรก็ได้ที่ราคาตลาด","เส้นโค้งทอดขึ้น","เส้นโค้งทอดลง"],ans:1,explain:"<strong>ผู้ซื้อรายเล็ก</strong>มีอิทธิพลน้อยมากในตลาด → เห็นเส้น s เป็น<strong>เส้นนอน</strong>ที่ราคาตลาด ซื้อเท่าไรก็ไม่กระทบราคา ตรงข้ามกับมุมตลาดทั้งหมดที่ S เป็นเส้นตั้ง"}},
 
 {tag:"กราฟ · สินค้าเก็บได้",title:"Storable Goods — เส้น S ทอดขึ้นแล้วตั้ง",
 body:'<div class="prose"><p>สินค้าเก็บกักตุนได้ (ข้าว น้ำมัน ทอง) → ถ้าราคาต่ำ ผู้ขายจะ<strong>เก็บรอ</strong> ถ้าราคาสูงจะ<strong>ขายมาก</strong> แต่ขายได้สูงสุดเท่า Stock ที่มี</p></div><div class="dw">'+mkStore()+'</div><div class="insight"><div class="insight-label">✦ Reservation Demand</div><p class="insight-text">ผู้ขายจะ "สงวนสินค้า" (Reservation Demand) ไว้เมื่อราคาต่ำ\nเส้น S จึงทอดขึ้นตอนแรก (ราคา↑ → ขายมาก)\nแต่ถึง Stock max → S กลายเป็นเส้นตั้ง (หมดแล้วหมดเลย)</p></div>',
-quiz:{q:"Reservation Demand คืออะไร?",opts:["อุปสงค์ของผู้บริโภค","ปริมาณสินค้าที่ผู้ขายกักตุนไว้ไม่ยอมขาย เพื่อรอราคาที่ดีกว่าในอนาคต","สินค้าที่จองล่วงหน้า"],ans:1,explain:"<strong>Reservation Demand</strong> = ปริมาณที่ผู้ขายเก็บไว้ในสต๊อคเพราะราคายังไม่ดีพอ → เมื่อราคาสูงขึ้นจึงนำออกมาขาย"}},
+quiz:{q:"Reservation Demand คืออะไร?",opts:["อุปสงค์ของผู้บริโภค","สินค้าที่จองล่วงหน้า","ปริมาณสินค้าที่ผู้ขายกักตุนไว้ไม่ยอมขาย เพื่อรอราคาที่ดีกว่าในอนาคต","ราคาสำรองที่ผู้ผลิตเก็บไว้สำหรับลูกค้าประจำ"],ans:2,explain:"<strong>Reservation Demand</strong> = ปริมาณที่ผู้ขายเก็บไว้ในสต๊อคเพราะราคายังไม่ดีพอ → เมื่อราคาสูงขึ้นจึงนำออกมาขาย"}},
+
+{tag:"กราฟ · Reservation Demand",title:"Reservation Demand",
+body:'<div class="prose"><p><strong>Reservation Demand</strong> = ปริมาณสินค้าที่ผู้ขาย<strong>กักตุนไว้ขายในวันข้างหน้า</strong> เพราะรอราคาที่ดีกว่า</p><p style="margin-top:10px;background:#fef3c7;padding:10px;border-radius:8px;font-size:13px"><strong>สูตร:</strong> Supply (ขายจริง) = Total Stock − Reservation Demand</p><h4 style="margin-top:18px;color:#7c2d12">📖 ลองคิดผ่านตัวอย่าง: พ่อค้าข้าวสาร 150 กระสอบ</h4><p>คุณเป็นพ่อค้า มีข้าวสาร <strong>Total Stock = 150 กระสอบ</strong> เก็บได้นาน ไม่เน่า ลองดูว่าจะตัดสินใจขายหรือเก็บที่ราคาต่างๆ:</p><div style="margin-top:10px;padding:10px;background:#fee2e2;border-left:3px solid #dc2626;border-radius:6px"><p style="font-weight:700;color:#7f1d1d;margin-bottom:4px">😟 ราคาตลาด 8 บาท (ต่ำ)</p><p style="font-size:13px">ราคาแย่มาก คุณเก็บข้าวไว้ทั้งหมด <strong>150 กระสอบ</strong> รอวันที่ราคาดีกว่า → <strong>ขาย 0 กระสอบ</strong></p><p style="font-size:12px;color:#991b1b;margin-top:4px">Supply = 150 − 150 = <strong>0</strong></p></div><div style="margin-top:8px;padding:10px;background:#fef3c7;border-left:3px solid #d97706;border-radius:6px"><p style="font-weight:700;color:#92400e;margin-bottom:4px">😐 ราคาตลาด 9 บาท (กลาง)</p><p style="font-size:13px">ราคาเริ่มสมเหตุสมผล คุณยอมขาย <strong>25 กระสอบ</strong> เก็บไว้ 125 → <strong>ขาย 25 กระสอบ</strong></p><p style="font-size:12px;color:#7c2d12;margin-top:4px">Supply = 150 − 125 = <strong>25</strong></p></div><div style="margin-top:8px;padding:10px;background:#d1fae5;border-left:3px solid #16a34a;border-radius:6px"><p style="font-weight:700;color:#15803d;margin-bottom:4px">😊 ราคาตลาด 10 บาท (สูง)</p><p style="font-size:13px">ราคาดีมาก คุณรีบขาย <strong>50 กระสอบ</strong> เก็บไว้แค่ 100 → <strong>ขาย 50 กระสอบ</strong></p><p style="font-size:12px;color:#166534;margin-top:4px">Supply = 150 − 100 = <strong>50</strong></p></div><p style="margin-top:14px"><strong>สรุปทั้ง 3 สถานการณ์:</strong></p><div style="overflow-x:auto;margin:8px 0"><table style="width:100%;border-collapse:collapse;font-size:13px;background:#fff"><thead><tr style="background:#f5f5f4"><th style="border:1px solid #d4d4d8;padding:6px">ราคา</th><th style="border:1px solid #d4d4d8;padding:6px">Reservation<br/>(เก็บไว้)</th><th style="border:1px solid #d4d4d8;padding:6px">Supply<br/>(ขายจริง)</th><th style="border:1px solid #d4d4d8;padding:6px">อุปสงค์<br/>ผู้บริโภค</th></tr></thead><tbody><tr><td style="border:1px solid #e7e5e4;padding:6px;text-align:center">8</td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center">150</td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center;color:#dc2626">0</td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center">60</td></tr><tr style="background:#fefce8"><td style="border:1px solid #e7e5e4;padding:6px;text-align:center"><strong>9</strong></td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center">125</td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center"><strong>25 ✓</strong></td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center"><strong>25 ✓</strong></td></tr><tr><td style="border:1px solid #e7e5e4;padding:6px;text-align:center">10</td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center">100</td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center;color:#16a34a">50</td><td style="border:1px solid #e7e5e4;padding:6px;text-align:center">10</td></tr></tbody></table></div><p style="background:#fef3c7;padding:8px;border-radius:6px;margin-top:8px">🎯 <strong>ดุลยภาพ ที่ราคา 9 บาท</strong> เพราะ Supply (25) = ปริมาณซื้อของผู้บริโภค (25) พอดี</p></div><h4 style="margin-top:20px;color:#7c2d12">📈 เอาตัวเลขมาวาดเป็นกราฟ</h4><div class="dw"><svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto"><rect x="25" y="15" width="430" height="170" rx="8" fill="#fef3c7" fill-opacity="0.3" stroke="#d97706" stroke-width="0.7"/><text x="240" y="28" text-anchor="middle" font-size="11" font-weight="800" fill="#7c2d12">(ก) อุปสงค์ DD ∩ อุปทาน S₀JS</text><line x1="65" y1="35" x2="65" y2="168" stroke="#1c1917" stroke-width="1.3"/><line x1="62" y1="165" x2="440" y2="165" stroke="#1c1917" stroke-width="1.3"/><text x="52" y="43" font-size="10" fill="#1c1917" font-weight="700">P</text><text x="445" y="176" font-size="10" fill="#1c1917" font-weight="700">Q</text><text x="57" y="176" font-size="10" fill="#78716c">0</text><path d="M 102.5 165.0 L 346.2 74.0 L 346.2 45.4" fill="none" stroke="#dc2626" stroke-width="2.2"/><text x="351" y="42" font-size="10" fill="#7f1d1d" font-weight="800">S</text><text x="98" y="177" font-size="9" fill="#7f1d1d" font-weight="700">S₀</text><circle cx="346.2" cy="74.0" r="2.5" fill="#dc2626" stroke="#fff" stroke-width="0.8"/><text x="351" y="72" font-size="9" fill="#7f1d1d" font-weight="800">J</text><line x1="65.0" y1="61.0" x2="402.5" y2="154.6" stroke="#2563eb" stroke-width="2"/><text x="406" y="158" font-size="10" fill="#1e40af" font-weight="800">D</text><circle cx="246.4" cy="111.3" r="4.5" fill="#d97706" stroke="#fff" stroke-width="2"/><text x="252" y="106" font-size="11" fill="#d97706" font-weight="800">E</text><line x1="65" y1="111.3" x2="246.4" y2="111.3" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="114" font-size="9" fill="#92400e" font-weight="800">P</text><line x1="246.4" y1="111.3" x2="246.4" y2="165" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="246" y="176" font-size="9" fill="#92400e" font-weight="700" text-anchor="middle">Q₁</text><rect x="25" y="215" width="430" height="170" rx="8" fill="#dbeafe" fill-opacity="0.3" stroke="#2563eb" stroke-width="0.7"/><text x="240" y="228" text-anchor="middle" font-size="11" font-weight="800" fill="#7c2d12">(ข) เมื่อรวม Reservation Demand เป็น D₁</text><line x1="65" y1="235" x2="65" y2="368" stroke="#1c1917" stroke-width="1.3"/><line x1="62" y1="365" x2="440" y2="365" stroke="#1c1917" stroke-width="1.3"/><text x="52" y="243" font-size="10" fill="#1c1917" font-weight="700">P</text><text x="445" y="376" font-size="10" fill="#1c1917" font-weight="700">Q</text><text x="57" y="376" font-size="10" fill="#78716c">0</text><line x1="402.5" y1="245.4" x2="402.5" y2="365.0" stroke="#dc2626" stroke-width="2.2"/><text x="408" y="242" font-size="10" fill="#7f1d1d" font-weight="800">S_Q</text><path d="M 102.5 365.0 L 346.2 274.0 L 346.2 245.4" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="3,2"/><text x="349" y="255" font-size="9" fill="#7f1d1d" font-weight="700">S₀JS</text><line x1="65.0" y1="261.0" x2="402.5" y2="354.6" stroke="#2563eb" stroke-width="2" stroke-dasharray="3,2"/><text x="406" y="358" font-size="10" fill="#1e40af" font-weight="700">D</text><line x1="65.0" y1="241.1" x2="430.6" y2="317.1" stroke="#2563eb" stroke-width="2"/><text x="434" y="320" font-size="10" fill="#1e40af" font-weight="800">D₁</text><circle cx="402.5" cy="311.3" r="4.5" fill="#d97706" stroke="#fff" stroke-width="2"/><text x="408" y="306" font-size="11" fill="#d97706" font-weight="800">E</text><line x1="65" y1="311.3" x2="402.5" y2="311.3" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="314" font-size="9" fill="#92400e" font-weight="800">P</text><text x="402" y="376" font-size="9" fill="#92400e" font-weight="700" text-anchor="middle">Q</text></svg></div><div class="insight"><div class="insight-label">✦ Panel (ก) — ดุลยภาพแรก: D ∩ S₀JS</div><p class="insight-text">ลากเส้น <strong>S₀JS</strong> (สีแดง) จาก 3 จุดในตาราง:<br>• ที่ <strong>ราคา 8</strong>: Supply = 0 → จุด <strong>S₀</strong> (ตำแหน่ง Q=0)<br>• ที่ <strong>ราคา 9</strong>: Supply = 25 → จุดบนเส้นทอดขึ้น<br>• ที่ <strong>ราคา 10</strong>: Supply = 50 → จุดบนเส้นทอดขึ้น<br>• ที่ราคาสูงพอจน Reservation = 0 → ผู้ขายขายทั้งสต๊อก → จุด <strong>J</strong> (kink point) → จากนั้นเส้นกลายเป็น<strong>เส้นตั้ง</strong> (ขายหมดแล้ว ราคาเพิ่มก็ไม่มีของขายเพิ่ม)<br><br>เส้น <strong>D</strong> (น้ำเงิน) คืออุปสงค์ผู้บริโภค → ที่ราคา 9: ซื้อ 25, ที่ราคา 8: ซื้อ 60, ที่ราคา 10: ซื้อ 10<br><br><strong>จุดตัด E</strong> เกิดที่ <strong>ราคา 9 บาท ปริมาณ Q₁ = 25 กระสอบ</strong> → ขายตรงกับซื้อพอดี</p></div><div class="insight" style="margin-top:14px"><div class="insight-label">✦ Panel (ข) — มอง Total Stock: D₁ ∩ S_Q</div><p class="insight-text"><strong>S_Q</strong> = เส้นตั้งฉาก แสดง Total Stock <strong>คงที่ 150 กระสอบ</strong><br><br><strong>D₁ = อุปสงค์รวม</strong> = อุปสงค์ผู้บริโภค + Reservation Demand<br>• ที่ราคา 8: D₁ = 60 + 150 = <strong>210</strong><br>• ที่ราคา 9: D₁ = 25 + 125 = <strong>150</strong> ← ตัดเส้น S_Q พอดี!<br>• ที่ราคา 10: D₁ = 10 + 100 = <strong>110</strong><br><br><strong>จุดตัด E</strong>: D₁ = S_Q = 150 → ราคาดุลยภาพ <strong>9 บาท</strong> เท่ากับ Panel (ก) ✓<br><br>🔑 <strong>มุมมองทั้ง 2 ให้ราคาเดียวกัน</strong> เพราะแสดงสิ่งเดียวกันจากต่างมุม:<br>• Panel (ก) มอง "Supply ที่ขายจริง" = D ของผู้บริโภค<br>• Panel (ข) มอง "Total Stock" = D + Reservation ของผู้ขายเอง</p></div>',
+quiz:{q:"จากตัวอย่างพ่อค้าข้าว 150 กระสอบ ทำไมที่ราคา 9 บาทถึงเป็นดุลยภาพ?",opts:["เพราะรัฐบาลกำหนดราคา","เพราะ Supply (ขายจริง) = 25 = ปริมาณที่ผู้บริโภคต้องการซื้อ (25) พอดี","เพราะเป็นราคาเฉลี่ยของ 8, 9, 10","เพราะเป็นราคาที่ Total Stock เท่ากับศูนย์"],ans:1,explain:"ดุลยภาพคือจุดที่<strong>ปริมาณเสนอขาย = ปริมาณเสนอซื้อ</strong> ที่ราคา 9 บาท: ผู้ขายเก็บ 125 กระสอบ → เสนอขาย <strong>25</strong> กระสอบ ผู้บริโภคต้องการซื้อ <strong>25</strong> กระสอบพอดี → ตลาดเคลียร์ที่ราคานี้"}},
 
 {tag:"คำนวณ · ตัวอย่าง",title:"ตัวอย่างคำนวณ: ราคาในระยะตลาด",
 body:'<div class="scenario"><p style="font-size:28px;margin-bottom:8px">📝</p><p><strong>โจทย์:</strong> Qs = 50,000 (คงที่)</p><p>Qd = 70,000 − 5,000P</p><p>หาราคาดุลยภาพ? ถ้า Qd เปลี่ยนเป็น 100,000 − 5,000P ราคาใหม่เท่าไหร่?</p></div>',
-quiz:{q:"Qs = 50,000, Qd = 70,000 − 5,000P → P = ? | ถ้า Qd ใหม่ = 100,000 − 5,000P → P ใหม่ = ?",opts:["P = 4, P ใหม่ = 10 (ราคาเพิ่ม 2.5 เท่า แต่ Q ยังเท่าเดิม 50,000!)","P = 10, P ใหม่ = 4","P = 4, P ใหม่ = 4"],ans:0,explain:"Qd = Qs → 70,000−5,000P = 50,000 → P = <strong>4 บาท</strong>\nQd ใหม่ = Qs → 100,000−5,000P = 50,000 → P = <strong>10 บาท</strong>\nQ ยังเท่าเดิม 50,000 หน่วย! เพราะเส้น S ตั้ง → D เปลี่ยนแต่ Q ไม่เปลี่ยน"}},
+quiz:{q:"Qs = 50,000, Qd = 70,000 − 5,000P → P = ? | ถ้า Qd ใหม่ = 100,000 − 5,000P → P ใหม่ = ?",opts:["P = 10, P ใหม่ = 4","P = 4, P ใหม่ = 10 (ราคาเพิ่ม 2.5 เท่า แต่ Q ยังเท่าเดิม 50,000!)","P = 4, P ใหม่ = 4","P = 14, P ใหม่ = 20 (Q เพิ่มตามอุปสงค์)"],ans:1,explain:"Qd = Qs → 70,000−5,000P = 50,000 → P = <strong>4 บาท</strong>\nQd ใหม่ = Qs → 100,000−5,000P = 50,000 → P = <strong>10 บาท</strong>\nQ ยังเท่าเดิม 50,000 หน่วย! เพราะเส้น S ตั้ง → D เปลี่ยนแต่ Q ไม่เปลี่ยน"}},
 
 {tag:"สรุป · เปรียบเทียบ 3 ระยะเวลา",title:"สรุป: ระยะตลาด vs ระยะสั้น vs ระยะยาว",
 body:'<table class="cmp"><thead><tr><th>ระยะ</th><th>ปัจจัย</th><th>เส้น S</th><th>ผลเมื่อ D เพิ่ม</th></tr></thead><tbody><tr><td style="font-weight:700;color:#dc2626">ระยะตลาด</td><td>ทุกอย่างคงที่</td><td>เส้นตั้ง</td><td>P↑↑ Q คงที่</td></tr><tr><td style="font-weight:700;color:#d97706">ระยะสั้น</td><td>บางตัวแปรผัน</td><td>MC เหนือ AVC</td><td>P↑ Q↑</td></tr><tr><td style="font-weight:700;color:#059669">ระยะยาว</td><td>ทุกตัวแปรผัน</td><td>LS (ราบ/ขึ้น/ลง)</td><td>P อาจคง/เพิ่ม/ลด Q↑↑</td></tr></tbody></table><div class="insight"><div class="insight-label">✦ หัวใจ</div><p class="insight-text">ยิ่งระยะเวลานานขึ้น ผู้ผลิตปรับตัวได้มากขึ้น\nระยะตลาด: ปรับไม่ได้เลย → ราคาผันผวนมาก\nระยะสั้น: ปรับปัจจัยผันแปรได้ → ราคาผันผวนน้อยลง\nระยะยาว: ปรับได้ทุกอย่าง + เข้า/ออกได้ → ราคามีเสถียรภาพมากสุด</p></div><div class="scenario"><p style="font-size:28px;margin-bottom:8px">🎓</p><p><strong>จบ Chapter 7!</strong> ตลาดแข่งขันสมบูรณ์ครบทุก section: ลักษณะตลาด → กำไรสูงสุด → ดุลยภาพระยะสั้น → เส้น S ระยะสั้น → ดุลยภาพระยะยาว → เส้น S ระยะยาว → ระยะตลาด</p></div>'}
@@ -350,14 +535,14 @@ init();
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">7.6 เส้นอุปทานระยะยาว</span>
+      <span class="ajk-chap-name">บทที่ 7.6 — เส้นอุปทานระยะยาว</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter8.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">บทที่ 8 — ตลาดผูกขาด</span>
+      <span class="ajk-chap-name">บทที่ 8 — ตลาดผูกขาดสมบูรณ์</span>
     </div>
   </a>
 </nav>
@@ -368,22 +553,11 @@ init();
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-<a class="ajk-footer-btn" href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        แผนการเรียน
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter7.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 7</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>

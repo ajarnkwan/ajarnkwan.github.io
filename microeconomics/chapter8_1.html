@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>บทที่ 7.1 — ลักษณะของตลาดแข่งขันอย่างสมบูรณ์ · Ajarn.Kwan</title>
+<title>บทที่ 8.1 — ลักษณะของตลาดผูกขาดสมบูรณ์ · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --font-sans:'Noto Sans Thai',system-ui,sans-serif;
   --font-serif:'Noto Serif Thai',serif;
-  --theme-primary:#b45309;
-  --theme-primary-soft:#fffbeb;
-  --theme-primary-dark:#92400e;
-  --theme-hero-a:#92400e;
-  --theme-hero-b:#d97706;
-  --theme-page-bg:#fefbf6;
+  --theme-primary:#b91c1c;
+  --theme-primary-soft:#fef2f2;
+  --theme-primary-dark:#7f1d1d;
+  --theme-hero-a:#7f1d1d;
+  --theme-hero-b:#dc2626;
+  --theme-page-bg:#fff5f5;
   --color-bg:#ffffff;
-  --color-bg2:#fffbeb;
-  --color-border:#fcd34d;
-  --color-border-light:#fef3c7;
+  --color-bg2:#fef2f2;
+  --color-border:#fca5a5;
+  --color-border-light:#fee2e2;
   --color-ink:#292524;
   --color-muted:#78716c;
   --color-faint:#a8a29e;
   --radius:12px;
   --radius-lg:18px;
-  --shadow:0 14px 34px rgba(180,83,9,.06);
+  --shadow:0 14px 34px rgba(185,28,28,.06);
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:var(--font-sans);background:var(--theme-page-bg);color:var(--color-ink)}
@@ -63,7 +63,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--theme-page-bg);color
 
 /* ── Scenario card ── */
 .scenario{background:var(--color-bg2);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:18px;position:relative;overflow:hidden;border:.5px solid var(--color-border-light)}
-.scenario::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#d97706,#dc2626)}
+.scenario::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#dc2626,#dc2626)}
 .scenario-icon{font-size:28px;margin-bottom:8px}
 .scenario p{font-size:16px;line-height:1.75;color:var(--color-ink);margin:0 0 6px}
 .scenario p:last-child{margin:0}
@@ -123,7 +123,7 @@ body{margin:0;font-family:var(--font-sans);background:var(--theme-page-bg);color
 
 /* ── Next / CTA ── */
 .next-btn{width:100%;padding:14px;border-radius:var(--radius);background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b));border:none;color:#fff;font-size:17px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s;margin-top:8px}
-.next-btn:hover{box-shadow:0 10px 28px rgba(180,83,9,.18);transform:translateY(-1px)}
+.next-btn:hover{box-shadow:0 10px 28px rgba(185,28,28,.18);transform:translateY(-1px)}
 .next-btn.ghost{background:none;border:.5px solid var(--color-border);color:var(--color-muted);font-size:16px;padding:11px}
 .next-btn.ghost:hover{border-color:var(--theme-primary);color:var(--theme-primary);background:var(--theme-primary-soft);box-shadow:none;transform:none}
 .next-btn.hidden{opacity:0;pointer-events:none;transform:translateY(6px)}
@@ -347,29 +347,29 @@ body{margin:0;font-family:var(--font-sans);background:var(--theme-page-bg);color
   color-scheme: light;
   --font-sans:'Noto Sans Thai',system-ui,sans-serif;
   --font-serif:'Noto Serif Thai',serif;
-  --theme-primary:#b45309;
-  --theme-primary-soft:#fffbeb;
-  --theme-primary-dark:#92400e;
-  --theme-hero-a:#92400e;
-  --theme-hero-b:#d97706;
-  --theme-page-bg:#fefbf6;
-  --theme-border:#fde68a;
+  --theme-primary:#b91c1c;
+  --theme-primary-soft:#fef2f2;
+  --theme-primary-dark:#7f1d1d;
+  --theme-hero-a:#7f1d1d;
+  --theme-hero-b:#dc2626;
+  --theme-page-bg:#fff5f5;
+  --theme-border:#fca5a5;
   --color-background-primary:#ffffff;
-  --color-background-secondary:#fffbeb;
-  --color-border-secondary:#fde68a;
-  --color-border-tertiary:#fef3c7;
+  --color-background-secondary:#fef2f2;
+  --color-border-secondary:#fca5a5;
+  --color-border-tertiary:#fecaca;
   --color-text-primary:#1c1917;
   --color-text-secondary:#57534e;
   --color-text-tertiary:#a8a29e;
-  --shadow:0 14px 34px rgba(146,64,14,.08);
+  --shadow:0 14px 34px rgba(185,28,28,.08);
 }
 .ajk-shell-theme {
-  --ajk-primary: #b45309;
-  --ajk-primary-soft: #fffbeb;
-  --ajk-primary-dark: #92400e;
+  --ajk-primary: #b91c1c;
+  --ajk-primary-soft: #fef2f2;
+  --ajk-primary-dark: #7f1d1d;
   --ajk-ink: var(--color-text-primary);
   --ajk-muted: var(--color-text-secondary);
-  --ajk-border: #f5e6c8;
+  --ajk-border: #fcd1d1;
   --ajk-surface: #ffffff;
 }
 body{
@@ -566,14 +566,14 @@ footer.ft, div.foot{display:none!important;}
 }
 </style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #fff5f5;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
   <div class="ak-topbar-inner">
     <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
     <div class="ak-breadcrumb">
-      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 7.1</span>
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 8.1</span>
     </div>
     <div class="ak-topbar-actions">
       <a href="../#hub" class="ak-member-pill" id="ak-member-pill">
@@ -588,16 +588,16 @@ footer.ft, div.foot{display:none!important;}
 
 <header class="ajk-topbar ajk-shell-theme">
   <div class="ajk-topbar-inner">
-    <a class="ajk-back-btn" href="chapter7.html" aria-label="กลับบทที่ 7">
+    <a class="ajk-back-btn" href="chapter8.html" aria-label="กลับบทที่ 8">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      <span>บทที่ 7</span>
+      <span>บทที่ 8</span>
     </a>
     <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
       <span>หน้าหลัก</span>
     </a>
 <div class="ajk-brand">
-      <div class="ajk-brand-course">บทที่ 7.1 · ลักษณะของตลาดแข่งขันอย่างสมบูรณ์</div>
+      <div class="ajk-brand-course">บทที่ 8.1 · ลักษณะของตลาดผูกขาดสมบูรณ์</div>
       <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
@@ -630,232 +630,216 @@ const STEPS = [
 // ──────── STEP 0: Hook ────────
 {
   tag: "เริ่มต้น · ลองคิดก่อน",
-  title: "ลองนึกภาพว่าคุณเป็นแม่ค้าขายไข่ไก่",
+  title: "ลองนึกภาพว่าคุณอยากซื้อน้ำประปา…",
   body: `<div class="scenario">
-    <div class="scenario-icon">🥚</div>
-    <p>สมมุติคุณขายไข่ไก่ที่ตลาดสด มีแม่ค้าขายไข่อีก 50 คน ไข่ทุกเจ้าเหมือนกันหมด ลูกค้ารู้ราคาทุกเจ้า</p>
-    <p>ถ้าคุณขึ้นราคาจากแผงละ 100 เป็น 110 บาท — จะเกิดอะไรขึ้น?</p>
+    <div class="scenario-icon">💧</div>
+    <p>คุณกำลังจะเปิดบ้านใหม่ในกรุงเทพฯ และต้องการต่อน้ำประปา</p>
+    <p>ลองคิดดูว่า — คุณซื้อน้ำประปาจากกี่บริษัท? มีตัวเลือกไหม?</p>
   </div>`,
   quiz: {
-    q: "ถ้าคุณเป็นแม่ค้าขายไข่ 1 ใน 50 เจ้าที่ขายไข่เหมือนกัน แล้วคุณขึ้นราคา 10 บาท จะเกิดอะไร?",
-    opts: [
-      "ลูกค้าบางส่วนยังซื้อ เพราะติดใจบริการ",
-      "ลูกค้าหนีไปซื้อเจ้าอื่นหมด เพราะไข่เหมือนกัน ราคาถูกกว่า",
-      "แม่ค้าเจ้าอื่นจะขึ้นราคาตาม",
-      "ไม่มีผลอะไร เพราะราคาต่างกันแค่ 10 บาท"
+    q: "ในกรุงเทพฯ คุณสามารถเลือกซื้อน้ำประปาจากใครได้บ้าง?",
+    opts:[
+      "เลือกได้หลายเจ้า เหมือนซื้อมือถือ",
+      "เลือกได้ 2-3 บริษัท ขึ้นอยู่กับเขต",
+      "ต้องซื้อจาก การประปานครหลวง เท่านั้น — ไม่มีทางเลือก",
+      "ไม่มีใครจ่ายค่าน้ำ เพราะเป็นบริการรัฐ"
     ],
-    ans: 1,
-    explain: "เพราะไข่เหมือนกันหมด ลูกค้ารู้ราคาทุกเจ้า → ไม่มีเหตุผลที่จะจ่ายแพงกว่า → <strong>ลูกค้าหนีไปหมด!</strong> นี่คือสาเหตุที่ผู้ขายในตลาดแข่งขันสมบูรณ์ไม่สามารถตั้งราคาเองได้ → ต้อง<strong>ยอมรับราคาตลาด (Price Taker)</strong>"
+    ans:2,
+    explain: "ในกรุงเทพฯ มีผู้ขายน้ำประปาเพียง<strong>รายเดียว</strong> คือ <strong>การประปานครหลวง</strong> — และเราไม่สามารถเลือกผู้ขายอื่นได้เลย นี่คือตัวอย่างของ <strong>ตลาดผูกขาดสมบูรณ์ (Pure Monopoly)</strong> — ผู้ขาย 1 ราย ไม่มีคู่แข่ง"
   }
 },
 
-// ──────── STEP 1: 5 Characteristics ────────
+// ──────── STEP 1: 4 Characteristics ────────
 {
-  tag: "ทฤษฎี · ลักษณะ 5 ประการ",
-  title: "ตลาดแข่งขันสมบูรณ์ต้องมีครบทั้ง 5 ข้อ",
-  body: `<div class="prose"><p>จากตัวอย่างไข่ไก่ที่ลองคิดไป — สถานการณ์นั้นมีองค์ประกอบสำคัญหลายอย่างที่ทำให้เกิด "ตลาดแข่งขันสมบูรณ์" มาดูทั้ง 5 ข้อกัน</p></div>
+  tag: "ทฤษฎี · ลักษณะ 4 ประการ",
+  title: "ตลาดผูกขาดสมบูรณ์ต้องมีครบ 4 ข้อ",
+  body: `<div class="prose"><p>คำว่า "Monopoly" มาจากภาษากรีก — <em>mono</em> = หนึ่ง · <em>polien</em> = ผู้ขาย → ผู้ขายเพียง<strong>หนึ่ง</strong>เดียว ลักษณะของตลาดนี้สรุปได้ 4 ข้อ:</p></div>
   <div class="features">
-    <div class="feature"><div class="feature-num">1</div><div class="feature-body"><h4>ผู้ซื้อ-ผู้ขายจำนวนมาก</h4><div class="en">Large number of sellers and buyers</div><p>แต่ละรายเป็นรายย่อย ไม่มีใครมีพลังมากพอจะเปลี่ยนแปลงราคาตลาดได้ → ทุกคนเป็น <strong>Price Taker</strong> (ผู้ยอมรับราคา)</p></div></div>
-    <div class="feature"><div class="feature-num">2</div><div class="feature-body"><h4>สินค้าเหมือนกันทุกประการ</h4><div class="en">Homogeneous Product</div><p>ไม่มีความแตกต่าง ไม่มีแบรนด์ ไม่มีบรรจุภัณฑ์พิเศษ → ผู้ซื้อซื้อจากใครก็ได้ ไม่สนใจว่าใครเป็นผู้ขาย</p></div></div>
-    <div class="feature"><div class="feature-num">3</div><div class="feature-body"><h4>ทรัพยากรเคลื่อนย้ายได้อย่างสมบูรณ์</h4><div class="en">Perfect Mobility of Resources</div><p>ไม่มีใครผูกขาดปัจจัยการผลิต เจ้าของทรัพยากรมีอิสระจำหน่ายให้ผู้ที่ให้ผลตอบแทนสูงกว่า</p></div></div>
-    <div class="feature"><div class="feature-num">4</div><div class="feature-body"><h4>เข้า-ออกอุตสาหกรรมเสรี</h4><div class="en">Free Entry & Free Exit</div><p>ไม่มีการรวมตัว (absence of collusion) ไม่มีกฎหมายกีดกัน รัฐบาลไม่เข้ามากำหนดราคาหรือจำกัดผลผลิต</p></div></div>
-    <div class="feature"><div class="feature-num">5</div><div class="feature-body"><h4>ความรู้สมบูรณ์เกี่ยวกับตลาด</h4><div class="en">Perfect Knowledge</div><p>ทุกคนรู้ราคาตลาด รู้ลักษณะการผลิต → ผู้ซื้อไม่เสนอซื้อราคาสูงกว่าตลาด ผู้ขายไม่ขายราคาต่ำกว่า → <strong>มีราคาเดียว</strong>สำหรับสินค้าชนิดเดียวกัน</p></div></div>
+    <div class="feature"><div class="feature-num">1</div><div class="feature-body"><h4>มีผู้ผลิตเพียงคนเดียว</h4><div class="en">Single Seller</div><p>ผู้ผูกขาด = ทั้งอุตสาหกรรม → "บริษัท = ตลาด" เช่น การประปา การไฟฟ้า รถไฟฟ้าบางสาย</p></div></div>
+    <div class="feature"><div class="feature-num">2</div><div class="feature-body"><h4>สินค้าไม่มีตัวทดแทนใกล้เคียง</h4><div class="en">No Close Substitutes</div><p>สินค้าที่ผลิต<strong>ไม่สามารถใช้สินค้าอื่นแทนได้</strong> — ลูกค้าจึงไม่มีทางเลือกอื่น เช่น น้ำประปาแทนด้วยน้ำขวดไม่ได้สำหรับใช้ในบ้าน</p></div></div>
+    <div class="feature"><div class="feature-num">3</div><div class="feature-body"><h4>เป็น Price Maker</h4><div class="en">Price Maker</div><p>ผู้ผูกขาด<strong>กำหนดราคาและจำนวนผลิตเอง</strong> — ตรงข้ามกับ Price Taker ในตลาดแข่งขันสมบูรณ์ (ผู้ผูกขาดมีอำนาจตลาด)</p></div></div>
+    <div class="feature"><div class="feature-num">4</div><div class="feature-body"><h4>ไม่มีคู่แข่งโดยตรง</h4><div class="en">No Direct Competition</div><p>ผู้ผูกขาดสามารถ<strong>ป้องกันมิให้ผู้อื่นเข้ามาผลิตแข่งขัน</strong>ได้ ผ่านอุปสรรค (barriers) หลายแบบ</p></div></div>
   </div>`,
   quiz: {
-    q: "ข้อใดไม่ใช่ลักษณะของตลาดแข่งขันอย่างสมบูรณ์?",
-    opts: [
-      "ผู้ขายแต่ละรายสามารถตั้งราคาสินค้าของตัวเองได้",
-      "สินค้าที่ซื้อขายมีลักษณะเหมือนกันทุกประการ",
-      "ทรัพยากรเคลื่อนย้ายได้อย่างสมบูรณ์",
-      "ผู้ซื้อและผู้ขายมีความรู้สมบูรณ์เกี่ยวกับตลาด"
+    q: "ข้อใด<strong>ไม่ใช่</strong>ลักษณะของตลาดผูกขาดสมบูรณ์?",
+    opts:[
+      "สินค้าไม่มีตัวทดแทนใกล้เคียง",
+      "ผู้ผลิตเป็นผู้กำหนดราคาเอง (Price Maker)",
+      "มีผู้ผลิตเพียงรายเดียวในตลาด",
+      "ผู้ผลิตต้องยอมรับราคาตลาด (Price Taker)"
     ],
-    ans: 0,
-    explain: "ตลาดแข่งขันสมบูรณ์ ผู้ขายแต่ละราย<strong>ไม่สามารถตั้งราคาเองได้</strong> — ต้องยอมรับราคาตลาด (Price Taker) เพราะเป็นรายย่อยที่ไม่มีอิทธิพลต่อราคา ข้อ ข. ค. ง. ล้วนเป็นลักษณะที่ถูกต้อง"
+    ans:3,
+    explain: "ผู้ผูกขาดเป็น <strong>Price Maker</strong> — กำหนดราคาเอง ไม่ต้องยอมรับราคาตลาด การเป็น <strong>Price Taker</strong> เป็นลักษณะของตลาด<strong>แข่งขันสมบูรณ์</strong> (บทที่ 7) ที่ตรงข้ามกับ Monopoly"
   }
 },
 
-// ──────── STEP 2: Price Taker ────────
+// ──────── STEP 2: Why Monopoly Exists — Barriers ────────
 {
-  tag: "เจาะลึก · ข้อ 1",
-  title: "Price Taker คืออะไร? ส่งผลอย่างไร?",
-  body: `<div class="prose">
-    <p>Price Taker หมายความว่าผู้ขายแต่ละราย<strong>ต้องขายในราคาที่ตลาดกำหนด</strong> ไม่สามารถขึ้นราคาได้ (ลูกค้าหนีหมด) และไม่จำเป็นต้องลดราคา (ขายได้อยู่แล้วในราคาตลาด)</p>
-    <p>คำถามสำคัญ: ราคาตลาดมาจากไหน?</p>
+  tag: "ทำไมเกิดผูกขาด · อุปสรรค 4 แบบ",
+  title: "อะไรกีดกันคนอื่นไม่ให้เข้ามาแข่งได้?",
+  body: `<div class="prose"><p>ถ้ากำไรสูง ทำไมคนอื่นไม่เข้ามาแย่งตลาด? — เพราะมี <strong>อุปสรรคการเข้าตลาด (Barriers to Entry)</strong> 4 ประเภท:</p></div>
+  <div class="features">
+    <div class="feature"><div class="feature-num">1</div><div class="feature-body"><h4>ควบคุมทรัพยากรเฉพาะ</h4><div class="en">Resource Control</div><p>เป็นเจ้าของวัตถุดิบหรือทรัพยากรสำคัญที่หาที่อื่นไม่ได้ เช่น <strong>De Beers</strong> ที่ควบคุมเหมืองเพชรส่วนใหญ่ของโลก</p></div></div>
+    <div class="feature"><div class="feature-num">2</div><div class="feature-body"><h4>สิทธิพิเศษจากรัฐบาล</h4><div class="en">Government Grant / License</div><p>รัฐบาลให้<strong>สัมปทาน หรือ ลิขสิทธิ์</strong> ผูกขาด เช่น การประปานครหลวง · กฟผ. · สำนักงานสลากกินแบ่ง · สิทธิบัตรยา</p></div></div>
+    <div class="feature"><div class="feature-num">3</div><div class="feature-body"><h4>ทำสินค้าให้แตกต่าง</h4><div class="en">Product Differentiation</div><p>สร้างเอกลักษณ์ที่ลอกเลียนแบบไม่ได้ → ลูกค้าหาทดแทนไม่ได้ เช่น สูตรลับของ Coca-Cola, แบรนด์ luxury บางอย่าง</p></div></div>
+    <div class="feature"><div class="feature-num">4</div><div class="feature-body"><h4>การผูกขาดตามธรรมชาติ</h4><div class="en">Natural Monopoly</div><p>บริษัทที่<strong>ต้นทุนเฉลี่ยต่ำกว่า</strong>เมื่อมีรายเดียว — ถ้ามี 2 รายจะแพงกว่า เช่น โครงข่ายไฟฟ้า · รถไฟฟ้า · ท่อส่งน้ำ</p></div></div>
   </div>
   <div class="insight">
-    <div class="insight-label">✦ ราคาตลาดถูกกำหนดจาก…</div>
-    <p class="insight-text">เส้นอุปสงค์รวม (Market Demand) ตัดกับเส้นอุปทานรวม (Market Supply) ของตลาด → กำหนดราคาดุลยภาพ
-    
-ทุกผู้ขายจะยอมรับราคานี้ ขายเท่าไหร่ก็ได้ในราคาเดียว</p>
+    <div class="insight-label">✦ ทำไม Natural Monopoly สำคัญ</div>
+    <p class="insight-text">ในกิจการที่ต้องลงทุนโครงสร้างพื้นฐานมหาศาล (เช่น สายส่งไฟฟ้า ท่อน้ำ ทางด่วน) — การมีหลายบริษัทขุดถนน วางท่อซ้ำซ้อน จะ<strong>เปลืองทรัพยากรมาก</strong> และต้นทุนต่อหน่วยจะสูงขึ้น
+  
+ดังนั้น 1 รายผูกขาด = ต้นทุนต่ำสุด = ราคาผู้บริโภคถูกที่สุด → รัฐมักให้สัมปทานในกิจการพวกนี้</p>
   </div>`,
   quiz: {
-    q: "ถ้าราคาดุลยภาพของตลาดเท่ากับ 80 บาท และคุณเป็นผู้ขายรายหนึ่ง ผลลัพธ์ข้อใดถูกต้อง?",
-    opts: [
-      "คุณขายได้ 100 หน่วยแรกที่ 80 บาท แต่หน่วยต่อไปต้องลดราคา",
-      "คุณขายได้ทุกหน่วยในราคา 80 บาทเท่ากันหมด ไม่ว่าจะขายกี่หน่วย",
-      "ราคาจะเพิ่มขึ้นถ้าคุณขายน้อยลง",
-      "คุณต้องลดราคาเพื่อแข่งขัน"
+    q: "การประปานครหลวงผูกขาดน้ำประปาในกรุงเทพฯ จัดเป็นอุปสรรคประเภทใด<strong>เป็นหลัก</strong>?",
+    opts:[
+      "ควบคุมทรัพยากรเฉพาะ — เพราะเป็นเจ้าของแหล่งน้ำ",
+      "ทั้งข้อ ข. และ ค. — เป็นทั้งสัมปทานและธรรมชาติ",
+      "สิทธิพิเศษจากรัฐบาล — เพราะรัฐให้สัมปทาน",
+      "Natural Monopoly — เพราะวางท่อน้ำซ้ำกันหลายบริษัทไม่คุ้ม"
     ],
-    ans: 1,
-    explain: "เพราะเป็น Price Taker → ราคาต่อหน่วย<strong>คงที่ตลอด</strong> ไม่ว่าจะขายกี่หน่วย → ไม่ต้องลดราคาเพื่อขายเพิ่ม (ต่างจากตลาดอื่นที่ผู้ขายมีอำนาจตลาด) นี่คือจุดสำคัญที่ทำให้เส้นอุปสงค์ของผู้ขายมีลักษณะพิเศษ"
+    ans:1,
+    explain: "การประปานครหลวงเป็นทั้ง <strong>สัมปทานจากรัฐ</strong> (รัฐให้อำนาจผูกขาด) และ <strong>Natural Monopoly</strong> (การวางท่อน้ำคู่ขนานหลายบริษัทจะเปลืองและต้นทุนสูง) → ทั้งสองอุปสรรคทำงานร่วมกัน"
   }
 },
 
-// ──────── STEP 3: Demand Curve Shape ────────
+// ──────── STEP 3: Natural Monopoly Deep Dive ────────
 {
-  tag: "ผลลัพธ์สำคัญ · เส้นอุปสงค์ของผู้ขาย",
-  title: "เส้นอุปสงค์ของผู้ขายแต่ละราย — ทำไมเป็นเส้นราบ?",
+  tag: "เจาะลึก · Natural Monopoly",
+  title: "Natural Monopoly คืออะไร? ทำไมพิเศษ?",
   body: `<div class="prose">
-    <p>เมื่อผู้ขายขายได้ทุกหน่วยในราคาเดียว (เช่น 80 บาท) ไม่ว่าจะขาย 1 หน่วยหรือ 100 หน่วย → ราคาไม่เปลี่ยน</p>
-    <p>ดังนั้น เส้นอุปสงค์ที่ผู้ขายมองเห็นจะเป็น<strong>เส้นนอนราบ ขนานแกนปริมาณ</strong> ณ ระดับราคาตลาด</p>
-  </div>
-  <div class="diagram-wrap">
-    <div class="diagram-title">เส้นอุปสงค์ของผู้ขายแต่ละราย ในตลาดแข่งขันสมบูรณ์</div>
-    <svg viewBox="0 0 400 220" style="width:100%;max-width:400px;margin:0 auto;display:block">
-      <defs><marker id="ah" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#78716c"/></marker></defs>
-      <line x1="60" y1="180" x2="370" y2="180" stroke="#78716c" stroke-width="1.5" marker-end="url(#ah)"/>
-      <line x1="60" y1="180" x2="60" y2="20" stroke="#78716c" stroke-width="1.5" marker-end="url(#ah)"/>
-      <text x="370" y="198" fill="#78716c" font-size="12" text-anchor="end" font-family="var(--font-sans)">Q (ปริมาณ)</text>
-      <text x="45" y="25" fill="#78716c" font-size="12" text-anchor="end" font-family="var(--font-sans)">฿</text>
-      <line x1="60" y1="90" x2="350" y2="90" stroke="#d97706" stroke-width="2.5" stroke-dasharray="0"/>
-      <text x="356" y="94" fill="#92400e" font-size="12" font-weight="700" font-family="var(--font-sans)">D = AR = MR = P</text>
-      <text x="42" y="94" fill="#92400e" font-size="12" font-weight="600" text-anchor="end" font-family="var(--font-sans)">P₀</text>
-      <line x1="55" y1="90" x2="60" y2="90" stroke="#92400e" stroke-width="1"/>
-    </svg>
-  </div>`,
-  quiz: {
-    q: "ทำไมเส้นอุปสงค์ของ \"ตลาดทั้งหมด\" ทอดลงจากซ้ายไปขวา แต่เส้นอุปสงค์ของ \"ผู้ขายแต่ละราย\" เป็นเส้นราบ?",
-    opts: [
-      "เพราะตลาดมีหลายผู้ขาย แต่ผู้ขายแต่ละรายเป็นรายเล็กมาก → ไม่มีอิทธิพลต่อราคา → เห็นราคาเป็นค่าคงที่",
-      "เพราะตลาดขายสินค้าคนละชนิดกับผู้ขาย",
-      "เพราะผู้ขายแต่ละรายขายสินค้าไม่ได้จริง",
-      "เพราะกฎหมายบังคับ"
-    ],
-    ans: 0,
-    explain: "เส้นอุปสงค์ตลาดทอดลงตามกฎอุปสงค์ปกติ แต่ผู้ขาย<strong>แต่ละราย</strong>เล็กจิ๋วมาก → จะขายเพิ่มเท่าไหร่ก็ไม่กระทบราคาตลาด → เขาจึง \"มองเห็น\" ราคาเป็นค่าคงที่ → เส้น D ของเขาจึงเป็นเส้นราบ!"
-  }
-},
-
-// ──────── STEP 4: D = AR = MR = P ────────
-{
-  tag: "สมการหลัก",
-  title: "D = AR = MR = P — สี่เส้นเป็นเส้นเดียวกัน!",
-  body: `<div class="prose">
-    <p>นี่คือผลลัพธ์สำคัญที่สุดของ Section นี้ มาพิสูจน์กันทีละเส้น:</p>
-  </div>
-  <table class="cmp">
-    <thead><tr><th>เส้น</th><th>ความหมาย</th><th>ในตลาดแข่งขันสมบูรณ์</th></tr></thead>
-    <tbody>
-      <tr><td><strong>D</strong></td><td>อุปสงค์ — ราคาที่ขายได้แต่ละหน่วย</td><td>= P (ราคาคงที่)</td></tr>
-      <tr><td><strong>AR</strong></td><td>รายรับเฉลี่ย = TR ÷ Q</td><td>= PQ ÷ Q = P</td></tr>
-      <tr><td><strong>MR</strong></td><td>รายรับเพิ่ม = ΔTR ÷ ΔQ</td><td>= P (ราคาไม่เปลี่ยน)</td></tr>
-      <tr><td><strong>P</strong></td><td>ราคาต่อหน่วย</td><td>คงที่ตลอด</td></tr>
-    </tbody>
-  </table>
-  <div class="formula">
-    <div class="formula-line">D = AR = MR = P</div>
-    <div class="formula-note">ทั้ง 4 เส้นอยู่บนเส้นเดียวกัน → เป็นเส้นราบขนานแกนปริมาณ</div>
-  </div>`,
-  quiz: {
-    q: "ถ้าราคาตลาดเท่ากับ 80 บาท และผู้ผลิตขายได้ 10 หน่วย → TR, AR, MR เท่ากับเท่าไหร่?",
-    opts: [
-      "TR = 800, AR = 80, MR = 80",
-      "TR = 800, AR = 80, MR = 800",
-      "TR = 80, AR = 8, MR = 80",
-      "TR = 800, AR = 80, MR ไม่สามารถหาได้"
-    ],
-    ans: 0,
-    explain: "TR = P × Q = 80 × 10 = <strong>800 บาท</strong> | AR = TR ÷ Q = 800 ÷ 10 = <strong>80 บาท</strong> | MR = รายรับที่เพิ่มจากการขายหน่วยที่ 10 = <strong>80 บาท</strong> (เท่ากับ P ตลอด!) ทุกค่าเท่ากันหมดที่ 80 บาท/หน่วย"
-  }
-},
-
-// ──────── STEP 5: TR Line ────────
-{
-  tag: "ต่อยอด · เส้นรายรับรวม",
-  title: "เส้น TR เป็นเส้นตรงออกจากจุดกำเนิด",
-  body: `<div class="prose">
-    <p>เมื่อราคาคงที่ → TR = P × Q → เป็นฟังก์ชันเชิงเส้น (linear) ของ Q</p>
-    <p>กราฟ TR จึงเป็น<strong>เส้นตรงออกจากจุด origin</strong> มี Slope = P (เป็นบวก)</p>
-  </div>
-  <div class="diagram-wrap">
-    <div class="diagram-title">เส้นรายรับรวม (TR) ของผู้ขายในตลาดแข่งขันสมบูรณ์</div>
-    <svg viewBox="0 0 400 220" style="width:100%;max-width:400px;margin:0 auto;display:block">
-      <defs><marker id="ah2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#78716c"/></marker></defs>
-      <line x1="60" y1="190" x2="370" y2="190" stroke="#78716c" stroke-width="1.5" marker-end="url(#ah2)"/>
-      <line x1="60" y1="190" x2="60" y2="20" stroke="#78716c" stroke-width="1.5" marker-end="url(#ah2)"/>
-      <text x="370" y="208" fill="#78716c" font-size="12" text-anchor="end" font-family="var(--font-sans)">Q</text>
-      <text x="45" y="25" fill="#78716c" font-size="12" text-anchor="end" font-family="var(--font-sans)">฿</text>
-      <line x1="60" y1="190" x2="330" y2="40" stroke="#b45309" stroke-width="2.5"/>
-      <text x="336" y="38" fill="#92400e" font-size="13" font-weight="700" font-family="var(--font-sans)">TR</text>
-      <text x="200" y="95" fill="#92400e" font-size="11" font-family="var(--font-sans)" transform="rotate(-30,200,95)">Slope = P</text>
-    </svg>
+    <p>ในกิจการบางประเภท ถ้ามีหลายบริษัทแข่งกัน → ทุกบริษัทต้องลงทุนโครงสร้างซ้ำกัน → ต้นทุนรวมสูงขึ้น</p>
+    <p>ตัวอย่าง: ถ้ามี 3 บริษัทขายไฟฟ้าในกรุงเทพ — ต้องวางสายไฟ 3 ระบบ ต้องสร้างโรงไฟฟ้า 3 โรง → เปลืองมาก</p>
+    <p>ดังนั้น<strong>เส้น LAC (Long-run Average Cost) จะลดลงตลอดในช่วงปริมาณที่ตลาดต้องการ</strong> → 1 รายเดียว = ต้นทุนต่ำสุด</p>
   </div>
   <div class="insight">
-    <div class="insight-label">✦ สรุปเส้นรายรับ</div>
-    <p class="insight-text">• TR = P × Q → เส้นตรงจากจุดกำเนิด มี Slope = P
-• Slope ของ TR = ΔTR/ΔQ = MR = P
-• AR = TR/Q = P
-
-ทุกอย่างวนกลับมาที่ → ราคาคงที่!</p>
+    <div class="insight-label">✦ ตัวอย่างในไทย</div>
+    <p class="insight-text">• <strong>การไฟฟ้า:</strong> กฟผ. + กฟน. + กฟภ. (สามรายแบ่งเขต)
+• <strong>ประปา:</strong> การประปานครหลวง + การประปาส่วนภูมิภาค
+• <strong>รถไฟ:</strong> การรถไฟแห่งประเทศไทย
+• <strong>โทรศัพท์มือถือ?</strong> เคยผูกขาด (TOT) แต่เปิดเสรีตั้งแต่ 1990s → ปัจจุบัน 3 ค่ายแข่งกัน (AIS, True, dtac)</p>
   </div>`,
   quiz: {
-    q: "Slope ของเส้น TR ในตลาดแข่งขันสมบูรณ์เท่ากับอะไร?",
-    opts: [
-      "MC (ต้นทุนเพิ่ม)",
-      "MR = P (รายรับเพิ่ม = ราคา)",
-      "AC (ต้นทุนเฉลี่ย)",
-      "เปลี่ยนแปลงตลอดเวลา"
+    q: "ลักษณะสำคัญของ Natural Monopoly ที่ต่างจาก monopoly แบบอื่น คืออะไร?",
+    opts:[
+      "ต้องเป็นบริษัทรัฐเท่านั้น",
+      "เส้น LAC ลดลงตลอดในช่วงปริมาณที่ตลาดต้องการ → 1 รายเดียวต้นทุนต่ำสุด",
+      "ผู้ผูกขาดได้กำไรมากกว่า monopoly ปกติ",
+      "ราคาสินค้าจะต่ำเสมอ"
     ],
-    ans: 1,
-    explain: "Slope ของ TR = ΔTR/ΔQ = <strong>MR</strong> และในตลาดแข่งขันสมบูรณ์ MR = P → ดังนั้น Slope ของ TR = <strong>P (คงที่)</strong> ทำให้ TR เป็นเส้นตรง"
+    ans:1,
+    explain: "Natural Monopoly เกิดจาก<strong>โครงสร้างต้นทุน</strong> — เส้น LAC ลดลงตลอดในช่วงที่ตลาดต้องการ → ถ้าแบ่งให้หลายบริษัท ทุกบริษัทจะอยู่บนช่วง LAC ที่สูงกว่า → ต้นทุนรวมสูงขึ้น ดังนั้น 1 รายเดียว = ผลรวมต้นทุนต่ำสุดสำหรับสังคม"
   }
 },
 
-// ──────── STEP 6: Contrast ────────
+// ──────── STEP 4: Single Firm = Industry ────────
 {
-  tag: "ตรวจสอบความเข้าใจ",
-  title: "เปรียบเทียบ: ตลาดแข่งขันสมบูรณ์ vs ตลาดอื่น",
+  tag: "ผลที่ตามมา · บริษัท = อุตสาหกรรม",
+  title: "เมื่อมีรายเดียว — บริษัทคือทั้งอุตสาหกรรม",
   body: `<div class="prose">
-    <p>ก่อนจบ Section นี้ มาเช็คความเข้าใจด้วยการเปรียบเทียบ — ทำไมลักษณะเหล่านี้จึงสำคัญ?</p>
+    <p>ในตลาดแข่งขันสมบูรณ์ มี<strong>หลายบริษัท</strong>รวมเป็น 1 อุตสาหกรรม → เส้น Demand ของบริษัท ≠ เส้น Demand ของอุตสาหกรรม</p>
+    <p>แต่ในตลาดผูกขาด — บริษัท<strong>เพียงรายเดียว</strong> → <strong>เส้น Demand ของบริษัท = เส้น Demand ของอุตสาหกรรม</strong> = เส้น Demand ของตลาด</p>
   </div>
-  <table class="cmp">
-    <thead><tr><th>ลักษณะ</th><th>แข่งขันสมบูรณ์</th><th>ตลาดอื่น ๆ</th></tr></thead>
-    <tbody>
-      <tr><td>ผู้ขาย</td><td>มากมาย รายเล็ก</td><td>น้อย หรือรายเดียว</td></tr>
-      <tr><td>สินค้า</td><td>เหมือนกัน 100%</td><td>ต่างกัน มีแบรนด์</td></tr>
-      <tr><td>เส้น D ของผู้ขาย</td><td>เส้นราบ (Price Taker)</td><td>ทอดลง (Price Maker)</td></tr>
-      <tr><td>MR vs P</td><td>MR = P ตลอด</td><td>MR < P</td></tr>
-      <tr><td>เส้น TR</td><td>เส้นตรง</td><td>เส้นโค้ง</td></tr>
-    </tbody>
-  </table>`,
+  <div class="insight">
+    <div class="insight-label">✦ ผลที่สำคัญที่สุด</div>
+    <p class="insight-text">เส้น Demand ของผู้ผูกขาด<strong>ทอดลงจากซ้ายไปขวา</strong> (ไม่ใช่เส้นราบเหมือน PC!)
+  
+สาเหตุ: เพราะเป็นเส้น Demand ของทั้งตลาด → ตามกฎ Demand ปกติ ราคาสูง → ปริมาณน้อย, ราคาต่ำ → ปริมาณมาก
+  
+ดังนั้น <strong>ถ้าจะขายเพิ่ม → ต้องลดราคา</strong> (ทุกหน่วย ไม่ใช่แค่หน่วยใหม่)</p>
+  </div>`,
   quiz: {
-    q: "ข้อใดอธิบายได้ดีที่สุดว่าทำไมสมการ D = AR = MR = P จึงเกิดขึ้นได้เฉพาะในตลาดแข่งขันสมบูรณ์?",
-    opts: [
-      "เพราะรัฐบาลควบคุมราคา",
-      "เพราะผู้ขายเป็น Price Taker → ราคาคงที่ → รายรับจากทุกหน่วยเท่ากัน → D = AR = MR = P",
-      "เพราะสินค้ามีคุณภาพสูง",
-      "เพราะต้นทุนการผลิตต่ำ"
+    q: "ถ้าผู้ผูกขาดต้องการขายสินค้าเพิ่ม จะต้องทำอย่างไร?",
+    opts:[
+      "ขายในราคาเดิม เพราะเป็น Price Maker",
+      "เพิ่มโฆษณาเพื่อขยับเส้น Supply",
+      "ต้องลดราคา — เพราะเส้น Demand ของบริษัทเป็นเส้นทอดลง",
+      "ลดต้นทุนให้ต่ำลงก่อน"
     ],
-    ans: 1,
-    explain: "ทุกอย่างเริ่มจาก <strong>Price Taker</strong> → ราคาคงที่ → ขายทุกหน่วยในราคาเดียว → AR = P, MR = P, D ที่ผู้ขายเห็นก็ = P → ทั้ง 4 เส้นจึงรวมเป็นเส้นเดียวกัน! ในตลาดอื่นที่ผู้ขายเป็น Price Maker จะไม่เป็นแบบนี้"
+    ans:2,
+    explain: "ผู้ผูกขาดเจอเส้น Demand ทั้งตลาด → ทอดลง → จะขายเพิ่ม<strong>ต้องลดราคา</strong> นี่คือต้นเหตุที่ทำให้ในบทต่อไป (8.2) เราจะเห็นว่า MR ≠ P (เพราะ MR ต้องหักผลของการลดราคาในหน่วยเดิมด้วย)"
+  }
+},
+
+// ──────── STEP 5: Compare PC vs Monopoly ────────
+{
+  tag: "เปรียบเทียบ · PC vs Monopoly",
+  title: "ตลาดแข่งขันสมบูรณ์ vs ตลาดผูกขาด",
+  body: `<div class="prose"><p>มาเทียบเคียงกัน 2 ตลาดที่อยู่ตรงข้ามขั้วบนสเปกตรัมการแข่งขัน:</p></div>
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="width:100%;border-collapse:collapse;font-size:15.5px">
+      <thead style="background:#fef2f2;color:#7f1d1d">
+        <tr>
+          <th style="padding:10px;text-align:left;border:1px solid #fca5a5">มิติ</th>
+          <th style="padding:10px;text-align:center;border:1px solid #fca5a5">ตลาดแข่งขันสมบูรณ์ (PC)</th>
+          <th style="padding:10px;text-align:center;border:1px solid #fca5a5">ตลาดผูกขาด (Monopoly)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:10px;border:1px solid #fecaca;font-weight:600">จำนวนผู้ขาย</td><td style="padding:10px;border:1px solid #fecaca;text-align:center">มาก (รายย่อย)</td><td style="padding:10px;border:1px solid #fecaca;text-align:center"><strong>1 ราย</strong></td></tr>
+        <tr style="background:#fefefe"><td style="padding:10px;border:1px solid #fecaca;font-weight:600">อำนาจราคา</td><td style="padding:10px;border:1px solid #fecaca;text-align:center">Price Taker</td><td style="padding:10px;border:1px solid #fecaca;text-align:center"><strong>Price Maker</strong></td></tr>
+        <tr><td style="padding:10px;border:1px solid #fecaca;font-weight:600">สินค้าทดแทน</td><td style="padding:10px;border:1px solid #fecaca;text-align:center">เหมือนกันหมด</td><td style="padding:10px;border:1px solid #fecaca;text-align:center">ไม่มีตัวทดแทน</td></tr>
+        <tr style="background:#fefefe"><td style="padding:10px;border:1px solid #fecaca;font-weight:600">เข้า-ออกตลาด</td><td style="padding:10px;border:1px solid #fecaca;text-align:center">เสรี</td><td style="padding:10px;border:1px solid #fecaca;text-align:center">มีอุปสรรคกีดกัน</td></tr>
+        <tr><td style="padding:10px;border:1px solid #fecaca;font-weight:600">เส้น Demand ของบริษัท</td><td style="padding:10px;border:1px solid #fecaca;text-align:center">เส้นราบ (P คงที่)</td><td style="padding:10px;border:1px solid #fecaca;text-align:center"><strong>เส้นทอดลง</strong></td></tr>
+        <tr style="background:#fefefe"><td style="padding:10px;border:1px solid #fecaca;font-weight:600">P vs MR</td><td style="padding:10px;border:1px solid #fecaca;text-align:center">P = MR</td><td style="padding:10px;border:1px solid #fecaca;text-align:center"><strong>P > MR</strong></td></tr>
+      </tbody>
+    </table>
+  </div>`,
+  quiz: {
+    q: "ความแตกต่างที่สำคัญที่สุดที่ทำให้พฤติกรรมของผู้ผูกขาดต่างจากตลาดแข่งขัน คืออะไร?",
+    opts:[
+      "ลักษณะเส้น Demand ของบริษัท (เส้นราบ vs เส้นทอดลง)",
+      "ความเหมือนของสินค้า",
+      "จำนวนผู้ขาย",
+      "การมีอุปสรรคการเข้าตลาด"
+    ],
+    ans:0,
+    explain: "ทุกข้อสำคัญ แต่<strong>เส้น Demand ที่ทอดลง</strong>คือสิ่งที่เปลี่ยน math ทั้งหมด — ทำให้ MR ≠ P ทำให้ผู้ผูกขาดเลือก Q ที่ MR=MC แต่ตั้งราคา P > MC ได้ (ส่วนตัวอื่น ๆ เป็นเหตุที่ทำให้เกิด demand ทอดลง)"
+  }
+},
+
+// ──────── STEP 6: Real Thai Examples ────────
+{
+  tag: "ใช้ในชีวิตจริง · ตัวอย่างไทย",
+  title: "ตลาดผูกขาดในประเทศไทย — มีจริงไหม?",
+  body: `<div class="prose">
+    <p>ในความเป็นจริง <strong>"Pure" Monopoly แท้ ๆ หาได้ยาก</strong> เพราะมักมีสินค้าทดแทนระดับหนึ่งเสมอ แต่ตัวอย่างที่ใกล้เคียงในไทย:</p>
+  </div>
+  <div class="features">
+    <div class="feature"><div class="feature-num">⚡</div><div class="feature-body"><h4>การไฟฟ้าฝ่ายผลิต (กฟผ.)</h4><div class="en">EGAT</div><p>ผูกขาดการ<strong>ผลิต</strong>ไฟฟ้าเชิงพาณิชย์ของไทย (ส่งให้ กฟน./กฟภ. ขายปลีก) — เป็น Natural Monopoly + สัมปทานรัฐ</p></div></div>
+    <div class="feature"><div class="feature-num">💧</div><div class="feature-body"><h4>การประปานครหลวง</h4><div class="en">MWA</div><p>ผูกขาดน้ำประปาในกรุงเทพ-นนทบุรี-สมุทรปราการ — Natural Monopoly + สัมปทาน</p></div></div>
+    <div class="feature"><div class="feature-num">🚇</div><div class="feature-body"><h4>BTS, MRT (สายเดิม)</h4><div class="en">Mass Transit</div><p>ผูกขาดเส้นทางรถไฟฟ้าใต้ดิน/ลอยฟ้าตามเส้นทางที่ได้สัมปทาน — สัมปทานรัฐ</p></div></div>
+    <div class="feature"><div class="feature-num">🎫</div><div class="feature-body"><h4>สำนักงานสลากกินแบ่งรัฐบาล</h4><div class="en">Government Lottery</div><p>ผูกขาดการขายสลากกินแบ่งรัฐบาล (lottery) ตามกฎหมาย — สัมปทานรัฐโดยตรง</p></div></div>
+    <div class="feature"><div class="feature-num">💊</div><div class="feature-body"><h4>ยาสิทธิบัตร (Patent Drugs)</h4><div class="en">Patent</div><p>บริษัทยาที่ได้สิทธิบัตรเป็นผู้ผลิตเพียงรายเดียวระยะหนึ่ง (เช่น 20 ปี) — ผูกขาดชั่วคราวจากกฎหมายลิขสิทธิ์</p></div></div>
+  </div>`,
+  quiz: {
+    q: "เหตุใดยาสิทธิบัตรที่ผูกขาดจึงมักมีราคาแพงกว่ายาสามัญ?",
+    opts:[
+      "เพราะผู้ผลิตเป็นผู้ผูกขาด → กำหนดราคาได้สูงกว่าต้นทุน + ไม่มีคู่แข่ง",
+      "เพราะคุณภาพดีกว่าเสมอ",
+      "เพราะใช้วัตถุดิบจากต่างประเทศ",
+      "เพราะรัฐกำหนดให้ขายแพง"
+    ],
+    ans:0,
+    explain: "เมื่อยาได้สิทธิบัตร → บริษัทเดียวที่ผลิตได้ → <strong>ตั้งราคาได้สูงกว่าต้นทุน</strong>เพื่อทำกำไร เมื่อสิทธิบัตรหมดอายุ → ใครก็ผลิตได้ → กลายเป็นยาสามัญ ราคาตก (นี่เป็นเหตุที่ระบบ patent ออกแบบให้สมดุลระหว่างจูงใจคิดค้น vs ราคาผู้บริโภค)"
   }
 },
 
 // ──────── STEP 7: Bridge ────────
 {
   tag: "สรุป · เชื่อมโยง",
-  title: "สรุป Section 7.1 — และสิ่งที่จะเรียนต่อไป",
+  title: "สรุป Section 8.1 — และสิ่งที่จะเรียนต่อไป",
   body: `<div class="insight">
     <div class="insight-label">✦ สิ่งที่ได้เรียนรู้</div>
-    <p class="insight-text">① ตลาดแข่งขันสมบูรณ์มี 5 ลักษณะ → ทำให้ผู้ขายเป็น Price Taker
-② เส้นอุปสงค์ของผู้ขายแต่ละรายเป็นเส้นราบ
-③ D = AR = MR = P ทั้งหมดเป็นเส้นเดียวกัน
-④ TR เป็นเส้นตรงจากจุดกำเนิด มี Slope = P</p>
+    <p class="insight-text">① ตลาดผูกขาดมี 4 ลักษณะ — ผู้ขายรายเดียว, สินค้าไม่มีทดแทน, Price Maker, ไม่มีคู่แข่ง
+② อุปสรรคการเข้าตลาด 4 ประเภท — ทรัพยากร, สัมปทาน, แตกต่าง, Natural
+③ Natural Monopoly = LAC ลดลงตลอด → 1 รายต้นทุนต่ำสุด
+④ บริษัท = อุตสาหกรรม → เส้น Demand ทอดลง → P > MR</p>
   </div>
   <div class="scenario">
     <div class="scenario-icon">🔗</div>
-    <p><strong>เชื่อมไป Section 7.2:</strong> เมื่อเรารู้แล้วว่า MR = P คงที่ → คำถามต่อไปคือ ผู้ผลิตควรผลิตเท่าไหร่จึงจะได้<strong>กำไรสูงสุด</strong>?</p>
-    <p>คำตอบ: ผลิตจนกว่า MC = MR = P → นี่คือหัวใจของ Section 7.2 การหากำไรสูงสุด!</p>
+    <p><strong>เชื่อมไป Section 8.2:</strong> เมื่อเส้น Demand ทอดลง → MR เป็นเส้นแยกจาก AR และ <strong>มีความชัน 2 เท่า</strong> ของ AR!</p>
+    <p>คำถามต่อไป: ทำไม MR ชันเป็น 2 เท่า? และผู้ผูกขาดจะเลือกผลิตเท่าไหร่จึงจะได้กำไรสูงสุด?</p>
   </div>`
 }
 
@@ -911,7 +895,7 @@ function renderStep(){
   const vis = (!needsQuiz || alreadyDone) ? '' : 'hidden';
 
   if(isLast){
-    h += `<button class="next-btn ${vis}" id="next-btn" onclick="complete()">✓ จบ Section 7.1</button>`;
+    h += `<button class="next-btn ${vis}" id="next-btn" onclick="complete()">✓ จบ Section 8.1</button>`;
   } else {
     h += `<button class="next-btn ${vis}" id="next-btn" onclick="next()">ถัดไป →</button>`;
   }
@@ -954,12 +938,12 @@ function complete(){
   c.innerHTML = `<div class="step active">
     <div class="completion">
       <div class="completion-emoji">🎉</div>
-      <h2>จบ Section 7.1!</h2>
-      <p>คุณเข้าใจลักษณะ 5 ประการของตลาดแข่งขันสมบูรณ์ และผลลัพธ์สำคัญ D = AR = MR = P แล้ว!</p>
+      <h2>จบ Section 8.1!</h2>
+      <p>คุณเข้าใจลักษณะ 4 ประการของตลาดผูกขาด อุปสรรค และทำไม Demand จึงทอดลง!</p>
       <div class="completion-link">
-        💡 <strong>เชื่อมไป Section 7.2:</strong> เมื่อ MR = P คงที่ → ผู้ผลิตจะหากำไรสูงสุดด้วยเงื่อนไข MR = MC → ซึ่งในตลาดนี้ก็คือ P = MC นั่นเอง!
+        💡 <strong>เชื่อมไป Section 8.2:</strong> เมื่อ Demand ทอดลง → MR เป็นเส้นแยก! เราจะดูว่าทำไม MR slope = 2 × AR slope และผู้ผูกขาดจะเลือกผลิตเท่าไหร่ให้ได้กำไรสูงสุด
       </div>
-      <button class="next-btn" onclick="location.href='chapter7.html'" style="max-width:300px;margin:0 auto">← กลับบทที่ 7</button>
+      <button class="next-btn" onclick="location.href='chapter8.html'" style="max-width:300px;margin:0 auto">← กลับบทที่ 8</button>
     </div>
   </div>`;
   document.getElementById('dots').innerHTML='';
@@ -971,18 +955,18 @@ init();
 </script>
 
 <nav class="ajk-chapter-nav ajk-shell-theme">
-  <a class="ajk-chap-btn prev" href="chapter7.html">
+  <a class="ajk-chap-btn prev" href="chapter8.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">บทที่ 7 — ตลาดแข่งขันอย่างสมบูรณ์</span>
+      <span class="ajk-chap-name">บทที่ 8 — ตลาดผูกขาดสมบูรณ์</span>
     </div>
   </a>
-  <a class="ajk-chap-btn next" href="chapter7_2.html">
+  <a class="ajk-chap-btn next" href="chapter8_2.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">บทที่ 7.2 — การหากำไรสูงสุด</span>
+      <span class="ajk-chap-name">บทที่ 8.2 — AR, MR และการหากำไรสูงสุด</span>
     </div>
   </a>
 </nav>
@@ -994,7 +978,7 @@ init();
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
       <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
-      <a class="ajk-footer-btn" href="chapter7.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 7</a>
+      <a class="ajk-footer-btn" href="chapter8.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 8</a>
       <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
       <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
       <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>

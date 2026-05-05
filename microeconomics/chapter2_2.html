@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ทฤษฎีที่ 2 — Ordinal Utility · Ajarn.Kwan</title>
+<title>บทที่ 2.2 — Ordinal Utility — ทฤษฎีอรรถประโยชน์เชิงลำดับ · Ajarn.Kwan</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -21,12 +21,12 @@
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
-    .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
-    .hero{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
+    .page{max-width:760px;margin:0 auto;padding:24px 18px 56px}
+    .hero{background:linear-gradient(135deg,#2f2570,#1565c0);color:#fff;border-radius:28px;padding:26px 24px 22px;box-shadow:var(--shadow);margin-bottom:20px}
     .eyebrow{font-size:15px;letter-spacing:.08em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
     .hero h1{font-family:var(--font-serif);font-size:30px;line-height:1.25;margin:0 0 8px}
     .hero p{font-size:16px;line-height:1.7;margin:0;opacity:.92;max-width:720px}
-    .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:16px;font-weight:600;margin:0 0 14px}
+    .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#1565c0;font-size:16px;font-weight:600;margin:0 0 14px}
     .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
     .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     .coming{display:inline-block;background:#fff7ed;color:#c2410c;border:1px solid #fdba74;border-radius:999px;padding:3px 10px;font-size:14.5px;font-weight:700}
@@ -35,7 +35,7 @@
 
 <style>
 *{box-sizing:border-box}
-.app{max-width:780px;margin:0 auto;padding:.75rem 0;font-family:var(--font-sans,-apple-system,sans-serif)}
+.app{max-width:760px;margin:0 auto;padding:.75rem 0;font-family:var(--font-sans,-apple-system,sans-serif)}
 .topnav{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem}
 .backbtn{padding:4px 10px;border:0.5px solid #ccc;border-radius:8px;background:transparent;color:#666;font-size:14.5px;cursor:pointer}
 .tbadge{font-size:14.5px;font-weight:500;padding:3px 10px;border-radius:999px;background:#E1F5EE;color:#0F6E56}
@@ -374,6 +374,12 @@ body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!i
 .available{background:#ecfdf5!important;color:#047857!important;border-color:#86efac!important;}
 .coming{background:#fff7ed!important;color:#b45309!important;border-color:#fdba74!important;}
 .ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+
 </style>
 
   <link rel="stylesheet" href="../assets/theme.css">
@@ -393,8 +399,162 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview (theme.css overrides online) */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #f5f9ff; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #f5f9ff;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -939,11 +1099,31 @@ function showHS(mode){
 
 /* ===== QUIZ ===== */
 const QQ=[
-  {q:'MRS_XY = 3 หมายความว่า?',opts:['MU_X=3×MU_Y','ยินดีสละ Y 3 หน่วยเพื่อได้ X เพิ่ม 1 หน่วย (ความพอใจเท่าเดิม)','Px=3Py','Slope BL=−3'],ans:1,ex:'MRS_XY = |ΔY/ΔX| = จำนวน Y ที่สละเพื่อได้ X 1 หน่วย บน IC เดิม'},
-  {q:'Slope ของ Budget Line เท่ากับ?',opts:['+Px/Py','−I/Px','−Px/Py','Py/Px'],ans:2,ex:'Y=I/Py−(Px/Py)X → slope=−Px/Py'},
-  {q:'ดุลยภาพ Ordinal Approach เกิดเมื่อ?',opts:['IC ตัดกับ BL','IC สัมผัส BL: MRS=Px/Py','TU สูงสุด','MU=0'],ans:1,ex:'Slope IC = Slope BL → MRS=Px/Py → MU_X/P_X=MU_Y/P_Y'},
+  {q:'MRS_XY = 3 หมายความว่า?',opts:[
+      'ยินดีสละ Y 3 หน่วยเพื่อได้ X เพิ่ม 1 หน่วย (ความพอใจเท่าเดิม)',
+      'MU_X=3×MU_Y',
+      'Px=3Py',
+      'Slope BL=−3'
+    ],ans:0,ex:'MRS_XY = |ΔY/ΔX| = จำนวน Y ที่สละเพื่อได้ X 1 หน่วย บน IC เดิม'},
+  {q:'Slope ของ Budget Line เท่ากับ?',opts:[
+      '+Px/Py',
+      '−I/Px',
+      'Py/Px',
+      '−Px/Py'
+    ],ans:3,ex:'Y=I/Py−(Px/Py)X → slope=−Px/Py'},
+  {q:'ดุลยภาพ Ordinal Approach เกิดเมื่อ?',opts:[
+      'IC ตัดกับ BL',
+      'TU สูงสุด',
+      'IC สัมผัส BL: MRS=Px/Py',
+      'MU=0'
+    ],ans:2,ex:'Slope IC = Slope BL → MRS=Px/Py → MU_X/P_X=MU_Y/P_Y'},
   {q:'Engel Curve slope ลบ → สินค้าชนิดนั้นเป็นอะไร?',opts:['Normal Good','Inferior Good','Luxury Good','Free Good'],ans:1,ex:'Inferior: รายได้เพิ่ม → ซื้อน้อยลง เช่น บะหมี่สำเร็จรูป'},
-  {q:'ความต่าง Hicks vs Slutsky คืออะไร?',opts:['Hicks ใช้ BL ใหม่','Hicks คง utility (IC เดิม); Slutsky คงให้ซื้อ bundle เดิมได้','ผลเหมือนกัน','Slutsky เป็นทฤษฎีเท่านั้น'],ans:1,ex:'Hicks SE บน IC เดิม | Slutsky SE ผ่าน bundle เดิม | Slutsky SE ≥ Hicks SE'}
+  {q:'ความต่าง Hicks vs Slutsky คืออะไร?',opts:[
+      'Hicks ใช้ BL ใหม่',
+      'ผลเหมือนกัน',
+      'Hicks คง utility (IC เดิม); Slutsky คงให้ซื้อ bundle เดิมได้',
+      'Slutsky เป็นทฤษฎีเท่านั้น'
+    ],ans:2,ex:'Hicks SE บน IC เดิม | Slutsky SE ผ่าน bundle เดิม | Slutsky SE ≥ Hicks SE'}
 ];
 function buildQuiz(){const z=document.getElementById('qzone');if(z.children.length)return;qAns=0;qScore=0;QQ.forEach((q,qi)=>{const d=document.createElement('div');d.style.marginBottom='1rem';d.innerHTML=`<p style="font-size:15.5px;font-weight:500;margin:0 0 7px">${qi+1}. ${q.q}</p>${q.opts.map((o,oi)=>`<button class="qopt" id="q${qi}_${oi}" onclick="ansQ(${qi},${oi})">${String.fromCharCode(65+oi)}. ${o}</button>`).join('')}<div class="fb" id="qf${qi}"></div>`;z.appendChild(d);});}
 function ansQ(qi,oi){const q=QQ[qi];for(let i=0;i<q.opts.length;i++)document.getElementById(`q${qi}_${i}`).disabled=true;const btn=document.getElementById(`q${qi}_${oi}`),fb=document.getElementById(`qf${qi}`);if(oi===q.ans){btn.className='qopt ok';qScore++;fb.textContent='ถูก! '+q.ex;fb.className='fb on ok';}else{btn.className='qopt no';document.getElementById(`q${qi}_${q.ans}`).className='qopt ok';fb.textContent='ไม่ถูก — '+q.ex;fb.className='fb on no';}qAns++;if(qAns===QQ.length){const msg=qScore>=4?'ยอดเยี่ยม!':qScore>=3?'ดีมาก':'ลองทำใหม่';const s=document.createElement('div');s.style.cssText='text-align:center;padding:.75rem 0';s.innerHTML=`<div class="sc">${qScore}/${QQ.length}</div><p style="font-size:15px;color:#888;margin:0">${msg}</p>`;document.getElementById('qzone').appendChild(s);document.getElementById('qnav').style.display='flex';}}
@@ -957,14 +1137,14 @@ function rst(){qAns=0;qScore=0;document.getElementById('qzone').innerHTML='';doc
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">ทฤษฎีที่ 1 — Cardinal Utility</span>
+      <span class="ajk-chap-name">บทที่ 2.1 — Cardinal Utility</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter2_3.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">Revealed Preference Theory</span>
+      <span class="ajk-chap-name">บทที่ 2.3 — Revealed Preference</span>
     </div>
   </a>
 </nav>
@@ -975,26 +1155,11 @@ function rst(){qAns=0;qScore=0;document.getElementById('qzone').innerHTML='';doc
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-      <a class="ajk-footer-btn" href="../index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
-        หน้าหลัก
-      </a>
-      <a class="ajk-footer-btn" href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        แผนการเรียน
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter2.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 2</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>

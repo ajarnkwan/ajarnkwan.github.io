@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>บทที่ 8.7 — Multi-plant + Price Discrimination · Ajarn.Kwan</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b91c1c;--pri-soft:#fef2f2;--pri-dark:#7f1d1d;--hero-a:#7f1d1d;--hero-b:#dc2626;--bg:#fff5f5;--card:#fff;--bg2:#fef2f2;--bdr:#fca5a5;--bdr-l:#fee2e2;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid #ede5d8}.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--pri-soft);padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .18s}.back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}.back-btn svg{width:14px;height:14px}
+.t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700}.t-sub{font-size:14.5px;color:var(--muted)}
+.page{max-width:760px;margin:0 auto;padding:24px 18px 60px}
+.step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
+.step-title{font-family:var(--font-serif);font-size:24px;font-weight:700;margin:0 0 16px;line-height:1.55}
+.prose{font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:16px}.prose p{margin:0 0 10px}.prose strong{color:var(--ink)}
+.scenario{background:var(--bg2);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;position:relative;overflow:hidden;border:.5px solid var(--bdr-l)}.scenario::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,#dc2626,#059669)}.scenario p{font-size:16px;line-height:1.75;color:var(--ink);margin:0 0 6px}.scenario p:last-child{margin:0}
+.insight{background:var(--pri-soft);border-left:3px solid var(--pri);border-radius:0 var(--r) var(--r) 0;padding:16px 18px;margin-bottom:18px}.insight-label{font-size:14.5px;font-weight:700;color:var(--pri);margin-bottom:4px}.insight-text{font-size:16.5px;color:var(--ink);line-height:1.75;white-space:pre-line;margin:0}
+.cmp{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:18px;background:var(--card);border-radius:var(--r);overflow:hidden;border:.5px solid var(--bdr-l)}.cmp th{font-weight:600;font-size:14px;color:var(--muted);text-align:left;padding:8px 12px;border-bottom:.5px solid var(--bdr-l);text-transform:uppercase;background:var(--bg2)}.cmp td{padding:8px 12px;border-bottom:.5px solid var(--bdr-l);color:var(--ink);font-size:15.5px;line-height:1.6}.cmp tr:last-child td{border:none}
+.quiz{background:var(--card);border:.5px solid var(--bdr);border-radius:var(--rl);padding:18px 20px;margin-bottom:16px}.quiz-q{font-size:16px;font-weight:500;margin:0 0 12px;line-height:1.65}.quiz-opts{display:flex;flex-direction:column;gap:7px}.quiz-opt{text-align:left;font-size:16px;padding:11px 15px;border-radius:var(--r);border:.5px solid var(--bdr-l);background:var(--card);color:var(--ink);cursor:pointer;transition:all .12s;font-family:var(--font-sans);line-height:1.55}.quiz-opt:hover:not(.locked){background:var(--bg2);border-color:var(--bdr)}.quiz-opt.correct{background:#ecfdf5;border-color:#86efac;color:#047857}.quiz-opt.wrong{background:#fef2f2;border-color:#fca5a5;color:#b91c1c}.quiz-opt.locked{cursor:default}.quiz-opt .letter{font-weight:700;color:var(--faint);margin-right:8px;font-size:14.5px}.quiz-explain{display:none;margin-top:12px;padding:12px 16px;border-radius:var(--r);font-size:16px;line-height:1.7}.quiz-explain.show{display:block;animation:fadeUp .35s ease}.quiz-explain.ok{background:#fefce8;border:.5px solid #fecaca}.quiz-explain.no{background:#fff7ed;border:.5px solid #fdba74}.quiz-explain strong{color:var(--pri-dark)}
+.next-btn{width:100%;padding:14px;border-radius:var(--r);background:linear-gradient(135deg,var(--hero-a),var(--hero-b));border:none;color:#fff;font-size:17px;font-weight:600;cursor:pointer;font-family:var(--font-sans);transition:all .18s;margin-top:8px}.next-btn:hover{box-shadow:0 10px 28px rgba(185,28,28,.18);transform:translateY(-1px)}.next-btn.hidden{opacity:0;pointer-events:none}
+.dw{background:var(--card);border:.5px solid var(--bdr-l);border-radius:var(--rl);padding:16px;margin-bottom:16px}
+.gc{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.gb{padding:7px 14px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-sans);border:none;transition:all .15s}.gp{background:var(--card);border:.5px solid var(--bdr);color:var(--muted)}.gn{background:linear-gradient(135deg,var(--hero-a),var(--hero-b));color:#fff}.gd{margin-top:10px;font-size:16px;line-height:1.75;color:var(--ink);padding:12px 14px;background:var(--bg2);border-radius:10px;border:.5px solid var(--bdr-l);min-height:50px}.gx{font-size:14.5px;color:var(--faint);margin-left:auto}
+.completion{text-align:center;padding:2.5rem 1rem}.completion h2{font-family:var(--font-serif);font-size:24px;margin:0 0 8px}.completion p{font-size:16px;color:var(--muted);line-height:1.7;margin:0 0 10px;max-width:480px;margin-left:auto;margin-right:auto}.completion-link{display:inline-block;background:var(--pri-soft);border:.5px solid var(--pri);border-radius:var(--r);padding:10px 16px;font-size:16px;color:var(--pri-dark);font-weight:600;margin-bottom:20px;line-height:1.65;text-align:left;max-width:500px}
+.foot{margin-top:56px;text-align:center;padding:24px 16px;border-top:1px solid #ede5d8;font-size:14.5px;color:var(--faint);line-height:1.7}.foot strong{color:var(--muted)}
+@media(max-width:520px){.step-title{font-size:21px}.topbar-in{padding:8px 12px}.back-btn span{display:none}.back-btn{padding:9px}}
+
+/* ═══════════ Ajarn.Kwan unified top bar + footer ═══════════ */
+.ajk-shell-theme {
+  --ajk-primary: #f97316;
+  --ajk-primary-soft: #fff7ed;
+  --ajk-primary-dark: #ea580c;
+  --ajk-ink: #2A1F1A;
+  --ajk-muted: #6b6480;
+  --ajk-border: #E8DDD0;
+  --ajk-surface: #ffffff;
+}
+.ajk-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--ajk-border);
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-topbar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; min-height: 58px;
+}
+.ajk-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s; flex-shrink: 0;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  cursor: pointer; white-space: nowrap;
+}
+.ajk-back-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-back-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateX(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-home-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-primary-soft);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 16px; font-weight: 600;
+  border: 1px solid transparent;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.ajk-home-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.ajk-home-btn:hover {
+  background: var(--ajk-primary); color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(107,74,138,.2);
+}
+@media (max-width: 540px) {
+  .ajk-home-btn span { display: none; }
+  .ajk-home-btn { padding: 9px; }
+  .ajk-home-btn svg { width: 16px; height: 16px; }
+}
+
+.ajk-chapter-nav {
+  max-width: 760px;
+  margin: 56px auto 0;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+}
+.ajk-chap-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--ajk-surface, #fff);
+  border: 1px solid var(--ajk-border, #E8DDD0);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: all .2s;
+  min-height: 78px;
+}
+.ajk-chap-btn:hover {
+  border-color: var(--ajk-primary, #6B4A8A);
+  background: var(--ajk-primary-soft, #EFE6F5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(107,74,138,.08);
+}
+.ajk-chap-btn.next {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.ajk-chap-btn svg {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  color: var(--ajk-primary, #6B4A8A);
+}
+.ajk-chap-text {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+.ajk-chap-label {
+  font-size: 14.5px;
+  color: var(--ajk-muted, #6b6480);
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.ajk-chap-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ajk-ink, #2A1F1A);
+  line-height: 1.55;
+}
+.ajk-chap-empty {
+  visibility: hidden;
+}
+@media (max-width: 540px) {
+  .ajk-chapter-nav {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 40px;
+  }
+}
+
+
+.ajk-brand {
+  flex: 1; min-width: 0; text-align: right; line-height: 1.25;
+}
+.ajk-brand-course {
+  font-size: 16.5px; font-weight: 700; color: var(--ajk-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ajk-brand-author {
+  font-size: 14.5px; color: var(--ajk-muted); font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+}
+.ajk-brand-author-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-brand-author-at { color: var(--ajk-primary); font-weight: 700; }
+@media (max-width: 520px) {
+  .ajk-back-btn span { display: none; }
+  .ajk-back-btn { padding: 9px; }
+  .ajk-topbar-inner { padding: 8px 12px; min-height: 52px; }
+}
+.ajk-footer {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--ajk-primary-soft) 100%);
+  border-top: 1px solid var(--ajk-border);
+  padding: 48px 16px 28px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ajk-ink);
+}
+.ajk-footer-inner {
+  max-width: 1100px; margin: 0 auto; text-align: center;
+}
+.ajk-footer-mark {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.ajk-footer-mark::before, .ajk-footer-mark::after {
+  content: ''; width: 28px; height: 1px; background: var(--ajk-primary); opacity: .35;
+}
+.ajk-footer-mark-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ajk-primary); flex-shrink: 0;
+}
+.ajk-footer-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 26px; font-weight: 700; margin: 0 0 4px;
+}
+.ajk-footer-sub { font-size: 15.5px; color: var(--ajk-muted); margin-bottom: 26px; }
+.ajk-footer-links {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.ajk-footer-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 16px; border-radius: 999px;
+  font-size: 15.5px; font-weight: 600;
+  border: 1px solid var(--ajk-border);
+  text-decoration: none; color: var(--ajk-ink);
+  background: var(--ajk-surface); transition: all .18s;
+}
+.ajk-footer-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.ajk-footer-btn:hover {
+  color: #fff!important; background: var(--ajk-primary)!important;
+  border-color: var(--ajk-primary)!important;
+  transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.7; }
+
+</style>
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b91c1c;--theme-primary-soft:#fef2f2;--theme-primary-dark:#7f1d1d;
+  --theme-hero-a:#7f1d1d;--theme-hero-b:#dc2626;
+  --theme-page-bg:#fff5f5;--theme-border:#fca5a5;
+  --color-background-primary:#ffffff;--color-background-secondary:#fef2f2;
+  --color-border-secondary:#fca5a5;--color-border-tertiary:#fecaca;
+  --color-text-primary:#1c1917;--color-text-secondary:#57534e;--color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(185,28,28,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary:#b91c1c;--ajk-primary-soft:#fef2f2;--ajk-primary-dark:#7f1d1d;
+  --ajk-ink:var(--color-text-primary);--ajk-muted:var(--color-text-secondary);
+  --ajk-border:#fcd1d1;--ajk-surface:#ffffff;
+}
+body{background:var(--theme-page-bg)!important;color:var(--color-text-primary)!important;font-family:var(--font-sans)!important;}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{color:#fff!important;background:var(--theme-primary)!important;border-color:var(--theme-primary)!important;}
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
+  
+<style id="ak-overrides">
+/* Hide legacy topbars/footers that the migration replaces */
+header.topbar:not(.ak-topbar),
+header.ajk-topbar,
+.ajk-topbar:not(.ak-topbar),
+.top-stripe,
+.land-bar,
+.land-foot,
+.land-foot-wrap,
+.ajk-footer:not(.ak-footer),
+footer.ajk-footer { display: none !important; }
+/* Plain <footer> without class (vocab pages) — only at body level */
+body > footer:not(.ak-footer):not([class]) { display: none !important; }
+</style>
+
+
+<style id="ak-shared-fallback">
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="ak-theme-microeconomics" style="--ak-bg: #fff5f5;">
+
+<!-- ═══ AK TOPBAR (shared theme) ═══ -->
+<nav class="ak-topbar" id="ak-topbar">
+  <div class="ak-topbar-inner">
+    <a href="../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
+    <div class="ak-breadcrumb">
+      <a href="../">หน้าแรก</a><span class="sep">/</span><a href="../microeconomics/">Microeconomics</a><span class="sep">/</span><span>Chapter 8.7</span>
+    </div>
+    <div class="ak-topbar-actions">
+      <a href="../#hub" class="ak-member-pill" id="ak-member-pill">
+        <span class="ak-pill-avatar" id="ak-pill-avatar">?</span>
+        <span class="ak-pill-label" id="ak-pill-label">ห้องเรียนของฉัน</span>
+        <span class="ak-pill-arrow">→</span>
+      </a>
+      <a href="../#join" class="ak-btn ak-btn-ghost" id="ak-login-btn">เข้าสู่ระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<header class="ajk-topbar ajk-shell-theme">
+  <div class="ajk-topbar-inner">
+    <a class="ajk-back-btn" href="chapter8.html" aria-label="กลับบทที่ 8">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <span>บทที่ 8</span>
+    </a>
+    <a class="ajk-home-btn" href="../index.html" aria-label="หน้าหลัก">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
+      <span>หน้าหลัก</span>
+    </a>
+<div class="ajk-brand">
+      <div class="ajk-brand-course">บทที่ 8.7 · Multi-plant + Price Discrimination</div>
+      <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
+    </div>
+  </div>
+</header>
+
+
+<div class="page">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><div id="dots" style="display:flex;gap:5px"></div><span id="plbl" style="font-size:14px;color:var(--muted)"></span></div>
+<div id="sc"></div>
+</div>
+<script>
+/* ═══ Static graph builder for 3 cases ═══ */
+function mkCase(type){
+var s='<svg viewBox="0 0 400 248" style="width:100%;max-width:420px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">';
+s+='<defs><marker id="a'+type+'" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs>';
+s+='<line x1="40" y1="222" x2="370" y2="222" stroke="#78716c" stroke-width="1.2" marker-end="url(#a'+type+')"/>';
+s+='<line x1="40" y1="222" x2="40" y2="18" stroke="#78716c" stroke-width="1.2" marker-end="url(#a'+type+')"/>';
+s+='<text x="374" y="226" fill="#78716c" font-size="9">Q</text><text x="33" y="18" fill="#78716c" font-size="9" text-anchor="end">P</text>';
+s+='<line x1="70" y1="40" x2="220" y2="220" stroke="#2563eb" stroke-width="2"/><text x="222" y="218" fill="#2563eb" font-size="9" font-weight="700">D1</text>';
+s+='<line x1="130" y1="40" x2="280" y2="220" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5,3"/><text x="282" y="218" fill="#2563eb" font-size="9" font-weight="700">D2</text>';
+s+='<line x1="50" y1="210" x2="200" y2="30" stroke="#dc2626" stroke-width="2"/><text x="202" y="28" fill="#dc2626" font-size="9" font-weight="700">S1</text>';
+s+='<circle cx="131" cy="113" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="119" y="109" fill="#059669" font-size="9" font-weight="700">E1</text>';
+s+='<line x1="37" y1="113" x2="133" y2="113" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="117" fill="#7f1d1d" font-size="9" text-anchor="end">P1</text>';
+s+='<line x1="131" y1="115" x2="131" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="131" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2081Q\u2081</text>';
+s+='<circle cx="161" cy="77" r="3.5" fill="#78716c" stroke="#fff" stroke-width="1.5"/><text x="167" y="73" fill="#78716c" font-size="8">E2</text>';
+if(type==='c'){
+s+='<line x1="110" y1="210" x2="260" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="262" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
+s+='<circle cx="191" cy="113" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="197" y="109" fill="#059669" font-size="9" font-weight="700">E3</text>';
+s+='<line x1="191" y1="115" x2="191" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="191" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2082Q\u2081</text>';
+s+='<line x1="131" y1="113" x2="191" y2="113" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><text x="161" y="106" fill="#b91c1c" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
+s+='<rect x="215" y="100" width="148" height="30" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="289" y="114" fill="#7f1d1d" font-size="9" font-weight="700" text-anchor="middle">LS \u0e41\u0e19\u0e27\u0e19\u0e2d\u0e19 (slope = 0)</text><text x="289" y="126" fill="#7f1d1d" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19</text>';
+}else if(type==='i'){
+s+='<line x1="90" y1="210" x2="240" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="242" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
+s+='<circle cx="181" cy="101" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="187" y="97" fill="#059669" font-size="9" font-weight="700">E4</text>';
+s+='<line x1="37" y1="101" x2="183" y2="101" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="105" fill="#7f1d1d" font-size="9" text-anchor="end">P4</text>';
+s+='<line x1="181" y1="103" x2="181" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="181" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2084Q\u2084</text>';
+s+='<line x1="131" y1="113" x2="181" y2="101" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><text x="156" y="100" fill="#b91c1c" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
+s+='<rect x="215" y="88" width="148" height="30" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="289" y="102" fill="#7f1d1d" font-size="9" font-weight="700" text-anchor="middle">LS \u0e17\u0e2d\u0e14\u0e02\u0e36\u0e49\u0e19 (slope > 0)</text><text x="289" y="114" fill="#7f1d1d" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u2191 \u0e15\u0e49\u0e19\u0e17\u0e38\u0e19\u2191</text>';
+}else{
+s+='<line x1="130" y1="210" x2="280" y2="30" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5,3"/><text x="282" y="28" fill="#dc2626" font-size="9" font-weight="700">S2</text>';
+s+='<circle cx="201" cy="125" r="4.5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="207" y="121" fill="#059669" font-size="9" font-weight="700">E5</text>';
+s+='<line x1="37" y1="125" x2="203" y2="125" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,2"/><text x="33" y="129" fill="#7f1d1d" font-size="9" text-anchor="end">P5</text>';
+s+='<line x1="201" y1="127" x2="201" y2="222" stroke="#059669" stroke-width="1" stroke-dasharray="3,2"/><text x="201" y="234" fill="#059669" font-size="8" text-anchor="middle">n\u2085Q\u2085</text>';
+s+='<line x1="131" y1="113" x2="201" y2="125" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round"/><text x="166" y="126" fill="#b91c1c" font-size="11" font-weight="700" text-anchor="middle">LS</text>';
+s+='<rect x="215" y="115" width="155" height="30" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="292" y="129" fill="#7f1d1d" font-size="9" font-weight="700" text-anchor="middle">LS \u0e17\u0e2d\u0e14\u0e25\u0e07 (slope < 0)</text><text x="292" y="141" fill="#7f1d1d" font-size="8" text-anchor="middle">\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e31\u0e08\u0e08\u0e31\u0e22\u2193 \u0e15\u0e49\u0e19\u0e17\u0e38\u0e19\u2193</text>';
+}
+return s+'</svg>'}
+
+/* ═══ Steps ═══ */
+var S=[
+{tag:"เริ่มต้น · ลองคิด",title:"ผู้ผูกขาด มีหลายโรงงาน + ตั้งราคาลำเอียง?",
+body:'<div class="prose"><p style="font-size:28px;margin-bottom:8px">🏭🏭</p><p>ในชีวิตจริง ผู้ผูกขาดมักมี<strong>หลายโรงงาน</strong> ที่ต้นทุนต่างกัน + บางทีก็<strong>ตั้งราคาต่างกัน</strong>กับลูกค้าต่างกลุ่ม</p><p style="margin-top:14px"><strong>คำถาม 2 ข้อ:</strong></p><ul style="list-style:none;padding-left:0;margin:8px 0"><li style="padding:8px 12px;border-left:3px solid #dc2626;margin:6px 0;background:#fef2f2;border-radius:6px"><strong>1️⃣ จัดสรรการผลิตยังไง?</strong> มี 2 โรงงาน ต้นทุนต่างกัน → จะสั่งให้แต่ละแห่งผลิตเท่าไหร่?</li><li style="padding:8px 12px;border-left:3px solid #2563eb;margin:6px 0;background:#eff6ff;border-radius:6px"><strong>2️⃣ ตั้งราคาต่างกันได้ไหม?</strong> เช่น คนรวยจ่ายแพง คนจนจ่ายถูก, ค่าไฟแบบขั้นบันได</li></ul><p style="background:#fef3c7;padding:10px;border-radius:8px;margin-top:10px">🎯 <strong>2 หัวข้อหลักใน 8.7:</strong><br>(1) Multi-plant Monopoly — กฎ MR = MC₁ = MC₂<br>(2) Price Discrimination 3 ระดับ</p></div>',
+quiz:{q:"ทำไมผู้ผูกขาดที่มีหลายโรงงานต้องคิดเรื่องการจัดสรรผลิต?",
+  opts:["เพราะแต่ละโรงงานผลิตสินค้าคนละชนิด",
+        "เพราะต้นทุนแต่ละโรงงานต่างกัน → ต้องจัดสรรให้ต้นทุนรวมต่ำที่สุด",
+        "เพราะรัฐบาลกำหนด",
+        "เพราะแต่ละโรงงานขายราคาต่างกัน"],
+  ans:1,
+  explain:"โรงงานต้นทุนต่ำควรผลิต<strong>มากกว่า</strong> โรงงานต้นทุนสูงผลิตน้อย → ทำให้ <strong>ต้นทุนรวมต่ำสุด</strong> และกำไรสูงสุด"}},
+
+{tag:"หลายโรงงาน · ดูกราฟ",title:"Multi-plant: 2 โรงงาน 1 ตลาด",
+body:'<div class="prose"><p>สมมติผู้ผูกขาด<strong>มี 2 โรงงาน</strong> ผลิตสินค้าชนิดเดียวกัน:</p><ul style="list-style:none;padding-left:0;margin:8px 0"><li style="padding:6px 0">🏭 <strong>โรงงาน 1:</strong> ต้นทุน<span style="color:#dc2626">สูง</span> (เครื่องเก่า, ทำเลแพง)</li><li style="padding:6px 0">🏭 <strong>โรงงาน 2:</strong> ต้นทุน<span style="color:#2563eb">ต่ำ</span> (เครื่องใหม่, ทำเลถูก)</li></ul><p style="margin-top:10px">นำสินค้าที่ผลิตจากทั้ง 2 โรงงานมาขายใน<strong>ตลาดเดียวกัน ราคาเดียวกัน</strong></p></div><div class="dw"><svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto"><rect x="0" y="0" width="480" height="320" fill="#fff"/><text x="240" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#7c2d12">2 โรงงาน 1 ตลาด → จัดสรรให้ MC₁ = MC₂ = MR ที่ตลาด</text><text x="240" y="34" text-anchor="middle" font-size="10" fill="#7c2d12">ลากเส้นแนวนอนจาก E (ในตลาด) → หา q₁, q₂</text><rect x="15" y="46" width="145" height="245" rx="6" fill="#fee2e2" fill-opacity="0.3" stroke="#dc2626" stroke-width="0.7"/><text x="87.5" y="58" text-anchor="middle" font-size="10" font-weight="800" fill="#dc2626">ก. โรงงานที่ 1</text><line x1="43" y1="260" x2="152" y2="260" stroke="#1c1917" stroke-width="1.2"/><line x1="43" y1="260" x2="43" y2="68" stroke="#1c1917" stroke-width="1.2"/><text x="31" y="70" font-size="9" fill="#1c1917" font-weight="700">P</text><text x="155" y="264" font-size="9" fill="#1c1917" font-weight="700">Q</text><text x="40" y="272" font-size="9" fill="#78716c" text-anchor="end">0</text><line x1="43.0" y1="221.6" x2="141.1" y2="135.2" stroke="#dc2626" stroke-width="1.8"/><text x="143" y="135" font-size="9" fill="#7f1d1d" font-weight="800">MC₁</text><path d="M 47.4,111.7 L 49.5,146.7 L 51.7,163.8 L 53.9,173.6 L 56.1,179.8 L 58.3,184.0 L 60.4,186.9 L 62.6,189.0 L 64.8,190.4 L 67.0,191.4 L 69.2,192.1 L 71.3,192.5 L 73.5,192.7 L 75.7,192.8 L 77.9,192.7 L 80.1,192.6 L 82.2,192.3 L 84.4,192.0 L 86.6,191.6 L 88.8,191.2 L 91.0,190.7 L 93.1,190.1 L 95.3,189.6 L 97.5,189.0 L 99.7,188.3 L 101.9,187.7 L 104.0,187.0 L 106.2,186.3 L 108.4,185.6 L 110.6,184.9 L 112.8,184.1 L 114.9,183.4 L 117.1,182.6 L 119.3,181.8 L 121.5,181.0 L 123.7,180.2 L 125.8,179.4 L 128.0,178.6 L 130.2,177.8 L 132.4,177.0 L 134.6,176.1 L 136.7,175.3 L 138.9,174.5 L 141.1,173.6" fill="none" stroke="#a855f7" stroke-width="1.6"/><text x="121" y="192" font-size="9" fill="#7c3aed" font-weight="800">AC₁</text><line x1="43.0" y1="136.9" x2="141.1" y2="136.9" stroke="#92400e" stroke-width="0.8" stroke-dasharray="6,2"/><text x="40" y="140" font-size="9" fill="#92400e" font-weight="800" text-anchor="end">P=32</text><line x1="43.0" y1="205.7" x2="141.1" y2="205.7" stroke="#16a34a" stroke-width="1" stroke-dasharray="2,2"/><text x="40" y="209" font-size="8" fill="#15803d" font-weight="700" text-anchor="end">MR=14</text><line x1="61.1" y1="205.7" x2="61.1" y2="260" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><circle cx="61.1" cy="205.7" r="3.5" fill="#dc2626" stroke="#fff" stroke-width="1.5"/><text x="65" y="203" font-size="9" fill="#7f1d1d" font-weight="800">E₁</text><text x="61" y="272" font-size="8" fill="#7f1d1d" font-weight="700" text-anchor="middle">q₁≈8</text><rect x="170" y="46" width="145" height="245" rx="6" fill="#dbeafe" fill-opacity="0.3" stroke="#2563eb" stroke-width="0.7"/><text x="242.5" y="58" text-anchor="middle" font-size="10" font-weight="800" fill="#2563eb">ข. โรงงานที่ 2</text><line x1="198" y1="260" x2="307" y2="260" stroke="#1c1917" stroke-width="1.2"/><line x1="198" y1="260" x2="198" y2="68" stroke="#1c1917" stroke-width="1.2"/><text x="186" y="70" font-size="9" fill="#1c1917" font-weight="700">P</text><text x="310" y="264" font-size="9" fill="#1c1917" font-weight="700">Q</text><text x="195" y="272" font-size="9" fill="#78716c" text-anchor="end">0</text><line x1="198.0" y1="240.8" x2="296.1" y2="197.6" stroke="#2563eb" stroke-width="1.8"/><text x="298" y="198" font-size="9" fill="#1e40af" font-weight="800">MC₂</text><path d="M 206.7,130.9 L 208.9,152.0 L 211.1,165.9 L 213.3,175.7 L 215.4,183.0 L 217.6,188.5 L 219.8,192.8 L 222.0,196.2 L 224.2,199.0 L 226.3,201.3 L 228.5,203.2 L 230.7,204.8 L 232.9,206.1 L 235.1,207.2 L 237.2,208.2 L 239.4,208.9 L 241.6,209.6 L 243.8,210.1 L 246.0,210.6 L 248.1,211.0 L 250.3,211.3 L 252.5,211.5 L 254.7,211.7 L 256.9,211.8 L 259.0,211.9 L 261.2,212.0 L 263.4,212.0 L 265.6,212.0 L 267.8,211.9 L 269.9,211.9 L 272.1,211.8 L 274.3,211.7 L 276.5,211.5 L 278.7,211.4 L 280.8,211.2 L 283.0,211.0 L 285.2,210.8 L 287.4,210.6 L 289.6,210.4 L 291.7,210.1 L 293.9,209.9 L 296.1,209.6" fill="none" stroke="#a855f7" stroke-width="1.6"/><text x="287" y="208" font-size="9" fill="#7c3aed" font-weight="800">AC₂</text><line x1="198.0" y1="136.9" x2="296.1" y2="136.9" stroke="#92400e" stroke-width="0.8" stroke-dasharray="6,2"/><text x="195" y="140" font-size="9" fill="#92400e" font-weight="800" text-anchor="end">P=32</text><line x1="198.0" y1="205.7" x2="296.1" y2="205.7" stroke="#16a34a" stroke-width="1" stroke-dasharray="2,2"/><text x="195" y="209" font-size="8" fill="#15803d" font-weight="700" text-anchor="end">MR=14</text><line x1="277.7" y1="205.7" x2="277.7" y2="260" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><circle cx="277.7" cy="205.7" r="3.5" fill="#2563eb" stroke="#fff" stroke-width="1.5"/><text x="282" y="203" font-size="9" fill="#1e40af" font-weight="800">E₂</text><text x="278" y="272" font-size="8" fill="#1e40af" font-weight="700" text-anchor="middle">q₂≈37</text><rect x="325" y="46" width="145" height="245" rx="6" fill="#d1fae5" fill-opacity="0.3" stroke="#16a34a" stroke-width="0.7"/><text x="397.5" y="58" text-anchor="middle" font-size="10" font-weight="800" fill="#16a34a">ค. ตลาดผู้ผูกขาด</text><line x1="353" y1="260" x2="462" y2="260" stroke="#1c1917" stroke-width="1.2"/><line x1="353" y1="260" x2="353" y2="68" stroke="#1c1917" stroke-width="1.2"/><text x="341" y="70" font-size="9" fill="#1c1917" font-weight="700">P</text><text x="465" y="264" font-size="9" fill="#1c1917" font-weight="700">Q</text><text x="350" y="272" font-size="9" fill="#78716c" text-anchor="end">0</text><line x1="353.0" y1="100.0" x2="448.4" y2="189.6" stroke="#2563eb" stroke-width="1.8"/><text x="450" y="200" font-size="9" fill="#1e40af" font-weight="800">D</text><line x1="353.0" y1="100.0" x2="434.8" y2="253.6" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,2"/><text x="437" y="254" font-size="9" fill="#7c3aed" font-weight="800">MR</text><line x1="353.0" y1="238.7" x2="462.0" y2="196.0" stroke="#16a34a" stroke-width="1.8"/><text x="464" y="196" font-size="9" fill="#15803d" font-weight="800">MC</text><line x1="414.1" y1="214.8" x2="414.1" y2="260" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><circle cx="414.1" cy="214.8" r="4" fill="#16a34a" stroke="#fff" stroke-width="2"/><text x="419" y="218" font-size="10" fill="#15803d" font-weight="800">E</text><text x="414" y="272" font-size="8" fill="#15803d" font-weight="700" text-anchor="middle">Q≈45</text><line x1="414.1" y1="157.4" x2="353" y2="157.4" stroke="#92400e" stroke-width="0.8" stroke-dasharray="6,2"/><circle cx="414.1" cy="157.4" r="3" fill="#dc2626" stroke="#fff" stroke-width="1"/><text x="350" y="160" font-size="9" fill="#92400e" font-weight="800" text-anchor="end">P=32</text><line x1="353.0" y1="214.8" x2="448.4" y2="214.8" stroke="#16a34a" stroke-width="1" stroke-dasharray="2,2"/><text x="350" y="218" font-size="8" fill="#15803d" font-weight="700" text-anchor="end">MR=14</text></svg></div><div class="insight"><div class="insight-label">✦ อ่านกราฟ — 3 panels</div><p class="insight-text"><strong>📊 ทุก panel ใช้ตัวเลขเดียวกัน:</strong> P=32, MR=14<br><br><strong>Panel ก (โรงงาน 1 ต้นทุนสูง):</strong><br> • AC₁ ต่ำสุด=17.5 (ที่ q=15) ต้นทุนแพง<br> • E₁ คือจุดที่ MC₁ ตัด<strong>เส้น MR=14</strong> (ไม่ใช่ตัด P!)<br> • โรงงานนี้ผลิต <strong>q₁≈8</strong> หน่วย (น้อย)<br><br><strong>Panel ข (โรงงาน 2 ต้นทุนต่ำ):</strong><br> • AC₂ ต่ำสุด=12.5 (ที่ q=30) ต้นทุนถูก<br> • E₂ คือจุดที่ MC₂ ตัดเส้น MR=14<br> • โรงงานนี้ผลิต <strong>q₂≈37</strong> หน่วย (มาก)<br><br><strong>Panel ค (ตลาด):</strong><br> • E คือจุดที่ MC ตลาด ตัด MR<br> • ขายในราคาตลาด <strong>P=32</strong> ปริมาณรวม <strong>Q=45</strong> (≈ q₁+q₂)<br><br>🎯 <strong>เคล็ด:</strong> ลากเส้น<strong>แนวนอน</strong>จาก MR=14 ในตลาด → ตัด MC₁ ที่ q₁, ตัด MC₂ ที่ q₂</p></div>',
+quiz:{q:"ในกราฟ Panel ค (ตลาด) เส้น MC ของผู้ผูกขาดคืออะไร?",
+  opts:["MC ของโรงงาน 1 อย่างเดียว",
+        "MC ของโรงงาน 2 อย่างเดียว",
+        "ผลรวมแนวนอน (horizontal sum) ของ MC₁ + MC₂",
+        "ค่าเฉลี่ยของ MC₁ และ MC₂"],
+  ans:2,
+  explain:"MC รวมของผู้ผูกขาด = <strong>ผลรวมแนวนอน</strong> ของ MC แต่ละโรงงาน → ที่แต่ละ P ดูว่าโรงงานไหนผลิตได้เท่าไร แล้วบวกกัน"}},
+
+{tag:"หลายโรงงาน · กฎจัดสรร",title:"กฎทอง: MR = MC₁ = MC₂",
+body:'<div class="prose"><p style="background:#fef3c7;padding:12px;border-radius:8px;margin:10px 0;font-size:14px">🎯 <strong>เงื่อนไขกำไรสูงสุด:</strong> ปริมาณผลิตของแต่ละโรงงานต้องทำให้ <strong>MR = MC₁ = MC₂</strong></p><p style="margin-top:10px"><strong>ทำไม?</strong></p><p style="margin:6px 0">ลองคิดว่า ถ้า MC₁ = 20 บาท แต่ MC₂ = 10 บาท (ที่ปริมาณปัจจุบัน)</p><p style="margin:6px 0"> 💡 ย้ายผลิต 1 หน่วยจากโรงงาน 1 ไปโรงงาน 2 → ประหยัดต้นทุน 10 บาท!</p><p style="margin:6px 0"> 💡 ทำต่อไปจนกว่า MC₁ = MC₂ → ไม่มีทางลดต้นทุนได้อีก</p><p style="margin-top:14px"><strong>วิธีหา q₁ และ q₂ จากกราฟ:</strong></p><p style="margin:6px 0">1. หา Q รวมจาก MR = MC ในตลาด</p><p style="margin:6px 0">2. ลากเส้น<strong>แนวนอน</strong>จากค่า MR นั้น → ตัด MC₁ ที่ q₁, ตัด MC₂ ที่ q₂</p><p style="margin:6px 0">3. ตรวจ: q₁ + q₂ = Q ✓</p></div><div class="insight"><div class="insight-label">✦ ตัวเลขจากกราฟ</div><p class="insight-text"><strong>ตลาด:</strong> Q ≈ 45 หน่วย, ราคา P=32 บาท, MR=MC=14 บาท<br><strong>โรงงาน 1 (แพง):</strong> ผลิต q₁≈8 (ต้นทุน MC₁ ที่ q₁=14 บาท)<br><strong>โรงงาน 2 (ถูก):</strong> ผลิต q₂≈37 (ต้นทุน MC₂ ที่ q₂=14 บาท)<br><br>✓ <strong>q₁ + q₂ = 8 + 37 = 45</strong> = Q ตลาด ✓<br>✓ <strong>MC₁ = MC₂ = MR = 14 บาท</strong> ✓<br><br>💡 <strong>สังเกต:</strong> โรงงานต้นทุนต่ำ (โรงงาน 2) ผลิตมากกว่า → ใช้โรงงานถูกผลิตเป็นหลัก ใช้โรงงานแพงเสริม</p></div>',
+quiz:{q:"ถ้าตอนนี้ MC₁ = 25, MC₂ = 15 ผู้ผูกขาดควรทำอะไร?",
+  opts:["ปิดโรงงาน 1 ทันที",
+        "ย้ายการผลิตจากโรงงาน 1 ไปโรงงาน 2 จนกว่า MC₁ = MC₂",
+        "เพิ่มผลิตทั้ง 2 โรงงาน",
+        "ขึ้นราคาขาย"],
+  ans:1,
+  explain:"MC₁ > MC₂ → ย้ายผลิต 1 หน่วยจาก 1 ไป 2 → ประหยัด 10 บาท ทำต่อไปจนกว่า <strong>MC₁ = MC₂</strong> ก็จะได้กำไรสูงสุด"}},
+
+{tag:"ตั้งราคาลำเอียง · แนวคิด",title:"Price Discrimination — การตั้งราคาลำเอียง",
+body:'<div class="prose"><p><strong>Price Discrimination (PD)</strong> = ตั้งราคา<strong>ต่างกัน</strong> สำหรับสินค้าชนิดเดียวกัน</p><p style="margin-top:14px"><strong>ตัวอย่างจริง:</strong></p><p style="margin:6px 0">⚡ ค่าไฟใช้น้อย vs ใช้มาก ราคาต่อหน่วยต่างกัน</p><p style="margin:6px 0">✈️ ตั๋วเครื่องบิน early bird vs last minute ราคาต่างกัน</p><p style="margin:6px 0">🎓 ค่าเทอม นศ. ปริญญาตรี vs ปริญญาโท ราคาต่างกัน</p><p style="margin:6px 0">🏥 ค่ารักษาคนไข้รวย vs คนไข้ยากจน (กับหมอคนเดียวกัน)</p><p style="margin-top:14px"><strong>เป้าหมาย:</strong> ดึง <strong>Consumer Surplus (CS)</strong> มาเป็นรายรับของผู้ผูกขาด</p><p style="background:#fef3c7;padding:10px;border-radius:8px;margin-top:10px">📊 <strong>3 ระดับของ PD:</strong><br><strong>ระดับ 1 (Perfect):</strong> คิดราคาตามที่<strong>แต่ละคน</strong>ยอมจ่ายสูงสุด<br><strong>ระดับ 2 (Block):</strong> แบ่งโซน เช่น ซื้อมาก ราคาถูก<br><strong>ระดับ 3 (Geographic):</strong> ราคาต่างกัน<strong>ตามตลาด</strong> (ค่าความยืดหยุ่นต่างกัน)</p></div>',
+quiz:{q:"จุดประสงค์หลักของการตั้งราคาลำเอียงคืออะไร?",
+  opts:["เพื่อช่วยเหลือคนยากจน",
+        "เพื่อดึง Consumer Surplus (CS) มาเป็นรายรับของผู้ผูกขาด",
+        "เพื่อให้ราคาเป็นธรรม",
+        "เพื่อลดการผูกขาด"],
+  ans:1,
+  explain:"PD เป็นกลยุทธ์ของผู้ผูกขาดเพื่อ<strong>เพิ่มรายรับ</strong>โดยดึง CS (เงินส่วนเกินที่ผู้บริโภคยินดีจ่ายแต่ไม่ได้จ่าย) มาเข้ากระเป๋าตัวเอง"}},
+
+{tag:"PD ระดับ 1 · Perfect",title:"PD ระดับ 1: Perfect Discrimination",
+body:'<div class="prose"><p>ผู้ผูกขาดคิดราคา<strong>สูงสุดที่ผู้บริโภคแต่ละคนยอมจ่าย</strong></p><p style="margin-top:14px"><strong>วิธีคิด:</strong></p><p style="margin:6px 0"> • ผู้บริโภคคนแรกยอมจ่าย 70 → ขาย 70</p><p style="margin:6px 0"> • คนที่ 2 ยอมจ่าย 65 → ขาย 65</p><p style="margin:6px 0"> • ... ลดราคาทีละน้อย ตามเส้น D</p><p style="margin-top:10px"><strong>ผล:</strong> ทุกหน่วยขายตามที่ลูกค้าแต่ละคนยินดีจ่าย → <strong>CS = 0</strong></p></div><div class="dw"><svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto"><rect x="0" y="0" width="480" height="320" fill="#fff"/><line x1="60" y1="280" x2="450" y2="280" stroke="#1c1917" stroke-width="1.4"/><line x1="60" y1="280" x2="60" y2="30" stroke="#1c1917" stroke-width="1.4"/><text x="48" y="35" font-size="11" fill="#1c1917" font-weight="700">P</text><text x="455" y="285" font-size="11" fill="#1c1917" font-weight="700">Q</text><text x="52" y="295" font-size="10" fill="#78716c">0</text><polygon points="60.0,280.0 60.0,190.0 364.0,190.0 364.0,280.0" fill="#16a34a" fill-opacity="0.3" stroke="#15803d" stroke-width="1"/><polygon points="60.0,190.0 60.0,70.0 364.0,190.0" fill="#dc2626" fill-opacity="0.3" stroke="#dc2626" stroke-width="1"/><line x1="60.0" y1="70.0" x2="421.0" y2="212.5" stroke="#2563eb" stroke-width="2"/><text x="424" y="222" font-size="11" fill="#1e40af" font-weight="800">D</text><text x="48" y="73" font-size="11" fill="#1e40af" font-weight="800" text-anchor="end">A</text><line x1="60.0" y1="190.0" x2="364.0" y2="190.0" stroke="#666" stroke-width="0.7" stroke-dasharray="3,2"/><line x1="364.0" y1="190.0" x2="364.0" y2="280" stroke="#666" stroke-width="0.7" stroke-dasharray="3,2"/><circle cx="364.0" cy="190.0" r="4" fill="#1e40af" stroke="#fff" stroke-width="1.5"/><text x="369" y="187" font-size="11" fill="#1e3a8a" font-weight="800">B</text><text x="57" y="193" font-size="11" fill="#7c2d12" font-weight="800" text-anchor="end">P</text><text x="364" y="293" font-size="11" fill="#7c2d12" font-weight="700" text-anchor="middle">Q</text><text x="212" y="235" font-size="11" fill="#15803d" font-weight="800" text-anchor="middle">รายรับเดิม</text><text x="212" y="248" font-size="9" fill="#15803d" text-anchor="middle">(สี่เหลี่ยม OPBQ)</text><text x="196" y="150" font-size="11" fill="#7f1d1d" font-weight="800" text-anchor="middle">รายรับเพิ่ม (เคยเป็น CS)</text><text x="196" y="163" font-size="9" fill="#7f1d1d" text-anchor="middle">(สามเหลี่ยม PAB)</text><rect x="255" y="38" width="215" height="70" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="0.7"/><text x="362.5" y="52.0" text-anchor="middle" font-size="11" fill="#7f1d1d" font-weight="700">🎯 PD ระดับ 1 (Perfect)</text><text x="362.5" y="66.5" text-anchor="middle" font-size="9" fill="#7f1d1d" font-weight="600">🟢 รายรับเดิม + 🔴 CS เดิม</text><text x="362.5" y="81.0" text-anchor="middle" font-size="9" fill="#7f1d1d" font-weight="600">= รายรับใหม่ทั้งหมด (OABQ)</text><text x="362.5" y="95.5" text-anchor="middle" font-size="9" fill="#7f1d1d" font-weight="700">CS ผู้บริโภค = 0</text></svg></div><div class="insight"><div class="insight-label">✦ อ่านกราฟ</div><p class="insight-text"><strong>📊 ก่อน PD (ราคาเดียว P):</strong><br> 🟢 รายรับ = สี่เหลี่ยม OPBQ (พื้นที่<strong>เขียว</strong>)<br> 🔴 CS ผู้บริโภค = สามเหลี่ยม PAB (พื้นที่<strong>แดง</strong>)<br><br><strong>📊 หลัง PD ระดับ 1:</strong><br> 🟢 รายรับเดิม OPBQ — เหมือนเดิม<br> 🔴 พื้นที่<strong>แดง</strong>กลายเป็นรายรับ<strong>เพิ่ม</strong>ของผู้ผูกขาด<br> รวม: <strong>OPBQ + PAB = OABQ</strong> (ทั้งสี่เหลี่ยมใหญ่)<br> <strong>CS = 0</strong> ผู้บริโภคไม่เหลือส่วนเกินเลย<br><br>⚠️ <strong>ข้อจำกัด:</strong> ทำได้แค่กรณีลูกค้าน้อยและแยกได้ชัด เช่น แพทย์เฉพาะทางที่รู้ฐานะคนไข้</p></div>',
+quiz:{q:"ใน PD ระดับ 1 (Perfect) Consumer Surplus เหลือเท่าไร?",
+  opts:["CS ครึ่งหนึ่งของเดิม",
+        "CS เท่ากับเดิม",
+        "CS = 0 (ไม่เหลือเลย)",
+        "CS เพิ่มขึ้น"],
+  ans:2,
+  explain:"PD ระดับ 1 คิดราคาตาม<strong>ราคาสูงสุดที่แต่ละคนยอมจ่าย</strong> → ผู้บริโภคจ่ายเท่ากับประโยชน์ที่ได้พอดี → <strong>CS = 0</strong> ทั้งหมดกลายเป็นรายรับของผู้ผูกขาด"}},
+
+{tag:"PD ระดับ 2 · Block",title:"PD ระดับ 2: Block Pricing (ขั้นบันได)",
+body:'<div class="prose"><p>ผู้ผูกขาดแบ่ง<strong>โซน (Block)</strong> ตามปริมาณซื้อ — ซื้อมากราคาถูก ซื้อน้อยราคาแพง</p><p style="margin-top:14px"><strong>ตัวอย่าง: ค่าไฟฟ้า</strong></p><p style="margin:6px 0"> 🔌 0–150 หน่วย: <strong>3.20 บาท/หน่วย</strong></p><p style="margin:6px 0"> 🔌 151–400 หน่วย: <strong>4.20 บาท/หน่วย</strong></p><p style="margin:6px 0"> 🔌 เกิน 400 หน่วย: <strong>4.40 บาท/หน่วย</strong></p><p style="margin-top:10px"><strong>ลักษณะ:</strong> ลูกค้าหลายคน, แยกกันยาก → ใช้ปริมาณซื้อแทน</p></div><div class="dw"><svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto"><rect x="0" y="0" width="480" height="320" fill="#fff"/><line x1="60" y1="280" x2="450" y2="280" stroke="#1c1917" stroke-width="1.4"/><line x1="60" y1="280" x2="60" y2="30" stroke="#1c1917" stroke-width="1.4"/><text x="48" y="35" font-size="11" fill="#1c1917" font-weight="700">P</text><text x="455" y="285" font-size="11" fill="#1c1917" font-weight="700">Q</text><text x="52" y="295" font-size="10" fill="#78716c">0</text><rect x="60.0" y="115.0" width="114.0" height="165.0" fill="#fef3c7" stroke="#d97706" stroke-width="0.7"/><rect x="174.0" y="160.0" width="114.0" height="120.0" fill="#fde68a" stroke="#d97706" stroke-width="0.7"/><rect x="288.0" y="190.0" width="76.0" height="90.0" fill="#fcd34d" stroke="#d97706" stroke-width="0.7"/><line x1="60.0" y1="70.0" x2="421.0" y2="212.5" stroke="#2563eb" stroke-width="2"/><text x="424" y="222" font-size="11" fill="#1e40af" font-weight="800">D</text><text x="57" y="118" font-size="10" fill="#92400e" font-weight="800" text-anchor="end">P₁=55</text><text x="57" y="163" font-size="10" fill="#92400e" font-weight="800" text-anchor="end">P₂=40</text><text x="57" y="193" font-size="10" fill="#92400e" font-weight="800" text-anchor="end">P=30</text><text x="174" y="293" font-size="9" fill="#92400e" font-weight="700" text-anchor="middle">Q₁=30</text><text x="288" y="293" font-size="9" fill="#92400e" font-weight="700" text-anchor="middle">Q₂=60</text><text x="364" y="293" font-size="9" fill="#92400e" font-weight="700" text-anchor="middle">Q=80</text><text x="117" y="198" font-size="9" fill="#7c2d12" font-weight="700" text-anchor="middle">โซน 1</text><text x="231" y="220" font-size="9" fill="#7c2d12" font-weight="700" text-anchor="middle">โซน 2</text><text x="326" y="235" font-size="9" fill="#7c2d12" font-weight="700" text-anchor="middle">โซน 3</text><rect x="255" y="38" width="215" height="70" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="0.7"/><text x="362.5" y="52.0" text-anchor="middle" font-size="11" fill="#7c2d12" font-weight="700">🎯 PD ระดับ 2 (Block)</text><text x="362.5" y="66.5" text-anchor="middle" font-size="9" fill="#7c2d12" font-weight="600">แบ่งโซน: ซื้อมาก → ราคาถูก</text><text x="362.5" y="81.0" text-anchor="middle" font-size="9" fill="#7c2d12" font-weight="600">แต่ละมุมโซนอยู่บน D</text><text x="362.5" y="95.5" text-anchor="middle" font-size="9" fill="#7c2d12" font-weight="700">CS เหลือบางส่วน</text></svg></div><div class="insight"><div class="insight-label">✦ อ่านกราฟ</div><p class="insight-text"><strong>3 โซน:</strong> ซื้อ 0–Q₁ → P₁ (สูง), ซื้อ Q₁–Q₂ → P₂ (กลาง), ซื้อ Q₂+ → P (ต่ำ)<br><br><strong>รายรับใหม่</strong> = พื้นที่ 3 บล็อก รวมกัน<br><strong>มากกว่ารายรับเดิม</strong> (ราคาเดียว P)<br><strong>CS เหลือบางส่วน</strong> (ไม่ใช่ 0 เหมือน PD ระดับ 1)<br><br>🎯 <strong>เหมาะกับ:</strong> ไฟฟ้า, น้ำประปา, โทรศัพท์, รถไฟ — กิจการที่มีลูกค้าจำนวนมาก</p></div>',
+quiz:{q:"PD ระดับ 2 (Block) ต่างจาก PD ระดับ 1 (Perfect) ยังไง?",
+  opts:["PD ระดับ 2 ราคาถูกกว่า",
+        "PD ระดับ 2 ดึง CS ทั้งหมด แต่ระดับ 1 ดึงบางส่วน",
+        "PD ระดับ 2 ดึง CS แค่บางส่วน (CS เหลือ) แต่ระดับ 1 ดึงทั้งหมด (CS=0)",
+        "ไม่ต่างกัน"],
+  ans:2,
+  explain:"PD ระดับ 1 ตั้งราคาตาม<strong>แต่ละคน</strong> → CS=0<br>PD ระดับ 2 ตั้งราคา<strong>ตามปริมาณซื้อ</strong> (block) → CS เหลือบางส่วน เพราะคนในแต่ละ block ยังมี CS ภายในกลุ่ม"}},
+
+{tag:"PD ระดับ 3 · Geographic",title:"PD ระดับ 3: Different Markets",
+body:'<div class="prose"><p>ผู้ผูกขาดแยก<strong>ตลาดออกเป็นหลายตลาด</strong> ที่<strong>ค่าความยืดหยุ่น (Elasticity) ต่างกัน</strong> แล้วตั้งราคาต่างกัน</p><p style="margin-top:14px"><strong>กฎ:</strong></p><p style="margin:6px 0">📌 ตลาดที่ยืดหยุ่น<strong>น้อย</strong> (ลูกค้าไม่อ่อนไหวต่อราคา) → คิด<strong>ราคาแพง</strong></p><p style="margin:6px 0">📌 ตลาดที่ยืดหยุ่น<strong>มาก</strong> (ลูกค้าอ่อนไหวต่อราคา) → คิด<strong>ราคาถูก</strong></p><p style="margin-top:14px"><strong>ตัวอย่าง:</strong></p><p style="margin:6px 0">✈️ Business class (แพง) vs Economy class (ถูก)</p><p style="margin:6px 0">📚 Textbook ในอเมริกา (แพง) vs ในเอเชีย (ถูก)</p><p style="margin:6px 0">🍔 McDonald\'s ในห้าง vs ตามหมู่บ้าน ราคาต่างกัน</p></div><div class="dw"><svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px;display:block;margin:0 auto"><rect x="0" y="0" width="480" height="320" fill="#fff"/><text x="240" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#7c2d12">แยกตลาดตามค่าความยืดหยุ่น (Elasticity)</text><text x="240" y="34" text-anchor="middle" font-size="10" fill="#7c2d12">ยืดหยุ่นน้อย → ราคาแพง · ยืดหยุ่นมาก → ราคาถูก · MC = 20 ทั้งสองตลาด</text><rect x="15" y="46" width="145" height="240" rx="6" fill="#fee2e2" fill-opacity="0.3" stroke="#dc2626" stroke-width="0.7"/><text x="87.5" y="58" text-anchor="middle" font-size="10" font-weight="800" fill="#dc2626">ตลาด 1 (ยืดหยุ่นต่ำ)</text><line x1="43" y1="255" x2="152" y2="255" stroke="#1c1917" stroke-width="1.2"/><line x1="43" y1="255" x2="43" y2="68" stroke="#1c1917" stroke-width="1.2"/><text x="31" y="70" font-size="9" fill="#1c1917" font-weight="700">P</text><text x="155" y="259" font-size="9" fill="#1c1917" font-weight="700">Q</text><line x1="43.0" y1="68.0" x2="142.9" y2="196.6" stroke="#2563eb" stroke-width="1.8"/><text x="145" y="195" font-size="9" fill="#1e40af" font-weight="800">D₁</text><line x1="43.0" y1="68.0" x2="115.7" y2="255.0" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,2"/><text x="91" y="182" font-size="9" fill="#7c3aed" font-weight="800">MR₁</text><line x1="43.0" y1="208.2" x2="142.9" y2="208.2" stroke="#16a34a" stroke-width="1.5"/><text x="145" y="220" font-size="9" fill="#15803d" font-weight="800">MC</text><line x1="97.5" y1="208.2" x2="97.5" y2="255" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><line x1="43" y1="138.1" x2="97.5" y2="138.1" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><circle cx="97.5" cy="138.1" r="3" fill="#dc2626" stroke="#fff" stroke-width="1.2"/><circle cx="97.5" cy="208.2" r="3" fill="#dc2626" stroke="#fff" stroke-width="1.2"/><text x="40" y="141" font-size="9" fill="#7f1d1d" font-weight="800" text-anchor="end">P₁=50</text><text x="98" y="267" font-size="8" fill="#7f1d1d" font-weight="700" text-anchor="middle">Q₁=30</text><text x="100" y="205" font-size="8" fill="#7f1d1d" font-weight="800">E₁</text><rect x="170" y="46" width="145" height="240" rx="6" fill="#dbeafe" fill-opacity="0.3" stroke="#2563eb" stroke-width="0.7"/><text x="242.5" y="58" text-anchor="middle" font-size="10" font-weight="800" fill="#2563eb">ตลาด 2 (ยืดหยุ่นสูง)</text><line x1="198" y1="255" x2="307" y2="255" stroke="#1c1917" stroke-width="1.2"/><line x1="198" y1="255" x2="198" y2="68" stroke="#1c1917" stroke-width="1.2"/><text x="186" y="70" font-size="9" fill="#1c1917" font-weight="700">P</text><text x="310" y="259" font-size="9" fill="#1c1917" font-weight="700">Q</text><line x1="198.0" y1="138.1" x2="297.9" y2="189.6" stroke="#2563eb" stroke-width="1.8"/><text x="300" y="188" font-size="9" fill="#1e40af" font-weight="800">D₂</text><line x1="198.0" y1="138.1" x2="297.9" y2="241.0" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,2"/><text x="256" y="191" font-size="9" fill="#7c3aed" font-weight="800">MR₂</text><line x1="198.0" y1="208.2" x2="297.9" y2="208.2" stroke="#16a34a" stroke-width="1.5"/><text x="300" y="220" font-size="9" fill="#15803d" font-weight="800">MC</text><line x1="266.1" y1="208.2" x2="266.1" y2="255" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><line x1="198" y1="173.2" x2="266.1" y2="173.2" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><circle cx="266.1" cy="173.2" r="3" fill="#1e40af" stroke="#fff" stroke-width="1.2"/><circle cx="266.1" cy="208.2" r="3" fill="#1e40af" stroke="#fff" stroke-width="1.2"/><text x="195" y="176" font-size="9" fill="#1e40af" font-weight="800" text-anchor="end">P₂=35</text><text x="266" y="267" font-size="8" fill="#1e40af" font-weight="700" text-anchor="middle">Q₂=37.5</text><text x="269" y="205" font-size="8" fill="#1e40af" font-weight="800">E₂</text><rect x="325" y="46" width="145" height="240" rx="6" fill="#d1fae5" fill-opacity="0.3" stroke="#16a34a" stroke-width="0.7"/><text x="397.5" y="58" text-anchor="middle" font-size="10" font-weight="800" fill="#16a34a">รวม MR₁+MR₂</text><line x1="353" y1="255" x2="462" y2="255" stroke="#1c1917" stroke-width="1.2"/><line x1="353" y1="255" x2="353" y2="68" stroke="#1c1917" stroke-width="1.2"/><text x="341" y="70" font-size="9" fill="#1c1917" font-weight="700">P</text><text x="465" y="259" font-size="9" fill="#1c1917" font-weight="700">Q</text><line x1="353.0" y1="213.4" x2="459.3" y2="213.4" stroke="#16a34a" stroke-width="1.8"/><text x="461" y="225" font-size="9" fill="#15803d" font-weight="800">MC</text><line x1="353.0" y1="88.8" x2="373.4" y2="151.1" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,2"/><line x1="373.4" y1="151.1" x2="492.7" y2="255.0" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,2"/><text x="406" y="182" font-size="9" fill="#7c3aed" font-weight="800">MR</text><line x1="445.0" y1="213.4" x2="445.0" y2="255" stroke="#999" stroke-width="0.5" stroke-dasharray="2,2"/><circle cx="445.0" cy="213.4" r="4" fill="#16a34a" stroke="#fff" stroke-width="1.5"/><text x="450" y="208" font-size="10" fill="#15803d" font-weight="800">E</text><text x="445" y="267" font-size="8" fill="#15803d" font-weight="700" text-anchor="middle">Q=67.5</text><text x="445" y="277" font-size="7" fill="#15803d" text-anchor="middle">(30+37.5)</text></svg></div><div class="insight"><div class="insight-label">✦ อ่านกราฟ</div><p class="insight-text"><strong>ตลาด 1 (ยืดหยุ่นต่ำ):</strong><br> • D₁ ชัน → ลูกค้าไม่อ่อนไหวต่อราคา → ตั้งราคาแพงได้<br> • E₁ ที่ MR₁ = MC=20 → <strong>P₁ = 50 บาท, Q₁ = 30</strong><br><br><strong>ตลาด 2 (ยืดหยุ่นสูง):</strong><br> • D₂ ลาด → ลูกค้าอ่อนไหวมาก → ต้องตั้งราคาถูก<br> • E₂ ที่ MR₂ = MC=20 → <strong>P₂ = 35 บาท, Q₂ = 37.5</strong><br><br><strong>รวม:</strong> Q = Q₁ + Q₂ = 30 + 37.5 = <strong>67.5</strong><br><br>🎯 <strong>กฎการตั้งราคา:</strong> ทั้ง 2 ตลาดต้องตั้งราคาให้ MR₁ = MR₂ = MC<br><br><strong>เงื่อนไขการทำ PD ระดับ 3:</strong><br> • ผู้ผูกขาดมีอำนาจตั้งราคา<br> • <strong>แยกตลาดได้ชัดเจน</strong> (ซื้อตลาดถูกแล้วเอาไปขายตลาดแพงไม่ได้)<br> • ค่าความยืดหยุ่น<strong>ต่างกันชัดเจน</strong><br> • ต้นทุนแยกตลาดไม่สูง</p></div>',
+quiz:{q:"ถ้ามีตลาด A (ยืดหยุ่นน้อย) และตลาด B (ยืดหยุ่นมาก) ผู้ผูกขาดควรตั้งราคายังไง?",
+  opts:["A ราคาถูก, B ราคาแพง",
+        "A ราคาแพง, B ราคาถูก (ตลาดที่ลูกค้าหนีง่ายกว่าตั้งถูก)",
+        "ตั้งราคาเท่ากันทั้ง 2 ตลาด",
+        "ปิดตลาด A"],
+  ans:1,
+  explain:"🎯 <strong>กฎ PD3:</strong> ตลาดยืดหยุ่นน้อย (ลูกค้าไม่หนีแม้ขึ้นราคา) → <strong>คิดแพง</strong><br>ตลาดยืดหยุ่นมาก (ลูกค้าหนีถ้าขึ้นราคา) → <strong>คิดถูก</strong> เพื่อรักษาลูกค้า"}},
+
+{tag:"สรุป · เปรียบเทียบ",title:"สรุป: Multi-plant + PD 3 ระดับ",
+body:'<div class="prose"><p style="background:#dbeafe;padding:12px;border-radius:8px;margin:10px 0"><strong>🏭 Multi-plant:</strong> จัดสรรการผลิตให้ <strong>MR = MC₁ = MC₂</strong> → ต้นทุนรวมต่ำสุด → กำไรสูงสุด</p><p style="margin-top:14px"><strong>🎯 Price Discrimination 3 ระดับ:</strong></p><div style="overflow-x:auto;margin:10px 0"><table style="width:100%;border-collapse:collapse;font-size:13px;background:#fff"><thead><tr style="background:#fef3c7"><th style="border:1px solid #d97706;padding:8px;text-align:left">ระดับ</th><th style="border:1px solid #d97706;padding:8px;text-align:left">วิธีตั้งราคา</th><th style="border:1px solid #d97706;padding:8px;text-align:center">CS</th><th style="border:1px solid #d97706;padding:8px;text-align:left">ตัวอย่าง</th></tr></thead><tbody><tr><td style="border:1px solid #fbbf24;padding:8px"><strong>1 (Perfect)</strong></td><td style="border:1px solid #fbbf24;padding:8px">ตามที่<strong>แต่ละคน</strong>ยอมจ่าย</td><td style="border:1px solid #fbbf24;padding:8px;text-align:center;color:#dc2626">= 0</td><td style="border:1px solid #fbbf24;padding:8px">แพทย์เฉพาะทาง, ของเฉพาะ</td></tr><tr style="background:#fefce8"><td style="border:1px solid #fbbf24;padding:8px"><strong>2 (Block)</strong></td><td style="border:1px solid #fbbf24;padding:8px">ตาม<strong>ปริมาณซื้อ</strong> (โซน)</td><td style="border:1px solid #fbbf24;padding:8px;text-align:center;color:#92400e">เหลือ<br>บางส่วน</td><td style="border:1px solid #fbbf24;padding:8px">ค่าไฟ, ค่าน้ำ, โทรศัพท์</td></tr><tr><td style="border:1px solid #fbbf24;padding:8px"><strong>3 (Geographic)</strong></td><td style="border:1px solid #fbbf24;padding:8px">ตาม<strong>ตลาด</strong> (Elasticity)</td><td style="border:1px solid #fbbf24;padding:8px;text-align:center;color:#92400e">เหลือ<br>บางส่วน</td><td style="border:1px solid #fbbf24;padding:8px">ตั๋วเครื่องบิน, ห้างสรรพสินค้า</td></tr></tbody></table></div><p style="background:#d1fae5;padding:10px;border-radius:8px;margin-top:10px"><strong>📌 เงื่อนไขที่ทำให้ PD เกิดได้:</strong><br>1. ผู้ขายมีอำนาจตั้งราคา (Monopoly Power)<br>2. แยกลูกค้า/ตลาดได้ชัดเจน<br>3. ลูกค้าซื้อราคาถูกไปขายราคาแพงไม่ได้<br>4. ความยืดหยุ่นต่างกัน (สำหรับ PD3)</p></div><div class="completion-link" style="margin-top:14px">🎉 <strong>จบบทที่ 8 — ตลาดผูกขาด!</strong> ครบทั้ง 7 sections (8.1-8.7)</div>',
+quiz:{q:"PD ระดับใดที่ดึง Consumer Surplus มาเป็นรายรับได้มากที่สุด?",
+  opts:["ระดับ 1 (Perfect) — CS=0",
+        "ระดับ 2 (Block)",
+        "ระดับ 3 (Geographic)",
+        "ทุกระดับเท่ากัน"],
+  ans:0,
+  explain:"<strong>PD ระดับ 1 (Perfect)</strong> ดึง CS ทั้งหมด — คิดราคาตามที่แต่ละคนยอมจ่ายสูงสุด ทำให้ <strong>CS = 0</strong> ระดับ 2 และ 3 ดึงได้แค่บางส่วน"}}
+];
+var cur=0,total=S.length,ans={};
+function init(){renderDots();renderStep()}
+function renderDots(){var d=document.getElementById('dots'),h='';for(var i=0;i<total;i++)h+='<div style="width:'+(i===cur?'48':'32')+'px;height:5px;border-radius:99px;background:'+(i<=cur?'var(--pri)':'#ede5d8')+';transition:all .35s;cursor:pointer" onclick="goTo('+i+')"></div>';d.innerHTML=h;document.getElementById('plbl').textContent=(cur+1)+' / '+total}
+function renderStep(){var s=S[cur],c=document.getElementById('sc');var h='<div class="step active"><div class="step-tag">'+s.tag+'</div><h2 class="step-title">'+s.title+'</h2>';if(s.body)h+=s.body;if(s.quiz){var qid='q-'+cur;h+='<div class="quiz" id="'+qid+'"><p class="quiz-q">'+s.quiz.q+'</p><div class="quiz-opts">';for(var i=0;i<s.quiz.opts.length;i++)h+='<button class="quiz-opt" onclick="answer('+cur+','+i+','+s.quiz.ans+')"><span class="letter">'+String.fromCharCode(65+i)+'.</span>'+s.quiz.opts[i]+'</button>';h+='</div><div class="quiz-explain" id="'+qid+'-e">'+s.quiz.explain+'</div></div>'}var isLast=cur>=total-1,nQ=!!s.quiz,done=ans[cur],vis=(!nQ||done)?'':'hidden';h+='<button class="next-btn '+vis+'" id="nb" onclick="'+(isLast?'complete()':'next()')+'">'+(isLast?'✓ จบ Section 8.7':'ถัดไป →')+'</button></div>';c.innerHTML=h;renderDots()}
+function answer(step,chosen,correct){if(ans[step])return;ans[step]=true;var card=document.getElementById('q-'+step),btns=card.querySelectorAll('.quiz-opt');for(var i=0;i<btns.length;i++){btns[i].classList.add('locked');if(i===correct)btns[i].classList.add('correct');else if(i===chosen&&chosen!==correct)btns[i].classList.add('wrong')}document.getElementById('q-'+step+'-e').classList.add('show',chosen===correct?'ok':'no');setTimeout(function(){document.getElementById('nb').classList.remove('hidden')},500)}
+function next(){cur++;renderStep();window.scrollTo({top:0,behavior:'smooth'})}
+function goTo(i){if(i<=cur){cur=i;renderStep();window.scrollTo({top:0,behavior:'smooth'})}}
+function complete(){document.getElementById('sc').innerHTML='<div class="step active"><div class="completion"><div style="font-size:52px;margin-bottom:14px">🎉</div><h2>จบ Section 8.7!</h2><p>คุณเข้าใจวิธีที่ผู้ผูกขาดใช้กลยุทธ์ <strong>หลายโรงงาน</strong> (กฎ MR = MC₁ = MC₂) และ <strong>Price Discrimination</strong> 3 ระดับเพื่อหากำไรเพิ่มขึ้น!</p><div class="completion-link">🎓 <strong>จบบทที่ 8 — ตลาดผูกขาด!</strong> คุณเรียนครบทั้ง 7 หัวข้อ: ลักษณะตลาด → AR/MR → ดุลยภาพระยะสั้น → ระยะยาว → DWL → การควบคุม → กลยุทธ์ผู้ผูกขาด</div><br><button class="next-btn" onclick="location.href=\'chapter8.html\'" style="max-width:300px;margin:0 auto">← กลับบทที่ 8</button></div></div>';document.getElementById('dots').innerHTML='';document.getElementById('plbl').textContent='เสร็จสิ้น ✓';window.scrollTo({top:0,behavior:'smooth'})}
+init();
+</script>
+
+<nav class="ajk-chapter-nav ajk-shell-theme">
+  <a class="ajk-chap-btn prev" href="chapter8_6.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">บทก่อนหน้า</span>
+      <span class="ajk-chap-name">บทที่ 8.6 — การควบคุมการผูกขาด</span>
+    </div>
+  </a>
+  <a class="ajk-chap-btn next" href="chapter8.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="ajk-chap-text">
+      <span class="ajk-chap-label">หน้า hub</span>
+      <span class="ajk-chap-name">📚 บทที่ 8 — สรุปทั้งบท</span>
+    </div>
+  </a>
+</nav>
+
+<footer class="ajk-footer ajk-shell-theme">
+  <div class="ajk-footer-inner">
+    <div class="ajk-footer-mark"><span class="ajk-footer-mark-dot"></span></div>
+    <div class="ajk-footer-name">Ajarn.Kwan</div>
+    <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
+    <div class="ajk-footer-links">
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter8.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 8</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
+    </div>
+    <div class="ajk-footer-bottom">
+      <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
+      เนื้อหาทั้งหมดแจกฟรีเพื่อการศึกษา · ขอให้ทุกคนสนุกกับการเรียนค่ะ
+    </div>
+  </div>
+</footer>
+  <script type="module" src="../member-guard.js"></script>
+
+<!-- ═══ AK FOOTER (shared theme) ═══ -->
+<footer class="ak-footer">
+  <div class="ak-footer-inner">
+    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
+
+    <div class="ak-footer-groups">
+      <div class="ak-footer-group ak-footer-group-brand">
+        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
+        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
+        <div class="ak-footer-social">
+          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
+          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
+          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
+          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
+          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
+        </div>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">หลักสูตร</div>
+        <a href="../economics/">Economics</a>
+        <a href="../vocab/">Econ English</a>
+        <a href="../#courses">Personal Finance</a>
+        <a href="../vibe-coding/">AI Literacy</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">เว็บไซต์</div>
+        <a href="../#about">เกี่ยวกับ</a>
+        <a href="../#try">ทดลองเรียน</a>
+        <a href="../#freebies">ของแจกฟรี</a>
+        <a href="../#faq">คำถาม</a>
+      </div>
+
+      <div class="ak-footer-group">
+        <div class="ak-footer-group-title">บัญชี</div>
+        <a href="../#join">สมัครสมาชิกฟรี</a>
+        <a href="../#join">เข้าสู่ระบบ</a>
+        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
+      </div>
+    </div>
+
+    <div class="ak-footer-meta">
+      <div>
+        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
+        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
+        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
+        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
+      </div>
+      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Sticky topbar shadow
+  const t = document.getElementById('ak-topbar');
+  if (t) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) t.classList.add('scrolled');
+      else t.classList.remove('scrolled');
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* Member status pill — reads login state from localStorage */
+(function(){
+  try {
+    const raw = localStorage.getItem('akMember');
+    if (!raw) return;
+    const m = JSON.parse(raw);
+    if (!m || !m.name) return;
+    // Stale if older than 30 days
+    if (m.ts && (Date.now() - m.ts > 30*24*60*60*1000)) return;
+    
+    const pill = document.getElementById('ak-member-pill');
+    const loginBtn = document.getElementById('ak-login-btn');
+    const avatarEl = document.getElementById('ak-pill-avatar');
+    const labelEl = document.getElementById('ak-pill-label');
+    
+    if (pill && labelEl && avatarEl) {
+      if (m.isAdmin) {
+        // Admin: link to #admin Dashboard, label = "Admin"
+        pill.href = '../#admin';
+        pill.classList.add('is-admin');
+        avatarEl.textContent = 'A';
+        labelEl.textContent = 'Admin · Dashboard';
+      } else {
+        // Regular member: link to #hub
+        pill.href = '../#hub';
+        avatarEl.textContent = (m.name[0] || '?').toUpperCase();
+        labelEl.textContent = m.name;
+      }
+      pill.style.display = 'inline-flex';
+      if (loginBtn) loginBtn.style.display = 'none';
+    }
+  } catch(e) { console.warn('member pill init failed:', e); }
+})();
+</script>
+
+<script id="gw-ch85-js">
+(function(){
+  var STEPS = [
+    "เริ่มต้น: เส้น <b style=\'color:#dc2626\'>D = AR</b> และเส้นต้นทุน <b style=\'color:#a855f7\'>LAC = LMC</b> (แนวนอน เพราะ constant cost)",
+    "หาดุลยภาพ <b style=\'color:#10b981\'>PC</b> ที่ D ตัด LMC → จุด <b>L</b> ได้ปริมาณ <b>Q_C</b> ราคา <b>P_C</b>",
+    "<b style=\'color:#047857\'>Consumer Surplus (CS)</b> ของ PC = สามเหลี่ยมใหญ่ ระหว่าง D กับ P_C ผู้บริโภคได้ประโยชน์เต็มที่",
+    "ตอนนี้สมมุติเป็น Monopoly → วาด <b style=\'color:#ec4899\'>MR</b> (ชัน 2 เท่าของ D)",
+    "Monopoly เลือก Q ที่ MR=MC → ได้ <b>Q_M</b> = ครึ่งของ Q_C จุด <b>J</b> บนเส้น MC",
+    "ขึ้นไปแตะ D ที่ Q_M → ได้ <b style=\'color:#dc2626\'>P_M</b> ที่จุด <b>K</b> ราคาสูงกว่า P_C",
+    "<b style=\'color:#047857\'>CS ใหม่</b>เล็กลง + <b style=\'color:#7f1d1d\'>กำไรผูกขาด π_M</b> = สี่เหลี่ยม โอนจาก CS เดิม",
+    "<b style=\'color:#92400e\'>Deadweight Loss (DWL)</b> = สามเหลี่ยม JKL — ความสูญเสียของสังคมที่<b>ไม่มีใครได้</b>!"
+  ];
+  var FINAL_MSG = "🎯 <b style=\'color:#7f1d1d\'>Q_M &lt; Q_C, P_M &gt; P_C, DWL = ความเสียหายต่อสังคมที่ไม่มีใครได้</b>";
+  var TOTAL = 9;
+  
+  window.gw85State = 0;
+  
+  window.gw85Step = function(dir) {
+    var cur = window.gw85State + dir;
+    cur = Math.max(0, Math.min(TOTAL, cur));
+    window.gw85State = cur;
+    
+    var svg = document.getElementById('svg-85');
+    if (!svg) return;
+    
+    var groups = svg.querySelectorAll('.g-step');
+    groups.forEach(function(g){
+      var s = parseInt(g.getAttribute('data-step'));
+      g.style.opacity = (s <= cur) ? '1' : '0';
+      g.style.transition = 'opacity 0.45s ease';
+    });
+    
+    var msg = document.getElementById('step-msg-85');
+    if (msg) {
+      if (cur === 0) {
+        msg.innerHTML = '👇 กดปุ่ม "ขั้นตอนถัดไป" เพื่อดูกราฟทีละเส้น';
+      } else if (cur >= TOTAL) {
+        msg.innerHTML = FINAL_MSG;
+      } else {
+        msg.innerHTML = '<b>ขั้นที่ ' + cur + '/' + TOTAL + ':</b> ' + STEPS[cur - 1];
+      }
+    }
+    
+    var cnt = document.getElementById('step-count-85');
+    if (cnt) cnt.textContent = cur + ' / ' + TOTAL;
+    
+    var btnPrev = document.getElementById('btn-prev-85');
+    var btnNext = document.getElementById('btn-next-85');
+    if (btnPrev) btnPrev.style.opacity = (cur === 0) ? '0.4' : '1';
+    if (btnNext) {
+      btnNext.style.opacity = (cur >= TOTAL) ? '0.4' : '1';
+      btnNext.textContent = (cur >= TOTAL) ? '✓ เสร็จ' : 'ขั้นตอนถัดไป →';
+    }
+  };
+  
+  window.gw85Reset = function() {
+    window.gw85State = 0;
+    window.gw85Step(0);
+  };
+  
+  function init() {
+    var svg = document.getElementById('svg-85');
+    if (svg) { window.gw85State = 0; window.gw85Step(0); }
+  }
+  
+  function wrapRender() {
+    if (typeof window.renderStep !== 'function') {
+      setTimeout(wrapRender, 50);
+      return;
+    }
+    var orig = window.renderStep;
+    window.renderStep = function() {
+      orig.apply(this, arguments);
+      setTimeout(init, 30);
+    };
+    init();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wrapRender);
+  } else {
+    wrapRender();
+  }
+})();
+</script>
+
+</body>
+</html>

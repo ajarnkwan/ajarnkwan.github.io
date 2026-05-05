@@ -9,29 +9,29 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1a1a1a;padding:16px}
 @media(prefers-color-scheme:dark){body{background:#141414;color:#e0e0e0}}
-.app{max-width:780px;margin:0 auto}
+.app{max-width:760px;margin:0 auto}
 .topnav{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
 .backbtn{padding:4px 10px;border:1px solid #ddd;border-radius:8px;background:transparent;font-size:15px;cursor:pointer;color:#888;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 @media(prefers-color-scheme:dark){.backbtn{border-color:#444;color:#aaa}}
 .backbtn:hover{background:#f5f5f5}
 @media(prefers-color-scheme:dark){.backbtn:hover{background:#242424}}
-.badge{font-size:14.5px;font-weight:700;padding:3px 12px;border-radius:99px;background:#e8f5e9;color:#2e7d32}
-@media(prefers-color-scheme:dark){.badge{background:#0d1f0d;color:#81c784}}
+.badge{font-size:14.5px;font-weight:700;padding:3px 12px;border-radius:99px;background:#e0f2f1;color:#00695c}
+@media(prefers-color-scheme:dark){.badge{background:#002822;color:#4db6ac}}
 .badge.sec{background:#1a1a1a;color:#fff}
 @media(prefers-color-scheme:dark){.badge.sec{background:#fff;color:#1a1a1a}}
 
 /* Section hero — green theme */
-.shero{background:linear-gradient(135deg,#e8f5e9 0%,#f1f8f4 100%);border-radius:16px;padding:20px 22px;margin:14px 0 20px;border:1px solid #c8e6c9}
-@media(prefers-color-scheme:dark){.shero{background:linear-gradient(135deg,#0d1f0d 0%,#1a1a1a 100%);border-color:#2a4a2a}}
-.shero .num{font-size:14.5px;font-weight:700;color:#2e7d32;letter-spacing:.1em;margin-bottom:4px}
-@media(prefers-color-scheme:dark){.shero .num{color:#81c784}}
-.shero h1{font-size:24px;font-weight:800;margin-bottom:8px;color:#2e7d32;line-height:1.3}
-@media(prefers-color-scheme:dark){.shero h1{color:#81c784}}
+.shero{background:linear-gradient(135deg,#e0f2f1 0%,#f1f8f4 100%);border-radius:16px;padding:20px 22px;margin:14px 0 20px;border:1px solid #c8e6c9}
+@media(prefers-color-scheme:dark){.shero{background:linear-gradient(135deg,#002822 0%,#1a1a1a 100%);border-color:#2a4a2a}}
+.shero .num{font-size:14.5px;font-weight:700;color:#00695c;letter-spacing:.1em;margin-bottom:4px}
+@media(prefers-color-scheme:dark){.shero .num{color:#4db6ac}}
+.shero h1{font-size:24px;font-weight:800;margin-bottom:8px;color:#00695c;line-height:1.3}
+@media(prefers-color-scheme:dark){.shero h1{color:#4db6ac}}
 .shero p{font-size:16px;line-height:1.75;color:#555}
 @media(prefers-color-scheme:dark){.shero p{color:#aaa}}
 
-.step{display:inline-block;font-size:14.5px;font-weight:700;color:#2e7d32;background:#e8f5e9;padding:3px 10px;border-radius:99px;margin-bottom:10px;letter-spacing:.04em}
-@media(prefers-color-scheme:dark){.step{background:#0d1f0d;color:#81c784}}
+.step{display:inline-block;font-size:14.5px;font-weight:700;color:#00695c;background:#e0f2f1;padding:3px 10px;border-radius:99px;margin-bottom:10px;letter-spacing:.04em}
+@media(prefers-color-scheme:dark){.step{background:#002822;color:#4db6ac}}
 
 h2{font-size:20px;font-weight:700;margin-bottom:10px;line-height:1.55}
 h3{font-size:17px;font-weight:700;margin:14px 0 6px}
@@ -50,27 +50,27 @@ p.body{font-size:16px;line-height:1.75;color:#444;margin-bottom:12px}
 .choices{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
 .choice{padding:12px 14px;background:#fff;border:1.5px solid #eee;border-radius:10px;cursor:pointer;font-size:16.5px;line-height:1.6;text-align:left;font-family:inherit;color:inherit;transition:all .15s;display:flex;align-items:flex-start;gap:10px}
 @media(prefers-color-scheme:dark){.choice{background:#1a1a1a;border-color:#333}}
-.choice:hover{border-color:#2e7d32;background:#f1f8f4}
-@media(prefers-color-scheme:dark){.choice:hover{background:#0d1f0d}}
-.choice .clet{font-weight:700;color:#2e7d32;flex-shrink:0}
-@media(prefers-color-scheme:dark){.choice .clet{color:#81c784}}
-.choice.correct{background:#e8f5e9;border-color:#66bb6a}
-@media(prefers-color-scheme:dark){.choice.correct{background:#0d2a10;border-color:#2e7d32}}
+.choice:hover{border-color:#00695c;background:#f1f8f4}
+@media(prefers-color-scheme:dark){.choice:hover{background:#002822}}
+.choice .clet{font-weight:700;color:#00695c;flex-shrink:0}
+@media(prefers-color-scheme:dark){.choice .clet{color:#4db6ac}}
+.choice.correct{background:#e0f2f1;border-color:#66bb6a}
+@media(prefers-color-scheme:dark){.choice.correct{background:#0d2a10;border-color:#00695c}}
 .choice.wrong{background:#ffebee;border-color:#ef5350;opacity:.7}
 @media(prefers-color-scheme:dark){.choice.wrong{background:#2a0d0d;border-color:#c62828}}
 
 .feedback{display:none;padding:12px 14px;border-radius:10px;font-size:16.5px;line-height:1.7;margin-top:8px}
 .feedback.on{display:block}
-.feedback.good{background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20}
-@media(prefers-color-scheme:dark){.feedback.good{background:#0d2a10;border-color:#2e7d32;color:#a5d6a7}}
+.feedback.good{background:#e0f2f1;border:1px solid #a5d6a7;color:#1b5e20}
+@media(prefers-color-scheme:dark){.feedback.good{background:#0d2a10;border-color:#00695c;color:#a5d6a7}}
 .feedback.bad{background:#fff3e0;border:1px solid #ffb74d;color:#e65100}
 @media(prefers-color-scheme:dark){.feedback.bad{background:#2a1a00;border-color:#f57c00;color:#ffb74d}}
 
 /* Lab */
 .lab{background:#f1f8f4;border:1.5px solid #c8e6c9;border-radius:14px;padding:16px 18px;margin-bottom:16px}
-@media(prefers-color-scheme:dark){.lab{background:#0d1f0d;border-color:#2a4a2a}}
-.lab-title{font-size:15.5px;font-weight:700;color:#2e7d32;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
-@media(prefers-color-scheme:dark){.lab-title{color:#81c784}}
+@media(prefers-color-scheme:dark){.lab{background:#002822;border-color:#2a4a2a}}
+.lab-title{font-size:15.5px;font-weight:700;color:#00695c;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+@media(prefers-color-scheme:dark){.lab-title{color:#4db6ac}}
 .lab-desc{font-size:16px;color:#666;margin-bottom:14px;line-height:1.6}
 @media(prefers-color-scheme:dark){.lab-desc{color:#999}}
 
@@ -82,9 +82,9 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 .ctl-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
 .ctl-row:last-child{margin-bottom:0}
 .ctl label{font-size:15.5px;font-weight:600;min-width:80px}
-.ctl input[type=range]{flex:1;min-width:120px;accent-color:#2e7d32}
-.ctl .val{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:16px;color:#2e7d32;font-weight:700;min-width:68px;text-align:right}
-@media(prefers-color-scheme:dark){.ctl .val{color:#81c784}}
+.ctl input[type=range]{flex:1;min-width:120px;accent-color:#00695c}
+.ctl .val{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:16px;color:#00695c;font-weight:700;min-width:68px;text-align:right}
+@media(prefers-color-scheme:dark){.ctl .val{color:#4db6ac}}
 .ctl .readout{font-size:15px;color:#666;margin-top:4px;line-height:1.6;padding:8px 10px;background:#f5f5f5;border-radius:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace}
 @media(prefers-color-scheme:dark){.ctl .readout{background:#242424;color:#aaa}}
 
@@ -99,17 +99,17 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 .cmpr td:first-child{font-weight:600;width:35%;background:#fafafa}
 @media(prefers-color-scheme:dark){.cmpr td:first-child{background:#151515}}
 .cmpr .cpc{color:#bf360c}
-.cmpr .cpf{color:#2e7d32}
-@media(prefers-color-scheme:dark){.cmpr .cpc{color:#ff8a65}.cmpr .cpf{color:#81c784}}
+.cmpr .cpf{color:#00695c}
+@media(prefers-color-scheme:dark){.cmpr .cpc{color:#ff8a65}.cmpr .cpf{color:#4db6ac}}
 
 /* Theory */
 .theory{background:#1a1a1a;color:#fff;border-radius:14px;padding:16px 18px;margin-bottom:16px}
 @media(prefers-color-scheme:dark){.theory{background:#0a0a0a;border:1px solid #333}}
-.theory-label{font-size:14.5px;font-weight:700;color:#81c784;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.theory-label{font-size:14.5px;font-weight:700;color:#4db6ac;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
 .theory h3{font-size:18px;font-weight:700;margin-bottom:10px;color:#fff}
 .theory p{font-size:16.5px;line-height:1.75;color:#d0d0d0;margin-bottom:8px}
 .theory strong{color:#ffd54f}
-.theory .formula{background:rgba(129,199,132,.12);border-left:3px solid #81c784;padding:10px 12px;margin:10px 0;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:16.5px;color:#fff;border-radius:4px}
+.theory .formula{background:rgba(129,199,132,.12);border-left:3px solid #4db6ac;padding:10px 12px;margin:10px 0;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:16.5px;color:#fff;border-radius:4px}
 
 /* Calc */
 .calc{background:#fff;border:1.5px solid #c8e6c9;border-radius:14px;padding:16px 18px;margin-bottom:16px}
@@ -119,19 +119,19 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 @media(prefers-color-scheme:dark){.calc-step{border-bottom-color:#333}}
 .calc-step .slab{font-size:14.5px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
 .calc-step .seq{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:16px;line-height:1.8;background:#f1f8f4;padding:8px 10px;border-radius:6px;margin-top:4px}
-@media(prefers-color-scheme:dark){.calc-step .seq{background:#0d1f0d}}
+@media(prefers-color-scheme:dark){.calc-step .seq{background:#002822}}
 .calc-step .sexp{font-size:16px;color:#666;line-height:1.6;margin-top:6px}
 @media(prefers-color-scheme:dark){.calc-step .sexp{color:#aaa}}
 
 /* Revenue split visualization */
 .revenue-split{background:#fff;border:1.5px solid #c8e6c9;border-radius:12px;padding:16px;margin-bottom:16px}
 @media(prefers-color-scheme:dark){.revenue-split{background:#1a1a1a;border-color:#2a4a2a}}
-.rev-title{font-size:16px;font-weight:700;margin-bottom:12px;color:#2e7d32}
-@media(prefers-color-scheme:dark){.rev-title{color:#81c784}}
+.rev-title{font-size:16px;font-weight:700;margin-bottom:12px;color:#00695c}
+@media(prefers-color-scheme:dark){.rev-title{color:#4db6ac}}
 .rev-bar{display:flex;height:40px;border-radius:8px;overflow:hidden;font-size:14.5px;font-weight:600;color:#fff;margin-bottom:6px}
 .rev-part{display:flex;align-items:center;justify-content:center;padding:0 6px;text-align:center;line-height:1.2}
 .rev-part.market{background:#1976d2}
-.rev-part.govt{background:#2e7d32}
+.rev-part.govt{background:#00695c}
 .rev-legend{display:flex;flex-wrap:wrap;gap:12px;font-size:15px;color:#666}
 @media(prefers-color-scheme:dark){.rev-legend{color:#aaa}}
 .rev-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
@@ -143,8 +143,8 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 .rw-card .rw-title{font-size:16.5px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
 .rw-card .rw-desc{font-size:16px;color:#666;line-height:1.65}
 @media(prefers-color-scheme:dark){.rw-card .rw-desc{color:#aaa}}
-.rw-card .rw-icon{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:20px;background:#e8f5e9}
-@media(prefers-color-scheme:dark){.rw-card .rw-icon{background:#0d1f0d}}
+.rw-card .rw-icon{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:20px;background:#e0f2f1}
+@media(prefers-color-scheme:dark){.rw-card .rw-icon{background:#002822}}
 
 /* Try it */
 .tryit{background:#fff3e0;border:1.5px solid #ffb74d;border-radius:14px;padding:16px 18px;margin-bottom:16px}
@@ -158,20 +158,20 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 .tryit-input button:hover{background:#bf360c}
 
 /* Takeaway */
-.takeaway{background:linear-gradient(135deg,#e8f5e9 0%,#f1f8f4 100%);border:1.5px solid #66bb6a;border-radius:14px;padding:16px 18px;margin-bottom:16px}
-@media(prefers-color-scheme:dark){.takeaway{background:linear-gradient(135deg,#0d1f0d 0%,#0a0a0a 100%);border-color:#388e3c}}
-.takeaway .tlab{font-size:14.5px;font-weight:700;color:#2e7d32;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-@media(prefers-color-scheme:dark){.takeaway .tlab{color:#81c784}}
+.takeaway{background:linear-gradient(135deg,#e0f2f1 0%,#f1f8f4 100%);border:1.5px solid #66bb6a;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+@media(prefers-color-scheme:dark){.takeaway{background:linear-gradient(135deg,#002822 0%,#0a0a0a 100%);border-color:#388e3c}}
+.takeaway .tlab{font-size:14.5px;font-weight:700;color:#00695c;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+@media(prefers-color-scheme:dark){.takeaway .tlab{color:#4db6ac}}
 .takeaway h3{font-size:18px;font-weight:700;margin-bottom:8px}
 .takeaway ul{list-style:none;padding:0}
 .takeaway li{padding:6px 0 6px 24px;position:relative;font-size:16.5px;line-height:1.6}
-.takeaway li::before{content:'✓';position:absolute;left:0;color:#2e7d32;font-weight:700;font-size:17px}
-@media(prefers-color-scheme:dark){.takeaway li::before{color:#81c784}}
+.takeaway li::before{content:'✓';position:absolute;left:0;color:#00695c;font-weight:700;font-size:17px}
+@media(prefers-color-scheme:dark){.takeaway li::before{color:#4db6ac}}
 
 /* Reveal */
 .reveal-toggle{width:100%;padding:10px 14px;border:1.5px dashed #999;border-radius:10px;background:transparent;font-size:16px;font-weight:600;cursor:pointer;color:inherit;margin-bottom:10px;font-family:inherit}
-.reveal-toggle:hover{border-color:#2e7d32;color:#2e7d32}
-@media(prefers-color-scheme:dark){.reveal-toggle:hover{color:#81c784}}
+.reveal-toggle:hover{border-color:#00695c;color:#00695c}
+@media(prefers-color-scheme:dark){.reveal-toggle:hover{color:#4db6ac}}
 .reveal-content{display:none}
 .reveal-content.on{display:block;animation:fadeIn .3s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
@@ -183,14 +183,14 @@ canvas.gcanvas{width:100%;max-width:640px;border-radius:10px;border:1px solid #d
 @media(prefers-color-scheme:dark){.bnb{border-color:#444}}
 .bnb:hover{background:#f5f5f5}
 @media(prefers-color-scheme:dark){.bnb:hover{background:#242424}}
-.bnb.pr{background:#2e7d32;border-color:#2e7d32;color:#fff;font-weight:700}
+.bnb.pr{background:#00695c;border-color:#00695c;color:#fff;font-weight:700}
 .bnb.pr:hover{background:#1b5e20}
 
 /* Progress */
 .progress{display:flex;gap:4px;margin:10px 0 20px}
 .pbar{flex:1;height:5px;border-radius:3px;background:#eee}
 @media(prefers-color-scheme:dark){.pbar{background:#333}}
-.pbar.current{background:#2e7d32}
+.pbar.current{background:#00695c}
 .pbar.done{background:#4caf50}
 </style>
 
@@ -382,6 +382,12 @@ body{
   background:var(--theme-primary)!important;
   border-color:var(--theme-primary)!important;
 }
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+
 </style>
 
   <link rel="stylesheet" href="../assets/theme.css">
@@ -401,8 +407,162 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #f6faf9; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #f6faf9;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -434,7 +594,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <span>หน้าหลัก</span>
     </a>
 <div class="ajk-brand">
-      <div class="ajk-brand-course">บทที่ 4.3 · ราคาขั้นต่ำ</div>
+      <div class="ajk-brand-course">บทที่ 4.3 · การกำหนดราคาขั้นต่ำ</div>
       <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
@@ -471,7 +631,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
   <h2>โครงการจำนำข้าว ปี 2011–2014</h2>
   <p class="body">
     ตอนนั้น ราคาข้าวเปลือกในตลาดอยู่ที่ <strong>กิโลกรัมละ 8 บาท</strong> เกษตรกรบ่นว่าต่ำเกินไป ไม่คุ้มปุ๋ย ไม่คุ้มแรง ทำนาแล้วขาดทุน<br>
-    รัฐบาลเลยออกนโยบาย <strong style="color:#2e7d32">"จำนำข้าวทุกเม็ด กิโลกรัมละ 15 บาท"</strong> — ใครมีข้าว มารับเงินไปเลย
+    รัฐบาลเลยออกนโยบาย <strong style="color:#00695c">"จำนำข้าวทุกเม็ด กิโลกรัมละ 15 บาท"</strong> — ใครมีข้าว มารับเงินไปเลย
   </p>
   
   <div class="qcard">
@@ -670,18 +830,18 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
   <div class="calc">
     <p style="font-size:16px;font-weight:600;margin-bottom:10px">
       📝 โจทย์:<br>
-      <span style="font-family:ui-monospace,monospace;font-size:15px;color:#2e7d32">อุปสงค์: Qᴅ = 120 − 20P<br>อุปทาน: Qˢ = 10P</span><br>
+      <span style="font-family:ui-monospace,monospace;font-size:15px;color:#00695c">อุปสงค์: Qᴅ = 120 − 20P<br>อุปทาน: Qˢ = 10P</span><br>
       ถ้ารัฐประกันราคาขั้นต่ำ P̲ = 5 บาท/หน่วย — เกิดอะไรขึ้น?
     </p>
     
     <div class="calc-step">
       <div class="slab">ขั้นที่ 1 — หาดุลยภาพก่อน</div>
-      <div class="seq">Qᴅ = Qˢ<br>120 − 20P = 10P<br>120 = 30P<br><strong style="color:#2e7d32">P* = 4 บาท, Q* = 40 หน่วย</strong></div>
+      <div class="seq">Qᴅ = Qˢ<br>120 − 20P = 10P<br>120 = 30P<br><strong style="color:#00695c">P* = 4 บาท, Q* = 40 หน่วย</strong></div>
     </div>
     
     <div class="calc-step">
       <div class="slab">ขั้นที่ 2 — ตรวจว่า binding หรือไม่</div>
-      <div class="sexp">P̲ = 5 > P* = 4 → <strong style="color:#2e7d32">Binding!</strong> (สูงกว่าดุลยภาพ → มีผล)</div>
+      <div class="sexp">P̲ = 5 > P* = 4 → <strong style="color:#00695c">Binding!</strong> (สูงกว่าดุลยภาพ → มีผล)</div>
     </div>
     
     <div class="calc-step">
@@ -693,7 +853,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <div class="slab">ขั้นที่ 4 — Excess Supply และ งบที่รัฐต้องจ่าย</div>
       <div class="seq">Excess Supply = Qˢ − Qᴅ = 50 − 20 = <strong>30 หน่วย</strong><br><br>
         <em>ถ้ารัฐรับซื้อส่วนเกินที่ 5 บาท:</em><br>
-        งบที่รัฐจ่าย = 30 × 5 = <strong style="color:#2e7d32">150 บาท</strong></div>
+        งบที่รัฐจ่าย = 30 × 5 = <strong style="color:#00695c">150 บาท</strong></div>
       <div class="sexp">ถ้ารัฐ<em>ไม่</em>รับซื้อ ผู้ผลิตจะขายได้แค่ 20 หน่วยที่ราคา 5 บาท = รายได้ 100 บาท แต่เหลือข้าว 30 หน่วยขายไม่ออก</div>
     </div>
   </div>
@@ -706,7 +866,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
     </div>
     <div class="rev-legend">
       <span><span class="rev-dot" style="background:#1976d2"></span>ขายในตลาดได้ = Qᴅ × P̲ = 20 × 5 = <strong>100</strong></span>
-      <span><span class="rev-dot" style="background:#2e7d32"></span>รัฐรับซื้อ = Excess × P̲ = 30 × 5 = <strong>150</strong></span>
+      <span><span class="rev-dot" style="background:#00695c"></span>รัฐรับซื้อ = Excess × P̲ = 30 × 5 = <strong>150</strong></span>
     </div>
     <p style="margin-top:10px;font-size:14px;color:#666;line-height:1.6">
       @ เกษตรกรได้ <strong>250 บาท</strong> ทั้งหมด → แต่ <strong>60% มาจากภาษีประชาชน</strong> ไม่ได้มาจากตลาดจริง ๆ นี่คือหัวใจของ Price Floor
@@ -753,7 +913,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
         </div>
         <div class="calc-step">
           <div class="slab">คำตอบ</div>
-          <div class="seq">Excess Supply = 100 − 40 = <strong style="color:#2e7d32">60 หน่วย</strong><br>งบรัฐ = 60 × 6 = <strong style="color:#2e7d32">360 บาท</strong></div>
+          <div class="seq">Excess Supply = 100 − 40 = <strong style="color:#00695c">60 หน่วย</strong><br>งบรัฐ = 60 × 6 = <strong style="color:#00695c">360 บาท</strong></div>
         </div>
       </div>
     </div>
@@ -962,10 +1122,10 @@ function checkAns(){
     ctx.fillText('E* (P*=3)',cx(60000)+8,cy(3)+12);
     
     // Floor line
-    ctx.strokeStyle='#2e7d32';ctx.lineWidth=3;ctx.setLineDash(binding?[]:[6,4]);
+    ctx.strokeStyle='#00695c';ctx.lineWidth=3;ctx.setLineDash(binding?[]:[6,4]);
     ctx.beginPath();ctx.moveTo(ml,cy(Pfloor));ctx.lineTo(ml+pw,cy(Pfloor));ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle='#2e7d32';ctx.font='bold 11px sans-serif';ctx.textAlign='right';
+    ctx.fillStyle='#00695c';ctx.font='bold 11px sans-serif';ctx.textAlign='right';
     ctx.fillText(`P̲ = ${Pfloor.toFixed(2)}`,ml+pw-5,cy(Pfloor)-5);
     
     if(binding){
@@ -1018,16 +1178,16 @@ function checkAns(){
       const excess=Qs_at-Qd_at;
       const budget=excess*Pfloor;
       readout.innerHTML=
-        `สถานะ: <strong style="color:#2e7d32">BINDING — สูงกว่า P*</strong><br>`+
+        `สถานะ: <strong style="color:#00695c">BINDING — สูงกว่า P*</strong><br>`+
         `Qᴅ(${Pfloor.toFixed(2)}) = <strong style="color:#1976d2">${Qd_at.toLocaleString()}</strong> (คนอยากซื้อ)<br>`+
         `Qˢ(${Pfloor.toFixed(2)}) = <strong style="color:#e65100">${Qs_at.toLocaleString()}</strong> (ผู้ผลิตอยากขาย)<br>`+
         `<strong style="color:#1b5e20">Excess Supply = ${excess.toLocaleString()} หน่วย (ของล้น!)</strong><br>`+
-        `<strong style="color:#2e7d32">💰 งบรัฐรับซื้อ = ${Math.round(budget).toLocaleString()} บาท</strong>`;
+        `<strong style="color:#00695c">💰 งบรัฐรับซื้อ = ${Math.round(budget).toLocaleString()} บาท</strong>`;
     } else {
       readout.innerHTML=
         `สถานะ: <strong style="color:#666">NON-BINDING — ต่ำกว่า P*</strong><br>`+
         `รัฐประกันว่า "ห้ามต่ำกว่า ${Pfloor.toFixed(2)}" แต่ตลาดขายอยู่ที่ P* = 3 บาทอยู่แล้ว<br>`+
-        `<strong style="color:#2e7d32">→ ไม่มีผลกระทบต่อตลาด</strong>`;
+        `<strong style="color:#00695c">→ ไม่มีผลกระทบต่อตลาด</strong>`;
     }
   }
   
@@ -1073,26 +1233,11 @@ function sendPrompt(msg){
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-      <a class="ajk-footer-btn" href="../index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
-        หน้าหลัก
-      </a>
-      <a class="ajk-footer-btn" href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        แผนการเรียน
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter4.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 4</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>

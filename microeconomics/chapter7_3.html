@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>7.3 ดุลยภาพระยะสั้น · Ajarn.Kwan</title>
+<title>บทที่ 7.3 — ดุลยภาพระยะสั้น · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b45309;--pri-soft:#fffbeb;--pri-dark:#92400e;--hero-a:#92400e;--hero-b:#d97706;--bg:#fefbf6;--card:#fff;--bg2:#fffbeb;--bdr:#fcd34d;--bdr-l:#fef3c7;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px}
@@ -14,7 +14,7 @@
 .back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}
 .back-btn svg{width:14px;height:14px}
 .t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700}.t-sub{font-size:14.5px;color:var(--muted)}
-.page{max-width:780px;margin:0 auto;padding:24px 18px 60px}
+.page{max-width:760px;margin:0 auto;padding:24px 18px 60px}
 .step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
@@ -262,8 +262,209 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+<style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b45309;
+  --theme-primary-soft:#fffbeb;
+  --theme-primary-dark:#92400e;
+  --theme-hero-a:#92400e;
+  --theme-hero-b:#d97706;
+  --theme-page-bg:#fefbf6;
+  --theme-border:#fde68a;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#fffbeb;
+  --color-border-secondary:#fde68a;
+  --color-border-tertiary:#fef3c7;
+  --color-text-primary:#1c1917;
+  --color-text-secondary:#57534e;
+  --color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(146,64,14,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #b45309;
+  --ajk-primary-soft: #fffbeb;
+  --ajk-primary-dark: #92400e;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #f5e6c8;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -294,23 +495,20 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <span>หน้าหลัก</span>
     </a>
 <div class="ajk-brand">
-      <div class="ajk-brand-course">7.3 ดุลยภาพระยะสั้น</div>
+      <div class="ajk-brand-course">บทที่ 7.3 · ดุลยภาพระยะสั้น</div>
       <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
 </header>
 
-<header class="topbar"><div class="topbar-in">
-<button class="back-btn" onclick="location.href='chapter7.html'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>กลับ Hub</span></button>
-<div class="t-right"><div class="t-title">7.3 · ดุลยภาพระยะสั้น</div><div class="t-sub">Ajarn.Kwan · เศรษฐศาสตร์ รามคำแหง</div></div>
-</div></header>
+
 <div class="page">
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><div id="dots" style="display:flex;gap:5px"></div><span id="plbl" style="font-size:14px;color:var(--muted)"></span></div>
 <div id="sc"></div>
 </div>
-<div class="foot"><strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง · เนื้อหาแจกฟรีเพื่อการศึกษา</div>
 <script>
 /* ═══ Graph layers ═══ */
+var ANIM_SVG = "<svg viewBox=\"0 0 480 320\" id=\"svg-ch73\" style=\"width:100%;max-width:480px;margin:0 auto;display:block\" xmlns=\"http://www.w3.org/2000/svg\">\n  <line x1=\"60\" y1=\"20\" x2=\"60\" y2=\"285\" stroke=\"#1c1917\" stroke-width=\"1.5\"/>\n  <line x1=\"60\" y1=\"280\" x2=\"445\" y2=\"280\" stroke=\"#1c1917\" stroke-width=\"1.5\"/>\n  <text x=\"42\" y=\"22\" font-size=\"11\" fill=\"#1c1917\" font-weight=\"700\">฿/หน่วย</text>\n  <text x=\"430\" y=\"298\" font-size=\"11\" fill=\"#1c1917\" font-weight=\"700\">Q</text>\n  <text x=\"50\" y=\"295\" font-size=\"10\" fill=\"#1c1917\">0</text>\n  \n  <!-- Step 1: AVC -->\n  <g class=\"g-step\" data-step=\"1\" opacity=\"0\">\n    <path d=\"M 67.6 155.1 L 72.3 158.1 L 76.9 161.1 L 81.6 163.9 L 86.2 166.7 L 90.9 169.4 L 95.5 172.0 L 100.2 174.6 L 104.8 177.1 L 109.5 179.5 L 114.2 181.8 L 118.8 184.0 L 123.5 186.2 L 128.1 188.3 L 132.8 190.3 L 137.4 192.2 L 142.1 194.0 L 146.7 195.8 L 151.4 197.5 L 156.0 199.1 L 160.7 200.6 L 165.4 202.1 L 170.0 203.5 L 174.7 204.8 L 179.3 206.0 L 184.0 207.2 L 188.6 208.2 L 193.3 209.2 L 197.9 210.1 L 202.6 211.0 L 207.2 211.7 L 211.9 212.4 L 216.6 213.0 L 221.2 213.5 L 225.9 214.0 L 230.5 214.3 L 235.2 214.6 L 239.8 214.8 L 244.5 214.9 L 249.1 215.0 L 253.8 215.0 L 258.5 214.9 L 263.1 214.7 L 267.8 214.4 L 272.4 214.1 L 277.1 213.7 L 281.7 213.2 L 286.4 212.6 L 291.0 212.0 L 295.7 211.2 L 300.4 210.4 L 305.0 209.6 L 309.7 208.6 L 314.3 207.6 L 319.0 206.4 L 323.6 205.2 L 328.3 204.0 L 332.9 202.6 L 337.6 201.2 L 342.2 199.7 L 346.9 198.1 L 351.6 196.4 L 356.2 194.7 L 360.9 192.9 L 365.5 191.0 L 370.2 189.0 L 374.8 186.9 L 379.5 184.8 L 384.1 182.6 L 388.8 180.3 L 393.4 177.9 L 398.1 175.5 L 402.8 173.0 L 407.4 170.4 L 412.1 167.7 L 416.7 164.9 L 421.4 162.1 L 426.0 159.2 L 430.7 156.2 L 435.3 153.1 L 440.0 150.0\" fill=\"none\" stroke=\"#8b5cf6\" stroke-width=\"2.5\"/>\n    <rect x=\"395\" y=\"163\" width=\"30\" height=\"16\" fill=\"#fff\" stroke=\"#8b5cf6\" stroke-width=\"0.7\" rx=\"3\"/>\n    <text x=\"410\" y=\"175\" font-size=\"11\" fill=\"#7c3aed\" font-weight=\"700\" text-anchor=\"middle\">AVC</text>\n  </g>\n  \n  <!-- Step 2: AC -->\n  <g class=\"g-step\" data-step=\"2\" opacity=\"0\">\n    <path d=\"M 115.1 38.8 L 119.4 51.2 L 123.7 62.1 L 127.9 71.8 L 132.2 80.5 L 136.5 88.4 L 140.8 95.6 L 145.0 102.2 L 149.3 108.2 L 153.6 113.8 L 157.9 118.9 L 162.1 123.7 L 166.4 128.1 L 170.7 132.3 L 174.9 136.1 L 179.2 139.7 L 183.5 143.0 L 187.8 146.2 L 192.0 149.1 L 196.3 151.8 L 200.6 154.4 L 204.9 156.8 L 209.2 159.0 L 213.4 161.1 L 217.7 163.0 L 222.0 164.8 L 226.2 166.4 L 230.5 168.0 L 234.8 169.4 L 239.1 170.6 L 243.3 171.8 L 247.6 172.9 L 251.9 173.8 L 256.2 174.6 L 260.4 175.4 L 264.7 176.0 L 269.0 176.5 L 273.3 177.0 L 277.6 177.3 L 281.8 177.5 L 286.1 177.7 L 290.4 177.8 L 294.6 177.7 L 298.9 177.6 L 303.2 177.4 L 307.5 177.1 L 311.8 176.7 L 316.0 176.3 L 320.3 175.7 L 324.6 175.1 L 328.9 174.4 L 333.1 173.6 L 337.4 172.8 L 341.7 171.8 L 345.9 170.8 L 350.2 169.7 L 354.5 168.5 L 358.8 167.2 L 363.1 165.9 L 367.3 164.5 L 371.6 163.0 L 375.9 161.4 L 380.2 159.8 L 384.4 158.1 L 388.7 156.3 L 393.0 154.5 L 397.2 152.5 L 401.5 150.5 L 405.8 148.4 L 410.1 146.3 L 414.4 144.1 L 418.6 141.8 L 422.9 139.4 L 427.2 137.0 L 431.4 134.4 L 435.7 131.9 L 440.0 129.2\" fill=\"none\" stroke=\"#6366f1\" stroke-width=\"2.5\"/>\n    <rect x=\"395\" y=\"118\" width=\"26\" height=\"16\" fill=\"#fff\" stroke=\"#6366f1\" stroke-width=\"0.7\" rx=\"3\"/>\n    <text x=\"408\" y=\"130\" font-size=\"11\" fill=\"#4f46e5\" font-weight=\"700\" text-anchor=\"middle\">AC</text>\n  </g>\n  \n  <!-- Step 3: MC + label only (intersection points are already shown by Q4 and Q2 in next steps) -->\n  <g class=\"g-step\" data-step=\"3\" opacity=\"0\">\n    <path d=\"M 67.6 160.1 L 71.9 165.5 L 76.2 170.7 L 80.4 175.7 L 84.7 180.5 L 89.0 185.1 L 93.2 189.5 L 97.5 193.7 L 101.8 197.8 L 106.1 201.6 L 110.3 205.2 L 114.6 208.6 L 118.9 211.9 L 123.2 214.9 L 127.5 217.7 L 131.7 220.4 L 136.0 222.8 L 140.3 225.0 L 144.6 227.1 L 148.8 228.9 L 153.1 230.6 L 157.4 232.0 L 161.7 233.3 L 165.9 234.3 L 170.2 235.2 L 174.5 235.9 L 178.8 236.3 L 183.0 236.6 L 187.3 236.7 L 191.6 236.5 L 195.8 236.2 L 200.1 235.7 L 204.4 235.0 L 208.7 234.1 L 213.0 232.9 L 217.2 231.6 L 221.5 230.1 L 225.8 228.4 L 230.1 226.5 L 234.3 224.4 L 238.6 222.1 L 242.9 219.6 L 247.2 216.9 L 251.4 214.0 L 255.7 210.9 L 260.0 207.6 L 264.2 204.2 L 268.5 200.5 L 272.8 196.6 L 277.1 192.5 L 281.4 188.2 L 285.6 183.8 L 289.9 179.1 L 294.2 174.2 L 298.4 169.2 L 302.7 163.9 L 307.0 158.4 L 311.3 152.8 L 315.5 146.9 L 319.8 140.9 L 324.1 134.6 L 328.4 128.2 L 332.7 121.6 L 336.9 114.7 L 341.2 107.7 L 345.5 100.4 L 349.8 93.0 L 354.0 85.4 L 358.3 77.5 L 362.6 69.5 L 366.9 61.3 L 371.1 52.9 L 375.4 44.3 L 379.7 35.4\" fill=\"none\" stroke=\"#059669\" stroke-width=\"2.6\"/>\n    <rect x=\"357\" y=\"73\" width=\"26\" height=\"16\" fill=\"#fff\" stroke=\"#059669\" stroke-width=\"0.7\" rx=\"3\"/>\n    <text x=\"370\" y=\"85\" font-size=\"11\" fill=\"#047857\" font-weight=\"700\" text-anchor=\"middle\">MC</text>\n  </g>\n  \n  <!-- Step 4: P1 (excess profit) -->\n  <g class=\"g-step\" data-step=\"4\" opacity=\"0\">\n    <line x1=\"60\" y1=\"124.0\" x2=\"440\" y2=\"124.0\" stroke=\"#dc2626\" stroke-width=\"2.2\"/>\n    <text x=\"442\" y=\"128\" font-size=\"10\" fill=\"#7f1d1d\" font-weight=\"700\">D₁=MR₁=P₁</text>\n    <text x=\"48\" y=\"128\" font-size=\"11\" fill=\"#7f1d1d\" font-weight=\"700\" text-anchor=\"end\">P₁</text>\n    <line x1=\"331.1\" y1=\"124.0\" x2=\"331.1\" y2=\"280\" stroke=\"#999\" stroke-width=\"0.8\" stroke-dasharray=\"3,2\"/>\n    <text x=\"331\" y=\"295\" font-size=\"10\" fill=\"#7f1d1d\" font-weight=\"700\" text-anchor=\"middle\">Q₁</text>\n    <circle cx=\"331.1\" cy=\"124.0\" r=\"6\" fill=\"#dc2626\" stroke=\"#fff\" stroke-width=\"2\"/>\n    <path d=\"M 60 124.0 L 331.1 124.0 L 331.1 174.0 L 60 174.0 Z\" fill=\"#10b981\" fill-opacity=\"0.22\" stroke=\"#10b981\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/>\n    <text x=\"196\" y=\"153\" font-size=\"11\" fill=\"#047857\" font-weight=\"800\" text-anchor=\"middle\">กำไรเกินปกติ</text>\n  </g>\n  \n  <!-- Step 5: P2 (breakeven) -->\n  <g class=\"g-step\" data-step=\"5\" opacity=\"0\">\n    <line x1=\"60\" y1=\"177.8\" x2=\"440\" y2=\"177.8\" stroke=\"#f59e0b\" stroke-width=\"2.2\"/>\n    <text x=\"442\" y=\"182\" font-size=\"10\" fill=\"#92400e\" font-weight=\"700\">D₂=MR₂=P₂</text>\n    <text x=\"48\" y=\"182\" font-size=\"11\" fill=\"#92400e\" font-weight=\"700\" text-anchor=\"end\">P₂</text>\n    <line x1=\"291.1\" y1=\"177.8\" x2=\"291.1\" y2=\"280\" stroke=\"#999\" stroke-width=\"0.8\" stroke-dasharray=\"3,2\"/>\n    <text x=\"291\" y=\"295\" font-size=\"10\" fill=\"#92400e\" font-weight=\"700\" text-anchor=\"middle\">Q₂</text>\n    <circle cx=\"291.1\" cy=\"177.8\" r=\"6\" fill=\"#f59e0b\" stroke=\"#fff\" stroke-width=\"2\"/>\n    <text x=\"301\" y=\"170\" font-size=\"10\" fill=\"#92400e\" font-weight=\"700\">Breakeven (π=0)</text>\n  </g>\n  \n  <!-- Step 6: P3 (loss but produce) -->\n  <g class=\"g-step\" data-step=\"6\" opacity=\"0\">\n    <line x1=\"60\" y1=\"196.8\" x2=\"440\" y2=\"196.8\" stroke=\"#0891b2\" stroke-width=\"2.2\"/>\n    <text x=\"442\" y=\"201\" font-size=\"10\" fill=\"#0e7490\" font-weight=\"700\">D₃=MR₃=P₃</text>\n    <text x=\"48\" y=\"201\" font-size=\"11\" fill=\"#0e7490\" font-weight=\"700\" text-anchor=\"end\">P₃</text>\n    <line x1=\"272.6\" y1=\"196.8\" x2=\"272.6\" y2=\"280\" stroke=\"#999\" stroke-width=\"0.8\" stroke-dasharray=\"3,2\"/>\n    <text x=\"273\" y=\"295\" font-size=\"10\" fill=\"#0e7490\" font-weight=\"700\" text-anchor=\"middle\">Q₃</text>\n    <circle cx=\"272.6\" cy=\"196.8\" r=\"6\" fill=\"#0891b2\" stroke=\"#fff\" stroke-width=\"2\"/>\n    <path d=\"M 60 176.9 L 272.6 176.9 L 272.6 196.8 L 60 196.8 Z\" fill=\"#ef4444\" fill-opacity=\"0.18\" stroke=\"#ef4444\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/>\n    <text x=\"166\" y=\"191\" font-size=\"11\" fill=\"#b91c1c\" font-weight=\"800\" text-anchor=\"middle\">ขาดทุน (ผลิตต่อ)</text>\n  </g>\n  \n  <!-- Step 7: P4 (shutdown) -->\n  <g class=\"g-step\" data-step=\"7\" opacity=\"0\">\n    <line x1=\"60\" y1=\"215.0\" x2=\"440\" y2=\"215.0\" stroke=\"#dc2626\" stroke-width=\"2.2\" stroke-dasharray=\"6,3\"/>\n    <text x=\"442\" y=\"219\" font-size=\"10\" fill=\"#7f1d1d\" font-weight=\"700\">D₄=MR₄=P₄</text>\n    <text x=\"48\" y=\"219\" font-size=\"11\" fill=\"#7f1d1d\" font-weight=\"700\" text-anchor=\"end\">P₄</text>\n    <line x1=\"250.0\" y1=\"215.0\" x2=\"250.0\" y2=\"280\" stroke=\"#999\" stroke-width=\"0.8\" stroke-dasharray=\"3,2\"/>\n    <text x=\"250\" y=\"295\" font-size=\"10\" fill=\"#7f1d1d\" font-weight=\"700\" text-anchor=\"middle\">Q₄</text>\n    <circle cx=\"250.0\" cy=\"215.0\" r=\"7\" fill=\"#dc2626\" stroke=\"#fff\" stroke-width=\"2\"/>\n    <text x=\"260\" y=\"233\" font-size=\"10\" fill=\"#7f1d1d\" font-weight=\"700\">Shutdown</text>\n  </g>\n  \n  <!-- Step 8: Supply curve highlight (MC above AVC min) -->\n  <g class=\"g-step\" data-step=\"8\" opacity=\"0\">\n    <path d=\"M 250.0 215.0 L 256.3 210.4 L 262.7 205.5 L 269.0 200.1 L 275.3 194.2 L 281.7 187.9 L 288.0 181.2 L 294.3 174.1 L 300.7 166.5 L 307.0 158.4 L 313.3 150.0 L 319.7 141.1 L 326.0 131.8 L 332.3 122.0 L 338.7 111.9 L 345.0 101.2 L 351.3 90.2 L 357.7 78.7 L 364.0 66.8 L 370.3 54.4 L 376.7 41.7\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4.5\" opacity=\"0.85\"/>\n    <rect x=\"280\" y=\"35\" width=\"160\" height=\"38\" rx=\"6\" fill=\"#fef2f2\" stroke=\"#fca5a5\" stroke-width=\"1\"/>\n    <text x=\"360\" y=\"50\" font-size=\"11\" fill=\"#7f1d1d\" font-weight=\"800\" text-anchor=\"middle\">เส้นอุปทานระยะสั้น</text>\n    <text x=\"360\" y=\"65\" font-size=\"10\" fill=\"#7f1d1d\" font-weight=\"600\" text-anchor=\"middle\">= MC เหนือ AVC min ↑</text>\n  </g>\n</svg>";
 var SVG='<svg viewBox="0 0 440 300" style="width:100%;max-width:480px;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">';
 var AX='<defs><marker id="ax" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#78716c"/></marker></defs><line x1="55" y1="270" x2="410" y2="270" stroke="#78716c" stroke-width="1.5" marker-end="url(#ax)"/><line x1="55" y1="270" x2="55" y2="12" stroke="#78716c" stroke-width="1.5" marker-end="url(#ax)"/><text x="416" y="274" fill="#78716c" font-size="11">Q</text><text x="46" y="11" fill="#78716c" font-size="10" text-anchor="end">฿/หน่วย</text>';
 
@@ -338,12 +536,12 @@ var LL=[null,
 
 /* 4 P1>AC: profit */
 '<line x1="55" y1="125" x2="395" y2="125" stroke="#d97706" stroke-width="2.2"/><text x="398" y="130" fill="#92400e" font-size="9" font-weight="700">D₁=AR₁=MR₁=P₁</text><text x="47" y="129" fill="#92400e" font-size="10" font-weight="600" text-anchor="end">P₁</text>'
-+'<line x1="286" y1="125" x2="286" y2="270" stroke="#059669" stroke-width="1" stroke-dasharray="5,3"/><text x="286" y="284" fill="#059669" font-size="10" font-weight="600" text-anchor="middle">Q₁</text>'
-+'<circle cx="286" cy="125" r="5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="296" y="121" fill="#047857" font-size="8" font-weight="700">MR=MC</text>'
-+'<rect x="57" y="125" width="229" height="39" fill="#059669" fill-opacity=".12" stroke="#059669" stroke-width=".8" stroke-dasharray="4,2"/>'
-+'<line x1="286" y1="125" x2="286" y2="164" stroke="#059669" stroke-width="3.5" stroke-linecap="round"/><text x="278" y="148" fill="#047857" font-size="9" font-weight="700" text-anchor="end">กำไร</text>'
++'<line x1="303" y1="125" x2="303" y2="270" stroke="#059669" stroke-width="1" stroke-dasharray="5,3"/><text x="303" y="284" fill="#059669" font-size="10" font-weight="600" text-anchor="middle">Q₁</text>'
++'<circle cx="303" cy="125" r="5" fill="#059669" stroke="#fff" stroke-width="2"/><text x="313" y="121" fill="#047857" font-size="8" font-weight="700">MR=MC</text>'
++'<rect x="57" y="125" width="246" height="39" fill="#059669" fill-opacity=".12" stroke="#059669" stroke-width=".8" stroke-dasharray="4,2"/>'
++'<line x1="303" y1="125" x2="303" y2="164" stroke="#059669" stroke-width="3.5" stroke-linecap="round"/><text x="278" y="148" fill="#047857" font-size="9" font-weight="700" text-anchor="end">กำไร</text>'
 +'<text x="170" y="148" fill="#047857" font-size="10" font-weight="700" text-anchor="middle">กำไรเกินปกติ = (P₁\u2212AC)\u00d7Q₁</text>'
-+'<circle cx="286" cy="164" r="3.5" fill="#6366f1" stroke="#fff" stroke-width="1"/><text x="294" y="170" fill="#6366f1" font-size="8">AC</text>',
++'<circle cx="303" cy="164" r="3.5" fill="#6366f1" stroke="#fff" stroke-width="1"/><text x="311" y="170" fill="#6366f1" font-size="8">AC</text>',
 
 /* 5 P2=AC min: breakeven */
 '<line x1="55" y1="165" x2="395" y2="165" stroke="#d97706" stroke-width="2.2"/><text x="398" y="170" fill="#92400e" font-size="9" font-weight="700">D₂=AR₂=MR₂=P₂</text><text x="47" y="169" fill="#92400e" font-size="10" font-weight="600" text-anchor="end">P₂</text>'
@@ -353,14 +551,14 @@ var LL=[null,
 
 /* 6 P3: AVC<P<AC loss continue */
 '<line x1="55" y1="195" x2="395" y2="195" stroke="#d97706" stroke-width="2.2"/><text x="398" y="200" fill="#92400e" font-size="9" font-weight="700">D₃=AR₃=MR₃=P₃</text><text x="47" y="199" fill="#92400e" font-size="10" font-weight="600" text-anchor="end">P₃</text>'
-+'<line x1="220" y1="195" x2="220" y2="270" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,3"/><text x="220" y="284" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">Q₃</text>'
-+'<circle cx="220" cy="195" r="5" fill="#d97706" stroke="#fff" stroke-width="2"/><text x="230" y="191" fill="#047857" font-size="8" font-weight="700">MR=MC</text>'
-+'<rect x="57" y="159" width="163" height="36" fill="#ef4444" fill-opacity=".1" stroke="#ef4444" stroke-width=".8" stroke-dasharray="4,2"/>'
-+'<line x1="220" y1="159" x2="220" y2="195" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/><text x="212" y="180" fill="#b91c1c" font-size="9" font-weight="700" text-anchor="end">ขาดทุน</text>'
++'<line x1="225" y1="195" x2="225" y2="270" stroke="#ef4444" stroke-width="1" stroke-dasharray="5,3"/><text x="225" y="284" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">Q₃</text>'
++'<circle cx="225" cy="195" r="5" fill="#d97706" stroke="#fff" stroke-width="2"/><text x="235" y="191" fill="#047857" font-size="8" font-weight="700">MR=MC</text>'
++'<rect x="57" y="159" width="168" height="36" fill="#ef4444" fill-opacity=".1" stroke="#ef4444" stroke-width=".8" stroke-dasharray="4,2"/>'
++'<line x1="225" y1="159" x2="225" y2="195" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/><text x="217" y="180" fill="#b91c1c" font-size="9" font-weight="700" text-anchor="end">ขาดทุน</text>'
 +'<text x="138" y="181" fill="#b91c1c" font-size="9.5" font-weight="600" text-anchor="middle">ขาดทุน = (AC\u2212P₃)\u00d7Q₃</text>'
-+'<circle cx="220" cy="159" r="3.5" fill="#6366f1" stroke="#fff" stroke-width="1"/><text x="228" y="156" fill="#6366f1" font-size="8">AC</text>'
-+'<circle cx="220" cy="218" r="3.5" fill="#8b5cf6" stroke="#fff" stroke-width="1"/><text x="228" y="222" fill="#8b5cf6" font-size="8">AVC</text>'
-+'<line x1="228" y1="195" x2="237" y2="195" stroke="#059669" stroke-width="1.5"/><line x1="228" y1="218" x2="237" y2="218" stroke="#059669" stroke-width="1.5"/><line x1="237" y1="195" x2="237" y2="218" stroke="#059669" stroke-width="1.5"/>'
++'<circle cx="225" cy="159" r="3.5" fill="#6366f1" stroke="#fff" stroke-width="1"/><text x="233" y="156" fill="#6366f1" font-size="8">AC</text>'
++'<circle cx="225" cy="218" r="3.5" fill="#8b5cf6" stroke="#fff" stroke-width="1"/><text x="233" y="222" fill="#8b5cf6" font-size="8">AVC</text>'
++'<line x1="233" y1="195" x2="242" y2="195" stroke="#059669" stroke-width="1.5"/><line x1="233" y1="218" x2="242" y2="218" stroke="#059669" stroke-width="1.5"/><line x1="237" y1="195" x2="237" y2="218" stroke="#059669" stroke-width="1.5"/>'
 +'<text x="242" y="205" fill="#059669" font-size="8">P คุ้ม TVC</text><text x="242" y="215" fill="#059669" font-size="8">+TFC บางส่วน</text>',
 
 /* 7 P4=AVC min: shutdown */
@@ -376,27 +574,22 @@ var LL=[null,
 '<path d="M200,218 C228,192 248,173 260,165 C280,152 320,105 355,60 C375,35 390,20 398,12" fill="none" stroke="#dc2626" stroke-width="5" opacity=".35"/>'
 +'<rect x="285" y="75" width="110" height="32" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width=".5"/><text x="340" y="89" fill="#b91c1c" font-size="10" font-weight="700" text-anchor="middle">เส้นอุปทานระยะสั้น</text><text x="340" y="102" fill="#b91c1c" font-size="9" text-anchor="middle">= MC เหนือ AVC min</text>'
 ];
-var gD=["กดปุ่ม <strong>\"ถัดไป →\"</strong> เพื่อวาดเส้นกราฟทีละเส้น","<strong>① เส้น AVC</strong> — รูปตัว U ชัดเจน: ลดลง → ถึงจุดต่ำสุด (AVC min) → เพิ่มขึ้น จุดต่ำสุดนี้จะกลายเป็น <em>จุดหยุดผลิต (Shutdown Point)</em>","<strong>② เส้น AC</strong> — รูปตัว U เช่นกัน อยู่<em>เหนือ</em> AVC เสมอ (เพราะ AC = AVC + AFC) ช่องว่าง AC−AVC = AFC ซึ่งลดลงเมื่อ Q เพิ่ม จุดต่ำสุดของ AC จะกลายเป็น <em>จุดคุ้มทุน (Breakeven)</em>","<strong>③ เส้น MC</strong> — รูปตัว U สังเกต: <strong>MC ตัดผ่าน AVC ที่จุดต่ำสุดของ AVC</strong> พอดี และ<strong>ตัดผ่าน AC ที่จุดต่ำสุดของ AC</strong> พอดี! (จุดสีเขียว 2 จุด) เพราะ: ถ้า MC < ค่าเฉลี่ย → เฉลี่ยจะลด, ถ้า MC > ค่าเฉลี่ย → เฉลี่ยจะเพิ่ม","<strong>🟢 P₁ > AC → กำไรเกินปกติ!</strong> — ราคาสูงกว่า AC → ผลิตที่ MC=P₁ (จุดเขียว) → กำไรต่อหน่วย = P₁ − AC = พื้นที่เขียว","<strong>🟡 P₂ = AC min → จุดคุ้มทุน</strong> — ราคาเท่ากับจุดต่ำสุด AC พอดี → P = MC = AC → กำไรเกินปกติ = 0 ได้แค่กำไรปกติ (Normal Profit)","<strong>🟠 P₃: AVC < P₃ < AC → ขาดทุน แต่ยังผลิตต่อ!</strong> — ราคาต่ำกว่า AC (ขาดทุน) แต่สูงกว่า AVC → รายรับคุ้ม TVC + ชดเชย TFC บางส่วน → ขาดทุน<em>น้อยกว่า</em>หยุดผลิต","<strong>🔴 P₄ = AVC min → จุดหยุดผลิต (Shutdown)</strong> — ราคาเท่ากับจุดต่ำสุด AVC พอดี → รายรับคุ้มแค่ TVC → ขาดทุน = TFC ทั้งหมด ถ้าราคาต่ำกว่านี้ → <strong>หยุดผลิต!</strong>","<strong>⑧ เส้นอุปทานระยะสั้น</strong> — ผู้ผลิตจะผลิตตามเส้น MC ตั้งแต่ AVC min ขึ้นไป (เส้นแดงหนา) ต่ำกว่าจุดนี้ → ปริมาณเสนอขาย = 0 → นี่คือเส้น Supply ระยะสั้น!"];
+var gD=["กดปุ่ม <strong>\"ถัดไป →\"</strong> เพื่อวาดเส้นกราฟทีละเส้น", "<strong>① เส้น AVC</strong> รูปตัว U — ลดลงถึง<em>จุดต่ำสุด AVC min</em> (ที่ Q=12.5)", "<strong>② เส้น AC</strong> รูปตัว U — อยู่<em>เหนือ</em> AVC ตลอด — จุดต่ำสุดที่ Q=15.2 (Breakeven)", "<strong>③ เส้น MC</strong> รูปตัว U — <strong>MC ตัด AVC ที่ Q=12.5</strong> และ <strong>ตัด AC ที่ Q=15.2</strong> พอดี!", "<strong>🟢 P₁ = 60 → กำไรเกินปกติ!</strong> MR=MC ที่ Q₁=17.83 → กำไร = พื้นที่สี่เหลี่ยมเขียว", "<strong>🟡 P₂ ≈ 39.3 (= AC min) → คุ้มทุน Breakeven</strong> P=MC=AC ที่ Q₂=15.2 → π=0", "<strong>🟠 P₃ = 32 → ขาดทุนแต่ผลิตต่อ</strong> P&lt;AC แต่ P&gt;AVC → ชดเชย TFC บางส่วน", "<strong>🔴 P₄ = 25 (= AVC min) → จุดหยุดผลิต</strong> ขาดทุน=TFC ทั้งหมด ถ้า P&lt;นี้ → หยุด!", "<strong>⑧ เส้นอุปทานระยะสั้น</strong> = MC เหนือ AVC min (เส้นแดงหนา) — ต่ำกว่านี้ Q=0"];
 var gS=0,gT=gD.length;
-function bG(){var s=SVG+AX;
-/* Layers 1-3 (curves): cumulative — show all up to current step */
-for(var i=1;i<=3;i++)s+='<g style="opacity:'+(gS>=i?'1':'0')+';transition:opacity .5s">'+LL[i]+'</g>';
-/* Layers 4-8 (scenarios): exclusive — show ONLY the current one */
-for(var i=4;i<=8;i++)s+='<g style="opacity:'+(gS===i?'1':'0')+';transition:opacity .5s">'+LL[i]+'</g>';
-return s+'</svg>'}
-function gGo(d){gS=Math.max(0,Math.min(gT-1,gS+d));document.getElementById('gs').innerHTML=bG();document.getElementById('gd').innerHTML=gD[gS];document.getElementById('gx').textContent=gS+'/'+(gT-1);var p=document.getElementById('gp');p.style.opacity=gS>0?'1':'.4';p.style.pointerEvents=gS>0?'auto':'none';var n=document.getElementById('gn');if(gS>=gT-1){n.textContent='ครบแล้ว ✓';n.style.opacity='.5';n.style.pointerEvents='none'}else{n.textContent='ถัดไป →';n.style.opacity='1';n.style.pointerEvents='auto'}}
+function bG(){return ANIM_SVG;}
+function gGo(d){gS=Math.max(0,Math.min(gT-1,gS+d));var gsEl=document.getElementById('gs');if(gsEl){var s=gsEl.querySelector('svg');if(s){var groups=s.querySelectorAll('.g-step');for(var i=0;i<groups.length;i++){var st=parseInt(groups[i].getAttribute('data-step'));groups[i].style.opacity=(st<=gS)?'1':'0';groups[i].style.transition='opacity 0.45s ease';}}}document.getElementById('gd').innerHTML=gD[gS];document.getElementById('gx').textContent=gS+'/'+(gT-1);var p=document.getElementById('gp');p.style.opacity=gS>0?'1':'.4';p.style.pointerEvents=gS>0?'auto':'none';var n=document.getElementById('gn');if(gS>=gT-1){n.textContent='ครบแล้ว ✓';n.style.opacity='.5';n.style.pointerEvents='none';}else{n.textContent='ถัดไป →';n.style.opacity='1';n.style.pointerEvents='auto';}}
 
 /* ═══ Steps ═══ */
 var S=[
 {tag:"เริ่มต้น · ลองคิดก่อน",title:"ถ้าขาดทุน ควรผลิตต่อไหม?",
 body:'<div class="scenario"><p style="font-size:28px;margin-bottom:8px">🤔</p><p>สมมุติจ่ายค่าเช่าโรงงานเดือนละ <strong>100,000 บาท</strong> (ต้นทุนคงที่) ไม่ว่าจะผลิตหรือไม่ก็ต้องจ่าย</p><p>ราคาสินค้าตก → ขายไม่คุ้มต้นทุนรวม → ขาดทุน → จะหยุดผลิตเลย หรือยังผลิตต่อ?</p></div>',
-quiz:{q:"ถ้าขาดทุน แต่รายรับยังคุ้มค่าวัตถุดิบ+ค่าแรง และเหลือจ่ายค่าเช่าได้บางส่วน — ควรทำอย่างไร?",opts:["หยุดผลิต เพราะขาดทุน","ผลิตต่อ เพราะถ้าหยุดก็จ่ายค่าเช่าอยู่ดี แต่ผลิตยังชดเชยได้บ้าง","ขึ้นราคาสินค้า"],ans:1,explain:"<strong>ผลิตต่อ!</strong> เพราะค่าเช่า (TFC) ต้องจ่ายอยู่แล้ว ถ้าผลิต → รายรับคุ้ม TVC + ชดเชย TFC บ้าง → ขาดทุน<em>น้อยกว่า</em>หยุดผลิต"}},
+quiz:{q:"ถ้าขาดทุน แต่รายรับยังคุ้มค่าวัตถุดิบ+ค่าแรง และเหลือจ่ายค่าเช่าได้บางส่วน — ควรทำอย่างไร?",opts:["หยุดผลิต เพราะขาดทุน","ผลิตต่อ เพราะถ้าหยุดก็จ่ายค่าเช่าอยู่ดี แต่ผลิตยังชดเชยได้บ้าง","ขึ้นราคาสินค้า","ลดต้นทุนคงที่ก่อน ค่อยตัดสินใจ"],ans:1,explain:"<strong>ผลิตต่อ!</strong> เพราะค่าเช่า (TFC) ต้องจ่ายอยู่แล้ว ถ้าผลิต → รายรับคุ้ม TVC + ชดเชย TFC บ้าง → ขาดทุน<em>น้อยกว่า</em>หยุดผลิต"}},
 {tag:"กราฟ interactive · วาดทีละเส้น",title:"ดุลยภาพระยะสั้น — เส้นโค้ง + 4 สถานการณ์",
-body:'<div class="dw"><div id="gs">'+SVG+AX+'</svg></div><div class="gc"><button class="gb gp" id="gp" onclick="gGo(-1)" style="opacity:.4;pointer-events:none">← ย้อน</button><button class="gb gn" id="gn" onclick="gGo(1)">เริ่มวาดทีละเส้น →</button><span class="gx" id="gx">0/'+(gT-1)+'</span></div><div class="gd" id="gd">'+gD[0]+'</div></div><div class="insight"><div class="insight-label">✦ จุดสำคัญ 2 จุด</div><p class="insight-text"><strong>Breakeven Point (จุดคุ้มทุน):</strong> P = AC min → กำไรเกินปกติ = 0\n<strong>Shutdown Point (จุดหยุดผลิต):</strong> P = AVC min → ขาดทุน = TFC\n\nถ้า P < AVC min → หยุดผลิต! (ยิ่งผลิตยิ่งขาดทุน)</p></div>',
-quiz:{q:"ทำไม MC ต้องตัดผ่าน AVC ที่จุดต่ำสุดของ AVC พอดี?",opts:["เป็นกฎทางคณิตศาสตร์ที่ตั้งขึ้นมา","เพราะ: ถ้า MC < AVC → ค่าเฉลี่ยถูกดึงลง / ถ้า MC > AVC → ค่าเฉลี่ยถูกดึงขึ้น → จุดที่เฉลี่ยหยุดลงแล้วเริ่มขึ้น ต้องเป็นจุดที่ MC = AVC","เพราะ MC มาจากการ derive AVC"],ans:1,explain:"คิดแบบนี้: ถ้าคะแนนสอบใหม่ (MC) <strong>ต่ำกว่า</strong>เกรดเฉลี่ย (AVC) → เฉลี่ยลดลง ถ้าใหม่<strong>สูงกว่า</strong>เฉลี่ย → เฉลี่ยเพิ่ม ดังนั้นจุดที่เฉลี่ย<em>ต่ำสุด</em> ต้องเป็นจุดที่คะแนนใหม่ = เฉลี่ย พอดี!"}},
+body:'<div class="dw"><div id="gs">'+ANIM_SVG+'</div><div class="gc"><button class="gb gp" id="gp" onclick="gGo(-1)" style="opacity:.4;pointer-events:none">← ย้อน</button><button class="gb gn" id="gn" onclick="gGo(1)">เริ่มวาดทีละเส้น →</button><span class="gx" id="gx">0/'+(gT-1)+'</span></div><div class="gd" id="gd">'+gD[0]+'</div></div><div class="insight"><div class="insight-label">✦ จุดสำคัญ 2 จุด</div><p class="insight-text"><strong>Breakeven Point (จุดคุ้มทุน):</strong> P = AC min → กำไรเกินปกติ = 0\n<strong>Shutdown Point (จุดหยุดผลิต):</strong> P = AVC min → ขาดทุน = TFC\n\nถ้า P < AVC min → หยุดผลิต! (ยิ่งผลิตยิ่งขาดทุน)</p></div>',
+quiz:{q:"ทำไม MC ต้องตัดผ่าน AVC ที่จุดต่ำสุดของ AVC พอดี?",opts:["เป็นกฎทางคณิตศาสตร์ที่ตั้งขึ้นมา","เพราะ: ถ้า MC < AVC → ค่าเฉลี่ยถูกดึงลง / ถ้า MC > AVC → ค่าเฉลี่ยถูกดึงขึ้น → จุดที่เฉลี่ยหยุดลงแล้วเริ่มขึ้น ต้องเป็นจุดที่ MC = AVC","เพราะ MC มาจากการ derive AVC","เป็นเพราะกฎหมายเศรษฐศาสตร์กำหนดให้ตัดที่ตำแหน่งนั้น"],ans:1,explain:"คิดแบบนี้: ถ้าคะแนนสอบใหม่ (MC) <strong>ต่ำกว่า</strong>เกรดเฉลี่ย (AVC) → เฉลี่ยลดลง ถ้าใหม่<strong>สูงกว่า</strong>เฉลี่ย → เฉลี่ยเพิ่ม ดังนั้นจุดที่เฉลี่ย<em>ต่ำสุด</em> ต้องเป็นจุดที่คะแนนใหม่ = เฉลี่ย พอดี!"}},
 {tag:"คำนวณ · ตรวจสอบ",title:"ลองคำนวณ: ขาดทุนแต่ผลิตต่อ ดีกว่าหยุดจริงไหม?",
 body:'<div class="scenario"><p style="font-size:28px;margin-bottom:8px">📝</p><p><strong>โจทย์:</strong> P = 80, AC = 95, AVC = 70, Q = 15 หน่วย</p><p>ถ้าผลิต → ขาดทุนเท่าไหร่? ถ้าหยุด → ขาดทุนเท่าไหร่?</p></div>',
-quiz:{q:"คำนวณ: ผลิต ขาดทุน = (AC−P)×Q | หยุด ขาดทุน = TFC = (AC−AVC)×Q",opts:["ผลิต: (95−80)×15 = 225 | หยุด: (95−70)×15 = 375 → ผลิตต่อดีกว่า!","ผลิต: 375 | หยุด: 225 → หยุดดีกว่า","ขาดทุนเท่ากัน"],ans:0,explain:"ผลิต: ขาดทุน = 15×15 = <strong>225 บาท</strong> | หยุด: ขาดทุน = TFC = 25×15 = <strong>375 บาท</strong> → ผลิตต่อขาดทุนแค่ 225 แต่หยุดขาดทุน 375 → <strong>ประหยัดได้ 150 บาท!</strong>"}},
+quiz:{q:"คำนวณ: ผลิต ขาดทุน = (AC−P)×Q | หยุด ขาดทุน = TFC = (AC−AVC)×Q",opts:["ผลิต: (95−80)×15 = 225 | หยุด: (95−70)×15 = 375 → ผลิตต่อดีกว่า!","ผลิต: 375 | หยุด: 225 → หยุดดีกว่า","ขาดทุนเท่ากัน","ผลิต: 225 | หยุด: 225 → เลือกได้เท่ากัน"],ans:0,explain:"ผลิต: ขาดทุน = 15×15 = <strong>225 บาท</strong> | หยุด: ขาดทุน = TFC = 25×15 = <strong>375 บาท</strong> → ผลิตต่อขาดทุนแค่ 225 แต่หยุดขาดทุน 375 → <strong>ประหยัดได้ 150 บาท!</strong>"}},
 {tag:"สรุป · เชื่อมโยง",title:"สรุป + เชื่อมไป Section 7.4",
 body:'<table class="cmp"><thead><tr><th>ราคา</th><th>เทียบกับ</th><th>ผลลัพธ์</th><th>ตัดสินใจ</th></tr></thead><tbody><tr><td style="color:#059669;font-weight:700">P₁</td><td>P > AC</td><td>กำไรเกินปกติ</td><td>🟢 ผลิต</td></tr><tr><td style="color:#d97706;font-weight:700">P₂</td><td>P = AC min</td><td>Breakeven</td><td>🟡 ผลิต</td></tr><tr><td style="color:#ea580c;font-weight:700">P₃</td><td>AVC < P < AC</td><td>ขาดทุน < TFC</td><td>🟠 ผลิตต่อ</td></tr><tr><td style="color:#ef4444;font-weight:700">P₄</td><td>P = AVC min</td><td>ขาดทุน = TFC</td><td>🔴 ผลิต/หยุดก็ได้</td></tr><tr><td style="color:#b91c1c;font-weight:700">P₅</td><td>P < AVC min</td><td>ขาดทุน > TFC</td><td>⛔ หยุดผลิต!</td></tr></tbody></table><div class="scenario"><p style="font-size:28px;margin-bottom:8px">🔗</p><p><strong>เชื่อมไป Section 7.4:</strong> จากกราฟขั้นที่ 8 — <strong>MC เหนือ AVC min = เส้นอุปทานระยะสั้น</strong></p><p>รวมเส้นอุปทานของทุกผู้ผลิต → อุปทานของอุตสาหกรรม!</p></div>'}
 ];
@@ -418,14 +611,14 @@ init();
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">7.2 การหากำไรสูงสุด</span>
+      <span class="ajk-chap-name">บทที่ 7.2 — การหากำไรสูงสุด</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter7_4.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">7.4 เส้นอุปทานระยะสั้น</span>
+      <span class="ajk-chap-name">บทที่ 7.4 — เส้นอุปทานระยะสั้น</span>
     </div>
   </a>
 </nav>
@@ -436,22 +629,11 @@ init();
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-<a class="ajk-footer-btn" href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        แผนการเรียน
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter7.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 7</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>

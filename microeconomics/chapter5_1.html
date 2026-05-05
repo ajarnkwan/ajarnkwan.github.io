@@ -22,8 +22,8 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:var(--font-sans);background:#f4f2fb;color:var(--color-text-primary)}
-  .page{max-width:780px;margin:0 auto;padding:24px 18px 56px}
-  .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4338ca;font-size:16px;font-weight:600;margin:0 0 14px}
+  .page{max-width:760px;margin:0 auto;padding:24px 18px 56px}
+  .backlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#bf360c;font-size:16px;font-weight:600;margin:0 0 14px}
   .panel{background:#fff;border:1px solid var(--color-border-tertiary);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
   .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
@@ -148,11 +148,11 @@
   .progress-steps{display:flex;gap:4px;margin-bottom:1.5rem}
   .step-dot{flex:1;height:4px;border-radius:2px;background:var(--color-background-secondary);transition:background .3s}
   .step-dot.done{background:#1D9E75}
-  .step-dot.active{background:#4338ca}
+  .step-dot.active{background:#bf360c}
   .section-label{font-size:14.5px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.4rem;font-weight:600}
-  .section-label .chip{background:#ede9fe;color:#3730a3;padding:2px 8px;border-radius:999px;margin-right:8px;font-weight:700}
+  .section-label .chip{background:#ede9fe;color:#9a2e0a;padding:2px 8px;border-radius:999px;margin-right:8px;font-weight:700}
   .big-q{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--color-text-primary);line-height:1.45;margin:0 0 1rem}
-  .scenario-box{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;border-left:3px solid #4338ca}
+  .scenario-box{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:1rem;border-left:3px solid #bf360c}
   .scenario-box p{margin:0 0 .6rem;font-size:16px;line-height:1.75;color:var(--color-text-primary)}
   .scenario-box p:last-child{margin-bottom:0}
   .think-prompt{font-size:16px;color:var(--color-text-secondary);margin:.75rem 0;font-style:italic}
@@ -180,13 +180,13 @@
   .feedback.show{display:block}
   .feedback.ok{background:#E1F5EE;color:#0F6E56}
   .feedback.bad{background:#FCEBEB;color:#A32D2D}
-  .feedback.info{background:#ede9fe;color:#3730a3}
+  .feedback.info{background:#ede9fe;color:#9a2e0a}
   .nav-row{display:flex;gap:8px;margin-top:1.5rem}
   .nav-btn{flex:1;padding:9px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);font-size:16px;cursor:pointer;transition:background .15s;font-family:inherit;font-weight:500}
   .nav-btn:hover{background:var(--color-background-secondary)}
-  .nav-btn.primary{background:#4338ca;border-color:#4338ca;color:#fff}
-  .nav-btn.primary:hover{background:#3730a3}
-  .score-circle{width:80px;height:80px;border-radius:50%;border:3px solid #4338ca;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:26px;font-weight:700;color:#3730a3;font-family:var(--font-serif)}
+  .nav-btn.primary{background:#bf360c;border-color:#bf360c;color:#fff}
+  .nav-btn.primary:hover{background:#9a2e0a}
+  .score-circle{width:80px;height:80px;border-radius:50%;border:3px solid #bf360c;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:26px;font-weight:700;color:#9a2e0a;font-family:var(--font-serif)}
   .section{display:none}
   .section.active{display:block}
 
@@ -195,23 +195,23 @@
   .tf-selector{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
   .tf-btn{flex:1;min-width:120px;padding:10px 12px;border:1px solid var(--color-border-tertiary);border-radius:999px;background:#fff;color:var(--color-text-secondary);font-size:16px;font-weight:600;cursor:pointer;transition:all .18s;font-family:inherit}
   .tf-btn:hover{border-color:var(--color-border-secondary)}
-  .tf-btn.active{background:#4338ca;color:#fff;border-color:#4338ca;box-shadow:0 4px 12px rgba(67,56,202,.28)}
+  .tf-btn.active{background:#bf360c;color:#fff;border-color:#bf360c;box-shadow:0 4px 12px rgba(67,56,202,.28)}
   .tf-items{display:flex;flex-direction:column;gap:6px}
   .tf-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fff;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);font-size:16.5px}
   .tf-badge{font-size:14.5px;padding:3px 9px;border-radius:6px;font-weight:700;letter-spacing:.04em;transition:all .22s;min-width:72px;text-align:center}
   .tf-badge.fixed{background:#fef1e6;color:#9a3412;border:1px solid #fed7aa}
   .tf-badge.variable{background:#dcfaed;color:#065f46;border:1px solid #86efac}
-  .tf-insight{font-size:16px;color:var(--color-text-secondary);margin:12px 0 0;line-height:1.65;padding:10px 14px;background:#fff;border-radius:var(--border-radius-md);border-left:3px solid #4338ca}
-  .tf-insight strong{color:#3730a3}
+  .tf-insight{font-size:16px;color:var(--color-text-secondary);margin:12px 0 0;line-height:1.65;padding:10px 14px;background:#fff;border-radius:var(--border-radius-md);border-left:3px solid #bf360c}
+  .tf-insight strong{color:#9a2e0a}
 
   /* ── Function formula card ── */
-  .formula-card{background:linear-gradient(135deg,#2f2570,#4338ca);color:#fff;border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin:0 0 1rem;text-align:center}
+  .formula-card{background:linear-gradient(135deg,#2f2570,#bf360c);color:#fff;border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin:0 0 1rem;text-align:center}
   .formula-card .eq{font-family:var(--font-serif);font-size:26px;font-weight:700;margin:4px 0 6px;letter-spacing:.02em}
   .formula-card .eq em{font-style:italic;opacity:.9}
   .formula-card .note{font-size:15.5px;opacity:.85;letter-spacing:.04em;text-transform:uppercase}
   .legend{display:grid;grid-template-columns:1fr;gap:6px;font-size:16px;margin-bottom:1rem}
   .legend-row{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);line-height:1.6}
-  .legend-row .sym{font-family:var(--font-serif);font-size:18px;font-weight:700;color:#4338ca;flex-shrink:0;min-width:20px}
+  .legend-row .sym{font-family:var(--font-serif);font-size:18px;font-weight:700;color:#bf360c;flex-shrink:0;min-width:20px}
 
   @media (max-width:520px){
     .big-q{font-size:19px}
@@ -220,7 +220,61 @@
     .panel{padding:18px}
   }
 </style>
-  <link rel="stylesheet" href="../assets/theme.css">
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#bf360c;
+  --theme-primary-soft:#fbe9e7;
+  --theme-primary-dark:#9a2e0a;
+  --theme-hero-a:#9a2e0a;
+  --theme-hero-b:#e64a19;
+  --theme-page-bg:#fff7f5;
+  --theme-border:#ffccbc;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f7f5ff;
+  --color-border-secondary:#d8d2ef;
+  --color-border-tertiary:#ece7f7;
+  --color-text-primary:#1d1633;
+  --color-text-secondary:#6b6480;
+  --color-text-tertiary:#9a94ad;
+  --shadow:0 14px 34px rgba(61,47,158,.06);
+}
+.ajk-shell-theme {
+  --ajk-primary: #5b4fc4;
+  --ajk-primary-soft: #eeebfa;
+  --ajk-primary-dark: #7f1d1d;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #e0dcf2;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.hero,.shero{
+  background:linear-gradient(135deg,var(--theme-hero-a),var(--theme-hero-b))!important;
+  border:1px solid var(--theme-border)!important;
+  box-shadow:var(--shadow)!important;
+}
+.backlink,.backbtn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
   
 <style id="ak-overrides">
 /* Hide legacy topbars/footers that the migration replaces */
@@ -237,8 +291,162 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #f4f2fb; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #f4f2fb;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -322,7 +530,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
         <em>ตัวอย่าง: แรงงานรายวัน · วัตถุดิบ · ไฟฟ้า · ค่าขนส่ง</em>
       </div>
     </div>
-    <p class="think-prompt">ลองจัดของต่อไปนี้ (สมมติกรอบเวลา = <strong style="color:#4338ca">ระยะสั้น</strong>):</p>
+    <p class="think-prompt">ลองจัดของต่อไปนี้ (สมมติกรอบเวลา = <strong style="color:#bf360c">ระยะสั้น</strong>):</p>
     <div id="classify-zone"></div>
     <div class="feedback" id="cls-fb"></div>
     <div class="nav-row">
@@ -352,7 +560,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <h4>สรุปสั้น ๆ — Short-run vs Long-run</h4>
       <p><strong>ระยะสั้น (Short-run):</strong> ช่วงเวลาที่ไม่นานพอจะเปลี่ยนทุกปัจจัย — มักเปลี่ยนสิ่งที่ต้องลงทุนหนัก (เครื่องจักร อาคาร) ไม่ทัน → มีทั้ง <strong>Fixed + Variable</strong> ผสมกัน</p>
       <p><strong>ระยะยาว (Long-run):</strong> นานพอที่ทุกอย่างปรับได้ รวมถึงขยายโรงงาน ซื้อเครื่องใหม่ ย้ายที่ตั้ง → <strong>ทุกอย่างเป็น Variable</strong></p>
-      <p style="margin-top:12px;padding:10px 14px;background:#ede9fe;border-radius:var(--border-radius-md);color:#3730a3"><strong>ข้อสังเกต:</strong> "ระยะสั้น-ยาว" ไม่ใช่จำนวนเดือน/ปีแน่นอน — ต่างอุตสาหกรรมก็ต่างกัน ร้านกาแฟอาจ 6 เดือน โรงไฟฟ้าอาจ 10 ปี</p>
+      <p style="margin-top:12px;padding:10px 14px;background:#ede9fe;border-radius:var(--border-radius-md);color:#9a2e0a"><strong>ข้อสังเกต:</strong> "ระยะสั้น-ยาว" ไม่ใช่จำนวนเดือน/ปีแน่นอน — ต่างอุตสาหกรรมก็ต่างกัน ร้านกาแฟอาจ 6 เดือน โรงไฟฟ้าอาจ 10 ปี</p>
     </div>
     <div class="nav-row">
       <button class="nav-btn" onclick="go(1)">← ย้อนกลับ</button>
@@ -384,7 +592,7 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <h4>สมการนี้บอกอะไรเรา?</h4>
       <p><strong>ในระยะสั้น</strong> — F คงที่ เราจะเห็นว่า Q เปลี่ยนแปลง <em>ตาม X อย่างเดียว</em> นี่คือโจทย์ที่ทั้งบทที่ 5 สนใจ</p>
       <p><strong>ในระยะยาว</strong> — ทั้ง X และ F เป็น variable — นี่คือโจทย์ที่ <strong>บทที่ 6</strong> จะสนใจ</p>
-      <p style="margin-top:12px;padding:10px 14px;background:#ede9fe;border-radius:var(--border-radius-md);color:#3730a3"><strong>👉 หัวข้อถัดไป (5.2)</strong> เราจะเจาะลงว่า เมื่อ X เปลี่ยน 1 คน, 2 คน, 3 คน... Q เปลี่ยนเป็นเท่าไร และรูปแบบ "เพิ่มแล้วชะลอ" นั้นเกิดจากอะไร</p>
+      <p style="margin-top:12px;padding:10px 14px;background:#ede9fe;border-radius:var(--border-radius-md);color:#9a2e0a"><strong>👉 หัวข้อถัดไป (5.2)</strong> เราจะเจาะลงว่า เมื่อ X เปลี่ยน 1 คน, 2 คน, 3 คน... Q เปลี่ยนเป็นเท่าไร และรูปแบบ "เพิ่มแล้วชะลอ" นั้นเกิดจากอะไร</p>
     </div>
     <div class="nav-row">
       <button class="nav-btn" onclick="go(2)">← ย้อนกลับ</button>
@@ -647,7 +855,7 @@ updateProg(0);
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">บทที่ 5 — การผลิตและต้นทุนการผลิตในระยะสั้น</span>
+      <span class="ajk-chap-name">บทที่ 5 — การผลิตและต้นทุนในระยะสั้น</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter5_2.html">
@@ -665,26 +873,11 @@ updateProg(0);
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-      <a class="ajk-footer-btn" href="../index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>
-        หน้าหลัก
-      </a>
-      <a class="ajk-footer-btn" href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        แผนการเรียน
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter5.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 5</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>

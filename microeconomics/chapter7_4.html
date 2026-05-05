@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>7.4 เส้นอุปทานระยะสั้น · Ajarn.Kwan</title>
+<title>บทที่ 7.4 — เส้นอุปทานระยะสั้น · Ajarn.Kwan</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--font-sans:'Noto Sans Thai',system-ui,sans-serif;--font-serif:'Noto Serif Thai',serif;--pri:#b45309;--pri-soft:#fffbeb;--pri-dark:#92400e;--hero-a:#92400e;--hero-b:#d97706;--bg:#fefbf6;--card:#fff;--bg2:#fffbeb;--bdr:#fcd34d;--bdr-l:#fef3c7;--ink:#292524;--muted:#78716c;--faint:#a8a29e;--r:12px;--rl:18px}
@@ -11,7 +11,7 @@
 .topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);border-bottom:1px solid #ede5d8}.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;min-height:56px}
 .back-btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);background:var(--pri-soft);padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600;border:none;cursor:pointer;font-family:var(--font-sans);transition:all .18s}.back-btn:hover{background:var(--pri);color:#fff;transform:translateX(-2px)}.back-btn svg{width:14px;height:14px}
 .t-right{flex:1;text-align:right}.t-title{font-size:16px;font-weight:700}.t-sub{font-size:14.5px;color:var(--muted)}
-.page{max-width:780px;margin:0 auto;padding:24px 18px 60px}
+.page{max-width:760px;margin:0 auto;padding:24px 18px 60px}
 .step{display:none;animation:fadeUp .4s ease}.step.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .step-tag{font-size:14.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
@@ -224,7 +224,56 @@
 .ajk-footer-bottom { font-size: 14.5px; color: var(--ajk-muted); line-height: 1.7; }
 
 </style>
-  <link rel="stylesheet" href="../assets/theme.css">
+  <style id="ajk-theme-overrides">
+:root{
+  color-scheme: light;
+  --font-sans:'Noto Sans Thai',system-ui,sans-serif;
+  --font-serif:'Noto Serif Thai',serif;
+  --theme-primary:#b45309;
+  --theme-primary-soft:#fffbeb;
+  --theme-primary-dark:#92400e;
+  --theme-hero-a:#92400e;
+  --theme-hero-b:#d97706;
+  --theme-page-bg:#fefbf6;
+  --theme-border:#fde68a;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#fffbeb;
+  --color-border-secondary:#fde68a;
+  --color-border-tertiary:#fef3c7;
+  --color-text-primary:#1c1917;
+  --color-text-secondary:#57534e;
+  --color-text-tertiary:#a8a29e;
+  --shadow:0 14px 34px rgba(146,64,14,.08);
+}
+.ajk-shell-theme {
+  --ajk-primary: #b45309;
+  --ajk-primary-soft: #fffbeb;
+  --ajk-primary-dark: #92400e;
+  --ajk-ink: var(--color-text-primary);
+  --ajk-muted: var(--color-text-secondary);
+  --ajk-border: #f5e6c8;
+  --ajk-surface: #ffffff;
+}
+body{
+  background:var(--theme-page-bg)!important;
+  color:var(--color-text-primary)!important;
+  font-family:var(--font-sans)!important;
+}
+.backlink,.backbtn,.back-btn{color:var(--theme-primary)!important;}
+.panel,.card,.chapter-card,.lesson-card,.section-card{box-shadow:var(--shadow)!important;}
+.ajk-back-btn:hover,.ajk-footer-btn:hover{
+  color:#fff!important;
+  background:var(--theme-primary)!important;
+  border-color:var(--theme-primary)!important;
+}
+/* Offline fallbacks (theme.css overrides these online) */
+html{font-size:19px;-webkit-font-smoothing:antialiased;}
+.ak-topbar{background:var(--theme-page-bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+.ak-footer{background:var(--theme-page-bg)!important;border-top:1px solid #e6e8f0!important;}
+.ajk-footer{background:var(--theme-page-bg)!important;}
+</style>
+
+<link rel="stylesheet" href="../assets/theme.css">
   
 <style id="ak-overrides">
 /* Hide legacy topbars/footers that the migration replaces */
@@ -241,8 +290,162 @@ footer.ajk-footer { display: none !important; }
 body > footer:not(.ak-footer):not([class]) { display: none !important; }
 </style>
 
+
+<style id="ak-shared-fallback">
+/* AK shared topbar/footer styling — fallback for offline preview */
+/* ───────── AK SHARED HEADER + FOOTER (cross-product) ───────── */
+:root {
+  --ak-ink: #2A1F1A;
+  --ak-muted: #6b6480;
+  --ak-line: #E8DDD0;
+  --ak-primary: #6B4A8A;
+  --ak-primary-soft: #EFE6F5;
+  --ak-primary-tint: #F7F1F9;
+  --ak-bg: #FBFAF7;
+  --ak-content-width: 1100px;
+}
+.ak-theme-microeconomics { --ak-accent: #6B4A8A; --ak-accent-soft: #EFE6F5; }
+
+.ak-topbar {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(255,255,255,.92);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--ak-line);
+  transition: box-shadow .25s, background .25s;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-topbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,.04); }
+.ak-topbar-inner {
+  max-width: var(--ak-content-width); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 18px; min-height: 56px;
+}
+.ak-brand {
+  font-size: 18px; font-weight: 800; letter-spacing: -.015em;
+  text-decoration: none; color: var(--ak-ink);
+  flex-shrink: 0;
+  transition: color .15s;
+}
+.ak-brand:hover { color: var(--ak-primary); }
+.ak-brand-dot { color: var(--ak-primary); }
+.ak-breadcrumb {
+  flex: 1; min-width: 0;
+  font-size: 14.5px; color: var(--ak-muted);
+  display: flex; align-items: center; gap: 6px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ak-breadcrumb a { color: var(--ak-muted); text-decoration: none; transition: color .15s; }
+.ak-breadcrumb a:hover { color: var(--ak-primary); }
+.ak-breadcrumb .sep { opacity: .5; }
+.ak-breadcrumb span:last-child { color: var(--ak-ink); font-weight: 600; }
+.ak-topbar-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.ak-member-pill {
+  display: none; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 6px; border-radius: 999px;
+  background: var(--ak-primary-soft); color: var(--ak-ink);
+  text-decoration: none; font-size: 14.5px; font-weight: 600;
+  transition: all .18s;
+}
+.ak-member-pill:hover { background: var(--ak-primary); color: #fff; transform: translateY(-1px); }
+.ak-member-pill.is-admin { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+.ak-pill-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ak-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+  flex-shrink: 0;
+}
+.ak-member-pill.is-admin .ak-pill-avatar { background: rgba(255,255,255,.25); }
+.ak-pill-arrow { font-size: 14px; opacity: .6; }
+.ak-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  font-size: 14.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: all .18s;
+}
+.ak-btn-ghost {
+  background: transparent; color: var(--ak-ink);
+  border-color: var(--ak-line);
+}
+.ak-btn-ghost:hover { background: var(--ak-primary-soft); border-color: var(--ak-primary-soft); }
+@media (max-width: 720px) {
+  .ak-breadcrumb { display: none; }
+  .ak-topbar-inner { gap: 12px; }
+}
+@media (max-width: 480px) {
+  .ak-btn-ghost { display: none; }
+}
+
+.ak-footer {
+  margin-top: 80px;
+  background: var(--ak-primary-tint);
+  border-top: 1px solid var(--ak-line);
+  padding: 56px 18px 32px;
+  font-family: 'Noto Sans Thai', system-ui, sans-serif;
+  color: var(--ak-ink);
+}
+.ak-footer-inner { max-width: var(--ak-content-width); margin: 0 auto; }
+.ak-footer-mark {
+  font-size: 22px; font-weight: 800; letter-spacing: -.015em;
+  margin-bottom: 24px;
+}
+.ak-footer-mark .dim { color: var(--ak-primary); }
+.ak-footer-groups {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.ak-footer-group { display: flex; flex-direction: column; gap: 8px; }
+.ak-footer-group-title {
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ak-muted); margin-bottom: 8px;
+}
+.ak-footer-group a {
+  font-size: 14.5px; color: var(--ak-ink);
+  text-decoration: none; line-height: 1.7;
+  transition: color .15s;
+}
+.ak-footer-group a:hover { color: var(--ak-primary); }
+.ak-footer-group p { font-size: 14.5px; color: var(--ak-muted); margin: 0 0 12px; line-height: 1.6; }
+.ak-footer-social { display: flex; gap: 8px; }
+.ak-footer-social a {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--ak-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ak-ink); font-size: 14px; font-weight: 700;
+  transition: all .18s;
+}
+.ak-footer-social a:hover { background: var(--ak-primary); color: #fff; border-color: var(--ak-primary); transform: translateY(-2px); }
+.ak-footer-social .fs-yt { color: #FF0000; }
+.ak-footer-social .fs-yt:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.ak-footer-meta {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 16px;
+  padding-top: 24px; border-top: 1px solid var(--ak-line);
+  font-size: 13.5px; color: var(--ak-muted); line-height: 1.7;
+}
+.ak-footer-meta strong { display: block; color: var(--ak-ink); font-size: 14.5px; margin-bottom: 4px; }
+.ak-footer-meta-tag {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; color: var(--ak-primary);
+  background: #fff; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ak-line);
+}
+@media (max-width: 720px) {
+  .ak-footer-groups { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .ak-footer-group-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 480px) {
+  .ak-footer-groups { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6; --ak-content-width: 760px;">
+<body class="ak-theme-microeconomics" style="--ak-bg: #fefbf6;">
 
 <!-- ═══ AK TOPBAR (shared theme) ═══ -->
 <nav class="ak-topbar" id="ak-topbar">
@@ -273,21 +476,17 @@ body > footer:not(.ak-footer):not([class]) { display: none !important; }
       <span>หน้าหลัก</span>
     </a>
 <div class="ajk-brand">
-      <div class="ajk-brand-course">7.4 เส้นอุปทานระยะสั้น</div>
+      <div class="ajk-brand-course">บทที่ 7.4 · เส้นอุปทานระยะสั้น</div>
       <div class="ajk-brand-author"><span class="ajk-brand-author-dot"></span>Ajarn.Kwan <span class="ajk-brand-author-at">@</span> เศรษฐศาสตร์ รามคำแหง</div>
     </div>
   </div>
 </header>
 
-<header class="topbar"><div class="topbar-in">
-<button class="back-btn" onclick="location.href='chapter7.html'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>กลับ Hub</span></button>
-<div class="t-right"><div class="t-title">7.4 · เส้นอุปทานระยะสั้น</div><div class="t-sub">Ajarn.Kwan · เศรษฐศาสตร์ รามคำแหง</div></div>
-</div></header>
+
 <div class="page">
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px"><div id="dots" style="display:flex;gap:5px"></div><span id="plbl" style="font-size:14px;color:var(--muted)"></span></div>
 <div id="sc"></div>
 </div>
-<div class="foot"><strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง · เนื้อหาแจกฟรีเพื่อการศึกษา</div>
 <script>
 /* ═══ Graph 1: Firm Supply ═══ */
 var F_BASE='<path d="M60,148 C98,182 158,218 180,218 C202,218 280,186 360,148" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,3"/><text x="363" y="146" fill="#7c3aed" font-size="10" font-weight="600">AVC</text>'
@@ -457,19 +656,24 @@ function pGo(d){pS=Math.max(0,Math.min(pT-1,pS+d));document.getElementById('ps')
 var S=[
 {tag:"เริ่มต้น · ทบทวน",title:"จาก 7.3 → เส้นอุปทานเกิดจากอะไร?",
 body:'<div class="scenario"><p style="font-size:28px;margin-bottom:8px">📦</p><p>ใน Section 7.3 เราเห็นว่าผู้ผลิตผลิตตามเส้น MC ตั้งแต่เหนือ AVC min ขึ้นไป</p><p>ถ้าเรานำจุดเหล่านี้มาเชื่อมกัน → จะได้<strong>เส้นอุปทาน</strong>ของผู้ผลิตแต่ละราย!</p></div>',
-quiz:{q:"ถ้าราคาตลาดเพิ่มขึ้น ผู้ผลิตจะผลิตมากขึ้นตามเส้นอะไร?",opts:["เส้น AC","เส้น AVC","เส้น MC ส่วนที่อยู่เหนือ AVC min","เส้น TR"],ans:2,explain:"ผู้ผลิตเพิ่มผลผลิตตามเส้น MC ที่อยู่เหนือ AVC min → ส่วนนี้ = <strong>เส้นอุปทานระยะสั้น</strong>"}},
+quiz:{q:"ถ้าราคาตลาดเพิ่มขึ้น ผู้ผลิตจะผลิตมากขึ้นตามเส้นอะไร?",opts:[
+      "เส้น TR",
+      "เส้น AVC",
+      "เส้น AC",
+      "เส้น MC ส่วนที่อยู่เหนือ AVC min"
+    ],ans:3,explain:"ผู้ผลิตเพิ่มผลผลิตตามเส้น MC ที่อยู่เหนือ AVC min → ส่วนนี้ = <strong>เส้นอุปทานระยะสั้น</strong>"}},
 
 {tag:"กราฟ interactive · เส้น S ของผู้ผลิต",title:"เส้นอุปทานระยะสั้นของผู้ผลิตแต่ละราย",
 body:'<div class="dw"><div id="fs"></div><div class="gc"><button class="gb gp" id="fp" onclick="fGo(-1)" style="opacity:.4;pointer-events:none">← ย้อน</button><button class="gb gn" id="fn" onclick="fGo(1)">เริ่มวาดทีละขั้น →</button><span class="gx" id="fx">0/'+(fT-1)+'</span></div><div class="gd" id="fd">'+fD[0]+'</div></div>',
-quiz:{q:"ถ้าราคาต่ำกว่า AVC min ปริมาณเสนอขายเท่ากับ?",opts:["ปริมาณที่ MC = P","ศูนย์ — ผู้ผลิตหยุดผลิต","ปริมาณที่ AC ต่ำสุด"],ans:1,explain:"P < AVC min → <strong>Q = 0</strong> เพราะจะขาดทุนมากกว่า TFC → เส้นอุปทานเริ่มที่ AVC min ขึ้นไปเท่านั้น"}},
+quiz:{q:"ถ้าราคาต่ำกว่า AVC min ปริมาณเสนอขายเท่ากับ?",opts:["ปริมาณที่ MC = P","ปริมาณที่ AC ต่ำสุด","ศูนย์ — ผู้ผลิตหยุดผลิต","ปริมาณที่ AVC ต่ำสุด — ผลิตจุดต้นทุนแปรผันต่ำสุด"],ans:2,explain:"P < AVC min → <strong>Q = 0</strong> เพราะจะขาดทุนมากกว่า TFC → เส้นอุปทานเริ่มที่ AVC min ขึ้นไปเท่านั้น"}},
 
 {tag:"กราฟ · อุปทานอุตสาหกรรม",title:"รวมเส้น S ทุกผู้ผลิต → อุปทานตลาด",
 body:'<div class="prose"><p>เมื่อรู้ S ของแต่ละผู้ผลิต → <strong>รวมแนวนอน (Horizontal Summation)</strong> → ได้เส้น S ของอุตสาหกรรม</p></div><div class="dw">'+mkInd()+'</div><div class="insight"><div class="insight-label">✦ กรณีราคาปัจจัยไม่เปลี่ยนแปลง</div><p class="insight-text">ถ้ามี n บริษัทเหมือนกัน (Representative Firm):\nที่ P₁ → แต่ละบริษัทผลิต q₁ → อุตสาหกรรม = <strong>nq₁</strong>\nที่ P₂ → แต่ละบริษัทผลิต q₂ → อุตสาหกรรม = <strong>nq₂</strong>\n\nเส้น ΣMC = เส้นอุปทานอุตสาหกรรม (ราบกว่าเส้น S ของ Firm)</p></div>',
-quiz:{q:"ถ้ามี 100 บริษัทเหมือนกัน แต่ละบริษัทเสนอขาย 20 หน่วยที่ราคา 50 บาท → อุปทานตลาดเท่าไหร่?",opts:["20 หน่วย","2,000 หน่วย","100 หน่วย"],ans:1,explain:"Qs ตลาด = n × q = 100 × 20 = <strong>2,000 หน่วย</strong> (Horizontal summation)"}},
+quiz:{q:"ถ้ามี 100 บริษัทเหมือนกัน แต่ละบริษัทเสนอขาย 20 หน่วยที่ราคา 50 บาท → อุปทานตลาดเท่าไหร่?",opts:["20 หน่วย","2,000 หน่วย","100 หน่วย","200 หน่วย — เพราะคิดเป็นค่าเฉลี่ย"],ans:1,explain:"Qs ตลาด = n × q = 100 × 20 = <strong>2,000 หน่วย</strong> (Horizontal summation)"}},
 
 {tag:"กราฟ · ราคาปัจจัยเปลี่ยน",title:"ถ้าราคาปัจจัยเพิ่มเมื่ออุตสาหกรรมขยายตัว?",
 body:'<div class="prose"><p>กรณีที่เป็นจริงมากกว่า: เมื่ออุตสาหกรรมขยายตัว → ต้องการปัจจัยมากขึ้น → <strong>ราคาปัจจัยเพิ่ม</strong> → MC เลื่อนซ้าย ทำให้เส้นอุปทานจริงชันกว่าที่คิด</p></div><div class="dw"><div id="ps"></div><div class="gc"><button class="gb gp" id="pp" onclick="pGo(-1)" style="opacity:.4;pointer-events:none">← ย้อน</button><button class="gb gn" id="pn" onclick="pGo(1)">เริ่มดูทีละขั้น →</button><span class="gx" id="px">0/'+(pT-1)+'</span></div><div class="gd" id="pd">'+pD[0]+'</div></div>',
-quiz:{q:"ทำไม S\' ชันกว่า S?",opts:["เพราะมีผู้ผลิตน้อยลง","เพราะเมื่อผลิตเพิ่ม ราคาปัจจัย↑ → MC เลื่อนขึ้น → ต้องการราคาสูงขึ้นจึงจะผลิตเพิ่ม","เพราะสินค้าหมด"],ans:1,explain:"อุตสาหกรรมขยาย → ต้องการปัจจัยมาก → <strong>ราคาปัจจัย↑</strong> → MC เลื่อนขึ้น → ที่ราคาเดียวกัน ผลิตได้น้อยลง → S\' <strong>ชันกว่า</strong>"}},
+quiz:{q:"ทำไม S\' ชันกว่า S?",opts:["เพราะเมื่อผลิตเพิ่ม ราคาปัจจัย↑ → MC เลื่อนขึ้น → ต้องการราคาสูงขึ้นจึงจะผลิตเพิ่ม","เพราะมีผู้ผลิตน้อยลง","เพราะสินค้าหมด","เพราะรัฐกำหนดราคาขั้นต่ำในตลาด"],ans:0,explain:"อุตสาหกรรมขยาย → ต้องการปัจจัยมาก → <strong>ราคาปัจจัย↑</strong> → MC เลื่อนขึ้น → ที่ราคาเดียวกัน ผลิตได้น้อยลง → S\' <strong>ชันกว่า</strong>"}},
 
 {tag:"สรุป · เชื่อมโยง",title:"สรุป + เชื่อมไป Section 7.5",
 body:'<table class="cmp"><thead><tr><th>หัวข้อ</th><th>เนื้อหา</th></tr></thead><tbody><tr><td>S ของ Firm</td><td>= MC เหนือ AVC min</td></tr><tr><td>P &lt; AVC min</td><td>Q = 0 (ไม่ผลิต)</td></tr><tr><td>S ของ Industry</td><td>= ΣMC (ผลรวมแนวนอน)</td></tr><tr><td>ราคาปัจจัยคงที่</td><td>S ราบ</td></tr><tr><td>ราคาปัจจัย↑</td><td>S\' ชัน (MC เลื่อนทุกครั้ง)</td></tr></tbody></table><div class="scenario"><p style="font-size:28px;margin-bottom:8px">🔗</p><p><strong>เชื่อมไป 7.5:</strong> ระยะสั้น จำนวนบริษัทคงที่ แต่<strong>ระยะยาว</strong> → บริษัทเข้า/ออกได้อิสระ → กำไรเกินปกติดึงดูดบริษัทใหม่ → ราคาปรับจน <strong>P = LAC min → กำไรเกินปกติ = 0</strong></p></div>'}
@@ -490,14 +694,14 @@ init();
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทก่อนหน้า</span>
-      <span class="ajk-chap-name">7.3 ดุลยภาพระยะสั้น</span>
+      <span class="ajk-chap-name">บทที่ 7.3 — ดุลยภาพระยะสั้น</span>
     </div>
   </a>
   <a class="ajk-chap-btn next" href="chapter7_5.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     <div class="ajk-chap-text">
       <span class="ajk-chap-label">บทถัดไป</span>
-      <span class="ajk-chap-name">7.5 ดุลยภาพระยะยาว</span>
+      <span class="ajk-chap-name">บทที่ 7.5 — ดุลยภาพระยะยาว</span>
     </div>
   </a>
 </nav>
@@ -508,22 +712,11 @@ init();
     <div class="ajk-footer-name">Ajarn.Kwan</div>
     <div class="ajk-footer-sub">คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง</div>
     <div class="ajk-footer-links">
-<a class="ajk-footer-btn" href="index.html">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        แผนการเรียน
-      </a>
-      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>
-        Line OA
-      </a>
-      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>
-        TikTok
-      </a>
-      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>
-        Facebook
-      </a>
+      <a class="ajk-footer-btn" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8M5 9.5V20a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V9.5"/></svg>หน้าหลัก</a>
+      <a class="ajk-footer-btn" href="chapter7.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>บทที่ 7</a>
+      <a class="ajk-footer-btn ajk-line" href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 10.2c0-3.4-3.4-6.2-7.6-6.2s-7.6 2.8-7.6 6.2c0 3 2.7 5.6 6.4 6.1.2 0 .6.1.7.4l.1.6-.1.7c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.8z"/></svg>Line OA</a>
+      <a class="ajk-footer-btn" href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-3.414-1.267 5.124 5.124 0 01-1.663-3.234h-3.315v14.157c0 1.433-1.158 2.591-2.591 2.591S5.747 16.65 5.747 15.217s1.158-2.591 2.591-2.591c.269 0 .528.041.772.117V9.368a5.832 5.832 0 00-.772-.051C5.125 9.317 2.5 11.942 2.5 15.217s2.625 5.9 5.838 5.9c3.214 0 5.839-2.625 5.839-5.9V8.682a8.397 8.397 0 005.144 1.745V7.112a5.158 5.158 0 01-.001-1.55z"/></svg>TikTok</a>
+      <a class="ajk-footer-btn" href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12c0-6.627-5.373-12-12-12S0 5.373 0 12c0 5.99 4.388 10.954 10.125 11.854V15.47H7.078V12h3.047V9.356c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.234 2.686.234v2.953H15.83c-1.491 0-1.956.925-1.956 1.874V12h3.328l-.532 3.47h-2.796v8.385C19.612 22.954 24 17.99 24 12"/></svg>Facebook</a>
     </div>
     <div class="ajk-footer-bottom">
       <strong>© 2026 Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ รามคำแหง<br>
