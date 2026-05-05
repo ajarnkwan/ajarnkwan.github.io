@@ -2,207 +2,2286 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibe Coding · สำหรับนักเศรษฐศาสตร์ · เร็ว ๆ นี้ · Ajarn.Kwan</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:'Noto Sans Thai',sans-serif;
-    min-height:100vh;
-    background:#FDF8F2;
-    color:#2A1F1A;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:24px;text-align:center;
-  }
-  .top-stripe{position:fixed;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6B4A8A 0%,#E27A5F 100%)}
-  .container{max-width:520px}
-  .badge{
-    display:inline-block;font-size:14.5px;font-weight:700;letter-spacing:.08em;
-    color:#6B4A8A;background:#EFE6F5;padding:6px 18px;border-radius:999px;
-    margin-bottom:24px;
-  }
-  .emoji{font-size:64px;margin-bottom:16px;line-height:1}
-  h1{
-    font-family:'Plus Jakarta Sans','Noto Sans Thai',sans-serif;
-    font-size:36px;font-weight:800;letter-spacing:-0.02em;
-    margin-bottom:8px;color:#2A1F1A;
-  }
-  .subtitle{font-size:20px;color:#5C4A40;margin-bottom:24px;font-weight:500}
-  p{font-size:17px;color:#8A7A70;line-height:1.7;margin-bottom:36px;max-width:420px;margin-left:auto;margin-right:auto}
-  .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-  .btn{
-    display:inline-flex;align-items:center;gap:6px;
-    padding:12px 24px;border-radius:999px;
-    text-decoration:none;font-weight:600;font-size:16px;
-    transition:all .2s;
-  }
-  .btn-primary{background:#6B4A8A;color:#fff;border:1px solid #6B4A8A}
-  .btn-primary:hover{background:#553873}
-  .btn-secondary{background:transparent;color:#5C4A40;border:1px solid #E8DDD0}
-  .btn-secondary:hover{background:#FFFFFF;border-color:#6B4A8A;color:#6B4A8A}
-  .footer{margin-top:60px;font-size:15px;color:#8A7A70}
-  .footer strong{color:#2A1F1A}
-</style>
-  <link rel="stylesheet" href="../../assets/theme.css">
-  
-<style id="ak-overrides">
-/* Hide legacy topbars/footers that the migration replaces */
-header.topbar:not(.ak-topbar),
-header.ajk-topbar,
-.ajk-topbar:not(.ak-topbar),
-.top-stripe,
-.land-bar,
-.land-foot,
-.land-foot-wrap,
-.ajk-footer:not(.ak-footer),
-footer.ajk-footer { display: none !important; }
-/* Plain <footer> without class (vocab pages) — only at body level */
-body > footer:not(.ak-footer):not([class]) { display: none !important; }
-</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Vibe Coding สำหรับนักเศรษฐศาสตร์</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'IBM Plex Sans Thai',sans-serif}</style>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
-<body class="ak-theme-vibe-coding" style="--ak-bg: #FDF8F2; --ak-content-width: 1100px;">
-
-<!-- ═══ AK TOPBAR (shared theme) ═══ -->
-<nav class="ak-topbar" id="ak-topbar">
-  <div class="ak-topbar-inner">
-    <a href="../../" class="ak-brand">AJARN<span class="ak-brand-dot">.</span>KWAN</a>
-    <div class="ak-breadcrumb">
-      <a href="../../">หน้าแรก</a><span class="sep">/</span><a href="../../vibe-coding/">Vibe Coding</a><span class="sep">/</span><span>Economists</span>
-    </div>
-    <div class="ak-topbar-actions">
-      <a href="../../#hub" class="ak-member-pill" id="ak-member-pill">
-        <span class="ak-pill-avatar" id="ak-pill-avatar">?</span>
-        <span class="ak-pill-label" id="ak-pill-label">ห้องเรียนของฉัน</span>
-        <span class="ak-pill-arrow">→</span>
-      </a>
-      <a href="../../#join" class="ak-btn ak-btn-ghost" id="ak-login-btn">เข้าสู่ระบบ</a>
-    </div>
-  </div>
-</nav>
-
-<div class="top-stripe"></div>
-<div class="container">
-  <div class="badge">COMING SOON · กำลังเตรียมเนื้อหา</div>
-  <div class="emoji">📊</div>
-  <h1>Vibe Coding · สำหรับนักเศรษฐศาสตร์</h1>
-  <div class="subtitle">📊 Economics Edition</div>
-  <p>คอร์ส Vibe Coding เวอร์ชันนี้กำลังเตรียมเนื้อหาอยู่ค่ะ จะเปิดให้เข้าเรียนเร็ว ๆ นี้ ติดตามข่าวสารผ่าน Line OA หรือช่องทางโซเชียลของอาจารย์นะคะ</p>
-  <div class="btn-row">
-    <a href="../" class="btn btn-primary">← กลับเลือกเวอร์ชัน</a>
-    <a href="../../index.html" class="btn btn-secondary">หน้าหลัก</a>
-  </div>
-  <div class="footer">
-    <strong>© 2026 · Ajarn.Kwan</strong> · คณะเศรษฐศาสตร์ ม.รามคำแหง
-  </div>
-</div>
-  <script type="module" src="../../member-guard.js"></script>
-
-<!-- ═══ AK FOOTER (shared theme) ═══ -->
-<footer class="ak-footer">
-  <div class="ak-footer-inner">
-    <div class="ak-footer-mark">AJARN<span class="dim">.</span>KWAN</div>
-
-    <div class="ak-footer-groups">
-      <div class="ak-footer-group ak-footer-group-brand">
-        <div class="ak-footer-group-title">SELF-LEARNING CENTRE</div>
-        <p>ห้องเรียนออนไลน์ฟรี · เรียนรู้ไปด้วยกัน</p>
-        <div class="ak-footer-social">
-          <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener" title="Line OA">L</a>
-          <a href="https://www.facebook.com/ajarnkwan" target="_blank" rel="noopener" title="Facebook">f</a>
-          <a href="https://www.tiktok.com/@ajarn.kwan" target="_blank" rel="noopener" title="TikTok">T</a>
-          <a href="https://www.youtube.com/@AjarnKwan" target="_blank" rel="noopener" title="YouTube" class="fs-yt">▶</a>
-          <a href="mailto:kwan.p@rumail.ru.ac.th" title="Email">@</a>
-        </div>
-      </div>
-
-      <div class="ak-footer-group">
-        <div class="ak-footer-group-title">หลักสูตร</div>
-        <a href="../../economics/">Economics</a>
-        <a href="../../vocab/">Econ English</a>
-        <a href="../../#courses">Personal Finance</a>
-        <a href="../../vibe-coding/">AI Literacy</a>
-      </div>
-
-      <div class="ak-footer-group">
-        <div class="ak-footer-group-title">เว็บไซต์</div>
-        <a href="../../#about">เกี่ยวกับ</a>
-        <a href="../../#try">ทดลองเรียน</a>
-        <a href="../../#freebies">ของแจกฟรี</a>
-        <a href="../../#faq">คำถาม</a>
-      </div>
-
-      <div class="ak-footer-group">
-        <div class="ak-footer-group-title">บัญชี</div>
-        <a href="../../#join">สมัครสมาชิกฟรี</a>
-        <a href="../../#join">เข้าสู่ระบบ</a>
-        <a href="https://line.me/R/ti/p/%40287votth" target="_blank" rel="noopener">เพิ่มเพื่อน Line OA</a>
-      </div>
-    </div>
-
-    <div class="ak-footer-meta">
-      <div>
-        <strong>ผศ.ดร.ขวัญ เพชรสว่าง</strong>
-        ผู้ช่วยศาสตราจารย์ · คณะเศรษฐศาสตร์ · มหาวิทยาลัยรามคำแหง<br>
-        <span style="opacity:.6">Asst. Prof. Dr. Kwan Phetsawang</span><br>
-        © 2026 · เนื้อหาทั้งหมดใช้ฟรีเพื่อการศึกษาค่ะ
-      </div>
-      <div class="ak-footer-meta-tag">SELF-LEARNING CENTRE</div>
-    </div>
-  </div>
-</footer>
-
+<body>
+<div id="root"></div>
 <script>
-(function(){
-  // Sticky topbar shadow
-  const t = document.getElementById('ak-topbar');
-  if (t) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) t.classList.add('scrolled');
-      else t.classList.remove('scrolled');
-    });
-  }
-})();
-</script>
-
-
-<script>
-/* Member status pill — reads login state from localStorage */
-(function(){
-  try {
-    const raw = localStorage.getItem('akMember');
-    if (!raw) return;
-    const m = JSON.parse(raw);
-    if (!m || !m.name) return;
-    // Stale if older than 30 days
-    if (m.ts && (Date.now() - m.ts > 30*24*60*60*1000)) return;
-    
-    const pill = document.getElementById('ak-member-pill');
-    const loginBtn = document.getElementById('ak-login-btn');
-    const avatarEl = document.getElementById('ak-pill-avatar');
-    const labelEl = document.getElementById('ak-pill-label');
-    
-    if (pill && labelEl && avatarEl) {
-      if (m.isAdmin) {
-        // Admin: link to #admin Dashboard, label = "Admin"
-        pill.href = '../../#admin';
-        pill.classList.add('is-admin');
-        avatarEl.textContent = 'A';
-        labelEl.textContent = 'Admin · Dashboard';
-      } else {
-        // Regular member: link to #hub
-        pill.href = '../../#hub';
-        avatarEl.textContent = (m.name[0] || '?').toUpperCase();
-        labelEl.textContent = m.name;
+const {useState,useEffect,useCallback,useRef}=React;
+const storageGet=async k=>{try{const v=localStorage.getItem(k);return v?{value:v}:null}catch{return null}};
+const storageSet=async(k,v)=>{try{localStorage.setItem(k,v);return true}catch{return null}};
+const storageDelete=async k=>{try{localStorage.removeItem(k);return true}catch{return null}};
+/* ═══════════════════════════════════════════════
+   COURSE DATA (same content, abbreviated for clarity)
+   ═══════════════════════════════════════════════ */
+const COURSE = [{
+  id: "m1",
+  num: "01",
+  emoji: "👋",
+  title: "Vibe Coding คืออะไร?",
+  color: "#7c3aed",
+  time: "30 นาที",
+  sections: [{
+    type: "content",
+    title: "สิ่งที่จะได้เรียนในบทนี้",
+    body: [{
+      t: "callout",
+      emoji: "🎯",
+      title: "เป้าหมาย",
+      text: "เข้าใจ Vibe Coding ติดตั้งเครื่องมือ เขียน Prompt แรก สร้างกราฟเศรษฐกิจได้"
+    }, {
+      t: "steps",
+      items: ["รู้จัก Vibe Coding — สร้างทุกอย่างด้วยการ \"สั่งงาน AI\"", "ติดตั้ง Claude.ai — ฟรี ไม่ต้องติดตั้ง", "เขียน Prompt — สั่ง AI สร้างกราฟ GDP, CPI, ข้อมูลเศรษฐกิจ", "เทคนิค Iterative Prompting — ปรับผลลัพธ์ทีละขั้น"]
+    }, {
+      t: "callout",
+      emoji: "💡",
+      title: "นำไปใช้จริงกับ",
+      text: "สร้างกราฟ GDP, CPI, อัตราว่างงาน • Visualization สำหรับ paper • สื่อการสอนเศรษฐศาสตร์ • Infographic นโยบาย"
+    }]
+  }, {
+    type: "content",
+    title: "ทำความเข้าใจก่อนเริ่ม",
+    body: [{
+      t: "p",
+      v: "ลองนึกภาพว่าคุณอยากได้กราฟแสดงตัวเลข GDP ของไทย 10 ปี แต่ไม่เคยเขียนโปรแกรมเลย"
+    }, {
+      t: "compare",
+      left: {
+        label: "❌ แบบเดิม",
+        items: ["เรียนภาษา Python 3 เดือน", "เรียนวิธีจัดการข้อมูล", "เขียนโค้ด 50 บรรทัด", "แก้ข้อผิดพลาดอีก 2 ชม."]
+      },
+      right: {
+        label: "✅ แบบ Vibe Coding",
+        items: ["พิมพ์บอก AI ว่าอยากได้อะไร", "AI สร้างโค้ดให้", "ได้กราฟพร้อมใช้ใน 1 นาที", "แก้ไขแค่พิมพ์บอก AI"]
       }
-      pill.style.display = 'inline-flex';
-      if (loginBtn) loginBtn.style.display = 'none';
+    }, {
+      t: "term",
+      word: "Vibe Coding",
+      def: "วิธีการสร้างโปรแกรม/เว็บไซต์ โดย \"พิมพ์บอก AI ว่าอยากได้อะไร\" แล้ว AI จะสร้างให้ — ไม่ต้องเขียนโค้ดเอง"
+    }]
+  }, {
+    type: "content",
+    title: "เครื่องมือที่ต้องใช้",
+    body: [{
+      t: "p",
+      v: "ในคอร์สนี้ใช้เครื่องมือเดียว — ไม่ต้องติดตั้งอะไรเลย:"
+    }, {
+      t: "callout",
+      emoji: "🌐",
+      title: "Claude.ai",
+      text: "เว็บไซต์ AI ที่คุณพิมพ์คุยด้วยได้ สั่งให้สร้างโค้ด สร้างเว็บ วิเคราะห์ข้อมูล — เข้าไปที่ claude.ai แล้วสมัครฟรี"
+    }, {
+      t: "steps",
+      items: ["เปิดเว็บ claude.ai", "กด \"Sign up\" สมัครด้วย Google หรือ Email", "เข้าหน้าแชทได้แล้ว — ลองพิมพ์ \"สวัสดี\" ดูเลย"]
+    }]
+  }, {
+    type: "content",
+    title: "Prompt คืออะไร?",
+    body: [{
+      t: "term",
+      word: "Prompt (พร็อมต์)",
+      def: "ข้อความที่คุณพิมพ์บอก AI ว่าอยากได้อะไร — เหมือนกับการ \"สั่งงาน\" นั่นเอง"
+    }, {
+      t: "compare",
+      left: {
+        label: "❌ Prompt ไม่ดี",
+        items: ["\"สร้างกราฟ\"", "(AI ไม่รู้จะสร้างอะไร)"]
+      },
+      right: {
+        label: "✅ Prompt ดี",
+        items: ["\"สร้างกราฟเส้นแสดง GDP ไทย", "ปี 2015-2024 ด้วย HTML", "สีน้ำเงิน มี tooltip\""]
+      }
+    }, {
+      t: "callout",
+      emoji: "🔑",
+      title: "สูตรเขียน Prompt",
+      text: "บอก 4 อย่าง: (1) บริบท — เรื่องอะไร (2) สิ่งที่ต้องการ — อยากได้อะไร (3) รูปแบบ — หน้าตาเป็นยังไง (4) ข้อจำกัด — มีเงื่อนไขอะไร"
+    }, {
+      t: "term",
+      word: "HTML",
+      def: "ภาษาที่ใช้สร้างเว็บไซต์ — คุณไม่ต้องเรียน แค่บอก AI ว่า \"สร้างด้วย HTML\" แล้ว AI จะเขียนให้เอง"
+    }]
+  }, {
+    type: "try",
+    title: "🧪 ลองเขียน Prompt แรก",
+    prompt: "สร้างกราฟเส้น (line chart) แสดงอัตราการเติบโตของ GDP ไทย ปี 2015-2024 ด้วย HTML และ Chart.js\n\nใช้ข้อมูลจำลองที่สมจริง\nกราฟสีน้ำเงิน\nมี tooltip แสดงค่าเมื่อเอาเมาส์ไปชี้\nปีที่ GDP ติดลบให้จุดเป็นสีแดง",
+    hint: "กดปุ่ม \"ส่งให้ AI\" แล้วรอดูผลลัพธ์ คัดลอกไปวางใน Claude.ai เพื่อดูผลจริงได้เลย"
+  }, {
+    type: "content",
+    title: "เทคนิค \"แก้ทีละนิด\"",
+    body: [{
+      t: "term",
+      word: "Iterative Prompting",
+      def: "เทคนิคการปรับ prompt ทีละขั้น — ไม่ต้องสมบูรณ์ตั้งแต่แรก แค่ค่อย ๆ บอก AI ให้แก้จนได้ผลลัพธ์ที่ต้องการ"
+    }, {
+      t: "steps",
+      items: ["เริ่มกว้าง ๆ → \"สร้างกราฟ GDP ไทย\"", "ดูผลแล้วบอกแก้ → \"เปลี่ยนเป็นกราฟแท่ง ปีที่ติดลบให้สีแดง\"", "ขัดเกลา → \"เพิ่มเส้นค่าเฉลี่ย ใส่คำอธิบายตรงปี 2020\""]
+    }, {
+      t: "callout",
+      emoji: "💡",
+      title: "เคล็ดลับ",
+      text: "ถ้าไม่ถูกใจ ไม่ต้องเริ่มใหม่ แค่พิมพ์ต่อว่า \"แก้ตรงนี้ให้หน่อย\" — AI จำบทสนทนาก่อนหน้าได้"
+    }]
+  }],
+  quiz: [{
+    q: "Vibe Coding คืออะไร?",
+    opts: ["ภาษาโปรแกรมใหม่", "วิธีสร้างโปรแกรมโดยสั่งงาน AI ด้วยภาษาคน", "แอปสำหรับเขียนโค้ด", "เครื่องมือวิเคราะห์ข้อมูล"],
+    ans: 1,
+    explain: "Vibe Coding คือการ \"พิมพ์บอก AI ว่าอยากได้อะไร\" แล้ว AI สร้างโค้ดให้ ไม่ต้องเขียนเอง"
+  }, {
+    q: "Prompt ที่ดีควรมีอะไร?",
+    opts: ["สั้นที่สุดเท่าที่จะได้", "บอกแค่หัวข้อกว้าง ๆ", "บอกบริบท สิ่งที่ต้องการ รูปแบบ และข้อจำกัด", "ใช้ศัพท์เทคนิคเยอะ ๆ"],
+    ans: 2,
+    explain: "Prompt ดีต้องบอก 4 อย่าง: บริบท + สิ่งที่ต้องการ + รูปแบบ + ข้อจำกัด"
+  }, {
+    q: "ถ้า AI สร้างกราฟมาแล้วไม่ถูกใจ ควรทำยังไง?",
+    opts: ["เริ่มสนทนาใหม่ตั้งแต่ต้น", "พิมพ์บอก AI ให้แก้ไขจุดที่ไม่ถูกใจ", "เปลี่ยนไปใช้เครื่องมืออื่น", "ยอมรับผลลัพธ์ที่ได้"],
+    ans: 1,
+    explain: "ใช้เทคนิค Iterative Prompting — แค่พิมพ์ต่อว่า \"แก้ตรงนี้ให้หน่อย\""
+  }]
+}, {
+  id: "m2",
+  num: "02",
+  emoji: "🌐",
+  title: "สร้างเว็บเพจ",
+  color: "#8b5cf6",
+  time: "45 นาที",
+  sections: [{
+    type: "content",
+    title: "สิ่งที่จะได้เรียนในบทนี้",
+    body: [{
+      t: "callout",
+      emoji: "🎯",
+      title: "เป้าหมาย",
+      text: "สร้างเว็บเพจเศรษฐศาสตร์จริง ๆ แล้ว deploy ขึ้นออนไลน์"
+    }, {
+      t: "steps",
+      items: ["รู้จัก HTML/CSS/JS — แค่พอสั่ง AI ได้", "สร้างเว็บสอน Econ — อธิบายแนวคิดเศรษฐศาสตร์", "Deploy ขึ้น GitHub Pages — ได้ลิงก์แชร์ให้นักศึกษา"]
+    }, {
+      t: "callout",
+      emoji: "💡",
+      title: "นำไปใช้จริงกับ",
+      text: "เว็บสอนวิชาเศรษฐศาสตร์ • Landing Page รายวิชา • เว็บรวมผลงานวิจัย • Infographic นโยบาย"
+    }]
+  }, {
+    type: "content",
+    title: "เว็บไซต์ทำมาจากอะไร?",
+    body: [{
+      t: "p",
+      v: "ไม่ต้องเรียนสร้างเว็บ แค่รู้คำ 3 คำนี้ เพื่อสั่งงาน AI ได้ถูก:"
+    }, {
+      t: "term",
+      word: "HTML",
+      def: "โครงสร้างของเว็บ — เหมือน \"โครงกระดูก\" กำหนดว่ามีหัวข้อ ย่อหน้า ปุ่ม ตรงไหน"
+    }, {
+      t: "term",
+      word: "CSS",
+      def: "ความสวยงามของเว็บ — เหมือน \"เสื้อผ้า\" กำหนดสี ขนาดตัวอักษร ระยะห่าง"
+    }, {
+      t: "term",
+      word: "JavaScript (JS)",
+      def: "การทำงานของเว็บ — เหมือน \"สมอง\" ทำให้กดปุ่มแล้วเกิดอะไร กราฟขยับได้"
+    }, {
+      t: "callout",
+      emoji: "✨",
+      title: "ข่าวดี",
+      text: "แค่บอกว่า \"สร้างด้วย HTML\" — AI จะใส่ทั้ง CSS และ JavaScript ให้เอง"
+    }]
+  }, {
+    type: "try",
+    title: "🧪 สร้างเว็บเพจเศรษฐศาสตร์",
+    prompt: "สร้างเว็บเพจสวย ๆ อธิบายเรื่อง \"ต้นทุนค่าเสียโอกาส\" (Opportunity Cost) ด้วย HTML เป็นภาษาไทย ให้มี:\n\n1) หัวข้อใหญ่สวย ๆ\n2) คำอธิบายง่าย ๆ ที่คนทั่วไปเข้าใจ\n3) ตัวอย่าง 3 เรื่องจากชีวิตจริง\n4) กราฟ interactive (ใช้ Chart.js)\n5) ออกแบบสีโทนน้ำเงินเข้ม",
+    hint: "ลองเปลี่ยนหัวข้อเป็นเนื้อหาที่สอน เช่น \"อุปสงค์และอุปทาน\""
+  }, {
+    type: "content",
+    title: "เอาเว็บขึ้นออนไลน์ (Deploy)",
+    body: [{
+      t: "term",
+      word: "Deploy (ดีพลอย)",
+      def: "การเอาเว็บไซต์ \"ขึ้นอินเทอร์เน็ต\" ให้คนอื่นเปิดดูได้ผ่านลิงก์"
+    }, {
+      t: "term",
+      word: "GitHub Pages",
+      def: "บริการฟรีที่ช่วยเอาเว็บขึ้นออนไลน์ — แค่อัปโหลดไฟล์ก็ได้ลิงก์เว็บทันที"
+    }, {
+      t: "term",
+      word: "Repository (รีโพ)",
+      def: "โฟลเดอร์เก็บไฟล์งานบน GitHub — เหมือน Google Drive แต่เหมาะกับเว็บ"
+    }, {
+      t: "steps",
+      items: ["สมัคร GitHub ที่ github.com (ฟรี)", "กดปุ่ม \"+\" → \"New repository\" → ตั้งชื่อ เช่น econ-101", "กด \"Upload files\" → ลากไฟล์ HTML ไปวาง (ชื่อ index.html)", "กด \"Commit changes\"", "Settings → Pages → Branch: main → Save", "รอ 1-2 นาที → ได้ลิงก์!"]
+    }]
+  }],
+  quiz: [{
+    q: "ถ้าอยากให้ AI สร้างเว็บ ต้องบอกว่าสร้างด้วยอะไร?",
+    opts: ["Python", "HTML", "Excel", "PowerPoint"],
+    ans: 1,
+    explain: "บอก AI ว่า \"สร้างด้วย HTML\" แค่นี้ AI จะใส่ CSS และ JS ให้อัตโนมัติ"
+  }, {
+    q: "GitHub Pages คืออะไร?",
+    opts: ["แอปสร้างเว็บ", "ภาษาโปรแกรม", "บริการฟรีเอาเว็บขึ้นออนไลน์", "เครื่องมือแก้ไขรูป"],
+    ans: 2,
+    explain: "GitHub Pages เป็นบริการฟรี แค่อัปโหลดไฟล์ HTML ก็ได้ลิงก์เว็บทันที"
+  }, {
+    q: "ไฟล์ HTML ที่จะ deploy ต้องตั้งชื่อว่าอะไร?",
+    opts: ["home.html", "main.html", "index.html", "web.html"],
+    ans: 2,
+    explain: "ต้องตั้งชื่อว่า index.html (ตัวเล็กทั้งหมด) GitHub Pages จะหาไฟล์นี้เป็นหน้าแรกอัตโนมัติ"
+  }]
+}, {
+  id: "m3",
+  num: "03",
+  emoji: "📊",
+  title: "วิเคราะห์ข้อมูล",
+  color: "#059669",
+  time: "60 นาที",
+  sections: [{
+    type: "content",
+    title: "สิ่งที่จะได้เรียนในบทนี้",
+    body: [{
+      t: "callout",
+      emoji: "🎯",
+      title: "เป้าหมาย",
+      text: "ใช้ AI วิเคราะห์ข้อมูลเศรษฐกิจจริง สร้างกราฟ รัน Regression"
+    }, {
+      t: "steps",
+      items: ["หาข้อมูล — แหล่งข้อมูลเศรษฐกิจไทย BOT, NSO, World Bank", "สั่ง AI วิเคราะห์ — แนบ CSV/Excel แล้วสั่ง AI", "สร้างกราฟ — Data Storytelling สื่อสารผลวิจัย", "รัน Regression — OLS, Panel Data ผ่าน AI"]
+    }, {
+      t: "callout",
+      emoji: "💡",
+      title: "นำไปใช้จริงกับ",
+      text: "วิเคราะห์ข้อมูล LFS ตลาดแรงงาน • Shift-Share Analysis • Wage Decomposition • สร้าง Regression Table สำหรับ paper"
+    }]
+  }, {
+    type: "content",
+    title: "ข้อมูลเศรษฐกิจไทยอยู่ที่ไหน?",
+    body: [{
+      t: "p",
+      v: "ทุกแหล่งด้านล่างดาวน์โหลดฟรี:"
+    }, {
+      t: "callout",
+      emoji: "🏦",
+      title: "ธนาคารแห่งประเทศไทย (BOT)",
+      text: "bot.or.th → สถิติ → GDP, CPI, ดอกเบี้ย → ดาวน์โหลด Excel"
+    }, {
+      t: "callout",
+      emoji: "📋",
+      title: "สำนักงานสถิติแห่งชาติ (NSO)",
+      text: "nso.go.th → ข้อมูลแรงงาน ค่าจ้าง ครัวเรือน"
+    }, {
+      t: "callout",
+      emoji: "🌍",
+      title: "World Bank",
+      text: "data.worldbank.org → เปรียบเทียบข้ามประเทศ"
+    }, {
+      t: "term",
+      word: "CSV",
+      def: "ไฟล์ข้อมูลที่โปรแกรมอ่านง่าย — เหมือน Excel แต่เรียบง่ายกว่า เปิดด้วย Excel ได้"
+    }]
+  }, {
+    type: "try",
+    title: "🧪 จัดการข้อมูลด้วย AI",
+    prompt: "สร้างข้อมูลจำลอง GDP รายไตรมาสของไทย ปี 2019-2024 แล้ว:\n1) แสดง 5 แถวแรก\n2) คำนวณ GDP growth rate\n3) หาไตรมาสที่ GDP ตกต่ำสุด\n4) สร้างกราฟเส้น ไฮไลต์จุดต่ำสุดสีแดง\nอธิบายผลเป็นภาษาไทย",
+    hint: "ถ้ามีไฟล์จริง ให้กด 📎 แนบไฟล์บน Claude.ai แล้วบอก \"วิเคราะห์ข้อมูลนี้ให้หน่อย\""
+  }, {
+    type: "content",
+    title: "สร้างกราฟที่ \"เล่าเรื่อง\" ได้",
+    body: [{
+      t: "term",
+      word: "Data Storytelling",
+      def: "การใช้กราฟเพื่อ \"เล่าเรื่อง\" ให้คนดูเข้าใจ message สำคัญทันที"
+    }, {
+      t: "steps",
+      items: ["มี Message ชัด — ตอบ \"แล้วไง?\"", "ไฮไลต์จุดสำคัญ — ใช้สี ลูกศร คำอธิบาย", "เลือกกราฟเหมาะ — แนวโน้ม→เส้น เปรียบเทียบ→แท่ง สัดส่วน→วงกลม", "ลดความรก — สีไม่เกิน 3-4 สี"]
+    }]
+  }, {
+    type: "try",
+    title: "🧪 รัน Regression ด้วย AI",
+    prompt: "สร้างข้อมูลจำลอง 500 คน มี: ค่าจ้าง, การศึกษา, อายุ, เพศ, ภูมิภาค\nรัน OLS regression: ค่าจ้าง = f(การศึกษา, อายุ, อายุ², เพศ, ภูมิภาค)\nแสดงตาราง regression สวย ๆ\nอธิบายผลเป็นภาษาไทยแบบเข้าใจง่าย",
+    hint: "ลองต่อ: \"ทดสอบ heteroscedasticity\" หรือ \"สร้างตารางแบบใส่ใน paper ได้\""
+  }],
+  quiz: [{
+    q: "ถ้ามีไฟล์ CSV อยากให้ AI วิเคราะห์ ทำยังไง?",
+    opts: ["ส่ง email ให้ AI", "กด 📎 แนบไฟล์ใน Claude.ai แล้วพิมพ์บอก", "พิมพ์ข้อมูลเอง", "ทำไม่ได้ ต้องเขียนโค้ดเอง"],
+    ans: 1,
+    explain: "กดปุ่ม 📎 แนบไฟล์ได้เลย แล้วพิมพ์บอกว่าอยากวิเคราะห์อะไร"
+  }, {
+    q: "Data Storytelling คืออะไร?",
+    opts: ["การเขียนโค้ดแสดงข้อมูล", "การใช้กราฟเล่าเรื่องให้เข้าใจ message ทันที", "การสร้างกราฟจำนวนมาก", "การตกแต่งกราฟให้สวย"],
+    ans: 1,
+    explain: "Data Storytelling คือทำให้กราฟ \"ตอบคำถาม\" ไม่ใช่แค่โชว์ตัวเลข"
+  }, {
+    q: "กราฟแบบไหนเหมาะกับการแสดงแนวโน้มตามเวลา?",
+    opts: ["กราฟวงกลม (Pie)", "กราฟแท่ง (Bar)", "กราฟเส้น (Line)", "กราฟกระจาย (Scatter)"],
+    ans: 2,
+    explain: "กราฟเส้น (Line chart) เหมาะที่สุดสำหรับดูแนวโน้มที่เปลี่ยนไปตามเวลา"
+  }]
+}, {
+  id: "m4",
+  num: "04",
+  emoji: "📈",
+  title: "สร้าง Dashboard",
+  color: "#d97706",
+  time: "60 นาที",
+  sections: [{
+    type: "content",
+    title: "สิ่งที่จะได้เรียนในบทนี้",
+    body: [{
+      t: "callout",
+      emoji: "🎯",
+      title: "เป้าหมาย",
+      text: "สร้าง Economic Dashboard แสดงข้อมูลเศรษฐกิจแบบ interactive แล้ว deploy"
+    }, {
+      t: "steps",
+      items: ["รู้จัก Dashboard — หน้าสรุปข้อมูลเศรษฐกิจ", "สร้างด้วย Prompt — GDP, CPI, อัตราว่างงาน", "ปรับแต่ง — เพิ่มกราฟ filter ช่วงเวลา", "Deploy ขึ้นเว็บ — ใช้วิธีเดิมจากบทที่ 2"]
+    }, {
+      t: "callout",
+      emoji: "💡",
+      title: "นำไปใช้จริงกับ",
+      text: "Thailand Economic Monitor • Dashboard ตลาดแรงงาน • Dashboard งานวิจัย • สื่อประกอบการสอน"
+    }]
+  }, {
+    type: "content",
+    title: "Dashboard คืออะไร?",
+    body: [{
+      t: "term",
+      word: "Dashboard (แดชบอร์ด)",
+      def: "หน้าจอรวมข้อมูลสำคัญไว้ที่เดียว มีกราฟ ตัวเลข ปุ่มเลือก — เหมือนหน้าปัดรถยนต์แต่สำหรับข้อมูล"
+    }, {
+      t: "term",
+      word: "Responsive (เรสพอนซีฟ)",
+      def: "เว็บที่ปรับหน้าจอได้ทุกขนาด — ดูดีทั้งบนคอมและมือถือ"
+    }]
+  }, {
+    type: "try",
+    title: "🧪 สร้าง Dashboard เศรษฐกิจ",
+    prompt: "สร้าง Economic Dashboard ไทย ด้วย HTML ไฟล์เดียว:\n1) การ์ดตัวเลข 3 ใบ: GDP Growth, CPI, อัตราว่างงาน\n2) กราฟเส้น GDP growth 5 ปี\n3) กราฟแท่ง CPI รายเดือน\n4) Dropdown เลือกช่วงเวลา\n5) Dark theme สวย responsive\nใช้ข้อมูลจำลอง",
+    hint: "ต่อยอด: \"เพิ่ม tab ดูข้อมูลตลาดแรงงาน\" หรือ \"เพิ่มตารางด้านล่าง\""
+  }, {
+    type: "content",
+    title: "เอา Dashboard ขึ้นออนไลน์",
+    body: [{
+      t: "steps",
+      items: ["คัดลอกโค้ด → บันทึกเป็น index.html", "สร้าง repository ใหม่บน GitHub", "อัปโหลด index.html → Commit", "Settings → Pages → Branch: main → Save", "รอ 1-2 นาที → ได้ลิงก์ Dashboard!"]
+    }, {
+      t: "callout",
+      emoji: "📱",
+      title: "ทดสอบมือถือ",
+      text: "เปิดลิงก์บนมือถือดู ถ้าเพี้ยนบอก AI: \"ทำให้ responsive\""
+    }]
+  }],
+  quiz: [{
+    q: "Dashboard คืออะไร?",
+    opts: ["แอปมือถือ", "หน้าจอรวมข้อมูลสำคัญ มีกราฟ ตัวเลข ปุ่มเลือก", "ตาราง Excel ใหญ่", "โปรแกรมสถิติ"],
+    ans: 1,
+    explain: "Dashboard เหมือนหน้าปัดรถยนต์แต่สำหรับข้อมูล รวมกราฟ ตัวเลข filter ไว้ในหน้าเดียว"
+  }, {
+    q: "ถ้า Dashboard บนมือถือหน้าจอเพี้ยน ทำไง?",
+    opts: ["ดูบนคอมอย่างเดียว", "บอก AI ว่า \"ทำให้ responsive\"", "สร้างใหม่ตั้งแต่ต้น", "ใช้ไม่ได้บนมือถือ"],
+    ans: 1,
+    explain: "แค่บอก AI ว่า \"ทำให้ responsive\" AI จะปรับโค้ดให้รองรับทุกหน้าจอ"
+  }, {
+    q: "ถ้าอยากเพิ่มกราฟใน Dashboard ต้องทำยังไง?",
+    opts: ["เรียนเขียนโค้ด JavaScript ก่อน", "พิมพ์บอก AI ว่า \"เพิ่มกราฟ [อะไร] เข้าไปด้วย\"", "สร้าง Dashboard ใหม่ทั้งหมด", "ทำไม่ได้หลังจาก deploy แล้ว"],
+    ans: 1,
+    explain: "ใช้ Iterative Prompting — แค่บอก AI ว่าอยากเพิ่มอะไร AI จะแก้โค้ดให้"
+  }]
+}, {
+  id: "m5",
+  num: "05",
+  emoji: "🚀",
+  title: "ต่อยอด: สอน & วิจัย",
+  color: "#e11d48",
+  time: "45 นาที",
+  sections: [{
+    type: "content",
+    title: "สิ่งที่จะได้เรียนในบทนี้",
+    body: [{
+      t: "callout",
+      emoji: "🎯",
+      title: "เป้าหมาย",
+      text: "สร้างสื่อการสอนเศรษฐศาสตร์แบบ interactive และเครื่องมือวิจัย"
+    }, {
+      t: "steps",
+      items: ["Quiz Interactive — สร้าง quiz เศรษฐศาสตร์เฉลยทันที", "Simulation — สร้าง S-D simulator, Market Equilibrium game", "Research Tools — สร้าง pipeline วิจัยอัตโนมัติ", "ก้าวต่อไป — โปรเจกต์ที่ทำต่อได้"]
+    }, {
+      t: "callout",
+      emoji: "💡",
+      title: "นำไปใช้จริงกับ",
+      text: "Quiz ท้ายบทเรียน • S-D Simulator ให้นักศึกษาลองเล่น • Flashcard ศัพท์ Econ • Research Report อัตโนมัติ"
+    }]
+  }, {
+    type: "content",
+    title: "สร้างสื่อการสอน",
+    body: [{
+      t: "term",
+      word: "Interactive (อินเทอร์แอคทีฟ)",
+      def: "สื่อที่ \"โต้ตอบได้\" — กดปุ่ม ลากเลื่อน เลือกตัวเลือก ไม่ใช่แค่อ่าน"
+    }, {
+      t: "callout",
+      emoji: "🎮",
+      title: "Simulation",
+      text: "สร้าง Supply-Demand simulator ลากเส้นได้ แสดงราคาดุลยภาพเปลี่ยนตาม"
+    }, {
+      t: "callout",
+      emoji: "📝",
+      title: "Quiz Interactive",
+      text: "quiz เฉลยทันที พร้อมอธิบายว่าทำไมถูก/ผิด"
+    }, {
+      t: "callout",
+      emoji: "🃏",
+      title: "Flashcard",
+      text: "flashcard ทบทวนศัพท์ ปัดซ้ายขวาได้"
+    }]
+  }, {
+    type: "try",
+    title: "🧪 สร้าง Quiz ให้นักศึกษา",
+    prompt: "สร้าง Quiz เรื่อง Demand-Supply ด้วย HTML มี 5 ข้อ ตัวเลือก 4 ข้อ เฉลยทันทีพร้อมอธิบาย progress bar คะแนนรวม ออกแบบสวย",
+    hint: "เปลี่ยนหัวข้อเป็นวิชาที่สอน หรือเพิ่ม \"ใส่กราฟประกอบในข้อ 3\""
+  }, {
+    type: "content",
+    title: "ก้าวต่อไป",
+    body: [{
+      t: "p",
+      v: "เรียนจบพื้นฐานแล้ว 🎉 หลักสำคัญ: ยิ่งฝึก prompt มาก ยิ่งเก่ง"
+    }, {
+      t: "callout",
+      emoji: "📚",
+      title: "เรียนเพิ่ม (ฟรี)",
+      text: "Codecademy: Intro to Vibe Coding • YouTube: \"vibe coding tutorial\""
+    }, {
+      t: "callout",
+      emoji: "🛠",
+      title: "โปรเจกต์ลองทำ",
+      text: "AI Tutor ตอบคำถามความรู้ • แพลตฟอร์มเรียนรู้ • Dashboard งานวิจัย"
+    }]
+  }],
+  quiz: [{
+    q: "Vibe Coding ช่วยสร้างสื่อการสอนแบบไหนได้?",
+    opts: ["แค่ PDF", "Simulation, Quiz, Flashcard แบบ interactive", "แค่ PowerPoint", "แค่กราฟอย่างเดียว"],
+    ans: 1,
+    explain: "สร้างสื่อ interactive ได้หลายแบบ เช่น simulation quiz flashcard"
+  }, {
+    q: "หลังจบคอร์ส สิ่งสำคัญที่สุดคืออะไร?",
+    opts: ["ท่องจำ prompt ทั้งหมด", "ฝึกเขียน prompt บ่อย ๆ กับงานจริง", "ซื้อเครื่องมือราคาแพง", "เรียนเขียนโค้ดให้เก่งก่อน"],
+    ans: 1,
+    explain: "ยิ่งฝึก prompt บ่อย ยิ่งเก่ง — ลองสร้างอะไรใหม่ทุกวัน"
+  }, {
+    q: "ถ้าอยากสร้าง S-D Simulator ต้องทำยังไง?",
+    opts: ["เรียน JavaScript 3 เดือน", "บอก AI ว่า \"สร้าง Supply-Demand simulator ด้วย HTML ที่ลากเส้นได้\"", "ดาวน์โหลดโปรแกรมเฉพาะ", "ทำไม่ได้ด้วย Vibe Coding"],
+    ans: 1,
+    explain: "แค่อธิบายให้ AI ฟังว่าอยากได้ simulator แบบไหน AI จะสร้างให้!"
+  }]
+}];
+const CHEATSHEET = [{
+  cat: "📊 สร้างกราฟ",
+  prompts: [{
+    label: "กราฟ GDP Growth",
+    text: "สร้างกราฟเส้นแสดง GDP growth ของไทย ปี 2015-2024 ด้วย HTML และ Chart.js ใช้ข้อมูลจำลอง สีน้ำเงิน มี tooltip ปีที่ติดลบจุดสีแดง"
+  }, {
+    label: "เปรียบเทียบค่าจ้าง",
+    text: "สร้าง bar chart เปรียบเทียบค่าจ้างเฉลี่ยชายและหญิง แยกตาม 10 อุตสาหกรรม ด้วย HTML Chart.js ข้อมูลจำลอง"
+  }, {
+    label: "Shift-Share Analysis",
+    text: "สร้างกราฟ Shift-Share Analysis แยก National Growth, Industry Mix, Regional Shift ด้วย stacked bar chart HTML Chart.js"
+  }]
+}, {
+  cat: "🌐 สร้างเว็บ",
+  prompts: [{
+    label: "เว็บสอนความรู้",
+    text: "สร้างเว็บเพจอธิบายเรื่อง [ใส่หัวข้อ] ด้วย HTML ภาษาไทย มีคำอธิบายง่าย ตัวอย่างจริง กราฟ interactive"
+  }, {
+    label: "Landing Page วิชา",
+    text: "สร้าง Landing Page แนะนำวิชา [ชื่อวิชา] ด้วย HTML มีคำอธิบาย หัวข้อ 10 สัปดาห์ ปุ่มลงทะเบียน"
+  }]
+}, {
+  cat: "📈 Dashboard",
+  prompts: [{
+    label: "Economic Dashboard",
+    text: "สร้าง Economic Dashboard ไทย HTML ไฟล์เดียว KPI cards 3 ใบ กราฟ GDP 5 ปี กราฟ CPI รายเดือน dropdown dark theme responsive"
+  }, {
+    label: "Labour Dashboard",
+    text: "สร้าง Dashboard ตลาดแรงงานไทย HTML: อัตราการมีส่วนร่วม ว่างงานแยกเพศ ค่าจ้างตามภาค"
+  }]
+}, {
+  cat: "🔬 วิเคราะห์",
+  prompts: [{
+    label: "OLS Regression",
+    text: "สร้างข้อมูลจำลอง 500 คน: ค่าจ้าง การศึกษา อายุ เพศ ภาค\nรัน OLS regression ด้วย statsmodels\nตาราง regression สวย อธิบายไทย"
+  }, {
+    label: "วิเคราะห์ CSV",
+    text: "อ่านไฟล์ที่แนบ: 1) สรุปตัวแปร 2) สถิติเบื้องต้น 3) กราฟเหมาะสม 4) วิเคราะห์แนวโน้ม ภาษาไทย"
+  }]
+}, {
+  cat: "📝 สื่อการสอน",
+  prompts: [{
+    label: "Quiz Interactive",
+    text: "สร้าง Quiz เรื่อง [หัวข้อ] HTML 10 ข้อ 4 ตัวเลือก เฉลยทันที progress bar คะแนนรวม สวย"
+  }, {
+    label: "S-D Simulator",
+    text: "สร้าง Supply-Demand simulator HTML ลาก Demand/Supply shift ได้ แสดงดุลยภาพ real-time คำอธิบายไทย"
+  }]
+}, {
+  cat: "🛠 แก้ปัญหา",
+  prompts: [{
+    label: "Debug โค้ด",
+    text: "โค้ดนี้มีปัญหา [อธิบาย] ช่วยหาสาเหตุและแก้ไข พร้อมอธิบายว่าทำไมเกิดปัญหา"
+  }, {
+    label: "ทำให้ Responsive",
+    text: "โค้ดเว็บนี้ [วาง code] ช่วยทำให้ responsive รองรับมือถือ"
+  }]
+}];
+const FAQS = [{
+  q: "AI ตอบไม่ตรง ทำยังไง?",
+  a: "(1) เพิ่มรายละเอียดใน prompt (2) บอก AI ว่าตรงไหนไม่ถูก เช่น \"สีไม่ถูก เปลี่ยนเป็นน้ำเงิน\" (3) ถ้ายังไม่ตรง เริ่มสนทนาใหม่ เขียน prompt ละเอียดกว่าเดิม"
+}, {
+  q: "AI สร้างโค้ดมา เอาไปใช้ยังไง?",
+  a: "คัดลอกโค้ด → เปิด Notepad/TextEdit → วาง → บันทึกเป็น index.html → ดับเบิลคลิกเปิดด้วย Browser หรือบน Claude.ai ถ้า AI สร้างเป็น Artifact จะเห็นผลทันที"
+}, {
+  q: "ต้องเสียเงินไหม?",
+  a: "ทุกอย่างฟรี: Claude.ai (มีโควต้าฟรีต่อวัน), GitHub Pages (ฟรีไม่จำกัด), Chart.js (ฟรี)"
+}, {
+  q: "ไม่เคยเขียนโค้ดเลย เรียนได้จริงเหรอ?",
+  a: "ได้จริง! ไม่ต้องเขียนโค้ดเอง แค่พิมพ์บอก AI ว่าอยากได้อะไร"
+}, {
+  q: "AI ใช้ข้อมูลจำลอง อยากได้ข้อมูลจริงทำไง?",
+  a: "ดาวน์โหลดจาก BOT/NSO เป็น CSV → แนบไฟล์บน Claude.ai ด้วย 📎 → บอก AI \"ใช้ข้อมูลจากไฟล์\""
+}, {
+  q: "Prompt ภาษาไทยหรืออังกฤษดี?",
+  a: "ภาษาไทยได้เลย! แทรกศัพท์อังกฤษเมื่อจำเป็น เช่น bar chart, HTML, responsive"
+}, {
+  q: "Deploy ไม่ได้ เว็บไม่ขึ้น?",
+  a: "เช็ค: (1) ชื่อไฟล์เป็น index.html? (2) Settings → Pages เปิดแล้ว? (3) รอ 2-3 นาที ถ้ายังไม่ได้ถาม AI"
+}];
+
+/* ═══════════════════════════════════════════════
+   COMPONENTS
+   ═══════════════════════════════════════════════ */
+function TermBox({
+  word,
+  def
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fffbeb",
+      border: "1px solid #fde68a",
+      borderRadius: 10,
+      padding: "10px 14px",
+      margin: "10px 0",
+      display: "flex",
+      gap: 10
     }
-  } catch(e) { console.warn('member pill init failed:', e); }
-})();
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      flexShrink: 0
+    }
+  }, "\uD83D\uDCCC"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", {
+    style: {
+      color: "#92400e",
+      fontSize: 16
+    }
+  }, word), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#78716c",
+      fontSize: 16
+    }
+  }, " \u2014 ", def)));
+}
+function Callout({
+  emoji,
+  title,
+  text
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#f8fafc",
+      border: "1px solid #e2e8f0",
+      borderRadius: 10,
+      padding: "12px 14px",
+      margin: "10px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 600,
+      fontSize: 16,
+      marginBottom: 4
+    }
+  }, emoji, " ", title), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 16,
+      color: "#475569",
+      lineHeight: 1.7
+    }
+  }, text));
+}
+function Steps({
+  items
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      margin: "10px 0"
+    }
+  }, items.map((it, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      display: "flex",
+      gap: 10,
+      alignItems: "flex-start",
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      background: "#e0e7ff",
+      color: "#4338ca",
+      width: 24,
+      height: 24,
+      borderRadius: 99,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: 16,
+      fontWeight: 700,
+      flexShrink: 0
+    }
+  }, i + 1), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      color: "#334155",
+      lineHeight: 1.65,
+      paddingTop: 2
+    }
+  }, it))));
+}
+function CompareBox({
+  left,
+  right
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: 8,
+      margin: "10px 0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fef2f2",
+      borderRadius: 10,
+      padding: 12,
+      border: "1px solid #fecaca"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 600,
+      fontSize: 16,
+      marginBottom: 6,
+      color: "#991b1b"
+    }
+  }, left.label), left.items.map((it, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      fontSize: 16,
+      color: "#7f1d1d",
+      lineHeight: 1.6
+    }
+  }, it))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#f0fdf4",
+      borderRadius: 10,
+      padding: 12,
+      border: "1px solid #bbf7d0"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 600,
+      fontSize: 16,
+      marginBottom: 6,
+      color: "#166534"
+    }
+  }, right.label), right.items.map((it, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      fontSize: 16,
+      color: "#14532d",
+      lineHeight: 1.6
+    }
+  }, it))));
+}
+function ContentRenderer({
+  body
+}) {
+  return /*#__PURE__*/React.createElement("div", null, body.map((b, i) => {
+    if (b.t === "p") return /*#__PURE__*/React.createElement("p", {
+      key: i,
+      style: {
+        fontSize: 16,
+        color: "#334155",
+        lineHeight: 1.85,
+        marginBottom: 8
+      }
+    }, b.v);
+    if (b.t === "term") return /*#__PURE__*/React.createElement(TermBox, {
+      key: i,
+      word: b.word,
+      def: b.def
+    });
+    if (b.t === "callout") return /*#__PURE__*/React.createElement(Callout, {
+      key: i,
+      emoji: b.emoji,
+      title: b.title,
+      text: b.text
+    });
+    if (b.t === "steps") return /*#__PURE__*/React.createElement(Steps, {
+      key: i,
+      items: b.items
+    });
+    if (b.t === "compare") return /*#__PURE__*/React.createElement(CompareBox, {
+      key: i,
+      left: b.left,
+      right: b.right
+    });
+    return null;
+  }));
+}
+function AISandbox({
+  defaultPrompt,
+  hint,
+  color
+}) {
+  const [prompt, setPrompt] = useState(defaultPrompt);
+  const [copied, setCopied] = useState(false);
+  const send = () => {
+    if (!prompt.trim()) return;
+    navigator.clipboard.writeText(prompt).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      window.open("https://claude.ai", "_blank");
+    });
+  };
+  const copy = t => {
+    navigator.clipboard.writeText(t);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fff",
+      border: "1px solid #e2e8f0",
+      borderRadius: 12,
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: 14
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600,
+      color
+    }
+  }, "\u270F\uFE0F \u0E41\u0E01\u0E49\u0E44\u0E02 Prompt \u0E41\u0E25\u0E49\u0E27\u0E01\u0E14\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01\u0E44\u0E1B\u0E43\u0E0A\u0E49\u0E43\u0E19 Claude.ai"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => copy(prompt),
+    style: {
+      fontSize: 16,
+      color: "#64748b",
+      background: "#f1f5f9",
+      border: "none",
+      padding: "3px 10px",
+      borderRadius: 4,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, copied ? "✓ แล้ว" : "📋 คัดลอก")), /*#__PURE__*/React.createElement("textarea", {
+    value: prompt,
+    onChange: e => setPrompt(e.target.value),
+    style: {
+      width: "100%",
+      minHeight: 100,
+      border: "1px solid #e2e8f0",
+      borderRadius: 10,
+      padding: 12,
+      fontSize: 16,
+      fontFamily: "inherit",
+      lineHeight: 1.7,
+      resize: "vertical",
+      color: "#1e293b",
+      background: "#f8fafc"
+    }
+  }), hint && /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#64748b",
+      marginTop: 6,
+      lineHeight: 1.6
+    }
+  }, "\uD83D\uDCA1 ", hint), /*#__PURE__*/React.createElement("button", {
+    onClick: send,
+    style: {
+      marginTop: 10,
+      width: "100%",
+      padding: "13px 0",
+      borderRadius: 10,
+      border: "none",
+      background: color,
+      color: "white",
+      fontSize: 16,
+      fontWeight: 600,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, "\"\uD83D\uDCCB \u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01 Prompt \u0E41\u0E25\u0E49\u0E27\u0E40\u0E1B\u0E34\u0E14 Claude.ai\"")));
+}
+
+/* ═══ QUIZ — ต้องถูกทุกข้อถึงผ่าน ═══ */
+function MiniQuiz({
+  quiz,
+  color,
+  passed,
+  onPass
+}) {
+  const [cur, setCur] = useState(0);
+  const [sel, setSel] = useState(null);
+  const [wrongs, setWrongs] = useState(0);
+  const [done, setDone] = useState(false);
+  const [answers, setAnswers] = useState([]);
+  const reset = () => {
+    setCur(0);
+    setSel(null);
+    setWrongs(0);
+    setDone(false);
+    setAnswers([]);
+  };
+  const pick = i => {
+    if (sel !== null) return;
+    setSel(i);
+    const correct = i === quiz[cur].ans;
+    setAnswers(a => [...a, correct]);
+    if (!correct) setWrongs(w => w + 1);
+  };
+  const next = () => {
+    if (cur < quiz.length - 1) {
+      setCur(c => c + 1);
+      setSel(null);
+    } else {
+      setDone(true);
+      if (wrongs === 0) onPass?.();
+    }
+  };
+  if (passed && !done) return /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: "center",
+      padding: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 36
+    }
+  }, "\u2705"), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 16,
+      fontWeight: 700,
+      color: "#059669",
+      marginTop: 6
+    }
+  }, "\u0E17\u0E33 Quiz \u0E1C\u0E48\u0E32\u0E19\u0E41\u0E25\u0E49\u0E27 \u2014 \u0E16\u0E39\u0E01\u0E17\u0E38\u0E01\u0E02\u0E49\u0E2D!"), /*#__PURE__*/React.createElement("button", {
+    onClick: reset,
+    style: {
+      marginTop: 10,
+      fontSize: 16,
+      color: "#64748b",
+      background: "none",
+      border: "1px solid #e2e8f0",
+      padding: "6px 16px",
+      borderRadius: 8,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, "\u0E17\u0E33\u0E43\u0E2B\u0E21\u0E48\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07"));
+  if (done) {
+    const perfect = wrongs === 0;
+    return /*#__PURE__*/React.createElement("div", {
+      style: {
+        textAlign: "center",
+        padding: 20
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 40
+      }
+    }, perfect ? "🎉" : "😅"), /*#__PURE__*/React.createElement("h3", {
+      style: {
+        fontSize: 18,
+        fontWeight: 700,
+        color: perfect ? "#059669" : "#dc2626",
+        marginTop: 8
+      }
+    }, perfect ? "ผ่านแล้ว! ถูกทุกข้อ 🏆" : "ยังไม่ผ่าน — ต้องถูกทุกข้อ"), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 16,
+        color: "#64748b",
+        marginTop: 4
+      }
+    }, "\u0E16\u0E39\u0E01 ", quiz.length - wrongs, "/", quiz.length, " \u0E02\u0E49\u0E2D", !perfect ? ` (ผิด ${wrongs} ข้อ)` : ""), !perfect && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: 12
+      }
+    }, /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 16,
+        color: "#94a3b8",
+        marginBottom: 8
+      }
+    }, "\u0E25\u0E2D\u0E07\u0E17\u0E1A\u0E17\u0E27\u0E19\u0E40\u0E19\u0E37\u0E49\u0E2D\u0E2B\u0E32\u0E41\u0E25\u0E49\u0E27\u0E17\u0E33\u0E43\u0E2B\u0E21\u0E48\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22\u0E04\u0E48\u0E30"), /*#__PURE__*/React.createElement("button", {
+      onClick: reset,
+      style: {
+        padding: "10px 24px",
+        borderRadius: 8,
+        border: "none",
+        background: color,
+        color: "white",
+        fontSize: 16,
+        fontWeight: 600,
+        cursor: "pointer",
+        fontFamily: "inherit"
+      }
+    }, "\uD83D\uDD04 \u0E17\u0E33\u0E43\u0E2B\u0E21\u0E48")));
+  }
+  const q = quiz[cur];
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600,
+      color
+    }
+  }, "\u0E02\u0E49\u0E2D ", cur + 1, "/", quiz.length), /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 4,
+      flex: 1,
+      marginLeft: 12,
+      background: "#e2e8f0",
+      borderRadius: 99,
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "100%",
+      width: `${cur / quiz.length * 100}%`,
+      background: color,
+      borderRadius: 99,
+      transition: "width 0.3s"
+    }
+  }))), /*#__PURE__*/React.createElement("h4", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600,
+      marginBottom: 12,
+      lineHeight: 1.5
+    }
+  }, q.q), q.opts.map((o, i) => {
+    const isAns = i === q.ans;
+    const isSel = i === sel;
+    const show = sel !== null;
+    let bg = "white",
+      border = "#e2e8f0",
+      fc = "#334155";
+    if (show && isAns) {
+      bg = "#f0fdf4";
+      border = "#22c55e";
+      fc = "#166534";
+    } else if (show && isSel && !isAns) {
+      bg = "#fef2f2";
+      border = "#ef4444";
+      fc = "#991b1b";
+    }
+    return /*#__PURE__*/React.createElement("button", {
+      key: i,
+      onClick: () => pick(i),
+      style: {
+        display: "block",
+        width: "100%",
+        textAlign: "left",
+        padding: "12px 14px",
+        marginBottom: 8,
+        borderRadius: 10,
+        border: `1.5px solid ${border}`,
+        background: bg,
+        color: fc,
+        fontSize: 16,
+        cursor: show ? "default" : "pointer",
+        fontFamily: "inherit",
+        fontWeight: isSel ? 600 : 400,
+        lineHeight: 1.5
+      }
+    }, show && isAns ? "✅ " : show && isSel ? "❌ " : "", o);
+  }), sel !== null && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#f0f9ff",
+      border: "1px solid #bae6fd",
+      borderRadius: 10,
+      padding: "10px 14px",
+      marginBottom: 12
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#0c4a6e",
+      lineHeight: 1.6
+    }
+  }, "\uD83D\uDCA1 ", q.explain)), sel !== null && /*#__PURE__*/React.createElement("button", {
+    onClick: next,
+    style: {
+      width: "100%",
+      padding: "12px 0",
+      borderRadius: 10,
+      border: "none",
+      background: color,
+      color: "white",
+      fontSize: 16,
+      fontWeight: 600,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, cur < quiz.length - 1 ? "ข้อถัดไป →" : "ดูผลลัพธ์"));
+}
+
+/* ═══ CERTIFICATE — PDF via print ═══ */
+function CertificatePage({
+  allPassed
+}) {
+  const [name, setName] = useState("");
+  const canvasRef = useRef(null);
+  const [generated, setGenerated] = useState(false);
+  const generate = () => {
+    if (!name.trim()) return;
+    const c = canvasRef.current;
+    const ctx = c.getContext("2d");
+    const W = 1200,
+      H = 850;
+    c.width = W;
+    c.height = H;
+    const cx = W / 2;
+    const NV = "#3b0764",
+      GD = "#d97706",
+      WH = "#ffffff",
+      GR = "#e0e0e0";
+
+    // === Yellow outer border ===
+    ctx.fillStyle = GD;
+    ctx.fillRect(0, 0, W, H);
+    // === White inner ===
+    ctx.fillStyle = WH;
+    ctx.fillRect(36, 36, W - 72, H - 72);
+
+    // === Navy triangle top-right ===
+    ctx.fillStyle = NV;
+    ctx.beginPath();
+    ctx.moveTo(W - 36, 36);
+    ctx.lineTo(W - 36, 260);
+    ctx.lineTo(W - 260, 36);
+    ctx.closePath();
+    ctx.fill();
+    // === Navy triangle bottom-left ===
+    ctx.beginPath();
+    ctx.moveTo(36, H - 36);
+    ctx.lineTo(36, H - 240);
+    ctx.lineTo(260, H - 36);
+    ctx.closePath();
+    ctx.fill();
+
+    // === Dot grid top-left ===
+    ctx.fillStyle = GD;
+    for (let r = 0; r < 5; r++) for (let cl = 0; cl < 5; cl++) {
+      ctx.beginPath();
+      ctx.arc(72 + cl * 14, 72 + r * 14, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // === Half circle left edge ===
+    ctx.fillStyle = GD;
+    ctx.globalAlpha = 0.45;
+    ctx.beginPath();
+    ctx.arc(36, 210, 65, Math.PI * 1.5, Math.PI * 0.5);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // === Half circle right edge ===
+    ctx.fillStyle = GD;
+    ctx.globalAlpha = 0.35;
+    ctx.beginPath();
+    ctx.arc(W - 36, H - 280, 75, Math.PI * 0.5, Math.PI * 1.5);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // === Circle outline bottom-right ===
+    ctx.strokeStyle = GD;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(W - 180, H - 130, 40, 0, Math.PI * 2);
+    ctx.stroke();
+    // Small filled circle
+    ctx.fillStyle = NV;
+    ctx.beginPath();
+    ctx.arc(W - 260, H - 90, 7, 0, Math.PI * 2);
+    ctx.fill();
+    // Gold ring bottom-left area
+    ctx.strokeStyle = GD;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(180, H - 100, 12, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // === Diagonal capsules ===
+    ctx.save();
+    ctx.translate(W - 140, H - 200);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = NV;
+    ctx.beginPath();
+    ctx.roundRect(-6, -22, 12, 44, 6);
+    ctx.fill();
+    ctx.restore();
+    ctx.save();
+    ctx.translate(W - 175, H - 170);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = NV;
+    ctx.beginPath();
+    ctx.roundRect(-4, -14, 8, 28, 4);
+    ctx.fill();
+    ctx.restore();
+    // Top-left area capsule
+    ctx.save();
+    ctx.translate(145, H - 95);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = NV;
+    ctx.beginPath();
+    ctx.roundRect(-5, -16, 10, 32, 5);
+    ctx.fill();
+    ctx.restore();
+
+    // === Watermark text ===
+    ctx.save();
+    ctx.globalAlpha = 0.035;
+    ctx.fillStyle = NV;
+    ctx.font = "bold 90px sans-serif";
+    ctx.textAlign = "left";
+    for (let i = 0; i < 5; i++) {
+      ctx.fillText("CERTIFICATE", 55, 170 + i * 90);
+    }
+    ctx.restore();
+
+    // === Yellow bar + CERTIFICATE title ===
+    ctx.fillStyle = GD;
+    ctx.fillRect(cx - 280, 100, 560, 70);
+    ctx.fillStyle = NV;
+    ctx.font = "bold 54px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("CERTIFICATE", cx, 152);
+
+    // === Wavy icon right side ===
+    ctx.strokeStyle = NV;
+    ctx.lineWidth = 2.5;
+    const wy = 310;
+    ctx.beginPath();
+    for (let x = 0; x < 35; x++) ctx.lineTo(W - 130 + x, wy + Math.sin(x * 0.5) * 7);
+    ctx.stroke();
+    ctx.beginPath();
+    for (let x = 0; x < 35; x++) ctx.lineTo(W - 130 + x, wy + 18 + Math.sin(x * 0.5) * 7);
+    ctx.stroke();
+
+    // === PROUDLY PRESENTED TO ===
+    ctx.fillStyle = GD;
+    ctx.font = "600 12px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("M O S T   P R O U D L Y   A W A R D E D   T O", cx, 220);
+
+    // === Thin line ===
+    ctx.strokeStyle = GR;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx - 220, 235);
+    ctx.lineTo(cx + 220, 235);
+    ctx.stroke();
+
+    // === NAME ===
+    ctx.fillStyle = NV;
+    ctx.font = "bold 60px sans-serif";
+    ctx.fillText(name, cx, 310);
+
+    // === Gold underline ===
+    ctx.fillStyle = GD;
+    ctx.fillRect(cx - 220, 325, 440, 4);
+
+    // === Course info — PROMINENT ===
+    ctx.fillStyle = NV;
+    ctx.font = "bold 28px sans-serif";
+    ctx.fillText("\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e2b\u0e25\u0e31\u0e01\u0e2a\u0e39\u0e15\u0e23 Vibe Coding \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e19\u0e31\u0e01\u0e40\u0e28\u0e23\u0e29\u0e10\u0e28\u0e32\u0e2a\u0e15\u0e23\u0e4c", cx, 375);
+    ctx.fillStyle = "#666";
+    ctx.font = "16px sans-serif";
+    ctx.fillText("\u0e1c\u0e48\u0e32\u0e19\u0e01\u0e32\u0e23\u0e17\u0e14\u0e2a\u0e2d\u0e1a\u0e04\u0e23\u0e1a\u0e17\u0e38\u0e01\u0e1a\u0e17 \u0e16\u0e39\u0e01\u0e17\u0e38\u0e01\u0e02\u0e49\u0e2d", cx, 405);
+
+    // === Skill pills — bigger, bolder ===
+    ctx.font = "bold 13px sans-serif";
+    const skills = ["Prompt Engineering", "Web Dev", "Data Analysis", "Dashboard", "EdTech"];
+    const pws = skills.map(s => ctx.measureText(s).width + 30);
+    const gap = 10;
+    const totalPW = pws.reduce((a, b) => a + b, 0) + (skills.length - 1) * gap;
+    let px = cx - totalPW / 2;
+    skills.forEach((s, i) => {
+      const pw = pws[i];
+      ctx.fillStyle = i % 2 === 0 ? NV : GD;
+      ctx.beginPath();
+      ctx.roundRect(px, 440, pw, 32, 16);
+      ctx.fill();
+      ctx.fillStyle = WH;
+      ctx.textAlign = "center";
+      ctx.fillText(s, px + pw / 2, 461);
+      px += pw + gap;
+    });
+
+    // === Quote — bigger ===
+    ctx.fillStyle = NV;
+    ctx.font = "italic 19px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("\u201c\u0e40\u0e28\u0e23\u0e29\u0e10\u0e28\u0e32\u0e2a\u0e15\u0e23\u0e4c\u0e22\u0e38\u0e04\u0e43\u0e2b\u0e21\u0e48 \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e27\u0e31\u0e14\u0e01\u0e31\u0e19\u0e17\u0e35\u0e48\u0e43\u0e04\u0e23\u0e04\u0e33\u0e19\u0e27\u0e13\u0e40\u0e01\u0e48\u0e07 \u0e41\u0e15\u0e48\u0e27\u0e31\u0e14\u0e17\u0e35\u0e48\u0e43\u0e04\u0e23\u0e16\u0e32\u0e21\u0e04\u0e33\u0e16\u0e32\u0e21\u0e44\u0e14\u0e49\u0e14\u0e35\u0e01\u0e27\u0e48\u0e32\u201d", cx, 530);
+
+    // === Separator ===
+    ctx.strokeStyle = GR;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(100, 570);
+    ctx.lineTo(W - 100, 570);
+    ctx.stroke();
+
+    // === Bottom 3 columns ===
+    const bY = 610;
+
+    // Left: Date
+    ctx.textAlign = "left";
+    ctx.fillStyle = NV;
+    ctx.font = "bold 22px sans-serif";
+    const today = new Date();
+    const ms = ["\u0e21\u0e01\u0e23\u0e32\u0e04\u0e21", "\u0e01\u0e38\u0e21\u0e20\u0e32\u0e1e\u0e31\u0e19\u0e18\u0e4c", "\u0e21\u0e35\u0e19\u0e32\u0e04\u0e21", "\u0e40\u0e21\u0e29\u0e32\u0e22\u0e19", "\u0e1e\u0e24\u0e29\u0e20\u0e32\u0e04\u0e21", "\u0e21\u0e34\u0e16\u0e38\u0e19\u0e32\u0e22\u0e19", "\u0e01\u0e23\u0e01\u0e0e\u0e32\u0e04\u0e21", "\u0e2a\u0e34\u0e07\u0e2b\u0e32\u0e04\u0e21", "\u0e01\u0e31\u0e19\u0e22\u0e32\u0e22\u0e19", "\u0e15\u0e38\u0e25\u0e32\u0e04\u0e21", "\u0e1e\u0e24\u0e28\u0e08\u0e34\u0e01\u0e32\u0e22\u0e19", "\u0e18\u0e31\u0e19\u0e27\u0e32\u0e04\u0e21"];
+    const dd = today.getDate(),
+      mm = String(today.getMonth() + 1).padStart(2, "0"),
+      yy = today.getFullYear() + 543;
+    ctx.fillText(dd + " / " + mm + " / " + yy, 100, bY);
+    ctx.fillStyle = "#999";
+    ctx.font = "13px sans-serif";
+    ctx.fillText("Date", 100, bY + 22);
+
+    // Center: Link — prominent
+    ctx.textAlign = "center";
+    ctx.fillStyle = GD;
+    ctx.font = "bold 18px sans-serif";
+    ctx.fillText("ajarnkwan.github.io", cx, bY);
+    const lw2 = ctx.measureText("ajarnkwan.github.io").width;
+    ctx.fillStyle = GD;
+    ctx.fillRect(cx - lw2 / 2, bY + 5, lw2, 3);
+    ctx.fillStyle = "#999";
+    ctx.font = "13px sans-serif";
+    ctx.fillText("Verify", cx, bY + 25);
+
+    // Right: Instructor
+    ctx.textAlign = "right";
+    ctx.fillStyle = NV;
+    ctx.font = "bold 22px sans-serif";
+    ctx.fillText("Ajarn Kwan", W - 100, bY);
+    ctx.fillStyle = "#777";
+    ctx.font = "14px sans-serif";
+    ctx.fillText("Faculty of Economics, Ramkhamhaeng University", W - 100, bY + 22);
+
+    // === Footer ===
+    ctx.fillStyle = "#ccc";
+    ctx.font = "10px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("Vibe Coding for Economists \u00b7 Self-Learning Course " + yy, cx, H - 52);
+    setGenerated(true);
+  };
+  const downloadPNG = () => {
+    const l = document.createElement("a");
+    l.download = `certificate-${name}.png`;
+    l.href = canvasRef.current.toDataURL("image/png");
+    l.click();
+  };
+  const downloadPDF = () => {
+    const w = window.open("", "_blank");
+    const img = canvasRef.current.toDataURL("image/png");
+    w.document.write(`<html><head><title>Certificate - ${name}</title><style>@page{size:landscape;margin:0}body{margin:0;display:flex;justify-content:center;align-items:center;height:100vh;background:#0d1117}img{max-width:100%;max-height:100vh}</style></head><body><img src="${img}"/><script>setTimeout(()=>{window.print()},300)<\/script></body></html>`);
+    w.document.close();
+  };
+  const passedCount = COURSE.filter(m => allPassed[m.id]).length;
+  const totalModules = COURSE.length;
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 100px",
+      animation: "fadeUp 0.3s ease"
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 20,
+      fontWeight: 700,
+      marginBottom: 4
+    }
+  }, "\uD83C\uDFC6 \u0E43\u0E1A Certificate"), passedCount < totalModules ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#fffbeb",
+      border: "1px solid #fde68a",
+      borderRadius: 12,
+      padding: 16
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#92400e",
+      lineHeight: 1.7,
+      fontWeight: 600
+    }
+  }, "\uD83D\uDCCC \u0E15\u0E49\u0E2D\u0E07\u0E17\u0E33 Quiz \u0E16\u0E39\u0E01\u0E17\u0E38\u0E01\u0E02\u0E49\u0E2D \u0E17\u0E38\u0E01\u0E1A\u0E17 \u0E16\u0E36\u0E07\u0E08\u0E30\u0E2A\u0E23\u0E49\u0E32\u0E07 Certificate \u0E44\u0E14\u0E49"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#a8a29e",
+      marginTop: 8
+    }
+  }, "\u0E1C\u0E48\u0E32\u0E19\u0E41\u0E25\u0E49\u0E27 ", passedCount, "/", totalModules, " \u0E1A\u0E17")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 16
+    }
+  }, COURSE.map(m => /*#__PURE__*/React.createElement("div", {
+    key: m.id,
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      padding: "8px 0"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 18
+    }
+  }, allPassed[m.id] ? "✅" : "⬜"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      color: allPassed[m.id] ? "#059669" : "#94a3b8",
+      fontWeight: allPassed[m.id] ? 600 : 400
+    }
+  }, "\u0E1A\u0E17 ", m.num, ": ", m.title))))) : /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#059669",
+      fontWeight: 600,
+      marginTop: 8,
+      marginBottom: 16
+    }
+  }, "\uD83C\uDF89 \u0E1C\u0E48\u0E32\u0E19 Quiz \u0E04\u0E23\u0E1A\u0E17\u0E38\u0E01\u0E1A\u0E17\u0E41\u0E25\u0E49\u0E27! \u0E01\u0E23\u0E2D\u0E01\u0E0A\u0E37\u0E48\u0E2D-\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25 \u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2A\u0E23\u0E49\u0E32\u0E07 Certificate"), /*#__PURE__*/React.createElement("input", {
+    value: name,
+    onChange: e => setName(e.target.value),
+    placeholder: "\u0E1E\u0E34\u0E21\u0E1E\u0E4C\u0E0A\u0E37\u0E48\u0E2D-\u0E19\u0E32\u0E21\u0E2A\u0E01\u0E38\u0E25",
+    style: {
+      width: "100%",
+      padding: "14px 16px",
+      borderRadius: 10,
+      border: "1px solid #e2e8f0",
+      fontSize: 16,
+      fontFamily: "inherit",
+      marginBottom: 12,
+      background: "white"
+    }
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: generate,
+    disabled: !name.trim(),
+    style: {
+      width: "100%",
+      padding: "14px 0",
+      borderRadius: 10,
+      border: "none",
+      background: name.trim() ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "#cbd5e1",
+      color: "white",
+      fontSize: 16,
+      fontWeight: 600,
+      cursor: name.trim() ? "pointer" : "default",
+      fontFamily: "inherit"
+    }
+  }, "\u0E2A\u0E23\u0E49\u0E32\u0E07 Certificate"), /*#__PURE__*/React.createElement("canvas", {
+    ref: canvasRef,
+    style: {
+      width: "100%",
+      marginTop: 16,
+      borderRadius: 10,
+      display: generated ? "block" : "none"
+    }
+  }), generated && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      marginTop: 12
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: downloadPNG,
+    style: {
+      flex: 1,
+      padding: "12px 0",
+      borderRadius: 10,
+      border: "2px solid #0ea5e9",
+      background: "white",
+      color: "#0ea5e9",
+      fontSize: 16,
+      fontWeight: 600,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, "\uD83D\uDCE5 \u0E23\u0E39\u0E1B\u0E20\u0E32\u0E1E PNG"), /*#__PURE__*/React.createElement("button", {
+    onClick: downloadPDF,
+    style: {
+      flex: 1,
+      padding: "12px 0",
+      borderRadius: 10,
+      border: "2px solid #8b5cf6",
+      background: "white",
+      color: "#8b5cf6",
+      fontSize: 16,
+      fontWeight: 600,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, "\uD83D\uDCC4 \u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01 PDF")), generated && /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#94a3b8",
+      textAlign: "center",
+      marginTop: 8
+    }
+  }, "\u0E01\u0E14 \"\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01 PDF\" \u2192 \u0E40\u0E25\u0E37\u0E2D\u0E01 \"Save as PDF\" \u0E43\u0E19\u0E2B\u0E19\u0E49\u0E32\u0E15\u0E48\u0E32\u0E07 Print")));
+}
+
+/* ═══ GUIDE / CHEATSHEET / FAQ ═══ */
+function GuidePage({
+  onStart
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "0 0 60px",
+      animation: "fadeUp 0.4s ease"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "linear-gradient(135deg,#3b0764,#1e1b4b)",
+      padding: "32px 22px 28px",
+      color: "white"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600,
+      color: "#fbbf24",
+      background: "rgba(251,191,36,0.15)",
+      display: "inline-block",
+      padding: "3px 10px",
+      borderRadius: 4,
+      marginBottom: 10
+    }
+  }, "SELF-LEARNING COURSE"), /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: 24,
+      fontWeight: 700,
+      lineHeight: 1.35
+    }
+  }, "Vibe Coding", /*#__PURE__*/React.createElement("br", null), "\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E19\u0E31\u0E01\u0E40\u0E28\u0E23\u0E29\u0E10\u0E28\u0E32\u0E2A\u0E15\u0E23\u0E4C"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#94a3b8",
+      fontWeight: 300,
+      marginTop: 6,
+      lineHeight: 1.7
+    }
+  }, "\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E40\u0E27\u0E47\u0E1A \u0E27\u0E34\u0E40\u0E04\u0E23\u0E32\u0E30\u0E2B\u0E4C\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25 \u0E2A\u0E23\u0E49\u0E32\u0E07 Dashboard", /*#__PURE__*/React.createElement("br", null), "\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E07\u0E32\u0E19\u0E40\u0E28\u0E23\u0E29\u0E10\u0E28\u0E32\u0E2A\u0E15\u0E23\u0E4C \u0E14\u0E49\u0E27\u0E22 AI \u2014 \u0E44\u0E21\u0E48\u0E15\u0E49\u0E2D\u0E07\u0E40\u0E02\u0E35\u0E22\u0E19\u0E42\u0E04\u0E49\u0E14"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 16,
+      marginTop: 18,
+      fontSize: 16
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#c4b5fd"
+    }
+  }, "\u23F1 ~4 \u0E0A\u0E21."), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#fbbf24"
+    }
+  }, "\uD83D\uDCE6 5 \u0E1A\u0E17"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#e9d5ff"
+    }
+  }, "\uD83D\uDCB0 \u0E1F\u0E23\u0E35"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "0 20px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 24
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 17,
+      fontWeight: 700,
+      marginBottom: 10
+    }
+  }, "\uD83D\uDCCB \u0E27\u0E34\u0E18\u0E35\u0E40\u0E23\u0E35\u0E22\u0E19"), ["อ่านเนื้อหาแต่ละบท — ทุกอย่างอยู่ในนี้", "ลองฝึก Prompt ในช่อง 🧪 กด \"ส่งให้ AI\" ได้เลย", "ทำ Quiz ท้ายบท — ต้องถูกทุกข้อ ถึงจะบันทึกว่าผ่าน", "ทำผิดก็ทำใหม่ได้ไม่จำกัดครั้ง", "ผ่าน Quiz ครบ 5 บท → สร้างใบ Certificate 🏆"].map((it, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      display: "flex",
+      gap: 12,
+      alignItems: "flex-start",
+      marginBottom: 10
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      background: "#e0e7ff",
+      color: "#4338ca",
+      width: 24,
+      height: 24,
+      borderRadius: 99,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: 16,
+      fontWeight: 700,
+      flexShrink: 0
+    }
+  }, i + 1), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      color: "#334155",
+      lineHeight: 1.65,
+      paddingTop: 2
+    }
+  }, it)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 20,
+      background: "#fef2f2",
+      border: "1px solid #fecaca",
+      borderRadius: 12,
+      padding: 14
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#991b1b",
+      fontWeight: 600
+    }
+  }, "\u26A0\uFE0F \u0E2A\u0E33\u0E04\u0E31\u0E0D"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#7f1d1d",
+      marginTop: 4,
+      lineHeight: 1.7
+    }
+  }, "\u0E23\u0E30\u0E1A\u0E1A\u0E08\u0E30\u0E1A\u0E31\u0E19\u0E17\u0E36\u0E01 progress \u0E40\u0E09\u0E1E\u0E32\u0E30\u0E40\u0E21\u0E37\u0E48\u0E2D ", /*#__PURE__*/React.createElement("b", null, "\u0E17\u0E33 Quiz \u0E16\u0E39\u0E01\u0E17\u0E38\u0E01\u0E02\u0E49\u0E2D"), " \u0E43\u0E19\u0E1A\u0E17\u0E19\u0E31\u0E49\u0E19 \u0E46 \u0E40\u0E17\u0E48\u0E32\u0E19\u0E31\u0E49\u0E19 \u0E16\u0E49\u0E32\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E1C\u0E48\u0E32\u0E19 \u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E17\u0E33\u0E43\u0E2B\u0E21\u0E48\u0E44\u0E14\u0E49\u0E44\u0E21\u0E48\u0E08\u0E33\u0E01\u0E31\u0E14\u0E04\u0E23\u0E31\u0E49\u0E07")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 20
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 17,
+      fontWeight: 700,
+      marginBottom: 10
+    }
+  }, "\uD83C\uDF92 \u0E40\u0E15\u0E23\u0E35\u0E22\u0E21\u0E15\u0E31\u0E27"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#f0fdf4",
+      border: "1px solid #bbf7d0",
+      borderRadius: 12,
+      padding: 14
+    }
+  }, ["🌐 อินเทอร์เน็ต + คอมหรือมือถือ", "📧 Email สำหรับสมัคร Claude.ai (ฟรี)", "✅ ไม่ต้องมีพื้นฐานเขียนโค้ด!"].map((it, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      fontSize: 16,
+      color: "#166534",
+      padding: "4px 0"
+    }
+  }, it)))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 20
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 17,
+      fontWeight: 700,
+      marginBottom: 10
+    }
+  }, "\uD83D\uDDC2 \u0E40\u0E19\u0E37\u0E49\u0E2D\u0E2B\u0E32 5 \u0E1A\u0E17"), COURSE.map(m => /*#__PURE__*/React.createElement("div", {
+    key: m.id,
+    style: {
+      display: "flex",
+      gap: 12,
+      alignItems: "center",
+      padding: "10px 12px",
+      background: "white",
+      border: "1px solid #e2e8f0",
+      borderRadius: 10,
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 22
+    }
+  }, m.emoji), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600,
+      color: m.color
+    }
+  }, "\u0E1A\u0E17 ", m.num, ": ", m.title), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 16,
+      color: "#94a3b8"
+    }
+  }, "\u23F1 ", m.time, " \u2022 Quiz ", m.quiz.length, " \u0E02\u0E49\u0E2D"))))), /*#__PURE__*/React.createElement("button", {
+    onClick: onStart,
+    style: {
+      marginTop: 24,
+      width: "100%",
+      padding: "16px 0",
+      borderRadius: 12,
+      border: "none",
+      background: "linear-gradient(135deg,#7c3aed,#6d28d9)",
+      color: "white",
+      fontSize: 17,
+      fontWeight: 700,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, "\u0E40\u0E23\u0E34\u0E48\u0E21\u0E40\u0E23\u0E35\u0E22\u0E19\u0E40\u0E25\u0E22 \u2192")));
+}
+function CheatSheetPage() {
+  const [copied, setCopied] = useState(null);
+  const copy = (k, t) => {
+    navigator.clipboard.writeText(t);
+    setCopied(k);
+    setTimeout(() => setCopied(null), 1500);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 100px",
+      animation: "fadeUp 0.3s ease"
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 20,
+      fontWeight: 700,
+      marginBottom: 4
+    }
+  }, "\uD83D\uDCCB Prompt Cheat Sheet"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#64748b",
+      marginBottom: 16
+    }
+  }, "\u0E04\u0E31\u0E14\u0E25\u0E2D\u0E01 \u2192 \u0E27\u0E32\u0E07 Claude.ai \u2192 \u0E44\u0E14\u0E49\u0E1C\u0E25\u0E17\u0E31\u0E19\u0E17\u0E35"), CHEATSHEET.map((cat, ci) => /*#__PURE__*/React.createElement("div", {
+    key: ci,
+    style: {
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600,
+      marginBottom: 8
+    }
+  }, cat.cat), cat.prompts.map((p, pi) => {
+    const k = `${ci}-${pi}`;
+    return /*#__PURE__*/React.createElement("div", {
+      key: k,
+      style: {
+        background: "white",
+        border: "1px solid #e2e8f0",
+        borderRadius: 10,
+        padding: "12px 14px",
+        marginBottom: 8
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 6
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 16,
+        fontWeight: 600
+      }
+    }, p.label), /*#__PURE__*/React.createElement("button", {
+      onClick: () => copy(k, p.text),
+      style: {
+        fontSize: 16,
+        color: copied === k ? "#059669" : "#64748b",
+        background: copied === k ? "#f0fdf4" : "#f1f5f9",
+        border: "none",
+        padding: "3px 10px",
+        borderRadius: 4,
+        cursor: "pointer",
+        fontFamily: "inherit"
+      }
+    }, copied === k ? "✓ แล้ว" : "📋 คัดลอก")), /*#__PURE__*/React.createElement("p", {
+      style: {
+        fontSize: 16,
+        color: "#64748b",
+        lineHeight: 1.6,
+        whiteSpace: "pre-wrap"
+      }
+    }, p.text));
+  }))));
+}
+function FAQPage() {
+  const [open, setOpen] = useState(null);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "20px 20px 100px",
+      animation: "fadeUp 0.3s ease"
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 20,
+      fontWeight: 700,
+      marginBottom: 4
+    }
+  }, "\u2753 \u0E04\u0E33\u0E16\u0E32\u0E21\u0E17\u0E35\u0E48\u0E40\u0E08\u0E2D\u0E1A\u0E48\u0E2D\u0E22"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#64748b",
+      marginBottom: 16
+    }
+  }, "\u0E1B\u0E31\u0E0D\u0E2B\u0E32\u0E41\u0E25\u0E30\u0E27\u0E34\u0E18\u0E35\u0E41\u0E01\u0E49\u0E2A\u0E33\u0E2B\u0E23\u0E31\u0E1A\u0E21\u0E37\u0E2D\u0E43\u0E2B\u0E21\u0E48"), FAQS.map((f, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      background: "white",
+      border: "1px solid #e2e8f0",
+      borderRadius: 10,
+      marginBottom: 8,
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setOpen(open === i ? null : i),
+    style: {
+      width: "100%",
+      textAlign: "left",
+      padding: "14px 16px",
+      border: "none",
+      background: "none",
+      cursor: "pointer",
+      fontFamily: "inherit",
+      display: "flex",
+      alignItems: "flex-start",
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      flexShrink: 0,
+      transform: open === i ? "rotate(90deg)" : "rotate(0)",
+      transition: "transform 0.2s"
+    }
+  }, "\u25B8"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600,
+      color: "#1e293b",
+      lineHeight: 1.5
+    }
+  }, f.q)), open === i && /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "0 16px 14px 40px"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#475569",
+      lineHeight: 1.75
+    }
+  }, f.a)))));
+}
+
+/* ═══════════════════════════════════════════════
+   MAIN APP
+   ═══════════════════════════════════════════════ */
+function App() {
+  const [page, setPage] = useState("guide");
+  const [activeModule, setActiveModule] = useState("m1");
+  const [quizPassed, setQuizPassed] = useState({});
+  const [loaded, setLoaded] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const contentRef = useRef(null);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page, activeModule]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const r = await storageGet("vibe-econ-v5");
+        if (r?.value) {
+          const d = JSON.parse(r.value);
+          setQuizPassed(d.quizPassed || {});
+          if (d.started) setPage("learn");
+        }
+      } catch {}
+      setLoaded(true);
+    })();
+  }, []);
+  const save = useCallback(async (qp, started) => {
+    try {
+      await storageSet("vibe-econ-v5", JSON.stringify({
+        quizPassed: qp,
+        started
+      }));
+    } catch {}
+  }, []);
+  const markQuizPassed = useCallback(moduleId => {
+    setQuizPassed(prev => {
+      const next = {
+        ...prev,
+        [moduleId]: true
+      };
+      save(next, true);
+      const allDone = COURSE.every(m => next[m.id]);
+      const wasDone = COURSE.every(m => prev[m.id]);
+      if (allDone && !wasDone) {
+        setTimeout(() => setShowCelebration(true), 600);
+      }
+      return next;
+    });
+  }, [save]);
+  const startCourse = () => {
+    setPage("learn");
+    save(quizPassed, true);
+  };
+  const passedCount = COURSE.filter(m => quizPassed[m.id]).length;
+  const pct = Math.round(passedCount / COURSE.length * 100);
+  const activeMod = COURSE.find(m => m.id === activeModule);
+  if (!loaded) return /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'IBM Plex Sans Thai',sans-serif",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100vh",
+      background: "#f8fafc"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      color: "#94a3b8"
+    }
+  }, "\u0E01\u0E33\u0E25\u0E31\u0E07\u0E42\u0E2B\u0E25\u0E14..."));
+  const NAV = [{
+    id: "learn",
+    icon: "📚",
+    label: "เรียน"
+  }, {
+    id: "cheat",
+    icon: "📋",
+    label: "Prompt"
+  }, {
+    id: "faq",
+    icon: "❓",
+    label: "FAQ"
+  }, {
+    id: "cert",
+    icon: "🏆",
+    label: "Cert"
+  }];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'IBM Plex Sans Thai',sans-serif",
+      background: "#f8fafc",
+      minHeight: "100vh",
+      color: "#0f172a",
+      maxWidth: 600,
+      margin: "0 auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 4,
+      background: "linear-gradient(90deg,#7c3aed,#a855f7,#d97706)",
+      width: "100%"
+    }
+  }), /*#__PURE__*/React.createElement("style", null, `@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');*{box-sizing:border-box;margin:0;padding:0}@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}textarea:focus{outline:2px solid #8b5cf6;border-color:transparent}@keyframes celebFadeIn{from{opacity:0}to{opacity:1}}@keyframes celebPop{0%{opacity:0;transform:translate(-50%,-50%) scale(0.5)}50%{transform:translate(-50%,-50%) scale(1.05)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}@keyframes confetti{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(100vh) rotate(720deg)}}`), page === "guide" && /*#__PURE__*/React.createElement(GuidePage, {
+    onStart: startCourse
+  }), page === "learn" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "12px 20px 8px",
+      borderBottom: "1px solid #e2e8f0",
+      background: "white",
+      position: "sticky",
+      top: 0,
+      zIndex: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setPage("guide");
+    },
+    style: {
+      fontSize: 16,
+      color: "#64748b",
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, "\u2190 \u0E04\u0E39\u0E48\u0E21\u0E37\u0E2D"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      color: "#64748b",
+      fontFamily: "'JetBrains Mono',monospace"
+    }
+  }, "\u0E1C\u0E48\u0E32\u0E19 ", passedCount, "/", COURSE.length, " \u0E1A\u0E17")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: 5,
+      background: "#e2e8f0",
+      borderRadius: 99,
+      overflow: "hidden",
+      marginTop: 6
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "100%",
+      width: `${pct}%`,
+      background: "linear-gradient(90deg,#7c3aed,#a855f7,#d97706)",
+      borderRadius: 99,
+      transition: "width 0.5s"
+    }
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      overflowX: "auto",
+      WebkitOverflowScrolling: "touch",
+      borderBottom: "1px solid #e2e8f0",
+      background: "white"
+    }
+  }, COURSE.map(m => {
+    const a = m.id === activeModule;
+    const p = !!quizPassed[m.id];
+    return /*#__PURE__*/React.createElement("button", {
+      key: m.id,
+      onClick: () => {
+        setActiveModule(m.id);
+      },
+      style: {
+        flex: "0 0 auto",
+        padding: "10px 14px",
+        border: "none",
+        borderBottom: `2.5px solid ${a ? m.color : "transparent"}`,
+        background: "none",
+        cursor: "pointer",
+        fontFamily: "inherit",
+        textAlign: "center"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 16
+      }
+    }, p ? "✅" : m.emoji), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 16,
+        fontWeight: a ? 600 : 400,
+        color: a ? m.color : "#94a3b8",
+        whiteSpace: "nowrap",
+        marginTop: 2
+      }
+    }, "\u0E1A\u0E17 ", m.num));
+  })), /*#__PURE__*/React.createElement("div", {
+    ref: contentRef,
+    key: activeModule,
+    style: {
+      padding: "20px 20px 100px",
+      animation: "fadeUp 0.3s ease"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 20
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 28
+    }
+  }, activeMod.emoji), quizPassed[activeMod.id] && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600,
+      color: "#059669",
+      background: "#f0fdf4",
+      padding: "2px 8px",
+      borderRadius: 4
+    }
+  }, "\u2705 \u0E1C\u0E48\u0E32\u0E19\u0E41\u0E25\u0E49\u0E27")), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 20,
+      fontWeight: 700,
+      color: activeMod.color,
+      marginTop: 4
+    }
+  }, "\u0E1A\u0E17 ", activeMod.num, ": ", activeMod.title), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 16,
+      color: "#94a3b8"
+    }
+  }, "\u23F1 ", activeMod.time, " \u2022 Quiz ", activeMod.quiz.length, " \u0E02\u0E49\u0E2D (\u0E15\u0E49\u0E2D\u0E07\u0E16\u0E39\u0E01\u0E17\u0E38\u0E01\u0E02\u0E49\u0E2D)")), activeMod.sections.map((sec, si) => /*#__PURE__*/React.createElement("div", {
+    key: si,
+    style: {
+      background: "white",
+      border: "1px solid #e2e8f0",
+      borderRadius: 14,
+      marginBottom: 14,
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "14px 16px",
+      borderBottom: "1px solid #f1f5f9"
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 16,
+      fontWeight: 600
+    }
+  }, sec.title)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "14px 16px 18px"
+    }
+  }, sec.type === "content" && /*#__PURE__*/React.createElement(ContentRenderer, {
+    body: sec.body
+  }), sec.type === "try" && /*#__PURE__*/React.createElement(AISandbox, {
+    defaultPrompt: sec.prompt,
+    hint: sec.hint,
+    color: activeMod.color
+  })))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "white",
+      border: `2px solid ${activeMod.color}`,
+      borderRadius: 14,
+      padding: 16,
+      marginTop: 8
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontSize: 16,
+      fontWeight: 700,
+      color: activeMod.color,
+      marginBottom: 4
+    }
+  }, "\uD83E\uDDEA Quiz \u2014 \u0E15\u0E49\u0E2D\u0E07\u0E16\u0E39\u0E01\u0E17\u0E38\u0E01\u0E02\u0E49\u0E2D\u0E16\u0E36\u0E07\u0E08\u0E30\u0E1C\u0E48\u0E32\u0E19"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#94a3b8",
+      marginBottom: 14
+    }
+  }, "\u0E16\u0E49\u0E32\u0E17\u0E33\u0E1C\u0E34\u0E14 \u0E17\u0E33\u0E43\u0E2B\u0E21\u0E48\u0E44\u0E14\u0E49\u0E44\u0E21\u0E48\u0E08\u0E33\u0E01\u0E31\u0E14"), /*#__PURE__*/React.createElement(MiniQuiz, {
+    quiz: activeMod.quiz,
+    color: activeMod.color,
+    passed: !!quizPassed[activeMod.id],
+    onPass: () => markQuizPassed(activeMod.id)
+  })), COURSE.indexOf(activeMod) < COURSE.length - 1 && /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      const nx = COURSE[COURSE.indexOf(activeMod) + 1];
+      setActiveModule(nx.id);
+    },
+    style: {
+      width: "100%",
+      padding: "14px 0",
+      borderRadius: 12,
+      border: `2px solid ${activeMod.color}`,
+      background: "white",
+      color: activeMod.color,
+      fontSize: 16,
+      fontWeight: 600,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      marginTop: 12
+    }
+  }, "\u0E44\u0E1B\u0E1A\u0E17\u0E16\u0E31\u0E14\u0E44\u0E1B: ", COURSE[COURSE.indexOf(activeMod) + 1].title, " \u2192"))), page === "cheat" && /*#__PURE__*/React.createElement(CheatSheetPage, null), page === "faq" && /*#__PURE__*/React.createElement(FAQPage, null), page === "cert" && /*#__PURE__*/React.createElement(CertificatePage, {
+    allPassed: quizPassed
+  }), page !== "guide" && /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "fixed",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      maxWidth: 600,
+      margin: "0 auto",
+      background: "white",
+      borderTop: "1px solid #e2e8f0",
+      display: "flex",
+      zIndex: 30
+    }
+  }, NAV.map(n => {
+    const a = page === n.id;
+    return /*#__PURE__*/React.createElement("button", {
+      key: n.id,
+      onClick: () => {
+        setPage(n.id);
+      },
+      style: {
+        flex: 1,
+        padding: "8px 0",
+        border: "none",
+        background: "none",
+        cursor: "pointer",
+        fontFamily: "inherit",
+        textAlign: "center"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 18
+      }
+    }, n.icon), /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: 16,
+        fontWeight: a ? 600 : 400,
+        color: a ? "#7c3aed" : "#94a3b8",
+        marginTop: 1
+      }
+    }, n.label));
+  })), showCelebration && /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "fixed",
+      inset: 0,
+      zIndex: 100,
+      animation: "celebFadeIn 0.3s ease"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      inset: 0,
+      background: "rgba(0,0,0,0.7)"
+    },
+    onClick: () => {
+      setShowCelebration(false);
+      setPage("cert");
+    }
+  }), ["🎉", "🏆", "⭐", "🎊", "✨", "🥇", "💯", "🎓"].map((e, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      position: "absolute",
+      top: -20,
+      left: `${10 + i * 12}%`,
+      fontSize: 28,
+      animation: `confetti ${2 + Math.random() * 2}s ease-in forwards`,
+      animationDelay: `${i * 0.15}s`,
+      opacity: 0
+    }
+  }, e)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)",
+      background: "white",
+      borderRadius: 20,
+      padding: "32px 24px",
+      textAlign: "center",
+      width: "85%",
+      maxWidth: 340,
+      animation: "celebPop 0.5s ease forwards",
+      boxShadow: "0 20px 60px rgba(0,0,0,0.3)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 56,
+      marginBottom: 8
+    }
+  }, "\uD83C\uDF89"), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      fontSize: 22,
+      fontWeight: 700,
+      background: "linear-gradient(135deg,#7c3aed,#6d28d9)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      marginBottom: 8
+    }
+  }, "\u0E22\u0E34\u0E19\u0E14\u0E35\u0E14\u0E49\u0E27\u0E22!"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#334155",
+      lineHeight: 1.7,
+      marginBottom: 4
+    }
+  }, "\u0E04\u0E38\u0E13\u0E1C\u0E48\u0E32\u0E19 Quiz \u0E04\u0E23\u0E1A\u0E17\u0E38\u0E01\u0E1A\u0E17\u0E41\u0E25\u0E49\u0E27"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 16,
+      color: "#94a3b8",
+      marginBottom: 20
+    }
+  }, "\u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E43\u0E1A Certificate \u0E41\u0E25\u0E49\u0E27!"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setShowCelebration(false);
+      setPage("cert");
+    },
+    style: {
+      width: "100%",
+      padding: "14px 0",
+      borderRadius: 12,
+      border: "none",
+      background: "linear-gradient(135deg,#7c3aed,#6d28d9)",
+      color: "white",
+      fontSize: 16,
+      fontWeight: 700,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, "\uD83C\uDFC6 \u0E2A\u0E23\u0E49\u0E32\u0E07 Certificate \u0E40\u0E25\u0E22"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setShowCelebration(false),
+    style: {
+      width: "100%",
+      padding: "10px 0",
+      marginTop: 8,
+      borderRadius: 12,
+      border: "none",
+      background: "none",
+      color: "#94a3b8",
+      fontSize: 16,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, "\u0E40\u0E14\u0E35\u0E4B\u0E22\u0E27\u0E01\u0E48\u0E2D\u0E19 \u0E14\u0E39\u0E40\u0E19\u0E37\u0E49\u0E2D\u0E2B\u0E32\u0E15\u0E48\u0E2D"))));
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
 </script>
 </body>
 </html>
