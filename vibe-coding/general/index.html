@@ -1884,7 +1884,6 @@ function App() {
         if (r?.value) {
           const d = JSON.parse(r.value);
           setQuizPassed(d.quizPassed || {});
-          if (d.started) setPage("learn");
         }
       } catch {}
       setLoaded(true);
