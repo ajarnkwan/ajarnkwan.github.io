@@ -22,7 +22,7 @@
 
 | คอร์ส | เนื้อหา | สถานะ |
 |---|---|---|
-| **Microeconomics Theory** | ทฤษฎีเศรษฐศาสตร์จุลภาค · 8 บท + 35 บทย่อย · บทที่ 1-7 พร้อมเรียน | ✅ |
+| **Microeconomics Theory** | ทฤษฎีเศรษฐศาสตร์จุลภาค · 8 บท + 48 บทย่อย · บทที่ 1-8 พร้อมเรียน | ✅ |
 | **Introduction to Econometrics** | ปูพื้นฐานเศรษฐมิติ · 6 บท · cheat sheet 1 หน้า | ✅ |
 | **Math & Stats for Econ** | คณิตศาสตร์และสถิติพื้นฐาน · 13 modules | ✅ |
 | **Vibe Coding** | เขียนโค้ดด้วย AI · 2 versions (general / econ) | ✅ |
