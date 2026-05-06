@@ -49,7 +49,7 @@ ajarnkwan.github.io/
 ├── index.html              # SPA หลัก (landing + login + signup + hub + admin)
 ├── econ-math-readiness/    # คอร์ส Math & Stats
 ├── econometrics/           # คอร์ส Introduction to Econometrics + cheatsheet
-├── microeconomics/         # คอร์ส Microeconomics Theory (43 ไฟล์)
+├── microeconomics/         # คอร์ส Microeconomics Theory 
 ├── vibe-coding/            # คอร์ส Vibe Coding (selector + general + econ)
 └── vocab/                  # คลังศัพท์ (online flip cards + printable booklets)
 ```
